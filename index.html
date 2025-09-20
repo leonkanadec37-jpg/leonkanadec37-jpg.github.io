@@ -18,7 +18,6 @@
     html,body{background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Arial}
     a{color:inherit;text-decoration:none}
 
-    /* Header */
     header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);backdrop-filter:saturate(150%) blur(6px)}
     .nav{max-width:1240px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
     .brand{font-weight:700;letter-spacing:.08em}
@@ -29,7 +28,6 @@
     .lang button{border:0;background:transparent;padding:8px 12px;font-size:14px;cursor:pointer}
     .lang button.active{background:#111;color:#fff}
 
-    /* Hero секция: крупное фото + текст */
     .hero{max-width:1240px;margin:0 auto;padding:56px 24px;display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}
     .hero-visual{border:1px solid var(--line);border-radius:28px;overflow:hidden;background:#fff}
     .hero-visual img{width:100%;height:100%;object-fit:cover;display:block}
@@ -40,11 +38,9 @@
     .btn.alt{background:#fff;color:#111;border:1px solid var(--line)}
     .btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
 
-    /* Секции */
     .section{max-width:1240px;margin:0 auto;padding:56px 24px}
     .section h2{font-size:28px;font-weight:600;text-align:center;margin-bottom:32px}
 
-    /* Галерея/карточки */
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
     .card{border:1px solid var(--line);border-radius:var(--radius);background:#fff;overflow:hidden;transition:transform .25s, box-shadow .25s}
     .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
@@ -54,33 +50,28 @@
     .title{font-size:18px;margin-bottom:6px}
     .muted{color:var(--muted);font-size:14px}
 
-    /* Баннер-CTA под галереей */
     .wide{display:grid;grid-template-columns:1fr 1fr;gap:22px}
     .panel{border:1px solid var(--line);border-radius:24px;padding:22px;background:#fff}
     .panel h3{font-size:20px;margin-bottom:8px}
     .panel p{color:var(--muted);margin-bottom:14px}
 
-    /* Отзывы */
     .reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
     .review{border:1px solid var(--line);border-radius:18px;padding:18px;background:#fff}
     .review .who{font-weight:600;margin-bottom:6px}
     .review .stars{color:#ff9b00;margin-bottom:8px}
 
-    /* Footer */
     footer{margin-top:60px;border-top:1px solid var(--line);text-align:center;color:var(--muted);padding:28px 20px;font-size:14px}
     footer a{text-decoration:underline}
 
-    /* Lightbox */
     .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.84);display:none;align-items:center;justify-content:center;z-index:100}
     .lightbox.open{display:flex}
     .lightbox img{max-width:min(92vw,1200px);max-height:92vh;object-fit:contain;border-radius:12px}
     .lightbox-close{position:fixed;top:14px;right:14px;background:#fff;border-radius:999px;border:1px solid var(--line);padding:8px 12px;cursor:pointer}
-    @media (max-width:900px){ .hero{grid-template-columns:1fr; } .wide{grid-template-columns:1fr;} }
+    @media (max-width:900px){ .hero{grid-template-columns:1fr;} .wide{grid-template-columns:1fr;} }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
   <header>
     <div class="nav">
       <div class="brand">LIVI JEWELRY</div>
@@ -95,7 +86,6 @@
     </div>
   </header>
 
-  <!-- Hero -->
   <section class="hero">
     <div>
       <h1 data-ru="Современные украшения из жемчуга и камней"
@@ -115,11 +105,11 @@
     </div>
   </section>
 
-  <!-- Коллекция -->
   <section id="collection" class="section">
     <h2 data-ru="Коллекция" data-kk="Коллекция">Коллекция</h2>
+
     <div class="grid">
-      <!-- ВАЖНО: имена файлов сохранены 1:1. Файлы с пробелами — через %20 -->
+      <!-- Старые карточки (без Air Pearls) -->
       <article class="card"><div class="img-wrap">
         <img src="assets/FullSizeRender-1.jpg" alt="Жемчужное колье с цветными вставками и крестом"></div>
         <div class="body"><div class="title" data-ru="Color Beads & Cross" data-kk="Түрлі түсті тастар және крест">Color Beads & Cross</div>
@@ -139,6 +129,13 @@
       </article>
 
       <article class="card"><div class="img-wrap">
+        <img src="assets/FullSizeRender-8.jpg" alt="Далматин-яшма и жемчуг: сет"></div>
+        <div class="body"><div class="title" data-ru="Dalmatian Set" data-kk="Далматин жиынтығы">Dalmatian Set</div>
+        <div class="muted" data-ru="Яшма «далматин», тёплые тона и натуральный жемчуг."
+             data-kk="Далматин жасмасы, жылы реңктер және табиғи інжу.">Яшма «далматин», тёплые тона и натуральный жемчуг.</div></div>
+      </article>
+
+      <article class="card"><div class="img-wrap">
         <img src="assets/FullSizeRender-9.jpg" alt="Серебристое колье с подвесками-цепями"></div>
         <div class="body"><div class="title" data-ru="Silver Fringe" data-kk="Күміс шашақ">Silver Fringe</div>
         <div class="muted" data-ru="Холодный блеск и длинные цепи." data-kk="Салқын жалтырау және ұзын тізбектер.">Холодный блеск и длинные цепи.</div></div>
@@ -150,6 +147,7 @@
         <div class="muted" data-ru="Нежные бирюзовые оттенки и подвеска-сердце." data-kk="Нәзік көгілдір реңк және жүрек кулоны.">Нежные бирюзовые оттенки и подвеска-сердце.</div></div>
       </article>
 
+      <!-- Steel & Pearl Duo (остаётся старое имя файла) -->
       <article class="card"><div class="img-wrap">
         <img src="assets/FullSizeRender.jpg" alt="Стальной чокер-цепь и аксессуары"></div>
         <div class="body"><div class="title" data-ru="Steel & Pearl Duo" data-kk="Болат және інжу">Steel & Pearl Duo</div>
@@ -157,27 +155,7 @@
              data-kk="Алынбалы інжу кулоны бар қатты тізбек және аксессуарлар.">Жёсткая цепь со съёмной жемчужной подвеской и компаньоны.</div></div>
       </article>
 
-      <article class="card"><div class="img-wrap">
-        <img src="assets/FullSizeRender-8.jpg" alt="Далматин-яшма и жемчуг: сет"></div>
-        <div class="body"><div class="title" data-ru="Dalmatian Set" data-kk="Далматин жиынтығы">Dalmatian Set</div>
-        <div class="muted" data-ru="Яшма «далматин», тёплые тона и натуральный жемчуг."
-             data-kk="Далматин жасмасы, жылы реңктер және табиғи інжу.">Яшма «далматин», тёплые тона и натуральный жемчуг.</div></div>
-      </article>
-
-      <article class="card"><div class="img-wrap">
-        <img src="assets/FullSizeRender-3.jpg" alt="Воздушные нити с мини-жемчугом"></div>
-        <div class="body"><div class="title" data-ru="Air Pearls" data-kk="Әуе інжу">Air Pearls</div>
-        <div class="muted" data-ru="Едва заметные нити с рассыпанными жемчужинами и фигурками."
-             data-kk="Әрең байқалатын жіптер, шашыраңқы інжулер мен пішіндер.">Едва заметные нити с рассыпанными жемчужинами и фигурками.</div></div>
-      </article>
-
-      <article class="card"><div class="img-wrap">
-        <img src="assets/FullSizeRender-2.jpg" alt="Перламутровые плитки и бисер"></div>
-        <div class="body"><div class="title" data-ru="Mother-of-Pearl Tiles" data-kk="Інжу-қабық пластиналары">Mother-of-Pearl Tiles</div>
-        <div class="muted" data-ru="Фактурные перламутровые элементы и деликатные детали."
-             data-kk="Текстуралы інжу-қабық элементтері және нәзік бөлшектер.">Фактурные перламутровые элементы и деликатные детали.</div></div>
-      </article>
-
+      <!-- Два файла с пробелами в имени -->
       <article class="card"><div class="img-wrap">
         <img src="assets/FullSizeRender%20(1).jpg" alt="Серебристое колье с каскадом цепей"></div>
         <div class="body"><div class="title" data-ru="Cascade Steel" data-kk="Болат каскад">Cascade Steel</div>
@@ -191,10 +169,40 @@
         <div class="muted" data-ru="Два ряда: мятый жемчуг + стальные цепи, подвеска-клевер."
              data-kk="Екі қатар: жалбыз түсті інжу мен болат тізбек, клевер кулоны.">Два ряда: мятый жемчуг + стальные цепи, подвеска-клевер.</div></div>
       </article>
+
+      <!-- НОВЫЕ ФОТО (по исходным именам): (4), (9), и крупные композиции -->
+      <article class="card"><div class="img-wrap">
+        <img src="assets/FullSizeRender%20(4).jpg" alt="Белое колье с крупным золотистым сердцем и ракушками"></div>
+        <div class="body"><div class="title" data-ru="Shell Heart" data-kk="Қабық жүрек">Shell Heart</div>
+        <div class="muted" data-ru="Белые ракушки, золотистая фурнитура и подвеска-сердце."
+             data-kk="Ақ қабықтар, алтын түсті фурнитура және жүрек кулоны.">Белые ракушки, золотистая фурнитура и подвеска-сердце.</div></div>
+      </article>
+
+      <article class="card"><div class="img-wrap">
+        <img src="assets/FullSizeRender%20(9).jpg" alt="Колье из жемчуга и голубых камней с массивным стеклянным сердцем"></div>
+        <div class="body"><div class="title" data-ru="Glass Heart Aqua" data-kk="Шыны жүрек Aqua">Glass Heart Aqua</div>
+        <div class="muted" data-ru="Голубые кристаллы, жемчуг и крупная стеклянная подвеска."
+             data-kk="Көгілдір кристалдар, інжу және үлкен әйнек кулон.">Голубые кристаллы, жемчуг и крупная стеклянная подвеска.</div></div>
+      </article>
+
+      <!-- Ещё два новых крупных кадра -->
+      <article class="card"><div class="img-wrap">
+        <img src="assets/FullSizeRender%20(1).jpg" alt="Нежные жемчужные слои с голубыми вкраплениями"></div>
+        <div class="body"><div class="title" data-ru="Blue Whisper" data-kk="Көк сыбыр">Blue Whisper</div>
+        <div class="muted" data-ru="Нежные слои жемчуга и прозрачных кристаллов."
+             data-kk="Інжу мен мөлдір тастардың нәзік қабаттары.">Нежные слои жемчуга и прозрачных кристаллов.</div></div>
+      </article>
+
+      <article class="card"><div class="img-wrap">
+        <img src="assets/FullSizeRender%20(2).jpg" alt="Бирюзовые акценты и сталь в двухрядном колье"></div>
+        <div class="body"><div class="title" data-ru="Mint Steel Duo" data-kk="Mint болат дуэті">Mint Steel Duo</div>
+        <div class="muted" data-ru="Бирюзовые акценты, жемчуг и гипоаллергенная сталь."
+             data-kk="Көгілдір акценттер, інжу және гипоаллергенді болат.">Бирюзовые акценты, жемчуг и гипоаллергенная сталь.</div></div>
+      </article>
+
     </div>
   </section>
 
-  <!-- Баннеры как на витринных сайтах -->
   <section class="section wide">
     <div class="panel">
       <h3 data-ru="Онлайн-заказ" data-kk="Онлайн тапсырыс">Онлайн-заказ</h3>
@@ -216,7 +224,6 @@
     </div>
   </section>
 
-  <!-- Отзывы -->
   <section class="section">
     <h2 data-ru="Отзывы" data-kk="Пікірлер">Отзывы</h2>
     <div class="reviews">
@@ -235,12 +242,10 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     © Livi Jewelry · Қазақстан / Казахстан · <a href="mailto:hello@livijewelry.kz">hello@livijewelry.kz</a>
   </footer>
 
-  <!-- Лайтбокс -->
   <div id="lightbox" class="lightbox" role="dialog" aria-label="Просмотр изображения">
     <img id="lightboxImg" alt="">
     <button class="lightbox-close" aria-label="Закрыть">✕</button>
