@@ -3,76 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Livi Jewelry — украшения ручной работы</title>
-  <meta name="description" content="Украшения Livi Jewelry: жемчуг и камни, собранные вручную с любовью.">
+  <title>Livi Jewelry — жемчуг и камни ручной работы</title>
+  <meta name="description" content="Livi Jewelry: минималистичные украшения из жемчуга и камней, созданные вручную в Казахстане.">
   <style>
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#fff;color:#111;line-height:1.6}
-    .wrap{max-width:1200px;margin:0 auto;padding:20px}
-    header{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
-    .brand{font-weight:bold;font-size:20px;letter-spacing:0.08em}
-    .btn{padding:10px 16px;border:1px solid #ccc;border-radius:20px;text-decoration:none;color:#111;transition:.2s}
-    .btn:hover{background:#111;color:#fff}
-    .hero{display:grid;gap:18px;padding:40px 0;text-align:center}
-    .hero h1{font-size:clamp(28px,5vw,44px);margin:0}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin:40px 0}
-    .card{border:1px solid #eaeaea;border-radius:16px;overflow:hidden;background:#fafafa}
-    .card img{width:100%;height:260px;object-fit:cover}
-    .card .body{padding:14px}
-    .card h3{margin:0 0 6px;font-size:18px}
-    footer{padding:20px 0;text-align:center;font-size:14px;color:#666}
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <header>
-      <div class="brand">LIVI JEWELRY</div>
-      <nav>
-        <a class="btn" href="https://instagram.com/your_instagram" target="_blank">Instagram</a>
-        <a class="btn" href="https://wa.me/77000000000" target="_blank">WhatsApp</a>
-      </nav>
-    </header>
-
-    <section class="hero">
-      <h1>Украшения из жемчуга и камней ручной работы</h1>
-      <p>Каждое изделие собрано с вниманием к деталям и любовью. Уникальные дизайны для уникальных людей.</p>
-      <a class="btn" href="#collection">Смотреть коллекцию</a>
-    </section>
-
-    <section id="collection">
-      <h2>Коллекция</h2>
-      <div class="grid">
-        <div class="card">
-          <img src="assets/necklace1.jpg" alt="Колье жемчуг">
-          <div class="body">
-            <h3>Жемчужное колье</h3>
-            <p>Натуральный жемчуг ААА, фурнитура — сталь.</p>
-          </div>
-        </div>
-        <div class="card">
-          <img src="чокер" alt="Колье сердце">
-          <div class="body">
-            <h3>Колье с подвеской сердце</h3>
-            <p>Кварц, агат и жемчуг в гармонии.</p>
-          </div>
-        </div>
-        <div class="card">
-          <img src="assets/necklace3.jpg" alt="Чокер минимал">
-          <div class="body">
-            <h3>Чокер Minimal</h3>
-            <p>Лёгкий ежедневный вариант.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2>О бренде</h2>
-      <p>Livi Jewelry — мастерская в Казахстане. Украшения делаем небольшими партиями, с акцентом на натуральные материалы и современные тренды.</p>
-    </section>
-
-    <footer>
-      © Livi Jewelry · Казахстан · <a href="mailto:hello@livijewelry.kz">hello@livijewelry.kz</a>
-    </footer>
-  </div>
-</body>
-</html>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family: 'Helvetica Neue',Arial,sans-serif;background:#fff;color:#111;line-height:1.6}
+    a{text-decoration:none;color:inherit}
+    header{position:sticky;top:0;background:#fff;border-bottom:1px solid #eee;z-index:100}
+    .nav{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:18px 24px}
+    .brand{font-size:20px;font-weight:bold;letter-spacing:0.05em}
+    .nav-links a{margin-left:16px;padding:8px 14px;border:1px solid #ddd;border-radius:24px;font-size:14px;transition:.3s}
+    .nav-links a:hover{background:#111;color:#fff;border-color:#111}
+    .hero{display:flex;align-items:center;justify-content:center;min-height:80vh;padding:40px;text-align:center;background:#fafafa}
+    .hero-inner{max-width:800px}
+    .hero h1{font-size:clamp(32px,6vw,60px);font-weight:500;line-height:1.2;margin-bottom:18px}
+    .hero p{color:#555;font-size:18px;margin-bottom:28px}
+    .btn-main{display:inline-block;backgrou
