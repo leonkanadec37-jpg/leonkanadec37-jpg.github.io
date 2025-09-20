@@ -3,20 +3,167 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GitHub Pages — тест</title>
+  <title>Livi Jewelry — жемчуг и камни ручной работы</title>
+  <meta name="description" content="Livi Jewelry: минималистичные украшения из жемчуга и камней, созданные вручную в Казахстане.">
   <style>
-    html,body{height:100%}
-    body{margin:0;display:grid;place-items:center;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#fff;color:#111}
-    .box{padding:32px 28px;border:1px solid #ddd;border-radius:16px;max-width:640px;text-align:center}
-    h1{margin:0 0 12px}
-    code{background:#f6f8fa;padding:2px 6px;border-radius:6px}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family: 'Helvetica Neue',Arial,sans-serif;background:#fff;color:#111;line-height:1.6}
+    a{text-decoration:none;color:inherit}
+    header{position:sticky;top:0;background:#fff;border-bottom:1px solid #eee;z-index:100}
+    .nav{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:18px 24px}
+    .brand{font-size:20px;font-weight:bold;letter-spacing:0.05em}
+    .nav-links a{margin-left:16px;padding:8px 14px;border:1px solid #ddd;border-radius:24px;font-size:14px;transition:.3s}
+    .nav-links a:hover{background:#111;color:#fff;border-color:#111}
+    .hero{display:flex;align-items:center;justify-content:center;min-height:70vh;padding:40px;text-align:center;background:#fafafa}
+    .hero-inner{max-width:820px}
+    .hero h1{font-size:clamp(32px,6vw,60px);font-weight:500;line-height:1.2;margin-bottom:18px}
+    .hero p{color:#555;font-size:18px;margin-bottom:28px}
+    .btn-main{display:inline-block;background:#111;color:#fff;padding:14px 28px;border-radius:30px;font-size:16px;transition:.3s}
+    .btn-main:hover{background:#444}
+    .section{max-width:1200px;margin:0 auto;padding:60px 24px}
+    .section h2{font-size:28px;font-weight:500;text-align:center;margin-bottom:40px}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+    .card{border:1px solid #eee;border-radius:20px;overflow:hidden;background:#fff;transition:.3s}
+    .card:hover{transform:translateY(-4px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
+    .card .img-wrap{width:100%;aspect-ratio:4/5;background:#eaeaea;overflow:hidden}
+    .card img{width:100%;height:100%;object-fit:cover}
+    .card .body{padding:16px}
+    .card h3{font-size:18px;margin-bottom:6px}
+    .card p{font-size:14px;color:#555}
+
+    footer{background:#111;color:#fff;text-align:center;padding:30px 20px;font-size:14px;margin-top:60px}
+    footer a{color:#fff;text-decoration:underline}
   </style>
 </head>
 <body>
-  <div class="box">
-    <h1>Страница развернулась ✅</h1>
-    <p>Файл: <code>index.html</code> в корне репозитория <code>leonkanadec37-jpg.github.io</code>.</p>
-    <p>Если ты это видишь — GitHub Pages работает.</p>
-  </div>
+
+  <header>
+    <div class="nav">
+      <div class="brand">LIVI JEWELRY</div>
+      <div class="nav-links">
+        <a href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://wa.me/77054510584" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Современные украшения<br>из жемчуга и камней</h1>
+      <p>Минимализм, элегантность и ручная работа в каждом изделии. Создано в Казахстане для тех, кто ценит уникальность.</p>
+      <a class="btn-main" href="#collection">Смотреть коллекцию</a>
+    </div>
+  </section>
+
+  <section id="collection" class="section">
+    <h2>Коллекция</h2>
+    <div class="grid">
+
+      <div class="card">
+        <div class="img-wrap">
+          <img src="assets/FullSizeRender.jpg" alt="Браслеты жемчуг и гематит">
+        </div>
+        <div class="body">
+          <h3>Браслеты Pearl & Hematite</h3>
+          <p>Сложные фактуры и акцентные подвески.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-wrap">
+          <img src="assets/FullSizeRender-1.jpg" alt="Жемчужное колье с цветными вставками и крестом">
+        </div>
+        <div class="body">
+          <h3>Color Beads & Cross</h3>
+          <p>Жемчуг и цветные кристаллы.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-wrap">
+          <img src="assets/FullSizeRender-2.jpg" alt="Колье жемчуг и золотое сердце с цепочками">
+        </div>
+        <div class="body">
+          <h3>Heart Chain Pearl</h3>
+          <p>Жемчуг, золотистые цепи и подвеска-сердце.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-wrap">
+          <img src="assets/FullSizeRender-4.jpg" alt="Многослойное колье с подвесками-сердцами">
+        </div>
+        <div class="body">
+          <h3>Layered Hearts</h3>
+          <p>Микс металлов и жемчуга, многослойный силуэт.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-wrap">
+          <img src="assets/FullSizeRender-5.jpg" alt="Жемчужные многослойные колье с сердцами">
+        </div>
+        <div class="body">
+          <h3>Pure Pearl Set</h3>
+          <p>Чистая белизна и нежные акценты.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-wrap">
+          <img src="assets/FullSizeRender-6.jpg" alt="Мини-сет жемчужный чокер и серьги">
+        </div>
+        <div class="body">
+          <h3>Mini Pearl Set</h3>
+          <p>Лаконичный чокер и серьги с каплями.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-wrap">
+          <img src="assets/FullSizeRender-7.jpg" alt="Колье с флюоритом и аметистом, подвеска-сердце">
+        </div>
+        <div class="body">
+          <h3>Violet Heart</h3>
+          <p>Флюорит, жемчуг и аметист.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-wrap">
+          <img src="assets/FullSizeRender-9.jpg" alt="Серебристое колье с подвесками-цепями">
+        </div>
+        <div class="body">
+          <h3>Silver Fringe</h3>
+          <p>Холодный блеск и длинные цепи.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-wrap">
+          <img src="assets/FullSizeRender-10.jpg" alt="Бирюзовый сет с сердцем">
+        </div>
+        <div class="body">
+          <h3>Turquoise Heart</h3>
+          <p>Нежные бирюзовые оттенки и подвеска-сердце.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>О бренде</h2>
+    <p style="max-width:800px;margin:0 auto;text-align:center;color:#444;font-size:17px">
+      Livi Jewelry — мастерская из Казахстана. Мы создаём украшения небольшими партиями,
+      используя натуральные материалы и продуманный дизайн, чтобы подчёркивать твою индивидуальность.
+    </p>
+  </section>
+
+  <footer>
+    © Livi Jewelry · Казахстан · <a href="mailto:hello@livijewelry.kz">hello@livijewelry.kz</a>
+  </footer>
+
 </body>
 </html>
