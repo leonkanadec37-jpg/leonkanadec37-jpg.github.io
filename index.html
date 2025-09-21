@@ -51,7 +51,7 @@
 
     .wide{display:grid;grid-template-columns:1fr 1fr;gap:22px}
     .panel{border:1px solid var(--line);border-radius:24px;padding:22px;background:#fff}
-    .panel h3{font-size:20px;margin-bottom:8px}
+    .panel h3,.panel h2{font-weight:600;margin-bottom:8px}
     .panel p{color:var(--muted);margin-bottom:14px}
 
     footer{margin-top:60px;border-top:1px solid var(--line);text-align:center;color:#5c5c5c;padding:28px 20px;font-size:14px}
@@ -61,6 +61,7 @@
     .lightbox.open{display:flex}
     .lightbox img{max-width:min(92vw,1200px);max-height:92vh;object-fit:contain;border-radius:12px}
     .lightbox-close{position:fixed;top:14px;right:14px;background:#fff;border-radius:999px;border:1px solid var(--line);padding:8px 12px;cursor:pointer}
+
     @media (max-width:900px){ .hero{grid-template-columns:1fr;} .wide{grid-template-columns:1fr;} }
   </style>
 </head>
@@ -88,14 +89,16 @@
   <!-- HERO -->
   <section class="hero">
     <div>
-      <h1 data-ru="Современные украшения из жемчуга и камней"
-          data-kk="Жемчуг пен тастан жасалған заманауи әшекейлер"
-          data-en="Modern jewelry made of pearls and stones">Современные украшения из жемчуга и камней</h1>
-      <p data-ru="Минимализм, элегантность и ручная работа. Создано в Казахстане."
-         data-kk="Минимализм, сұлулық және қолөнер. Қазақстанда жасалған."
-         data-en="Minimalism, elegance and handcrafted quality. Made in Kazakhstan.">
-         Минимализм, элегантность и ручная работа. Создано в Казахстане.
-      </p>
+      <h1
+        data-ru="Современные украшения из жемчуга и камней"
+        data-kk="Жемчуг пен тастан жасалған заманауи әшекейлер"
+        data-en="Modern jewelry made of pearls and stones"
+      >Современные украшения из жемчуга и камней</h1>
+      <p
+        data-ru="Минимализм, элегантность и ручная работа. Создано в Казахстане."
+        data-kk="Минимализм, сұлулық және қолөнер. Қазақстанда жасалған."
+        data-en="Minimalism, elegance and handcrafted quality. Made in Kazakhstan."
+      >Минимализм, элегантность и ручная работа. Создано в Казахстане.</p>
       <div class="cta">
         <a class="btn" href="shop.html" data-ru="Каталог" data-kk="Каталог" data-en="Shop">Каталог</a>
         <a class="btn alt" href="https://instagram.com/livi_jwl?utm_source=site&utm_medium=hero&utm_campaign=cta" target="_blank" rel="noopener"
@@ -111,7 +114,7 @@
   <section id="collection" class="section">
     <h2 data-ru="Коллекция" data-kk="Коллекция" data-en="Collection">Коллекция</h2>
     <div class="grid">
-      <!-- все имена файлов сохранены -->
+      <!-- имена файлов как у тебя -->
       <article class="card"><div class="img-wrap">
         <img src="assets/FullSizeRender-1.jpg" alt="Жемчужное колье с цветными вставками и крестом"></div>
         <div class="body"><div class="title" data-ru="Color Beads & Cross" data-kk="Түрлі түсті тастар және крест" data-en="Color Beads & Cross">Color Beads & Cross</div>
@@ -133,9 +136,7 @@
       <article class="card"><div class="img-wrap">
         <img src="assets/FullSizeRender-8.jpg" alt="Далматин-яшма и жемчуг: сет"></div>
         <div class="body"><div class="title" data-ru="Dalmatian Set" data-kk="Далматин жиынтығы" data-en="Dalmatian Set">Dalmatian Set</div>
-        <div class="muted" data-ru="Яшма «далматин», тёплые тона и натуральный жемчуг."
-             data-kk="Далматин жасмасы, жылы реңктер және табиғи інжу."
-             data-en="Dalmatian jasper, warm tones and natural pearls.">Яшма «далматин», тёплые тона и натуральный жемчуг.</div></div>
+        <div class="muted" data-ru="Яшма «далматин», тёплые тона и натуральный жемчуг." data-kk="Далматин жасмасы, жылы реңктер және табиғи інжу." data-en="Dalmatian jasper, warm tones and natural pearls.">Яшма «далматин», тёплые тона и натуральный жемчуг.</div></div>
       </article>
 
       <article class="card"><div class="img-wrap">
@@ -147,114 +148,99 @@
       <article class="card"><div class="img-wrap">
         <img src="assets/FullSizeRender-10.jpg" alt="Бирюзовый сет с сердцем"></div>
         <div class="body"><div class="title" data-ru="Turquoise Heart" data-kk="Көкшіл жүрек" data-en="Turquoise Heart">Turquoise Heart</div>
-        <div class="muted" data-ru="Нежные бирюзовые оттенки и подвеска-сердце."
-             data-kk="Нәзік көгілдір реңк және жүрек кулоны."
-             data-en="Soft turquoise hues and a heart pendant.">Нежные бирюзовые оттенки и подвеска-сердце.</div></div>
+        <div class="muted" data-ru="Нежные бирюзовые оттенки и подвеска-сердце." data-kk="Нәзік көгілдір реңк және жүрек кулоны." data-en="Soft turquoise hues and a heart pendant.">Нежные бирюзовые оттенки и подвеска-сердце.</div></div>
       </article>
 
       <article class="card"><div class="img-wrap">
         <img src="assets/FullSizeRender.jpg" alt="Стальной чокер-цепь и аксессуары"></div>
         <div class="body"><div class="title" data-ru="Steel & Pearl Duo" data-kk="Болат және інжу" data-en="Steel & Pearl Duo">Steel & Pearl Duo</div>
-        <div class="muted" data-ru="Жёсткая цепь со съёмной жемчужной подвеской и компаньоны."
-             data-kk="Алынбалы інжу кулоны бар қатты тізбек және аксессуарлар."
-             data-en="Rigid chain with detachable pearl pendant and matching pieces.">Жёсткая цепь со съёмной жемчужной подвеской и компаньоны.</div></div>
+        <div class="muted" data-ru="Жёсткая цепь со съёмной жемчужной подвеской и компаньоны." data-kk="Алынбалы інжу кулоны бар қатты тізбек және аксессуарлар." data-en="Rigid chain with detachable pearl pendant and matching pieces.">Жёсткая цепь со съёмной жемчужной подвеской и компаньоны.</div></div>
       </article>
 
+      <!-- файлы с пробелами в имени: %20 -->
       <article class="card"><div class="img-wrap">
         <img src="assets/FullSizeRender%20(1).jpg" alt="Нежные слои жемчуга с голубыми акцентами"></div>
         <div class="body"><div class="title" data-ru="Blue Whisper" data-kk="Көк сыбыр" data-en="Blue Whisper">Blue Whisper</div>
-        <div class="muted" data-ru="Нежные слои жемчуга и прозрачных кристаллов."
-             data-kk="Інжу мен мөлдір тастардың нәзік қабаттары."
-             data-en="Delicate layers of pearls and clear crystals.">Нежные слои жемчуга и прозрачных кристаллов.</div></div>
+        <div class="muted" data-ru="Нежные слои жемчуга и прозрачных кристаллов." data-kk="Інжу мен мөлдір тастардың нәзік қабаттары." data-en="Delicate layers of pearls and clear crystals.">Нежные слои жемчуга и прозрачных кристаллов.</div></div>
       </article>
 
       <article class="card"><div class="img-wrap">
         <img src="assets/FullSizeRender%20(2).jpg" alt="Двухрядное бирюзово-серебристое колье с клевером"></div>
         <div class="body"><div class="title" data-ru="Clover Mint" data-kk="Жоңышқа Mint" data-en="Clover Mint">Clover Mint</div>
-        <div class="muted" data-ru="Два ряда: інжу + стальные цепи, подвеска-клевер."
-             data-kk="Екі қатар: інжу мен болат тізбек, клевер кулоны."
-             data-en="Two rows: mint pearls + steel chains, clover pendant.">Два ряда: інжу + стальные цепи, подвеска-клевер.</div></div>
+        <div class="muted" data-ru="Два ряда: інжу + стальные цепи, подвеска-клевер." data-kk="Екі қатар: інжу мен болат тізбек, клевер кулоны." data-en="Two rows: pearls + steel chains, clover pendant.">Два ряда: інжу + стальные цепи, подвеска-клевер.</div></div>
       </article>
 
       <article class="card"><div class="img-wrap">
         <img src="assets/FullSizeRender%20(4).jpg" alt="Белое колье с золотистым сердцем и ракушками"></div>
         <div class="body"><div class="title" data-ru="Shell Heart" data-kk="Қабық жүрек" data-en="Shell Heart">Shell Heart</div>
-        <div class="muted" data-ru="Белые ракушки, золотистая фурнитура и подвеска-сердце."
-             data-kk="Ақ қабықтар, алтын түсті фурнитура және жүрек кулоны."
-             data-en="White shells, golden hardware and a heart pendant.">Белые ракушки, золотистая фурнитура и подвеска-сердце.</div></div>
+        <div class="muted" data-ru="Белые ракушки, золотистая фурнитура и подвеска-сердце." data-kk="Ақ қабықтар, алтын түсті фурнитура және жүрек кулоны." data-en="White shells, golden hardware and a heart pendant.">Белые ракушки, золотистая фурнитура и подвеска-сердце.</div></div>
       </article>
 
       <article class="card"><div class="img-wrap">
         <img src="assets/FullSizeRender%20(9).jpg" alt="Колье с голубыми камнями и стеклянным сердцем"></div>
         <div class="body"><div class="title" data-ru="Glass Heart Aqua" data-kk="Шыны жүрек Aqua" data-en="Glass Heart Aqua">Glass Heart Aqua</div>
-        <div class="muted" data-ru="Голубые кристаллы, жемчуг и крупная стеклянная подвеска."
-             data-kk="Көгілдір кристалдар, інжу және үлкен әйнек кулон."
-             data-en="Blue crystals, pearls and a large glass heart pendant.">Голубые кристаллы, жемчуг и крупная стеклянная подвеска.</div></div>
+        <div class="muted" data-ru="Голубые кристаллы, жемчуг и крупная стеклянная подвеска." data-kk="Көгілдір кристалдар, інжу және үлкен әйнек кулон." data-en="Blue crystals, pearls and a large glass heart pendant.">Голубые кристаллы, жемчуг и крупная стеклянная подвеска.</div></div>
       </article>
     </div>
   </section>
 
- <!-- О НАС / ABOUT -->
-<section id="about" class="section wide">
-  <div class="panel">
-    <h2
-      data-ru="✨ История бренда Livi ✨"
-      data-kk="✨ Livi бренді тарихы ✨"
-      data-en="✨ Livi Brand Story ✨"
-    >✨ История бренда Livi ✨</h2>
+  <!-- О НАС -->
+  <section id="about" class="section wide">
+    <div class="panel">
+      <h2
+        data-ru="✨ История бренда Livi ✨"
+        data-kk="✨ Livi бренді тарихы ✨"
+        data-en="✨ Livi Brand Story ✨"
+      >✨ История бренда Livi ✨</h2>
 
-    <p
-      data-ru="Моя история началась три года назад с простого желания — я хотела заказать себе чокер. Но, услышав, что ждать нужно целых две недели, я подумала: а почему я не могу сделать его сама?"
-      data-kk="Менің тарихым үш жыл бұрын қарапайым тілектен басталды — өзіме чокер жасағым келді. Бірақ екі апта күту керек екенін естігенде: «неге мен оны өзім жасамаймын?» деп ойладым."
-      data-en="My story began three years ago with a simple wish — I wanted to order a choker. When I heard I’d have to wait two weeks, I thought: why not make it myself?"
-    >Моя история началась три года назад с простого желания — я хотела заказать себе чокер. Но, услышав, что ждать нужно целых две недели, я подумала: а почему я не могу сделать его сама?</p>
+      <p
+        data-ru="Моя история началась три года назад с простого желания — я хотела заказать себе чокер. Но, услышав, что ждать нужно целых две недели, я подумала: а почему я не могу сделать его сама?"
+        data-kk="Менің тарихым үш жыл бұрын қарапайым тілектен басталды — өзіме чокер жасағым келді. Бірақ екі апта күту керек екенін естігенде: «неге мен оны өзім жасамаймын?» деп ойладым."
+        data-en="My story began three years ago with a simple wish — I wanted to order a choker. When I heard I’d have to wait two weeks, I thought: why not make it myself?"
+      >Моя история началась три года назад с простого желания — я хотела заказать себе чокер. Но, услышав, что ждать нужно целых две недели, я подумала: а почему я не могу сделать его сама?</p>
 
-    <p
-      data-ru="Я всегда была творческой: училась в художественной школе, работала визажистом, и руки у меня всегда «из того места». Я купила материалы, создала первое украшение для себя — и была в восторге. Потом начала делать подарки подругам, знакомым, и постепенно моё хобби превратилось в дело жизни."
-      data-kk="Мен әрқашан шығармашылықпен айналыстым: көркемсурет мектебінде оқыдым, визажист болып жұмыс істедім. Материалдар сатып алып, өзіме бірінші әшекей жасадым — нәтижесіне тамсандым. Кейін құрбыларыма, таныстарыма сыйлық ретінде жасай бастадым, осылайша хоббиім бірте-бірте өмірлік іске айналды."
-      data-en="I’ve always been creative: I studied at an art school and worked as a makeup artist. I bought materials, made my first piece for myself — and loved it. Then I started gifting jewelry to friends, and gradually my hobby turned into my life’s work."
-    >Я всегда была творческой: училась в художественной школе, работала визажистом, и руки у меня всегда «из того места». Я купила материалы, создала первое украшение для себя — и была в восторге. Потом начала делать подарки подругам, знакомым, и постепенно моё хобби превратилось в дело жизни.</p>
+      <p
+        data-ru="Я всегда была творческой: училась в художественной школе, работала визажистом, и руки у меня всегда «из того места». Я купила материалы, создала первое украшение для себя — и была в восторге. Потом начала делать подарки подругам, знакомым, и постепенно моё хобби превратилось в дело жизни."
+        data-kk="Мен әрқашан шығармашылықпен айналыстым: көркемсурет мектебінде оқыдым, визажист болып жұмыс істедім. Материалдар сатып алып, өзіме бірінші әшекей жасадым — нәтижесіне тамсандым. Кейін құрбыларыма, таныстарыма сыйлық ретінде жасай бастадым, осылайша хоббиім бірте-бірте өмірлік іске айналды."
+        data-en="I’ve always been creative: I studied at an art school and worked as a makeup artist. I bought materials, made my first piece for myself — and loved it. Then I started gifting jewelry to friends, and gradually my hobby turned into my life’s work."
+      >Я всегда была творческой: училась в художественной школе, работала визажистом, и руки у меня всегда «из того места». Я купила материалы, создала первое украшение для себя — и была в восторге. Потом начала делать подарки подругам, знакомым, и постепенно моё хобби превратилось в дело жизни.</p>
 
-    <p
-      data-ru="Так появился мой бренд Livi — в честь моей дочки Оливии, которая родилась примерно в то же время."
-      data-kk="Осылайша менің Livi бренді пайда болды — шамамен сол уақытта дүниеге келген қызым Оливияның құрметіне аталды."
-      data-en="That’s how my brand, Livi, was born — named after my daughter Olivia, who arrived around the same time."
-    >Так появился мой бренд Livi — в честь моей дочки Оливии, которая родилась примерно в то же время.</p>
+      <p
+        data-ru="Так появился мой бренд Livi — в честь моей дочки Оливии, которая родилась примерно в то же время."
+        data-kk="Осылайша менің Livi бренді пайда болды — шамамен сол уақытта дүниеге келген қызым Оливияның құрметіне аталды."
+        data-en="That’s how my brand, Livi, was born — named after my daughter Olivia, who arrived around the same time."
+      >Так появился мой бренд Livi — в честь моей дочки Оливии, которая родилась примерно в то же время.</p>
 
-    <p
-      data-ru="Мои украшения — это уникальность в каждой детали (не как у всех). Я создаю многослойные, смелые и необычные украшения из натуральных камней, используя только люкс-фурнитуру — позолоченную и радированную, гипоаллергенную. Каждое изделие уникально, даже повторы никогда не бывают одинаковыми."
-      data-kk="Менің әшекейлерім — әр бөлшегінде ерекше қолтаңба (ешкімдікіне ұқсамайды). Табиғи тастардан көпқабатты, батыл және ерекше бұйымдар жасаймын, тек люкс фурнитура қолданамын — алтын жалатылған және родийленген, гипоаллергенді. Әр бұйым — қайталанбас, тіпті қайталамалар да бірдей болмайды."
-      data-en="My pieces are unique in every detail — not like everyone else’s. I craft layered, bold and unusual jewelry from natural stones, using only luxury, hypoallergenic findings — gold-plated and rhodium-coated. Every item is one-of-a-kind; even repeats are never identical."
-    >Мои украшения — это уникальность в каждой детали (не как у всех). Я создаю многослойные, смелые и необычные украшения из натуральных камней, используя только люкс-фурнитуру — позолоченную и радированную, гипоаллергенную. Каждое изделие уникально, даже повторы никогда не бывают одинаковыми.</p>
+      <p
+        data-ru="Мои украшения — это уникальность в каждой детали (не как у всех). Я создаю многослойные, смелые и необычные украшения из натуральных камней, используя только люкс-фурнитуру — позолоченную и радированную, гипоаллергенную. Каждое изделие уникально, даже повторы никогда не бывают одинаковыми."
+        data-kk="Менің әшекейлерім — әр бөлшегінде ерекше қолтаңба (ешкімдікіне ұқсамайды). Табиғи тастардан көпқабатты, батыл және ерекше бұйымдар жасаймын, тек люкс фурнитура қолданамын — алтын жалатылған және родийленген, гипоаллергенді. Әр бұйым — қайталанбас, тіпті қайталамалар да бірдей болмайды."
+        data-en="My pieces are unique in every detail — not like everyone else’s. I craft layered, bold and unusual jewelry from natural stones, using only luxury, hypoallergenic findings — gold-plated and rhodium-coated. Every item is one-of-a-kind; even repeats are never identical."
+      >Мои украшения — это уникальность в каждой детали (не как у всех). Я создаю многослойные, смелые и необычные украшения из натуральных камней, используя только люкс-фурнитуру — позолоченную и радированную, гипоаллергенную. Каждое изделие уникально, даже повторы никогда не бывают одинаковыми.</p>
 
-    <p
-      data-ru="Я с уверенностью могу сказать: мой почерк в украшениях легко узнаваем, а сам бренд Livi — один из самых отличительных и ярких во всём Казахстане."
-      data-kk="Нық айта аламын: менің әшекейлерімнің қолтаңбасы бірден танылатын, ал Livi бренді — Қазақстандағы ең ерекшелердің және жарқындардың бірі."
-      data-en="I can say with confidence: my signature style is easy to recognize, and Livi is one of the most distinctive, vibrant brands in Kazakhstan."
-    >Я с уверенностью могу сказать: мой почерк в украшениях легко узнаваем, а сам бренд Livi — один из самых отличительных и ярких во всём Казахстане.</p>
+      <p
+        data-ru="Я с уверенностью могу сказать: мой почерк в украшениях легко узнаваем, а сам бренд Livi — один из самых отличительных и ярких во всём Казахстане."
+        data-kk="Нық айта аламын: менің әшекейлерімнің қолтаңбасы бірден танылатын, ал Livi бренді — Қазақстандағы ең ерекшелердің және жарқындардың бірі."
+        data-en="I can say with confidence: my signature style is easy to recognize, and Livi is one of the most distinctive, vibrant brands in Kazakhstan."
+      >Я с уверенностью могу сказать: мой почерк в украшениях легко узнаваем, а сам бренд Livi — один из самых отличительных и ярких во всём Казахстане.</p>
 
-    <p
-      data-ru="Мне нравится ломать стереотипы: многие думают, что массивные украшения подходят только для особых случаев. А я уверена — наоборот! Многослойный чокер идеально смотрится с белой футболкой и джинсами, делая образ завершённым. А более утончённые модели я оставляю для выхода в свет."
-      data-kk="Мен стереотиптерді бұзғанды жақсы көремін: көпшілігі көлемді әшекейлер тек ерекше жағдайларға жарасады деп ойлайды. Меніңше — керісінше! Көпқабатты чокер ақ жейде мен джинспен тамаша үйлеседі, бейнені толықтырады. Ал талғампаз үлгілерді салтанатты кештерге қалдырамын."
-      data-en="I love breaking stereotypes: many think chunky jewelry is only for special occasions. I believe the opposite — a layered choker looks perfect with a white T-shirt and jeans, completing the look. I save the more delicate pieces for going out."
-    >Мне нравится ломать стереотипы: многие думают, что массивные украшения подходят только для особых случаев. А я уверена — наоборот! Многослойный чокер идеально смотрится с белой футболкой и джинсами, делая образ завершённым. А более утончённые модели я оставляю для выхода в свет.</p>
+      <p
+        data-ru="Мне нравится ломать стереотипы: многие думают, что массивные украшения подходят только для особых случаев. А я уверена — наоборот! Многослойный чокер идеально смотрится с белой футболкой и джинсами, делая образ завершённым. А более утончённые модели я оставляю для выхода в свет."
+        data-kk="Мен стереотиптерді бұзғанды жақсы көремін: көпшілігі көлемді әшекейлер тек ерекше жағдайларға жарасады деп ойлайды. Меніңше — керісінше! Көпқабатты чокер ақ жейде мен джинспен тамаша үйлеседі, бейнені толықтырады. Ал талғампаз үлгілерді салтанатты кештерге қалдырамын."
+        data-en="I love breaking stereotypes: many think chunky jewelry is only for special occasions. I believe the opposite — a layered choker looks perfect with a white T-shirt and jeans, completing the look. I save the more delicate pieces for going out."
+      >Мне нравится ломать стереотипы: многие думают, что массивные украшения подходят только для особых случаев. А я уверена — наоборот! Многослойный чокер идеально смотрится с белой футболкой и джинсами, делая образ завершённым. А более утончённые модели я оставляю для выхода в свет.</p>
 
-    <p
-      data-ru="Сегодня Livi — это заметный бренд, мы участвуем в городских ярмарках и скоро планируем поехать с выставкой в Алма-Ату. И самое главное — мои украшения дарят радость, удивляют и делают каждую девушку особенной."
-      data-kk="Бүгінде Livi — танымал бренд: біз қалалық жәрмеңкелерге қатысамыз және жақында Алматыға көрмемен баруды жоспарлап отырмыз. Ең бастысы — менің әшекейлерім қуаныш сыйлайды, таңқалдырады және әр қызды ерекше етеді."
-      data-en="Today Livi is a noticeable brand: we tak
+      <p
+        data-ru="Сегодня Livi — это заметный бренд, мы участвуем в городских ярмарках и скоро планируем поехать с выставкой в Алма-Ату. И самое главное — мои украшения дарят радость, удивляют и делают каждую девушку особенной."
+        data-kk="Бүгінде Livi — танымал бренд: біз қалалық жәрмеңкелерге қатысамыз және жақында Алматыға көрмемен баруды жоспарлап отырмыз. Ең бастысы — менің әшекейлерім қуаныш сыйлайды, таңқалдырады және әр қызды ерекше етеді."
+        data-en="Today Livi is a noticeable brand: we take part in city fairs and plan to exhibit in Almaty soon. Most importantly, my jewelry brings joy, surprises, and makes every girl feel special."
+      >Сегодня Livi — это заметный бренд, мы участвуем в городских ярмарках и скоро планируем поехать с выставкой в Алма-Ату. И самое главное — мои украшения дарят радость, удивляют и делают каждую девушку особенной.</p>
 
-      <p style="margin-top:8px"
-         data-ru="Производим в Казахстане малыми партиями. Под каждый заказ бережно подбираем камни и фурнитуру, обсуждаем длину и посадку."
-         data-kk="Қазақстанда шағын партиямен жасаймыз. Әр тапсырысқа тастар мен фурнитураны мұқият таңдаймыз, ұзындығы мен отырысын талқылаймыз."
-         data-en="Produced in Kazakhstan in small batches. For each order we carefully select stones and hardware, and fine-tune length and fit.">
-         Производим в Казахстане малыми партиями. Под каждый заказ бережно подбираем камни и фурнитуру, обсуждаем длину и посадку.
-      </p>
       <div class="cta" style="margin-top:14px">
         <a class="btn" href="shop.html" data-ru="Перейти в каталог" data-kk="Каталогқа өту" data-en="Go to shop">Перейти в каталог</a>
         <a class="btn alt" href="mailto:hello@livijewelry.kz" data-ru="Написать на почту" data-kk="Поштаға жазу" data-en="Email us">Написать на почту</a>
       </div>
     </div>
+
     <div class="panel">
       <h3 data-ru="Материалы и уход" data-kk="Материал және күтім" data-en="Materials & care">Материалы и уход</h3>
       <p class="muted"
