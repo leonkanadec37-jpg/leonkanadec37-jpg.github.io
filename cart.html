@@ -3,23 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Livi — Корзина</title>
+<title>Livi Jewelry — Корзина</title>
 <link rel="icon" href="favicon.ico">
 <style>
   :root{--fg:#111;--muted:#666;--line:#eee;--radius:16px;--shadow:0 8px 28px rgba(0,0,0,.08)}
   *{box-sizing:border-box;margin:0;padding:0}
   body{font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#fff;color:var(--fg)}
   a{text-decoration:none;color:inherit}
-  header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
+  header{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line)}
   .nav{max-width:1240px;margin:0 auto;padding:14px 20px;display:flex;gap:12px;align-items:center;justify-content:space-between}
   .brand{font-weight:800;letter-spacing:.08em}
   .nav-left{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
   .nav-left a{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px}
-  .cart-badge{display:inline-block;background:#111;color:#fff;border-radius:999px;font-size:12px;padding:4px 6px;margin-left:6px}
   .wrap{max-width:1000px;margin:0 auto;padding:26px 20px}
   h1{font-size:clamp(24px,4.4vw,38px);margin-bottom:14px}
-  .empty{color:var(--muted)}
-  .item{display:grid;grid-template-columns:96px 1fr auto auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:var(--radius);padding:10px;margin-bottom:12px}
+
+  .empty{padding:24px;border:1px dashed var(--line);border-radius:16px;text-align:center;color:var(--muted)}
+  .list{display:grid;gap:14px;margin:18px 0}
+  .item{display:grid;grid-template-columns:96px 1fr auto auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:var(--radius);padding:10px}
   .thumb{width:96px;height:96px;border-radius:12px;overflow:hidden;background:#f5f5f5}
   .thumb img{width:100%;height:100%;object-fit:cover;display:block}
   .title{font-weight:600}
@@ -29,6 +30,11 @@
   .btn--primary{background:#111;color:#fff;border-color:#111}
   .total{display:flex;justify-content:space-between;align-items:center;margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
   .actions{display:flex;gap:10px;flex-wrap:wrap}
+
+  @media (max-width:560px){
+    .item{grid-template-columns:72px 1fr;grid-template-areas:"thumb title" "thumb qty" "thumb del";}
+    .thumb{width:72px;height:72px}
+  }
 </style>
 </head>
 <body>
@@ -37,60 +43,33 @@
     <div class="nav-left">
       <a class="brand" href="index.html">LIVI JEWELRY</a>
       <a href="shop.html">Каталог</a>
-      <span id="badge" class="cart-badge" style="display:none">0</span>
     </div>
   </div>
 </header>
 
 <main class="wrap">
   <h1>Корзина</h1>
-  <div id="list"></div>
-  <div class="total" id="summary" style="display:none">
-    <div>
-      <div class="muted">Позиций: <span id="itemsCount">0</span></div>
-      <div><strong>Сумма:</strong> <span id="sumText">—</span></div>
-    </div>
-    <div class="actions">
-      <button class="btn" id="clearBtn">Очистить</button>
-      <a class="btn btn--primary" id="orderBtn" target="_blank" rel="noopener">Оформить в WhatsApp</a>
-    </div>
-  </div>
-  <p id="empty" class="empty">Ваша корзина пуста.</p>
+  <div id="root"></div>
 </main>
 
 <script>
-  function readCart(){ try{return JSON.parse(localStorage.getItem('livi_cart_v2')||'[]')}catch(e){return []} }
-  function writeCart(v){ localStorage.setItem('livi_cart_v2', JSON.stringify(v)); render(); }
-
-  function formatPrice(p){ return p; } // цены уже строкой
+  const KEY='livi_cart_v2';
+  function read(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []} }
+  function write(v){ localStorage.setItem(KEY, JSON.stringify(v)); render(); }
 
   function render(){
-    const list = document.getElementById('list');
-    const badge = document.getElementById('badge');
-    const empty = document.getElementById('empty');
-    const summary = document.getElementById('summary');
-    const itemsCountEl = document.getElementById('itemsCount');
-    const sumTextEl = document.getElementById('sumText');
-
-    const cart = readCart();
-    const count = cart.reduce((s,i)=>s+i.qty,0);
-    if(count>0){ badge.textContent=count; badge.style.display='inline-block'; } else { badge.style.display='none'; }
-
-    list.innerHTML='';
+    const root=document.getElementById('root');
+    const cart=read();
     if(cart.length===0){
-      empty.style.display='block';
-      summary.style.display='none';
+      root.innerHTML = `<div class="empty">Ваша корзина пуста.<br><br><a href="shop.html">Перейти в каталог</a></div>`;
       return;
     }
-    empty.style.display='none';
-    summary.style.display='flex';
 
-    // Сумма как текст (так как у нас разные форматы цен)
-    itemsCountEl.textContent = count;
-    sumTextEl.textContent = cart.map(i=>`${i.title} × ${i.qty} (${i.price})`).join(' • ');
+    let totalText = cart.map(i=>`${i.title} × ${i.qty} (${i.price})`).join(' • ');
+    const list=document.createElement('div'); list.className='list';
 
     cart.forEach((i,idx)=>{
-      const row = document.createElement('div'); row.className='item';
+      const row=document.createElement('div'); row.className='item';
       row.innerHTML = `
         <div class="thumb"><img src="${i.img}" alt=""></div>
         <div><div class="title">${i.title}</div><div class="muted">${i.price}</div></div>
@@ -102,22 +81,35 @@
         <button class="btn" aria-label="remove">Удалить</button>
       `;
       const [minusBtn, qtyEl, plusBtn] = row.querySelectorAll('.qty .btn, .qty span');
-      minusBtn.onclick=()=>{ const c=readCart(); if(c[idx].qty>1)c[idx].qty--; else c.splice(idx,1); writeCart(c); };
-      plusBtn.onclick =()=>{ const c=readCart(); c[idx].qty++; writeCart(c); };
-      row.querySelector('[aria-label="remove"]').onclick=()=>{ const c=readCart(); c.splice(idx,1); writeCart(c); };
+      minusBtn.onclick=()=>{ const c=read(); if(c[idx].qty>1)c[idx].qty--; else c.splice(idx,1); write(c); };
+      plusBtn.onclick =()=>{ const c=read(); c[idx].qty++; write(c); };
+      row.querySelector('[aria-label="remove"]').onclick=()=>{ const c=read(); c.splice(idx,1); write(c); };
       list.appendChild(row);
     });
 
-    // WhatsApp оформление
-    const orderBtn=document.getElementById('orderBtn');
+    const total=document.createElement('div'); total.className='total';
+    total.innerHTML = `
+      <div><strong>Ваш заказ:</strong> ${totalText}</div>
+      <div class="actions">
+        <button class="btn" id="clear">Очистить</button>
+        <a class="btn btn--primary" id="wa" target="_blank" rel="noopener">Оформить в WhatsApp</a>
+      </div>
+    `;
+
+    root.innerHTML='';
+    root.appendChild(list);
+    root.appendChild(total);
+
+    document.getElementById('clear').onclick=()=>write([]);
     const text = encodeURIComponent('Здравствуйте! Хочу оформить заказ:\n\n'+
       cart.map(i=>`• ${i.title} — ${i.price} × ${i.qty}`).join('\n'));
-    orderBtn.href = 'https://wa.me/77054510584?text='+text;
+    document.getElementById('wa').href = 'https://wa.me/77054510584?text='+text;
   }
 
-  document.getElementById('clearBtn').onclick=()=>{ writeCart([]); };
-
-  window.addEventListener('storage',e=>{ if(e.key==='livi_cart_v2') render(); });
+  // если пользователь открыл корзину после добавления на другой вкладке
+  window.addEventListener('storage', e=>{ if(e.key===KEY) render(); });
+  // при возврате на вкладку тоже обновим
+  window.addEventListener('focus', render);
 
   render();
 </script>
