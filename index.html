@@ -5,509 +5,150 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Livi Jewelry — жемчуг и камни, Казахстан</title>
   <meta name="description" content="Livi Jewelry: современная бижутерия ручной работы из жемчуга и камней. Казахстан.">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Livi Jewelry">
-  <meta property="og:description" content="Минимализм, элегантность и ручная работа.">
-  <meta property="og:image" content="assets/IMG_5350.JPG">
+  <link rel="icon" href="favicon.ico">
   <style>
-    :root{ --fg:#111; --muted:#5c5c5c; --line:#eaeaea; --bg:#fff; --radius:22px; --shadow:0 8px 24px rgba(0,0,0,.08); }
+    :root{--fg:#111;--muted:#666;--line:#eee;--bg:#fff;--radius:22px;--shadow:0 8px 30px rgba(0,0,0,.09);--brand:#111}
     *{box-sizing:border-box;margin:0;padding:0}
-    html,body{background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    html,body{background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial}
     a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block;height:auto}
-
-    /* Header */
-    header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);backdrop-filter:saturate(150%) blur(6px)}
-    .nav{max-width:1240px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .brand{font-weight:700;letter-spacing:.08em}
-    .nav-left{display:flex;gap:16px;align-items:center}
-    .nav-left a{border:1px solid var(--line);border-radius:999px;padding:10px 14px;font-size:14px;white-space:nowrap}
-    .nav-right{display:flex;align-items:center;gap:12px}
-    .chip{border:1px solid var(--line);border-radius:999px;padding:10px 14px;font-size:14px;transition:.25s;white-space:nowrap}
+    /* header */
+    header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.9);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
+    .nav{max-width:1240px;margin:0 auto;padding:14px 20px;display:flex;gap:14px;align-items:center;justify-content:space-between}
+    .brand{font-weight:800;letter-spacing:.08em}
+    .nav-left{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .nav-left a{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px}
+    .nav-right{display:flex;align-items:center;gap:8px}
+    .chip{border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px}
     .chip:hover{background:#111;color:#fff;border-color:#111}
     .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
-    .lang button{border:0;background:transparent;padding:8px 12px;font-size:14px;cursor:pointer}
+    .lang button{border:0;background:transparent;padding:8px 12px;font-size:13px;cursor:pointer}
     .lang button.active{background:#111;color:#fff}
-
-    /* Cart button */
-    .cart-btn{position:relative;border:1px solid var(--line);border-radius:999px;padding:10px 14px;display:inline-flex;align-items:center;gap:8px}
-    .cart-badge{
-      position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 6px;
-      border-radius:999px;background:#111;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;
-      box-shadow:0 2px 6px rgba(0,0,0,.15)
-    }
-
-    /* Burger & mobile menu */
-    .burger{display:none;flex-direction:column;gap:4px;width:36px;height:36px;justify-content:center;align-items:center;cursor:pointer;border-radius:10px;border:1px solid var(--line);background:#fff}
-    .burger span{background:#111;height:2px;width:20px;border-radius:2px}
-    .mobile-menu{display:none;flex-direction:column;gap:12px;padding:16px 24px;border-bottom:1px solid var(--line);background:#fff}
-    .mobile-menu a, .mobile-menu button{border:1px solid var(--line);border-radius:999px;padding:10px 14px;text-align:center;background:#fff}
-    .mobile-menu .lang{align-self:flex-start}
-    .mobile-open .mobile-menu{display:flex}
-
-    /* Hero */
-    .hero{max-width:1240px;margin:0 auto;padding:56px 24px;display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}
-    .hero-visual{border:1px solid var(--line);border-radius:28px;overflow:hidden;background:#fff}
-    .hero-visual img{width:100%;height:100%;object-fit:cover}
-    .hero h1{font-size:clamp(28px,6vw,58px);font-weight:600;line-height:1.15;margin-bottom:14px}
-    .hero p{color:var(--muted);font-size:18px;margin-bottom:22px}
-    .cta{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{display:inline-block;background:#111;color:#fff;padding:14px 22px;border-radius:999px;transition:.25s;text-align:center;min-height:44px}
+    /* hero */
+    .hero{max-width:1240px;margin:0 auto;padding:56px 20px;display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}
+    .hero h1{font-size:clamp(30px,5.2vw,56px);line-height:1.12;margin-bottom:12px}
+    .hero p{color:var(--muted);font-size:18px;margin-bottom:18px}
+    .cta{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{display:inline-block;background:#111;color:#fff;padding:14px 22px;border-radius:999px;transition:.25s}
     .btn.alt{background:#fff;color:#111;border:1px solid var(--line)}
     .btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
-
-    /* Sections & cards */
-    .section{max-width:1240px;margin:0 auto;padding:56px 24px}
-    .section h2{font-size:28px;font-weight:600;text-align:center;margin-bottom:32px}
-
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
-    .card{border:1px solid var(--line);border-radius:var(--radius);background:#fff;overflow:hidden;transition:transform .25s, box-shadow .25s;display:flex;flex-direction:column}
-    .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
-    .img-wrap{aspect-ratio:4/5;background:#f3f3f3;overflow:hidden}
-    .card img{width:100%;height:100%;object-fit:cover;cursor:zoom-in}
-    .body{padding:16px;display:flex;flex-direction:column;gap:8px}
-    .title{font-size:18px;margin-bottom:2px}
-    .muted{color:var(--muted);font-size:14px}
-    .card .actions{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
-    .mini{padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:#fff}
-
-    /* About panels */
-    .wide{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-    .panel{border:1px solid var(--line);border-radius:24px;padding:22px;background:#fff}
-    .panel h3,.panel h2{font-weight:600;margin-bottom:8px}
-    .panel p{color:var(--muted);margin-bottom:14px}
-
-    /* Footer */
-    footer{margin-top:60px;border-top:1px solid var(--line);text-align:center;color:#5c5c5c;padding:28px 20px;font-size:14px}
+    .hero-visual{border:1px solid var(--line);border-radius:26px;overflow:hidden}
+    .hero-visual img{width:100%;height:100%;object-fit:cover;display:block}
+    /* panels */
+    .section{max-width:1240px;margin:0 auto;padding:42px 20px}
+    .panels{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .panel{border:1px solid var(--line);border-radius:20px;padding:18px}
+    .panel h3{margin-bottom:6px}
+    .panel p{color:var(--muted)}
+    footer{margin-top:46px;border-top:1px solid var(--line);text-align:center;color:#555;padding:24px 16px;font-size:14px}
     footer a{text-decoration:underline}
-
-    /* Lightbox */
-    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.84);display:none;align-items:center;justify-content:center;z-index:100}
-    .lightbox.open{display:flex}
-    .lightbox img{max-width:min(92vw,1200px);max-height:92vh;object-fit:contain;border-radius:12px}
-    .lightbox-close{position:fixed;top:14px;right:14px;background:#fff;border-radius:999px;border:1px solid var(--line);padding:8px 12px;cursor:pointer}
-
-    /* Responsive */
     @media (max-width:900px){
       .hero{grid-template-columns:1fr}
-      .wide{grid-template-columns:1fr}
-      .nav-left a:not(.brand){display:none}
-      .nav-right{display:none}
-      .burger{display:flex}
+      .panels{grid-template-columns:1fr}
+      .nav-left{gap:8px}
     }
+    /* cart badge (shared) */
+    .cart-link{position:relative}
+    .cart-badge{position:absolute;top:-6px;right:-6px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:4px 6px;min-width:20px;text-align:center}
   </style>
 </head>
 <body>
-
-  <header>
-    <div class="nav">
-      <div class="nav-left">
-        <a class="brand" href="index.html">LIVI JEWELRY</a>
-        <a href="shop.html" data-ru="Каталог" data-kk="Каталог" data-en="Shop">Каталог</a>
-        <a href="#about" data-ru="О нас" data-kk="Біз туралы" data-en="About">О нас</a>
-      </div>
-      <div class="nav-right">
-        <a class="chip" href="https://instagram.com/livi_jwl?utm_source=site&utm_medium=nav&utm_campaign=top" target="_blank" rel="noopener">Instagram</a>
-        <a class="chip" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20заказать%20украшение%20с%20сайта%20Livi%20Jewelry.&utm_source=site&utm_medium=nav&utm_campaign=top" target="_blank" rel="noopener">WhatsApp</a>
-
-        <!-- Кнопка корзины с бейджем -->
-        <a class="cart-btn" href="cart.html" aria-label="Корзина">
-          🧺 <span id="cartCount" class="cart-badge" style="display:none">0</span>
-        </a>
-
-        <div class="lang">
-          <button id="ruBtn" class="active">RU</button>
-          <button id="kkBtn">KZ</button>
-          <button id="enBtn">EN</button>
-        </div>
-      </div>
-      <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
-    </div>
-
-    <!-- Мобильное меню -->
-    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+<header>
+  <div class="nav">
+    <div class="nav-left">
+      <a class="brand" href="index.html">LIVI JEWELRY</a>
       <a href="shop.html" data-ru="Каталог" data-kk="Каталог" data-en="Shop">Каталог</a>
       <a href="#about" data-ru="О нас" data-kk="Біз туралы" data-en="About">О нас</a>
-      <a href="https://instagram.com/livi_jwl?utm_source=site&utm_medium=nav&utm_campaign=drawer" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20заказать%20украшение%20с%20сайта%20Livi%20Jewelry.&utm_source=site&utm_medium=nav&utm_campaign=drawer" target="_blank" rel="noopener">WhatsApp</a>
-
-      <!-- Корзина в мобильном меню -->
-      <a href="cart.html" class="cart-btn" style="justify-content:center">
-        🧺 <span id="cartCountM" class="cart-badge" style="display:none">0</span>
+      <a class="cart-link" href="cart.html" aria-label="Корзина">
+        <span data-ru="Корзина" data-kk="Себет" data-en="Cart">Корзина</span>
+        <span id="cartBadge" class="cart-badge" style="display:none;">0</span>
       </a>
-
-      <div class="lang" style="margin-top:6px">
-        <button id="ruBtnM" class="active">RU</button>
-        <button id="kkBtnM">KZ</button>
-        <button id="enBtnM">EN</button>
+    </div>
+    <div class="nav-right">
+      <a class="chip" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
+      <a class="chip" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener">WhatsApp</a>
+      <div class="lang">
+        <button id="ruBtn" class="active">RU</button>
+        <button id="kkBtn">KZ</button>
+        <button id="enBtn">EN</button>
       </div>
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div>
-      <h1
-        data-ru="Современные украшения из жемчуга и камней"
+<section class="hero">
+  <div>
+    <h1 data-ru="Современные украшения из жемчуга и камней"
         data-kk="Жемчуг пен тастан жасалған заманауи әшекейлер"
-        data-en="Modern jewelry made of pearls and stones"
-      >Современные украшения из жемчуга и камней</h1>
-      <p
-        data-ru="Минимализм, элегантность и ручная работа. Создано в Казахстане."
-        data-kk="Минимализм, сұлулық және қолөнер. Қазақстанда жасалған."
-        data-en="Minimalism, elegance and handcrafted quality. Made in Kazakhstan."
-      >Минимализм, элегантность и ручная работа. Создано в Казахстане.</p>
-      <div class="cta">
-        <a class="btn" href="shop.html" data-ru="Каталог" data-kk="Каталог" data-en="Shop">Каталог</a>
-        <a class="btn alt" href="https://instagram.com/livi_jwl?utm_source=site&utm_medium=hero&utm_campaign=cta" target="_blank" rel="noopener"
-           data-ru="Написать в Instagram" data-kk="Instagram-ға жазу" data-en="Message on Instagram">Написать в Instagram</a>
-      </div>
+        data-en="Modern jewelry made of pearls and stones">Современные украшения из жемчуга и камней</h1>
+    <p data-ru="Минимализм, элегантность и ручная работа. Создано в Казахстане."
+       data-kk="Минимализм, сұлулық және қолөнер. Қазақстанда жасалған."
+       data-en="Minimalism, elegance and handcrafted quality. Made in Kazakhstan.">
+       Минимализм, элегантность и ручная работа. Создано в Казахстане.
+    </p>
+    <div class="cta">
+      <a class="btn" href="shop.html" data-ru="Перейти в каталог" data-kk="Каталогқа өту" data-en="Open shop">Перейти в каталог</a>
+      <a class="btn alt" href="#about" data-ru="О бренде" data-kk="Бренд туралы" data-en="About brand">О бренде</a>
     </div>
-    <div class="hero-visual">
-      <img src="assets/IMG_5350.JPG" alt="Livi Jewelry hero" loading="eager">
-    </div>
-  </section>
+  </div>
+  <!-- Используем только существующее фото-герой -->
+  <div class="hero-visual">
+    <img src="assets/IMG_5350.JPG" alt="Livi Jewelry — жемчуг и камни">
+  </div>
+</section>
 
-  <!-- ВИТРИНА -->
-  <section id="collection" class="section">
-    <h2 data-ru="Коллекция" data-kk="Коллекция" data-en="Collection">Коллекция</h2>
-    <div class="grid">
-
-      <!-- КАРТОЧКИ С КНОПКОЙ В КОРЗИНУ -->
-      <article class="card" data-id="full-1" data-title="Color Beads & Cross" data-price="0">
-        <div class="img-wrap">
-          <img src="assets/FullSizeRender-1.jpg" alt="Жемчужное колье с цветными вставками и крестом" loading="lazy">
-        </div>
-        <div class="body">
-          <div class="title" data-ru="Color Beads & Cross" data-kk="Түрлі түсті тастар және крест" data-en="Color Beads & Cross">Color Beads & Cross</div>
-          <div class="muted" data-ru="Жемчуг и цветные кристаллы." data-kk="Інжу және түрлі түсті кристалдар." data-en="Pearls and colorful crystals.">Жемчуг и цветные кристаллы.</div>
-          <div class="actions">
-            <button class="mini add-to-cart" data-i18n-add="Добавить в корзину">Добавить в корзину</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="card" data-id="full-2" data-title="Heart Chain Pearl" data-price="0">
-        <div class="img-wrap">
-          <img src="assets/FullSizeRender-2.jpg" alt="Колье жемчуг и золотое сердце с цепочками" loading="lazy">
-        </div>
-        <div class="body">
-          <div class="title" data-ru="Heart Chain Pearl" data-kk="Жүрек пен тізбектер" data-en="Heart Chain Pearl">Heart Chain Pearl</div>
-          <div class="muted" data-ru="Жемчуг, золотистые цепи и подвеска-сердце." data-kk="Інжу, алтын түсті тізбектер және жүрек кулоны." data-en="Pearls, golden chains and a heart pendant.">Жемчуг, золотистые цепи и подвеска-сердце.</div>
-          <div class="actions">
-            <button class="mini add-to-cart">Добавить в корзину</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="card" data-id="full-7" data-title="Violet Heart" data-price="0">
-        <div class="img-wrap">
-          <img src="assets/FullSizeRender-7.jpg" alt="Колье с флюоритом и аметистом" loading="lazy">
-        </div>
-        <div class="body">
-          <div class="title" data-ru="Violet Heart" data-kk="Күлгін жүрек" data-en="Violet Heart">Violet Heart</div>
-          <div class="muted" data-ru="Флюорит, жемчуг и аметист." data-kk="Флюорит, інжу және аметист." data-en="Fluorite, pearls and amethyst.">Флюорит, жемчуг и аметист.</div>
-          <div class="actions">
-            <button class="mini add-to-cart">Добавить в корзину</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="card" data-id="full-8" data-title="Dalmatian Set" data-price="0">
-        <div class="img-wrap">
-          <img src="assets/FullSizeRender-8.jpg" alt="Далматин-яшма и жемчуг: сет" loading="lazy">
-        </div>
-        <div class="body">
-          <div class="title" data-ru="Dalmatian Set" data-kk="Далматин жиынтығы" data-en="Dalmatian Set">Dalmatian Set</div>
-          <div class="muted" data-ru="Яшма «далматин», тёплые тона и натуральный жемчуг." data-kk="Далматин жасмасы, жылы реңктер және табиғи інжу." data-en="Dalmatian jasper, warm tones and natural pearls.">Яшма «далматин», тёплые тона и натуральный жемчуг.</div>
-          <div class="actions">
-            <button class="mini add-to-cart">Добавить в корзину</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="card" data-id="full-9" data-title="Silver Fringe" data-price="0">
-        <div class="img-wrap">
-          <img src="assets/FullSizeRender-9.jpg" alt="Серебристое колье с подвесками-цепями" loading="lazy">
-        </div>
-        <div class="body">
-          <div class="title" data-ru="Silver Fringe" data-kk="Күміс шашақ" data-en="Silver Fringe">Silver Fringe</div>
-          <div class="muted" data-ru="Холодный блеск и длинные цепи." data-kk="Салқын жалтырау және ұзын тізбектер." data-en="Cool shine and long chains.">Холодный блеск и длинные цепи.</div>
-          <div class="actions">
-            <button class="mini add-to-cart">Добавить в корзину</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="card" data-id="full-10" data-title="Turquoise Heart" data-price="0">
-        <div class="img-wrap">
-          <img src="assets/FullSizeRender-10.jpg" alt="Бирюзовый сет с сердцем" loading="lazy">
-        </div>
-        <div class="body">
-          <div class="title" data-ru="Turquoise Heart" data-kk="Көкшіл жүрек" data-en="Turquoise Heart">Turquoise Heart</div>
-          <div class="muted" data-ru="Нежные бирюзовые оттенки и подвеска-сердце." data-kk="Нәзік көгілдір реңк және жүрек кулоны." data-en="Soft turquoise hues and a heart pendant.">Нежные бирюзовые оттенки и подвеска-сердце.</div>
-          <div class="actions">
-            <button class="mini add-to-cart">Добавить в корзину</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="card" data-id="full-main" data-title="Steel & Pearl Duo" data-price="0">
-        <div class="img-wrap">
-          <img src="assets/FullSizeRender.jpg" alt="Стальной чокер-цепь и аксессуары" loading="lazy">
-        </div>
-        <div class="body">
-          <div class="title" data-ru="Steel & Pearl Duo" data-kk="Болат және інжу" data-en="Steel & Pearl Duo">Steel & Pearl Duo</div>
-          <div class="muted" data-ru="Жёсткая цепь со съёмной жемчужной подвеской и компаньоны." data-kk="Алынбалы інжу кулоны бар қатты тізбек және аксессуарлар." data-en="Rigid chain with detachable pearl pendant and matching pieces.">Жёсткая цепь со съёмной жемчужной подвеской и компаньоны.</div>
-          <div class="actions">
-            <button class="mini add-to-cart">Добавить в корзину</button>
-          </div>
-        </div>
-      </article>
-
-      <!-- файлы с пробелами в имени: %20 -->
-      <article class="card" data-id="full-sp1" data-title="Blue Whisper" data-price="0">
-        <div class="img-wrap">
-          <img src="assets/FullSizeRender%20(1).jpg" alt="Нежные слои жемчуга с голубыми акцентами" loading="lazy">
-        </div>
-        <div class="body">
-          <div class="title" data-ru="Blue Whisper" data-kk="Көк сыбыр" data-en="Blue Whisper">Blue Whisper</div>
-          <div class="muted" data-ru="Нежные слои жемчуга и прозрачных кристаллов." data-kk="Інжу мен мөлдір тастардың нәзік қабаттары." data-en="Delicate layers of pearls and clear crystals.">Нежные слои жемчуга и прозрачных кристаллов.</div>
-          <div class="actions">
-            <button class="mini add-to-cart">Добавить в корзину</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="card" data-id="full-sp2" data-title="Clover Mint" data-price="0">
-        <div class="img-wrap">
-          <img src="assets/FullSizeRender%20(2).jpg" alt="Двухрядное бирюзово-серебристое колье с клевером" loading="lazy">
-        </div>
-        <div class="body">
-          <div class="title" data-ru="Clover Mint" data-kk="Жоңышқа Mint" data-en="Clover Mint">Clover Mint</div>
-          <div class="muted" data-ru="Два ряда: інжу + стальные цепи, подвеска-клевер." data-kk="Екі қатар: інжу мен болат тізбек, клевер кулоны." data-en="Two rows: pearls + steel chains, clover pendant.">Два ряда: інжу + стальные цепи, подвеска-клевер.</div>
-          <div class="actions">
-            <button class="mini add-to-cart">Добавить в корзину</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="card" data-id="full-sp4" data-title="Shell Heart" data-price="0">
-        <div class="img-wrap">
-          <img src="assets/FullSizeRender%20(4).jpg" alt="Белое колье с золотистым сердцем и ракушками" loading="lazy">
-        </div>
-        <div class="body">
-          <div class="title" data-ru="Shell Heart" data-kk="Қабық жүрек" data-en="Shell Heart">Shell Heart</div>
-          <div class="muted" data-ru="Белые ракушки, золотистая фурнитура и подвеска-сердце." data-kk="Ақ қабықтар, алтын түсті фурнитура және жүрек кулоны." data-en="White shells, golden hardware and a heart pendant.">Белые ракушки, золотистая фурнитура и подвеска-сердце.</div>
-          <div class="actions">
-            <button class="mini add-to-cart">Добавить в корзину</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="card" data-id="full-sp9" data-title="Glass Heart Aqua" data-price="0">
-        <div class="img-wrap">
-          <img src="assets/FullSizeRender%20(9).jpg" alt="Колье с голубыми камнями и стеклянным сердцем" loading="lazy">
-        </div>
-        <div class="body">
-          <div class="title" data-ru="Glass Heart Aqua" data-kk="Шыны жүрек Aqua" data-en="Glass Heart Aqua">Glass Heart Aqua</div>
-          <div class="muted" data-ru="Голубые кристаллы, жемчуг и крупная стеклянная подвеска." data-kk="Көгілдір кристалдар, інжу және үлкен әйнек кулон." data-en="Blue crystals, pearls and a large glass heart pendant.">Голубые кристаллы, жемчуг и крупная стеклянная подвеска.</div>
-          <div class="actions">
-            <button class="mini add-to-cart">Добавить в корзину</button>
-          </div>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- О НАС -->
-  <section id="about" class="section wide">
+<section id="about" class="section">
+  <div class="panels">
     <div class="panel">
-      <h2
-        data-ru="✨ История бренда Livi ✨"
-        data-kk="✨ Livi бренді тарихы ✨"
-        data-en="✨ Livi Brand Story ✨"
-      >✨ История бренда Livi ✨</h2>
-
-      <p
-        data-ru="Моя история началась три года назад с простого желания — я хотела заказать себе чокер. Но, услышав, что ждать нужно целых две недели, я подумала: а почему я не могу сделать его сама?"
-        data-kk="Менің тарихым үш жыл бұрын қарапайым тілектен басталды — өзіме чокер жасағым келді. Бірақ екі апта күту керек екенін естігенде: «неге мен оны өзім жасамаймын?» деп ойладым."
-        data-en="My story began three years ago with a simple wish — I wanted to order a choker. When I heard I’d have to wait two weeks, I thought: why not make it myself?"
-      >Моя история началась три года назад с простого желания — я хотела заказать себе чокер. Но, услышав, что ждать нужно целых две недели, я подумала: а почему я не могу сделать его сама?</p>
-
-      <p
-        data-ru="Я всегда была творческой: училась в художественной школе, работала визажистом, и руки у меня всегда «из того места». Я купила материалы, создала первое украшение для себя — и была в восторге. Потом начала делать подарки подругам, знакомым, и постепенно моё хобби превратилось в дело жизни."
-        data-kk="Мен әрқашан шығармашылықпен айналыстым: көркемсурет мектебінде оқыдым, визажист болып жұмыс істедім. Материалдар сатып алып, өзіме бірінші әшекей жасадым — нәтижесіне тамсандым. Кейін құрбыларыма, таныстарыма сыйлық ретінде жасай бастадым, осылайша хоббиім бірте-бірте өмірлік іске айналды."
-        data-en="I’ve always been creative: I studied at an art school and worked as a makeup artist. I bought materials, made my first piece for myself — and loved it. Then I started gifting jewelry to friends, and gradually my hobby turned into my life’s work."
-      >Я всегда была творческой: училась в художественной школе, работала визажистом, и руки у меня всегда «из того места». Я купила материалы, создала первое украшение для себя — и была в восторге. Потом начала делать подарки подругам, знакомым, и постепенно моё хобби превратилось в дело жизни.</p>
-
-      <p
-        data-ru="Так появился мой бренд Livi — в честь моей дочки Оливии, которая родилась примерно в то же время."
-        data-kk="Осылайша менің Livi бренді пайда болды — шамамен сол уақытта дүниеге келген қызым Оливияның құрметіне аталды."
-        data-en="That’s how my brand, Livi, was born — named after my daughter Olivia, who arrived around the same time."
-      >Так появился мой бренд Livi — в честь моей дочки Оливии, которая родилась примерно в то же время.</p>
-
-      <p
-        data-ru="Мои украшения — это уникальность в каждой детали (не как у всех). Я создаю многослойные, смелые и необычные украшения из натуральных камней, используя только люкс-фурнитуру — позолоченную и радированную, гипоаллергенную. Каждое изделие уникально, даже повторы никогда не бывают одинаковыми."
-        data-kk="Менің әшекейлерім — әр бөлшегінде ерекше қолтаңба (ешкімдікіне ұқсамайды). Табиғи тастардан көпқабатты, батыл және ерекше бұйымдар жасаймын, тек люкс фурнитура қолданамын — алтын жалатылған және родийленген, гипоаллергенді. Әр бұйым — қайталанбас, тіпті қайталамалар да бірдей болмайды."
-        data-en="My pieces are unique in every detail — not like everyone else’s. I craft layered, bold and unusual jewelry from natural stones, using only luxury, hypoallergenic findings — gold-plated and rhodium-coated. Every item is one-of-a-kind; even repeats are never identical."
-      >Мои украшения — это уникальность в каждой детали (не как у всех). Я создаю многослойные, смелые и необычные украшения из натуральных камней, используя только люкс-фурнитуру — позолоченную и радированную, гипоаллергенную. Каждое изделие уникально, даже повторы никогда не бывают одинаковыми.</p>
-
-      <p
-        data-ru="Я с уверенностью могу сказать: мой почерк в украшениях легко узнаваем, а сам бренд Livi — один из самых отличительных и ярких во всём Казахстане."
-        data-kk="Нық айта аламын: менің әшекейлерімнің қолтаңбасы бірден танылатын, ал Livi бренді — Қазақстандағы ең ерекшелердің және жарқындардың бірі."
-        data-en="I can say with confidence: my signature style is easy to recognize, and Livi is one of the most distinctive, vibrant brands in Kazakhstan."
-      >Я с уверенностью могу сказать: мой почерк в украшениях легко узнаваем, а сам бренд Livi — один из самых отличительных и ярких во всём Казахстане.</p>
-
-      <p
-        data-ru="Мне нравится ломать стереотипы: многие думают, что массивные украшения подходят только для особых случаев. А я уверена — наоборот! Многослойный чокер идеально смотрится с белой футболкой и джинсами, делая образ завершённым. А более утончённые модели я оставляю для выхода в свет."
-        data-kk="Мен стереотиптерді бұзғанды жақсы көремін: көпшілігі көлемді әшекейлер тек ерекше жағдайларға жарасады деп ойлайды. Меніңше — керісінше! Көпқабатты чокер ақ жейде мен джинспен тамаша үйлеседі, бейнені толықтырады. Ал талғампаз үлгілерді салтанатты кештерге қалдырамын."
-        data-en="I love breaking stereotypes: many think chunky jewelry is only for special occasions. I believe the opposite — a layered choker looks perfect with a white T-shirt and jeans, completing the look. I save the more delicate pieces for going out."
-      >Мне нравится ломать стереотипы: многие думают, что массивные украшения подходят только для особых случаев. А я уверена — наоборот! Многослойный чокер идеально смотрится с белой футболкой и джинсами, делая образ завершённым. А более утончённые модели я оставляю для выхода в свет.</p>
-
-      <p
-        data-ru="Сегодня Livi — это заметный бренд, мы участвуем в городских ярмарках и скоро планируем поехать с выставкой в Алма-Ату. И самое главное — мои украшения дарят радость, удивляют и делают каждую девушку особенной."
-        data-kk="Бүгінде Livi — танымал бренд: біз қалалық жәрмеңкелерге қатысамыз және жақында Алматыға көрмемен баруды жоспарлап отырмыз. Ең бастысы — менің әшекейлерім қуаныш сыйлайды, таңқалдырады және әр қызды ерекше етеді."
-        data-en="Today Livi is a noticeable brand: we take part in city fairs and plan to exhibit in Almaty soon. Most importantly, my jewelry brings joy, surprises, and makes every girl feel special."
-      >Сегодня Livi — это заметный бренд, мы участвуем в городских ярмарках и скоро планируем поехать с выставкой в Алма-Ату. И самое главное — мои украшения дарят радость, удивляют и делают каждую девушку особенной.</p>
-
-      <div class="cta" style="margin-top:14px">
-        <a class="btn" href="shop.html" data-ru="Перейти в каталог" data-kk="Каталогқа өту" data-en="Go to shop">Перейти в каталог</a>
-        <a class="btn alt" href="mailto:hello@livijewelry.kz" data-ru="Написать на почту" data-kk="Поштаға жазу" data-en="Email us">Написать на почту</a>
+      <h3 data-ru="✨ История бренда Livi ✨" data-kk="✨ Livi бренді тарихы ✨" data-en="✨ Livi Brand Story ✨">✨ История бренда Livi ✨</h3>
+      <p data-ru="Моя история началась три года назад... Каждое изделие уникально, даже повторы никогда не бывают одинаковыми."
+         data-kk="Менің тарихым үш жыл бұрын басталды... Әр бұйым қайталанбас."
+         data-en="My story began three years ago... Every piece is one-of-a-kind.">
+         Моя история началась три года назад... Каждое изделие уникально, даже повторы никогда не бывают одинаковыми.
+      </p>
+      <div class="cta" style="margin-top:10px">
+        <a class="btn" href="shop.html" data-ru="Смотреть коллекцию" data-kk="Коллекцияны көру" data-en="View collection">Смотреть коллекцию</a>
       </div>
     </div>
-
     <div class="panel">
       <h3 data-ru="Материалы и уход" data-kk="Материал және күтім" data-en="Materials & care">Материалы и уход</h3>
       <p class="muted"
-         data-ru="Натуральный жемчуг и камни, фурнитура из нержавеющей стали. Храните в чехле, избегайте контакта с парфюмом и водой."
-         data-kk="Табиғи інжу мен тастар, тот баспайтын болат фурнитура. Қапта сақтаңыз, парфюм және сумен жанастырмаңыз."
-         data-en="Natural pearls and stones, stainless steel findings. Store in a pouch and avoid contact with perfume and water.">
-         Натуральный жемчуг и камни, фурнитура из нержавеющей стали. Храните в чехле, избегайте контакта с парфюмом и водой.
+         data-ru="Натуральный жемчуг и камни, фурнитура из нержавеющей стали. Избегайте воды и парфюма, храните в чехле."
+         data-kk="Табиғи інжу мен тастар, тот баспайтын болат фурнитура. Сумен/иіспен жанастырмаңыз, қапта сақтаңыз."
+         data-en="Natural pearls & stones, stainless steel hardware. Avoid water/perfume; store in a pouch.">
+         Натуральный жемчуг и камни, фурнитура из нержавеющей стали. Избегайте воды и парфюма, храните в чехле.
       </p>
     </div>
-  </section>
-
-  <footer>
-    © <span id="year"></span> Livi Jewelry · Қазақстан / Казахстан · <a href="mailto:hello@livijewelry.kz">hello@livijewelry.kz</a>
-  </footer>
-
-  <!-- Лайтбокс -->
-  <div id="lightbox" class="lightbox" role="dialog" aria-label="Просмотр изображения">
-    <img id="lightboxImg" alt="">
-    <button class="lightbox-close" aria-label="Закрыть">✕</button>
   </div>
+</section>
 
-  <script>
-    // Год в футере
-    document.getElementById('year').textContent = new Date().getFullYear();
+<footer>
+  © Livi Jewelry · Қазақстан / Казахстан · <a href="mailto:hello@livijewelry.kz">hello@livijewelry.kz</a>
+</footer>
 
-    // ===== ЯЗЫКИ =====
-    const ruBtn=document.getElementById('ruBtn');
-    const kkBtn=document.getElementById('kkBtn');
-    const enBtn=document.getElementById('enBtn');
-    const ruBtnM=document.getElementById('ruBtnM');
-    const kkBtnM=document.getElementById('kkBtnM');
-    const enBtnM=document.getElementById('enBtnM');
-
-    function setLang(lang){
-      document.querySelectorAll('[data-ru]').forEach(el=>{
-        const txt = lang==='kk' ? el.getAttribute('data-kk')
-                  : lang==='en' ? el.getAttribute('data-en')
-                  : el.getAttribute('data-ru');
-        if(txt) el.textContent = txt;
-      });
-      [ruBtn,kkBtn,enBtn,ruBtnM,kkBtnM,enBtnM].forEach(btn=>{
-        if(!btn) return;
-        btn.classList.toggle('active', btn && btn.id.toLowerCase().includes(lang));
-      });
-      document.documentElement.lang = lang;
-      localStorage.setItem('lang', lang);
-    }
-    const initLang = localStorage.getItem('lang') || 'ru';
-    setLang(initLang);
-
-    if(ruBtn) ruBtn.addEventListener('click',()=>setLang('ru'));
-    if(kkBtn) kkBtn.addEventListener('click',()=>setLang('kk'));
-    if(enBtn) enBtn.addEventListener('click',()=>setLang('en'));
-    if(ruBtnM) ruBtnM.addEventListener('click',()=>setLang('ru'));
-    if(kkBtnM) kkBtnM.addEventListener('click',()=>setLang('kk'));
-    if(enBtnM) enBtnM.addEventListener('click',()=>setLang('en'));
-
-    // ===== ЛАЙТБОКС =====
-    const lb=document.getElementById('lightbox');
-    const lbImg=document.getElementById('lightboxImg');
-    document.querySelectorAll('.card img').forEach(img=>{
-      img.addEventListener('click',()=>{ lbImg.src=img.src; lb.classList.add('open'); });
+<script>
+  // язык
+  const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
+  function setLang(lang){
+    document.querySelectorAll('[data-ru]').forEach(el=>{
+      const txt = lang==='kk'?el.getAttribute('data-kk'): lang==='en'?el.getAttribute('data-en'): el.getAttribute('data-ru');
+      if(txt) el.textContent=txt;
     });
-    lb.addEventListener('click',(e)=>{ if(e.target===lb || e.target.classList.contains('lightbox-close')) lb.classList.remove('open'); });
-    document.addEventListener('keydown', e=>{ if(e.key==='Escape') lb.classList.remove('open'); });
+    [ruBtn,kkBtn,enBtn].forEach(b=>b.classList.remove('active'));
+    (lang==='kk'?kkBtn:lang==='en'?enBtn:ruBtn).classList.add('active');
+    document.documentElement.lang=lang; localStorage.setItem('lang',lang);
+  }
+  ruBtn.onclick=()=>setLang('ru'); kkBtn.onclick=()=>setLang('kk'); enBtn.onclick=()=>setLang('en');
+  setLang(localStorage.getItem('lang')||'ru');
 
-    // ===== БУРГЕР =====
-    const burger=document.getElementById('burger');
-    const mobileMenu=document.getElementById('mobileMenu');
-    burger.addEventListener('click',()=>{
-      document.body.classList.toggle('mobile-open');
-      const open = document.body.classList.contains('mobile-open');
-      mobileMenu.setAttribute('aria-hidden', open ? 'false':'true');
-    });
-    mobileMenu.querySelectorAll('a,button').forEach(a=>{
-      a.addEventListener('click',()=>{ document.body.classList.remove('mobile-open'); mobileMenu.setAttribute('aria-hidden','true'); });
-    });
-
-    // ===== КОРЗИНА (localStorage) =====
-    const CART_KEY = 'livi-cart';
-
-    function readCart(){
-      try{ return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
-      catch(_){ return []; }
-    }
-    function writeCart(cart){
-      localStorage.setItem(CART_KEY, JSON.stringify(cart));
-      updateCartCount();
-    }
-    function addToCart(item){
-      const cart = readCart();
-      const idx = cart.findIndex(i => i.id === item.id);
-      if(idx >= 0){ cart[idx].qty += item.qty || 1; }
-      else{ cart.push({ id:item.id, title:item.title, price:item.price||0, qty:item.qty||1 }); }
-      writeCart(cart);
-    }
-    function cartCount(){
-      return readCart().reduce((s,i)=> s + (i.qty||0), 0);
-    }
-    function updateCartCount(){
-      const count = cartCount();
-      const el = document.getElementById('cartCount');
-      const elM = document.getElementById('cartCountM');
-      [el, elM].forEach(b=>{
-        if(!b) return;
-        if(count>0){ b.style.display='flex'; b.textContent = String(count); }
-        else{ b.style.display='none'; b.textContent='0'; }
-      });
-    }
-
-    // навесим обработчики на все кнопки .add-to-cart
-    document.querySelectorAll('.add-to-cart').forEach(btn=>{
-      btn.addEventListener('click', (e)=>{
-        const card = e.target.closest('.card');
-        if(!card) return;
-        const item = {
-          id: card.dataset.id,
-          title: card.dataset.title || card.querySelector('.title')?.textContent?.trim() || 'Item',
-          price: Number(card.dataset.price||0) || 0,
-          qty: 1
-        };
-        addToCart(item);
-        // небольшая обратная связь
-        e.target.textContent = 'Добавлено ✓';
-        setTimeout(()=>{ e.target.textContent = 'Добавить в корзину'; }, 1200);
-      });
-    });
-
-    // первичный рендер счётчика
-    updateCartCount();
-  </script>
+  // общий счётчик корзины
+  function readCart(){ try{return JSON.parse(localStorage.getItem('livi_cart_v2')||'[]')}catch(e){return []} }
+  function updateBadge(){
+    const count = readCart().reduce((s,i)=>s+i.qty,0);
+    const b = document.getElementById('cartBadge');
+    if(count>0){ b.textContent=count; b.style.display='inline-block'; } else { b.style.display='none'; }
+  }
+  window.addEventListener('storage',e=>{ if(e.key==='livi_cart_v2') updateBadge(); });
+  updateBadge();
+</script>
 </body>
 </html>
