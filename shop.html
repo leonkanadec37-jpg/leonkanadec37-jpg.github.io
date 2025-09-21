@@ -17,7 +17,6 @@
   .nav-left a{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px}
   .nav-right{display:flex;align-items:center;gap:8px}
   .chip{border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px}
-  .chip:hover{background:#111;color:#fff;border-color:#111}
   .cart-link{position:relative}
   .cart-badge{position:absolute;top:-6px;right:-6px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:4px 6px;min-width:20px;text-align:center}
 
@@ -28,7 +27,7 @@
   .tag.active{background:#111;color:#fff;border-color:#111}
 
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
-  .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;transition:transform .2s, box-shadow .2s}
+  .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;transition:transform .2s, box-shadow .2s;cursor:pointer}
   .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
   .img{aspect-ratio:4/5;background:#f4f4f4}
   .img img{width:100%;height:100%;object-fit:cover;display:block}
@@ -36,8 +35,24 @@
   .title{font-weight:600;margin-bottom:6px}
   .price{color:#111;font-weight:700}
   .muted{color:var(--muted);font-size:14px;margin-bottom:8px}
-  .btn{display:inline-block;background:#111;color:#fff;padding:10px 14px;border-radius:999px;font-size:14px}
+  .btn{display:inline-block;background:#111;color:#fff;padding:10px 14px;border-radius:999px;font-size:14px;border:0}
   .btn:active{transform:translateY(1px)}
+
+  /* MODAL */
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:16px;z-index:100}
+  .modal.open{display:flex}
+  .modal-card{width:min(960px,96vw);max-height:92vh;overflow:auto;background:#fff;border-radius:18px;border:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr}
+  .modal-left{border-right:1px solid var(--line);background:#000}
+  .modal-left img{width:100%;height:100%;object-fit:contain;display:block;background:#000}
+  .modal-right{padding:18px}
+  .modal-title{font-size:20px;font-weight:700;margin-bottom:6px}
+  .modal-price{font-weight:700;margin-bottom:10px}
+  .modal-desc{color:var(--muted);font-size:14px;margin-bottom:14px}
+  .qty{display:flex;align-items:center;gap:10px;margin:10px 0 16px}
+  .qty button{width:32px;height:32px;border-radius:10px;border:1px solid var(--line);background:#fff;cursor:pointer}
+  .modal-actions{display:flex;gap:10px;flex-wrap:wrap}
+  .close{position:absolute;top:16px;right:16px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 10px;cursor:pointer}
+  @media (max-width:780px){ .modal-card{grid-template-columns:1fr} .modal-left{border-right:0;max-height:48vh} }
 </style>
 </head>
 <body>
@@ -63,51 +78,63 @@
   <div class="grid" id="grid"></div>
 </main>
 
+<!-- MODAL -->
+<div id="modal" class="modal" role="dialog" aria-modal="true" aria-label="Просмотр товара">
+  <div class="modal-card">
+    <div class="modal-left"><img id="mImg" alt=""></div>
+    <div class="modal-right">
+      <div class="modal-title" id="mTitle"></div>
+      <div class="muted" id="mCat"></div>
+      <div class="modal-price" id="mPrice"></div>
+      <div class="modal-desc" id="mDesc"></div>
+      <div class="qty">
+        <button id="mMinus" aria-label="Уменьшить количество">−</button>
+        <span id="mQty">1</span>
+        <button id="mPlus" aria-label="Увеличить количество">+</button>
+      </div>
+      <div class="modal-actions">
+        <button id="mAdd" class="btn">Добавить в корзину</button>
+        <a class="btn" href="cart.html">Открыть корзину</a>
+      </div>
+    </div>
+  </div>
+  <button class="close" id="mClose" aria-label="Закрыть">✕</button>
+</div>
+
 <script>
-  // ====== ВСЕ ТОВАРЫ (как договорились — все категории на одной странице)
+  // ====== Список товаров (те же, что уже использовались)
   const PRODUCTS = [
-    // КОЛЬЕ
-    {id:'p01', title:'Колье', price:'20 000 тг', img:'assets/Колье 20.000 тг.JPG', cat:'Колье'},
-    {id:'p02', title:'Комплект: Колье + Серьги', price:'Колье 40 000 тг · Серьги 10 000 тг', img:'assets/Колье 40.000 тг Серьги 10.000 тг.jpg', cat:'Комплекты'},
-    {id:'p03', title:'Колье', price:'40 000 тг', img:'assets/Колье 40.000 тг.jpg', cat:'Колье'},
-    {id:'p04', title:'Колье из гематита', price:'20 000 тг', img:'assets/Колье из гематита 20.000 тг.jpg', cat:'Колье'},
-    {id:'p05', title:'Колье из жемчуга', price:'60 000 тг', img:'assets/Колье из жемчуга 60.000 тг.JPG', cat:'Колье'},
-    {id:'p06', title:'Колье из жемчуга', price:'65 000 тг', img:'assets/Колье из жемчуга 65.000 тг.jpg', cat:'Колье'},
-    {id:'p07', title:'Колье из жемчуга', price:'70 000 тг', img:'assets/Колье из жемчуга 70.000 тг.jpg', cat:'Колье'},
-    {id:'p08', title:'Колье Майорка', price:'28 000 тг', img:'assets/Колье из жемчуга Майорка 28.000 тг.jpg', cat:'Колье'},
-    {id:'p09', title:'Колье Майорка', price:'32 000 тг', img:'assets/Колье из жемчуга Майорка 32.000 тг.jpg', cat:'Колье'},
-    {id:'p10', title:'Колье из натуральных камней', price:'20 000 тг', img:'assets/Колье из натуральных камней 20.000 тг.jpg', cat:'Колье'},
-    {id:'p11', title:'Колье из натуральных камней', price:'23 000 тг (браслет 8 500, серьги 8 500 отдельно)', img:'assets/Колье из натуральных камней 23.000 тг Браслет 8.500 тг Серьги 8.500 тг.jpg', cat:'Колье'},
-    {id:'p12', title:'Колье из натуральных камней', price:'40 000 тг', img:'assets/Колье из натуральных камней 40.000 тг.jpg', cat:'Колье'},
-    {id:'p13', title:'Колье из ракушки', price:'14 000 тг', img:'assets/Колье из ракушки 14.000 тг.jpg', cat:'Колье'},
-    {id:'p14', title:'Колье «Ракушка»', price:'14 000 тг', img:'assets/колье Ракушка 14.000 тг.jpg', cat:'Колье'},
-    {id:'p15', title:'Колье-трансформер', price:'40 000 тг', img:'assets/Колье трансформер 40.000 тг.jpg', cat:'Колье'},
-    {id:'p16', title:'Колье-трансформер', price:'41 000 тг', img:'assets/Колье трансформер 41.000 тг.jpg', cat:'Колье'},
-
-    // КОМПЛЕКТЫ
-    {id:'p02dup', title:'Комплект: Колье + Серьги', price:'Колье 40 000 тг · Серьги 10 000 тг', img:'assets/Колье 40.000 тг Серьги 10.000 тг.jpg', cat:'Комплекты'},
-
-    // БРАСЛЕТЫ
-    {id:'p17', title:'Многослойные браслеты', price:'15 000 тг', img:'assets/Многослойные браслеты 15.000 тг.jpg', cat:'Браслеты'},
-
-    // СОТУАРЫ
-    {id:'p18', title:'Сотуар-галстук + серьги', price:'Сотуар 27 000 тг · Серьги 12 000 тг', img:'assets/Сотуар галстук 27.000 тг Серьги 12.000 тг.jpg', cat:'Сотуары'},
-    {id:'p19', title:'Сотуар-трансформер + серьги', price:'Сотуар 20 000 тг · Серьги 10 000 тг', img:'assets/Сотуар трансформер 20.000 тг Серьги 10.000 тг.jpg', cat:'Сотуары'},
-
-    // ЦЕПИ
-    {id:'p20', title:'Цепь', price:'15 000 тг', img:'assets/Цепь 15.000 тг.jpg', cat:'Цепи'}
+    {id:'p01', title:'Колье', price:'20 000 тг', img:'assets/Колье 20.000 тг.JPG', cat:'Колье', desc:'Минималистичное авторское колье.'},
+    {id:'p02', title:'Комплект: Колье + Серьги', price:'Колье 40 000 тг · Серьги 10 000 тг', img:'assets/Колье 40.000 тг Серьги 10.000 тг.jpg', cat:'Комплекты', desc:'Комплект ручной работы. Серьги приобретаются отдельно.'},
+    {id:'p03', title:'Колье', price:'40 000 тг', img:'assets/Колье 40.000 тг.jpg', cat:'Колье', desc:'Классическое колье с акцентной подвеской.'},
+    {id:'p04', title:'Колье из гематита', price:'20 000 тг', img:'assets/Колье из гематита 20.000 тг.jpg', cat:'Колье', desc:'Сталь и гематит. Унисекс-настроение и ровный блеск.'},
+    {id:'p05', title:'Колье из жемчуга', price:'60 000 тг', img:'assets/Колье из жемчуга 60.000 тг.JPG', cat:'Колье', desc:'Многослойный натуральный жемчуг, фурнитура люкс.'},
+    {id:'p06', title:'Колье из жемчуга', price:'65 000 тг', img:'assets/Колье из жемчуга 65.000 тг.jpg', cat:'Колье', desc:'Элегантная классика с барочным характером.'},
+    {id:'p07', title:'Колье из жемчуга', price:'70 000 тг', img:'assets/Колье из жемчуга 70.000 тг.jpg', cat:'Колье', desc:'Выразительный жемчуг и стойкая фурнитура.'},
+    {id:'p08', title:'Колье Майорка', price:'28 000 тг', img:'assets/Колье из жемчуга Майорка 28.000 тг.jpg', cat:'Колье', desc:'Жемчуг Майорка — аккуратные пропорции, мягкий блеск.'},
+    {id:'p09', title:'Колье Майорка', price:'32 000 тг', img:'assets/Колье из жемчуга Майорка 32.000 тг.jpg', cat:'Колье', desc:'Майорка с золотистыми акцентами.'},
+    {id:'p10', title:'Колье из натуральных камней', price:'20 000 тг', img:'assets/Колье из натуральных камней 20.000 тг.jpg', cat:'Колье', desc:'Натуральные камни и тактильная фактура.'},
+    {id:'p11', title:'Колье из натуральных камней', price:'23 000 тг (браслет 8 500, серьги 8 500 отдельно)', img:'assets/Колье из натуральных камней 23.000 тг Браслет 8.500 тг Серьги 8.500 тг.jpg', cat:'Колье', desc:'Коллекция в природной палитре. Браслет и серьги покупаются отдельно.'},
+    {id:'p12', title:'Колье из натуральных камней', price:'40 000 тг', img:'assets/Колье из натуральных камней 40.000 тг.jpg', cat:'Колье', desc:'Насыщенные оттенки натуральных камней.'},
+    {id:'p13', title:'Колье из ракушки', price:'14 000 тг', img:'assets/Колье из ракушки 14.000 тг.jpg', cat:'Колье', desc:'Лето в деталях — ракушка и лёгкие формы.'},
+    {id:'p14', title:'Колье «Ракушка»', price:'14 000 тг', img:'assets/колье Ракушка 14.000 тг.jpg', cat:'Колье', desc:'Ракушка — мягкий блеск и тёплый тон.'},
+    {id:'p15', title:'Колье-трансформер', price:'40 000 тг', img:'assets/Колье трансформер 40.000 тг.jpg', cat:'Колье', desc:'Несколько вариантов ношения в одном изделии.'},
+    {id:'p16', title:'Колье-трансформер', price:'41 000 тг', img:'assets/Колье трансформер 41.000 тг.jpg', cat:'Колье', desc:'Переосмысление классики: игра форм и длин.'},
+    {id:'p17', title:'Многослойные браслеты', price:'15 000 тг', img:'assets/Многослойные браслеты 15.000 тг.jpg', cat:'Браслеты', desc:'Сеты браслетов — миксуйте и сочетайте.'},
+    {id:'p18', title:'Сотуар-галстук + серьги', price:'Сотуар 27 000 тг · Серьги 12 000 тг', img:'assets/Сотуар галстук 27.000 тг Серьги 12.000 тг.jpg', cat:'Сотуары', desc:'Сотуар и серьги можно приобрести отдельно.'},
+    {id:'p19', title:'Сотуар-трансформер + серьги', price:'Сотуар 20 000 тг · Серьги 10 000 тг', img:'assets/Сотуар трансформер 20.000 тг Серьги 10.000 тг.jpg', cat:'Сотуары', desc:'Трансформер с возможностью стилизовать под образ.'},
+    {id:'p20', title:'Цепь', price:'15 000 тг', img:'assets/Цепь 15.000 тг.jpg', cat:'Цепи', desc:'Минимализм и ежедневная универсальность.'}
   ];
-
   const CATS = ['Все','Колье','Комплекты','Браслеты','Сотуары','Цепи'];
 
   const grid = document.getElementById('grid');
   const filters = document.getElementById('filters');
   let activeCat = localStorage.getItem('livi_active_cat') || 'Все';
 
+  // ====== фильтры
   function renderFilters(){
     filters.innerHTML = '';
     CATS.forEach(c=>{
-      // показываем только непустые категории
       if(c!=='Все' && !PRODUCTS.some(p=>p.cat===c)) return;
       const btn = document.createElement('button');
       btn.className='tag'+(c===activeCat?' active':'');
@@ -117,6 +144,7 @@
     });
   }
 
+  // ====== сетка
   function renderGrid(){
     grid.innerHTML = '';
     const items = activeCat==='Все' ? PRODUCTS : PRODUCTS.filter(p=>p.cat===activeCat);
@@ -129,31 +157,77 @@
           <div class="muted">${p.cat}</div>
           <div class="price">${p.price}</div>
           <div style="margin-top:10px">
-            <button class="btn" data-id="${p.id}">Добавить в корзину</button>
+            <button class="btn" data-id="${p.id}" data-action="add">Добавить в корзину</button>
           </div>
         </div>`;
-      card.querySelector('[data-id]').onclick = ()=>addToCart(p);
+      // открыть модал по клику на карточку (кроме кнопки)
+      card.addEventListener('click', (e)=>{
+        if(e.target && e.target.dataset && e.target.dataset.action==='add'){ return; }
+        openModal(p);
+      });
+      // кнопка добавления (без открытия модала)
+      card.querySelector('[data-action="add"]').onclick=()=>addToCart(p,1);
       grid.appendChild(card);
     });
   }
 
-  // ====== Корзина (единый ключ для всех страниц)
+  // ====== корзина
   function readCart(){ try{return JSON.parse(localStorage.getItem('livi_cart_v2')||'[]')}catch(e){return []} }
   function writeCart(v){ localStorage.setItem('livi_cart_v2', JSON.stringify(v)); updateBadge(); }
-  function addToCart(p){
+  function addToCart(p, qty){
+    const q = Math.max(1, Number(qty||1));
     const cart = readCart();
     const i = cart.findIndex(x=>x.id===p.id);
-    if(i>-1) cart[i].qty += 1;
-    else cart.push({id:p.id,title:p.title,price:p.price,img:p.img,qty:1});
+    if(i>-1) cart[i].qty += q; else cart.push({id:p.id,title:p.title,price:p.price,img:p.img,qty:q});
     writeCart(cart);
   }
   function updateBadge(){
     const count = readCart().reduce((s,i)=>s+i.qty,0);
     const b = document.getElementById('cartBadge');
-    if(count>0){ b.textContent=count; b.style.display='inline-block'; } else { b.style.display='none'; }
+    b.style.display = count>0 ? 'inline-block':'none';
+    if(count>0) b.textContent = count;
   }
   window.addEventListener('storage',e=>{ if(e.key==='livi_cart_v2') updateBadge(); });
 
+  // ====== MODAL
+  const modal = document.getElementById('modal');
+  const mImg  = document.getElementById('mImg');
+  const mTitle= document.getElementById('mTitle');
+  const mCat  = document.getElementById('mCat');
+  const mPrice= document.getElementById('mPrice');
+  const mDesc = document.getElementById('mDesc');
+  const mQtyEl= document.getElementById('mQty');
+  const mMinus= document.getElementById('mMinus');
+  const mPlus = document.getElementById('mPlus');
+  const mAdd  = document.getElementById('mAdd');
+  const mClose= document.getElementById('mClose');
+
+  let currentProduct = null;
+
+  function openModal(p){
+    currentProduct = p;
+    mImg.src = p.img;
+    mImg.alt = p.title;
+    mTitle.textContent = p.title;
+    mCat.textContent = p.cat;
+    mPrice.textContent = p.price;
+    mDesc.textContent = p.desc || 'Авторская работа. Гипоаллергенная фурнитура, натуральные материалы.';
+    mQtyEl.textContent = '1';
+    modal.classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    document.body.style.overflow='';
+  }
+  mMinus.onclick = ()=>{ const n=Math.max(1, Number(mQtyEl.textContent)-1); mQtyEl.textContent=n; };
+  mPlus.onclick  = ()=>{ const n=Number(mQtyEl.textContent)+1; mQtyEl.textContent=n; };
+  mAdd.onclick   = ()=>{ if(currentProduct){ addToCart(currentProduct, Number(mQtyEl.textContent)); closeModal(); } };
+  mClose.onclick = closeModal;
+  modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
+
+  // init
   renderFilters(); renderGrid(); updateBadge();
 </script>
 </body>
