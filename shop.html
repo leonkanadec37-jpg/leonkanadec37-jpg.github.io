@@ -1,165 +1,99 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Livi Jewelry — Каталог</title>
-<meta name="description" content="Авторские колье и чокеры Livi Jewelry из жемчуга и натуральных камней.">
-<style>
-  :root{--fg:#111;--muted:#5c5c5c;--line:#eaeaea;--bg:#fff;--radius:20px;--shadow:0 8px 24px rgba(0,0,0,.08)}
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial}
-  a{color:inherit;text-decoration:none}
-  img{display:block;max-width:100%;height:auto}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Livi Jewelry — Каталог</title>
 
-  header{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line);backdrop-filter:saturate(140%) blur(6px)}
-  .nav{max-width:1240px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:12px}
-  .brand{font-weight:700;letter-spacing:.06em}
-  .spacer{flex:1}
-  .btn, .chip{border:1px solid var(--line);border-radius:999px;padding:10px 14px;background:#fff;transition:.2s}
-  .btn:hover,.chip:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
-  .cart{display:inline-flex;align-items:center;gap:8px;position:relative}
-  .badge{position:absolute;top:-8px;right:-10px;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:#111;color:#fff;font-size:12px;display:none;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.2)}
-  
-  .wrap{max-width:1240px;margin:0 auto;padding:24px 20px}
-  h1{font-size:clamp(22px,4.6vw,34px);margin-bottom:6px}
-  .muted{color:var(--muted)}
+  <!-- Склейка домена -->
+  <script>
+    (function () {
+      var canonical = "livijewelry.kz"; // твой основной домен
+      var h = location.hostname.toLowerCase();
+      var needRedirect =
+        h === "www." + canonical ||
+        h.endsWith(".github.io") ||
+        h !== canonical;
+      if (needRedirect) {
+        var url = "https://" + canonical + location.pathname + location.search + location.hash;
+        location.replace(url);
+      }
+    })();
+  </script>
 
-  .controls{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
-  .pill{border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:#fff;cursor:pointer}
-  .pill.active{background:#111;color:#fff;border-color:#111}
-  .search{border:1px solid var(--line);border-radius:999px;padding:10px 14px;min-width:220px}
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 0; background: #fff; color: #111; }
+    header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid #eee; position: sticky; top: 0; background: #fff; z-index: 50; }
+    .brand { font-weight: bold; font-size: 18px; }
+    nav a { margin-left: 16px; text-decoration: none; color: #111; }
+    .cart-icon { position: relative; cursor: pointer; }
+    .cart-count { position: absolute; top: -8px; right: -10px; background: #111; color: #fff; border-radius: 50%; padding: 2px 6px; font-size: 12px; }
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-  .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;display:flex;flex-direction:column;transition:.2s}
-  .card:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
-  .img{aspect-ratio:4/5;background:#f4f4f4;overflow:hidden}
-  .img img{width:100%;height:100%;object-fit:cover}
-  .body{padding:14px;display:flex;flex-direction:column;gap:8px}
-  .title{font-weight:600}
-  .price{font-weight:700}
-  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-  .btn.primary{background:#111;color:#fff;border-color:#111}
-  .btn:active{transform:translateY(1px)}
-
-  footer{margin:40px 0 20px;text-align:center;color:#777}
-  @media (max-width:860px){ .nav .chip.hide-sm{display:none} }
-</style>
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 24px; }
+    .card { border: 1px solid #eee; border-radius: 16px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+    .card img { width: 100%; height: 300px; object-fit: cover; }
+    .card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+    .card-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+    .card-price { font-size: 14px; color: #666; margin-bottom: 12px; }
+    .btn { padding: 10px 14px; border: none; border-radius: 999px; background: #111; color: #fff; cursor: pointer; transition: .25s; }
+    .btn:hover { transform: translateY(-2px); }
+  </style>
 </head>
 <body>
+
 <header>
-  <div class="nav">
-    <a class="brand" href="index.html">LIVI JEWELRY</a>
-    <a class="chip" href="index.html">Главная</a>
-    <div class="spacer"></div>
-    <a class="chip hide-sm" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-    <a class="chip hide-sm" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20заказать%20украшение%20с%20сайта%20Livi." target="_blank" rel="noopener">WhatsApp</a>
-    <a class="chip cart" href="cart.html" aria-label="Корзина">
-      🛒 Корзина
-      <span id="cartCount" class="badge">0</span>
-    </a>
-  </div>
+  <div class="brand"><a href="index.html">Livi Jewelry</a></div>
+  <nav>
+    <a href="index.html">Главная</a>
+    <a href="shop.html">Каталог</a>
+    <a href="cart.html" class="cart-icon">🛒 <span id="cartCount" class="cart-count">0</span></a>
+  </nav>
 </header>
 
-<main class="wrap">
-  <h1>Каталог</h1>
-  <p class="muted">Выберите категорию или воспользуйтесь поиском.</p>
-
-  <div class="controls">
-    <button class="pill active" data-filter="all">Все</button>
-    <button class="pill" data-filter="necklace">Колье</button>
-    <button class="pill" data-filter="choker">Чокеры</button>
-    <input id="q" class="search" type="search" placeholder="Поиск по названию…">
-  </div>
-
-  <div id="grid" class="grid"></div>
-</main>
-
-<footer>© Livi Jewelry</footer>
-
-<script>
-/* ---------- Каталог: данные ---------- */
-const products = [
-  {id:'n1', name:'Колье 20.000 тг',                price:20000, category:'necklace', img:'assets/necklaces/Колье 20.000 тг.JPG'},
-  {id:'n2', name:'Колье 40.000 тг',                price:40000, category:'necklace', img:'assets/necklaces/Колье 40.000 тг.jpg'},
-  {id:'n3', name:'Колье 40.000 тг + Серьги 10.000', price:40000, category:'necklace', img:'assets/necklaces/Колье 40.000 тг Серьги 10.000 тг.jpg'},
-  {id:'n4', name:'Колье из гематита 20.000 тг',    price:20000, category:'necklace', img:'assets/necklaces/Колье из гематита 20.000 тг.jpg'},
-  {id:'n5', name:'Колье из жемчуга 60.000 тг',     price:60000, category:'necklace', img:'assets/necklaces/Колье из жемчуга 60.000 тг.JPG'},
-  {id:'n6', name:'Колье из жемчуга 65.000 тг',     price:65000, category:'necklace', img:'assets/necklaces/Колье из жемчуга 65.000 тг.jpg'},
-  {id:'n7', name:'Колье из жемчуга 70.000 тг',     price:70000, category:'necklace', img:'assets/necklaces/Колье из жемчуга 70.000 тг.jpg'},
-  {id:'n8', name:'Колье из жемчуга Майорка 28.000',price:28000, category:'necklace', img:'assets/necklaces/Колье из жемчуга Майорка 28.000 тг.jpg'},
-  {id:'n9', name:'Колье из жемчуга Майорка 32.000',price:32000, category:'necklace', img:'assets/necklaces/Колье из жемчуга Майорка 32.000 тг.jpg'},
-  {id:'n10',name:'Колье из натуральных камней 20.000',price:20000, category:'necklace', img:'assets/necklaces/Колье из натуральных камней 20.000 тг.jpg'},
-  // Пример для будущих чокеров:
-  // {id:'c1', name:'Чокер …', price:..., category:'choker', img:'assets/chokers/…'}
-];
-
-const grid = document.getElementById('grid');
-const searchInput = document.getElementById('q');
-
-function formatPrice(p){ return new Intl.NumberFormat('ru-RU').format(p) + ' ₸'; }
-
-function cardHTML(p){
-  return `
-  <article class="card" data-cat="${p.category}" data-name="${p.name.toLowerCase()}">
-    <div class="img"><img src="${p.img}" alt="${p.name}"></div>
-    <div class="body">
-      <div class="title">${p.name}</div>
-      <div class="price">${formatPrice(p.price)}</div>
-      <div class="row">
-        <button class="btn primary" onclick="addToCart('${p.id}')">Добавить в корзину</button>
+<main>
+  <div class="grid">
+    <div class="card">
+      <img src="assets/Колье%2020.000%20тг.JPG" alt="Колье 20.000 тг">
+      <div class="card-body">
+        <div class="card-title">Колье</div>
+        <div class="card-price">20 000 тг</div>
+        <button class="btn" onclick="addToCart('Колье', 20000)">Добавить в корзину</button>
       </div>
     </div>
-  </article>`;
-}
 
-function render(list=products){ grid.innerHTML = list.map(cardHTML).join(''); }
-render();
+    <div class="card">
+      <img src="assets/Колье%2040.000%20тг.jpg" alt="Колье 40.000 тг">
+      <div class="card-body">
+        <div class="card-title">Колье</div>
+        <div class="card-price">40 000 тг</div>
+        <button class="btn" onclick="addToCart('Колье', 40000)">Добавить в корзину</button>
+      </div>
+    </div>
 
-/* ---------- Фильтрация/поиск ---------- */
-let activeFilter = 'all';
-document.querySelectorAll('.pill').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.pill').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    activeFilter = btn.dataset.filter;
-    applyFilter();
-  });
-});
-searchInput.addEventListener('input', applyFilter);
+    <!-- Добавляй остальные товары по такому же принципу -->
+  </div>
+</main>
 
-function applyFilter(){
-  const q = searchInput.value.trim().toLowerCase();
-  const filtered = products.filter(p=>{
-    const catOK = (activeFilter==='all') || (p.category===activeFilter);
-    const qOK = !q || p.name.toLowerCase().includes(q);
-    return catOK && qOK;
-  });
-  render(filtered);
-}
-
-/* ---------- Корзина ---------- */
-const CART_KEY = 'livi-cart';
-function getCart(){ try{ return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch(e){ return []; } }
-function saveCart(cart){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); updateBadge(); }
-function addToCart(id){
-  const item = products.find(p=>p.id===id);
-  if(!item) return;
-  const cart = getCart();
-  const found = cart.find(x=>x.id===id);
-  if(found) found.qty += 1;
-  else cart.push({id:item.id,name:item.name,price:item.price,img:item.img,qty:1});
-  saveCart(cart);
-  const btn = event?.target; if(btn){ btn.textContent='Добавлено ✓'; setTimeout(()=>btn.textContent='Добавить в корзину',900); }
-}
-function countCartItems(){ return getCart().reduce((s,x)=>s+x.qty,0); }
-function updateBadge(){
-  const n = countCartItems();
-  const b = document.getElementById('cartCount');
-  b.textContent = n;
-  b.style.display = n>0 ? 'inline-flex':'none';
-}
-updateBadge();
+<script>
+  function loadCart() {
+    return JSON.parse(localStorage.getItem("cart") || "[]");
+  }
+  function saveCart(cart) {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount();
+  }
+  function addToCart(name, price) {
+    const cart = loadCart();
+    cart.push({ name, price });
+    saveCart(cart);
+    alert(name + " добавлено в корзину!");
+  }
+  function updateCartCount() {
+    const cart = loadCart();
+    document.getElementById("cartCount").textContent = cart.length;
+  }
+  updateCartCount();
 </script>
+
 </body>
 </html>
