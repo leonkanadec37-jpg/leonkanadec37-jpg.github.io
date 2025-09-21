@@ -3,53 +3,55 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Livi Jewelry — Каталог</title>
-<link rel="icon" href="assets/IMG_5350.JPG">
+<title>Livi — Каталог</title>
+<link rel="icon" href="favicon.ico">
 <style>
-  :root{--fg:#111;--muted:#666;--line:#eee;--bg:#fff;--pill:#f7f7f7;--radius:18px;--shadow:0 8px 28px rgba(0,0,0,.08)}
+  :root{--fg:#111;--muted:#666;--line:#eee;--bg:#fff;--radius:18px;--shadow:0 8px 28px rgba(0,0,0,.08)}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--fg)}
-  a{color:inherit;text-decoration:none}
-  header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);backdrop-filter:saturate(140%) blur(8px)}
+  body{font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#fff;color:var(--fg)}
+  a{text-decoration:none;color:inherit}
+  header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
   .nav{max-width:1240px;margin:0 auto;padding:14px 20px;display:flex;gap:12px;align-items:center;justify-content:space-between}
-  .brand{font-weight:700;letter-spacing:.08em}
-  .right{display:flex;align-items:center;gap:10px}
-  .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;font-size:14px}
-  .cart-icon{position:relative}
-  .badge{position:absolute;right:-8px;top:-8px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:3px 7px;min-width:20px;text-align:center}
+  .brand{font-weight:800;letter-spacing:.08em}
+  .nav-left{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .nav-left a{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px}
+  .nav-right{display:flex;align-items:center;gap:8px}
+  .chip{border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px}
+  .chip:hover{background:#111;color:#fff;border-color:#111}
+  .cart-link{position:relative}
+  .cart-badge{position:absolute;top:-6px;right:-6px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:4px 6px;min-width:20px;text-align:center}
+
   .wrap{max-width:1240px;margin:0 auto;padding:28px 20px}
-  h1{font-size:clamp(22px,4.8vw,36px);margin-bottom:12px}
-  .filters{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 24px}
-  .filter{background:var(--pill);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px;cursor:pointer}
-  .filter.active{background:#111;color:#fff;border-color:#111}
+  h1{font-size:clamp(24px,4.4vw,40px);margin-bottom:10px}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .tag{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px;cursor:pointer}
+  .tag.active{background:#111;color:#fff;border-color:#111}
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
-  .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;transition:.2s}
-  .card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
-  .img{aspect-ratio:4/5;background:#fafafa;overflow:hidden}
+  .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;transition:transform .2s, box-shadow .2s}
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .img{aspect-ratio:4/5;background:#f4f4f4}
   .img img{width:100%;height:100%;object-fit:cover;display:block}
-  .body{padding:14px}
+  .body{padding:12px}
   .title{font-weight:600;margin-bottom:6px}
-  .price{color:#111;font-weight:600}
-  .note{color:var(--muted);font-size:13px;margin-top:4px}
-  .row{display:flex;align-items:center;justify-content:space-between;margin-top:12px;gap:10px}
-  .btn{display:inline-block;border-radius:999px;background:#111;color:#fff;padding:10px 14px;font-size:14px;border:0;cursor:pointer}
-  .btn.alt{background:#fff;color:#111;border:1px solid var(--line)}
-  footer{margin:36px 0 20px;color:var(--muted);text-align:center;font-size:14px}
-  @media (max-width:600px){
-    .grid{gap:14px}
-    .body{padding:12px}
-  }
+  .price{color:#111;font-weight:700}
+  .muted{color:var(--muted);font-size:14px;margin-bottom:8px}
+  .btn{display:inline-block;background:#111;color:#fff;padding:10px 14px;border-radius:999px;font-size:14px}
+  .btn:active{transform:translateY(1px)}
 </style>
 </head>
 <body>
 <header>
   <div class="nav">
-    <a class="brand" href="index.html">LIVI JEWELRY</a>
-    <div class="right">
-      <a class="chip" href="index.html">Главная</a>
-      <a class="chip cart-icon" href="cart.html" aria-label="Корзина">
-        🛍️ Корзина <span id="cartBadge" class="badge" style="display:none">0</span>
+    <div class="nav-left">
+      <a class="brand" href="index.html">LIVI JEWELRY</a>
+      <a href="shop.html">Каталог</a>
+      <a class="cart-link" href="cart.html">
+        Корзина <span id="cartBadge" class="cart-badge" style="display:none;">0</span>
       </a>
+    </div>
+    <div class="nav-right">
+      <a class="chip" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
+      <a class="chip" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </div>
 </header>
@@ -57,102 +59,94 @@
 <main class="wrap">
   <h1>Каталог</h1>
   <div class="filters" id="filters"></div>
-  <div class="grid" id="grid" aria-live="polite"></div>
+  <div class="grid" id="grid"></div>
 </main>
 
-<footer>© Livi Jewelry · Казахстан</footer>
-
 <script>
-/* ======== ДАННЫЕ ТОВАРОВ (имена файлов – как в assets, с пробелами в %20) ======== */
-const PRODUCTS = [
-  // КОЛЬЕ
-  {id:'k20', title:'Колье', price:20000, cat:'Колье', img:'assets/%D0%9A%D0%BE%D0%BB%D1%8C%D0%B5%2020.000%20%D1%82%D0%B3.JPG'},
-  {id:'k40e10', title:'Колье + Серьги', price:40000, note:'Серьги 10 000 тг отдельно', cat:'Колье', img:'assets/%D0%9A%D0%BE%D0%BB%D1%8C%D0%B5%2040.000%20%D1%82%D0%B3%20%D0%A1%D0%B5%D1%80%D1%8C%D0%B3%D0%B8%2010.000%20%D1%82%D0%B3.jpg'},
-  {id:'k40', title:'Колье', price:40000, cat:'Колье', img:'assets/%D0%9A%D0%BE%D0%BB%D1%8C%D0%B5%2040.000%20%D1%82%D0%B3.jpg'},
-  {id:'khemat20', title:'Колье из гематита', price:20000, cat:'Колье', img:'assets/%D0%9A%D0%BE%D0%BB%D1%8C%D0%B5%20%D0%B8%D0%B7%20%D0%B3%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D1%82%D0%B0%2020.000%20%D1%82%D0%B3.jpg'},
-  {id:'kpearl60', title:'Колье из жемчуга', price:60000, cat:'Колье', img:'assets/%D0%9A%D0%BE%D0%BB%D1%8C%D0%B5%20%D0%B8%D0%B7%20%D0%B6%D0%B5%D0%BC%D1%87%D1%83%D0%B3%D0%B0%2060.000%20%D1%82%D0%B3.JPG'},
-  {id:'kpearl65', title:'Колье из жемчуга', price:65000, cat:'Колье', img:'assets/%D0%9A%D0%BE%D0%BB%D1%8C%D0%B5%20%D0%B8%D0%B7%20%D0%B6%D0%B5%D0%BC%D1%87%D1%83%D0%B3%D0%B0%2065.000%20%D1%82%D0%B3.jpg'},
-  {id:'kpearl70', title:'Колье из жемчуга', price:70000, cat:'Колье', img:'assets/%D0%9A%D0%BE%D0%BB%D1%8C%D0%B5%20%D0%B8%D0%B7%20%D0%B6%D0%B5%D0%BC%D1%87%D1%83%D0%B3%D0%B0%2070.000%20%D1%82%D0%B3.jpg'},
-  {id:'kmaj28', title:'Колье из жемчуга Майорка', price:28000, cat:'Колье', img:'assets/%D0%9A%D0%BE%D0%BB%D1%8C%D0%B5%20%D0%B8%D0%B7%20%D0%B6%D0%B5%D0%BC%D1%87%D1%83%D0%B3%D0%B0%20%D0%9C%D0%B0%D0%B9%D0%BE%D1%80%D0%BA%D0%B0%2028.000%20%D1%82%D0%B3.jpg'},
-  {id:'kmaj32', title:'Колье из жемчуга Майорка', price:32000, cat:'Колье', img:'assets/%D0%9A%D0%BE%D0%BB%D1%8C%D0%B5%20%D0%B8%D0%B7%20%D0%B6%D0%B5%D0%BC%D1%87%D1%83%D0%B3%D0%B0%20%D0%9C%D0%B0%D0%B9%D0%BE%D1%80%D0%BA%D0%B0%2032.000%20%D1%82%D0%B3.jpg'},
-  {id:'knat20', title:'Колье из натуральных камней', price:20000, cat:'Колье', img:'assets/%D0%9A%D0%BE%D0%BB%D1%8C%D0%B5%20%D0%B8%D0%B7%20%D0%BD%D0%B0%D1%82%D1%83%D1%80%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D1%85%20%D0%BA%D0%B0%D0%BC%D0%BD%D0%B5%D0%B9%2020.000%20%D1%82%D0%B3.jpg'},
-  {id:'knat23set', title:'Колье из натуральных камней', price:23000, note:'Браслет 8 500 тг · Серьги 8 500 тг отдельно', cat:'Колье', img:'assets/%D0%9A%D0%BE%D0%BB%D1%8C%D0%B5%20%D0%B8%D0%B7%20%D0%BD%D0%B0%D1%82%D1%83%D1%80%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D1%85%20%D0%BA%D0%B0%D0%BC%D0%BD%D0%B5%D0%B9%2023.000%20%D1%82%D0%B3%20%D0%91%D1%80%D0%B0%D1%81%D0%BB%D0%B5%D1%82%208.500%20%D1%82%D0%B3%20%D0%A1%D0%B5%D1%80%D1%8C%D0%B3%D0%B8%208.500%20%D1%82%D0%B3.jpg'},
-  {id:'knat40', title:'Колье из натуральных камней', price:40000, cat:'Колье', img:'assets/%D0%9A%D0%BE%D0%BB%D1%8C%D0%B5%20%D0%B8%D0%B7%20%D0%BD%D0%B0%D1%82%D1%83%D1%80%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D1%85%20%D0%BA%D0%B0%D0%BC%D0%BD%D0%B5%D0%B9%2040.000%20%D1%82%D0%B3.jpg'},
-  {id:'kshell14', title:'Колье из ракушки', price:14000, cat:'Колье', img:'assets/%D0%9A%D0%BE%D0%BB%D1%8C%D0%B5%20%D0%B8%D0%B7%20%D1%80%D0%B0%D0%BA%D1%83%D1%88%D0%BA%D0%B8%2014.000%20%D1%82%D0%B3.jpg'},
-  {id:'kshell14b', title:'Колье «Ракушка»', price:14000, cat:'Колье', img:'assets/%D0%BA%D0%BE%D0%BB%D1%8C%D0%B5%20%D0%A0%D0%B0%D0%BA%D1%83%D1%88%D0%BA%D0%B0%2014.000%20%D1%82%D0%B3.jpg'},
-  {id:'ktrans40', title:'Колье трансформер', price:40000, cat:'Колье', img:'assets/%D0%9A%D0%BE%D0%BB%D1%8C%D0%B5%20%D1%82%D1%80%D0%B0%D0%BD%D1%81%D1%84%D0%BE%D1%80%D0%BC%D0%B5%D1%80%2040.000%20%D1%82%D0%B3.jpg'},
-  {id:'ktrans41', title:'Колье трансформер', price:41000, cat:'Колье', img:'assets/%D0%9A%D0%BE%D0%BB%D1%8C%D0%B5%20%D1%82%D1%80%D0%B0%D0%BD%D1%81%D1%84%D0%BE%D1%80%D0%BC%D0%B5%D1%80%2041.000%20%D1%82%D0%B3.jpg'},
+  // ====== Каталог: товары (ваши файлы из assets/)
+  const PRODUCTS = [
+    {id:'p01', title:'Колье', price:'20 000 тг', img:'assets/Колье 20.000 тг.JPG', cat:'Колье'},
+    {id:'p02', title:'Комплект: Колье + Серьги', price:'Колье 40 000 тг · Серьги 10 000 тг', img:'assets/Колье 40.000 тг Серьги 10.000 тг.jpg', cat:'Комплекты'},
+    {id:'p03', title:'Колье', price:'40 000 тг', img:'assets/Колье 40.000 тг.jpg', cat:'Колье'},
+    {id:'p04', title:'Колье из гематита', price:'20 000 тг', img:'assets/Колье из гематита 20.000 тг.jpg', cat:'Колье'},
+    {id:'p05', title:'Колье из жемчуга', price:'60 000 тг', img:'assets/Колье из жемчуга 60.000 тг.JPG', cat:'Колье'},
+    {id:'p06', title:'Колье из жемчуга', price:'65 000 тг', img:'assets/Колье из жемчуга 65.000 тг.jpg', cat:'Колье'},
+    {id:'p07', title:'Колье из жемчуга', price:'70 000 тг', img:'assets/Колье из жемчуга 70.000 тг.jpg', cat:'Колье'},
+    {id:'p08', title:'Колье Майорка', price:'28 000 тг', img:'assets/Колье из жемчуга Майорка 28.000 тг.jpg', cat:'Колье'},
+    {id:'p09', title:'Колье Майорка', price:'32 000 тг', img:'assets/Колье из жемчуга Майорка 32.000 тг.jpg', cat:'Колье'},
+    {id:'p10', title:'Колье из натуральных камней', price:'20 000 тг', img:'assets/Колье из натуральных камней 20.000 тг.jpg', cat:'Колье'},
 
-  // СОТУАРЫ
-  {id:'sot27', title:'Сотуар «галстук»', price:27000, cat:'Сотуар', img:'assets/%D0%A1%D0%BE%D1%82%D1%83%D0%B0%D1%80%20%D0%B3%D0%B0%D0%BB%D1%81%D1%82%D1%83%D0%BA%2027.000%20%D1%82%D0%B3%20%D0%A1%D0%B5%D1%80%D1%8C%D0%B3%D0%B8%2012.000%20%D1%82%D0%B3.jpg', note:'Серьги 12 000 тг отдельно'},
-  {id:'sot20', title:'Сотуар трансформер', price:20000, cat:'Сотуар', img:'assets/%D0%A1%D0%BE%D1%82%D1%83%D0%B0%D1%80%20%D1%82%D1%80%D0%B0%D0%BD%D1%81%D1%84%D0%BE%D1%80%D0%BC%D0%B5%D1%80%2020.000%20%D1%82%D0%B3%20%D0%A1%D0%B5%D1%80%D1%8C%D0%B3%D0%B8%2010.000%20%D1%82%D0%B3.jpg'},
+    {id:'p11', title:'Комплект: Колье+Браслет+Серьги', price:'Колье 23 000 тг · Браслет 8 500 тг · Серьги 8 500 тг', img:'assets/Колье из натуральных камней 23.000 тг Браслет 8.500 тг Серьги 8.500 тг.jpg', cat:'Комплекты'},
+    {id:'p12', title:'Колье из натуральных камней', price:'40 000 тг', img:'assets/Колье из натуральных камней 40.000 тг.jpg', cat:'Колье'},
 
-  // ЦЕПИ
-  {id:'chain15', title:'Цепь', price:15000, cat:'Цепь', img:'assets/%D0%A6%D0%B5%D0%BF%D1%8C%2015.000%20%D1%82%D0%B3.jpg'},
+    {id:'p13', title:'Колье из ракушки', price:'14 000 тг', img:'assets/Колье из ракушки 14.000 тг.jpg', cat:'Колье'},
+    {id:'p14', title:'Колье Ракушка', price:'14 000 тг', img:'assets/колье Ракушка 14.000 тг.jpg', cat:'Колье'},
 
-  // БРАСЛЕТЫ
-  {id:'brace15', title:'Многослойные браслеты', price:15000, cat:'Браслеты', img:'assets/%D0%9C%D0%BD%D0%BE%D0%B3%D0%BE%D1%81%D0%BB%D0%BE%D0%B9%D0%BD%D1%8B%D0%B5%20%D0%B1%D1%80%D0%B0%D1%81%D0%BB%D0%B5%D1%82%D1%8B%2015.000%20%D1%82%D0%B3.jpg'},
-];
+    {id:'p15', title:'Колье-трансформер', price:'40 000 тг', img:'assets/Колье трансформер 40.000 тг.jpg', cat:'Колье'},
+    {id:'p16', title:'Колье-трансформер', price:'41 000 тг', img:'assets/Колье трансформер 41.000 тг.jpg', cat:'Колье'},
 
-/* ======== ФИЛЬТРЫ КАТЕГОРИЙ ======== */
-const categories = ['Все','Колье','Чокер','Сотуар','Цепь','Браслеты'];
-const filtersEl = document.getElementById('filters');
-let activeCat = 'Все';
-categories.forEach(c=>{
-  // скрываем пустые категории
-  if(c!=='Все' && !PRODUCTS.some(p=>p.cat===c)) return;
-  const btn=document.createElement('button');
-  btn.className='filter'+(c===activeCat?' active':'');
-  btn.textContent=c;
-  btn.onclick=()=>{activeCat=c; document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); render();}
-  filtersEl.appendChild(btn);
-});
+    {id:'p17', title:'Многослойные браслеты', price:'15 000 тг', img:'assets/Многослойные браслеты 15.000 тг.jpg', cat:'Браслеты'},
 
-/* ======== РЕНДЕР ТОВАРОВ ======== */
-const grid=document.getElementById('grid');
-function fmt(n){return n.toLocaleString('ru-RU')}
-function render(){
-  grid.innerHTML='';
-  const list = activeCat==='Все'? PRODUCTS : PRODUCTS.filter(p=>p.cat===activeCat);
-  list.forEach(p=>{
-    const card=document.createElement('article'); card.className='card';
-    card.innerHTML = `
-      <div class="img"><img src="${p.img}" alt="${p.title}"></div>
-      <div class="body">
-        <div class="title">${p.title}</div>
-        <div class="price">${fmt(p.price)} тг</div>
-        ${p.note?`<div class="note">${p.note}</div>`:''}
-        <div class="row">
-          <button class="btn" aria-label="Добавить ${p.title} в корзину">В корзину</button>
-          <button class="btn alt" onclick="location.href='cart.html'">Открыть корзину</button>
-        </div>
-      </div>`;
-    card.querySelector('.btn').onclick=()=>addToCart(p);
-    grid.appendChild(card);
-  });
-}
-render();
+    {id:'p18', title:'Сотуар-галстук + серьги', price:'Сотуар 27 000 тг · Серьги 12 000 тг', img:'assets/Сотуар галстук 27.000 тг Серьги 12.000 тг.jpg', cat:'Сотуары'},
+    {id:'p19', title:'Сотуар-трансформер + серьги', price:'Сотуар 20 000 тг · Серьги 10 000 тг', img:'assets/Сотуар трансформер 20.000 тг Серьги 10.000 тг.jpg', cat:'Сотуары'},
 
-/* ======== КОРЗИНА (localStorage) ======== */
-const KEY='livi_cart';
-function readCart(){ try{ return JSON.parse(localStorage.getItem(KEY))||[] }catch(e){ return [] } }
-function writeCart(items){ localStorage.setItem(KEY, JSON.stringify(items)); updateBadge(items); }
-function addToCart(p){
-  const items=readCart();
-  const found=items.find(i=>i.id===p.id);
-  if(found) found.qty+=1; else items.push({id:p.id,title:p.title,price:p.price,img:p.img,qty:1});
-  writeCart(items);
-}
-function countItems(items){ return items.reduce((s,i)=>s+i.qty,0) }
-function updateBadge(items=readCart()){
-  const badge=document.getElementById('cartBadge');
-  const n = countItems(items);
-  badge.textContent=n;
-  badge.style.display = n>0?'inline-block':'none';
-}
-updateBadge();
-// синхронизация между вкладками/устройствами
-window.addEventListener('storage', (e)=>{ if(e.key===KEY) updateBadge(); });
+    {id:'p20', title:'Цепь', price:'15 000 тг', img:'assets/Цепь 15.000 тг.jpg', cat:'Цепи'}
+  ];
+
+  // ====== UI
+  const CATS = ['Все','Колье','Комплекты','Браслеты','Сотуары','Цепи'];
+  const grid = document.getElementById('grid');
+  const filters = document.getElementById('filters');
+  let activeCat = localStorage.getItem('livi_active_cat') || 'Все';
+
+  function renderFilters(){
+    filters.innerHTML = '';
+    CATS.forEach(c=>{
+      const btn = document.createElement('button');
+      btn.className='tag'+(c===activeCat?' active':'');
+      btn.textContent=c;
+      btn.onclick=()=>{ activeCat=c; localStorage.setItem('livi_active_cat',c); renderFilters(); renderGrid(); };
+      filters.appendChild(btn);
+    });
+  }
+
+  function el(tag, cls, html){ const e=document.createElement(tag); if(cls) e.className=cls; if(html) e.innerHTML=html; return e; }
+
+  function renderGrid(){
+    grid.innerHTML = '';
+    const items = activeCat==='Все' ? PRODUCTS : PRODUCTS.filter(p=>p.cat===activeCat);
+    items.forEach(p=>{
+      const card = el('article','card');
+      const imgWrap = el('div','img'); imgWrap.innerHTML=`<img src="${p.img}" alt="${p.title}">`;
+      const body = el('div','body');
+      body.appendChild(el('div','title',p.title));
+      body.appendChild(el('div','muted',p.cat));
+      body.appendChild(el('div','price',p.price));
+      const btn = el('button','btn','Добавить в корзину');
+      btn.onclick=()=>addToCart(p);
+      body.appendChild(btn);
+      card.appendChild(imgWrap); card.appendChild(body);
+      grid.appendChild(card);
+    });
+  }
+
+  // ====== Корзина (localStorage одинаковый ключ с cart.html / index.html)
+  function readCart(){ try{return JSON.parse(localStorage.getItem('livi_cart_v2')||'[]')}catch(e){return []} }
+  function writeCart(v){ localStorage.setItem('livi_cart_v2', JSON.stringify(v)); updateBadge(); }
+  function addToCart(p){
+    const cart = readCart();
+    const i = cart.findIndex(x=>x.id===p.id);
+    if(i>-1) cart[i].qty += 1; else cart.push({id:p.id,title:p.title,price:p.price,img:p.img,qty:1});
+    writeCart(cart);
+  }
+  function updateBadge(){
+    const count = readCart().reduce((s,i)=>s+i.qty,0);
+    const b = document.getElementById('cartBadge');
+    if(count>0){ b.textContent=count; b.style.display='inline-block'; } else { b.style.display='none'; }
+  }
+  window.addEventListener('storage',e=>{ if(e.key==='livi_cart_v2') updateBadge(); });
+
+  renderFilters(); renderGrid(); updateBadge();
 </script>
 </body>
 </html>
