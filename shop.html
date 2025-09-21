@@ -1,231 +1,165 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Livi Jewelry — Каталог</title>
-  <meta name="description" content="Каталог Livi Jewelry: авторские украшения из жемчуга и натуральных камней.">
-  <style>
-    :root{ --fg:#111; --muted:#5c5c5c; --line:#eaeaea; --bg:#fff; --radius:20px; --shadow:0 8px 24px rgba(0,0,0,.08); }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Arial}
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block;height:auto}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Livi Jewelry — Каталог</title>
+<meta name="description" content="Авторские колье и чокеры Livi Jewelry из жемчуга и натуральных камней.">
+<style>
+  :root{--fg:#111;--muted:#5c5c5c;--line:#eaeaea;--bg:#fff;--radius:20px;--shadow:0 8px 24px rgba(0,0,0,.08)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%;height:auto}
 
-    header{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line);backdrop-filter:saturate(140%) blur(6px)}
-    .nav{max-width:1240px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:12px}
-    .brand{font-weight:700;letter-spacing:.06em}
-    .spacer{flex:1}
-    .chip, .cart-btn{
-      border:1px solid var(--line);border-radius:999px;padding:10px 14px;transition:.2s;background:#fff;display:inline-flex;align-items:center;gap:8px
-    }
-    .chip:hover, .cart-btn:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
-    .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
-    .lang button{border:0;background:#fff;padding:8px 12px;cursor:pointer}
-    .lang .active{background:#111;color:#fff}
-    .cart-badge{position:relative;display:inline-flex;align-items:center}
-    .cart-badge span{
-      position:absolute;top:-8px;right:-10px;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:#111;color:#fff;font-size:12px;display:none;align-items:center;justify-content:center;
-      box-shadow:0 2px 6px rgba(0,0,0,.2)
-    }
+  header{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line);backdrop-filter:saturate(140%) blur(6px)}
+  .nav{max-width:1240px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:12px}
+  .brand{font-weight:700;letter-spacing:.06em}
+  .spacer{flex:1}
+  .btn, .chip{border:1px solid var(--line);border-radius:999px;padding:10px 14px;background:#fff;transition:.2s}
+  .btn:hover,.chip:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
+  .cart{display:inline-flex;align-items:center;gap:8px;position:relative}
+  .badge{position:absolute;top:-8px;right:-10px;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:#111;color:#fff;font-size:12px;display:none;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+  
+  .wrap{max-width:1240px;margin:0 auto;padding:24px 20px}
+  h1{font-size:clamp(22px,4.6vw,34px);margin-bottom:6px}
+  .muted{color:var(--muted)}
 
-    .wrap{max-width:1240px;margin:0 auto;padding:24px 20px}
-    h1{font-size:clamp(22px,4.6vw,34px);margin-bottom:8px}
-    .muted{color:var(--muted);margin-bottom:18px}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
+  .pill{border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:#fff;cursor:pointer}
+  .pill.active{background:#111;color:#fff;border-color:#111}
+  .search{border:1px solid var(--line);border-radius:999px;padding:10px 14px;min-width:220px}
 
-    .controls{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
-    .input{border:1px solid var(--line);border-radius:999px;padding:10px 14px;min-width:220px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+  .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;display:flex;flex-direction:column;transition:.2s}
+  .card:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
+  .img{aspect-ratio:4/5;background:#f4f4f4;overflow:hidden}
+  .img img{width:100%;height:100%;object-fit:cover}
+  .body{padding:14px;display:flex;flex-direction:column;gap:8px}
+  .title{font-weight:600}
+  .price{font-weight:700}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .btn.primary{background:#111;color:#fff;border-color:#111}
+  .btn:active{transform:translateY(1px)}
 
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-    .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;display:flex;flex-direction:column;transition:.2s}
-    .card:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
-    .img{aspect-ratio:4/5;background:#f4f4f4;overflow:hidden}
-    .img img{width:100%;height:100%;object-fit:cover}
-    .body{padding:14px;display:flex;flex-direction:column;gap:8px}
-    .title{font-weight:600}
-    .price{font-weight:700}
-    .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-    .btn{border:1px solid var(--line);border-radius:999px;padding:10px 14px;background:#fff;cursor:pointer}
-    .btn.primary{background:#111;color:#fff;border-color:#111}
-    .btn:active{transform:translateY(1px)}
-
-    footer{margin:40px 0 20px;text-align:center;color:#777}
-    @media (max-width:860px){ .nav .chip.hide-sm{display:none} }
-  </style>
+  footer{margin:40px 0 20px;text-align:center;color:#777}
+  @media (max-width:860px){ .nav .chip.hide-sm{display:none} }
+</style>
 </head>
 <body>
-  <header>
-    <div class="nav">
-      <a class="chip" href="index.html">← Главная</a>
-      <div class="spacer"></div>
-      <div class="lang">
-        <button id="ru" class="active">RU</button>
-        <button id="kk">KZ</button>
-        <button id="en">EN</button>
+<header>
+  <div class="nav">
+    <a class="brand" href="index.html">LIVI JEWELRY</a>
+    <a class="chip" href="index.html">Главная</a>
+    <div class="spacer"></div>
+    <a class="chip hide-sm" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
+    <a class="chip hide-sm" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20заказать%20украшение%20с%20сайта%20Livi." target="_blank" rel="noopener">WhatsApp</a>
+    <a class="chip cart" href="cart.html" aria-label="Корзина">
+      🛒 Корзина
+      <span id="cartCount" class="badge">0</span>
+    </a>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1>Каталог</h1>
+  <p class="muted">Выберите категорию или воспользуйтесь поиском.</p>
+
+  <div class="controls">
+    <button class="pill active" data-filter="all">Все</button>
+    <button class="pill" data-filter="necklace">Колье</button>
+    <button class="pill" data-filter="choker">Чокеры</button>
+    <input id="q" class="search" type="search" placeholder="Поиск по названию…">
+  </div>
+
+  <div id="grid" class="grid"></div>
+</main>
+
+<footer>© Livi Jewelry</footer>
+
+<script>
+/* ---------- Каталог: данные ---------- */
+const products = [
+  {id:'n1', name:'Колье 20.000 тг',                price:20000, category:'necklace', img:'assets/necklaces/Колье 20.000 тг.JPG'},
+  {id:'n2', name:'Колье 40.000 тг',                price:40000, category:'necklace', img:'assets/necklaces/Колье 40.000 тг.jpg'},
+  {id:'n3', name:'Колье 40.000 тг + Серьги 10.000', price:40000, category:'necklace', img:'assets/necklaces/Колье 40.000 тг Серьги 10.000 тг.jpg'},
+  {id:'n4', name:'Колье из гематита 20.000 тг',    price:20000, category:'necklace', img:'assets/necklaces/Колье из гематита 20.000 тг.jpg'},
+  {id:'n5', name:'Колье из жемчуга 60.000 тг',     price:60000, category:'necklace', img:'assets/necklaces/Колье из жемчуга 60.000 тг.JPG'},
+  {id:'n6', name:'Колье из жемчуга 65.000 тг',     price:65000, category:'necklace', img:'assets/necklaces/Колье из жемчуга 65.000 тг.jpg'},
+  {id:'n7', name:'Колье из жемчуга 70.000 тг',     price:70000, category:'necklace', img:'assets/necklaces/Колье из жемчуга 70.000 тг.jpg'},
+  {id:'n8', name:'Колье из жемчуга Майорка 28.000',price:28000, category:'necklace', img:'assets/necklaces/Колье из жемчуга Майорка 28.000 тг.jpg'},
+  {id:'n9', name:'Колье из жемчуга Майорка 32.000',price:32000, category:'necklace', img:'assets/necklaces/Колье из жемчуга Майорка 32.000 тг.jpg'},
+  {id:'n10',name:'Колье из натуральных камней 20.000',price:20000, category:'necklace', img:'assets/necklaces/Колье из натуральных камней 20.000 тг.jpg'},
+  // Пример для будущих чокеров:
+  // {id:'c1', name:'Чокер …', price:..., category:'choker', img:'assets/chokers/…'}
+];
+
+const grid = document.getElementById('grid');
+const searchInput = document.getElementById('q');
+
+function formatPrice(p){ return new Intl.NumberFormat('ru-RU').format(p) + ' ₸'; }
+
+function cardHTML(p){
+  return `
+  <article class="card" data-cat="${p.category}" data-name="${p.name.toLowerCase()}">
+    <div class="img"><img src="${p.img}" alt="${p.name}"></div>
+    <div class="body">
+      <div class="title">${p.name}</div>
+      <div class="price">${formatPrice(p.price)}</div>
+      <div class="row">
+        <button class="btn primary" onclick="addToCart('${p.id}')">Добавить в корзину</button>
       </div>
-      <a class="cart-btn cart-badge" href="cart.html">🧺 Корзина <span id="cartCount">0</span></a>
     </div>
-  </header>
+  </article>`;
+}
 
-  <main class="wrap">
-    <h1 data-ru="Каталог" data-kk="Каталог" data-en="Shop">Каталог</h1>
-    <p class="muted" data-ru="Выбирайте и добавляйте в корзину — оформление через WhatsApp или Kaspi."
-       data-kk="Таңдап, себетке қосыңыз — рәсімдеу WhatsApp немесе Kaspi арқылы."
-       data-en="Pick your favorites — checkout via WhatsApp or Kaspi.">
-       Выбирайте и добавляйте в корзину — оформление через WhatsApp или Kaspi.
-    </p>
+function render(list=products){ grid.innerHTML = list.map(cardHTML).join(''); }
+render();
 
-    <div class="controls">
-      <input id="q" class="input" type="search" placeholder="Поиск по названию…">
-      <button id="clr" class="btn">Сбросить</button>
-    </div>
+/* ---------- Фильтрация/поиск ---------- */
+let activeFilter = 'all';
+document.querySelectorAll('.pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.pill').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    applyFilter();
+  });
+});
+searchInput.addEventListener('input', applyFilter);
 
-    <section class="grid" id="list">
-      <!-- ТОВАРЫ. Изображения и id/цены можно править. -->
-      <article class="card" data-id="full-1" data-title="Color Beads & Cross" data-price="25990">
-        <div class="img"><img src="assets/FullSizeRender-1.jpg" alt=""></div>
-        <div class="body">
-          <div class="title">Color Beads & Cross</div>
-          <div class="muted" data-ru="Жемчуг и цветные кристаллы" data-kk="Інжу және түрлі түсті кристалдар" data-en="Pearls and colorful crystals">Жемчуг и цветные кристаллы</div>
-          <div class="row"><div class="price">25 990 ₸</div><button class="btn primary add">В корзину</button></div>
-        </div>
-      </article>
+function applyFilter(){
+  const q = searchInput.value.trim().toLowerCase();
+  const filtered = products.filter(p=>{
+    const catOK = (activeFilter==='all') || (p.category===activeFilter);
+    const qOK = !q || p.name.toLowerCase().includes(q);
+    return catOK && qOK;
+  });
+  render(filtered);
+}
 
-      <article class="card" data-id="full-2" data-title="Heart Chain Pearl" data-price="28990">
-        <div class="img"><img src="assets/FullSizeRender-2.jpg" alt=""></div>
-        <div class="body">
-          <div class="title">Heart Chain Pearl</div>
-          <div class="muted">Жемчуг, золотистые цепи, сердце</div>
-          <div class="row"><div class="price">28 990 ₸</div><button class="btn primary add">В корзину</button></div>
-        </div>
-      </article>
-
-      <article class="card" data-id="full-7" data-title="Violet Heart" data-price="31990">
-        <div class="img"><img src="assets/FullSizeRender-7.jpg" alt=""></div>
-        <div class="body">
-          <div class="title">Violet Heart</div>
-          <div class="muted">Флюорит, жемчуг, аметист</div>
-          <div class="row"><div class="price">31 990 ₸</div><button class="btn primary add">В корзину</button></div>
-        </div>
-      </article>
-
-      <article class="card" data-id="full-8" data-title="Dalmatian Set" data-price="33990">
-        <div class="img"><img src="assets/FullSizeRender-8.jpg" alt=""></div>
-        <div class="body">
-          <div class="title">Dalmatian Set</div>
-          <div class="muted">Яшма «далматин», жемчуг</div>
-          <div class="row"><div class="price">33 990 ₸</div><button class="btn primary add">В корзину</button></div>
-        </div>
-      </article>
-
-      <article class="card" data-id="full-9" data-title="Silver Fringe" data-price="27990">
-        <div class="img"><img src="assets/FullSizeRender-9.jpg" alt=""></div>
-        <div class="body">
-          <div class="title">Silver Fringe</div>
-          <div class="muted">Серебристые цепи</div>
-          <div class="row"><div class="price">27 990 ₸</div><button class="btn primary add">В корзину</button></div>
-        </div>
-      </article>
-
-      <article class="card" data-id="full-10" data-title="Turquoise Heart" data-price="29990">
-        <div class="img"><img src="assets/FullSizeRender-10.jpg" alt=""></div>
-        <div class="body">
-          <div class="title">Turquoise Heart</div>
-          <div class="muted">Бирюзовые оттенки, сердце</div>
-          <div class="row"><div class="price">29 990 ₸</div><button class="btn primary add">В корзину</button></div>
-        </div>
-      </article>
-
-      <article class="card" data-id="full-main" data-title="Steel & Pearl Duo" data-price="23990">
-        <div class="img"><img src="assets/FullSizeRender.jpg" alt=""></div>
-        <div class="body">
-          <div class="title">Steel & Pearl Duo</div>
-          <div class="muted">Стальная цепь и жемчуг</div>
-          <div class="row"><div class="price">23 990 ₸</div><button class="btn primary add">В корзину</button></div>
-        </div>
-      </article>
-
-      <article class="card" data-id="full-sp1" data-title="Blue Whisper" data-price="21990">
-        <div class="img"><img src="assets/FullSizeRender%20(1).jpg" alt=""></div>
-        <div class="body">
-          <div class="title">Blue Whisper</div>
-          <div class="muted">Лёгкие нити жемчуга</div>
-          <div class="row"><div class="price">21 990 ₸</div><button class="btn primary add">В корзину</button></div>
-        </div>
-      </article>
-
-      <article class="card" data-id="full-sp2" data-title="Clover Mint" data-price="22990">
-        <div class="img"><img src="assets/FullSizeRender%20(2).jpg" alt=""></div>
-        <div class="body">
-          <div class="title">Clover Mint</div>
-          <div class="muted">Два ряда: жемчуг + цепи</div>
-          <div class="row"><div class="price">22 990 ₸</div><button class="btn primary add">В корзину</button></div>
-        </div>
-      </article>
-
-      <article class="card" data-id="full-sp4" data-title="Shell Heart" data-price="25990">
-        <div class="img"><img src="assets/FullSizeRender%20(4).jpg" alt=""></div>
-        <div class="body">
-          <div class="title">Shell Heart</div>
-          <div class="muted">Ракушки и сердце</div>
-          <div class="row"><div class="price">25 990 ₸</div><button class="btn primary add">В корзину</button></div>
-        </div>
-      </article>
-
-      <article class="card" data-id="full-sp9" data-title="Glass Heart Aqua" data-price="26990">
-        <div class="img"><img src="assets/FullSizeRender%20(9).jpg" alt=""></div>
-        <div class="body">
-          <div class="title">Glass Heart Aqua</div>
-          <div class="muted">Стеклянное сердце</div>
-          <div class="row"><div class="price">26 990 ₸</div><button class="btn primary add">В корзину</button></div>
-        </div>
-      </article>
-    </section>
-    <footer>© Livi Jewelry</footer>
-  </main>
-
-  <script>
-    // ===== i18n (минимум) =====
-    const buttons=[...document.querySelectorAll('.lang button')];
-    function setLang(l){ document.querySelectorAll('[data-ru]').forEach(el=>{
-      const t = l==='kk'?el.dataset.kk : l==='en'?el.dataset.en : el.dataset.ru;
-      if(t) el.textContent=t;
-    }); buttons.forEach(b=>b.classList.toggle('active', b.id===l)); localStorage.setItem('lang',l); }
-    setLang(localStorage.getItem('lang')||'ru'); buttons.forEach(b=>b.onclick=()=>setLang(b.id));
-
-    // ===== Корзина =====
-    const CART_KEY='livi-cart';
-    const countEl=document.getElementById('cartCount');
-
-    function readCart(){ try{return JSON.parse(localStorage.getItem(CART_KEY))||[]}catch{return[]} }
-    function writeCart(c){ localStorage.setItem(CART_KEY, JSON.stringify(c)); updateCount(); }
-    function add(id,title,price){
-      const c=readCart(); const i=c.findIndex(x=>x.id===id);
-      if(i>=0) c[i].qty+=1; else c.push({id,title,price: Number(price)||0, qty:1});
-      writeCart(c);
-    }
-    function updateCount(){ const n=readCart().reduce((s,i)=>s+i.qty,0); if(n>0){countEl.style.display='flex'; countEl.textContent=String(n);} else {countEl.style.display='none'; countEl.textContent='0';} }
-    updateCount();
-
-    // Кнопки "В корзину"
-    document.querySelectorAll('.add').forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        const card=btn.closest('.card');
-        add(card.dataset.id, card.dataset.title, card.dataset.price);
-        btn.textContent='Добавлено ✓'; setTimeout(()=>btn.textContent='В корзину',1100);
-      });
-    });
-
-    // Поиск
-    const q=document.getElementById('q'); const list=document.getElementById('list'); const clr=document.getElementById('clr');
-    function applyFilter(){
-      const v=(q.value||'').toLowerCase();
-      [...list.children].forEach(card=>{
-        const t=(card.dataset.title||'') + ' ' + (card.querySelector('.muted')?.textContent||'');
-        card.style.display= t.toLowerCase().includes(v)?'flex':'none';
-      });
-    }
-    q.addEventListener('input',applyFilter); clr.addEventListener('click',()=>{q.value='';applyFilter();});
-  </script>
+/* ---------- Корзина ---------- */
+const CART_KEY = 'livi-cart';
+function getCart(){ try{ return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch(e){ return []; } }
+function saveCart(cart){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); updateBadge(); }
+function addToCart(id){
+  const item = products.find(p=>p.id===id);
+  if(!item) return;
+  const cart = getCart();
+  const found = cart.find(x=>x.id===id);
+  if(found) found.qty += 1;
+  else cart.push({id:item.id,name:item.name,price:item.price,img:item.img,qty:1});
+  saveCart(cart);
+  const btn = event?.target; if(btn){ btn.textContent='Добавлено ✓'; setTimeout(()=>btn.textContent='Добавить в корзину',900); }
+}
+function countCartItems(){ return getCart().reduce((s,x)=>s+x.qty,0); }
+function updateBadge(){
+  const n = countCartItems();
+  const b = document.getElementById('cartCount');
+  b.textContent = n;
+  b.style.display = n>0 ? 'inline-flex':'none';
+}
+updateBadge();
+</script>
 </body>
 </html>
