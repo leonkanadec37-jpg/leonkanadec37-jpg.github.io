@@ -1,142 +1,95 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Livi Jewelry — Корзина</title>
-<meta name="description" content="Корзина Livi Jewelry: оформите онлайн-заказ.">
-<style>
-  :root{--fg:#111;--muted:#5c5c5c;--line:#eaeaea;--bg:#fff;--radius:16px;--shadow:0 8px 24px rgba(0,0,0,.08)}
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial}
-  a{color:inherit;text-decoration:none}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Livi Jewelry — Корзина</title>
 
-  header{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line)}
-  .nav{max-width:940px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:12px}
-  .brand{font-weight:700;letter-spacing:.06em}
-  .spacer{flex:1}
-  .chip{border:1px solid var(--line);border-radius:999px;padding:10px 14px;background:#fff}
-  .badge{margin-left:6px;background:#111;color:#fff;border-radius:999px;padding:2px 8px;font-size:12px}
+  <!-- Склейка домена -->
+  <script>
+    (function () {
+      var canonical = "livijewelry.kz";
+      var h = location.hostname.toLowerCase();
+      var needRedirect =
+        h === "www." + canonical ||
+        h.endsWith(".github.io") ||
+        h !== canonical;
+      if (needRedirect) {
+        var url = "https://" + canonical + location.pathname + location.search + location.hash;
+        location.replace(url);
+      }
+    })();
+  </script>
 
-  .wrap{max-width:940px;margin:0 auto;padding:24px 20px}
-  h1{font-size:clamp(22px,4.6vw,32px);margin-bottom:8px}
-  .muted{color:var(--muted);margin-bottom:18px}
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 0; background: #fff; color: #111; }
+    header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid #eee; position: sticky; top: 0; background: #fff; z-index: 50; }
+    .brand { font-weight: bold; font-size: 18px; }
+    nav a { margin-left: 16px; text-decoration: none; color: #111; }
+    .cart-icon { position: relative; cursor: pointer; }
+    .cart-count { position: absolute; top: -8px; right: -10px; background: #111; color: #fff; border-radius: 50%; padding: 2px 6px; font-size: 12px; }
 
-  .table{display:grid;grid-template-columns:1fr 92px 106px 106px;gap:10px;border-top:1px solid var(--line);margin-top:10px}
-  .th{color:#666;font-size:14px;padding:10px 0}
-  .row{align-items:center;border-bottom:1px solid var(--line);padding:10px 0;display:grid;grid-template-columns:subgrid;grid-column:1/-1}
-  .prod{display:flex;gap:10px;align-items:center}
-  .prod img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
-  .qty{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
-  .qty button{width:34px;height:34px;border:0;background:#fff;cursor:pointer}
-  .qty input{width:46px;text-align:center;border:0}
-  .right{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin-top:16px}
-  .btn{border:1px solid var(--line);border-radius:999px;padding:12px 16px;background:#fff;cursor:pointer}
-  .btn.primary{background:#111;color:#fff;border-color:#111}
-  .sum{font-weight:700;font-size:18px}
-  .empty{padding:18px;border:1px dashed var(--line);border-radius:12px;text-align:center}
-
-  @media (max-width:720px){
-    .table{grid-template-columns:1fr 72px 86px 86px}
-    .prod img{width:56px;height:56px}
-  }
-</style>
+    main { padding: 24px; max-width: 800px; margin: auto; }
+    h1 { margin-bottom: 20px; }
+    .cart-item { border-bottom: 1px solid #eee; padding: 12px 0; display: flex; justify-content: space-between; }
+    .total { margin-top: 20px; font-weight: 600; }
+    .btn { margin-top: 20px; padding: 12px 20px; border: none; border-radius: 999px; background: #111; color: #fff; cursor: pointer; }
+  </style>
 </head>
 <body>
+
 <header>
-  <div class="nav">
-    <a class="brand" href="index.html">LIVI JEWELRY</a>
-    <a class="chip" href="shop.html">Каталог</a>
-    <div class="spacer"></div>
-    <span class="chip">Товаров: <b id="badge">0</b></span>
-  </div>
+  <div class="brand"><a href="index.html">Livi Jewelry</a></div>
+  <nav>
+    <a href="index.html">Главная</a>
+    <a href="shop.html">Каталог</a>
+    <a href="cart.html" class="cart-icon">🛒 <span id="cartCount" class="cart-count">0</span></a>
+  </nav>
 </header>
 
-<main class="wrap">
+<main>
   <h1>Корзина</h1>
-  <p class="muted">Проверьте заказ, измените количество или удалите позицию. Оформление — через WhatsApp.</p>
-
-  <div id="table" class="table" aria-live="polite"></div>
-
-  <div class="right">
-    <div class="sum">Итого: <span id="total">0 ₸</span></div>
-    <a id="waBtn" class="btn primary" href="#" onclick="sendWhatsApp()">Оформить в WhatsApp</a>
-    <button class="btn" id="clearBtn">Очистить</button>
-  </div>
+  <div id="cartItems"></div>
+  <div class="total" id="cartTotal"></div>
+  <button class="btn" onclick="checkout()">Оформить заказ</button>
 </main>
 
 <script>
-const CART_KEY='livi-cart';
-function money(p){return new Intl.NumberFormat('ru-RU').format(p)+' ₸'}
-function getCart(){try{return JSON.parse(localStorage.getItem(CART_KEY))||[]}catch(e){return []}}
-function saveCart(c){localStorage.setItem(CART_KEY,JSON.stringify(c));render()}
-
-const table=document.getElementById('table');
-const totalEl=document.getElementById('total');
-const badge=document.getElementById('badge');
-
-function render(){
-  const cart=getCart();
-  const count=cart.reduce((s,x)=>s+x.qty,0);
-  badge.textContent=count;
-
-  if(cart.length===0){
-    table.innerHTML=`<div class="row" style="grid-column:1/-1"><div class="empty">Корзина пуста. <a href="shop.html">Перейти в каталог</a></div></div>`;
-    totalEl.textContent=money(0);
-    return;
+  function loadCart() {
+    return JSON.parse(localStorage.getItem("cart") || "[]");
   }
-
-  table.innerHTML=`
-    <div class="th">Товар</div>
-    <div class="th" style="text-align:center">Кол-во</div>
-    <div class="th" style="text-align:right">Цена</div>
-    <div class="th" style="text-align:right">Сумма</div>
-  ` + cart.map(item=>`
-    <div class="row">
-      <div class="prod">
-        <img src="${item.img}" alt="${item.name}">
-        <div>
-          <div style="font-weight:600">${item.name}</div>
-          <button aria-label="Удалить" style="margin-top:6px" class="btn" onclick="removeItem('${item.id}')">Удалить</button>
-        </div>
-      </div>
-      <div style="text-align:center">
-        <div class="qty">
-          <button onclick="dec('${item.id}')">−</button>
-          <input value="${item.qty}" inputmode="numeric" oninput="setQty('${item.id}', this.value)">
-          <button onclick="inc('${item.id}')">+</button>
-        </div>
-      </div>
-      <div style="text-align:right">${money(item.price)}</div>
-      <div style="text-align:right">${money(item.price*item.qty)}</div>
-    </div>
-  `).join('');
-
-  const total=cart.reduce((s,x)=>s+x.price*x.qty,0);
-  totalEl.textContent=money(total);
-}
-
-function inc(id){const c=getCart();const it=c.find(x=>x.id===id);if(!it)return;it.qty++;saveCart(c)}
-function dec(id){const c=getCart();const it=c.find(x=>x.id===id);if(!it)return;it.qty=Math.max(1,it.qty-1);saveCart(c)}
-function setQty(id,v){const n=Math.max(1,parseInt(v||'1'));const c=getCart();const it=c.find(x=>x.id===id);if(!it)return;it.qty=n;saveCart(c)}
-function removeItem(id){let c=getCart().filter(x=>x.id!==id);saveCart(c)}
-
-document.getElementById('clearBtn').addEventListener('click',()=>{localStorage.removeItem(CART_KEY);render()});
-
-/* Отправка заказа в WhatsApp (без Kaspi) */
-function sendWhatsApp(){
-  const cart=getCart();
-  if(cart.length===0){ alert('Корзина пуста'); return false; }
-  const total=cart.reduce((s,x)=>s+x.price*x.qty,0);
-  const lines=cart.map(x=>`• ${x.name} — ${x.qty} шт. (${money(x.price*x.qty)})`);
-  const text = `Здравствуйте! Хочу оформить заказ с сайта Livi Jewelry:%0A%0A${lines.join('%0A')}` +
-               `%0A%0AИтого: ${money(total)}%0A%0AУдобный способ связи: `;
-  const url=`https://wa.me/77054510584?text=${text}`;
-  window.open(url,'_blank');
-  return false;
-}
-
-render();
+  function saveCart(cart) {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount();
+  }
+  function updateCartCount() {
+    const cart = loadCart();
+    document.getElementById("cartCount").textContent = cart.length;
+  }
+  function renderCart() {
+    const cart = loadCart();
+    const container = document.getElementById("cartItems");
+    const totalEl = document.getElementById("cartTotal");
+    container.innerHTML = "";
+    let total = 0;
+    cart.forEach((item, i) => {
+      total += item.price;
+      const div = document.createElement("div");
+      div.className = "cart-item";
+      div.innerHTML = `<span>${item.name}</span><span>${item.price} тг</span>`;
+      container.appendChild(div);
+    });
+    totalEl.textContent = "Итого: " + total + " тг";
+  }
+  function checkout() {
+    alert("Заказ оформлен! Свяжитесь с нами для подтверждения.");
+    localStorage.removeItem("cart");
+    renderCart();
+    updateCartCount();
+  }
+  updateCartCount();
+  renderCart();
 </script>
+
 </body>
 </html>
