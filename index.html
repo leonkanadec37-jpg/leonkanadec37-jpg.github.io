@@ -14,55 +14,78 @@
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Arial}
     a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block;height:auto}
 
+    /* Header */
     header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);backdrop-filter:saturate(150%) blur(6px)}
     .nav{max-width:1240px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
     .brand{font-weight:700;letter-spacing:.08em}
     .nav-left{display:flex;gap:16px;align-items:center}
-    .nav-left a{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px}
+    .nav-left a{border:1px solid var(--line);border-radius:999px;padding:10px 14px;font-size:14px;white-space:nowrap}
     .nav-right{display:flex;align-items:center;gap:12px}
-    .chip{border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px;transition:.25s}
+    .chip{border:1px solid var(--line);border-radius:999px;padding:10px 14px;font-size:14px;transition:.25s;white-space:nowrap}
     .chip:hover{background:#111;color:#fff;border-color:#111}
     .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
     .lang button{border:0;background:transparent;padding:8px 12px;font-size:14px;cursor:pointer}
     .lang button.active{background:#111;color:#fff}
 
+    /* Burger & mobile menu */
+    .burger{display:none;flex-direction:column;gap:4px;width:36px;height:36px;justify-content:center;align-items:center;cursor:pointer;border-radius:10px;border:1px solid var(--line);background:#fff}
+    .burger span{background:#111;height:2px;width:20px;border-radius:2px}
+    .mobile-menu{display:none;flex-direction:column;gap:12px;padding:16px 24px;border-bottom:1px solid var(--line);background:#fff}
+    .mobile-menu a{border:1px solid var(--line);border-radius:999px;padding:10px 14px;text-align:center}
+    .mobile-menu .lang{align-self:flex-start}
+
+    .mobile-open .mobile-menu{display:flex}
+
+    /* Hero */
     .hero{max-width:1240px;margin:0 auto;padding:56px 24px;display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}
     .hero-visual{border:1px solid var(--line);border-radius:28px;overflow:hidden;background:#fff}
-    .hero-visual img{width:100%;height:100%;object-fit:cover;display:block}
-    .hero h1{font-size:clamp(32px,6vw,58px);font-weight:600;line-height:1.15;margin-bottom:14px}
+    .hero-visual img{width:100%;height:100%;object-fit:cover}
+    .hero h1{font-size:clamp(28px,6vw,58px);font-weight:600;line-height:1.15;margin-bottom:14px}
     .hero p{color:var(--muted);font-size:18px;margin-bottom:22px}
     .cta{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{display:inline-block;background:#111;color:#fff;padding:14px 22px;border-radius:999px;transition:.25s}
+    .btn{display:inline-block;background:#111;color:#fff;padding:14px 22px;border-radius:999px;transition:.25s;text-align:center;min-height:44px}
     .btn.alt{background:#fff;color:#111;border:1px solid var(--line)}
     .btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
 
+    /* Sections & cards */
     .section{max-width:1240px;margin:0 auto;padding:56px 24px}
     .section h2{font-size:28px;font-weight:600;text-align:center;margin-bottom:32px}
 
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
     .card{border:1px solid var(--line);border-radius:var(--radius);background:#fff;overflow:hidden;transition:transform .25s, box-shadow .25s}
     .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
     .img-wrap{aspect-ratio:4/5;background:#f3f3f3;overflow:hidden}
-    .card img{width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in}
+    .card img{width:100%;height:100%;object-fit:cover;cursor:zoom-in}
     .body{padding:16px}
     .title{font-size:18px;margin-bottom:6px}
     .muted{color:var(--muted);font-size:14px}
 
+    /* About panels */
     .wide{display:grid;grid-template-columns:1fr 1fr;gap:22px}
     .panel{border:1px solid var(--line);border-radius:24px;padding:22px;background:#fff}
     .panel h3,.panel h2{font-weight:600;margin-bottom:8px}
     .panel p{color:var(--muted);margin-bottom:14px}
 
+    /* Footer */
     footer{margin-top:60px;border-top:1px solid var(--line);text-align:center;color:#5c5c5c;padding:28px 20px;font-size:14px}
     footer a{text-decoration:underline}
 
+    /* Lightbox */
     .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.84);display:none;align-items:center;justify-content:center;z-index:100}
     .lightbox.open{display:flex}
     .lightbox img{max-width:min(92vw,1200px);max-height:92vh;object-fit:contain;border-radius:12px}
     .lightbox-close{position:fixed;top:14px;right:14px;background:#fff;border-radius:999px;border:1px solid var(--line);padding:8px 12px;cursor:pointer}
 
-    @media (max-width:900px){ .hero{grid-template-columns:1fr;} .wide{grid-template-columns:1fr;} }
+    /* Responsive */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr}
+      .wide{grid-template-columns:1fr}
+      .nav-left a:not(.brand){display:none}
+      .nav-right{display:none}
+      .burger{display:flex}
+    }
   </style>
 </head>
 <body>
@@ -71,6 +94,7 @@
     <div class="nav">
       <div class="nav-left">
         <a class="brand" href="index.html">LIVI JEWELRY</a>
+        <!-- Эти ссылки скрываются на мобильных, показываются на десктопе -->
         <a href="shop.html" data-ru="Каталог" data-kk="Каталог" data-en="Shop">Каталог</a>
         <a href="#about" data-ru="О нас" data-kk="Біз туралы" data-en="About">О нас</a>
       </div>
@@ -82,6 +106,20 @@
           <button id="kkBtn">KZ</button>
           <button id="enBtn">EN</button>
         </div>
+      </div>
+      <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+    </div>
+
+    <!-- Мобильное меню -->
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <a href="shop.html" data-ru="Каталог" data-kk="Каталог" data-en="Shop">Каталог</a>
+      <a href="#about" data-ru="О нас" data-kk="Біз туралы" data-en="About">О нас</a>
+      <a href="https://instagram.com/livi_jwl?utm_source=site&utm_medium=nav&utm_campaign=drawer" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20заказать%20украшение%20с%20сайта%20Livi%20Jewelry.&utm_source=site&utm_medium=nav&utm_campaign=drawer" target="_blank" rel="noopener">WhatsApp</a>
+      <div class="lang" style="margin-top:6px">
+        <button id="ruBtnM" class="active">RU</button>
+        <button id="kkBtnM">KZ</button>
+        <button id="enBtnM">EN</button>
       </div>
     </div>
   </header>
@@ -106,7 +144,7 @@
       </div>
     </div>
     <div class="hero-visual">
-      <img src="assets/IMG_5350.JPG" alt="Livi Jewelry hero">
+      <img src="assets/IMG_5350.JPG" alt="Livi Jewelry hero" loading="eager">
     </div>
   </section>
 
@@ -116,68 +154,68 @@
     <div class="grid">
       <!-- имена файлов как у тебя -->
       <article class="card"><div class="img-wrap">
-        <img src="assets/FullSizeRender-1.jpg" alt="Жемчужное колье с цветными вставками и крестом"></div>
+        <img src="assets/FullSizeRender-1.jpg" alt="Жемчужное колье с цветными вставками и крестом" loading="lazy"></div>
         <div class="body"><div class="title" data-ru="Color Beads & Cross" data-kk="Түрлі түсті тастар және крест" data-en="Color Beads & Cross">Color Beads & Cross</div>
         <div class="muted" data-ru="Жемчуг и цветные кристаллы." data-kk="Інжу және түрлі түсті кристалдар." data-en="Pearls and colorful crystals.">Жемчуг и цветные кристаллы.</div></div>
       </article>
 
       <article class="card"><div class="img-wrap">
-        <img src="assets/FullSizeRender-2.jpg" alt="Колье жемчуг и золотое сердце с цепочками"></div>
+        <img src="assets/FullSizeRender-2.jpg" alt="Колье жемчуг и золотое сердце с цепочками" loading="lazy"></div>
         <div class="body"><div class="title" data-ru="Heart Chain Pearl" data-kk="Жүрек пен тізбектер" data-en="Heart Chain Pearl">Heart Chain Pearl</div>
         <div class="muted" data-ru="Жемчуг, золотистые цепи и подвеска-сердце." data-kk="Інжу, алтын түсті тізбектер және жүрек кулоны." data-en="Pearls, golden chains and a heart pendant.">Жемчуг, золотистые цепи и подвеска-сердце.</div></div>
       </article>
 
       <article class="card"><div class="img-wrap">
-        <img src="assets/FullSizeRender-7.jpg" alt="Колье с флюоритом и аметистом"></div>
+        <img src="assets/FullSizeRender-7.jpg" alt="Колье с флюоритом и аметистом" loading="lazy"></div>
         <div class="body"><div class="title" data-ru="Violet Heart" data-kk="Күлгін жүрек" data-en="Violet Heart">Violet Heart</div>
         <div class="muted" data-ru="Флюорит, жемчуг и аметист." data-kk="Флюорит, інжу және аметист." data-en="Fluorite, pearls and amethyst.">Флюорит, жемчуг и аметист.</div></div>
       </article>
 
       <article class="card"><div class="img-wrap">
-        <img src="assets/FullSizeRender-8.jpg" alt="Далматин-яшма и жемчуг: сет"></div>
+        <img src="assets/FullSizeRender-8.jpg" alt="Далматин-яшма и жемчуг: сет" loading="lazy"></div>
         <div class="body"><div class="title" data-ru="Dalmatian Set" data-kk="Далматин жиынтығы" data-en="Dalmatian Set">Dalmatian Set</div>
         <div class="muted" data-ru="Яшма «далматин», тёплые тона и натуральный жемчуг." data-kk="Далматин жасмасы, жылы реңктер және табиғи інжу." data-en="Dalmatian jasper, warm tones and natural pearls.">Яшма «далматин», тёплые тона и натуральный жемчуг.</div></div>
       </article>
 
       <article class="card"><div class="img-wrap">
-        <img src="assets/FullSizeRender-9.jpg" alt="Серебристое колье с подвесками-цепями"></div>
+        <img src="assets/FullSizeRender-9.jpg" alt="Серебристое колье с подвесками-цепями" loading="lazy"></div>
         <div class="body"><div class="title" data-ru="Silver Fringe" data-kk="Күміс шашақ" data-en="Silver Fringe">Silver Fringe</div>
         <div class="muted" data-ru="Холодный блеск и длинные цепи." data-kk="Салқын жалтырау және ұзын тізбектер." data-en="Cool shine and long chains.">Холодный блеск и длинные цепи.</div></div>
       </article>
 
       <article class="card"><div class="img-wrap">
-        <img src="assets/FullSizeRender-10.jpg" alt="Бирюзовый сет с сердцем"></div>
+        <img src="assets/FullSizeRender-10.jpg" alt="Бирюзовый сет с сердцем" loading="lazy"></div>
         <div class="body"><div class="title" data-ru="Turquoise Heart" data-kk="Көкшіл жүрек" data-en="Turquoise Heart">Turquoise Heart</div>
         <div class="muted" data-ru="Нежные бирюзовые оттенки и подвеска-сердце." data-kk="Нәзік көгілдір реңк және жүрек кулоны." data-en="Soft turquoise hues and a heart pendant.">Нежные бирюзовые оттенки и подвеска-сердце.</div></div>
       </article>
 
       <article class="card"><div class="img-wrap">
-        <img src="assets/FullSizeRender.jpg" alt="Стальной чокер-цепь и аксессуары"></div>
+        <img src="assets/FullSizeRender.jpg" alt="Стальной чокер-цепь и аксессуары" loading="lazy"></div>
         <div class="body"><div class="title" data-ru="Steel & Pearl Duo" data-kk="Болат және інжу" data-en="Steel & Pearl Duo">Steel & Pearl Duo</div>
         <div class="muted" data-ru="Жёсткая цепь со съёмной жемчужной подвеской и компаньоны." data-kk="Алынбалы інжу кулоны бар қатты тізбек және аксессуарлар." data-en="Rigid chain with detachable pearl pendant and matching pieces.">Жёсткая цепь со съёмной жемчужной подвеской и компаньоны.</div></div>
       </article>
 
       <!-- файлы с пробелами в имени: %20 -->
       <article class="card"><div class="img-wrap">
-        <img src="assets/FullSizeRender%20(1).jpg" alt="Нежные слои жемчуга с голубыми акцентами"></div>
+        <img src="assets/FullSizeRender%20(1).jpg" alt="Нежные слои жемчуга с голубыми акцентами" loading="lazy"></div>
         <div class="body"><div class="title" data-ru="Blue Whisper" data-kk="Көк сыбыр" data-en="Blue Whisper">Blue Whisper</div>
         <div class="muted" data-ru="Нежные слои жемчуга и прозрачных кристаллов." data-kk="Інжу мен мөлдір тастардың нәзік қабаттары." data-en="Delicate layers of pearls and clear crystals.">Нежные слои жемчуга и прозрачных кристаллов.</div></div>
       </article>
 
       <article class="card"><div class="img-wrap">
-        <img src="assets/FullSizeRender%20(2).jpg" alt="Двухрядное бирюзово-серебристое колье с клевером"></div>
+        <img src="assets/FullSizeRender%20(2).jpg" alt="Двухрядное бирюзово-серебристое колье с клевером" loading="lazy"></div>
         <div class="body"><div class="title" data-ru="Clover Mint" data-kk="Жоңышқа Mint" data-en="Clover Mint">Clover Mint</div>
         <div class="muted" data-ru="Два ряда: інжу + стальные цепи, подвеска-клевер." data-kk="Екі қатар: інжу мен болат тізбек, клевер кулоны." data-en="Two rows: pearls + steel chains, clover pendant.">Два ряда: інжу + стальные цепи, подвеска-клевер.</div></div>
       </article>
 
       <article class="card"><div class="img-wrap">
-        <img src="assets/FullSizeRender%20(4).jpg" alt="Белое колье с золотистым сердцем и ракушками"></div>
+        <img src="assets/FullSizeRender%20(4).jpg" alt="Белое колье с золотистым сердцем и ракушками" loading="lazy"></div>
         <div class="body"><div class="title" data-ru="Shell Heart" data-kk="Қабық жүрек" data-en="Shell Heart">Shell Heart</div>
         <div class="muted" data-ru="Белые ракушки, золотистая фурнитура и подвеска-сердце." data-kk="Ақ қабықтар, алтын түсті фурнитура және жүрек кулоны." data-en="White shells, golden hardware and a heart pendant.">Белые ракушки, золотистая фурнитура и подвеска-сердце.</div></div>
       </article>
 
       <article class="card"><div class="img-wrap">
-        <img src="assets/FullSizeRender%20(9).jpg" alt="Колье с голубыми камнями и стеклянным сердцем"></div>
+        <img src="assets/FullSizeRender%20(9).jpg" alt="Колье с голубыми камнями и стеклянным сердцем" loading="lazy"></div>
         <div class="body"><div class="title" data-ru="Glass Heart Aqua" data-kk="Шыны жүрек Aqua" data-en="Glass Heart Aqua">Glass Heart Aqua</div>
         <div class="muted" data-ru="Голубые кристаллы, жемчуг и крупная стеклянная подвеска." data-kk="Көгілдір кристалдар, інжу және үлкен әйнек кулон." data-en="Blue crystals, pearls and a large glass heart pendant.">Голубые кристаллы, жемчуг и крупная стеклянная подвеска.</div></div>
       </article>
@@ -253,7 +291,7 @@
   </section>
 
   <footer>
-    © Livi Jewelry · Қазақстан / Казахстан · <a href="mailto:hello@livijewelry.kz">hello@livijewelry.kz</a>
+    © <span id="year"></span> Livi Jewelry · Қазақстан / Казахстан · <a href="mailto:hello@livijewelry.kz">hello@livijewelry.kz</a>
   </footer>
 
   <!-- Лайтбокс -->
@@ -263,10 +301,17 @@
   </div>
 
   <script>
-    // Переключатель RU/KZ/EN
+    // Год в футере
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Переключатель RU/KZ/EN (дублируем в мобильном меню)
     const ruBtn=document.getElementById('ruBtn');
     const kkBtn=document.getElementById('kkBtn');
     const enBtn=document.getElementById('enBtn');
+    const ruBtnM=document.getElementById('ruBtnM');
+    const kkBtnM=document.getElementById('kkBtnM');
+    const enBtnM=document.getElementById('enBtnM');
+
     function setLang(lang){
       document.querySelectorAll('[data-ru]').forEach(el=>{
         const txt = lang==='kk' ? el.getAttribute('data-kk')
@@ -274,16 +319,22 @@
                   : el.getAttribute('data-ru');
         if(txt) el.textContent = txt;
       });
-      ruBtn.classList.toggle('active', lang==='ru');
-      kkBtn.classList.toggle('active', lang==='kk');
-      enBtn.classList.toggle('active', lang==='en');
+      [ruBtn,kkBtn,enBtn,ruBtnM,kkBtnM,enBtnM].forEach(btn=>{
+        if(!btn) return;
+        btn.classList.toggle('active', btn && btn.id.toLowerCase().includes(lang));
+      });
       document.documentElement.lang = lang;
       localStorage.setItem('lang', lang);
     }
-    ruBtn.addEventListener('click',()=>setLang('ru'));
-    kkBtn.addEventListener('click',()=>setLang('kk'));
-    enBtn.addEventListener('click',()=>setLang('en'));
-    setLang(localStorage.getItem('lang') || 'ru');
+    const initLang = localStorage.getItem('lang') || 'ru';
+    setLang(initLang);
+
+    if(ruBtn) ruBtn.addEventListener('click',()=>setLang('ru'));
+    if(kkBtn) kkBtn.addEventListener('click',()=>setLang('kk'));
+    if(enBtn) enBtn.addEventListener('click',()=>setLang('en'));
+    if(ruBtnM) ruBtnM.addEventListener('click',()=>setLang('ru'));
+    if(kkBtnM) kkBtnM.addEventListener('click',()=>setLang('kk'));
+    if(enBtnM) enBtnM.addEventListener('click',()=>setLang('en'));
 
     // Лайтбокс
     const lb=document.getElementById('lightbox');
@@ -293,6 +344,19 @@
     });
     lb.addEventListener('click',(e)=>{ if(e.target===lb || e.target.classList.contains('lightbox-close')) lb.classList.remove('open'); });
     document.addEventListener('keydown', e=>{ if(e.key==='Escape') lb.classList.remove('open'); });
+
+    // Burger
+    const burger=document.getElementById('burger');
+    const mobileMenu=document.getElementById('mobileMenu');
+    burger.addEventListener('click',()=>{
+      document.body.classList.toggle('mobile-open');
+      const open = document.body.classList.contains('mobile-open');
+      mobileMenu.setAttribute('aria-hidden', open ? 'false':'true');
+    });
+    // Закрывать меню при клике на ссылки
+    mobileMenu.querySelectorAll('a').forEach(a=>{
+      a.addEventListener('click',()=>{ document.body.classList.remove('mobile-open'); mobileMenu.setAttribute('aria-hidden','true'); });
+    });
   </script>
 </body>
 </html>
