@@ -57,9 +57,9 @@
 <header>
   <div class="nav">
     <div class="nav-left">
-      <!-- ЛОГОТИП ВСТАВЛЕН ЗДЕСЬ -->
+      <!-- Логотип: сначала логотип-картинка, если доступна, иначе текст -->
       <a class="brand" href="index.html" aria-label="Livi Jewelry">
-        <img src="1200.JPG" alt="Livi Jewelry логотип">
+        <img src="1200.JPG" alt="Livi Jewelry логотип" onerror="this.style.display='none'" style="height:44px; object-fit:contain;">
         <span class="sr-only">LIVI JEWELRY</span>
       </a>
 
@@ -81,6 +81,7 @@
     </div>
   </div>
 </header>
+
 
 <section class="hero">
   <h1 data-ru="Современные украшения из жемчуга и камней"
