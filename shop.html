@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Каталог — Livi Jewelry</title>
+  <meta name="description" content="Каталог украшений Livi Jewelry: жемчуг, камни, сталь.">
+  <style>
+    :root{ --fg:#111; --muted:#5c5c5c; --line:#eaeaea; --bg:#fff; --radius:20px; --shadow:0 8px 24px rgba(0,0,0,.08); }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{background:#fff;color:#111;font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    a{color:inherit;text-decoration:none}
+    header{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line)}
+    .nav{max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+    .brand{font-weight:700;letter-spacing:.08em}
+    .nav-right{display:flex;gap:12px;align-items:center}
+    .chip{border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px}
+    .chip:hover{background:#111;color:#fff;border-color:#111}
+    .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+    .lang button{border:0;background:transparent;padding:8px 12px;font-size:14px;cursor:pointer}
+    .lang button.active{background:#111;color:#fff}
+
+    .section{max-width:1240px;margin:0 auto;padding:40px 24px}
+    h1{font-size:32px;margin-bottom:10px}
+    .muted{color:var(--muted)}
+    .filters{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .tag{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px;cursor:pointer}
+    .tag.active{background:#111;color:#fff;border-color:#111}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:24px}
+    .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;transition:transform .25s, box-shadow .25s}
+    .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .img-wrap{aspect-ratio:4/5;background:#f3f3f3}
+    .card img{width:100%;height:100%;object-fit:cover;display:block}
+    .body{padding:14px}
+    .title{font-size:18px;margin-bottom:6px}
+    .muted.small{font-size:14px}
+
+    footer{margin-top:44px;border-top:1px solid var(--line);text-align:center;color:var(--muted);padding:22px 20px;font-size:14px}
+  </style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="brand" href="index.html">LIVI JEWELRY</a>
+    <div class="nav-right">
+      <a class="chip" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
+      <a class="chip" href="https://wa.me/77054510584?text=Здравствуйте!%20Интересуют%20украшения%20из%20каталога." target="_blank" rel="noopener">WhatsApp</a>
+      <div class="lang">
+        <button id="ruBtn" class="active">RU</button><button id="kkBtn">KZ</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section">
+  <h1 data-ru="Каталог" data-kk="Каталог">Каталог</h1>
+  <div class="muted" data-ru="Выберите категорию или листайте все позиции."
+       data-kk="Санды таңдаңыз немесе барлық позицияларды қараңыз.">Выберите категорию или листайте все позиции.</div>
+
+  <div class="filters">
+    <span class="tag active" data-filter="all" data-ru="Все" data-kk="Барлығы">Все</span>
+    <span class="tag" data-filter="pearl" data-ru="Жемчуг" data-kk="Інжу">Жемчуг</span>
+    <span class="tag" data-filter="steel" data-ru="Сталь" data-kk="Болат">Сталь</span>
+    <span class="tag" data-filter="color" data-ru="Камни/цвет" data-kk="Тастар/түс">Камни/цвет</span>
+  </div>
+
+  <div class="grid" id="grid">
+    <!-- Каждая карточка имеет data-cat для фильтра -->
+    <article class="card" data-cat="pearl color"><div class="img-wrap">
+      <img src="assets/FullSizeRender-1.jpg" alt="Жемчужное колье с цветными вставками и крестом"></div>
+      <div class="body"><div class="title" data-ru="Color Beads & Cross" data-kk="Түрлі түсті тастар және крест">Color Beads & Cross</div>
+      <div class="muted small" data-ru="Жемчуг и цветные кристаллы." data-kk="Інжу және түрлі түсті кристалдар.">Жемчуг и цветные кристаллы.</div></div>
+    </article>
+
+    <article class="card" data-cat="pearl steel"><div class="img-wrap">
+      <img src="assets/FullSizeRender-2.jpg" alt="Колье жемчуг и золотое сердце с цепочками"></div>
+      <div class="body"><div class="title" data-ru="Heart Chain Pearl" data-kk="Жүрек пен тізбектер">Heart Chain Pearl</div>
+      <div class="muted small" data-ru="Жемчуг, золотистые цепи и подвеска-сердце."
+           data-kk="Інжу, алтын түсті тізбектер және жүрек кулоны.">Жемчуг, золотистые цепи и подвеска-сердце.</div></div>
+    </article>
+
+    <article class="card" data-cat="color pearl"><div class="img-wrap">
+      <img src="assets/FullSizeRender-7.jpg" alt="Колье с флюоритом и аметистом"></div>
+      <div class="body"><div class="title" data-ru="Violet Heart" data-kk="Күлгін жүрек">Violet Heart</div>
+      <div class="muted small" data-ru="Флюорит, жемчуг и аметист." data-kk="Флюорит, інжу және аметист.">Флюорит, жемчуг и аметист.</div></div>
+    </article>
+
+    <article class="card" data-cat="color pearl"><div class="img-wrap">
+      <img src="assets/FullSizeRender-8.jpg" alt="Далматин-яшма и жемчуг: сет"></div>
+      <div class="body"><div class="title" data-ru="Dalmatian Set" data-kk="Далматин жиынтығы">Dalmatian Set</div>
+      <div class="muted small" data-ru="Яшма «далматин», тёплые тона и натуральный жемчуг."
+           data-kk="Далматин жасмасы, жылы реңктер және табиғи інжу.">Яшма «далматин», тёплые тона и натуральный жемчуг.</div></div>
+    </article>
+
+    <article class="card" data-cat="steel"><div class="img-wrap">
+      <img src="assets/FullSizeRender-9.jpg" alt="Серебристое колье с подвесками-цепями"></div>
+      <div class="body"><div class="title" data-ru="Silver Fringe" data-kk="Күміс шашақ">Silver Fringe</div>
+      <div class="muted small" data-ru="Холодный блеск и длинные цепи." data-kk="Салқын жалтырау және ұзын тізбектер.">Холодный блеск и длинные цепи.</div></div>
+    </article>
+
+    <article class="card" data-cat="color pearl"><div class="img-wrap">
+      <img src="assets/FullSizeRender-10.jpg" alt="Бирюзовый сет с сердцем"></div>
+      <div class="body"><div class="title" data-ru="Turquoise Heart" data-kk="Көкшіл жүрек">Turquoise Heart</div>
+      <div class="muted small" data-ru="Нежные бирюзовые оттенки и подвеска-сердце."
+           data-kk="Нәзік көгілдір реңк және жүрек кулоны.">Нежные бирюзовые оттенки и подвеска-сердце.</div></div>
+    </article>
+
+    <article class="card" data-cat="steel"><div class="img-wrap">
+      <img src="assets/FullSizeRender.jpg" alt="Стальной чокер-цепь и аксессуары"></div>
+      <div class="body"><div class="title" data-ru="Steel & Pearl Duo" data-kk="Болат және інжу">Steel & Pearl Duo</div>
+      <div class="muted small" data-ru="Жёсткая цепь со съёмной жемчужной подвеской и компаньоны."
+           data-kk="Алынбалы інжу кулоны бар қатты тізбек және аксессуарлар.">Жёсткая цепь со съёмной жемчужной подвеской и компаньоны.</div></div>
+    </article>
+
+    <article class="card" data-cat="pearl"><div class="img-wrap">
+      <img src="assets/FullSizeRender%20(1).jpg" alt="Нежные слои жемчуга с голубыми акцентами"></div>
+      <div class="body"><div class="title" data-ru="Blue Whisper" data-kk="Көк сыбыр">Blue Whisper</div>
+      <div class="muted small" data-ru="Нежные слои жемчуга и прозрачных кристаллов."
+           data-kk="Інжу мен мөлдір тастардың нәзік қабаттары.">Нежные слои жемчуга и прозрачных кристаллов.</div></div>
+    </article>
+
+    <article class="card" data-cat="pearl steel"><div class="img-wrap">
+      <img src="assets/FullSizeRender%20(2).jpg" alt="Двухрядное бирюзово-серебристое колье с клевером"></div>
+      <div class="body"><div class="title" data-ru="Clover Mint" data-kk="Жоңышқа Mint">Clover Mint</div>
+      <div class="muted small" data-ru="Два ряда: інжу + стальные цепи, подвеска-клевер."
+           data-kk="Екі қатар: інжу мен болат тізбек, клевер кулоны.">Два ряда: інжу + стальные цепи, подвеска-клевер.</div></div>
+    </article>
+
+    <article class="card" data-cat="pearl"><div class="img-wrap">
+      <img src="assets/FullSizeRender%20(4).jpg" alt="Белое колье с золотистым сердцем и ракушками"></div>
+      <div class="body"><div class="title" data-ru="Shell Heart" data-kk="Қабық жүрек">Shell Heart</div>
+      <div class="muted small" data-ru="Белые ракушки, золотистая фурнитура и подвеска-сердце."
+           data-kk="Ақ қабықтар, алтын түсті фурнитура және жүрек кулоны.">Белые ракушки, золотистая фурнитура и подвеска-сердце.</div></div>
+    </article>
+
+    <article class="card" data-cat="pearl color"><div class="img-wrap">
+      <img src="assets/FullSizeRender%20(9).jpg" alt="Колье с голубыми камнями и стеклянным сердцем"></div>
+      <div class="body"><div class="title" data-ru="Glass Heart Aqua" data-kk="Шыны жүрек Aqua">Glass Heart Aqua</div>
+      <div class="muted small" data-ru="Голубые кристаллы, жемчуг и крупная стеклянная подвеска."
+           data-kk="Көгілдір кристалдар, інжу және үлкен әйнек кулон.">Голубые кристаллы, жемчуг и крупная стеклянная подвеска.</div></div>
+    </article>
+  </div>
+</section>
+
+<footer>
+  © Livi Jewelry · Қазақстан / Казахстан · <a href="mailto:hello@livijewelry.kz">hello@livijewelry.kz</a>
+</footer>
+
+<script>
+  // Языки
+  const ruBtn=document.getElementById('ruBtn'); const kkBtn=document.getElementById('kkBtn');
+  function setLang(lang){
+    document.querySelectorAll('[data-ru]').forEach(el=>{ el.textContent = el.getAttribute(lang==='kk' ? 'data-kk' : 'data-ru'); });
+    ruBtn.classList.toggle('active', lang!=='kk'); kkBtn.classList.toggle('active', lang==='kk');
+    document.documentElement.lang = (lang==='kk'?'kk':'ru'); localStorage.setItem('lang', lang);
+  }
+  ruBtn.addEventListener('click',()=>setLang('ru')); kkBtn.addEventListener('click',()=>setLang('kk'));
+  setLang(localStorage.getItem('lang') || 'ru');
+
+  // Фильтр
+  const tags=document.querySelectorAll('.tag'); const grid=document.getElementById('grid');
+  tags.forEach(t=>t.addEventListener('click',()=>{
+    tags.forEach(x=>x.classList.remove('active')); t.classList.add('active');
+    const f=t.dataset.filter; grid.querySelectorAll('.card').forEach(c=>{
+      c.style.display = (f==='all' || c.dataset.cat.includes(f)) ? '' : 'none';
+    });
+  }));
+</script>
+</body>
+</html>
