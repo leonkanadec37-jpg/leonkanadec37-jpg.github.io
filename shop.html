@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Каталог — Livi Jewelry</title>
-  <meta name="description" content="Каталог украшений Livi Jewelry: жемчуг, камни, сталь.">
+  <meta name="description" content="Каталог Livi Jewelry: жемчуг, камни, сталь.">
   <style>
     :root{ --fg:#111; --muted:#5c5c5c; --line:#eaeaea; --bg:#fff; --radius:20px; --shadow:0 8px 24px rgba(0,0,0,.08); }
     *{box-sizing:border-box;margin:0;padding:0}
@@ -19,6 +19,8 @@
     .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
     .lang button{border:0;background:transparent;padding:8px 12px;font-size:14px;cursor:pointer}
     .lang button.active{background:#111;color:#fff}
+    .cart-link{position:relative;border:1px solid var(--line);border-radius:999px;padding:8px 14px}
+    .cart-badge{position:absolute;top:-8px;right:-8px;background:#111;color:#fff;border-radius:999px;font-size:12px;padding:2px 6px;min-width:20px;text-align:center}
 
     .section{max-width:1240px;margin:0 auto;padding:40px 24px}
     h1{font-size:32px;margin-bottom:10px}
@@ -34,9 +36,11 @@
     .card img{width:100%;height:100%;object-fit:cover;display:block}
     .body{padding:14px}
     .title{font-size:18px;margin-bottom:6px}
-    .muted.small{font-size:14px}
-
-    footer{margin-top:44px;border-top:1px solid var(--line);text-align:center;color:var(--muted);padding:22px 20px;font-size:14px}
+    .muted.small{font-size:14px;margin-bottom:8px}
+    .price-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .price{font-weight:600}
+    .btn{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px;cursor:pointer;background:#111;color:#fff}
+    .btn.alt{background:#fff;color:#111}
   </style>
 </head>
 <body>
@@ -46,9 +50,8 @@
     <div class="nav-right">
       <a class="chip" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
       <a class="chip" href="https://wa.me/77054510584?text=Здравствуйте!%20Интересуют%20украшения%20из%20каталога." target="_blank" rel="noopener">WhatsApp</a>
-      <div class="lang">
-        <button id="ruBtn" class="active">RU</button><button id="kkBtn">KZ</button>
-      </div>
+      <a class="cart-link" href="cart.html" data-ru="Корзина" data-kk="Себет">Корзина<span id="cartCount" class="cart-badge" style="display:none">0</span></a>
+      <div class="lang"><button id="ruBtn" class="active">RU</button><button id="kkBtn">KZ</button></div>
     </div>
   </div>
 </header>
@@ -66,80 +69,139 @@
   </div>
 
   <div class="grid" id="grid">
-    <!-- Каждая карточка имеет data-cat для фильтра -->
-    <article class="card" data-cat="pearl color"><div class="img-wrap">
-      <img src="assets/FullSizeRender-1.jpg" alt="Жемчужное колье с цветными вставками и крестом"></div>
-      <div class="body"><div class="title" data-ru="Color Beads & Cross" data-kk="Түрлі түсті тастар және крест">Color Beads & Cross</div>
-      <div class="muted small" data-ru="Жемчуг и цветные кристаллы." data-kk="Інжу және түрлі түсті кристалдар.">Жемчуг и цветные кристаллы.</div></div>
+    <!-- Каждая карточка: data-id (уникальный), data-cat (для фильтра) -->
+    <article class="card" data-cat="pearl color" data-id="color-beads-cross">
+      <div class="img-wrap"><img src="assets/FullSizeRender-1.jpg" alt="Жемчужное колье с цветными вставками и крестом"></div>
+      <div class="body">
+        <div class="title" data-ru="Color Beads & Cross" data-kk="Түрлі түсті тастар және крест">Color Beads & Cross</div>
+        <div class="muted small" data-ru="Жемчуг и цветные кристаллы." data-kk="Інжу және түрлі түсті кристалдар.">Жемчуг и цветные кристаллы.</div>
+        <div class="price-row">
+          <div class="price"><span data-price>21990</span> ₸</div>
+          <button class="btn" data-ru="В корзину" data-kk="Себетке">В корзину</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-cat="pearl steel"><div class="img-wrap">
-      <img src="assets/FullSizeRender-2.jpg" alt="Колье жемчуг и золотое сердце с цепочками"></div>
-      <div class="body"><div class="title" data-ru="Heart Chain Pearl" data-kk="Жүрек пен тізбектер">Heart Chain Pearl</div>
-      <div class="muted small" data-ru="Жемчуг, золотистые цепи и подвеска-сердце."
-           data-kk="Інжу, алтын түсті тізбектер және жүрек кулоны.">Жемчуг, золотистые цепи и подвеска-сердце.</div></div>
+    <article class="card" data-cat="pearl steel" data-id="heart-chain-pearl">
+      <div class="img-wrap"><img src="assets/FullSizeRender-2.jpg" alt="Колье жемчуг и золотое сердце с цепочками"></div>
+      <div class="body">
+        <div class="title" data-ru="Heart Chain Pearl" data-kk="Жүрек пен тізбектер">Heart Chain Pearl</div>
+        <div class="muted small" data-ru="Жемчуг, золотистые цепи и подвеска-сердце." data-kk="Інжу, алтын түсті тізбектер және жүрек кулоны.">Жемчуг, золотистые цепи и подвеска-сердце.</div>
+        <div class="price-row">
+          <div class="price"><span data-price>24990</span> ₸</div>
+          <button class="btn" data-ru="В корзину" data-kk="Себетке">В корзину</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-cat="color pearl"><div class="img-wrap">
-      <img src="assets/FullSizeRender-7.jpg" alt="Колье с флюоритом и аметистом"></div>
-      <div class="body"><div class="title" data-ru="Violet Heart" data-kk="Күлгін жүрек">Violet Heart</div>
-      <div class="muted small" data-ru="Флюорит, жемчуг и аметист." data-kk="Флюорит, інжу және аметист.">Флюорит, жемчуг и аметист.</div></div>
+    <article class="card" data-cat="color pearl" data-id="violet-heart">
+      <div class="img-wrap"><img src="assets/FullSizeRender-7.jpg" alt="Колье с флюоритом и аметистом"></div>
+      <div class="body">
+        <div class="title" data-ru="Violet Heart" data-kk="Күлгін жүрек">Violet Heart</div>
+        <div class="muted small" data-ru="Флюорит, жемчуг и аметист." data-kk="Флюорит, інжу және аметист.">Флюорит, жемчуг и аметист.</div>
+        <div class="price-row">
+          <div class="price"><span data-price>23990</span> ₸</div>
+          <button class="btn" data-ru="В корзину" data-kk="Себетке">В корзину</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-cat="color pearl"><div class="img-wrap">
-      <img src="assets/FullSizeRender-8.jpg" alt="Далматин-яшма и жемчуг: сет"></div>
-      <div class="body"><div class="title" data-ru="Dalmatian Set" data-kk="Далматин жиынтығы">Dalmatian Set</div>
-      <div class="muted small" data-ru="Яшма «далматин», тёплые тона и натуральный жемчуг."
-           data-kk="Далматин жасмасы, жылы реңктер және табиғи інжу.">Яшма «далматин», тёплые тона и натуральный жемчуг.</div></div>
+    <article class="card" data-cat="color pearl" data-id="dalmatian-set">
+      <div class="img-wrap"><img src="assets/FullSizeRender-8.jpg" alt="Далматин-яшма и жемчуг: сет"></div>
+      <div class="body">
+        <div class="title" data-ru="Dalmatian Set" data-kk="Далматин жиынтығы">Dalmatian Set</div>
+        <div class="muted small" data-ru="Яшма «далматин», тёплые тона и натуральный жемчуг." data-kk="Далматин жасмасы, жылы реңктер және табиғи інжу.">Яшма «далматин», тёплые тона и натуральный жемчуг.</div>
+        <div class="price-row">
+          <div class="price"><span data-price>22990</span> ₸</div>
+          <button class="btn" data-ru="В корзину" data-kk="Себетке">В корзину</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-cat="steel"><div class="img-wrap">
-      <img src="assets/FullSizeRender-9.jpg" alt="Серебристое колье с подвесками-цепями"></div>
-      <div class="body"><div class="title" data-ru="Silver Fringe" data-kk="Күміс шашақ">Silver Fringe</div>
-      <div class="muted small" data-ru="Холодный блеск и длинные цепи." data-kk="Салқын жалтырау және ұзын тізбектер.">Холодный блеск и длинные цепи.</div></div>
+    <article class="card" data-cat="steel" data-id="silver-fringe">
+      <div class="img-wrap"><img src="assets/FullSizeRender-9.jpg" alt="Серебристое колье с подвесками-цепями"></div>
+      <div class="body">
+        <div class="title" data-ru="Silver Fringe" data-kk="Күміс шашақ">Silver Fringe</div>
+        <div class="muted small" data-ru="Холодный блеск и длинные цепи." data-kk="Салқын жалтырау және ұзын тізбектер.">Холодный блеск и длинные цепи.</div>
+        <div class="price-row">
+          <div class="price"><span data-price>19990</span> ₸</div>
+          <button class="btn" data-ru="В корзину" data-kk="Себетке">В корзину</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-cat="color pearl"><div class="img-wrap">
-      <img src="assets/FullSizeRender-10.jpg" alt="Бирюзовый сет с сердцем"></div>
-      <div class="body"><div class="title" data-ru="Turquoise Heart" data-kk="Көкшіл жүрек">Turquoise Heart</div>
-      <div class="muted small" data-ru="Нежные бирюзовые оттенки и подвеска-сердце."
-           data-kk="Нәзік көгілдір реңк және жүрек кулоны.">Нежные бирюзовые оттенки и подвеска-сердце.</div></div>
+    <article class="card" data-cat="color pearl" data-id="turquoise-heart">
+      <div class="img-wrap"><img src="assets/FullSizeRender-10.jpg" alt="Бирюзовый сет с сердцем"></div>
+      <div class="body">
+        <div class="title" data-ru="Turquoise Heart" data-kk="Көкшіл жүрек">Turquoise Heart</div>
+        <div class="muted small" data-ru="Нежные бирюзовые оттенки и подвеска-сердце." data-kk="Нәзік көгілдір реңк және жүрек кулоны.">Нежные бирюзовые оттенки и подвеска-сердце.</div>
+        <div class="price-row">
+          <div class="price"><span data-price>23990</span> ₸</div>
+          <button class="btn" data-ru="В корзину" data-kk="Себетке">В корзину</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-cat="steel"><div class="img-wrap">
-      <img src="assets/FullSizeRender.jpg" alt="Стальной чокер-цепь и аксессуары"></div>
-      <div class="body"><div class="title" data-ru="Steel & Pearl Duo" data-kk="Болат және інжу">Steel & Pearl Duo</div>
-      <div class="muted small" data-ru="Жёсткая цепь со съёмной жемчужной подвеской и компаньоны."
-           data-kk="Алынбалы інжу кулоны бар қатты тізбек және аксессуарлар.">Жёсткая цепь со съёмной жемчужной подвеской и компаньоны.</div></div>
+    <article class="card" data-cat="steel" data-id="steel-pearl-duo">
+      <div class="img-wrap"><img src="assets/FullSizeRender.jpg" alt="Стальной чокер-цепь и аксессуары"></div>
+      <div class="body">
+        <div class="title" data-ru="Steel & Pearl Duo" data-kk="Болат және інжу">Steel & Pearl Duo</div>
+        <div class="muted small" data-ru="Жёсткая цепь со съёмной жемчужной подвеской и компаньоны." data-kk="Алынбалы інжу кулоны бар қатты тізбек және аксессуарлар.">Жёсткая цепь со съёмной жемчужной подвеской и компаньоны.</div>
+        <div class="price-row">
+          <div class="price"><span data-price>21990</span> ₸</div>
+          <button class="btn" data-ru="В корзину" data-kk="Себетке">В корзину</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-cat="pearl"><div class="img-wrap">
-      <img src="assets/FullSizeRender%20(1).jpg" alt="Нежные слои жемчуга с голубыми акцентами"></div>
-      <div class="body"><div class="title" data-ru="Blue Whisper" data-kk="Көк сыбыр">Blue Whisper</div>
-      <div class="muted small" data-ru="Нежные слои жемчуга и прозрачных кристаллов."
-           data-kk="Інжу мен мөлдір тастардың нәзік қабаттары.">Нежные слои жемчуга и прозрачных кристаллов.</div></div>
+    <article class="card" data-cat="pearl" data-id="shell-heart">
+      <div class="img-wrap"><img src="assets/FullSizeRender%20(4).jpg" alt="Белое колье с золотистым сердцем и ракушками"></div>
+      <div class="body">
+        <div class="title" data-ru="Shell Heart" data-kk="Қабық жүрек">Shell Heart</div>
+        <div class="muted small" data-ru="Белые ракушки, золотистая фурнитура и подвеска-сердце." data-kk="Ақ қабықтар, алтын түсті фурнитура және жүрек кулоны.">Белые ракушки, золотистая фурнитура и подвеска-сердце.</div>
+        <div class="price-row">
+          <div class="price"><span data-price>20990</span> ₸</div>
+          <button class="btn" data-ru="В корзину" data-kk="Себетке">В корзину</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-cat="pearl steel"><div class="img-wrap">
-      <img src="assets/FullSizeRender%20(2).jpg" alt="Двухрядное бирюзово-серебристое колье с клевером"></div>
-      <div class="body"><div class="title" data-ru="Clover Mint" data-kk="Жоңышқа Mint">Clover Mint</div>
-      <div class="muted small" data-ru="Два ряда: інжу + стальные цепи, подвеска-клевер."
-           data-kk="Екі қатар: інжу мен болат тізбек, клевер кулоны.">Два ряда: інжу + стальные цепи, подвеска-клевер.</div></div>
+    <article class="card" data-cat="pearl color" data-id="glass-heart-aqua">
+      <div class="img-wrap"><img src="assets/FullSizeRender%20(9).jpg" alt="Колье с голубыми камнями и стеклянным сердцем"></div>
+      <div class="body">
+        <div class="title" data-ru="Glass Heart Aqua" data-kk="Шыны жүрек Aqua">Glass Heart Aqua</div>
+        <div class="muted small" data-ru="Голубые кристаллы, жемчуг и крупная стеклянная подвеска." data-kk="Көгілдір кристалдар, інжу және үлкен әйнек кулон.">Голубые кристаллы, жемчуг и крупная стеклянная подвеска.</div>
+        <div class="price-row">
+          <div class="price"><span data-price>24990</span> ₸</div>
+          <button class="btn" data-ru="В корзину" data-kk="Себетке">В корзину</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-cat="pearl"><div class="img-wrap">
-      <img src="assets/FullSizeRender%20(4).jpg" alt="Белое колье с золотистым сердцем и ракушками"></div>
-      <div class="body"><div class="title" data-ru="Shell Heart" data-kk="Қабық жүрек">Shell Heart</div>
-      <div class="muted small" data-ru="Белые ракушки, золотистая фурнитура и подвеска-сердце."
-           data-kk="Ақ қабықтар, алтын түсті фурнитура және жүрек кулоны.">Белые ракушки, золотистая фурнитура и подвеска-сердце.</div></div>
+    <article class="card" data-cat="pearl" data-id="blue-whisper">
+      <div class="img-wrap"><img src="assets/FullSizeRender%20(1).jpg" alt="Нежные слои жемчуга с голубыми акцентами"></div>
+      <div class="body">
+        <div class="title" data-ru="Blue Whisper" data-kk="Көк сыбыр">Blue Whisper</div>
+        <div class="muted small" data-ru="Нежные слои жемчуга и прозрачных кристаллов." data-kk="Інжу мен мөлдір тастардың нәзік қабаттары.">Нежные слои жемчуга и прозрачных кристаллов.</div>
+        <div class="price-row">
+          <div class="price"><span data-price>21990</span> ₸</div>
+          <button class="btn" data-ru="В корзину" data-kk="Себетке">В корзину</button>
+        </div>
+      </div>
     </article>
 
-    <article class="card" data-cat="pearl color"><div class="img-wrap">
-      <img src="assets/FullSizeRender%20(9).jpg" alt="Колье с голубыми камнями и стеклянным сердцем"></div>
-      <div class="body"><div class="title" data-ru="Glass Heart Aqua" data-kk="Шыны жүрек Aqua">Glass Heart Aqua</div>
-      <div class="muted small" data-ru="Голубые кристаллы, жемчуг и крупная стеклянная подвеска."
-           data-kk="Көгілдір кристалдар, інжу және үлкен әйнек кулон.">Голубые кристаллы, жемчуг и крупная стеклянная подвеска.</div></div>
+    <article class="card" data-cat="pearl steel" data-id="clover-mint">
+      <div class="img-wrap"><img src="assets/FullSizeRender%20(2).jpg" alt="Двухрядное бирюзово-серебристое колье с клевером"></div>
+      <div class="body">
+        <div class="title" data-ru="Clover Mint" data-kk="Жоңышқа Mint">Clover Mint</div>
+        <div class="muted small" data-ru="Два ряда: інжу + стальные цепи, подвеска-клевер." data-kk="Екі қатар: інжу мен болат тізбек, клевер кулоны.">Два ряда: інжу + стальные цепи, подвеска-клевер.</div>
+        <div class="price-row">
+          <div class="price"><span data-price>22990</span> ₸</div>
+          <button class="btn" data-ru="В корзину" data-kk="Себетке">В корзину</button>
+        </div>
+      </div>
     </article>
+
   </div>
 </section>
 
@@ -148,7 +210,7 @@
 </footer>
 
 <script>
-  // Языки
+  // RU/KZ
   const ruBtn=document.getElementById('ruBtn'); const kkBtn=document.getElementById('kkBtn');
   function setLang(lang){
     document.querySelectorAll('[data-ru]').forEach(el=>{ el.textContent = el.getAttribute(lang==='kk' ? 'data-kk' : 'data-ru'); });
@@ -166,6 +228,35 @@
       c.style.display = (f==='all' || c.dataset.cat.includes(f)) ? '' : 'none';
     });
   }));
+
+  // Товары (из DOM) -> добавление в корзину
+  const CART_KEY='livi_cart_v1';
+  function getCart(){ try{ return JSON.parse(localStorage.getItem(CART_KEY))||[] }catch{ return [] } }
+  function setCart(items){ localStorage.setItem(CART_KEY, JSON.stringify(items)); updateCartBadge(); }
+  function updateCartBadge(){
+    const count=(getCart().reduce((s,i)=>s+i.qty,0))||0;
+    const badge=document.getElementById('cartCount');
+    if(!badge) return;
+    badge.textContent=count;
+    badge.style.display = count>0? 'inline-block':'none';
+  }
+  updateCartBadge();
+
+  function addItem(id,title,price,img){
+    const cart=getCart();
+    const idx=cart.findIndex(i=>i.id===id);
+    if(idx>=0){ cart[idx].qty+=1; }
+    else{ cart.push({id,title,price,qty:1,img}); }
+    setCart(cart);
+  }
+
+  document.querySelectorAll('.card').forEach(card=>{
+    const id=card.dataset.id;
+    const title=card.querySelector('.title').textContent.trim();
+    const price=Number(card.querySelector('[data-price]').textContent.trim());
+    const img=card.querySelector('img').getAttribute('src');
+    card.querySelector('.btn').addEventListener('click',()=>addItem(id,title,price,img));
+  });
 </script>
 </body>
 </html>
