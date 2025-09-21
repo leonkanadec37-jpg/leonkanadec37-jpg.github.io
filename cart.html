@@ -4,92 +4,143 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Livi Jewelry — Корзина</title>
-
-  <!-- Склейка домена -->
-  <script>
-    (function () {
-      var canonical = "livijewelry.kz";
-      var h = location.hostname.toLowerCase();
-      var needRedirect =
-        h === "www." + canonical ||
-        h.endsWith(".github.io") ||
-        h !== canonical;
-      if (needRedirect) {
-        var url = "https://" + canonical + location.pathname + location.search + location.hash;
-        location.replace(url);
-      }
-    })();
-  </script>
-
+  <meta name="description" content="Корзина Livi Jewelry. Оформление заказа.">
   <style>
-    body { font-family: system-ui, sans-serif; margin: 0; padding: 0; background: #fff; color: #111; }
-    header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid #eee; position: sticky; top: 0; background: #fff; z-index: 50; }
-    .brand { font-weight: bold; font-size: 18px; }
-    nav a { margin-left: 16px; text-decoration: none; color: #111; }
-    .cart-icon { position: relative; cursor: pointer; }
-    .cart-count { position: absolute; top: -8px; right: -10px; background: #111; color: #fff; border-radius: 50%; padding: 2px 6px; font-size: 12px; }
+    :root{ --line:#eaeaea; --muted:#666; --shadow:0 10px 30px rgba(0,0,0,.08) }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#fff;color:#111}
+    a{color:inherit;text-decoration:none}
+    header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}
+    .nav{max-width:1000px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+    .pill{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px}
 
-    main { padding: 24px; max-width: 800px; margin: auto; }
-    h1 { margin-bottom: 20px; }
-    .cart-item { border-bottom: 1px solid #eee; padding: 12px 0; display: flex; justify-content: space-between; }
-    .total { margin-top: 20px; font-weight: 600; }
-    .btn { margin-top: 20px; padding: 12px 20px; border: none; border-radius: 999px; background: #111; color: #fff; cursor: pointer; }
+    .wrap{max-width:1000px;margin:0 auto;padding:24px 20px}
+    h1{font-size:clamp(24px,4.2vw,40px);margin-bottom:14px}
+    .empty{border:1px dashed var(--line);border-radius:16px;padding:24px;text-align:center;color:var(--muted)}
+
+    .item{display:grid;grid-template-columns:86px 1fr auto;gap:14px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:12px;background:#fff;box-shadow:var(--shadow)}
+    .thumb{width:86px;height:86px;border-radius:12px;overflow:hidden;background:#f5f5f5}
+    .thumb img{width:100%;height:100%;object-fit:cover}
+    .title{font-weight:600}
+    .muted{color:var(--muted);font-size:14px}
+    .qty{display:flex;align-items:center;gap:8px;margin-top:6px}
+    .qty button{width:28px;height:28px;border-radius:14px;border:1px solid var(--line);background:#fff;cursor:pointer}
+    .price{font-weight:700;white-space:nowrap}
+
+    .list{display:grid;gap:12px;margin:14px 0 18px}
+    .total{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:14px;margin-top:8px}
+    .btn{background:#111;color:#fff;border:0;border-radius:999px;padding:12px 16px;cursor:pointer}
+    .muted-link{color:#666;text-decoration:underline}
+
+    @media (max-width:600px){
+      .item{grid-template-columns:72px 1fr auto}
+      .thumb{width:72px;height:72px}
+    }
   </style>
 </head>
 <body>
-
 <header>
-  <div class="brand"><a href="index.html">Livi Jewelry</a></div>
-  <nav>
-    <a href="index.html">Главная</a>
-    <a href="shop.html">Каталог</a>
-    <a href="cart.html" class="cart-icon">🛒 <span id="cartCount" class="cart-count">0</span></a>
-  </nav>
+  <div class="nav">
+    <a class="pill" href="shop.html">← Каталог</a>
+    <a class="pill" href="index.html">Главная</a>
+  </div>
 </header>
 
-<main>
+<main class="wrap">
   <h1>Корзина</h1>
-  <div id="cartItems"></div>
-  <div class="total" id="cartTotal"></div>
-  <button class="btn" onclick="checkout()">Оформить заказ</button>
+  <div id="list" class="list"></div>
+  <div id="empty" class="empty" style="display:none">Ваша корзина пуста. <a class="muted-link" href="shop.html">Перейти в каталог</a>.</div>
+
+  <div id="summary" style="display:none">
+    <div class="total">
+      <div><strong>Итого:</strong> <span id="sum">0 тг</span></div>
+      <button class="btn" id="checkout">Оформить заказ</button>
+    </div>
+    <p class="muted" style="margin-top:10px">
+      После нажатия «Оформить заказ» мы получим ваш список в WhatsApp и ответим для подтверждения и доставки.
+    </p>
+  </div>
 </main>
 
 <script>
-  function loadCart() {
-    return JSON.parse(localStorage.getItem("cart") || "[]");
-  }
-  function saveCart(cart) {
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartCount();
-  }
-  function updateCartCount() {
-    const cart = loadCart();
-    document.getElementById("cartCount").textContent = cart.length;
-  }
-  function renderCart() {
-    const cart = loadCart();
-    const container = document.getElementById("cartItems");
-    const totalEl = document.getElementById("cartTotal");
-    container.innerHTML = "";
-    let total = 0;
-    cart.forEach((item, i) => {
-      total += item.price;
-      const div = document.createElement("div");
-      div.className = "cart-item";
-      div.innerHTML = `<span>${item.name}</span><span>${item.price} тг</span>`;
-      container.appendChild(div);
-    });
-    totalEl.textContent = "Итого: " + total + " тг";
-  }
-  function checkout() {
-    alert("Заказ оформлен! Свяжитесь с нами для подтверждения.");
-    localStorage.removeItem("cart");
-    renderCart();
-    updateCartCount();
-  }
-  updateCartCount();
-  renderCart();
-</script>
+const assetUrl = (name)=> encodeURI('assets/' + name);
+const fmt = (n)=> new Intl.NumberFormat('ru-RU').format(n) + ' тг';
 
+function getCart(){
+  try{ return JSON.parse(localStorage.getItem('livi_cart')||'[]'); }
+  catch(e){ return []; }
+}
+function setCart(items){
+  localStorage.setItem('livi_cart', JSON.stringify(items));
+  render();
+}
+
+function changeQty(id, delta){
+  const cart=getCart();
+  const i=cart.findIndex(x=>x.id===id);
+  if(i>-1){
+    cart[i].qty += delta;
+    if(cart[i].qty<=0) cart.splice(i,1);
+    setCart(cart);
+  }
+}
+
+function render(){
+  const listEl = document.getElementById('list');
+  const emptyEl = document.getElementById('empty');
+  const summaryEl = document.getElementById('summary');
+  const items = getCart();
+
+  if(items.length===0){
+    listEl.innerHTML='';
+    emptyEl.style.display='block';
+    summaryEl.style.display='none';
+    return;
+  }
+  emptyEl.style.display='none';
+  summaryEl.style.display='block';
+
+  listEl.innerHTML = items.map(it=>`
+    <div class="item">
+      <div class="thumb"><img src="${assetUrl(it.image)}" alt=""></div>
+      <div>
+        <div class="title">${it.title}</div>
+        <div class="muted">${fmt(it.price)} за шт.</div>
+        <div class="qty">
+          <button data-act="dec" data-id="${it.id}">–</button>
+          <span>${it.qty}</span>
+          <button data-act="inc" data-id="${it.id}">+</button>
+          <button data-act="del" data-id="${it.id}" style="margin-left:8px">Удалить</button>
+        </div>
+      </div>
+      <div class="price">${fmt(it.price * it.qty)}</div>
+    </div>
+  `).join('');
+
+  // клики
+  listEl.querySelectorAll('button').forEach(b=>{
+    const id=b.dataset.id, act=b.dataset.act;
+    b.onclick=()=>{
+      if(act==='inc') changeQty(id, +1);
+      if(act==='dec') changeQty(id, -1);
+      if(act==='del'){ changeQty(id, -9999); }
+    };
+  });
+
+  const total = items.reduce((s,i)=>s+i.price*i.qty,0);
+  document.getElementById('sum').textContent = fmt(total);
+}
+
+document.getElementById('checkout').addEventListener('click', ()=>{
+  const items = getCart();
+  if(items.length===0) return;
+  const lines = items.map(i=>`• ${i.title} — ${i.qty} шт. × ${fmt(i.price)} = ${fmt(i.qty*i.price)}`).join('%0A');
+  const total = items.reduce((s,i)=>s+i.price*i.qty,0);
+  const text = `Здравствуйте! Хочу оформить заказ:%0A${lines}%0AИтого: ${fmt(total)}%0AС сайта livijewelry.kz`;
+  window.location.href = `https://wa.me/77054510584?text=${text}`;
+});
+
+render();
+</script>
 </body>
 </html>
