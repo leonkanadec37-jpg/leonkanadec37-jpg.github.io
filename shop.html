@@ -3,236 +3,229 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Каталог — Livi Jewelry</title>
-  <meta name="description" content="Каталог Livi Jewelry: жемчуг, камни, сталь.">
+  <title>Livi Jewelry — Каталог</title>
+  <meta name="description" content="Каталог Livi Jewelry: авторские украшения из жемчуга и натуральных камней.">
   <style>
     :root{ --fg:#111; --muted:#5c5c5c; --line:#eaeaea; --bg:#fff; --radius:20px; --shadow:0 8px 24px rgba(0,0,0,.08); }
     *{box-sizing:border-box;margin:0;padding:0}
-    html,body{background:#fff;color:#111;font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    html,body{background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Arial}
     a{color:inherit;text-decoration:none}
-    header{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line)}
-    .nav{max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
-    .brand{font-weight:700;letter-spacing:.08em}
-    .nav-right{display:flex;gap:12px;align-items:center}
-    .nav-left{display:flex;gap:12px;align-items:center}
-    .chip{border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px}
-    .chip:hover{background:#111;color:#fff;border-color:#111}
+    img{max-width:100%;display:block;height:auto}
+
+    header{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line);backdrop-filter:saturate(140%) blur(6px)}
+    .nav{max-width:1240px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:12px}
+    .brand{font-weight:700;letter-spacing:.06em}
+    .spacer{flex:1}
+    .chip, .cart-btn{
+      border:1px solid var(--line);border-radius:999px;padding:10px 14px;transition:.2s;background:#fff;display:inline-flex;align-items:center;gap:8px
+    }
+    .chip:hover, .cart-btn:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
     .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
-    .lang button{border:0;background:transparent;padding:8px 12px;font-size:14px;cursor:pointer}
-    .lang button.active{background:#111;color:#fff}
-    .cart-link{position:relative;border:1px solid var(--line);border-radius:999px;padding:8px 14px}
-    .cart-badge{position:absolute;top:-8px;right:-8px;background:#111;color:#fff;border-radius:999px;font-size:12px;padding:2px 6px;min-width:20px;text-align:center}
+    .lang button{border:0;background:#fff;padding:8px 12px;cursor:pointer}
+    .lang .active{background:#111;color:#fff}
+    .cart-badge{position:relative;display:inline-flex;align-items:center}
+    .cart-badge span{
+      position:absolute;top:-8px;right:-10px;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:#111;color:#fff;font-size:12px;display:none;align-items:center;justify-content:center;
+      box-shadow:0 2px 6px rgba(0,0,0,.2)
+    }
 
-    .section{max-width:1240px;margin:0 auto;padding:40px 24px}
-    h1{font-size:32px;margin-bottom:10px}
-    .muted{color:var(--muted)}
-    .filters{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-    .tag{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px;cursor:pointer}
-    .tag.active{background:#111;color:#fff;border-color:#111}
+    .wrap{max-width:1240px;margin:0 auto;padding:24px 20px}
+    h1{font-size:clamp(22px,4.6vw,34px);margin-bottom:8px}
+    .muted{color:var(--muted);margin-bottom:18px}
 
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:24px}
-    .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;transition:transform .25s, box-shadow .25s}
-    .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
-    .img-wrap{aspect-ratio:4/5;background:#f3f3f3}
-    .card img{width:100%;height:100%;object-fit:cover;display:block}
-    .body{padding:14px}
-    .title{font-size:18px;margin-bottom:6px}
-    .muted.small{font-size:14px;margin-bottom:8px}
-    .price-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
-    .price{font-weight:600}
-    .btn{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px;cursor:pointer;background:#111;color:#fff}
-    .btn.alt{background:#fff;color:#111}
+    .controls{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
+    .input{border:1px solid var(--line);border-radius:999px;padding:10px 14px;min-width:220px}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+    .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;display:flex;flex-direction:column;transition:.2s}
+    .card:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
+    .img{aspect-ratio:4/5;background:#f4f4f4;overflow:hidden}
+    .img img{width:100%;height:100%;object-fit:cover}
+    .body{padding:14px;display:flex;flex-direction:column;gap:8px}
+    .title{font-weight:600}
+    .price{font-weight:700}
+    .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .btn{border:1px solid var(--line);border-radius:999px;padding:10px 14px;background:#fff;cursor:pointer}
+    .btn.primary{background:#111;color:#fff;border-color:#111}
+    .btn:active{transform:translateY(1px)}
+
+    footer{margin:40px 0 20px;text-align:center;color:#777}
+    @media (max-width:860px){ .nav .chip.hide-sm{display:none} }
   </style>
 </head>
 <body>
-<header>
-  <div class="nav">
-    <div class="nav-left">
-      <a class="brand" href="index.html">LIVI JEWELRY</a>
-      <a href="index.html#about" data-ru="О нас" data-kk="Біз туралы" data-en="About">О нас</a>
+  <header>
+    <div class="nav">
+      <a class="chip" href="index.html">← Главная</a>
+      <div class="spacer"></div>
+      <div class="lang">
+        <button id="ru" class="active">RU</button>
+        <button id="kk">KZ</button>
+        <button id="en">EN</button>
+      </div>
+      <a class="cart-btn cart-badge" href="cart.html">🧺 Корзина <span id="cartCount">0</span></a>
     </div>
-    <div class="nav-right">
-      <a class="chip" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-      <a class="chip" href="https://wa.me/77054510584?text=Здравствуйте!%20Интересуют%20украшения%20из%20каталога." target="_blank" rel="noopener">WhatsApp</a>
-      <a class="cart-link" href="cart.html" data-ru="Корзина" data-kk="Себет" data-en="Cart">Корзина<span id="cartCount" class="cart-badge" style="display:none">0</span></a>
-      <div class="lang"><button id="ruBtn" class="active">RU</button><button id="kkBtn">KZ</button><button id="enBtn">EN</button></div>
+  </header>
+
+  <main class="wrap">
+    <h1 data-ru="Каталог" data-kk="Каталог" data-en="Shop">Каталог</h1>
+    <p class="muted" data-ru="Выбирайте и добавляйте в корзину — оформление через WhatsApp или Kaspi."
+       data-kk="Таңдап, себетке қосыңыз — рәсімдеу WhatsApp немесе Kaspi арқылы."
+       data-en="Pick your favorites — checkout via WhatsApp or Kaspi.">
+       Выбирайте и добавляйте в корзину — оформление через WhatsApp или Kaspi.
+    </p>
+
+    <div class="controls">
+      <input id="q" class="input" type="search" placeholder="Поиск по названию…">
+      <button id="clr" class="btn">Сбросить</button>
     </div>
-  </div>
-</header>
 
-<section class="section">
-  <h1 data-ru="Каталог" data-kk="Каталог" data-en="Shop">Каталог</h1>
-  <div class="muted"
-       data-ru="Выберите категорию или листайте все позиции."
-       data-kk="Санды таңдаңыз немесе барлық позицияларды қараңыз."
-       data-en="Choose a category or browse all items.">
-       Выберите категорию или листайте все позиции.
-  </div>
+    <section class="grid" id="list">
+      <!-- ТОВАРЫ. Изображения и id/цены можно править. -->
+      <article class="card" data-id="full-1" data-title="Color Beads & Cross" data-price="25990">
+        <div class="img"><img src="assets/FullSizeRender-1.jpg" alt=""></div>
+        <div class="body">
+          <div class="title">Color Beads & Cross</div>
+          <div class="muted" data-ru="Жемчуг и цветные кристаллы" data-kk="Інжу және түрлі түсті кристалдар" data-en="Pearls and colorful crystals">Жемчуг и цветные кристаллы</div>
+          <div class="row"><div class="price">25 990 ₸</div><button class="btn primary add">В корзину</button></div>
+        </div>
+      </article>
 
-  <div class="filters">
-    <span class="tag active" data-filter="all" data-ru="Все" data-kk="Барлығы" data-en="All">Все</span>
-    <span class="tag" data-filter="pearl" data-ru="Жемчуг" data-kk="Інжу" data-en="Pearl">Жемчуг</span>
-    <span class="tag" data-filter="steel" data-ru="Сталь" data-kk="Болат" data-en="Steel">Сталь</span>
-    <span class="tag" data-filter="color" data-ru="Камни/цвет" data-kk="Тастар/түс" data-en="Stones/Color">Камни/цвет</span>
-  </div>
+      <article class="card" data-id="full-2" data-title="Heart Chain Pearl" data-price="28990">
+        <div class="img"><img src="assets/FullSizeRender-2.jpg" alt=""></div>
+        <div class="body">
+          <div class="title">Heart Chain Pearl</div>
+          <div class="muted">Жемчуг, золотистые цепи, сердце</div>
+          <div class="row"><div class="price">28 990 ₸</div><button class="btn primary add">В корзину</button></div>
+        </div>
+      </article>
 
-  <div class="grid" id="grid">
-    <!-- карточки c ценами и кнопкой В корзину -->
-    <article class="card" data-cat="pearl color" data-id="color-beads-cross">
-      <div class="img-wrap"><img src="assets/FullSizeRender-1.jpg" alt=""></div>
-      <div class="body">
-        <div class="title" data-ru="Color Beads & Cross" data-kk="Түрлі түсті тастар және крест" data-en="Color Beads & Cross">Color Beads & Cross</div>
-        <div class="muted small" data-ru="Жемчуг и цветные кристаллы." data-kk="Інжу және түрлі түсті кристалдар." data-en="Pearls and colorful crystals.">Жемчуг и цветные кристаллы.</div>
-        <div class="price-row"><div class="price"><span data-price>21990</span> ₸</div><button class="btn" data-ru="В корзину" data-kk="Себетке" data-en="Add to cart">В корзину</button></div>
-      </div>
-    </article>
+      <article class="card" data-id="full-7" data-title="Violet Heart" data-price="31990">
+        <div class="img"><img src="assets/FullSizeRender-7.jpg" alt=""></div>
+        <div class="body">
+          <div class="title">Violet Heart</div>
+          <div class="muted">Флюорит, жемчуг, аметист</div>
+          <div class="row"><div class="price">31 990 ₸</div><button class="btn primary add">В корзину</button></div>
+        </div>
+      </article>
 
-    <article class="card" data-cat="pearl steel" data-id="heart-chain-pearl">
-      <div class="img-wrap"><img src="assets/FullSizeRender-2.jpg" alt=""></div>
-      <div class="body">
-        <div class="title" data-ru="Heart Chain Pearl" data-kk="Жүрек пен тізбектер" data-en="Heart Chain Pearl">Heart Chain Pearl</div>
-        <div class="muted small" data-ru="Жемчуг, золотистые цепи и подвеска-сердце." data-kk="Інжу, алтын түсті тізбектер және жүрек кулоны." data-en="Pearls, golden chains and a heart pendant.">Жемчуг, золотистые цепи и подвеска-сердце.</div>
-        <div class="price-row"><div class="price"><span data-price>24990</span> ₸</div><button class="btn" data-ru="В корзину" data-kk="Себетке" data-en="Add to cart">В корзину</button></div>
-      </div>
-    </article>
+      <article class="card" data-id="full-8" data-title="Dalmatian Set" data-price="33990">
+        <div class="img"><img src="assets/FullSizeRender-8.jpg" alt=""></div>
+        <div class="body">
+          <div class="title">Dalmatian Set</div>
+          <div class="muted">Яшма «далматин», жемчуг</div>
+          <div class="row"><div class="price">33 990 ₸</div><button class="btn primary add">В корзину</button></div>
+        </div>
+      </article>
 
-    <article class="card" data-cat="color pearl" data-id="violet-heart">
-      <div class="img-wrap"><img src="assets/FullSizeRender-7.jpg" alt=""></div>
-      <div class="body">
-        <div class="title" data-ru="Violet Heart" data-kk="Күлгін жүрек" data-en="Violet Heart">Violet Heart</div>
-        <div class="muted small" data-ru="Флюорит, жемчуг и аметист." data-kk="Флюорит, інжу және аметист." data-en="Fluorite, pearls and amethyst.">Флюорит, жемчуг и аметист.</div>
-        <div class="price-row"><div class="price"><span data-price>23990</span> ₸</div><button class="btn" data-ru="В корзину" data-kk="Себетке" data-en="Add to cart">В корзину</button></div>
-      </div>
-    </article>
+      <article class="card" data-id="full-9" data-title="Silver Fringe" data-price="27990">
+        <div class="img"><img src="assets/FullSizeRender-9.jpg" alt=""></div>
+        <div class="body">
+          <div class="title">Silver Fringe</div>
+          <div class="muted">Серебристые цепи</div>
+          <div class="row"><div class="price">27 990 ₸</div><button class="btn primary add">В корзину</button></div>
+        </div>
+      </article>
 
-    <article class="card" data-cat="color pearl" data-id="dalmatian-set">
-      <div class="img-wrap"><img src="assets/FullSizeRender-8.jpg" alt=""></div>
-      <div class="body">
-        <div class="title" data-ru="Dalmatian Set" data-kk="Далматин жиынтығы" data-en="Dalmatian Set">Dalmatian Set</div>
-        <div class="muted small" data-ru="Яшма «далматин», тёплые тона и натуральный жемчуг." data-kk="Далматин жасмасы, жылы реңктер және табиғи інжу." data-en="Dalmatian jasper, warm tones and natural pearls.">Яшма «далматин», тёплые тона и натуральный жемчуг.</div>
-        <div class="price-row"><div class="price"><span data-price>22990</span> ₸</div><button class="btn" data-ru="В корзину" data-kk="Себетке" data-en="Add to cart">В корзину</button></div>
-      </div>
-    </article>
+      <article class="card" data-id="full-10" data-title="Turquoise Heart" data-price="29990">
+        <div class="img"><img src="assets/FullSizeRender-10.jpg" alt=""></div>
+        <div class="body">
+          <div class="title">Turquoise Heart</div>
+          <div class="muted">Бирюзовые оттенки, сердце</div>
+          <div class="row"><div class="price">29 990 ₸</div><button class="btn primary add">В корзину</button></div>
+        </div>
+      </article>
 
-    <article class="card" data-cat="steel" data-id="silver-fringe">
-      <div class="img-wrap"><img src="assets/FullSizeRender-9.jpg" alt=""></div>
-      <div class="body">
-        <div class="title" data-ru="Silver Fringe" data-kk="Күміс шашақ" data-en="Silver Fringe">Silver Fringe</div>
-        <div class="muted small" data-ru="Холодный блеск и длинные цепи." data-kk="Салқын жалтырау және ұзын тізбектер." data-en="Cool shine and long chains.">Холодный блеск и длинные цепи.</div>
-        <div class="price-row"><div class="price"><span data-price>19990</span> ₸</div><button class="btn" data-ru="В корзину" data-kk="Себетке" data-en="Add to cart">В корзину</button></div>
-      </div>
-    </article>
+      <article class="card" data-id="full-main" data-title="Steel & Pearl Duo" data-price="23990">
+        <div class="img"><img src="assets/FullSizeRender.jpg" alt=""></div>
+        <div class="body">
+          <div class="title">Steel & Pearl Duo</div>
+          <div class="muted">Стальная цепь и жемчуг</div>
+          <div class="row"><div class="price">23 990 ₸</div><button class="btn primary add">В корзину</button></div>
+        </div>
+      </article>
 
-    <article class="card" data-cat="color pearl" data-id="turquoise-heart">
-      <div class="img-wrap"><img src="assets/FullSizeRender-10.jpg" alt=""></div>
-      <div class="body">
-        <div class="title" data-ru="Turquoise Heart" data-kk="Көкшіл жүрек" data-en="Turquoise Heart">Turquoise Heart</div>
-        <div class="muted small" data-ru="Нежные бирюзовые оттенки и подвеска-сердце." data-kk="Нәзік көгілдір реңк және жүрек кулоны." data-en="Soft turquoise hues and a heart pendant.">Нежные бирюзовые оттенки и подвеска-сердце.</div>
-        <div class="price-row"><div class="price"><span data-price>23990</span> ₸</div><button class="btn" data-ru="В корзину" data-kk="Себетке" data-en="Add to cart">В корзину</button></div>
-      </div>
-    </article>
+      <article class="card" data-id="full-sp1" data-title="Blue Whisper" data-price="21990">
+        <div class="img"><img src="assets/FullSizeRender%20(1).jpg" alt=""></div>
+        <div class="body">
+          <div class="title">Blue Whisper</div>
+          <div class="muted">Лёгкие нити жемчуга</div>
+          <div class="row"><div class="price">21 990 ₸</div><button class="btn primary add">В корзину</button></div>
+        </div>
+      </article>
 
-    <article class="card" data-cat="steel" data-id="steel-pearl-duo">
-      <div class="img-wrap"><img src="assets/FullSizeRender.jpg" alt=""></div>
-      <div class="body">
-        <div class="title" data-ru="Steel & Pearl Duo" data-kk="Болат және інжу" data-en="Steel & Pearl Duo">Steel & Pearl Duo</div>
-        <div class="muted small" data-ru="Жёсткая цепь со съёмной жемчужной подвеской и компаньоны." data-kk="Алынбалы інжу кулоны бар қатты тізбек және аксессуарлар." data-en="Rigid chain with detachable pearl pendant and matching pieces.">Жёсткая цепь со съёмной жемчужной подвеской и компаньоны.</div>
-        <div class="price-row"><div class="price"><span data-price>21990</span> ₸</div><button class="btn" data-ru="В корзину" data-kk="Себетке" data-en="Add to cart">В корзину</button></div>
-      </div>
-    </article>
+      <article class="card" data-id="full-sp2" data-title="Clover Mint" data-price="22990">
+        <div class="img"><img src="assets/FullSizeRender%20(2).jpg" alt=""></div>
+        <div class="body">
+          <div class="title">Clover Mint</div>
+          <div class="muted">Два ряда: жемчуг + цепи</div>
+          <div class="row"><div class="price">22 990 ₸</div><button class="btn primary add">В корзину</button></div>
+        </div>
+      </article>
 
-    <article class="card" data-cat="pearl" data-id="shell-heart">
-      <div class="img-wrap"><img src="assets/FullSizeRender%20(4).jpg" alt=""></div>
-      <div class="body">
-        <div class="title" data-ru="Shell Heart" data-kk="Қабық жүрек" data-en="Shell Heart">Shell Heart</div>
-        <div class="muted small" data-ru="Белые ракушки, золотистая фурнитура и подвеска-сердце." data-kk="Ақ қабықтар, алтын түсті фурнитура және жүрек кулоны." data-en="White shells, golden hardware and a heart pendant.">Белые ракушки, золотистая фурнитура и подвеска-сердце.</div>
-        <div class="price-row"><div class="price"><span data-price>20990</span> ₸</div><button class="btn" data-ru="В корзину" data-kk="Себетке" data-en="Add to cart">В корзину</button></div>
-      </div>
-    </article>
+      <article class="card" data-id="full-sp4" data-title="Shell Heart" data-price="25990">
+        <div class="img"><img src="assets/FullSizeRender%20(4).jpg" alt=""></div>
+        <div class="body">
+          <div class="title">Shell Heart</div>
+          <div class="muted">Ракушки и сердце</div>
+          <div class="row"><div class="price">25 990 ₸</div><button class="btn primary add">В корзину</button></div>
+        </div>
+      </article>
 
-    <article class="card" data-cat="pearl color" data-id="glass-heart-aqua">
-      <div class="img-wrap"><img src="assets/FullSizeRender%20(9).jpg" alt=""></div>
-      <div class="body">
-        <div class="title" data-ru="Glass Heart Aqua" data-kk="Шыны жүрек Aqua" data-en="Glass Heart Aqua">Glass Heart Aqua</div>
-        <div class="muted small" data-ru="Голубые кристаллы, жемчуг и крупная стеклянная подвеска." data-kk="Көгілдір кристалдар, інжу және үлкен әйнек кулон." data-en="Blue crystals, pearls and a large glass heart pendant.">Голубые кристаллы, жемчуг и крупная стеклянная подвеска.</div>
-        <div class="price-row"><div class="price"><span data-price>24990</span> ₸</div><button class="btn" data-ru="В корзину" data-kk="Себетке" data-en="Add to cart">В корзину</button></div>
-      </div>
-    </article>
+      <article class="card" data-id="full-sp9" data-title="Glass Heart Aqua" data-price="26990">
+        <div class="img"><img src="assets/FullSizeRender%20(9).jpg" alt=""></div>
+        <div class="body">
+          <div class="title">Glass Heart Aqua</div>
+          <div class="muted">Стеклянное сердце</div>
+          <div class="row"><div class="price">26 990 ₸</div><button class="btn primary add">В корзину</button></div>
+        </div>
+      </article>
+    </section>
+    <footer>© Livi Jewelry</footer>
+  </main>
 
-    <article class="card" data-cat="pearl" data-id="blue-whisper">
-      <div class="img-wrap"><img src="assets/FullSizeRender%20(1).jpg" alt=""></div>
-      <div class="body">
-        <div class="title" data-ru="Blue Whisper" data-kk="Көк сыбыр" data-en="Blue Whisper">Blue Whisper</div>
-        <div class="muted small" data-ru="Нежные слои жемчуга и прозрачных кристаллов." data-kk="Інжу мен мөлдір тастардың нәзік қабаттары." data-en="Delicate layers of pearls and clear crystals.">Нежные слои жемчуга и прозрачных кристаллов.</div>
-        <div class="price-row"><div class="price"><span data-price>21990</span> ₸</div><button class="btn" data-ru="В корзину" data-kk="Себетке" data-en="Add to cart">В корзину</button></div>
-      </div>
-    </article>
+  <script>
+    // ===== i18n (минимум) =====
+    const buttons=[...document.querySelectorAll('.lang button')];
+    function setLang(l){ document.querySelectorAll('[data-ru]').forEach(el=>{
+      const t = l==='kk'?el.dataset.kk : l==='en'?el.dataset.en : el.dataset.ru;
+      if(t) el.textContent=t;
+    }); buttons.forEach(b=>b.classList.toggle('active', b.id===l)); localStorage.setItem('lang',l); }
+    setLang(localStorage.getItem('lang')||'ru'); buttons.forEach(b=>b.onclick=()=>setLang(b.id));
 
-    <article class="card" data-cat="pearl steel" data-id="clover-mint">
-      <div class="img-wrap"><img src="assets/FullSizeRender%20(2).jpg" alt=""></div>
-      <div class="body">
-        <div class="title" data-ru="Clover Mint" data-kk="Жоңышқа Mint" data-en="Clover Mint">Clover Mint</div>
-        <div class="muted small" data-ru="Два ряда: інжу + стальные цепи, подвеска-клевер." data-kk="Екі қатар: інжу мен болат тізбек, клевер кулоны." data-en="Two rows: pearls + steel chains, clover pendant.">Два ряда: інжу + стальные цепи, подвеска-клевер.</div>
-        <div class="price-row"><div class="price"><span data-price>22990</span> ₸</div><button class="btn" data-ru="В корзину" data-kk="Себетке" data-en="Add to cart">В корзину</button></div>
-      </div>
-    </article>
+    // ===== Корзина =====
+    const CART_KEY='livi-cart';
+    const countEl=document.getElementById('cartCount');
 
-  </div>
-</section>
+    function readCart(){ try{return JSON.parse(localStorage.getItem(CART_KEY))||[]}catch{return[]} }
+    function writeCart(c){ localStorage.setItem(CART_KEY, JSON.stringify(c)); updateCount(); }
+    function add(id,title,price){
+      const c=readCart(); const i=c.findIndex(x=>x.id===id);
+      if(i>=0) c[i].qty+=1; else c.push({id,title,price: Number(price)||0, qty:1});
+      writeCart(c);
+    }
+    function updateCount(){ const n=readCart().reduce((s,i)=>s+i.qty,0); if(n>0){countEl.style.display='flex'; countEl.textContent=String(n);} else {countEl.style.display='none'; countEl.textContent='0';} }
+    updateCount();
 
-<footer style="text-align:center;color:#5c5c5c;padding:22px 20px">
-  © Livi Jewelry · Қазақстан / Казахстан · <a href="mailto:hello@livijewelry.kz">hello@livijewelry.kz</a>
-</footer>
-
-<script>
-  // RU/KZ/EN
-  const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
-  function setLang(lang){
-    document.querySelectorAll('[data-ru]').forEach(el=>{
-      const txt = lang==='kk' ? el.getAttribute('data-kk')
-                : lang==='en' ? el.getAttribute('data-en')
-                : el.getAttribute('data-ru');
-      if(txt) el.textContent = txt;
+    // Кнопки "В корзину"
+    document.querySelectorAll('.add').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const card=btn.closest('.card');
+        add(card.dataset.id, card.dataset.title, card.dataset.price);
+        btn.textContent='Добавлено ✓'; setTimeout(()=>btn.textContent='В корзину',1100);
+      });
     });
-    ruBtn.classList.toggle('active', lang==='ru'); kkBtn.classList.toggle('active', lang==='kk'); enBtn.classList.toggle('active', lang==='en');
-    document.documentElement.lang = lang; localStorage.setItem('lang', lang);
-  }
-  ruBtn.addEventListener('click',()=>setLang('ru')); kkBtn.addEventListener('click',()=>setLang('kk')); enBtn.addEventListener('click',()=>setLang('en'));
-  setLang(localStorage.getItem('lang') || 'ru');
 
-  // Фильтр
-  const tags=document.querySelectorAll('.tag'); const grid=document.getElementById('grid');
-  tags.forEach(t=>t.addEventListener('click',()=>{
-    tags.forEach(x=>x.classList.remove('active')); t.classList.add('active');
-    const f=t.dataset.filter; grid.querySelectorAll('.card').forEach(c=>{
-      c.style.display = (f==='all' || c.dataset.cat.includes(f)) ? '' : 'none';
-    });
-  }));
-
-  // Корзина (localStorage)
-  const CART_KEY='livi_cart_v1';
-  function getCart(){ try{ return JSON.parse(localStorage.getItem(CART_KEY))||[] }catch{ return [] } }
-  function setCart(items){ localStorage.setItem(CART_KEY, JSON.stringify(items)); updateCartBadge(); }
-  function updateCartBadge(){
-    const count=(getCart().reduce((s,i)=>s+i.qty,0))||0;
-    const badge=document.getElementById('cartCount');
-    if(!badge) return; badge.textContent=count; badge.style.display = count>0? 'inline-block':'none';
-  }
-  updateCartBadge();
-
-  function addItem(id,title,price,img){
-    const cart=getCart(); const idx=cart.findIndex(i=>i.id===id);
-    if(idx>=0){ cart[idx].qty+=1; } else { cart.push({id,title,price,qty:1,img}); }
-    setCart(cart);
-  }
-
-  document.querySelectorAll('.card').forEach(card=>{
-    const id=card.dataset.id;
-    const title=card.querySelector('.title').textContent.trim();
-    const price=Number(card.querySelector('[data-price]').textContent.trim());
-    const img=card.querySelector('img').getAttribute('src');
-    card.querySelector('.btn').addEventListener('click',()=>addItem(id,title,price,img));
-  });
-</script>
+    // Поиск
+    const q=document.getElementById('q'); const list=document.getElementById('list'); const clr=document.getElementById('clr');
+    function applyFilter(){
+      const v=(q.value||'').toLowerCase();
+      [...list.children].forEach(card=>{
+        const t=(card.dataset.title||'') + ' ' + (card.querySelector('.muted')?.textContent||'');
+        card.style.display= t.toLowerCase().includes(v)?'flex':'none';
+      });
+    }
+    q.addEventListener('input',applyFilter); clr.addEventListener('click',()=>{q.value='';applyFilter();});
+  </script>
 </body>
 </html>
