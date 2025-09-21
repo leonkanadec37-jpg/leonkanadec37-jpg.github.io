@@ -3,116 +3,123 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Livi Jewelry — Корзина</title>
+<title>Livi — Корзина</title>
+<link rel="icon" href="favicon.ico">
 <style>
-  :root{--fg:#111;--muted:#666;--line:#eee;--radius:18px;--shadow:0 8px 28px rgba(0,0,0,.08)}
+  :root{--fg:#111;--muted:#666;--line:#eee;--radius:16px;--shadow:0 8px 28px rgba(0,0,0,.08)}
   *{box-sizing:border-box;margin:0;padding:0}
   body{font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#fff;color:var(--fg)}
-  a{color:inherit;text-decoration:none}
-  header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line)}
-  .nav{max-width:960px;margin:0 auto;padding:14px 18px;display:flex;gap:12px;align-items:center;justify-content:space-between}
-  .brand{font-weight:700;letter-spacing:.08em}
-  .wrap{max-width:960px;margin:0 auto;padding:26px 18px}
-  h1{font-size:clamp(22px,4.8vw,34px);margin-bottom:16px}
-  .empty{padding:24px;border:1px dashed var(--line);border-radius:16px;text-align:center;color:var(--muted)}
-  .list{display:grid;gap:14px;margin:18px 0}
-  .item{display:grid;grid-template-columns:90px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:var(--radius);padding:10px}
-  .thumb{width:90px;height:90px;border-radius:12px;overflow:hidden;background:#fafafa}
+  a{text-decoration:none;color:inherit}
+  header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
+  .nav{max-width:1240px;margin:0 auto;padding:14px 20px;display:flex;gap:12px;align-items:center;justify-content:space-between}
+  .brand{font-weight:800;letter-spacing:.08em}
+  .nav-left{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .nav-left a{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px}
+  .cart-badge{display:inline-block;background:#111;color:#fff;border-radius:999px;font-size:12px;padding:4px 6px;margin-left:6px}
+  .wrap{max-width:1000px;margin:0 auto;padding:26px 20px}
+  h1{font-size:clamp(24px,4.4vw,38px);margin-bottom:14px}
+  .empty{color:var(--muted)}
+  .item{display:grid;grid-template-columns:96px 1fr auto auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:var(--radius);padding:10px;margin-bottom:12px}
+  .thumb{width:96px;height:96px;border-radius:12px;overflow:hidden;background:#f5f5f5}
   .thumb img{width:100%;height:100%;object-fit:cover;display:block}
   .title{font-weight:600}
   .muted{color:var(--muted);font-size:14px}
-  .qty{display:flex;align-items:center;gap:8px}
-  .qty button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:#fff;cursor:pointer}
-  .sum{font-weight:700}
-  .totals{margin-top:16px;border-top:1px solid var(--line);padding-top:14px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
-  .btn{background:#111;color:#fff;border:0;border-radius:999px;padding:12px 16px;cursor:pointer}
-  .btn.alt{background:#fff;color:#111;border:1px solid var(--line)}
-  @media (max-width:560px){
-    .item{grid-template-columns:72px 1fr;grid-template-areas:
-      "thumb title" "thumb qty" "thumb sum";}
-    .thumb{grid-area:thumb;width:72px;height:72px}
-    .title{grid-area:title}
-    .qty{grid-area:qty}
-    .sum{grid-area:sum}
-  }
+  .qty{display:flex;gap:8px;align-items:center}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:6px 10px;cursor:pointer}
+  .btn--primary{background:#111;color:#fff;border-color:#111}
+  .total{display:flex;justify-content:space-between;align-items:center;margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+  .actions{display:flex;gap:10px;flex-wrap:wrap}
 </style>
 </head>
 <body>
 <header>
   <div class="nav">
-    <a class="brand" href="index.html">LIVI JEWELRY</a>
-    <div>
-      <a class="btn alt" href="shop.html">Каталог</a>
+    <div class="nav-left">
+      <a class="brand" href="index.html">LIVI JEWELRY</a>
+      <a href="shop.html">Каталог</a>
+      <span id="badge" class="cart-badge" style="display:none">0</span>
     </div>
   </div>
 </header>
 
 <main class="wrap">
   <h1>Корзина</h1>
-  <div id="container"></div>
+  <div id="list"></div>
+  <div class="total" id="summary" style="display:none">
+    <div>
+      <div class="muted">Позиций: <span id="itemsCount">0</span></div>
+      <div><strong>Сумма:</strong> <span id="sumText">—</span></div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="clearBtn">Очистить</button>
+      <a class="btn btn--primary" id="orderBtn" target="_blank" rel="noopener">Оформить в WhatsApp</a>
+    </div>
+  </div>
+  <p id="empty" class="empty">Ваша корзина пуста.</p>
 </main>
 
 <script>
-const KEY='livi_cart';
-function read(){ try{ return JSON.parse(localStorage.getItem(KEY))||[] }catch(e){ return [] } }
-function write(v){ localStorage.setItem(KEY, JSON.stringify(v)); render(); }
-function money(n){ return n.toLocaleString('ru-RU')+' тг' }
+  function readCart(){ try{return JSON.parse(localStorage.getItem('livi_cart_v2')||'[]')}catch(e){return []} }
+  function writeCart(v){ localStorage.setItem('livi_cart_v2', JSON.stringify(v)); render(); }
 
-function render(){
-  const root=document.getElementById('container');
-  const items=read();
-  if(!items.length){
-    root.innerHTML = `<div class="empty">Ваша корзина пуста.<br><br><a class="btn alt" href="shop.html">Перейти в каталог</a></div>`;
-    return;
+  function formatPrice(p){ return p; } // цены уже строкой
+
+  function render(){
+    const list = document.getElementById('list');
+    const badge = document.getElementById('badge');
+    const empty = document.getElementById('empty');
+    const summary = document.getElementById('summary');
+    const itemsCountEl = document.getElementById('itemsCount');
+    const sumTextEl = document.getElementById('sumText');
+
+    const cart = readCart();
+    const count = cart.reduce((s,i)=>s+i.qty,0);
+    if(count>0){ badge.textContent=count; badge.style.display='inline-block'; } else { badge.style.display='none'; }
+
+    list.innerHTML='';
+    if(cart.length===0){
+      empty.style.display='block';
+      summary.style.display='none';
+      return;
+    }
+    empty.style.display='none';
+    summary.style.display='flex';
+
+    // Сумма как текст (так как у нас разные форматы цен)
+    itemsCountEl.textContent = count;
+    sumTextEl.textContent = cart.map(i=>`${i.title} × ${i.qty} (${i.price})`).join(' • ');
+
+    cart.forEach((i,idx)=>{
+      const row = document.createElement('div'); row.className='item';
+      row.innerHTML = `
+        <div class="thumb"><img src="${i.img}" alt=""></div>
+        <div><div class="title">${i.title}</div><div class="muted">${i.price}</div></div>
+        <div class="qty">
+          <button class="btn" aria-label="minus">−</button>
+          <span>${i.qty}</span>
+          <button class="btn" aria-label="plus">+</button>
+        </div>
+        <button class="btn" aria-label="remove">Удалить</button>
+      `;
+      const [minusBtn, qtyEl, plusBtn] = row.querySelectorAll('.qty .btn, .qty span');
+      minusBtn.onclick=()=>{ const c=readCart(); if(c[idx].qty>1)c[idx].qty--; else c.splice(idx,1); writeCart(c); };
+      plusBtn.onclick =()=>{ const c=readCart(); c[idx].qty++; writeCart(c); };
+      row.querySelector('[aria-label="remove"]').onclick=()=>{ const c=readCart(); c.splice(idx,1); writeCart(c); };
+      list.appendChild(row);
+    });
+
+    // WhatsApp оформление
+    const orderBtn=document.getElementById('orderBtn');
+    const text = encodeURIComponent('Здравствуйте! Хочу оформить заказ:\n\n'+
+      cart.map(i=>`• ${i.title} — ${i.price} × ${i.qty}`).join('\n'));
+    orderBtn.href = 'https://wa.me/77054510584?text='+text;
   }
-  const list=document.createElement('div'); list.className='list';
-  let total=0;
-  items.forEach((it,idx)=>{
-    const line=document.createElement('div'); line.className='item';
-    const sum = it.price*it.qty; total+=sum;
-    line.innerHTML = `
-      <div class="thumb"><img src="${it.img}" alt="${it.title}"></div>
-      <div class="title">${it.title}<div class="muted">${it.price.toLocaleString('ru-RU')} тг · ID: ${it.id}</div></div>
-      <div class="qty">
-        <button aria-label="минус">−</button>
-        <div>${it.qty}</div>
-        <button aria-label="плюс">+</button>
-        <button class="btn alt" style="margin-left:8px">Удалить</button>
-      </div>
-      <div class="sum">${money(sum)}</div>
-    `;
-    const [minus, , plus, del] = line.querySelectorAll('.qty button');
-    minus.onclick=()=>{ const arr=read(); if(arr[idx].qty>1){arr[idx].qty--} else {arr.splice(idx,1)} write(arr) };
-    plus.onclick =()=>{ const arr=read(); arr[idx].qty++; write(arr) };
-    del.onclick  =()=>{ const arr=read(); arr.splice(idx,1); write(arr) };
-    list.appendChild(line);
-  });
 
-  const totals=document.createElement('div'); totals.className='totals';
-  totals.innerHTML = `
-    <div><strong>Итого:</strong> ${money(total)}</div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn alt" onclick="clearCart()">Очистить</button>
-      <a class="btn" href="shop.html">Продолжить покупки</a>
-    </div>
-  `;
+  document.getElementById('clearBtn').onclick=()=>{ writeCart([]); };
 
-  root.innerHTML='';
-  root.appendChild(list);
-  root.appendChild(totals);
-}
+  window.addEventListener('storage',e=>{ if(e.key==='livi_cart_v2') render(); });
 
-function clearCart(){ localStorage.setItem(KEY, '[]'); render(); }
-
-// гарантируем одинаковую корзину между устройствами/вкладками
-window.addEventListener('storage', e=>{ if(e.key===KEY) render() });
-
-// ХАК для десктопа (иногда браузеры не сразу коммитят запись):
-// на этой странице мы форсируем чтение после фокуса, чтобы избежать эффекта "пусто" на ПК.
-window.addEventListener('focus', render);
-document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) render() });
-
-render();
+  render();
 </script>
 </body>
 </html>
