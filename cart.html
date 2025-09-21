@@ -44,9 +44,9 @@
   <div class="nav">
     <a class="brand" href="index.html">LIVI JEWELRY</a>
     <div class="nav-right">
-      <a class="chip" href="shop.html" data-ru="Каталог" data-kk="Каталог">Каталог</a>
-      <a class="cart-link" href="cart.html" data-ru="Корзина" data-kk="Себет">Корзина<span id="cartCount" class="cart-badge" style="display:none">0</span></a>
-      <div class="lang"><button id="ruBtn" class="active">RU</button><button id="kkBtn">KZ</button></div>
+      <a class="chip" href="shop.html" data-ru="Каталог" data-kk="Каталог" data-en="Shop">Каталог</a>
+      <a class="cart-link" href="cart.html" data-ru="Корзина" data-kk="Себет" data-en="Cart">Корзина<span id="cartCount" class="cart-badge" style="display:none">0</span></a>
+      <div class="lang"><button id="ruBtn" class="active">RU</button><button id="kkBtn">KZ</button><button id="enBtn">EN</button></div>
     </div>
   </div>
 </header>
@@ -55,16 +55,16 @@
   <!-- Корзина -->
   <div class="card">
     <div class="box">
-      <h1 data-ru="Корзина" data-kk="Себет">Корзина</h1>
-      <div id="empty" class="muted" style="display:none" data-ru="Ваша корзина пуста." data-kk="Себетіңіз бос.">Ваша корзина пуста.</div>
+      <h1 data-ru="Корзина" data-kk="Себет" data-en="Cart">Корзина</h1>
+      <div id="empty" class="muted" style="display:none" data-ru="Ваша корзина пуста." data-kk="Себетіңіз бос." data-en="Your cart is empty.">Ваша корзина пуста.</div>
       <div style="overflow:auto">
         <table id="table" style="display:none">
           <thead>
             <tr>
-              <th data-ru="Товар" data-kk="Тауар">Товар</th>
-              <th data-ru="Цена" data-kk="Баға">Цена</th>
-              <th data-ru="Кол-во" data-kk="Саны">Кол-во</th>
-              <th data-ru="Сумма" data-kk="Сома">Сумма</th>
+              <th data-ru="Товар" data-kk="Тауар" data-en="Item">Товар</th>
+              <th data-ru="Цена" data-kk="Баға" data-en="Price">Цена</th>
+              <th data-ru="Кол-во" data-kk="Саны" data-en="Qty">Кол-во</th>
+              <th data-ru="Сумма" data-kk="Сома" data-en="Total">Сумма</th>
               <th></th>
             </tr>
           </thead>
@@ -72,7 +72,7 @@
         </table>
       </div>
       <div class="totals" id="totals" style="display:none">
-        <div data-ru="Итого" data-kk="Барлығы">Итого</div>
+        <div data-ru="Итого" data-kk="Барлығы" data-en="Subtotal">Итого</div>
         <div><span id="total">0</span> ₸</div>
       </div>
     </div>
@@ -81,20 +81,22 @@
   <!-- Оформление -->
   <div class="card">
     <div class="box">
-      <h1 data-ru="Оформление заказа" data-kk="Тапсырысты рәсімдеу">Оформление заказа</h1>
+      <h1 data-ru="Оформление заказа" data-kk="Тапсырысты рәсімдеу" data-en="Checkout">Оформление заказа</h1>
       <div class="row">
-        <input id="name" placeholder="Имя / Есім">
+        <input id="name" placeholder="Имя / Есім / Name">
         <input id="phone" placeholder="+7XXXXXXXXXX">
       </div>
       <div class="row">
-        <textarea id="note" placeholder="Комментарий / Ескертпе (размер, пожелания)"></textarea>
+        <textarea id="note" placeholder="Комментарий / Ескертпе / Notes (размер, пожелания)"></textarea>
       </div>
       <div class="row">
-        <button class="btn" id="sendWA" data-ru="Оформить в WhatsApp" data-kk="WhatsApp арқылы рәсімдеу">Оформить в WhatsApp</button>
-        <button class="btn alt" id="clear" data-ru="Очистить корзину" data-kk="Себетті тазалау">Очистить корзину</button>
+        <button class="btn" id="sendWA" data-ru="Оформить в WhatsApp" data-kk="WhatsApp арқылы рәсімдеу" data-en="Send to WhatsApp">Оформить в WhatsApp</button>
+        <button class="btn alt" id="clear" data-ru="Очистить корзину" data-kk="Себетті тазалау" data-en="Clear cart">Очистить корзину</button>
       </div>
-      <div class="muted" style="margin-top:6px" data-ru="Мы не списываем деньги на сайте — подтверждаем заказ в WhatsApp."
-           data-kk="Сайтта төлем алмаймыз — тапсырысты WhatsApp-та растаймыз.">
+      <div class="muted" style="margin-top:6px"
+           data-ru="Мы не списываем деньги на сайте — подтверждаем заказ в WhatsApp."
+           data-kk="Сайтта төлем алмаймыз — тапсырысты WhatsApp-та растаймыз."
+           data-en="We don’t charge on the website — we confirm orders via WhatsApp.">
            Мы не списываем деньги на сайте — подтверждаем заказ в WhatsApp.
       </div>
     </div>
@@ -106,14 +108,19 @@
 </footer>
 
 <script>
-  // RU/KZ
-  const ruBtn=document.getElementById('ruBtn'); const kkBtn=document.getElementById('kkBtn');
+  // RU/KZ/EN
+  const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
   function setLang(lang){
-    document.querySelectorAll('[data-ru]').forEach(el=>{ el.textContent = el.getAttribute(lang==='kk' ? 'data-kk' : 'data-ru'); });
-    ruBtn.classList.toggle('active', lang!=='kk'); kkBtn.classList.toggle('active', lang==='kk');
-    document.documentElement.lang = (lang==='kk'?'kk':'ru'); localStorage.setItem('lang', lang);
+    document.querySelectorAll('[data-ru]').forEach(el=>{
+      const txt = lang==='kk' ? el.getAttribute('data-kk')
+                : lang==='en' ? el.getAttribute('data-en')
+                : el.getAttribute('data-ru');
+      if(txt) el.textContent = txt;
+    });
+    ruBtn.classList.toggle('active', lang==='ru'); kkBtn.classList.toggle('active', lang==='kk'); enBtn.classList.toggle('active', lang==='en');
+    document.documentElement.lang = lang; localStorage.setItem('lang', lang);
   }
-  ruBtn.addEventListener('click',()=>setLang('ru')); kkBtn.addEventListener('click',()=>setLang('kk'));
+  ruBtn.addEventListener('click',()=>setLang('ru')); kkBtn.addEventListener('click',()=>setLang('kk')); enBtn.addEventListener('click',()=>setLang('en'));
   setLang(localStorage.getItem('lang') || 'ru');
 
   // Корзина
@@ -123,9 +130,7 @@
   function updateCartBadge(){
     const count=(getCart().reduce((s,i)=>s+i.qty,0))||0;
     const badge=document.getElementById('cartCount');
-    if(!badge) return;
-    badge.textContent=count;
-    badge.style.display = count>0? 'inline-block':'none';
+    if(!badge) return; badge.textContent=count; badge.style.display = count>0? 'inline-block':'none';
   }
 
   const tbody=document.getElementById('tbody');
@@ -168,7 +173,7 @@
     });
     totalEl.textContent=fmt(sum);
 
-    // обработчики на плюс/минус/удалить
+    // +/- и удалить
     tbody.querySelectorAll('[data-inc]').forEach(b=>b.addEventListener('click',()=>{
       const i=Number(b.getAttribute('data-inc')); const cart=getCart(); cart[i].qty++; setCart(cart);
     }));
@@ -183,15 +188,15 @@
   // Отправка в WhatsApp
   document.getElementById('sendWA').addEventListener('click', ()=>{
     const items=getCart();
-    if(items.length===0){ alert('Корзина пуста.'); return; }
+    if(items.length===0){ alert('Корзина пуста / Себет бос / Cart is empty'); return; }
     const name=(document.getElementById('name').value||'').trim();
     const phone=(document.getElementById('phone').value||'').trim();
     const note=(document.getElementById('note').value||'').trim();
 
     const lines=[];
-    lines.push('*Новый заказ с сайта Livi Jewelry*');
-    if(name) lines.push(`Имя: ${name}`);
-    if(phone) lines.push(`Телефон: ${phone}`);
+    lines.push('*Новый заказ с сайта Livi Jewelry* / *Livi Jewelry жаңа тапсырыс* / *New order from Livi Jewelry site*');
+    if(name) lines.push(`Имя/Есім/Name: ${name}`);
+    if(phone) lines.push(`Телефон/Телефон/Phone: ${phone}`);
     lines.push('');
     let total=0;
     items.forEach(i=>{
@@ -199,10 +204,10 @@
       lines.push(line); total+=i.price*i.qty;
     });
     lines.push('');
-    if(note) lines.push(`Комментарий: ${note}`);
-    lines.push(`Итого: ${total} ₸`);
+    if(note) lines.push(`Комментарий/Ескертпе/Notes: ${note}`);
+    lines.push(`Итого/Барлығы/Subtotal: ${total} ₸`);
     lines.push('');
-    lines.push('Источник: https://leonkanadec37-jpg.github.io/');
+    lines.push(location.origin);
 
     const msg=encodeURIComponent(lines.join('\n'));
     const wa=`https://wa.me/77054510584?text=${msg}`;
@@ -210,7 +215,7 @@
   });
 
   document.getElementById('clear').addEventListener('click', ()=>{
-    if(confirm('Очистить корзину?')){ setCart([]); }
+    if(confirm('Очистить корзину? / Себетті тазалау? / Clear cart?')){ setCart([]); }
   });
 
   // init
