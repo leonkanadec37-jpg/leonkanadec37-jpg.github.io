@@ -4,96 +4,176 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Livi Jewelry — Каталог</title>
-
-  <!-- Склейка домена -->
-  <script>
-    (function () {
-      var canonical = "livijewelry.kz"; // твой основной домен
-      var h = location.hostname.toLowerCase();
-      var needRedirect =
-        h === "www." + canonical ||
-        h.endsWith(".github.io") ||
-        h !== canonical;
-      if (needRedirect) {
-        var url = "https://" + canonical + location.pathname + location.search + location.hash;
-        location.replace(url);
-      }
-    })();
-  </script>
-
+  <meta name="description" content="Каталог украшений Livi Jewelry: колье, чокеры, сеты. Казахстан.">
   <style>
-    body { font-family: system-ui, sans-serif; margin: 0; padding: 0; background: #fff; color: #111; }
-    header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid #eee; position: sticky; top: 0; background: #fff; z-index: 50; }
-    .brand { font-weight: bold; font-size: 18px; }
-    nav a { margin-left: 16px; text-decoration: none; color: #111; }
-    .cart-icon { position: relative; cursor: pointer; }
-    .cart-count { position: absolute; top: -8px; right: -10px; background: #111; color: #fff; border-radius: 50%; padding: 2px 6px; font-size: 12px; }
+    :root{ --fg:#111; --muted:#666; --line:#eaeaea; --bg:#fff; --accent:#111; --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.08) }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#fff;color:var(--fg)}
+    a{color:inherit;text-decoration:none}
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 24px; }
-    .card { border: 1px solid #eee; border-radius: 16px; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
-    .card img { width: 100%; height: 300px; object-fit: cover; }
-    .card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
-    .card-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
-    .card-price { font-size: 14px; color: #666; margin-bottom: 12px; }
-    .btn { padding: 10px 14px; border: none; border-radius: 999px; background: #111; color: #fff; cursor: pointer; transition: .25s; }
-    .btn:hover { transform: translateY(-2px); }
+    header{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--line)}
+    .nav{max-width:1240px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{font-weight:700;letter-spacing:.08em}
+    .nav-left, .nav-right{display:flex;align-items:center;gap:14px}
+    .pill{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px}
+    .cart{position:relative;border:1px solid var(--line);border-radius:999px;padding:8px 14px}
+    .cart-badge{position:absolute;top:-8px;right:-8px;background:#111;color:#fff;min-width:20px;height:20px;border-radius:10px;font-size:12px;display:flex;align-items:center;justify-content:center;padding:0 6px}
+
+    .wrap{max-width:1240px;margin:0 auto;padding:28px 20px}
+    h1{font-size:clamp(24px,4.2vw,40px);margin-bottom:10px}
+    .muted{color:var(--muted);margin-bottom:16px}
+
+    /* фильтры */
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 10px}
+    .filter{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 14px;font-size:14px;cursor:pointer;transition:.2s}
+    .filter.active,.filter:hover{background:#111;color:#fff;border-color:#111}
+
+    /* сетка товаров */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:10px}
+    .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;transition:transform .25s, box-shadow .25s}
+    .card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+    .img{aspect-ratio:4/5;background:#f5f5f5;overflow:hidden}
+    .img img{width:100%;height:100%;object-fit:cover;display:block}
+    .body{padding:14px}
+    .title{font-weight:600;margin-bottom:4px}
+    .price{font-weight:700}
+    .desc{color:var(--muted);font-size:14px;margin:6px 0 10px}
+
+    .row{display:flex;gap:10px;align-items:center;justify-content:space-between}
+    .btn{background:#111;color:#fff;border:0;border-radius:999px;padding:10px 14px;cursor:pointer}
+    .btn.alt{background:#fff;color:#111;border:1px solid var(--line)}
+    footer{margin-top:36px;border-top:1px solid var(--line);text-align:center;color:#666;padding:22px;font-size:14px}
+
+    @media (max-width:600px){
+      .nav{padding:12px 14px}
+      .filters{gap:6px}
+      .btn{padding:10px 12px}
+    }
   </style>
 </head>
 <body>
-
 <header>
-  <div class="brand"><a href="index.html">Livi Jewelry</a></div>
-  <nav>
-    <a href="index.html">Главная</a>
-    <a href="shop.html">Каталог</a>
-    <a href="cart.html" class="cart-icon">🛒 <span id="cartCount" class="cart-count">0</span></a>
-  </nav>
+  <div class="nav">
+    <div class="nav-left">
+      <a class="brand" href="index.html">LIVI JEWELRY</a>
+      <a class="pill" href="index.html">Главная</a>
+    </div>
+    <div class="nav-right">
+      <a class="pill" href="shop.html">Каталог</a>
+      <a class="cart" href="cart.html" aria-label="Корзина">
+        Корзина
+        <span id="cartBadge" class="cart-badge" style="display:none">0</span>
+      </a>
+    </div>
+  </div>
 </header>
 
-<main>
-  <div class="grid">
-    <div class="card">
-      <img src="assets/Колье%2020.000%20тг.JPG" alt="Колье 20.000 тг">
-      <div class="card-body">
-        <div class="card-title">Колье</div>
-        <div class="card-price">20 000 тг</div>
-        <button class="btn" onclick="addToCart('Колье', 20000)">Добавить в корзину</button>
-      </div>
-    </div>
+<main class="wrap">
+  <h1>Каталог</h1>
+  <p class="muted">Выберите категорию и добавляйте понравившиеся изделия в корзину.</p>
 
-    <div class="card">
-      <img src="assets/Колье%2040.000%20тг.jpg" alt="Колье 40.000 тг">
-      <div class="card-body">
-        <div class="card-title">Колье</div>
-        <div class="card-price">40 000 тг</div>
-        <button class="btn" onclick="addToCart('Колье', 40000)">Добавить в корзину</button>
-      </div>
-    </div>
+  <!-- Фильтры -->
+  <div class="filters" id="filters"></div>
 
-    <!-- Добавляй остальные товары по такому же принципу -->
-  </div>
+  <!-- Сетка товаров -->
+  <div class="grid" id="grid"></div>
 </main>
 
-<script>
-  function loadCart() {
-    return JSON.parse(localStorage.getItem("cart") || "[]");
-  }
-  function saveCart(cart) {
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartCount();
-  }
-  function addToCart(name, price) {
-    const cart = loadCart();
-    cart.push({ name, price });
-    saveCart(cart);
-    alert(name + " добавлено в корзину!");
-  }
-  function updateCartCount() {
-    const cart = loadCart();
-    document.getElementById("cartCount").textContent = cart.length;
-  }
-  updateCartCount();
-</script>
+<footer>© Livi Jewelry · Казахстан</footer>
 
+<script>
+/* ---------- Конфиг товаров (все имена фото — как в assets) ---------- */
+const PRODUCTS = [
+  {id:'kolye-20000',  title:'Колье', desc:'Минималистичное колье.', price:20000, image:'Колье 20.000 тг.JPG', category:'Колье'},
+  {id:'set-40000-10', title:'Сет: колье + серьги', desc:'Колье 40 000 тг, серьги 10 000 тг (продаются отдельно).', price:40000, image:'Колье 40.000 тг Серьги 10.000 тг.jpg', category:'Сеты'},
+  {id:'kolye-40000',  title:'Колье', desc:'Классическое колье с подвеской.', price:40000, image:'Колье 40.000 тг.jpg', category:'Колье'},
+  {id:'kolye-gem-20000', title:'Колье из гематита', desc:'Сталь и гематит.', price:20000, image:'Колье из гематита 20.000 тг.jpg', category:'Колье'},
+  {id:'pearls-60000', title:'Колье из жемчуга', desc:'Многослойный натуральный жемчуг.', price:60000, image:'Колье из жемчуга 60.000 тг.JPG', category:'Колье'},
+  {id:'pearls-65000', title:'Колье из жемчуга', desc:'Жемчуг и фурнитура люкс.', price:65000, image:'Колье из жемчуга 65.000 тг.jpg', category:'Колье'},
+  {id:'pearls-70000', title:'Колье из жемчуга', desc:'Выразительное барокко.', price:70000, image:'Колье из жемчуга 70.000 тг.jpg', category:'Колье'},
+  {id:'mallorca-28000', title:'Колье Майорка', desc:'Жемчуг Майорка.', price:28000, image:'Колье из жемчуга Майорка 28.000 тг.jpg', category:'Колье'},
+  {id:'mallorca-32000', title:'Колье Майорка', desc:'Жемчуг Майорка, золотистые акценты.', price:32000, image:'Колье из жемчуга Майорка 32.000 тг.jpg', category:'Колье'},
+  {id:'stones-20000', title:'Колье из натуральных камней', desc:'Яшма, агат и др.', price:20000, image:'Колье из натуральных камней 20.000 тг.jpg', category:'Колье'},
+];
+
+const CATEGORIES = ['Все','Колье','Сеты'];
+
+/* ---------- Утилиты ---------- */
+const fmt = (n)=> new Intl.NumberFormat('ru-RU').format(n) + ' тг';
+const assetUrl = (name)=> encodeURI('assets/' + name);
+
+function getCart(){
+  try{ return JSON.parse(localStorage.getItem('livi_cart')||'[]'); }
+  catch(e){ return []; }
+}
+function setCart(items){
+  localStorage.setItem('livi_cart', JSON.stringify(items));
+  updateBadge();
+}
+function addToCart(product){
+  const cart = getCart();
+  const idx = cart.findIndex(i=>i.id===product.id);
+  if(idx>-1){ cart[idx].qty += 1; }
+  else{
+    cart.push({id:product.id,title:product.title,price:product.price,image:product.image,qty:1});
+  }
+  setCart(cart);
+}
+
+/* ---------- Рендер фильтров и карточек ---------- */
+const filtersEl = document.getElementById('filters');
+const gridEl = document.getElementById('grid');
+let activeCat = 'Все';
+
+function renderFilters(){
+  filtersEl.innerHTML = '';
+  CATEGORIES.forEach(cat=>{
+    const b = document.createElement('button');
+    b.className = 'filter' + (cat===activeCat ? ' active':'');
+    b.textContent = cat;
+    b.onclick = ()=>{ activeCat=cat; renderFilters(); renderGrid(); };
+    filtersEl.appendChild(b);
+  });
+}
+
+function renderGrid(){
+  const list = PRODUCTS.filter(p => activeCat==='Все' ? true : p.category===activeCat);
+  gridEl.innerHTML = list.map(p=>`
+    <article class="card">
+      <div class="img"><img src="${assetUrl(p.image)}" alt="${p.title}"></div>
+      <div class="body">
+        <div class="title">${p.title}</div>
+        <div class="desc">${p.desc}</div>
+        <div class="row">
+          <div class="price">${fmt(p.price)}</div>
+          <button class="btn" data-id="${p.id}">В корзину</button>
+        </div>
+      </div>
+    </article>
+  `).join('');
+  // обработчики кнопок
+  gridEl.querySelectorAll('button[data-id]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const pr = PRODUCTS.find(x=>x.id===btn.dataset.id);
+      addToCart(pr);
+      btn.textContent='Добавлено ✓';
+      setTimeout(()=>btn.textContent='В корзину',900);
+    });
+  });
+}
+
+/* ---------- Бейдж корзины ---------- */
+function updateBadge(){
+  const badge = document.getElementById('cartBadge');
+  const total = getCart().reduce((s,i)=>s+i.qty,0);
+  if(total>0){ badge.style.display='flex'; badge.textContent=total; }
+  else { badge.style.display='none'; }
+}
+
+/* init */
+renderFilters();
+renderGrid();
+updateBadge();
+</script>
 </body>
 </html>
