@@ -7,13 +7,32 @@
   <meta name="description" content="Livi Jewelry: бижутерия ручной работы из жемчуга и камней. Казахстан.">
   <link rel="icon" href="favicon.ico">
 
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-WNQMVV8H');</script>
-  <!-- End Google Tag Manager -->
+  <!-- Global site tag (gtag.js) — Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16793974126"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-16793974126');
+  </script>
+
+  <!-- Event snippet for Контакт click wa conversion -->
+  <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof url !== 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+        'send_to': 'AW-16793974126/pR0yCPW0tp8bEO7q_sc-',
+        'value': 0.08,
+        'currency': 'USD',
+        'event_callback': callback
+      });
+      return false;
+    }
+  </script>
 
   <style>
     :root{--fg:#111;--muted:#666;--line:#eee;--bg:#fff;--radius:22px;--shadow:0 8px 30px rgba(0,0,0,.09)}
@@ -60,14 +79,6 @@
   </style>
 </head>
 <body>
-
-  <!-- Google Tag Manager (noscript) -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNQMVV8H"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
-  <!-- End Google Tag Manager (noscript) -->
-
 <header>
   <div class="nav">
     <div class="nav-left">
@@ -85,10 +96,12 @@
     </div>
     <div class="nav-right">
       <a class="chip" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
+
+      <!-- WhatsApp: считаем конверсию через gtag -->
       <a class="chip"
          href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry."
-         target="_blank" rel="noopener"
-         data-gtm-whatsapp="1">WhatsApp</a>
+         onclick="return gtag_report_conversion(this.href);">WhatsApp</a>
+
       <div class="lang">
         <button id="ruBtn" class="active">RU</button>
         <button id="kkBtn">KZ</button>
@@ -97,7 +110,6 @@
     </div>
   </div>
 </header>
-
 
 <section class="hero">
   <h1 data-ru="Современные украшения из жемчуга и камней"
