@@ -14,7 +14,7 @@
   })(window,document,'script','dataLayer','GTM-MD9RD4B3');</script>
   <!-- End Google Tag Manager -->
 
-  <!-- Event snippet: Контакт click wa (оставил как у тебя) -->
+  <!-- Event snippet: Контакт click wa (как просили, без смены настроек) -->
   <script>
     function gtag_report_conversion(url){
       var callback=function(){ if(typeof url!=='undefined'){ window.location=url; } };
@@ -289,9 +289,12 @@
 
   /* Языки */
   const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
-  ruBtn.onclick=()=>{ localStorage.setItem('lang','ru'); i18nFill(); renderFilters(); renderGrid(); };
-  kkBtn.onclick=()=>{ localStorage.setItem('lang','kk'); i18nFill(); renderFilters(); renderGrid(); };
-  enBtn.onclick=()=>{ localStorage.setItem('lang','en'); i18nFill(); renderFilters(); renderGrid(); };
+  function setLang(lang){
+    localStorage.setItem('lang',lang); i18nFill(); renderFilters(); renderGrid();
+  }
+  ruBtn.onclick=()=>setLang('ru');
+  kkBtn.onclick=()=>setLang('kk');
+  enBtn.onclick=()=>setLang('en');
   i18nFill();
 
   /* Init */
