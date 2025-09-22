@@ -5,6 +5,29 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Livi Jewelry — Корзина</title>
 <link rel="icon" href="favicon.ico">
+
+<!-- Google tag (gtag.js): GA4 + Google Ads -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-4H6HK8K9SJ');
+  gtag('config', 'AW-16793974126');
+</script>
+
+<!-- Event snippet: Контакт click wa -->
+<script>
+  function gtag_report_conversion(url){
+    var callback=function(){ if(typeof url!=='undefined'){ window.location=url; } };
+    gtag('event','conversion',{
+      'send_to':'AW-16793974126/pR0yCPW0tp8bEO7q_sc-',
+      'value':0.08,'currency':'USD','event_callback':callback
+    });
+    return false;
+  }
+</script>
+
 <style>
   :root{--fg:#111;--muted:#666;--line:#eee;--radius:16px;--shadow:0 8px 28px rgba(0,0,0,.08)}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -101,14 +124,18 @@
     root.appendChild(total);
 
     document.getElementById('clear').onclick=()=>write([]);
+
     const text = encodeURIComponent('Здравствуйте! Хочу оформить заказ:\n\n'+
       cart.map(i=>`• ${i.title} — ${i.price} × ${i.qty}`).join('\n'));
-    document.getElementById('wa').href = 'https://wa.me/77054510584?text='+text;
+
+    const waLink = 'https://wa.me/77054510584?text='+text;
+    const waEl = document.getElementById('wa');
+    waEl.href = waLink;
+    /* трекаем конверсию при отправке в WhatsApp */
+    waEl.onclick = function(){ return gtag_report_conversion(this.href); };
   }
 
-  // если пользователь открыл корзину после добавления на другой вкладке
-  window.addEventListener('storage', e=>{ if(e.key===KEY) render(); });
-  // при возврате на вкладку тоже обновим
+  window.addEventListener('storage',e=>{ if(e.key===KEY) render(); });
   window.addEventListener('focus', render);
 
   render();
