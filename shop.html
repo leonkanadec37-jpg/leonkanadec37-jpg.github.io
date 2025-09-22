@@ -1,59 +1,81 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Livi Jewelry — Каталог</title>
-<link rel="icon" href="favicon.ico">
-<style>
-  :root{--fg:#111;--muted:#666;--line:#eee;--bg:#fff;--radius:18px;--shadow:0 8px 28px rgba(0,0,0,.08)}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#fff;color:var(--fg)}
-  a{text-decoration:none;color:inherit}
-  header{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line)}
-  .nav{max-width:1240px;margin:0 auto;padding:14px 20px;display:flex;gap:12px;align-items:center;justify-content:space-between}
-  .brand{font-weight:800;letter-spacing:.08em}
-  .nav-left{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-  .nav-left a{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px}
-  .nav-right{display:flex;align-items:center;gap:8px}
-  .chip{border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px}
-  .cart-link{position:relative}
-  .cart-badge{position:absolute;top:-6px;right:-6px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:4px 6px;min-width:20px;text-align:center}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Livi Jewelry — Каталог</title>
+  <link rel="icon" href="favicon.ico">
 
-  .wrap{max-width:1240px;margin:0 auto;padding:28px 20px}
-  h1{font-size:clamp(24px,4.4vw,40px);margin-bottom:10px}
-  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-  .tag{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px;cursor:pointer}
-  .tag.active{background:#111;color:#fff;border-color:#111}
+  <!-- Google tag (gtag.js): GA4 + Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-4H6HK8K9SJ');
+    gtag('config', 'AW-16793974126');
+  </script>
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
-  .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;transition:transform .2s, box-shadow .2s;cursor:pointer}
-  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
-  .img{aspect-ratio:4/5;background:#f4f4f4}
-  .img img{width:100%;height:100%;object-fit:cover;display:block}
-  .body{padding:12px}
-  .title{font-weight:600;margin-bottom:6px}
-  .price{color:#111;font-weight:700}
-  .muted{color:var(--muted);font-size:14px;margin-bottom:8px}
-  .btn{display:inline-block;background:#111;color:#fff;padding:10px 14px;border-radius:999px;font-size:14px;border:0}
-  .btn:active{transform:translateY(1px)}
+  <!-- Event snippet: Контакт click wa -->
+  <script>
+    function gtag_report_conversion(url){
+      var callback=function(){ if(typeof url!=='undefined'){ window.location=url; } };
+      gtag('event','conversion',{
+        'send_to':'AW-16793974126/pR0yCPW0tp8bEO7q_sc-',
+        'value':0.08,'currency':'USD','event_callback':callback
+      });
+      return false;
+    }
+  </script>
 
-  /* MODAL */
-  .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:16px;z-index:100}
-  .modal.open{display:flex}
-  .modal-card{width:min(960px,96vw);max-height:92vh;overflow:auto;background:#fff;border-radius:18px;border:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr}
-  .modal-left{border-right:1px solid var(--line);background:#000}
-  .modal-left img{width:100%;height:100%;object-fit:contain;display:block;background:#000}
-  .modal-right{padding:18px}
-  .modal-title{font-size:20px;font-weight:700;margin-bottom:6px}
-  .modal-price{font-weight:700;margin-bottom:10px}
-  .modal-desc{color:var(--muted);font-size:14px;margin-bottom:14px}
-  .qty{display:flex;align-items:center;gap:10px;margin:10px 0 16px}
-  .qty button{width:32px;height:32px;border-radius:10px;border:1px solid var(--line);background:#fff;cursor:pointer}
-  .modal-actions{display:flex;gap:10px;flex-wrap:wrap}
-  .close{position:absolute;top:16px;right:16px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 10px;cursor:pointer}
-  @media (max-width:780px){ .modal-card{grid-template-columns:1fr} .modal-left{border-right:0;max-height:48vh} }
-</style>
+  <style>
+    :root{--fg:#111;--muted:#666;--line:#eee;--bg:#fff;--radius:18px;--shadow:0 8px 28px rgba(0,0,0,.08)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#fff;color:var(--fg)}
+    a{text-decoration:none;color:inherit}
+    header{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line)}
+    .nav{max-width:1240px;margin:0 auto;padding:14px 20px;display:flex;gap:12px;align-items:center;justify-content:space-between}
+    .brand{font-weight:800;letter-spacing:.08em}
+    .nav-left{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .nav-left a{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px}
+    .nav-right{display:flex;align-items:center;gap:8px}
+    .chip{border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px}
+    .cart-link{position:relative}
+    .cart-badge{position:absolute;top:-6px;right:-6px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:4px 6px;min-width:20px;text-align:center}
+
+    .wrap{max-width:1240px;margin:0 auto;padding:28px 20px}
+    h1{font-size:clamp(24px,4.4vw,40px);margin-bottom:10px}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+    .tag{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px;cursor:pointer}
+    .tag.active{background:#111;color:#fff;border-color:#111}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+    .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;transition:transform .2s, box-shadow .2s;cursor:pointer}
+    .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .img{aspect-ratio:4/5;background:#f4f4f4}
+    .img img{width:100%;height:100%;object-fit:cover;display:block}
+    .body{padding:12px}
+    .title{font-weight:600;margin-bottom:6px}
+    .price{color:#111;font-weight:700}
+    .muted{color:var(--muted);font-size:14px;margin-bottom:8px}
+    .btn{display:inline-block;background:#111;color:#fff;padding:10px 14px;border-radius:999px;font-size:14px;border:0}
+    .btn:active{transform:translateY(1px)}
+
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:16px;z-index:100}
+    .modal.open{display:flex}
+    .modal-card{width:min(960px,96vw);max-height:92vh;overflow:auto;background:#fff;border-radius:18px;border:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr}
+    .modal-left{border-right:1px solid var(--line);background:#000}
+    .modal-left img{width:100%;height:100%;object-fit:contain;display:block;background:#000}
+    .modal-right{padding:18px}
+    .modal-title{font-size:20px;font-weight:700;margin-bottom:6px}
+    .modal-price{font-weight:700;margin-bottom:10px}
+    .modal-desc{color:var(--muted);font-size:14px;margin-bottom:14px}
+    .qty{display:flex;align-items:center;gap:10px;margin:10px 0 16px}
+    .qty button{width:32px;height:32px;border-radius:10px;border:1px solid var(--line);background:#fff;cursor:pointer}
+    .modal-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .close{position:absolute;top:16px;right:16px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 10px;cursor:pointer}
+    @media (max-width:780px){ .modal-card{grid-template-columns:1fr} .modal-left{border-right:0;max-height:48vh} }
+  </style>
 </head>
 <body>
 <header>
@@ -67,7 +89,9 @@
     </div>
     <div class="nav-right">
       <a class="chip" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-      <a class="chip" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener">WhatsApp</a>
+      <a class="chip"
+         href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry."
+         onclick="return gtag_report_conversion(this.href);" target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </div>
 </header>
@@ -102,7 +126,6 @@
 </div>
 
 <script>
-  // ====== Список товаров (те же, что уже использовались)
   const PRODUCTS = [
     {id:'p01', title:'Колье', price:'20 000 тг', img:'assets/Колье 20.000 тг.JPG', cat:'Колье', desc:'Минималистичное авторское колье.'},
     {id:'p02', title:'Комплект: Колье + Серьги', price:'Колье 40 000 тг · Серьги 10 000 тг', img:'assets/Колье 40.000 тг Серьги 10.000 тг.jpg', cat:'Комплекты', desc:'Комплект ручной работы. Серьги приобретаются отдельно.'},
@@ -131,7 +154,6 @@
   const filters = document.getElementById('filters');
   let activeCat = localStorage.getItem('livi_active_cat') || 'Все';
 
-  // ====== фильтры
   function renderFilters(){
     filters.innerHTML = '';
     CATS.forEach(c=>{
@@ -144,7 +166,6 @@
     });
   }
 
-  // ====== сетка
   function renderGrid(){
     grid.innerHTML = '';
     const items = activeCat==='Все' ? PRODUCTS : PRODUCTS.filter(p=>p.cat===activeCat);
@@ -160,74 +181,60 @@
             <button class="btn" data-id="${p.id}" data-action="add">Добавить в корзину</button>
           </div>
         </div>`;
-      // открыть модал по клику на карточку (кроме кнопки)
-      card.addEventListener('click', (e)=>{
-        if(e.target && e.target.dataset && e.target.dataset.action==='add'){ return; }
-        openModal(p);
-      });
-      // кнопка добавления (без открытия модала)
+      card.addEventListener('click',(e)=>{ if(e.target && e.target.dataset && e.target.dataset.action==='add'){ return; } openModal(p); });
       card.querySelector('[data-action="add"]').onclick=()=>addToCart(p,1);
       grid.appendChild(card);
     });
   }
 
-  // ====== корзина
   function readCart(){ try{return JSON.parse(localStorage.getItem('livi_cart_v2')||'[]')}catch(e){return []} }
   function writeCart(v){ localStorage.setItem('livi_cart_v2', JSON.stringify(v)); updateBadge(); }
   function addToCart(p, qty){
-    const q = Math.max(1, Number(qty||1));
-    const cart = readCart();
-    const i = cart.findIndex(x=>x.id===p.id);
-    if(i>-1) cart[i].qty += q; else cart.push({id:p.id,title:p.title,price:p.price,img:p.img,qty:q});
+    const q=Math.max(1, Number(qty||1));
+    const cart=readCart();
+    const i=cart.findIndex(x=>x.id===p.id);
+    if(i>-1) cart[i].qty+=q; else cart.push({id:p.id,title:p.title,price:p.price,img:p.img,qty:q});
     writeCart(cart);
   }
   function updateBadge(){
-    const count = readCart().reduce((s,i)=>s+i.qty,0);
-    const b = document.getElementById('cartBadge');
+    const count=readCart().reduce((s,i)=>s+i.qty,0);
+    const b=document.getElementById('cartBadge');
     b.style.display = count>0 ? 'inline-block':'none';
-    if(count>0) b.textContent = count;
+    if(count>0) b.textContent=count;
   }
   window.addEventListener('storage',e=>{ if(e.key==='livi_cart_v2') updateBadge(); });
 
-  // ====== MODAL
-  const modal = document.getElementById('modal');
-  const mImg  = document.getElementById('mImg');
-  const mTitle= document.getElementById('mTitle');
-  const mCat  = document.getElementById('mCat');
-  const mPrice= document.getElementById('mPrice');
-  const mDesc = document.getElementById('mDesc');
-  const mQtyEl= document.getElementById('mQty');
-  const mMinus= document.getElementById('mMinus');
-  const mPlus = document.getElementById('mPlus');
-  const mAdd  = document.getElementById('mAdd');
-  const mClose= document.getElementById('mClose');
-
-  let currentProduct = null;
+  const modal=document.getElementById('modal');
+  const mImg=document.getElementById('mImg');
+  const mTitle=document.getElementById('mTitle');
+  const mCat=document.getElementById('mCat');
+  const mPrice=document.getElementById('mPrice');
+  const mDesc=document.getElementById('mDesc');
+  const mQtyEl=document.getElementById('mQty');
+  const mMinus=document.getElementById('mMinus');
+  const mPlus=document.getElementById('mPlus');
+  const mAdd=document.getElementById('mAdd');
+  const mClose=document.getElementById('mClose');
+  let currentProduct=null;
 
   function openModal(p){
-    currentProduct = p;
-    mImg.src = p.img;
-    mImg.alt = p.title;
-    mTitle.textContent = p.title;
-    mCat.textContent = p.cat;
-    mPrice.textContent = p.price;
-    mDesc.textContent = p.desc || 'Авторская работа. Гипоаллергенная фурнитура, натуральные материалы.';
-    mQtyEl.textContent = '1';
-    modal.classList.add('open');
-    document.body.style.overflow='hidden';
+    currentProduct=p;
+    mImg.src=p.img; mImg.alt=p.title;
+    mTitle.textContent=p.title;
+    mCat.textContent=p.cat;
+    mPrice.textContent=p.price;
+    mDesc.textContent=p.desc||'Авторская работа. Гипоаллергенная фурнитура, натуральные материалы.';
+    mQtyEl.textContent='1';
+    modal.classList.add('open'); document.body.style.overflow='hidden';
   }
-  function closeModal(){
-    modal.classList.remove('open');
-    document.body.style.overflow='';
-  }
-  mMinus.onclick = ()=>{ const n=Math.max(1, Number(mQtyEl.textContent)-1); mQtyEl.textContent=n; };
-  mPlus.onclick  = ()=>{ const n=Number(mQtyEl.textContent)+1; mQtyEl.textContent=n; };
-  mAdd.onclick   = ()=>{ if(currentProduct){ addToCart(currentProduct, Number(mQtyEl.textContent)); closeModal(); } };
-  mClose.onclick = closeModal;
-  modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
-  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
+  function closeModal(){ modal.classList.remove('open'); document.body.style.overflow=''; }
+  mMinus.onclick=()=>{ const n=Math.max(1, Number(mQtyEl.textContent)-1); mQtyEl.textContent=n; };
+  mPlus.onclick =()=>{ const n=Number(mQtyEl.textContent)+1; mQtyEl.textContent=n; };
+  mAdd.onclick  =()=>{ if(currentProduct){ addToCart(currentProduct, Number(mQtyEl.textContent)); closeModal(); } };
+  mClose.onclick=closeModal;
+  modal.addEventListener('click',(e)=>{ if(e.target===modal) closeModal(); });
+  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
 
-  // init
   renderFilters(); renderGrid(); updateBadge();
 </script>
 </body>
