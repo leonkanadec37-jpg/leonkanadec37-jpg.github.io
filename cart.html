@@ -42,7 +42,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .actions{display:flex;gap:10px;flex-wrap:wrap}
 
   @media (max-width:560px){
-    .item{grid-template-columns:72px 1fr;grid-template-areas:"thumb title" "thumb qty" "thumb del"; align-items:start}
+    .item{grid-template-columns:72px 1fr;grid-template-areas:
+      "thumb title" "thumb qty" "thumb del"; align-items:start}
     .thumb{width:72px;height:72px}
   }
   .cart-link{position:relative}
@@ -100,7 +101,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     },
     en:{
       empty:'Your cart is empty.',
-      goShop:'Go to shop',
+      goShop:'Go to catalog',
       yourOrder:'Your order:',
       clear:'Clear',
       checkout:'Checkout via WhatsApp',
@@ -177,7 +178,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     const waLink = 'https://wa.me/77054510584?text='+text;
     const waEl = document.getElementById('wa');
     waEl.href = waLink;
-    waEl.onclick = function(){ return true; }; // конверсию оставил на shop
+    waEl.onclick = function(){ return true; }; // конверсию трекаем на shop
 
     updateBadge();
   }
