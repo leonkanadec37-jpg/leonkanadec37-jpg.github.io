@@ -14,10 +14,11 @@
     gtag('js', new Date());
     gtag('config', 'G-4H6HK8K9SJ');
 
+    /* Google Ads conversion (WhatsApp) */
     function gtag_report_conversion(url) {
-      var callback = function () { if (typeof url != 'undefined') { window.location = url; } };
-      gtag('event', 'conversion', {
-        'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+      var callback = function () { if (typeof url !== 'undefined') { window.location = url; } };
+      gtag('event','conversion',{
+        'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
         'event_callback': callback
       });
       return false;
@@ -28,7 +29,6 @@
     :root{
       --fg:#111;--muted:#666;--line:#eee;--bg:#fff;
       --radius:20px;--shadow:0 8px 32px rgba(0,0,0,.08);
-      --accent:#111;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     body{font:16px/1.6 "Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg)}
@@ -37,8 +37,10 @@
 
     header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
     .nav{max-width:1240px;margin:0 auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand{font-weight:800;font-size:20px;letter-spacing:.06em}
-    .nav-left{display:flex;align-items:center;gap:12px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{height:28px;width:auto}
+    .brand .brand-text{font-weight:800;font-size:18px;letter-spacing:.06em}
+    .nav-left{display:flex;align-items:center;gap:14px}
     .nav-left a{font-size:15px;padding:8px 14px;border-radius:999px;border:1px solid transparent;transition:.2s}
     .nav-left a:hover{border-color:var(--line);background:#fafafa}
     .nav-right{display:flex;align-items:center;gap:10px}
@@ -52,7 +54,9 @@
     .hero-text h1{font-size:clamp(28px,5vw,48px);line-height:1.2;margin-bottom:18px}
     .hero-text p{color:var(--muted);font-size:18px;margin-bottom:22px}
     .hero-text .btn{display:inline-block;background:#111;color:#fff;padding:12px 20px;border-radius:999px;font-size:15px}
-    .hero-img img{border-radius:var(--radius);box-shadow:var(--shadow)}
+    .hero-visual{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:
+      linear-gradient(135deg,#f8f8f8 0%,#efefef 50%,#e7e7e7 100%);}
+    .hero-visual img{width:100%;height:100%;object-fit:cover;display:block}
 
     .about{background:#fafafa;padding:60px 16px}
     .about-wrap{max-width:900px;margin:0 auto;text-align:center}
@@ -79,13 +83,17 @@
   <header>
     <div class="nav">
       <div class="nav-left">
-        <a class="brand" href="index.html">LIVI JEWELRY</a>
+        <a class="brand" href="index.html" aria-label="Livi Jewelry">
+          <!-- ЛОГОТИП: покажем картинку, при ошибке — вернём текстовый логотип -->
+          <img id="logoImg" alt="Livi Jewelry">
+          <span class="brand-text">LIVI JEWELRY</span>
+        </a>
         <a href="shop.html">Каталог</a>
         <a href="cart.html">Корзина</a>
       </div>
       <div class="nav-right">
         <a class="chip" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="chip" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." 
+        <a class="chip" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry."
            onclick="return gtag_report_conversion(this.href);" target="_blank" rel="noopener">WhatsApp</a>
         <div class="lang">
           <button id="ruBtn" class="active">RU</button>
@@ -102,16 +110,17 @@
       <p>Авторская бижутерия ручной работы. Создано с любовью в Казахстане.</p>
       <a href="shop.html" class="btn">Перейти в каталог</a>
     </div>
-    <div class="hero-img">
-      <img src="assets/hero_main.jpg" alt="Livi Jewelry">
+    <div class="hero-visual">
+      <!-- Геро-изображение: надёжная подстановка с перебором путей -->
+      <img id="heroImg" alt="Livi Jewelry">
     </div>
   </section>
 
   <section class="about">
     <div class="about-wrap">
       <h2>О нас</h2>
-      <p>Livi Jewelry — это семейный бренд украшений, созданный с трепетом и вниманием к каждой детали. 
-      Мы используем только качественные материалы: жемчуг, камни, сталь и позолоту. 
+      <p>Livi Jewelry — это семейный бренд украшений, созданный с трепетом и вниманием к каждой детали.
+      Мы используем только качественные материалы: жемчуг, камни, сталь и позолоту.
       Наша цель — дарить красоту и уверенность каждой женщине.</p>
     </div>
   </section>
@@ -119,5 +128,72 @@
   <footer>
     © 2025 Livi Jewelry. Все права защищены.
   </footer>
+
+  <script>
+    /* ===== ЛОГОТИП: безопасная подстановка + резервный текст ===== */
+    (function(){
+      var logo = document.getElementById('logoImg');
+      // Список возможных логотипов (png/svg/webp), сначала самые вероятные
+      var candidates = [
+        'assets/logo.png',
+        'assets/logo.svg',
+        'assets/logo.webp',
+        'assets/LIVI_logo.png',
+        'assets/logo-livi.png'
+      ];
+      tryLoadSequential(logo, candidates, function onFail(){
+        // Если не загрузилось — спрячем img, оставим текстовый логотип
+        logo.remove();
+      });
+    })();
+
+    /* ===== HERO: надёжная подстановка изображения =====
+       Перебираем несколько путей (разные имена/регистр/язык), берём первый, который загрузится */
+    (function(){
+      var img = document.getElementById('heroImg');
+      var candidates = [
+        'assets/hero_main.jpg',
+        'assets/hero.jpg',
+        'assets/Hero.jpg',
+        'assets/hero.webp',
+        'assets/Главная.jpg',
+        'assets/главная.jpg'
+      ];
+      tryLoadSequential(img, candidates, function onFail(){
+        // Если ничего не загрузилось — просто уберём <img>, останется красивый градиентный блок
+        img.remove();
+      });
+    })();
+
+    /* Универсальный последовательный загрузчик */
+    function tryLoadSequential(imgEl, srcList, onAllFail){
+      var i = 0;
+      function tryNext(){
+        if(i >= srcList.length){ onAllFail && onAllFail(); return; }
+        var path = srcList[i++];
+        var test = new Image();
+        // Пробуем безопасно подставлять URL (на случай пробелов/кириллицы)
+        try { test.src = encodeURI(path); } catch(e) { test.src = path; }
+        test.onload = function(){
+          try { imgEl.src = encodeURI(path); } catch(e) { imgEl.src = path; }
+        };
+        test.onerror = tryNext;
+      }
+      tryNext();
+    }
+
+    /* Языковые переключатели – визуальные (контент фиксированный) */
+    const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
+    function setLangActive(l){
+      [ruBtn,kkBtn,enBtn].forEach(b=>b.classList.remove('active'));
+      (l==='kk'?kkBtn:l==='en'?enBtn:ruBtn).classList.add('active');
+      localStorage.setItem('lang', l);
+      document.documentElement.lang = l;
+    }
+    ruBtn.onclick=()=>setLangActive('ru');
+    kkBtn.onclick=()=>setLangActive('kk');
+    enBtn.onclick=()=>setLangActive('en');
+    setLangActive(localStorage.getItem('lang')||'ru');
+  </script>
 </body>
 </html>
