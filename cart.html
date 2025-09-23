@@ -14,6 +14,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MD9RD4B3');</script>
 <!-- End Google Tag Manager -->
 
+<!-- Google tag (gtag.js) — Google Ads -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16793974126"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'AW-16793974126');
+</script>
+
+<!-- Event snippet: Конверсия WhatsApp -->
+<script>
+  function gtag_report_conversion(url){
+    var callback=function(){ if(typeof url!=='undefined'){ window.location=url; } };
+    gtag('event','conversion', {
+      'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+      'value':0.08,
+      'currency':'USD',
+      'event_callback':callback
+    });
+    return false;
+  }
+</script>
+
 <style>
   :root{--fg:#111;--muted:#666;--line:#eee;--radius:16px;--shadow:0 8px 28px rgba(0,0,0,.08)}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -54,6 +77,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MD9RD4B3"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 <header>
   <div class="nav">
     <div class="nav-left">
@@ -83,30 +111,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   const KEY='livi_cart_v2';
 
   const UI = {
-    ru:{
-      empty:'Ваша корзина пуста.',
-      goShop:'Перейти в каталог',
-      yourOrder:'Ваш заказ:',
-      clear:'Очистить',
-      checkout:'Оформить в WhatsApp',
-      remove:'Удалить'
-    },
-    kk:{
-      empty:'Себет бос.',
-      goShop:'Каталогқа өту',
-      yourOrder:'Сіздің тапсырысыңыз:',
-      clear:'Тазарту',
-      checkout:'WhatsApp арқылы рәсімдеу',
-      remove:'Жою'
-    },
-    en:{
-      empty:'Your cart is empty.',
-      goShop:'Go to catalog',
-      yourOrder:'Your order:',
-      clear:'Clear',
-      checkout:'Checkout via WhatsApp',
-      remove:'Remove'
-    }
+    ru:{ empty:'Ваша корзина пуста.', goShop:'Перейти в каталог', yourOrder:'Ваш заказ:', clear:'Очистить', checkout:'Оформить в WhatsApp', remove:'Удалить' },
+    kk:{ empty:'Себет бос.', goShop:'Каталогқа өту', yourOrder:'Сіздің тапсырысыңыз:', clear:'Тазарту', checkout:'WhatsApp арқылы рәсімдеу', remove:'Жою' },
+    en:{ empty:'Your cart is empty.', goShop:'Go to catalog', yourOrder:'Your order:', clear:'Clear', checkout:'Checkout via WhatsApp', remove:'Remove' }
   };
 
   function lang(){ return localStorage.getItem('lang') || 'ru'; }
@@ -178,7 +185,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     const waLink = 'https://wa.me/77054510584?text='+text;
     const waEl = document.getElementById('wa');
     waEl.href = waLink;
-    waEl.onclick = function(){ return true; }; // конверсию трекаем на shop
+    /* теперь трекаем конверсию и на cart */
+    waEl.onclick = function(){ return gtag_report_conversion(this.href); };
 
     updateBadge();
   }
