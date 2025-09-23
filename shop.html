@@ -4,7 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Livi Jewelry — Каталог</title>
-  <link rel="icon" href="favicon.ico" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="shortcut icon" href="assets/logo.png">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
@@ -13,12 +16,9 @@
     function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-4H6HK8K9SJ');
-  </script>
 
-  <!-- Google Ads conversion helper (WhatsApp click) -->
-  <script>
     function gtag_report_conversion(url) {
-      var callback = function () { if (typeof(url) != 'undefined') { window.location = url; } };
+      var callback = function () { if (typeof url != 'undefined') { window.location = url; } };
       gtag('event', 'conversion', {
         'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
         'event_callback': callback
@@ -28,64 +28,65 @@
   </script>
 
   <style>
-    :root{--fg:#111;--muted:#666;--line:#eee;--bg:#fff;--radius:18px;--shadow:0 8px 28px rgba(0,0,0,.08)}
+    :root{--fg:#111;--muted:#666;--line:#eee;--radius:18px;--shadow:0 8px 28px rgba(0,0,0,.08)}
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#fff;color:var(--fg)}
-    a{text-decoration:none;color:inherit;-webkit-tap-highlight-color:transparent}
-    header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.92);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
-    .nav{max-width:1240px;margin:0 auto;padding:12px 16px;display:flex;gap:10px;align-items:center;justify-content:space-between}
-    .brand{font-weight:800;letter-spacing:.08em}
-    .nav-left{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-    .nav-left a{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px}
-    .nav-right{display:flex;align-items:center;gap:8px}
-    .chip{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px}
-    .cart-link{position:relative}
-    .cart-badge{position:absolute;top:-6px;right:-6px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:4px 6px;min-width:20px;text-align:center}
+    body{font:16px/1.6 "Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#fff;color:var(--fg)}
+    a{text-decoration:none;color:inherit}
+
+    header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
+    .nav{max-width:1240px;margin:0 auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{font-weight:800;font-size:20px;letter-spacing:.06em}
+    .nav-left{display:flex;align-items:center;gap:14px}
+    .nav-left a{font-size:15px;padding:8px 14px;border-radius:999px;border:1px solid transparent;transition:.2s}
+    .nav-left a:hover{border-color:var(--line);background:#fafafa}
+    .nav-right{display:flex;align-items:center;gap:10px}
+    .chip{border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px;transition:.2s}
+    .chip:hover{background:#fafafa}
     .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
     .lang button{border:0;background:transparent;padding:8px 12px;font-size:13px;cursor:pointer}
     .lang button.active{background:#111;color:#fff}
-    .wrap{max-width:1240px;margin:0 auto;padding:22px 16px}
-    h1{font-size:clamp(22px,4.8vw,40px);margin-bottom:10px}
-    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-    .tag{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px;cursor:pointer}
-    .tag.active{background:#111;color:#fff;border-color:#111}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
-    .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;transition:transform .2s, box-shadow .2s;cursor:pointer;touch-action:manipulation}
+
+    .wrap{max-width:1240px;margin:0 auto;padding:30px 16px}
+    h1{font-size:clamp(24px,5vw,42px);margin-bottom:20px;text-align:center}
+
+    .filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:20px}
+    .tag{border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px;cursor:pointer;transition:.2s}
+    .tag.active,.tag:hover{background:#111;color:#fff;border-color:#111}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+    .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.04);transition:.25s;cursor:pointer}
     .card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
-    .img{aspect-ratio:4/5;background:#f4f4f4}
-    .img img{width:100%;height:100%;object-fit:cover;display:block}
-    .body{padding:10px}
-    .title{font-weight:600;margin-bottom:4px}
-    .price{color:#111;font-weight:700}
-    .muted{color:#666;font-size:14px;margin-bottom:6px}
-    .btn{display:inline-block;background:#111;color:#fff;padding:10px 14px;border-radius:999px;font-size:14px;border:0}
+    .card img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+    .body{padding:12px}
+    .title{font-weight:600;margin-bottom:6px}
+    .price{font-weight:700;margin-bottom:4px}
+    .muted{color:var(--muted);font-size:14px;margin-bottom:8px}
+    .btn{display:inline-block;background:#111;color:#fff;padding:8px 14px;border-radius:999px;font-size:14px;border:0;cursor:pointer}
     .btn:active{transform:translateY(1px)}
-    .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:end;justify-content:center;padding:0 10px 10px;z-index:100}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:10px;z-index:100}
     .modal.open{display:flex}
-    .modal-card{width:min(960px,96vw);max-height:92vh;overflow:auto;background:#fff;border-radius:18px;border:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr}
-    .modal-left{border-right:1px solid var(--line);background:#000}
-    .modal-left img{width:100%;height:100%;object-fit:contain;display:block;background:#000}
-    .modal-right{padding:16px}
-    .modal-title{font-size:20px;font-weight:700;margin-bottom:6px}
+    .modal-card{width:min(900px,96vw);max-height:92vh;overflow:auto;background:#fff;border-radius:20px;display:grid;grid-template-columns:1fr 1fr}
+    .modal-left{background:#000}
+    .modal-left img{width:100%;height:100%;object-fit:contain}
+    .modal-right{padding:18px}
+    .modal-title{font-size:22px;font-weight:700;margin-bottom:8px}
     .modal-price{font-weight:700;margin-bottom:8px}
-    .modal-desc{color:var(--muted);font-size:14px;margin-bottom:12px}
-    .qty{display:flex;align-items:center;gap:10px;margin:8px 0 14px}
-    .qty button{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:20px;line-height:1}
+    .modal-desc{color:var(--muted);font-size:15px;margin-bottom:16px}
+    .qty{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+    .qty button{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:20px}
     .modal-actions{display:flex;gap:10px;flex-wrap:wrap}
-    .close{position:absolute;top:10px;right:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 10px;cursor:pointer}
-    @media (max-width:780px){ .modal-card{grid-template-columns:1fr;max-height:88vh} .modal-left{border-right:0;max-height:46vh} }
-    @media (max-width:420px){ .lang button{padding:8px 10px} .nav-left a{padding:8px 10px} }
-    @media (max-width:480px){
-      header{ background:rgba(255,255,255,.96); backdrop-filter:saturate(160%) blur(8px); }
-      .nav{ padding:10px 12px; gap:8px; }
-      .nav-left{ overflow-x:auto; white-space:nowrap; gap:6px; padding-bottom:4px; margin-bottom:-4px; -webkit-overflow-scrolling:touch; }
-      .nav-left::-webkit-scrollbar{ display:none; }
-      .nav-left a{ display:inline-block; padding:8px 10px; font-size:13px; }
-      .lang button{ padding:8px 10px; font-size:12.5px; }
-      .cart-badge{ top:-4px; right:-4px; padding:3px 6px; font-size:11px; }
-      .grid{ grid-template-columns:repeat(2,1fr); gap:12px; }
-      body{ padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right); }
-      header{ padding-top:env(safe-area-inset-top); }
+    .close{position:absolute;top:12px;right:12px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 10px;cursor:pointer}
+
+    @media(max-width:760px){ .modal-card{grid-template-columns:1fr} }
+    @media(max-width:480px){
+      .nav{padding:10px 12px}
+      .nav-left{gap:6px;overflow-x:auto;white-space:nowrap}
+      .nav-left::-webkit-scrollbar{display:none}
+      .nav-left a{font-size:13px;padding:8px 10px}
+      .lang button{font-size:12.5px;padding:8px 10px}
+      .grid{gap:14px}
     }
   </style>
 </head>
@@ -94,17 +95,13 @@
   <div class="nav">
     <div class="nav-left">
       <a class="brand" href="index.html">LIVI JEWELRY</a>
-      <a href="shop.html" id="navCatalog" data-ru="Каталог" data-kk="Каталог" data-en="Shop">Каталог</a>
-      <a class="cart-link" href="cart.html" aria-label="Корзина">
-        <span id="navCart" data-ru="Корзина" data-kk="Себет" data-en="Cart">Корзина</span>
-        <span id="cartBadge" class="cart-badge" style="display:none;">0</span>
-      </a>
+      <a href="shop.html">Каталог</a>
+      <a href="cart.html">Корзина</a>
     </div>
     <div class="nav-right">
-      <a class="chip" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-      <a class="chip"
-         href="https://wa.me/77054510584?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%BA%D1%80%D0%B0%D1%88%D0%B5%D0%BD%D0%B8%D0%B5%20Livi%20Jewelry."
-         onclick="return gtag_report_conversion(this.href);" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="chip" href="https://instagram.com/livi_jwl" target="_blank">Instagram</a>
+      <a class="chip" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry."
+         onclick="return gtag_report_conversion(this.href);" target="_blank">WhatsApp</a>
       <div class="lang">
         <button id="ruBtn" class="active">RU</button>
         <button id="kkBtn">KZ</button>
@@ -115,13 +112,12 @@
 </header>
 
 <main class="wrap">
-  <h1 id="pageTitle" data-ru="Каталог" data-kk="Каталог" data-en="Catalog">Каталог</h1>
+  <h1>Каталог</h1>
   <div class="filters" id="filters"></div>
   <div class="grid" id="grid"></div>
 </main>
 
-<!-- Modal -->
-<div id="modal" class="modal" role="dialog" aria-modal="true" aria-label="Просмотр товара">
+<div id="modal" class="modal" role="dialog">
   <div class="modal-card">
     <div class="modal-left"><img id="mImg" alt=""></div>
     <div class="modal-right">
@@ -130,22 +126,21 @@
       <div class="modal-price" id="mPrice"></div>
       <div class="modal-desc" id="mDesc"></div>
       <div class="qty">
-        <button id="mMinus" aria-label="−">−</button>
+        <button id="mMinus">−</button>
         <span id="mQty">1</span>
-        <button id="mPlus" aria-label="+">+</button>
+        <button id="mPlus">+</button>
       </div>
       <div class="modal-actions">
-        <button id="mAdd" class="btn" data-ru="Добавить в корзину" data-kk="Себетке қосу" data-en="Add to cart">Добавить в корзину</button>
-        <a class="btn" href="cart.html" data-ru="Открыть корзину" data-kk="Себетті ашу" data-en="Open cart">Открыть корзину</a>
+        <button id="mAdd" class="btn">Добавить в корзину</button>
+        <a class="btn" href="cart.html">Открыть корзину</a>
       </div>
     </div>
   </div>
-  <button class="close" id="mClose" aria-label="Закрыть">✕</button>
+  <button class="close" id="mClose">✕</button>
 </div>
 
 <script>
-  // Products (unchanged)
-  const PRODUCTS = [/* … тот же массив p01–p30, как в предыдущей версии … */ 
+  const PRODUCTS = [
     {id:'p01', title:'Колье', price:'20 000 тг', img:'assets/Колье 20.000 тг.JPG', cat:'Колье', desc:'Минималистичное авторское колье.'},
     {id:'p02', title:'Комплект: Колье + Серьги', price:'Колье 40 000 тг · Серьги 10 000 тг', img:'assets/Колье 40.000 тг Серьги 10.000 тг.jpg', cat:'Комплекты', desc:'Комплект ручной работы. Серьги приобретаются отдельно.'},
     {id:'p03', title:'Колье', price:'40 000 тг', img:'assets/Колье 40.000 тг.jpg', cat:'Колье', desc:'Классическое колье с акцентной подвеской.'},
@@ -156,7 +151,7 @@
     {id:'p08', title:'Колье Майорка', price:'28 000 тг', img:'assets/Колье из жемчуга Майорка 28.000 тг.jpg', cat:'Колье', desc:'Жемчуг Майорка — аккуратные пропорции, мягкий блеск.'},
     {id:'p09', title:'Колье Майорка', price:'32 000 тг', img:'assets/Колье из жемчуга Майорка 32.000 тг.jpg', cat:'Колье', desc:'Майорка с золотистыми акцентами.'},
     {id:'p10', title:'Колье из натуральных камней', price:'20 000 тг', img:'assets/Колье из натуральных камней 20.000 тг.jpg', cat:'Колье', desc:'Натуральные камни и тактильная фактура.'},
-    {id:'p11', title:'Колье из натуральных камней', price:'23 000 тг (браслет 8 500, серьги 8 500 отдельно)', img:'assets/Колье из натуральных камней 23.000 тг Браслет 8.500 тг Серьги 8.500 тг.jpg', cat:'Колье', desc:'Коллекция в природной палитре. Браслет и серьги покупаются отдельно.'},
+    {id:'p11', title:'Колье из натуральных камней', price:'23 000 тг', img:'assets/Колье из натуральных камней 23.000 тг Браслет 8.500 тг Серьги 8.500 тг.jpg', cat:'Колье', desc:'Коллекция в природной палитре. Браслет и серьги покупаются отдельно.'},
     {id:'p12', title:'Колье из натуральных камней', price:'40 000 тг', img:'assets/Колье из натуральных камней 40.000 тг.jpg', cat:'Колье', desc:'Насыщенные оттенки натуральных камней.'},
     {id:'p13', title:'Колье из ракушки', price:'14 000 тг', img:'assets/Колье из ракушки 14.000 тг.jpg', cat:'Колье', desc:'Лето в деталях — ракушка и лёгкие формы.'},
     {id:'p15', title:'Колье-трансформер', price:'40 000 тг', img:'assets/Колье трансформер 40.000 тг.jpg', cat:'Колье', desc:'Несколько вариантов ношения в одном изделии.'},
@@ -172,170 +167,63 @@
     {id:'p26', title:'Чокер из натурального жемчуга + серьги', price:'Чокер 18 000 тг · Серьги 12 000 тг', img:'assets/Чокер из натурального жемчуга 18.000 тг Серьги 12.000 тг.jpg', cat:'Комплекты', desc:'Натуральный жемчуг.'},
     {id:'p27', title:'Чокер из натурального жемчуга + серьги', price:'Чокер 20 000 тг · Серьги 15 000 тг', img:'assets/Чокер из натурального жемчуга 20.000 тг Серьги 15.000 тг.jpg', cat:'Комплекты', desc:'Другой вариант комплекта.'},
     {id:'p28', title:'Чокер из натурального жемчуга', price:'22 000 тг', img:'assets/Чокер из натурального жемчуга 22.000 тг.jpg', cat:'Колье', desc:'Классический чокер.'},
-    {id:'p29', title:'Чокер с барочными жемчужинами + серьги', price:'Чокер 26 000 тг · Серьги 12 000 тг', img:'assets/Чокер из натурального жемчуга с добавлением барочных жемчужин 26.000 тг Серьги 12.000 тг.jpg', cat:'Комплекты', desc:'Жемчуг с барочными акцентами.'},
-    {id:'p30', title:'Чокеры из натурального жемчуга + серьги', price:'Чокер 20 000 тг · Серьги 10 000 тг', img:'assets/Чокеры из натурального жемчуга 20.000 тг Серьги 10.000 тг.jpg', cat:'Комплекты', desc:'Набор чокеров с серьгами.'}
+    {id:'p29', title:'Чокер с барочными жемчужинами + серьги', price:'Чокер 26 000 тг · Серьги 12 000 тг', img:'assets/Чокер из натурального жемчуга и барочных жемчужин 26.000 тг Серьги 12.000 тг.jpg', cat:'Комплекты', desc:'Жемчужины разного калибра.'},
+    {id:'p30', title:'Чокер из розового жемчуга', price:'20 000 тг', img:'assets/Чокер из розового жемчуга 20.000 тг.jpg', cat:'Колье', desc:'Нежный оттенок розового жемчуга.'}
   ];
 
-  const CATS = ['Все','Колье','Комплекты','Браслеты','Сотуары','Цепи'];
-  const CAT_I18N = {
-    ru:{'Все':'Все','Колье':'Колье','Комплекты':'Комплекты','Браслеты':'Браслеты','Сотуары':'Сотуары','Цепи':'Цепи'},
-    kk:{'Все':'Барлығы','Колье':'Алқалар','Комплекты':'Комплекттер','Браслеты':'Білезіктер','Сотуары':'Сотуарлар','Цепи':'Тізбектер'},
-    en:{'Все':'All','Колье':'Necklaces','Комплекты':'Sets','Браслеты':'Bracelets','Сотуары':'Lariats','Цепи':'Chains'}
-  };
-  const UI = { ru:{add:'Добавить в корзину'}, kk:{add:'Себетке қосу'}, en:{add:'Add to cart'} };
+  const KEY='livi_cart_v2';
+  const grid=document.getElementById('grid');
+  const filters=document.getElementById('filters');
+  const cats=[...new Set(PRODUCTS.map(p=>p.cat))];
+  cats.unshift('Все');
+  cats.forEach(c=>{
+    const b=document.createElement('button');b.textContent=c;b.className='tag';
+    if(c==='Все') b.classList.add('active');
+    b.onclick=()=>{
+      document.querySelectorAll('.tag').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      render(c==='Все'?PRODUCTS:PRODUCTS.filter(p=>p.cat===c));
+    };
+    filters.appendChild(b);
+  });
 
-  function currentLang(){ return localStorage.getItem('lang') || 'ru'; }
-  function i18nFill(){
-    const lang=currentLang();
-    document.querySelectorAll('[data-ru]').forEach(el=>{
-      const txt = lang==='kk'?el.getAttribute('data-kk'): lang==='en'?el.getAttribute('data-en'): el.getAttribute('data-ru');
-      if(txt) el.textContent=txt;
-    });
-    [ruBtn,kkBtn,enBtn].forEach(b=>b.classList.remove('active'));
-    (lang==='kk'?kkBtn:lang==='en'?enBtn:ruBtn).classList.add('active');
-    document.documentElement.lang=lang;
-  }
-
-  function parseUnitPriceKZT(priceStr){
-    const m = String(priceStr||'').match(/(\d[\d\s.,]*)\s*тг/i);
-    if(!m) return 0;
-    const num = m[1].replace(/\s+/g,'').replace(',', '.');
-    const v = parseFloat(num);
-    return isNaN(v) ? 0 : v;
-  }
-
-  const grid = document.getElementById('grid');
-  const filters = document.getElementById('filters');
-  let activeCat = localStorage.getItem('livi_active_cat') || 'Все';
-
-  function renderFilters(){
-    const lang=currentLang();
-    filters.innerHTML = '';
-    CATS.forEach(c=>{
-      if(c!=='Все' && !PRODUCTS.some(p=>p.cat===c)) return;
-      const btn = document.createElement('button');
-      btn.className='tag'+(c===activeCat?' active':'');
-      btn.textContent = CAT_I18N[lang][c] || c;
-      btn.onclick=()=>{ activeCat=c; localStorage.setItem('livi_active_cat',c); renderFilters(); renderGrid(); };
-      filters.appendChild(btn);
-    });
-  }
-
-  function renderGrid(){
-    const lang=currentLang();
-    grid.innerHTML = '';
-    const items = activeCat==='Все' ? PRODUCTS : PRODUCTS.filter(p=>p.cat===activeCat);
-
-    // GA4 view_item_list
-    gtag('event','view_item_list',{
-      item_list_name: CAT_I18N[lang][activeCat] || activeCat,
-      items: items.slice(0,24).map((p,idx)=>({
-        item_id: p.id, item_name: p.title, index: idx,
-        item_category: p.cat, price: parseUnitPriceKZT(p.price)
-      }))
-    });
-
-    items.forEach(p=>{
-      const card = document.createElement('article'); card.className='card';
-      card.innerHTML = `
-        <div class="img"><img src="${p.img}" alt="${p.title}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'"></div>
+  function render(list){ 
+    grid.innerHTML=''; 
+    list.forEach(p=>{
+      const c=document.createElement('div');c.className='card';
+      c.innerHTML=`
+        <img src="${p.img}" alt="">
         <div class="body">
           <div class="title">${p.title}</div>
-          <div class="muted">${CAT_I18N[lang][p.cat]||p.cat}</div>
           <div class="price">${p.price}</div>
-          <div style="margin-top:8px">
-            <button class="btn" data-id="${p.id}" data-action="add">${UI[lang].add}</button>
-          </div>
+          <div class="muted">${p.cat}</div>
+          <button class="btn">В корзину</button>
         </div>`;
-      card.addEventListener('click',(e)=>{
-        if(e.target && e.target.dataset && e.target.dataset.action==='add'){ return; }
-        gtag('event','select_item',{
-          item_list_name: CAT_I18N[lang][activeCat] || activeCat,
-          items:[{ item_id:p.id, item_name:p.title, item_category:p.cat, price:parseUnitPriceKZT(p.price) }]
-        });
-        openModal(p);
-      }, {passive:true});
-      card.querySelector('[data-action="add"]').onclick=()=>{
-        addToCart(p,1);
-        gtag('event','add_to_cart',{
-          currency: 'KZT',
-          value: parseUnitPriceKZT(p.price),
-          items:[{ item_id:p.id, item_name:p.title, item_category:p.cat, price:parseUnitPriceKZT(p.price), quantity:1 }]
-        });
-      };
-      grid.appendChild(card);
+      c.querySelector('.btn').onclick=()=>addToCart(p,1);
+      c.onclick=(e)=>{if(!e.target.classList.contains('btn'))openModal(p)};
+      grid.appendChild(c);
     });
   }
+  render(PRODUCTS);
 
-  function readCart(){ try{return JSON.parse(localStorage.getItem('livi_cart_v2')||'[]')}catch(e){return []} }
-  function writeCart(v){ localStorage.setItem('livi_cart_v2', JSON.stringify(v)); updateBadge(); }
-  function addToCart(p, qty){
-    const q=Math.max(1, Number(qty||1));
-    const cart=readCart();
-    const i=cart.findIndex(x=>x.id===p.id);
-    if(i>-1) cart[i].qty+=q; else cart.push({id:p.id,title:p.title,price:p.price,img:p.img,qty:q});
-    writeCart(cart);
+  function addToCart(p,qty){
+    const c=read();
+    const i=c.find(x=>x.id===p.id);
+    if(i) i.qty+=qty; else c.push({...p,qty});
+    write(c);
   }
-  function updateBadge(){
-    const count=readCart().reduce((s,i)=>s+Number(i.qty||0),0);
-    const b=document.getElementById('cartBadge');
-    b.style.display = count>0 ? 'inline-block':'none';
-    if(count>0) b.textContent=count;
-  }
-  window.addEventListener('storage',e=>{ if(e.key==='livi_cart_v2') updateBadge(); });
+  function read(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []}}
+  function write(v){localStorage.setItem(KEY,JSON.stringify(v))}
 
+  // Modal
   const modal=document.getElementById('modal');
-  const mImg=document.getElementById('mImg');
-  const mTitle=document.getElementById('mTitle');
-  const mCat=document.getElementById('mCat');
-  const mPrice=document.getElementById('mPrice');
-  const mDesc=document.getElementById('mDesc');
-  const mQtyEl=document.getElementById('mQty');
-  const mMinus=document.getElementById('mMinus');
-  const mPlus=document.getElementById('mPlus');
-  const mAdd=document.getElementById('mAdd');
-  const mClose=document.getElementById('mClose');
-  let currentProduct=null;
-
-  function openModal(p){
-    const lang=currentLang();
-    currentProduct=p;
-    mImg.src=p.img; mImg.alt=p.title;
-    mTitle.textContent=p.title;
-    mCat.textContent=CAT_I18N[lang][p.cat]||p.cat;
-    mPrice.textContent=p.price;
-    mDesc.textContent=p.desc||'';
-    mQtyEl.textContent='1';
-    mAdd.textContent=UI[lang].add;
-    modal.classList.add('open'); document.body.style.overflow='hidden';
-
-    gtag('event','view_item',{
-      items:[{ item_id:p.id, item_name:p.title, item_category:p.cat, price:parseUnitPriceKZT(p.price) }]
-    });
-  }
-  function closeModal(){ modal.classList.remove('open'); document.body.style.overflow=''; }
-  mMinus.onclick=()=>{ const n=Math.max(1, Number(mQtyEl.textContent)-1); mQtyEl.textContent=n; };
-  mPlus.onclick =()=>{ const n=Number(mQtyEl.textContent)+1; mQtyEl.textContent=n; };
-  mAdd.onclick  =()=>{ if(currentProduct){
-      const q=Number(mQtyEl.textContent);
-      addToCart(currentProduct, q);
-      gtag('event','add_to_cart',{
-        currency:'KZT',
-        value: parseUnitPriceKZT(currentProduct.price) * q,
-        items:[{ item_id:currentProduct.id, item_name:currentProduct.title, item_category:currentProduct.cat, price:parseUnitPriceKZT(currentProduct.price), quantity:q }]
-      });
-      closeModal();
-    } };
-  mClose.onclick=closeModal;
-  modal.addEventListener('click',(e)=>{ if(e.target===modal) closeModal(); });
-  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
-
-  const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
-  function setLang(lang){
-    localStorage.setItem('lang',lang); i18nFill(); renderFilters(); renderGrid();
-  }
-  ruBtn.onclick=()=>setLang('ru'); kkBtn.onclick=()=>setLang('kk'); enBtn.onclick=()=>setLang('en');
-  i18nFill(); renderFilters(); renderGrid(); updateBadge();
+  const mImg=document.getElementById('mImg'),mTitle=document.getElementById('mTitle'),mCat=document.getElementById('mCat'),mPrice=document.getElementById('mPrice'),mDesc=document.getElementById('mDesc'),mQty=document.getElementById('mQty');
+  let current=null,qty=1;
+  function openModal(p){modal.classList.add('open');current=p;qty=1;mQty.textContent=1;mImg.src=p.img;mTitle.textContent=p.title;mCat.textContent=p.cat;mPrice.textContent=p.price;mDesc.textContent=p.desc}
+  document.getElementById('mClose').onclick=()=>modal.classList.remove('open');
+  document.getElementById('mMinus').onclick=()=>{if(qty>1){qty--;mQty.textContent=qty}};
+  document.getElementById('mPlus').onclick=()=>{qty++;mQty.textContent=qty};
+  document.getElementById('mAdd').onclick=()=>{addToCart(current,qty);modal.classList.remove('open')};
 </script>
 </body>
 </html>
