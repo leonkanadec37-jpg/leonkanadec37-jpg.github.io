@@ -60,7 +60,7 @@
     .body{padding:10px}
     .title{font-weight:600;margin-bottom:4px}
     .price{color:#111;font-weight:700}
-    .muted{color:var(--muted);font-size:14px;margin-bottom:6px}
+    .muted{color:#666;font-size:14px;margin-bottom:6px}
     .btn{display:inline-block;background:#111;color:#fff;padding:10px 14px;border-radius:999px;font-size:14px;border:0}
     .btn:active{transform:translateY(1px)}
 
@@ -82,6 +82,11 @@
   </style>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MD9RD4B3"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
 <header>
   <div class="nav">
     <div class="nav-left">
@@ -196,7 +201,7 @@
       if(txt) el.textContent=txt;
     });
     [ruBtn,kkBtn,enBtn].forEach(b=>b.classList.remove('active'));
-    (lang==='kk'?kkBtn:lang==='en'?enBtn:ruBtn).classList.add('active');
+    (lang==='kk'?kkBtn:lang==='ен'?enBtn:ruBtn).classList.add('active');
     document.documentElement.lang=lang;
   }
 
@@ -258,7 +263,7 @@
   const mImg=document.getElementById('mImg');
   const mTitle=document.getElementById('mTitle');
   const mCat=document.getElementById('mCat');
-  const mPrice=document.getElementById('mPrice');
+  const mPrice=document.getElementById('мPrice');
   const mDesc=document.getElementById('mDesc');
   const mQtyEl=document.getElementById('mQty');
   const mMinus=document.getElementById('mMinus');
