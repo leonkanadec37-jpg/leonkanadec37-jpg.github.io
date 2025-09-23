@@ -11,17 +11,17 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
+    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-4H6HK8K9SJ');
   </script>
 
-  <!-- Google Ads conversion helper (WhatsApp click) -->
+  <!-- Event snippet (Google Ads conversion on WhatsApp) -->
   <script>
     function gtag_report_conversion(url) {
-      var callback = function () { if (typeof(url) != 'undefined') { window.location = url; } };
-      gtag('event', 'conversion', {
-        'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+      var callback = function () { if (typeof url !== 'undefined') window.location = url; };
+      gtag('event','conversion',{
+        'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
         'event_callback': callback
       });
       return false;
@@ -49,7 +49,10 @@
     h1{font-size:clamp(24px,5vw,46px);margin:8px 0 10px}
     p.muted{color:#666}
     .hero{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;align-items:center}
-    .hero img{width:100%;border-radius:16px;display:block;object-fit:cover}
+    .hero-visual{border-radius:16px;min-height:280px;background:
+      linear-gradient(135deg,#f8f8f8 0%,#efefef 50%,#e7e7e7 100%);
+      display:grid;place-items:center;overflow:hidden}
+    .hero-visual img{width:100%;height:100%;object-fit:cover;display:block}
     @media (max-width:820px){ .hero{grid-template-columns:1fr} }
   </style>
 </head>
@@ -88,12 +91,22 @@
         <a class="chip" href="cart.html">Открыть корзину</a>
       </div>
     </div>
-    <img src="assets/hero.jpg" alt="Livi Jewelry" onerror="this.style.display='none'">
+    <div class="hero-visual">
+      <img id="heroImg" alt="Livi Jewelry">
+    </div>
   </section>
 </main>
 
 <script>
-  // Simple lang + cart badge sync (same keys as shop/cart)
+  // Safe hero image (keeps gradient if not found)
+  (function(){
+    var img=document.getElementById('heroImg');
+    var path='assets/hero.jpg';
+    try{ img.src = encodeURI(path); }catch(e){ img.remove(); }
+    img.onerror = function(){ this.remove(); }; // keep gradient block
+  })();
+
+  // Cart badge
   function readCart(){ try{return JSON.parse(localStorage.getItem('livi_cart_v2')||'[]')}catch(e){return []} }
   function updateBadge(){
     const c=readCart().reduce((s,i)=>s+Number(i.qty||0),0);
@@ -104,6 +117,7 @@
   window.addEventListener('storage',e=>{ if(e.key==='livi_cart_v2') updateBadge(); });
   updateBadge();
 
+  // Lang
   const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
   function setLang(l){ localStorage.setItem('lang',l); document.documentElement.lang=l;
     document.querySelectorAll('[data-ru]').forEach(el=>{
