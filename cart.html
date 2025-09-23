@@ -74,6 +74,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
   .lang button{border:0;background:transparent;padding:8px 12px;font-size:13px;cursor:pointer}
   .lang button.active{background:#111;color:#fff}
+
+  /* ===== Mobile polish (<=480px) ===== */
+  @media (max-width:480px){
+    header{ background:rgba(255,255,255,.96); backdrop-filter:saturate(160%) blur(8px); }
+    .nav{ padding:10px 12px; gap:8px; }
+    .nav-left{
+      overflow-x:auto; white-space:nowrap; gap:6px;
+      padding-bottom:4px; margin-bottom:-4px;
+      -webkit-overflow-scrolling:touch;
+    }
+    .nav-left::-webkit-scrollbar{ display:none; }
+    .nav-left a{ display:inline-block; padding:8px 10px; font-size:13px; }
+    .lang button{ padding:8px 10px; font-size:12.5px; }
+    .cart-badge{ top:-4px; right:-4px; padding:3px 6px; font-size:11px; }
+    body{ padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right); }
+    header{ padding-top:env(safe-area-inset-top); }
+    .actions .btn{ width:100%; }
+    .actions{ justify-content:flex-end; }
+  }
 </style>
 </head>
 <body>
