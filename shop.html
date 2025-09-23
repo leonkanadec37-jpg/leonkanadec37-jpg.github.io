@@ -14,6 +14,15 @@
   })(window,document,'script','dataLayer','GTM-MD9RD4B3');</script>
   <!-- End Google Tag Manager -->
 
+  <!-- Google tag (gtag.js) — Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16793974126"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-16793974126');
+  </script>
+
   <!-- Event snippet: Контакт click wa (как просили, без смены настроек) -->
   <script>
     function gtag_report_conversion(url){
@@ -79,6 +88,26 @@
     .close{position:absolute;top:10px;right:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 10px;cursor:pointer}
     @media (max-width:780px){ .modal-card{grid-template-columns:1fr;max-height:88vh} .modal-left{border-right:0;max-height:46vh} }
     @media (max-width:420px){ .lang button{padding:8px 10px} .nav-left a{padding:8px 10px} }
+
+    /* ===== Mobile polish (<=480px) ===== */
+    @media (max-width:480px){
+      header{ background:rgba(255,255,255,.96); backdrop-filter:saturate(160%) blur(8px); }
+      .nav{ padding:10px 12px; gap:8px; }
+      .nav-left{
+        overflow-x:auto; white-space:nowrap; gap:6px;
+        padding-bottom:4px; margin-bottom:-4px;
+        -webkit-overflow-scrolling:touch;
+      }
+      .nav-left::-webkit-scrollbar{ display:none; }
+      .nav-left a{ display:inline-block; padding:8px 10px; font-size:13px; }
+      .lang button{ padding:8px 10px; font-size:12.5px; }
+      .cart-badge{ top:-4px; right:-4px; padding:3px 6px; font-size:11px; }
+
+      .grid{ grid-template-columns:repeat(2,1fr); gap:12px; }
+
+      body{ padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right); }
+      header{ padding-top:env(safe-area-inset-top); }
+    }
   </style>
 </head>
 <body>
@@ -201,7 +230,7 @@
       if(txt) el.textContent=txt;
     });
     [ruBtn,kkBtn,enBtn].forEach(b=>b.classList.remove('active'));
-    (lang==='kk'?kkBtn:lang==='ен'?enBtn:ruBtn).classList.add('active');
+    (lang==='kk'?kkBtn:lang==='en'?enBtn:ruBtn).classList.add('active');
     document.documentElement.lang=lang;
   }
 
@@ -263,7 +292,7 @@
   const mImg=document.getElementById('mImg');
   const mTitle=document.getElementById('mTitle');
   const mCat=document.getElementById('mCat');
-  const mPrice=document.getElementById('мPrice');
+  const mPrice=document.getElementById('mPrice');
   const mDesc=document.getElementById('mDesc');
   const mQtyEl=document.getElementById('mQty');
   const mMinus=document.getElementById('mMinus');
