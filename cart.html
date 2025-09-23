@@ -6,27 +6,23 @@
   <title>Livi Jewelry — Корзина</title>
   <link rel="icon" href="favicon.ico" />
 
-  <!-- Google tag (gtag.js): GA4 + Google Ads -->
+  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
-    // GA4
     gtag('config', 'G-4H6HK8K9SJ');
-    // Google Ads
-    gtag('config', 'AW-16793974126');
+  </script>
 
-    // Ads conversion helper for WhatsApp click
+  <!-- Google Ads conversion helper (WhatsApp click) -->
+  <script>
     function gtag_report_conversion(url) {
-      const callback = function () { if (typeof url !== 'undefined') window.location = url; };
+      var callback = function () { if (typeof(url) != 'undefined') { window.location = url; } };
       gtag('event', 'conversion', {
-        'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-'
+        'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+        'event_callback': callback
       });
-      // Also log GA4 "begin_checkout" for funnel visibility
-      gtag('event', 'begin_checkout', { method: 'whatsapp' });
-      // Fallback navigation if the tag is blocked
-      setTimeout(callback, 350);
       return false;
     }
   </script>
@@ -36,7 +32,6 @@
     *{box-sizing:border-box;margin:0;padding:0}
     body{font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#fff;color:var(--fg)}
     a{text-decoration:none;color:inherit;-webkit-tap-highlight-color:transparent}
-
     header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.92);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
     .nav{max-width:1240px;margin:0 auto;padding:12px 16px;display:flex;gap:10px;align-items:center;justify-content:space-between}
     .brand{font-weight:800;letter-spacing:.08em}
@@ -44,7 +39,6 @@
     .nav-left a{border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:14px}
     .wrap{max-width:1000px;margin:0 auto;padding:22px 16px}
     h1{font-size:clamp(22px,4.4vw,38px);margin-bottom:12px}
-
     .empty{padding:24px;border:1px dashed var(--line);border-radius:16px;text-align:center;color:var(--muted)}
     .list{display:grid;gap:12px;margin:16px 0}
     .item{display:grid;grid-template-columns:96px 1fr auto auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:var(--radius);padding:10px}
@@ -57,35 +51,23 @@
     .btn--primary{background:#111;color:#fff;border-color:#111}
     .total{display:flex;justify-content:space-between;align-items:center;margin-top:16px;border-top:1px solid var(--line);padding-top:12px;gap:12px;flex-wrap:wrap}
     .actions{display:flex;gap:10px;flex-wrap:wrap}
-
     .cart-link{position:relative}
     .cart-badge{position:absolute;top:-6px;right:-6px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:4px 6px;min-width:20px;text-align:center}
     .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
     .lang button{border:0;background:transparent;padding:8px 12px;font-size:13px;cursor:pointer}
     .lang button.active{background:#111;color:#fff}
-
-    /* Mobile polish (<=560px) */
     @media (max-width:560px){
       .item{
         grid-template-columns:72px 1fr;
-        grid-template-areas:
-          "thumb title"
-          "thumb qty"
-          "thumb del";
+        grid-template-areas:"thumb title" "thumb qty" "thumb del";
         align-items:start
       }
       .thumb{width:72px;height:72px}
     }
-
-    /* Extra mobile polish (<=480px) */
     @media (max-width:480px){
       header{ background:rgba(255,255,255,.96); backdrop-filter:saturate(160%) blur(8px); }
       .nav{ padding:10px 12px; gap:8px; }
-      .nav-left{
-        overflow-x:auto; white-space:nowrap; gap:6px;
-        padding-bottom:4px; margin-bottom:-4px;
-        -webkit-overflow-scrolling:touch;
-      }
+      .nav-left{ overflow-x:auto; white-space:nowrap; gap:6px; padding-bottom:4px; margin-bottom:-4px; -webkit-overflow-scrolling:touch; }
       .nav-left::-webkit-scrollbar{ display:none; }
       .nav-left a{ display:inline-block; padding:8px 10px; font-size:13px; }
       .lang button{ padding:8px 10px; font-size:12.5px; }
@@ -127,14 +109,12 @@
 <script>
   const KEY='livi_cart_v2';
 
-  // UI dictionary
   const UI = {
     ru:{ empty:'Ваша корзина пуста.', goShop:'Перейти в каталог', yourOrder:'Ваш заказ:', clear:'Очистить', checkout:'Оформить в WhatsApp', remove:'Удалить', total:'Итого' },
     kk:{ empty:'Себет бос.', goShop:'Каталогқа өту', yourOrder:'Сіздің тапсырысыңыз:', clear:'Тазарту', checkout:'WhatsApp арқылы рәсімдеу', remove:'Жою', total:'Жалпы' },
     en:{ empty:'Your cart is empty.', goShop:'Go to catalog', yourOrder:'Your order:', clear:'Clear', checkout:'Checkout via WhatsApp', remove:'Remove', total:'Total' }
   };
 
-  // Language helpers
   function lang(){ return localStorage.getItem('lang') || 'ru'; }
   function setLangButtons(){
     const l=lang();
@@ -147,11 +127,9 @@
     document.documentElement.lang=l;
   }
 
-  // Cart storage
   function read(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []} }
   function write(v){ localStorage.setItem(KEY, JSON.stringify(v)); render(); }
 
-  // Price parsing: extracts number (supports spaces, commas)
   function parsePriceToNumber(priceStr){
     if(typeof priceStr === 'number') return priceStr;
     if(!priceStr) return 0;
@@ -159,14 +137,9 @@
     const num = parseFloat(digits);
     return isNaN(num) ? 0 : num;
   }
-
-  // Formats currency like "12 345 ₸"
   function formatKZT(v){
-    try{
-      return new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 }).format(v) + ' ₸';
-    }catch(e){
-      return Math.round(v) + ' ₸';
-    }
+    try{ return new Intl.NumberFormat('ru-RU',{maximumFractionDigits:0}).format(v)+' ₸'; }
+    catch(e){ return Math.round(v)+' ₸'; }
   }
 
   function updateBadge(){
@@ -187,19 +160,12 @@
       return;
     }
 
-    // Build list
     const list=document.createElement('div'); list.className='list';
-
     cart.forEach((i,idx)=>{
       const row=document.createElement('div'); row.className='item';
-      const priceText = i.price ?? '';
-      const unitPrice = parsePriceToNumber(priceText);
       row.innerHTML = `
         <div class="thumb"><img src="${i.img}" alt="" onerror="this.onerror=null;this.src='assets/placeholder.jpg'"></div>
-        <div>
-          <div class="title">${i.title}</div>
-          <div class="muted">${priceText}</div>
-        </div>
+        <div><div class="title">${i.title}</div><div class="muted">${i.price}</div></div>
         <div class="qty">
           <button class="btn" aria-label="minus" title="−">−</button>
           <span>${i.qty}</span>
@@ -214,7 +180,6 @@
       list.appendChild(row);
     });
 
-    // Totals
     const totalKZT = cart.reduce((sum,i)=> sum + parsePriceToNumber(i.price)*Number(i.qty||0), 0);
     const orderLine = cart.map(i=>`${i.title} × ${i.qty} (${i.price})`).join(' • ');
 
@@ -235,10 +200,8 @@
     root.appendChild(list);
     root.appendChild(total);
 
-    // Clear cart
     document.getElementById('clear').onclick=()=>write([]);
 
-    // WhatsApp link + tracking
     const text = encodeURIComponent(
       'Здравствуйте! Хочу оформить заказ:\n\n' +
       cart.map(i=>`• ${i.title} — ${i.price} × ${i.qty}`).join('\n') +
@@ -247,7 +210,7 @@
     const waLink = 'https://wa.me/77054510584?text='+text;
     const waEl = document.getElementById('wa');
 
-    // Intercept click to fire Ads conversion then navigate
+    // Fire Ads conversion, then navigate (fallback if blocked)
     waEl.addEventListener('click', function(e){
       e.preventDefault();
       try { gtag_report_conversion(waLink); } catch(err){ window.location = waLink; }
@@ -256,11 +219,9 @@
     updateBadge();
   }
 
-  // Cross-tab sync + focus refresh
   window.addEventListener('storage',e=>{ if(e.key===KEY) render(); });
   window.addEventListener('focus', render);
 
-  // Lang buttons
   const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
   ruBtn.onclick=()=>{ localStorage.setItem('lang','ru'); setLangButtons(); render(); };
   kkBtn.onclick=()=>{ localStorage.setItem('lang','kk'); setLangButtons(); render(); };
