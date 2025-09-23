@@ -81,6 +81,29 @@
     /* Cart badge */
     .cart-link{position:relative}
     .cart-badge{position:absolute;top:-6px;right:-6px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:4px 6px;min-width:20px;text-align:center}
+
+    /* ===== Mobile polish (<=480px) ===== */
+    @media (max-width:480px){
+      header{ background:rgba(255,255,255,.96); backdrop-filter:saturate(160%) blur(8px); }
+      .nav{ padding:10px 12px; gap:8px; }
+      .nav-left{
+        overflow-x:auto; white-space:nowrap; gap:6px;
+        padding-bottom:4px; margin-bottom:-4px;
+        -webkit-overflow-scrolling:touch;
+      }
+      .nav-left::-webkit-scrollbar{ display:none; }
+      .nav-left a{ display:inline-block; padding:8px 10px; font-size:13px; }
+      .lang button{ padding:8px 10px; font-size:12.5px; }
+      .cart-badge{ top:-4px; right:-4px; padding:3px 6px; font-size:11px; }
+
+      .hero{ padding:28px 12px 14px; }
+      .hero h1{ font-size:clamp(22px,7vw,30px); line-height:1.18; }
+      .hero p{ font-size:15px; }
+      .cta .btn{ width:100%; text-align:center; padding:12px 16px; }
+
+      body{ padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right); }
+      header{ padding-top:env(safe-area-inset-top); }
+    }
   </style>
 </head>
 <body>
