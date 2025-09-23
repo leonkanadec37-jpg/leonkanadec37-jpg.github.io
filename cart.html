@@ -4,7 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Livi Jewelry — Корзина</title>
-  <link rel="icon" href="favicon.ico" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="shortcut icon" href="assets/logo.png">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
@@ -14,8 +17,9 @@
     gtag('js', new Date());
     gtag('config', 'G-4H6HK8K9SJ');
 
+    /* Google Ads conversion (WhatsApp) */
     function gtag_report_conversion(url) {
-      var callback = function () { if (typeof url != 'undefined') { window.location = url; } };
+      var callback = function () { if (typeof url !== 'undefined') { window.location = url; } };
       gtag('event', 'conversion', {
         'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
         'event_callback': callback
@@ -36,9 +40,6 @@
     .nav-left{display:flex;align-items:center;gap:12px}
     .nav-left a{font-size:15px;padding:8px 14px;border-radius:999px;border:1px solid transparent;transition:.2s}
     .nav-left a:hover{border-color:var(--line);background:#fafafa}
-    .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
-    .lang button{border:0;background:transparent;padding:8px 12px;font-size:13px;cursor:pointer}
-    .lang button.active{background:#111;color:#fff}
 
     .wrap{max-width:960px;margin:0 auto;padding:28px 16px}
     h1{font-size:clamp(24px,5vw,40px);margin-bottom:20px;text-align:center}
@@ -60,6 +61,7 @@
       .item{grid-template-columns:72px 1fr;grid-template-areas:
         "thumb title" "thumb qty" "thumb del";align-items:start}
       .thumb{width:72px;height:72px}
+      .actions .btn{width:100%}
     }
   </style>
 </head>
@@ -70,13 +72,6 @@
       <a class="brand" href="index.html">LIVI JEWELRY</a>
       <a href="shop.html">Каталог</a>
       <a href="cart.html">Корзина</a>
-    </div>
-    <div class="nav-right">
-      <div class="lang">
-        <button id="ruBtn" class="active">RU</button>
-        <button id="kkBtn">KZ</button>
-        <button id="enBtn">EN</button>
-      </div>
     </div>
   </div>
 </header>
@@ -89,69 +84,85 @@
 <script>
   const KEY='livi_cart_v2';
 
-  function parseUnitPriceKZT(priceStr){
+  /* Нормальный парсер: первое число перед "тг" -> оставляем только цифры */
+  function parseFirstKZT(priceStr){
     const m = String(priceStr||'').match(/([\d\s.,]+)\s*тг/i);
     if(!m) return 0;
     const digits = m[1].replace(/[^\d]/g,'');
-    return parseInt(digits,10)||0;
+    return parseInt(digits,10) || 0;
+  }
+  function unitPrice(item){
+    return (typeof item.unit==='number') ? item.unit : parseFirstKZT(item.price);
   }
 
-  function read(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []}}
-  function write(v){localStorage.setItem(KEY,JSON.stringify(v));render();}
+  /* Миграция: сохранить unit для старых записей */
+  (function migrate(){
+    let cart;
+    try{ cart = JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ cart=[]; }
+    let changed=false;
+    for(const it of cart){
+      if(typeof it.unit!=='number'){ it.unit = parseFirstKZT(it.price); changed=true; }
+    }
+    if(changed){ localStorage.setItem(KEY, JSON.stringify(cart)); }
+  })();
+
+  function read(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []} }
+  function write(v){ localStorage.setItem(KEY, JSON.stringify(v)); render(); }
 
   function render(){
     const root=document.getElementById('root');
     const cart=read();
+
     if(cart.length===0){
-      root.innerHTML=`<div class="empty">Ваша корзина пуста.<br><br><a href="shop.html">Перейти в каталог</a></div>`;
+      root.innerHTML = `<div class="empty">Ваша корзина пуста.<br><br><a href="shop.html">Перейти в каталог</a></div>`;
       return;
     }
 
-    const list=document.createElement('div');list.className='list';
+    const list=document.createElement('div'); list.className='list';
     let total=0;
 
     cart.forEach((i,idx)=>{
-      const unit=i.unit||parseUnitPriceKZT(i.price);
-      const sum=unit*i.qty;total+=sum;
-      const row=document.createElement('div');row.className='item';
-      row.innerHTML=`
+      const unit = unitPrice(i);
+      const row=document.createElement('div'); row.className='item';
+      row.innerHTML = `
         <div class="thumb"><img src="${i.img}" alt="" onerror="this.src='assets/placeholder.jpg'"></div>
         <div><div class="title">${i.title}</div><div class="muted">${i.price}</div></div>
         <div class="qty">
-          <button class="btn">−</button>
+          <button class="btn" aria-label="minus">−</button>
           <span>${i.qty}</span>
-          <button class="btn">+</button>
+          <button class="btn" aria-label="plus">+</button>
         </div>
         <button class="btn" aria-label="remove">Удалить</button>
       `;
-      const [minusBtn, qtyEl, plusBtn]=row.querySelectorAll('.qty .btn, .qty span');
-      minusBtn.onclick=()=>{const c=read();if(c[idx].qty>1)c[idx].qty--;else c.splice(idx,1);write(c);}
-      plusBtn.onclick =()=>{const c=read();c[idx].qty++;write(c);}
-      row.querySelector('[aria-label="remove"]').onclick=()=>{const c=read();c.splice(idx,1);write(c);}
+      const [minusBtn, qtyEl, plusBtn] = row.querySelectorAll('.qty .btn, .qty span');
+      minusBtn.onclick=()=>{ const c=read(); if(c[idx].qty>1)c[idx].qty--; else c.splice(idx,1); write(c); };
+      plusBtn.onclick =()=>{ const c=read(); c[idx].qty++; write(c); };
+      row.querySelector('[aria-label="remove"]').onclick=()=>{ const c=read(); c.splice(idx,1); write(c); };
       list.appendChild(row);
+
+      total += unit * Number(i.qty||0);
     });
 
-    const totalDiv=document.createElement('div');totalDiv.className='total';
-    totalDiv.innerHTML=`
-      <div>Итого:</div>
-      <div>${total.toLocaleString('ru-RU')} тг</div>
-    `;
+    const totalEl=document.createElement('div'); totalEl.className='total';
+    totalEl.innerHTML = `<div>Итого:</div><div>${total.toLocaleString('ru-RU')} тг</div>`;
 
-    const actions=document.createElement('div');actions.className='actions';
-    actions.innerHTML=`
+    const actions=document.createElement('div'); actions.className='actions';
+    actions.innerHTML = `
       <button class="btn" id="clear">Очистить</button>
-      <a class="btn btn--primary" id="wa" target="_blank" 
+      <a class="btn btn--primary" id="wa" target="_blank" rel="noopener"
          onclick="return gtag_report_conversion(this.href);">Оформить в WhatsApp</a>
     `;
 
     root.innerHTML='';
     root.appendChild(list);
-    root.appendChild(totalDiv);
+    root.appendChild(totalEl);
     root.appendChild(actions);
 
     document.getElementById('clear').onclick=()=>write([]);
-    const text=encodeURIComponent('Здравствуйте! Хочу оформить заказ:\n\n'+cart.map(i=>`• ${i.title} — ${i.price} × ${i.qty}`).join('\n'));
-    document.getElementById('wa').href='https://wa.me/77054510584?text='+text;
+
+    const text = encodeURIComponent('Здравствуйте! Хочу оформить заказ:\n\n' +
+      cart.map(i=>`• ${i.title} — ${i.price} × ${i.qty}`).join('\n'));
+    document.getElementById('wa').href = 'https://wa.me/77054510584?text='+text;
   }
 
   render();
