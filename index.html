@@ -4,7 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Livi Jewelry — жемчуг и камни</title>
-  <link rel="icon" href="favicon.ico" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="shortcut icon" href="assets/logo.png">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
@@ -14,7 +17,6 @@
     gtag('js', new Date());
     gtag('config', 'G-4H6HK8K9SJ');
 
-    /* Google Ads conversion (WhatsApp) */
     function gtag_report_conversion(url) {
       var callback = function () { if (typeof url !== 'undefined') { window.location = url; } };
       gtag('event','conversion',{
@@ -26,10 +28,8 @@
   </script>
 
   <style>
-    :root{
-      --fg:#111;--muted:#666;--line:#eee;--bg:#fff;
-      --radius:20px;--shadow:0 8px 32px rgba(0,0,0,.08);
-    }
+    :root{--fg:#111;--muted:#666;--line:#eee;--bg:#fff;
+      --radius:20px;--shadow:0 8px 32px rgba(0,0,0,.08);}
     *{box-sizing:border-box;margin:0;padding:0}
     body{font:16px/1.6 "Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg)}
     a{text-decoration:none;color:inherit}
@@ -37,9 +37,7 @@
 
     header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
     .nav{max-width:1240px;margin:0 auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand{display:flex;align-items:center;gap:10px}
-    .brand img{height:28px;width:auto}
-    .brand .brand-text{font-weight:800;font-size:18px;letter-spacing:.06em}
+    .brand{font-weight:800;font-size:20px;letter-spacing:.06em}
     .nav-left{display:flex;align-items:center;gap:14px}
     .nav-left a{font-size:15px;padding:8px 14px;border-radius:999px;border:1px solid transparent;transition:.2s}
     .nav-left a:hover{border-color:var(--line);background:#fafafa}
@@ -54,8 +52,7 @@
     .hero-text h1{font-size:clamp(28px,5vw,48px);line-height:1.2;margin-bottom:18px}
     .hero-text p{color:var(--muted);font-size:18px;margin-bottom:22px}
     .hero-text .btn{display:inline-block;background:#111;color:#fff;padding:12px 20px;border-radius:999px;font-size:15px}
-    .hero-visual{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:
-      linear-gradient(135deg,#f8f8f8 0%,#efefef 50%,#e7e7e7 100%);}
+    .hero-visual{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:#f8f8f8}
     .hero-visual img{width:100%;height:100%;object-fit:cover;display:block}
 
     .about{background:#fafafa;padding:60px 16px}
@@ -83,11 +80,7 @@
   <header>
     <div class="nav">
       <div class="nav-left">
-        <a class="brand" href="index.html" aria-label="Livi Jewelry">
-          <!-- ЛОГОТИП: покажем картинку, при ошибке — вернём текстовый логотип -->
-          <img id="logoImg" alt="Livi Jewelry">
-          <span class="brand-text">LIVI JEWELRY</span>
-        </a>
+        <a class="brand" href="index.html">LIVI JEWELRY</a>
         <a href="shop.html">Каталог</a>
         <a href="cart.html">Корзина</a>
       </div>
@@ -111,8 +104,7 @@
       <a href="shop.html" class="btn">Перейти в каталог</a>
     </div>
     <div class="hero-visual">
-      <!-- Геро-изображение: надёжная подстановка с перебором путей -->
-      <img id="heroImg" alt="Livi Jewelry">
+      <img src="assets/hero.jpg" alt="Livi Jewelry">
     </div>
   </section>
 
@@ -130,59 +122,6 @@
   </footer>
 
   <script>
-    /* ===== ЛОГОТИП: безопасная подстановка + резервный текст ===== */
-    (function(){
-      var logo = document.getElementById('logoImg');
-      // Список возможных логотипов (png/svg/webp), сначала самые вероятные
-      var candidates = [
-        'assets/logo.png',
-        'assets/logo.svg',
-        'assets/logo.webp',
-        'assets/LIVI_logo.png',
-        'assets/logo-livi.png'
-      ];
-      tryLoadSequential(logo, candidates, function onFail(){
-        // Если не загрузилось — спрячем img, оставим текстовый логотип
-        logo.remove();
-      });
-    })();
-
-    /* ===== HERO: надёжная подстановка изображения =====
-       Перебираем несколько путей (разные имена/регистр/язык), берём первый, который загрузится */
-    (function(){
-      var img = document.getElementById('heroImg');
-      var candidates = [
-        'assets/hero_main.jpg',
-        'assets/hero.jpg',
-        'assets/Hero.jpg',
-        'assets/hero.webp',
-        'assets/Главная.jpg',
-        'assets/главная.jpg'
-      ];
-      tryLoadSequential(img, candidates, function onFail(){
-        // Если ничего не загрузилось — просто уберём <img>, останется красивый градиентный блок
-        img.remove();
-      });
-    })();
-
-    /* Универсальный последовательный загрузчик */
-    function tryLoadSequential(imgEl, srcList, onAllFail){
-      var i = 0;
-      function tryNext(){
-        if(i >= srcList.length){ onAllFail && onAllFail(); return; }
-        var path = srcList[i++];
-        var test = new Image();
-        // Пробуем безопасно подставлять URL (на случай пробелов/кириллицы)
-        try { test.src = encodeURI(path); } catch(e) { test.src = path; }
-        test.onload = function(){
-          try { imgEl.src = encodeURI(path); } catch(e) { imgEl.src = path; }
-        };
-        test.onerror = tryNext;
-      }
-      tryNext();
-    }
-
-    /* Языковые переключатели – визуальные (контент фиксированный) */
     const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
     function setLangActive(l){
       [ruBtn,kkBtn,enBtn].forEach(b=>b.classList.remove('active'));
