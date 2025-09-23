@@ -10,17 +10,17 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
+    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-4H6HK8K9SJ');
   </script>
 
-  <!-- Google Ads conversion helper (WhatsApp click) -->
+  <!-- Event snippet (Google Ads conversion on WhatsApp) -->
   <script>
     function gtag_report_conversion(url) {
-      var callback = function () { if (typeof(url) != 'undefined') { window.location = url; } };
-      gtag('event', 'conversion', {
-        'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+      var callback = function () { if (typeof url !== 'undefined') window.location = url; };
+      gtag('event','conversion',{
+        'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
         'event_callback': callback
       });
       return false;
@@ -52,7 +52,7 @@
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
     .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;transition:transform .2s, box-shadow .2s;cursor:pointer;touch-action:manipulation}
     .card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
-    .img{aspect-ratio:4/5;background:#f4f4f4}
+    .img{aspect-ratio:4/5;background:#f4f4f4;display:grid;place-items:center}
     .img img{width:100%;height:100%;object-fit:cover;display:block}
     .body{padding:10px}
     .title{font-weight:600;margin-bottom:4px}
@@ -63,8 +63,8 @@
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:end;justify-content:center;padding:0 10px 10px;z-index:100}
     .modal.open{display:flex}
     .modal-card{width:min(960px,96vw);max-height:92vh;overflow:auto;background:#fff;border-radius:18px;border:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr}
-    .modal-left{border-right:1px solid var(--line);background:#000}
-    .modal-left img{width:100%;height:100%;object-fit:contain;display:block;background:#000}
+    .modal-left{border-right:1px solid var(--line);background:#000;display:grid;place-items:center}
+    .modal-left img{width:100%;height:100%;object-fit:contain;display:block}
     .modal-right{padding:16px}
     .modal-title{font-size:20px;font-weight:700;margin-bottom:6px}
     .modal-price{font-weight:700;margin-bottom:8px}
@@ -144,8 +144,8 @@
 </div>
 
 <script>
-  // Products (unchanged)
-  const PRODUCTS = [/* … тот же массив p01–p30, как в предыдущей версии … */ 
+  // Products (как и раньше)
+  const PRODUCTS = [
     {id:'p01', title:'Колье', price:'20 000 тг', img:'assets/Колье 20.000 тг.JPG', cat:'Колье', desc:'Минималистичное авторское колье.'},
     {id:'p02', title:'Комплект: Колье + Серьги', price:'Колье 40 000 тг · Серьги 10 000 тг', img:'assets/Колье 40.000 тг Серьги 10.000 тг.jpg', cat:'Комплекты', desc:'Комплект ручной работы. Серьги приобретаются отдельно.'},
     {id:'p03', title:'Колье', price:'40 000 тг', img:'assets/Колье 40.000 тг.jpg', cat:'Колье', desc:'Классическое колье с акцентной подвеской.'},
@@ -176,13 +176,11 @@
     {id:'p30', title:'Чокеры из натурального жемчуга + серьги', price:'Чокер 20 000 тг · Серьги 10 000 тг', img:'assets/Чокеры из натурального жемчуга 20.000 тг Серьги 10.000 тг.jpg', cat:'Комплекты', desc:'Набор чокеров с серьгами.'}
   ];
 
-  const CATS = ['Все','Колье','Комплекты','Браслеты','Сотуары','Цепи'];
-  const CAT_I18N = {
-    ru:{'Все':'Все','Колье':'Колье','Комплекты':'Комплекты','Браслеты':'Браслеты','Сотуары':'Сотуары','Цепи':'Цепи'},
-    kk:{'Все':'Барлығы','Колье':'Алқалар','Комплекты':'Комплекттер','Браслеты':'Білезіктер','Сотуары':'Сотуарлар','Цепи':'Тізбектер'},
-    en:{'Все':'All','Колье':'Necklaces','Комплекты':'Sets','Браслеты':'Bracelets','Сотуары':'Lariats','Цепи':'Chains'}
-  };
-  const UI = { ru:{add:'Добавить в корзину'}, kk:{add:'Себетке қосу'}, en:{add:'Add to cart'} };
+  const CATS=['Все','Колье','Комплекты','Браслеты','Сотуары','Цепи'];
+  const CAT_I18N={ru:{'Все':'Все','Колье':'Колье','Комплекты':'Комплекты','Браслеты':'Браслеты','Сотуары':'Сотуары','Цепи':'Цепи'},
+                  kk:{'Все':'Барлығы','Колье':'Алқалар','Комплекты':'Комплекттер','Браслеты':'Білезіктер','Сотуары':'Сотуарлар','Цепи':'Тізбектер'},
+                  en:{'Все':'All','Колье':'Necklaces','Комплекты':'Sets','Браслеты':'Bracelets','Сотуары':'Lariats','Цепи':'Chains'}};
+  const UI={ru:{add:'Добавить в корзину'},kk:{add:'Себетке қосу'},en:{add:'Add to cart'}};
 
   function currentLang(){ return localStorage.getItem('lang') || 'ru'; }
   function i18nFill(){
@@ -196,26 +194,28 @@
     document.documentElement.lang=lang;
   }
 
+  // Take only the FIRST price in string like "Колье 40 000 тг · Серьги 10 000 тг"
   function parseUnitPriceKZT(priceStr){
-    const m = String(priceStr||'').match(/(\d[\d\s.,]*)\s*тг/i);
+    const s = String(priceStr||'');
+    const m = s.match(/(\d[\d\s.,]*)\s*тг/i);
     if(!m) return 0;
     const num = m[1].replace(/\s+/g,'').replace(',', '.');
     const v = parseFloat(num);
     return isNaN(v) ? 0 : v;
   }
 
-  const grid = document.getElementById('grid');
-  const filters = document.getElementById('filters');
-  let activeCat = localStorage.getItem('livi_active_cat') || 'Все';
+  const grid=document.getElementById('grid');
+  const filters=document.getElementById('filters');
+  let activeCat=localStorage.getItem('livi_active_cat') || 'Все';
 
   function renderFilters(){
     const lang=currentLang();
-    filters.innerHTML = '';
+    filters.innerHTML='';
     CATS.forEach(c=>{
       if(c!=='Все' && !PRODUCTS.some(p=>p.cat===c)) return;
-      const btn = document.createElement('button');
+      const btn=document.createElement('button');
       btn.className='tag'+(c===activeCat?' active':'');
-      btn.textContent = CAT_I18N[lang][c] || c;
+      btn.textContent=CAT_I18N[lang][c] || c;
       btn.onclick=()=>{ activeCat=c; localStorage.setItem('livi_active_cat',c); renderFilters(); renderGrid(); };
       filters.appendChild(btn);
     });
@@ -223,22 +223,22 @@
 
   function renderGrid(){
     const lang=currentLang();
-    grid.innerHTML = '';
+    grid.innerHTML='';
     const items = activeCat==='Все' ? PRODUCTS : PRODUCTS.filter(p=>p.cat===activeCat);
 
-    // GA4 view_item_list
+    // GA4: view_item_list
     gtag('event','view_item_list',{
       item_list_name: CAT_I18N[lang][activeCat] || activeCat,
       items: items.slice(0,24).map((p,idx)=>({
-        item_id: p.id, item_name: p.title, index: idx,
-        item_category: p.cat, price: parseUnitPriceKZT(p.price)
+        item_id:p.id, item_name:p.title, index:idx,
+        item_category:p.cat, price:parseUnitPriceKZT(p.price)
       }))
     });
 
     items.forEach(p=>{
-      const card = document.createElement('article'); card.className='card';
-      card.innerHTML = `
-        <div class="img"><img src="${p.img}" alt="${p.title}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'"></div>
+      const card=document.createElement('article'); card.className='card';
+      card.innerHTML=`
+        <div class="img"><img alt="${p.title}"></div>
         <div class="body">
           <div class="title">${p.title}</div>
           <div class="muted">${CAT_I18N[lang][p.cat]||p.cat}</div>
@@ -247,18 +247,26 @@
             <button class="btn" data-id="${p.id}" data-action="add">${UI[lang].add}</button>
           </div>
         </div>`;
+      // Safe image src
+      const imgEl = card.querySelector('.img img');
+      try{ imgEl.src = encodeURI(p.img); }catch(e){}
+      imgEl.onerror = function(){ this.remove(); };
+
+      // Click card -> modal
       card.addEventListener('click',(e)=>{
-        if(e.target && e.target.dataset && e.target.dataset.action==='add'){ return; }
+        if(e.target && e.target.dataset && e.target.dataset.action==='add') return;
         gtag('event','select_item',{
           item_list_name: CAT_I18N[lang][activeCat] || activeCat,
           items:[{ item_id:p.id, item_name:p.title, item_category:p.cat, price:parseUnitPriceKZT(p.price) }]
         });
         openModal(p);
       }, {passive:true});
+
+      // Add to cart
       card.querySelector('[data-action="add"]').onclick=()=>{
         addToCart(p,1);
         gtag('event','add_to_cart',{
-          currency: 'KZT',
+          currency:'KZT',
           value: parseUnitPriceKZT(p.price),
           items:[{ item_id:p.id, item_name:p.title, item_category:p.cat, price:parseUnitPriceKZT(p.price), quantity:1 }]
         });
@@ -267,13 +275,16 @@
     });
   }
 
+  // Cart
   function readCart(){ try{return JSON.parse(localStorage.getItem('livi_cart_v2')||'[]')}catch(e){return []} }
   function writeCart(v){ localStorage.setItem('livi_cart_v2', JSON.stringify(v)); updateBadge(); }
   function addToCart(p, qty){
     const q=Math.max(1, Number(qty||1));
     const cart=readCart();
     const i=cart.findIndex(x=>x.id===p.id);
-    if(i>-1) cart[i].qty+=q; else cart.push({id:p.id,title:p.title,price:p.price,img:p.img,qty:q});
+    const unit=parseUnitPriceKZT(p.price);
+    if(i>-1){ cart[i].qty+=q; if(!cart[i].unit) cart[i].unit=unit; }
+    else { cart.push({id:p.id,title:p.title,price:p.price,img:p.img,qty:q,unit:unit}); }
     writeCart(cart);
   }
   function updateBadge(){
@@ -284,6 +295,7 @@
   }
   window.addEventListener('storage',e=>{ if(e.key==='livi_cart_v2') updateBadge(); });
 
+  // Modal
   const modal=document.getElementById('modal');
   const mImg=document.getElementById('mImg');
   const mTitle=document.getElementById('mTitle');
@@ -300,7 +312,8 @@
   function openModal(p){
     const lang=currentLang();
     currentProduct=p;
-    mImg.src=p.img; mImg.alt=p.title;
+    try{ mImg.src = encodeURI(p.img); }catch(e){}
+    mImg.onerror=function(){ this.remove(); };
     mTitle.textContent=p.title;
     mCat.textContent=CAT_I18N[lang][p.cat]||p.cat;
     mPrice.textContent=p.price;
@@ -308,7 +321,6 @@
     mQtyEl.textContent='1';
     mAdd.textContent=UI[lang].add;
     modal.classList.add('open'); document.body.style.overflow='hidden';
-
     gtag('event','view_item',{
       items:[{ item_id:p.id, item_name:p.title, item_category:p.cat, price:parseUnitPriceKZT(p.price) }]
     });
@@ -318,7 +330,7 @@
   mPlus.onclick =()=>{ const n=Number(mQtyEl.textContent)+1; mQtyEl.textContent=n; };
   mAdd.onclick  =()=>{ if(currentProduct){
       const q=Number(mQtyEl.textContent);
-      addToCart(currentProduct, q);
+      addToCart(currentProduct,q);
       gtag('event','add_to_cart',{
         currency:'KZT',
         value: parseUnitPriceKZT(currentProduct.price) * q,
@@ -330,11 +342,12 @@
   modal.addEventListener('click',(e)=>{ if(e.target===modal) closeModal(); });
   document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
 
+  // Lang
   const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
-  function setLang(lang){
-    localStorage.setItem('lang',lang); i18nFill(); renderFilters(); renderGrid();
-  }
+  function setLang(lang){ localStorage.setItem('lang',lang); i18nFill(); renderFilters(); renderGrid(); }
   ruBtn.onclick=()=>setLang('ru'); kkBtn.onclick=()=>setLang('kk'); enBtn.onclick=()=>setLang('en');
+
+  // Init
   i18nFill(); renderFilters(); renderGrid(); updateBadge();
 </script>
 </body>
