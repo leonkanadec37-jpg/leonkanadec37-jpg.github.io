@@ -3,13 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Livi Jewelry — Корзина</title>
+  <title data-i18n="meta.title">Livi Jewelry — Корзина</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/logo.png">
   <link rel="shortcut icon" href="assets/logo.png">
 
-  <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) — GA4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -19,27 +24,28 @@
 
     // Google Ads conversion (WhatsApp)
     function gtag_report_conversion(url) {
-      var callback = function () { if (typeof url !== 'undefined') { window.location = url; } };
-      gtag('event', 'conversion', {
-        'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
-        'event_callback': callback
-      });
+      var callback = function () { if (typeof url !== 'undefined') window.location = url; };
+      gtag('event', 'conversion', { 'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-', 'event_callback': callback });
       return false;
     }
   </script>
 
   <style>
-    :root{--fg:#111;--muted:#666;--line:#eee;--radius:16px;--shadow:0 8px 28px rgba(0,0,0,.08)}
+    :root{--fg:#111;--muted:#666;--line:#eee;--radius:16px;--shadow:0 8px 28px rgba(0,0,0,.08);--max:1240px}
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font:16px/1.6 "Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#fff;color:var(--fg)}
+    body{font:16px/1.6 "Montserrat",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#fff;color:var(--fg)}
     a{text-decoration:none;color:inherit}
 
-    header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
-    .nav{max-width:1240px;margin:0 auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
-    .brand{font-weight:800;font-size:20px;letter-spacing:.06em}
-    .nav-left{display:flex;align-items:center;gap:14px}
-    .nav-left a{font-size:15px;padding:8px 14px;border-radius:999px;border:1px solid transparent;transition:.2s}
-    .nav-left a:hover{border-color:var(--line);background:#fafafa}
+    header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
+    .nav{max-width:var(--max);margin:0 auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.06em}
+    .brand img{height:26px}
+    .nav-left{display:flex;align-items:center;gap:12px}
+    .nav-left a{padding:8px 12px;border-radius:999px;border:1px solid transparent;transition:.2s;font-weight:500}
+    .nav-left a:hover{background:#fafafa;border-color:var(--line)}
+    .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+    .lang button{border:0;background:transparent;padding:8px 12px;font-size:13px;cursor:pointer}
+    .lang button.active{background:#111;color:#fff}
     .cart-link{position:relative}
     .cart-badge{position:absolute;top:-6px;right:-6px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:4px 6px;min-width:20px;text-align:center;display:none}
 
@@ -60,8 +66,7 @@
     .actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
 
     @media(max-width:560px){
-      .item{grid-template-columns:72px 1fr;grid-template-areas:
-        "thumb title" "thumb qty" "thumb del";align-items:start}
+      .item{grid-template-columns:72px 1fr;grid-template-areas:"thumb title" "thumb qty" "thumb del";align-items:start}
       .thumb{width:72px;height:72px}
       .actions .btn{width:100%}
       .nav-left{gap:10px}
@@ -72,41 +77,56 @@
 <header>
   <div class="nav">
     <div class="nav-left">
-      <a class="brand" href="index.html">LIVI JEWELRY</a>
-      <a href="shop.html">Каталог</a>
-      <a class="cart-link" href="cart.html">Корзина <span id="cartBadge" class="cart-badge">0</span></a>
+      <a class="brand" href="index.html"><img src="assets/logo.png" alt="" onerror="this.style.display='none'"><span>LIVI JEWELRY</span></a>
+      <a href="index.html" data-i18n="nav.home">Главная</a>
+      <a href="shop.html" data-i18n="nav.shop">Каталог</a>
+      <a class="cart-link" href="cart.html" data-i18n="nav.cart">Корзина <span id="cartBadge" class="cart-badge">0</span></a>
     </div>
+    <div class="lang"><button id="ruBtn">RU</button><button id="kkBtn">KZ</button><button id="enBtn">EN</button></div>
   </div>
 </header>
 
 <main class="wrap">
-  <h1>Корзина</h1>
+  <h1 data-i18n="page.title">Корзина</h1>
   <div id="root"></div>
 </main>
 
 <script>
+  /* ===== i18n ===== */
+  const I18N={
+    ru:{'meta.title':'Livi Jewelry — Корзина','nav.home':'Главная','nav.shop':'Каталог','nav.cart':'Корзина','page.title':'Корзина',
+        'empty':'Ваша корзина пуста.','go':'Перейти в каталог','yourOrder':'Ваш заказ:','total':'Итого:','clear':'Очистить','checkout':'Оформить в WhatsApp','remove':'Удалить'},
+    kk:{'meta.title':'Livi Jewelry — Себет','nav.home':'Басты бет','nav.shop':'Дүкен','nav.cart':'Себет','page.title':'Себет',
+        'empty':'Себет бос.','go':'Дүкенге өту','yourOrder':'Сіздің тапсырысыңыз:','total':'Барлығы:','clear':'Тазарту','checkout':'WhatsApp арқылы рәсімдеу','remove':'Жою'},
+    en:{'meta.title':'Livi Jewelry — Cart','nav.home':'Home','nav.shop':'Shop','nav.cart':'Cart','page.title':'Cart',
+        'empty':'Your cart is empty.','go':'Go to catalog','yourOrder':'Your order:','total':'Total:','clear':'Clear','checkout':'Checkout via WhatsApp','remove':'Remove'}
+  };
+  function lang(){ return localStorage.getItem('lang') || 'ru'; }
+  function setLang(l){ localStorage.setItem('lang',l); applyLang(); render(); }
+  function tr(k){ return (I18N[lang()]&&I18N[lang()][k]) || (I18N['ru']&&I18N['ru'][k]) || k; }
+  function applyLang(){
+    document.title = tr('meta.title'); document.documentElement.lang = lang();
+    document.querySelectorAll('[data-i18n]').forEach(el=>{ el.textContent = tr(el.getAttribute('data-i18n')); });
+    [ruBtn,kkBtn,enBtn].forEach(b=>b.classList.remove('active')); (lang()==='kk'?kkBtn:lang()==='en'?enBtn:ruBtn).classList.add('active');
+  }
+  const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
+  ruBtn.onclick=()=>setLang('ru'); kkBtn.onclick=()=>setLang('kk'); enBtn.onclick=()=>setLang('en');
+
+  /* ===== Cart logic ===== */
   const KEY='livi_cart_v2';
 
-  // Парсер цены: берём ПЕРВОЕ число перед "тг", оставляем только цифры
   function parseFirstKZT(priceStr){
     const m = String(priceStr||'').match(/([\d\s.,]+)\s*тг/i);
     if(!m) return 0;
-    const digits = m[1].replace(/[^\d]/g,'');
-    return parseInt(digits,10) || 0;
+    return parseInt(m[1].replace(/[^\d]/g,''),10) || 0;
   }
-  function unitPrice(item){
-    return (typeof item.unit==='number') ? item.unit : parseFirstKZT(item.price);
-  }
+  function unitPrice(item){ return (typeof item.unit==='number') ? item.unit : parseFirstKZT(item.price); }
 
-  // Миграция старых записей: добавляем unit, если его не было
+  // миграция: добавить unit если нет
   (function migrate(){
-    let cart;
-    try{ cart = JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ cart=[]; }
-    let changed=false;
-    for(const it of cart){
-      if(typeof it.unit!=='number'){ it.unit = parseFirstKZT(it.price); changed=true; }
-    }
-    if(changed){ localStorage.setItem(KEY, JSON.stringify(cart)); }
+    let cart; try{ cart=JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ cart=[]; }
+    let changed=false; for(const it of cart){ if(typeof it.unit!=='number'){ it.unit=parseFirstKZT(it.price); changed=true; } }
+    if(changed) localStorage.setItem(KEY, JSON.stringify(cart));
   })();
 
   function read(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []} }
@@ -114,10 +134,8 @@
 
   function updateBadge(){
     const count = read().reduce((s,i)=>s+Number(i.qty||0),0);
-    const b=document.getElementById('cartBadge');
-    if(!b) return;
-    b.style.display = count>0 ? 'inline-block':'none';
-    if(count>0) b.textContent = count;
+    const b=document.getElementById('cartBadge'); if(!b) return;
+    b.style.display = count>0 ? 'inline-block':'none'; if(count>0) b.textContent = count;
   }
   window.addEventListener('storage', e=>{ if(e.key===KEY) updateBadge(); });
 
@@ -126,9 +144,8 @@
     const cart=read();
 
     if(cart.length===0){
-      root.innerHTML = `<div class="empty">Ваша корзина пуста.<br><br><a href="shop.html">Перейти в каталог</a></div>`;
-      updateBadge();
-      return;
+      root.innerHTML = `<div class="empty">${tr('empty')}<br><br><a href="shop.html">${tr('go')}</a></div>`;
+      updateBadge(); return;
     }
 
     const list=document.createElement('div'); list.className='list';
@@ -141,13 +158,13 @@
       const row=document.createElement('div'); row.className='item';
       row.innerHTML = `
         <div class="thumb"><img src="${i.img}" alt="" onerror="this.onerror=null;this.src='assets/placeholder.jpg'"></div>
-        <div><div class="title">${i.title}</div><div class="muted">${i.price}</div></div>
+        <div><div class="title">${i.title||''}</div><div class="muted">${i.price||''}</div></div>
         <div class="qty">
           <button class="btn" aria-label="minus">−</button>
           <span>${i.qty}</span>
           <button class="btn" aria-label="plus">+</button>
         </div>
-        <button class="btn" aria-label="remove">Удалить</button>
+        <button class="btn" aria-label="remove">${tr('remove')}</button>
       `;
       const [minusBtn, qtyEl, plusBtn] = row.querySelectorAll('.qty .btn, .qty span');
       minusBtn.onclick=()=>{ const c=read(); if(c[idx].qty>1)c[idx].qty--; else c.splice(idx,1); write(c); };
@@ -157,30 +174,28 @@
     });
 
     const totalEl=document.createElement('div'); totalEl.className='total';
-    totalEl.innerHTML = `<div>Итого:</div><div>${total.toLocaleString('ru-RU')} тг</div>`;
+    totalEl.innerHTML = `<div>${tr('total')}</div><div>${total.toLocaleString('ru-RU')} тг</div>`;
 
     const actions=document.createElement('div'); actions.className='actions';
     actions.innerHTML = `
-      <button class="btn" id="clear">Очистить</button>
+      <button class="btn" id="clear">${tr('clear')}</button>
       <a class="btn btn--primary" id="wa" target="_blank" rel="noopener"
-         onclick="return gtag_report_conversion(this.href);">Оформить в WhatsApp</a>
+         onclick="return gtag_report_conversion(this.href);">${tr('checkout')}</a>
     `;
 
-    root.innerHTML='';
-    root.appendChild(list);
-    root.appendChild(totalEl);
-    root.appendChild(actions);
+    root.innerHTML=''; root.appendChild(list); root.appendChild(totalEl); root.appendChild(actions);
 
     document.getElementById('clear').onclick=()=>write([]);
 
-    const text = encodeURIComponent('Здравствуйте! Хочу оформить заказ:\n\n' +
-      cart.map(i=>`• ${i.title} — ${i.price} × ${i.qty}`).join('\n'));
+    const text = encodeURIComponent(
+      (lang()==='en'?'Hello! I want to place an order:\n\n':lang()==='kk'?'Сәлем! Тапсырыс бергім келеді:\n\n':'Здравствуйте! Хочу оформить заказ:\n\n')
+      + cart.map(i=>`• ${i.title} — ${i.price} × ${i.qty}`).join('\n'));
     document.getElementById('wa').href = 'https://wa.me/77054510584?text='+text;
 
-    updateBadge();
+    updateBadge(); applyLang();
   }
 
-  render();
+  applyLang(); render();
 </script>
 </body>
 </html>
