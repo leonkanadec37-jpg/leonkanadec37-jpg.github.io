@@ -17,7 +17,7 @@
     gtag('js', new Date());
     gtag('config', 'G-4H6HK8K9SJ');
 
-    /* Google Ads conversion (WhatsApp) */
+    // Google Ads conversion (WhatsApp)
     function gtag_report_conversion(url) {
       var callback = function () { if (typeof url !== 'undefined') { window.location = url; } };
       gtag('event', 'conversion', {
@@ -29,7 +29,7 @@
   </script>
 
   <style>
-    :root{--fg:#111;--muted:#666;--line:#eee;--radius:16px;--shadow:0 6px 22px rgba(0,0,0,.08)}
+    :root{--fg:#111;--muted:#666;--line:#eee;--radius:16px;--shadow:0 8px 28px rgba(0,0,0,.08)}
     *{box-sizing:border-box;margin:0;padding:0}
     body{font:16px/1.6 "Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#fff;color:var(--fg)}
     a{text-decoration:none;color:inherit}
@@ -37,17 +37,19 @@
     header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
     .nav{max-width:1240px;margin:0 auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
     .brand{font-weight:800;font-size:20px;letter-spacing:.06em}
-    .nav-left{display:flex;align-items:center;gap:12px}
+    .nav-left{display:flex;align-items:center;gap:14px}
     .nav-left a{font-size:15px;padding:8px 14px;border-radius:999px;border:1px solid transparent;transition:.2s}
     .nav-left a:hover{border-color:var(--line);background:#fafafa}
+    .cart-link{position:relative}
+    .cart-badge{position:absolute;top:-6px;right:-6px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:4px 6px;min-width:20px;text-align:center;display:none}
 
     .wrap{max-width:960px;margin:0 auto;padding:28px 16px}
     h1{font-size:clamp(24px,5vw,40px);margin-bottom:20px;text-align:center}
 
     .empty{padding:28px;border:1px dashed var(--line);border-radius:16px;text-align:center;color:var(--muted)}
     .list{display:grid;gap:14px;margin:18px 0}
-    .item{display:grid;grid-template-columns:90px 1fr auto auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:var(--radius);padding:12px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.04)}
-    .thumb{width:90px;height:90px;border-radius:12px;overflow:hidden;background:#f5f5f5}
+    .item{display:grid;grid-template-columns:96px 1fr auto auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:var(--radius);padding:12px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+    .thumb{width:96px;height:96px;border-radius:12px;overflow:hidden;background:#f5f5f5}
     .thumb img{width:100%;height:100%;object-fit:cover;display:block}
     .title{font-weight:600}
     .muted{color:var(--muted);font-size:14px}
@@ -62,6 +64,7 @@
         "thumb title" "thumb qty" "thumb del";align-items:start}
       .thumb{width:72px;height:72px}
       .actions .btn{width:100%}
+      .nav-left{gap:10px}
     }
   </style>
 </head>
@@ -71,7 +74,7 @@
     <div class="nav-left">
       <a class="brand" href="index.html">LIVI JEWELRY</a>
       <a href="shop.html">Каталог</a>
-      <a href="cart.html">Корзина</a>
+      <a class="cart-link" href="cart.html">Корзина <span id="cartBadge" class="cart-badge">0</span></a>
     </div>
   </div>
 </header>
@@ -84,7 +87,7 @@
 <script>
   const KEY='livi_cart_v2';
 
-  /* Нормальный парсер: первое число перед "тг" -> оставляем только цифры */
+  // Парсер цены: берём ПЕРВОЕ число перед "тг", оставляем только цифры
   function parseFirstKZT(priceStr){
     const m = String(priceStr||'').match(/([\d\s.,]+)\s*тг/i);
     if(!m) return 0;
@@ -95,7 +98,7 @@
     return (typeof item.unit==='number') ? item.unit : parseFirstKZT(item.price);
   }
 
-  /* Миграция: сохранить unit для старых записей */
+  // Миграция старых записей: добавляем unit, если его не было
   (function migrate(){
     let cart;
     try{ cart = JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ cart=[]; }
@@ -109,12 +112,22 @@
   function read(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []} }
   function write(v){ localStorage.setItem(KEY, JSON.stringify(v)); render(); }
 
+  function updateBadge(){
+    const count = read().reduce((s,i)=>s+Number(i.qty||0),0);
+    const b=document.getElementById('cartBadge');
+    if(!b) return;
+    b.style.display = count>0 ? 'inline-block':'none';
+    if(count>0) b.textContent = count;
+  }
+  window.addEventListener('storage', e=>{ if(e.key===KEY) updateBadge(); });
+
   function render(){
     const root=document.getElementById('root');
     const cart=read();
 
     if(cart.length===0){
       root.innerHTML = `<div class="empty">Ваша корзина пуста.<br><br><a href="shop.html">Перейти в каталог</a></div>`;
+      updateBadge();
       return;
     }
 
@@ -123,9 +136,11 @@
 
     cart.forEach((i,idx)=>{
       const unit = unitPrice(i);
+      total += unit * Number(i.qty||0);
+
       const row=document.createElement('div'); row.className='item';
       row.innerHTML = `
-        <div class="thumb"><img src="${i.img}" alt="" onerror="this.src='assets/placeholder.jpg'"></div>
+        <div class="thumb"><img src="${i.img}" alt="" onerror="this.onerror=null;this.src='assets/placeholder.jpg'"></div>
         <div><div class="title">${i.title}</div><div class="muted">${i.price}</div></div>
         <div class="qty">
           <button class="btn" aria-label="minus">−</button>
@@ -139,8 +154,6 @@
       plusBtn.onclick =()=>{ const c=read(); c[idx].qty++; write(c); };
       row.querySelector('[aria-label="remove"]').onclick=()=>{ const c=read(); c.splice(idx,1); write(c); };
       list.appendChild(row);
-
-      total += unit * Number(i.qty||0);
     });
 
     const totalEl=document.createElement('div'); totalEl.className='total';
@@ -163,6 +176,8 @@
     const text = encodeURIComponent('Здравствуйте! Хочу оформить заказ:\n\n' +
       cart.map(i=>`• ${i.title} — ${i.price} × ${i.qty}`).join('\n'));
     document.getElementById('wa').href = 'https://wa.me/77054510584?text='+text;
+
+    updateBadge();
   }
 
   render();
