@@ -59,8 +59,8 @@
     .wrap{max-width:var(--max);margin:0 auto;padding:24px 16px}
     h1{font-size:clamp(24px,5vw,42px);margin-bottom:18px;text-align:center}
 
-    .filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
-    .tag{border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px;cursor:pointer;transition:.2s}
+    .filters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+    .tag{border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:14px;font-weight:600;color:#111;letter-spacing:.02em;background:#fff;cursor:pointer;transition:.2s}
     .tag.active,.tag:hover{background:#111;color:#fff;border-color:#111}
 
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
@@ -69,9 +69,8 @@
     .card img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
     .body{padding:12px}
     .title{font-weight:600;margin-bottom:6px}
-    .price{font-weight:700;margin-bottom:4px}
-    .muted{color:var(--muted);font-size:14px;margin-bottom:8px}
-    .btn{display:inline-block;background:#111;color:#fff;padding:8px 14px;border-radius:999px;font-size:14px;border:0;cursor:pointer}
+    .price{font-weight:700}
+    .btn{display:inline-block;background:#111;color:#fff;padding:8px 14px;border-radius:999px;font-size:14px;border:0;cursor:pointer;margin-top:10px}
     .btn:active{transform:translateY(1px)}
 
     /* Modal */
@@ -92,7 +91,7 @@
     /* Mobile: уменьшить карточки и картинки */
     @media(max-width:520px){
       .grid{grid-template-columns:repeat(2,1fr);gap:12px}
-      .card img{height:170px;aspect-ratio:auto} /* меньше на экране, но без потери качества */
+      .card img{height:170px;aspect-ratio:auto} /* компактнее на экране */
       .body{padding:10px}
     }
     @media(max-width:760px){ .modal-card{grid-template-columns:1fr} }
@@ -170,36 +169,120 @@
     [ruBtn,kkBtn,enBtn].forEach(b=>b.classList.remove('active')); (lang()==='kk'?kkBtn:lang()==='en'?enBtn:ruBtn).classList.add('active');
   }
 
-  /* ===== PRODUCTS ===== */
+  /* ===== PRODUCTS (обновлены названия/описания + полный RU/KZ/EN) ===== */
   const PRODUCTS = [
-    {id:'p01', img:'assets/Колье 20.000 тг.JPG', cat:'Necklaces', title:{ru:'Колье',kk:'Алқа',en:'Necklace'}, price:'20 000 тг', desc:{ru:'Минималистичное авторское колье.', kk:'Минималистік авторлық алқа.', en:'Minimalist handcrafted necklace.'}},
-    {id:'p02', img:'assets/Колье 40.000 тг Серьги 10.000 тг.jpg', cat:'Sets', title:{ru:'Комплект: Колье + Серьги',kk:'Жиын: Алқа + Сырға',en:'Set: Necklace + Earrings'}, price:'Колье 40 000 тг · Серьги 10 000 тг', desc:{ru:'Комплект ручной работы. Серьги приобретаются отдельно.', kk:'Қолдан жасалған жиын. Сырғалар бөлек сатылады.', en:'Handmade set. Earrings sold separately.'}},
-    {id:'p03', img:'assets/Колье 40.000 тг.jpg', cat:'Necklaces', title:{ru:'Колье',kk:'Алқа',en:'Necklace'}, price:'40 000 тг', desc:{ru:'Классическое колье с акцентной подвеской.', kk:'Акцентті кулонмен классикалық алқа.', en:'Classic necklace with accent pendant.'}},
-    {id:'p04', img:'assets/Колье из гематита 20.000 тг.jpg', cat:'Necklaces', title:{ru:'Колье из гематита',kk:'Гематиттен алқа',en:'Hematite Necklace'}, price:'20 000 тг', desc:{ru:'Сталь и гематит. Унисекс и ровный блеск.', kk:'Болат пен гематит. Юнисекc стилі.', en:'Steel and hematite. Subtle unisex sheen.'}},
-    {id:'p05', img:'assets/Колье из жемчуга 60.000 тг.JPG', cat:'Necklaces', title:{ru:'Колье из жемчуга',kk:'Інжу алқа',en:'Pearl Necklace'}, price:'60 000 тг', desc:{ru:'Натуральный жемчуг, фурнитура люкс.', kk:'Табиғи інжу, сапалы фурнитура.', en:'Natural pearls, premium findings.'}},
-    {id:'p06', img:'assets/Колье из жемчуга 65.000 тг.jpg', cat:'Necklaces', title:{ru:'Колье из жемчуга',kk:'Інжу алқа',en:'Pearl Necklace'}, price:'65 000 тг', desc:{ru:'Элегантная классика с барочным характером.', kk:'Элегант классика, барокко мәнерінде.', en:'Elegant classic with baroque character.'}},
-    {id:'p07', img:'assets/Колье из жемчуга 70.000 тг.jpg', cat:'Necklaces', title:{ru:'Колье из жемчуга',kk:'Інжу алқа',en:'Pearl Necklace'}, price:'70 000 тг', desc:{ru:'Выразительный жемчуг и стойкая фурнитура.', kk:'Айқын інжу және берік фурнитура.', en:'Expressive pearls and durable hardware.'}},
-    {id:'p08', img:'assets/Колье из жемчуга Майорка 28.000 тг.jpg', cat:'Necklaces', title:{ru:'Колье Майорка',kk:'Майорка алқа',en:'Mallorca Pearl Necklace'}, price:'28 000 тг', desc:{ru:'Мягкий блеск и аккуратные пропорции.', kk:'Жұмсақ жылтыр, ұқыпты пропорциялар.', en:'Soft lustre and balanced proportions.'}},
-    {id:'p09', img:'assets/Колье из жемчуга Майорка 32.000 тг.jpg', cat:'Necklaces', title:{ru:'Колье Майорка',kk:'Майорка алқа',en:'Mallorca Pearl Necklace'}, price:'32 000 тг', desc:{ru:'Майорка с золотистыми акцентами.', kk:'Алтын түсті акценттері бар.', en:'Mallorca pearls with golden accents.'}},
-    {id:'p10', img:'assets/Колье из натуральных камней 20.000 тг.jpg', cat:'Necklaces', title:{ru:'Колье из натуральных камней',kk:'Табиғи тастардан алқа',en:'Natural Stone Necklace'}, price:'20 000 тг', desc:{ru:'Натуральные камни и тактильная фактура.', kk:'Табиғи тастар, тактильді фактура.', en:'Natural stones and tactile texture.'}},
-    {id:'p11', img:'assets/Колье из натуральных камней 23.000 тг Браслет 8.500 тг Серьги 8.500 тг.jpg', cat:'Necklaces', title:{ru:'Колье из натуральных камней',kk:'Табиғи тастардан алқа',en:'Natural Stone Necklace'}, price:'23 000 тг (браслет 8 500, серьги 8 500 отдельно)', desc:{ru:'Коллекция в природной палитре. Браслет и серьги отдельно.', kk:'Табиғи палитра. Білезік пен сырға бөлек.', en:'Earthy palette. Bracelet & earrings sold separately.'}},
-    {id:'p12', img:'assets/Колье из натуральных камней 40.000 тг.jpg', cat:'Necklaces', title:{ru:'Колье из натуральных камней',kk:'Табиғи тастардан алқа',en:'Natural Stone Necklace'}, price:'40 000 тг', desc:{ru:'Насыщенные оттенки камней.', kk:'Қанық реңктер.', en:'Rich stone tones.'}},
-    {id:'p13', img:'assets/Колье из ракушки 14.000 тг.jpg', cat:'Necklaces', title:{ru:'Колье из ракушки',kk:'Қабықтан алқа',en:'Shell Necklace'}, price:'14 000 тг', desc:{ru:'Лёгкие формы и летнее настроение.', kk:'Жеңіл пішін, жазғы көңіл-күй.', en:'Light shapes, summer mood.'}},
-    {id:'p15', img:'assets/Колье трансформер 40.000 тг.jpg', cat:'Necklaces', title:{ru:'Колье-трансформер',kk:'Трансформер алқа',en:'Transformer Necklace'}, price:'40 000 тг', desc:{ru:'Несколько способов носить.', kk:'Киюдің бірнеше тәсілі.', en:'Multiple ways to wear.'}},
-    {id:'p17', img:'assets/Многослойные браслеты 15.000 тг.jpg', cat:'Bracelets', title:{ru:'Многослойные браслеты',kk:'Қабат-қабат білезіктер',en:'Layered Bracelets'}, price:'15 000 тг', desc:{ru:'Сеты — миксуйте и сочетайте.', kk:'Сеттер — еркін үйлестіріңіз.', en:'Sets to mix & match.'}},
-    {id:'p18', img:'assets/Сотуар галстук 27.000 тг Серьги 12.000 тг.jpg', cat:'Lariats', title:{ru:'Сотуар-галстук + серьги',kk:'Сотуар-галстук + сырға',en:'Lariat Tie + Earrings'}, price:'Сотуар 27 000 тг · Серьги 12 000 тг', desc:{ru:'Можно по отдельности.', kk:'Бөлек алуға болады.', en:'Can be purchased separately.'}},
-    {id:'p19', img:'assets/Сотуар трансформер 20.000 тг Серьги 10.000 тг.jpg', cat:'Lariats', title:{ru:'Сотуар-трансформер + серьги',kk:'Сотуар-трансформер + сырға',en:'Transformer Lariat + Earrings'}, price:'Сотуар 20 000 тг · Серьги 10 000 тг', desc:{ru:'Стилизуйте под образ.', kk:'Образға сай бейімдеңіз.', en:'Style it to your look.'}},
-    {id:'p20', img:'assets/Цепь 15.000 тг.jpg', cat:'Chains', title:{ru:'Цепь',kk:'Тізбек',en:'Chain'}, price:'15 000 тг', desc:{ru:'Минимализм и универсальность.', kk:'Минимализм мен әмбебаптық.', en:'Minimal and versatile.'}},
-    {id:'p21', img:'assets/Цепь Родированная 23.000 тг Браслет 15.000 тг.jpg', cat:'Sets', title:{ru:'Комплект: Цепь + Браслет (родированная сталь)',kk:'Жиын: Тізбек + Білезік (родий)',en:'Set: Chain + Bracelet (rhodium steel)'}, price:'Цепь 23 000 тг · Браслет 15 000 тг', desc:{ru:'Родированная сталь, барочная жемчужина.', kk:'Родийленген болат, барокко інжу.', en:'Rhodium steel with baroque pearl.'}},
-    {id:'p22', img:'assets/Цепь с барочной жемчужиной в позолоте 23.000 тг Браслет 15.000 тг.JPG', cat:'Sets', title:{ru:'Комплект: Цепь + Браслет (позолота)',kk:'Жиын: Тізбек + Білезік (алтын жалату)',en:'Set: Chain + Bracelet (gold tone)'}, price:'Цепь 23 000 тг · Браслет 15 000 тг', desc:{ru:'Позолоченная сталь, барочная жемчужина.', kk:'Алтын жалатылған болат, барокко інжу.', en:'Gold-tone steel with baroque pearl.'}},
-    {id:'p23', img:'assets/Чокер в этно стиле из ювелирного стекла и жемчуга 14.000 тг.jpg', cat:'Necklaces', title:{ru:'Чокер в этно-стиле',kk:'Этно-стиль чокер',en:'Ethno-Style Choker'}, price:'14 000 тг', desc:{ru:'Ювелирное стекло и жемчуг.', kk:'Зергерлік әйнек пен інжу.', en:'Jewellery glass and pearls.'}},
-    {id:'p24', img:'assets/Чокер из голубого жемчуга 20.000 тг Серьги 14.000 тг.jpg', cat:'Sets', title:{ru:'Чокер из голубого жемчуга + серьги',kk:'Көк інжу чокер + сырға',en:'Blue Pearl Choker + Earrings'}, price:'Чокер 20 000 тг · Серьги 14 000 тг', desc:{ru:'Можно отдельно.', kk:'Бөлек алынады.', en:'Available separately.'}},
-    {id:'p25', img:'assets/Чокер из голубого жемчуга 20.000 тг.jpg', cat:'Necklaces', title:{ru:'Чокер из голубого жемчуга',kk:'Көк інжу чокер',en:'Blue Pearl Choker'}, price:'20 000 тг', desc:{ru:'Аккуратный чокер.', kk:'Ұқыпты чокер.', en:'Neat choker.'}},
-    {id:'p26', img:'assets/Чокер из натурального жемчуга 18.000 тг Серьги 12.000 тг.jpg', cat:'Sets', title:{ru:'Чокер из натурального жемчуга + серьги',kk:'Табиғи інжу чокері + сырға',en:'Natural Pearl Choker + Earrings'}, price:'Чокер 18 000 тг · Серьги 12 000 тг', desc:{ru:'Натуральный жемчуг.', kk:'Табиғи інжу.', en:'Natural pearls.'}},
-    {id:'p27', img:'assets/Чокер из натурального жемчуга 20.000 тг Серьги 15.000 тг.jpg', cat:'Sets', title:{ru:'Чокер из натурального жемчуга + серьги',kk:'Табиғи інжу чокері + сырға',en:'Natural Pearl Choker + Earrings'}, price:'Чокер 20 000 тг · Серьги 15 000 тг', desc:{ru:'Второй вариант комплекта.', kk:'Жиынның басқа нұсқасы.', en:'Another set option.'}},
-    {id:'p28', img:'assets/Чокер из натурального жемчуга 22.000 тг.jpg', cat:'Necklaces', title:{ru:'Чокер из натурального жемчуга',kk:'Табиғи інжу чокері',en:'Natural Pearl Choker'}, price:'22 000 тг', desc:{ru:'Классический силуэт.', kk:'Классикалық пішін.', en:'Classic silhouette.'}},
-    {id:'p29', img:'assets/Чокер из натурального жемчуга с добавлением барочных жемчужин 26.000 тг Серьги 12.000 тг.jpg', cat:'Sets', title:{ru:'Чокер с барочными жемчужинами + серьги',kk:'Барокко інжулерімен чокер + сырға',en:'Baroque Pearl Choker + Earrings'}, price:'Чокер 26 000 тг · Серьги 12 000 тг', desc:{ru:'Жемчужины разного калибра.', kk:'Әртүрлі калибрдегі інжулер.', en:'Mixed sizes of pearls.'}},
-    {id:'p30', img:'assets/Чокеры из натурального жемчуга 20.000 тг Серьги 10.000 тг.jpg', cat:'Sets', title:{ru:'Чокеры из натурального жемчуга + серьги',kk:'Табиғи інжу чокерлері + сырға',en:'Natural Pearl Chokers + Earrings'}, price:'Чокер 20 000 тг · Серьги 10 000 тг', desc:{ru:'Набор чокеров.', kk:'Чокер жиыны.', en:'Set of chokers.'}}
+    {id:'p01', img:'assets/Колье 20.000 тг.JPG', cat:'Necklaces',
+      title:{ru:'Колье «Мини»',kk:'«Мини» алқа',en:'Necklace “Mini”'},
+      price:'20 000 тг',
+      desc:{ru:'Минималистичное колье ручной работы.', kk:'Минималистік қолдан жасалған алқа.', en:'Minimalist handcrafted necklace.'}},
+    {id:'p02', img:'assets/Колье 40.000 тг Серьги 10.000 тг.jpg', cat:'Sets',
+      title:{ru:'Комплект: Колье + Серьги',kk:'Жиын: Алқа + Сырға',en:'Set: Necklace + Earrings'},
+      price:'Колье 40 000 тг · Серьги 10 000 тг',
+      desc:{ru:'Собран вручную. Серьги приобретаются отдельно.', kk:'Қолмен жиналған. Сырғалар бөлек сатылады.', en:'Hand-assembled. Earrings sold separately.'}},
+    {id:'p03', img:'assets/Колье 40.000 тг.jpg', cat:'Necklaces',
+      title:{ru:'Колье «Классик»',kk:'«Классик» алқа',en:'Necklace “Classic”'},
+      price:'40 000 тг',
+      desc:{ru:'Классический силуэт с акцентной подвеской.', kk:'Классикалық силуэт, акцент кулон.', en:'Classic silhouette with an accent pendant.'}},
+    {id:'p04', img:'assets/Колье из гематита 20.000 тг.jpg', cat:'Necklaces',
+      title:{ru:'Колье из гематита',kk:'Гематит алқасы',en:'Hematite Necklace'},
+      price:'20 000 тг',
+      desc:{ru:'Сталь и гематит — ровный блеск и универсальность.', kk:'Болат пен гематит — жинақы жылтыр.', en:'Steel and hematite for a subtle sheen.'}},
+    {id:'p05', img:'assets/Колье из жемчуга 60.000 тг.JPG', cat:'Necklaces',
+      title:{ru:'Колье из жемчуга',kk:'Інжу алқа',en:'Pearl Necklace'},
+      price:'60 000 тг',
+      desc:{ru:'Натуральный жемчуг и фурнитура люкс-класса.', kk:'Табиғи інжу, сапалы фурнитура.', en:'Natural pearls with premium hardware.'}},
+    {id:'p06', img:'assets/Колье из жемчуга 65.000 тг.jpg', cat:'Necklaces',
+      title:{ru:'Колье из жемчуга',kk:'Інжу алқа',en:'Pearl Necklace'},
+      price:'65 000 тг',
+      desc:{ru:'Элегантная классика с лёгким барочным характером.', kk:'Элегант классика, барокко ноталарымен.', en:'Elegant classic with a baroque touch.'}},
+    {id:'p07', img:'assets/Колье из жемчуга 70.000 тг.jpg', cat:'Necklaces',
+      title:{ru:'Колье из жемчуга',kk:'Інжу алқа',en:'Pearl Necklace'},
+      price:'70 000 тг',
+      desc:{ru:'Выразительные жемчужины и стойкая фурнитура.', kk:'Айқын інжулер, берік фурнитура.', en:'Striking pearls with durable hardware.'}},
+    {id:'p08', img:'assets/Колье из жемчуга Майорка 28.000 тг.jpg', cat:'Necklaces',
+      title:{ru:'Колье «Майорка»',kk:'«Майорка» алқа',en:'“Mallorca” Pearl Necklace'},
+      price:'28 000 тг',
+      desc:{ru:'Мягкий блеск и аккуратные пропорции.', kk:'Жұмсақ жылтыр және ұқыпты пропорциялар.', en:'Soft lustre and balanced proportions.'}},
+    {id:'p09', img:'assets/Колье из жемчуга Майорка 32.000 тг.jpg', cat:'Necklaces',
+      title:{ru:'Колье «Майорка»',kk:'«Майорка» алқа',en:'“Mallorca” Pearl Necklace'},
+      price:'32 000 тг',
+      desc:{ru:'Тёплые золотистые акценты.', kk:'Алтын түсті акценттер.', en:'Warm golden accents.'}},
+    {id:'p10', img:'assets/Колье из натуральных камней 20.000 тг.jpg', cat:'Necklaces',
+      title:{ru:'Колье из натуральных камней',kk:'Табиғи тастар алқасы',en:'Natural Stone Necklace'},
+      price:'20 000 тг',
+      desc:{ru:'Тактильная фактура и природные оттенки.', kk:'Табиғи реңктер, тактильді фактура.', en:'Tactile texture in natural tones.'}},
+    {id:'p11', img:'assets/Колье из натуральных камней 23.000 тг Браслет 8.500 тг Серьги 8.500 тг.jpg', cat:'Necklaces',
+      title:{ru:'Колье из натуральных камней',kk:'Табиғи тастар алқасы',en:'Natural Stone Necklace'},
+      price:'23 000 тг (браслет 8 500, серьги 8 500 отдельно)',
+      desc:{ru:'Природная палитра. Браслет и серьги отдельно.', kk:'Табиғи палитра. Білезік пен сырға бөлек.', en:'Earthy palette. Bracelet & earrings sold separately.'}},
+    {id:'p12', img:'assets/Колье из натуральных камней 40.000 тг.jpg', cat:'Necklaces',
+      title:{ru:'Колье из натуральных камней',kk:'Табиғи тастар алқасы',en:'Natural Stone Necklace'},
+      price:'40 000 тг',
+      desc:{ru:'Насыщенные оттенки и гладкая посадка.', kk:'Қанық реңктер, ыңғайлы отырыс.', en:'Rich hues with a smooth fit.'}},
+    {id:'p13', img:'assets/Колье из ракушки 14.000 тг.jpg', cat:'Necklaces',
+      title:{ru:'Колье из ракушки',kk:'Қабықтан алқа',en:'Shell Necklace'},
+      price:'14 000 тг',
+      desc:{ru:'Лёгкие формы и летнее настроение.', kk:'Жеңіл пішін, жазғы көңіл-күй.', en:'Light shapes with a summer vibe.'}},
+    {id:'p15', img:'assets/Колье трансформер 40.000 тг.jpg', cat:'Necklaces',
+      title:{ru:'Колье-трансформер',kk:'Трансформер алқа',en:'Transformer Necklace'},
+      price:'40 000 тг',
+      desc:{ru:'Несколько способов ношения.', kk:'Киюдің бірнеше тәсілі.', en:'Multiple ways to wear.'}},
+    {id:'p17', img:'assets/Многослойные браслеты 15.000 тг.jpg', cat:'Bracelets',
+      title:{ru:'Многослойные браслеты',kk:'Қабат-қабат білезіктер',en:'Layered Bracelets'},
+      price:'15 000 тг',
+      desc:{ru:'Сеты, которые легко миксовать.', kk:'Еркін үйлестірілетін сеттер.', en:'Easy-to-mix bracelet sets.'}},
+    {id:'p18', img:'assets/Сотуар галстук 27.000 тг Серьги 12.000 тг.jpg', cat:'Lariats',
+      title:{ru:'Сотуар-галстук + серьги',kk:'Сотуар-галстук + сырға',en:'Lariat Tie + Earrings'},
+      price:'Сотуар 27 000 тг · Серьги 12 000 тг',
+      desc:{ru:'Можно по отдельности.', kk:'Бөлек алуға болады.', en:'Available separately.'}},
+    {id:'p19', img:'assets/Сотуар трансформер 20.000 тг Серьги 10.000 тг.jpg', cat:'Lariats',
+      title:{ru:'Сотуар-трансформер + серьги',kk:'Сотуар-трансформер + сырға',en:'Transformer Lariat + Earrings'},
+      price:'Сотуар 20 000 тг · Серьги 10 000 тг',
+      desc:{ru:'Легко стилизовать под образ.', kk:'Образға сай бейімдеңіз.', en:'Style it to your look.'}},
+    {id:'p20', img:'assets/Цепь 15.000 тг.jpg', cat:'Chains',
+      title:{ru:'Цепь',kk:'Тізбек',en:'Chain'},
+      price:'15 000 тг',
+      desc:{ru:'Минимализм на каждый день.', kk:'Күнделікті минимализм.', en:'Everyday minimalism.'}},
+    {id:'p21', img:'assets/Цепь Родированная 23.000 тг Браслет 15.000 тг.jpg', cat:'Sets',
+      title:{ru:'Комплект: Цепь + Браслет (родий)',kk:'Жиын: Тізбек + Білезік (родий)',en:'Set: Chain + Bracelet (rhodium)'},
+      price:'Цепь 23 000 тг · Браслет 15 000 тг',
+      desc:{ru:'Родированная сталь и барочная жемчужина.', kk:'Родийленген болат, барокко інжу.', en:'Rhodium steel with a baroque pearl.'}},
+    {id:'p22', img:'assets/Цепь с барочной жемчужиной в позолоте 23.000 тг Браслет 15.000 тг.JPG', cat:'Sets',
+      title:{ru:'Комплект: Цепь + Браслет (позолота)',kk:'Жиын: Тізбек + Білезік (алтын жалату)',en:'Set: Chain + Bracelet (gold tone)'},
+      price:'Цепь 23 000 тг · Браслет 15 000 тг',
+      desc:{ru:'Позолоченная сталь и барочная жемчужина.', kk:'Алтын жалатылған болат, барокко інжу.', en:'Gold-tone steel with a baroque pearl.'}},
+    {id:'p23', img:'assets/Чокер в этно стиле из ювелирного стекла и жемчуга 14.000 тг.jpg', cat:'Necklaces',
+      title:{ru:'Чокер в этно-стиле',kk:'Этно-стиль чокер',en:'Ethno-Style Choker'},
+      price:'14 000 тг',
+      desc:{ru:'Ювелирное стекло и жемчуг.', kk:'Зергерлік әйнек пен інжу.', en:'Jewellery glass and pearls.'}},
+    {id:'p24', img:'assets/Чокер из голубого жемчуга 20.000 тг Серьги 14.000 тг.jpg', cat:'Sets',
+      title:{ru:'Чокер из голубого жемчуга + серьги',kk:'Көк інжу чокер + сырға',en:'Blue Pearl Choker + Earrings'},
+      price:'Чокер 20 000 тг · Серьги 14 000 тг',
+      desc:{ru:'Можно отдельно.', kk:'Бөлек алынады.', en:'Available separately.'}},
+    {id:'p25', img:'assets/Чокер из голубого жемчуга 20.000 тг.jpg', cat:'Necklaces',
+      title:{ru:'Чокер из голубого жемчуга',kk:'Көк інжу чокер',en:'Blue Pearl Choker'},
+      price:'20 000 тг',
+      desc:{ru:'Аккуратный и универсальный.', kk:'Ұқыпты әрі әмбебап.', en:'Neat and versatile.'}},
+    {id:'p26', img:'assets/Чокер из натурального жемчуга 18.000 тг Серьги 12.000 тг.jpg', cat:'Sets',
+      title:{ru:'Чокер из натурального жемчуга + серьги',kk:'Табиғи інжу чокері + сырға',en:'Natural Pearl Choker + Earrings'},
+      price:'Чокер 18 000 тг · Серьги 12 000 тг',
+      desc:{ru:'Натуральный жемчуг.', kk:'Табиғи інжу.', en:'Natural pearls.'}},
+    {id:'p27', img:'assets/Чокер из натурального жемчуга 20.000 тг Серьги 15.000 тг.jpg', cat:'Sets',
+      title:{ru:'Чокер из натурального жемчуга + серьги',kk:'Табиғи інжу чокері + сырға',en:'Natural Pearl Choker + Earrings'},
+      price:'Чокер 20 000 тг · Серьги 15 000 тг',
+      desc:{ru:'Второй вариант комплекта.', kk:'Жиынның басқа нұсқасы.', en:'Another set option.'}},
+    {id:'p28', img:'assets/Чокер из натурального жемчуга 22.000 тг.jpg', cat:'Necklaces',
+      title:{ru:'Чокер из натурального жемчуга',kk:'Табиғи інжу чокері',en:'Natural Pearl Choker'},
+      price:'22 000 тг',
+      desc:{ru:'Классический силуэт.', kk:'Классикалық пішін.', en:'Classic silhouette.'}},
+    {id:'p29', img:'assets/Чокер из натурального жемчуга с добавлением барочных жемчужин 26.000 тг Серьги 12.000 тг.jpg', cat:'Sets',
+      title:{ru:'Чокер с барочными жемчужинами + серьги',kk:'Барокко інжулерімен чокер + сырға',en:'Baroque Pearl Choker + Earrings'},
+      price:'Чокер 26 000 тг · Серьги 12 000 тг',
+      desc:{ru:'Жемчужины разного калибра.', kk:'Әртүрлі калибрдегі інжулер.', en:'Mixed sizes of pearls.'}},
+    {id:'p30', img:'assets/Чокеры из натурального жемчуга 20.000 тг Серьги 10.000 тг.jpg', cat:'Sets',
+      title:{ru:'Чокеры из натурального жемчуга + серьги',kk:'Табиғи інжу чокерлері + сырға',en:'Natural Pearl Chokers + Earrings'},
+      price:'Чокер 20 000 тг · Серьги 10 000 тг',
+      desc:{ru:'Набор чокеров.', kk:'Чокер жиыны.', en:'Set of chokers.'}}
   ];
 
   const KEY='livi_cart_v2';
@@ -218,7 +301,7 @@
     const unit=parseUnit(p.price); const title=p.title[lang()]||p.title['ru'];
     if(i>-1){ cart[i].qty+=q; if(typeof cart[i].unit!=='number') cart[i].unit=unit; cart[i].title=title; }
     else{ cart.push({id:p.id,title,price:p.price,img:p.img,qty:q,unit}); }
-    writeCart(cart);
+    writeCart(cart); updateBadge(); // мгновенно обновить бейдж
   }
   function updateBadge(){
     const count=readCart().reduce((s,i)=>s+Number(i.qty||0),0);
@@ -243,19 +326,18 @@
     grid.innerHTML='';
     const items=activeCat==='All'?PRODUCTS:PRODUCTS.filter(p=>p.cat===activeCat);
     items.forEach(p=>{
-      const title=p.title[lang()]||p.title['ru']; const catLabel=tr('cat.'+p.cat); const desc=p.desc[lang()]||p.desc['ru'];
+      const title=p.title[lang()]||p.title['ru'];
       const card=document.createElement('article'); card.className='card';
       card.innerHTML=`<img src="${p.img}" alt="${title}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'">
-        <div class="body"><div class="title">${title}</div><div class="price">${p.price}</div><div class="muted">${catLabel}</div>
+        <div class="body"><div class="title">${title}</div><div class="price">${p.price}</div>
         <button class="btn" data-action="add">${tr('ui.add')}</button></div>`;
       card.addEventListener('click',(e)=>{ if(e.target && e.target.dataset && e.target.dataset.action==='add'){ return; } openModal(p); }, {passive:true});
       card.querySelector('[data-action="add"]').onclick=()=>addToCart(p,1);
-      card.dataset.desc=desc;
       grid.appendChild(card);
     });
   }
 
-  /* Modal */
+  /* Modal (вся подробная информация только здесь) */
   const modal=document.getElementById('modal');
   const mImg=document.getElementById('mImg'), mTitle=document.getElementById('mTitle'), mCat=document.getElementById('mCat'),
         mPrice=document.getElementById('mPrice'), mDesc=document.getElementById('mDesc'), mQtyEl=document.getElementById('mQty');
