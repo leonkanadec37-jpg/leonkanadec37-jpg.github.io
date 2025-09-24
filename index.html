@@ -146,8 +146,6 @@
     <div id="featGrid" class="grid" aria-live="polite"></div>
   </section>
 
-  <!-- Блок #mylivi удалён по задаче -->
-
   <section class="about" id="about">
     <div class="about-inner">
       <h2 data-i18n="about.title">О нас</h2>
@@ -168,7 +166,6 @@
       </div>
       <div class="copy">© <span id="year"></span> Livi Jewelry — <span data-i18n="foot.rights">Все права защищены.</span></div>
       <div class="links">
-        <!-- email удалён по задаче -->
         <a class="tag" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
         <a class="tag" href="https://wa.me/77054510584" target="_blank" rel="noopener" onclick="return gtag_report_conversion(this.href);">WhatsApp</a>
       </div>
@@ -221,16 +218,14 @@
       document.querySelectorAll('[data-i18n]').forEach(el=>{
         const k=el.getAttribute('data-i18n'); if(L[k]) el.textContent=L[k];
       });
-      [ruBtn,kkBtn,enBtn].forEach(b=>b.classList.remove('active'));
-      (lang()==='kk'?kkBtn:lang()==='en'?enBtn:ruBtn).classList.add('active');
     }
 
-    // Featured
+    // Featured (обновлено: без дубликата из героя + ещё до 3 лучших фото)
     const FEATURED = [
-      {img:'assets/Колье из жемчуга 60.000 тг.JPG', title:'Колье из жемчуга', price:'60 000 тг'},
       {img:'assets/Колье из жемчуга 65.000 тг.jpg', title:'Колье из жемчуга', price:'65 000 тг'},
       {img:'assets/Колье из жемчуга 70.000 тг.jpg', title:'Колье из жемчуга', price:'70 000 тг'},
-      {img:'assets/Цепь Родированная 23.000 тг Браслет 15.000 тг.jpg', title:'Комплект: Цепь + Браслет', price:'Цепь 23 000 тг · Браслет 15 000 тг'}
+      {img:'assets/Цепь Родированная 23.000 тг Браслет 15.000 тг.jpg', title:'Комплект: Цепь + Браслет', price:'Цепь 23 000 тг · Браслет 15 000 тг'},
+      {img:'assets/Чокер из натурального жемчуга 22.000 тг.jpg', title:'Чокер из натурального жемчуга', price:'22 000 тг'}
     ];
     (function renderFeat(){
       const grid=document.getElementById('featGrid');
@@ -246,7 +241,6 @@
     const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
     burger.onclick=()=>{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); };
     drawer.querySelector('.drawer-back').onclick=()=>{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); };
-
     ruBtn.onclick=()=>setLang('ru'); kkBtn.onclick=()=>setLang('kk'); enBtn.onclick=()=>setLang('en');
 
     // Badge
