@@ -10,9 +10,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Favicon -->
+  <!-- Favicon (как было) -->
   <link rel="icon" type="image/png" href="assets/logo.png">
   <link rel="shortcut icon" href="assets/logo.png">
+
+  <!-- Icons & Manifest (добавлено) -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#111111">
+  <meta name="msapplication-TileColor" content="#111111">
 
   <!-- Google tag (gtag.js) — GA4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
@@ -91,7 +99,7 @@
     /* Mobile: уменьшить карточки и картинки */
     @media(max-width:520px){
       .grid{grid-template-columns:repeat(2,1fr);gap:12px}
-      .card img{height:170px;aspect-ratio:auto} /* компактнее на экране */
+      .card img{height:170px;aspect-ratio:auto}
       .body{padding:10px}
     }
     @media(max-width:760px){ .modal-card{grid-template-columns:1fr} }
@@ -301,7 +309,7 @@
     const unit=parseUnit(p.price); const title=p.title[lang()]||p.title['ru'];
     if(i>-1){ cart[i].qty+=q; if(typeof cart[i].unit!=='number') cart[i].unit=unit; cart[i].title=title; }
     else{ cart.push({id:p.id,title,price:p.price,img:p.img,qty:q,unit}); }
-    writeCart(cart); updateBadge(); // мгновенно обновить бейдж
+    writeCart(cart); updateBadge();
   }
   function updateBadge(){
     const count=readCart().reduce((s,i)=>s+Number(i.qty||0),0);
@@ -337,7 +345,7 @@
     });
   }
 
-  /* Modal (вся подробная информация только здесь) */
+  /* Modal */
   const modal=document.getElementById('modal');
   const mImg=document.getElementById('mImg'), mTitle=document.getElementById('mTitle'), mCat=document.getElementById('mCat'),
         mPrice=document.getElementById('mPrice'), mDesc=document.getElementById('mDesc'), mQtyEl=document.getElementById('mQty');
