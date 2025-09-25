@@ -10,8 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-
-  <!-- Icons & Manifest (НОВЫЙ БЛОК) -->
+  <!-- Icons & Manifest -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
@@ -19,23 +18,16 @@
   <meta name="theme-color" content="#111111">
   <meta name="msapplication-TileColor" content="#111111">
 
-  <!-- Google tag (gtag.js) — GA4 -->
+  <!-- Google tag (gtag.js): GA4 + Google Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
+    // GA4
     gtag('config', 'G-4H6HK8K9SJ');
-
-    /* Google Ads conversion: WhatsApp */
-    function gtag_report_conversion(url) {
-      var callback = function () { if (typeof url !== 'undefined') window.location = url; };
-      gtag('event','conversion', {
-        'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
-        'event_callback': callback
-      });
-      return false;
-    }
+    // Google Ads (для конверсий)
+    gtag('config', 'AW-16793974126');
   </script>
 
   <style>
@@ -118,7 +110,7 @@
       <a href="index.html" data-i18n="nav.home">Главная</a>
       <a href="shop.html" data-i18n="nav.shop">Каталог</a>
       <a href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener" onclick="return gtag_report_conversion(this.href);">WhatsApp</a>
+      <a href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener">WhatsApp</a>
       <div class="lang">
         <button id="ruBtn">RU</button><button id="kkBtn">KZ</button><button id="enBtn">EN</button>
       </div>
@@ -128,7 +120,11 @@
   <header>
     <div class="nav">
       <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
-      <a class="brand" href="index.html"><img src="assets/logo.png" alt="" onerror="this.style.display='none'"><span>LIVI JEWELRY</span></a>
+      <!-- логотип: заменён на favicon.svg (или убери <img>, если не нужен) -->
+      <a class="brand" href="index.html">
+        <img src="favicon.svg" alt="Livi Jewelry logo">
+        <span>LIVI JEWELRY</span>
+      </a>
       <a class="cart-link" href="cart.html" data-i18n="nav.cart">Корзина <span id="cartBadge" class="cart-badge">0</span></a>
     </div>
   </header>
@@ -172,7 +168,7 @@
       <div class="copy">© <span id="year"></span> Livi Jewelry — <span data-i18n="foot.rights">Все права защищены.</span></div>
       <div class="links">
         <a class="tag" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="tag" href="https://wa.me/77054510584" target="_blank" rel="noopener" onclick="return gtag_report_conversion(this.href);">WhatsApp</a>
+        <a class="tag" href="https://wa.me/77054510584" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
   </footer>
@@ -243,7 +239,7 @@
 
     // Drawer
     const drawer=document.getElementById('drawer'), burger=document.getElementById('burger');
-    const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn'];
+    const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
     burger.onclick=()=>{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); };
     drawer.querySelector('.drawer-back').onclick=()=>{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); };
     ruBtn.onclick=()=>setLang('ru'); kkBtn.onclick=()=>setLang('kk'); enBtn.onclick=()=>setLang('en');
@@ -260,6 +256,38 @@
 
     document.getElementById('year').textContent = new Date().getFullYear();
     applyLang(); updateBadge();
+
+    /* ===== Конверсия WhatsApp без inline onclick ===== */
+    (function(){
+      function isWaLink(a){
+        if(!a || !a.href) return false;
+        const href=a.href.toLowerCase();
+        return href.includes('wa.me') || href.includes('whatsapp');
+      }
+      function reportConversion(url){
+        try{
+          const callback=function(){ if(url){ window.location=url; } };
+          gtag('event','conversion',{
+            'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+            'value':0,
+            'currency':'KZT',
+            'event_callback':callback
+          });
+          return false;
+        }catch(e){
+          if(url){ window.location=url; }
+          return false;
+        }
+      }
+      document.addEventListener('click',function(e){
+        const a = e.target.closest('a');
+        if(!a) return;
+        if(isWaLink(a)){
+          e.preventDefault();
+          reportConversion(a.href);
+        }
+      });
+    })();
   </script>
 </body>
 </html>
