@@ -10,9 +10,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Favicon -->
+  <!-- Favicon (старые ссылки — оставляю) -->
   <link rel="icon" type="image/png" href="assets/logo.png">
   <link rel="shortcut icon" href="assets/logo.png">
+
+  <!-- Icons & Manifest (НОВЫЙ БЛОК) -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#111111">
+  <meta name="msapplication-TileColor" content="#111111">
 
   <!-- Google tag (gtag.js) — GA4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
@@ -220,7 +228,7 @@
       });
     }
 
-    // Featured (обновлено: без дубликата из героя + ещё до 3 лучших фото)
+    // Featured
     const FEATURED = [
       {img:'assets/Колье из жемчуга 65.000 тг.jpg', title:'Колье из жемчуга', price:'65 000 тг'},
       {img:'assets/Колье из жемчуга 70.000 тг.jpg', title:'Колье из жемчуга', price:'70 000 тг'},
@@ -238,7 +246,7 @@
 
     // Drawer
     const drawer=document.getElementById('drawer'), burger=document.getElementById('burger');
-    const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
+    const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn'];
     burger.onclick=()=>{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); };
     drawer.querySelector('.drawer-back').onclick=()=>{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); };
     ruBtn.onclick=()=>setLang('ru'); kkBtn.onclick=()=>setLang('kk'); enBtn.onclick=()=>setLang('en');
