@@ -22,15 +22,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Icons & Manifest -->
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
-  <link rel="manifest" href="/site.webmanifest">
+  <!-- Icons & Manifest (с версионированием для кэша) -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3">
+  <link rel="icon" href="/favicon.ico?v=3" sizes="any">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest?v=3">
   <meta name="theme-color" content="#111111">
   <meta name="msapplication-TileColor" content="#111111">
 
-  <!-- Google tag (gtag.js): GA4 + Google Ads (НЕ ТРОГАЛ) -->
+  <!-- Google tag (gtag.js): GA4 + Google Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -61,8 +61,8 @@
     .hamburger span::before,.hamburger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:#111}
     .hamburger span::before{top:-6px}.hamburger span::after{top:6px}
 
-    .brand{justify-self:center;display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:.06em}
-    .brand img{height:24px}
+    .brand{justify-self:center;display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.06em}
+    .brand svg{height:24px;width:auto;display:block}
 
     .cart-link{justify-self:end;position:relative;border:1px solid var(--line);border-radius:999px;padding:8px 12px}
     .cart-badge{position:absolute;top:-6px;right:-6px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:4px 6px;min-width:20px;text-align:center;display:none}
@@ -109,7 +109,6 @@
     @media (max-width:860px){ .hero{grid-template-columns:1fr;gap:22px} }
     @media (max-width:520px){
       .nav{padding:10px 12px}
-      .brand img{height:20px}
       .grid{gap:14px}
     }
   </style>
@@ -123,7 +122,7 @@
         "@type":"Organization",
         "name":"Livi Jewelry",
         "url":"https://livijewelry.kz/",
-        "logo":"https://livijewelry.kz/favicon-32.png"
+        "logo":"https://livijewelry.kz/icon-192.png"
       },
       {
         "@type":"WebSite",
@@ -170,11 +169,19 @@
   <header>
     <div class="nav">
       <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
-      <!-- логотип: заменён на favicon.svg (или убери <img>, если не нужен) -->
-      <a class="brand" href="index.html">
-        <img src="favicon.svg" alt="Livi Jewelry logo">
+
+      <!-- Логотип бренда (inline SVG, не фавикон) -->
+      <a class="brand" href="index.html" aria-label="Livi Jewelry — на главную">
+        <svg viewBox="0 0 256 64" role="img" aria-label="LIVI">
+          <!-- простой контрастный знак без внешних шрифтов -->
+          <rect x="0" y="8" width="40" height="48" rx="8" fill="#111"/>
+          <rect x="72" y="8" width="40" height="48" rx="8" fill="#111"/>
+          <rect x="144" y="8" width="40" height="48" rx="8" fill="#111"/>
+          <rect x="216" y="8" width="40" height="48" rx="8" fill="#111"/>
+        </svg>
         <span>LIVI JEWELRY</span>
       </a>
+
       <a class="cart-link" href="cart.html" data-i18n="nav.cart">Корзина <span id="cartBadge" class="cart-badge">0</span></a>
     </div>
   </header>
@@ -307,7 +314,7 @@
     document.getElementById('year').textContent = new Date().getFullYear();
     applyLang(); updateBadge();
 
-    /* ===== Конверсия WhatsApp без inline onclick (НЕ МЕНЯЛ SEND_TO) ===== */
+    /* ===== Конверсия WhatsApp без inline onclick ===== */
     (function(){
       function isWaLink(a){
         if(!a || !a.href) return false;
