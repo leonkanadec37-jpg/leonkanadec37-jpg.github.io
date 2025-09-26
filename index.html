@@ -1,351 +1,348 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 
-    <title data-i18n="meta.title">Купить украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, кулоны, кольца | Livi Jewelry</title>
-  <meta name="description" content="Купить украшения из жемчуга и натуральных камней: бижутерия — серьги, браслеты, кулоны, кольца. В наличии и на заказ. Livi Jewelry, доставка по Казахстану.">
-  <link rel="canonical" href="https://livijewelry.kz/">
+  <!-- SEO: title + description + canonical -->
+  <title data-i18n="meta.title">Купить украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, кулоны, кольца | Livi Jewelry</title>
+  <meta name="description" content="Купить украшения из жемчуга и натуральных камней: бижутерия — серьги, браслеты, кулоны, кольца. В наличии и на заказ. Livi Jewelry, доставка по Казахстану.">
+  <link rel="canonical" href="https://livijewelry.kz/">
 
-    <link rel="alternate" href="https://livijewelry.kz/" hreflang="ru" />
-  <link rel="alternate" href="https://livijewelry.kz/?lang=kk" hreflang="kk" />
-  <link rel="alternate" href="https://livijewelry.kz/?lang=en" hreflang="en" />
-  <link rel="alternate" href="https://livijewelry.kz/" hreflang="x-default" />
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Украшения из жемчуга и натуральных камней — Livi Jewelry">
+  <meta property="og:description" content="Бижутерия: серьги, браслеты, кулоны, кольца. В наличии и на заказ.">
+  <meta property="og:url" content="https://livijewelry.kz/">
+  <meta property="og:image" content="https://livijewelry.kz/images/og-cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
 
-    <meta property="og:type" content="website">
-  <meta property="og:title" content="Украшения из жемчуга и натуральных камней — Livi Jewelry">
-  <meta property="og:description" content="Бижутерия: серьги, браслеты, кулоны, кольца. В наличии и на заказ.">
-  <meta property="og:url" content="https://livijewelry.kz/">
-  <meta property="og:image" content="https://livijewelry.kz/images/og-cover.jpg">
-  <meta name="twitter:card" content="summary_large_image">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Icons & Manifest (с версионированием для кэша) -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3">
+  <link rel="icon" href="/favicon.ico?v=3" sizes="any">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest?v=3">
+  <meta name="theme-color" content="#111111">
+  <meta name="msapplication-TileColor" content="#111111">
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3">
-  <link rel="icon" href="/favicon.ico?v=3" sizes="any">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" sizes="180x180">
-  <link rel="manifest" href="/site.webmanifest?v=3">
-  <meta name="theme-color" content="#111111">
-  <meta name="msapplication-TileColor" content="#111111">
+  <!-- Google tag (gtag.js): GA4 + Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    // GA4
+    gtag('config', 'G-4H6HK8K9SJ');
+    // Google Ads (для конверсий)
+    gtag('config', 'AW-16793974126');
+  </script>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    // GA4
-    gtag('config', 'G-4H6HK8K9SJ');
-    // Google Ads (для конверсий)
-    gtag('config', 'AW-16793974126');
-  </script>
+  <style>
+    :root{
+      --fg:#111; --muted:#666; --line:#eee; --bg:#fff;
+      --radius:18px; --shadow:0 8px 28px rgba(0,0,0,.08); --max:1240px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{font:16px/1.6 "Montserrat",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#fff;color:var(--fg)}
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
 
-  <style>
-    :root{
-      --fg:#111; --muted:#666; --line:#eee; --bg:#fff;
-      --radius:18px; --shadow:0 8px 28px rgba(0,0,0,.08); --max:1240px;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{font:16px/1.6 "Montserrat",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#fff;color:var(--fg)}
-    a{text-decoration:none;color:inherit}
-    img{display:block;max-width:100%}
+    /* Header */
+    header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.95);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
+    .nav{max-width:var(--max);margin:0 auto;padding:12px 16px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px}
+    .hamburger{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:#fff;display:inline-grid;place-items:center;cursor:pointer}
+    .hamburger span{width:18px;height:2px;background:#111;display:block;position:relative}
+    .hamburger span::before,.hamburger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:#111}
+    .hamburger span::before{top:-6px}.hamburger span::after{top:6px}
 
-    /* Header */
-    header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.95);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
-    .nav{max-width:var(--max);margin:0 auto;padding:12px 16px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px}
-    .hamburger{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:#fff;display:inline-grid;place-items:center;cursor:pointer}
-    .hamburger span{width:18px;height:2px;background:#111;display:block;position:relative}
-    .hamburger span::before,.hamburger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:#111}
-    .hamburger span::before{top:-6px}.hamburger span::after{top:6px}
+    .brand{justify-self:center;display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.06em}
+    .brand svg{height:24px;width:auto;display:block}
 
-    .brand{justify-self:center;display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.06em}
-    .brand svg{height:24px;width:auto;display:block}
+    .cart-link{justify-self:end;position:relative;border:1px solid var(--line);border-radius:999px;padding:8px 12px}
+    .cart-badge{position:absolute;top:-6px;right:-6px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:4px 6px;min-width:20px;text-align:center;display:none}
 
-    .cart-link{justify-self:end;position:relative;border:1px solid var(--line);border-radius:999px;padding:8px 12px}
-    .cart-badge{position:absolute;top:-6px;right:-6px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:4px 6px;min-width:20px;text-align:center;display:none}
+    /* Drawer */
+    .drawer{position:fixed;inset:0;z-index:100;display:none}
+    .drawer.open{display:block}
+    .drawer-back{position:absolute;inset:0;background:rgba(0,0,0,.5)}
+    .drawer-panel{position:absolute;left:10px;top:10px;bottom:10px;width:min(86vw,320px);background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:14px;display:flex;flex-direction:column;gap:10px}
+    .drawer a,.drawer button{display:block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;text-align:left;cursor:pointer}
+    .lang{display:flex;gap:8px}
+    .lang button{flex:1}
 
-    /* Drawer */
-    .drawer{position:fixed;inset:0;z-index:100;display:none}
-    .drawer.open{display:block}
-    .drawer-back{position:absolute;inset:0;background:rgba(0,0,0,.5)}
-    .drawer-panel{position:absolute;left:10px;top:10px;bottom:10px;width:min(86vw,320px);background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:14px;display:flex;flex-direction:column;gap:10px}
-    .drawer a,.drawer button{display:block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;text-align:left;cursor:pointer}
-    .lang{display:flex;gap:8px}
-    .lang button{flex:1}
+    /* Hero */
+    .hero{max-width:var(--max);margin:0 auto;padding:24px 16px;display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}
+    .hero h1{font-size:clamp(28px,5vw,48px);line-height:1.15;margin-bottom:12px}
+    .hero p{color:var(--muted);font-size:18px;margin-bottom:18px}
+    .btn{display:inline-block;background:#111;color:#fff;padding:12px 20px;border-radius:999px;font-size:15px}
+    .hero-visual{border-radius:18px;overflow:hidden;box-shadow:var(--shadow);min-height:340px;background:#000}
+    .hero-visual img{width:100%;height:100%;object-fit:cover}
 
-    /* Hero */
-    .hero{max-width:var(--max);margin:0 auto;padding:24px 16px;display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}
-    .hero h1{font-size:clamp(28px,5vw,48px);line-height:1.15;margin-bottom:12px}
-    .hero p{color:var(--muted);font-size:18px;margin-bottom:18px}
-    .btn{display:inline-block;background:#111;color:#fff;padding:12px 20px;border-radius:999px;font-size:15px}
-    .hero-visual{border-radius:18px;overflow:hidden;box-shadow:var(--shadow);min-height:340px;background:#000}
-    .hero-visual img{width:100%;height:100%;object-fit:cover}
+    /* Featured */
+    .section{max-width:var(--max);margin:0 auto;padding:16px}
+    .section h2{font-size:clamp(22px,4vw,34px);text-align:center;margin:8px 0 6px}
+    .rule{height:1px;background:var(--line);margin:12px auto 18px;max-width:120px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+    .card{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+    .card img{width:100%;aspect-ratio:4/5;object-fit:cover}
+    .card .body{padding:12px}
+    .title{font-weight:600;margin-bottom:4px}
+    .muted{color:var(--muted);font-size:14px;margin-top:4px}
 
-    /* Featured */
-    .section{max-width:var(--max);margin:0 auto;padding:16px}
-    .section h2{font-size:clamp(22px,4vw,34px);text-align:center;margin:8px 0 6px}
-    .rule{height:1px;background:var(--line);margin:12px auto 18px;max-width:120px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
-    .card{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.04)}
-    .card img{width:100%;aspect-ratio:4/5;object-fit:cover}
-    .card .body{padding:12px}
-    .title{font-weight:600;margin-bottom:4px}
-    .muted{color:var(--muted);font-size:14px;margin-top:4px}
+    /* About */
+    .about{background:#fafafa;margin-top:20px;padding:40px 16px}
+    .about-inner{max-width:860px;margin:0 auto;text-align:center}
+    .about-inner p{color:var(--muted);font-size:17px}
 
-    /* About */
-    .about{background:#fafafa;margin-top:20px;padding:40px 16px}
-    .about-inner{max-width:860px;margin:0 auto;text-align:center}
-    .about-inner p{color:var(--muted);font-size:17px}
+    /* Footer */
+    footer{border-top:1px solid var(--line);margin-top:28px}
+    .foot{max-width:var(--max);margin:0 auto;padding:18px 16px 28px;display:grid;gap:8px}
+    .foot .links{display:flex;gap:14px;flex-wrap:wrap}
+    .copy{color:var(--muted);font-size:14px}
 
-    /* Footer */
-    footer{border-top:1px solid var(--line);margin-top:28px}
-    .foot{max-width:var(--max);margin:0 auto;padding:18px 16px 28px;display:grid;gap:8px}
-    .foot .links{display:flex;gap:14px;flex-wrap:wrap}
-    .copy{color:var(--muted);font-size:14px}
+    @media (max-width:860px){ .hero{grid-template-columns:1fr;gap:22px} }
+    @media (max-width:520px){
+      .nav{padding:10px 12px}
+      .grid{gap:14px}
+    }
+  </style>
 
-    @media (max-width:860px){ .hero{grid-template-columns:1fr;gap:22px} }
-    @media (max-width:520px){
-      .nav{padding:10px 12px}
-      .grid{gap:14px}
-    }
-  </style>
+  <!-- Structured Data: Organization + WebSite (SearchAction) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"Organization",
+        "name":"Livi Jewelry",
+        "url":"https://livijewelry.kz/",
+        "logo":"https://livijewelry.kz/icon-192.png"
+      },
+      {
+        "@type":"WebSite",
+        "url":"https://livijewelry.kz/",
+        "name":"Livi Jewelry",
+        "potentialAction":{
+          "@type":"SearchAction",
+          "target":"https://livijewelry.kz/shop.html?q={search_term_string}",
+          "query-input":"required name=search_term_string"
+        }
+      }
+    ]
+  }
+  </script>
 
-    <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@graph":[
-      {
-        "@type":"Organization",
-        "name":"Livi Jewelry",
-        "url":"https://livijewelry.kz/",
-        "logo":"https://livijewelry.kz/icon-192.png"
-      },
-      {
-        "@type":"WebSite",
-        "url":"https://livijewelry.kz/",
-        "name":"Livi Jewelry",
-        "potentialAction":{
-          "@type":"SearchAction",
-          "target":"https://livijewelry.kz/shop.html?q={search_term_string}",
-          "query-input":"required name=search_term_string"
-        }
-      }
-    ]
-  }
-  </script>
-
-    <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"FAQPage",
-    "mainEntity":[
-      {"@type":"Question","name":"Это натуральный жемчуг?","acceptedAnswer":{"@type":"Answer","text":"Да, используем натуральный жемчуг; характеристики указаны в карточках."}},
-      {"@type":"Question","name":"Можно на заказ?","acceptedAnswer":{"@type":"Answer","text":"Изготовим серьги, браслеты, кулоны и кольца по вашим параметрам."}},
-      {"@type":"Question","name":"Доставка по Казахстану?","acceptedAnswer":{"@type":"Answer","text":"Да, отправляем по всем регионам; сроки и стоимость видны при оформлении."}}
-    ]
-  }
-  </script>
+  <!-- Structured Data: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Это натуральный жемчуг?","acceptedAnswer":{"@type":"Answer","text":"Да, используем натуральный жемчуг; характеристики указаны в карточках."}},
+      {"@type":"Question","name":"Можно на заказ?","acceptedAnswer":{"@type":"Answer","text":"Изготовим серьги, браслеты, кулоны и кольца по вашим параметрам."}},
+      {"@type":"Question","name":"Доставка по Казахстану?","acceptedAnswer":{"@type":"Answer","text":"Да, отправляем по всем регионам; сроки и стоимость видны при оформлении."}}
+    ]
+  }
+  </script>
 </head>
 <body>
-    <div id="drawer" class="drawer" aria-hidden="true">
-    <div class="drawer-back"></div>
-    <div class="drawer-panel" role="menu" aria-label="Меню">
-      <a href="index.html" data-i18n="nav.home">Главная</a>
-      <a href="shop.html" data-i18n="nav.shop">Каталог</a>
-      <a href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener">WhatsApp</a>
-      <div class="lang">
-        <button id="ruBtn">RU</button><button id="kkBtn">KZ</button><button id="enBtn">EN</button>
-      </div>
-    </div>
-  </div>
+  <!-- Drawer -->
+  <div id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-back"></div>
+    <div class="drawer-panel" role="menu" aria-label="Меню">
+      <a href="index.html" data-i18n="nav.home">Главная</a>
+      <a href="shop.html" data-i18n="nav.shop">Каталог</a>
+      <a href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener">WhatsApp</a>
+      <div class="lang">
+        <button id="ruBtn">RU</button><button id="kkBtn">KZ</button><button id="enBtn">EN</button>
+      </div>
+    </div>
+  </div>
 
-  <header>
-    <div class="nav">
-      <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
+  <header>
+    <div class="nav">
+      <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
 
-            <a class="brand" href="index.html" aria-label="Livi Jewelry — на главную">
-        <svg viewBox="0 0 256 64" role="img" aria-label="LIVI">
-          <rect x="0" y="8" width="40" height="48" rx="8" fill="#111"/>
-          <rect x="72" y="8" width="40" height="48" rx="8" fill="#111"/>
-          <rect x="144" y="8" width="40" height="48" rx="8" fill="#111"/>
-          <rect x="216" y="8" width="40" height="48" rx="8" fill="#111"/>
-        </svg>
-        <span>LIVI JEWELRY</span>
-      </a>
+      <!-- Логотип бренда (inline SVG, не фавикон) -->
+      <a class="brand" href="index.html" aria-label="Livi Jewelry — на главную">
+        <svg viewBox="0 0 256 64" role="img" aria-label="LIVI">
+          <rect x="0" y="8" width="40" height="48" rx="8" fill="#111"/>
+          <rect x="72" y="8" width="40" height="48" rx="8" fill="#111"/>
+          <rect x="144" y="8" width="40" height="48" rx="8" fill="#111"/>
+          <rect x="216" y="8" width="40" height="48" rx="8" fill="#111"/>
+        </svg>
+        <span>LIVI JEWELRY</span>
+      </a>
 
-      <a class="cart-link" href="cart.html" data-i18n="nav.cart">Корзина <span id="cartBadge" class="cart-badge">0</span></a>
-    </div>
-  </header>
+      <a class="cart-link" href="cart.html" data-i18n="nav.cart">Корзина <span id="cartBadge" class="cart-badge">0</span></a>
+    </div>
+  </header>
 
-  <section class="hero">
-    <div>
-      <h1 data-i18n="hero.title">Купить украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, кулоны, кольца</h1>
-      <p data-i18n="hero.text">Ручная работа, аккуратная упаковка и внимание к деталям. В наличии и на заказ, доставка по Казахстану.</p>
-      <a class="btn" href="shop.html" data-i18n="hero.cta">Перейти в каталог</a>
-    </div>
-    <div class="hero-visual">
-            <img 
-        src="assets/kolye-iz-zhemchuga-60000-tg.jpg" 
-        alt="Украшения из жемчуга и натуральных камней — Livi Jewelry"
-        width="550" 
-        height="340"
-      >
-    </div>
-  </section>
+  <section class="hero">
+    <div>
+      <h1 data-i18n="hero.title">Купить украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, кулоны, кольца</h1>
+      <p data-i18n="hero.text">Ручная работа, аккуратная упаковка и внимание к деталям. В наличии и на заказ, доставка по Казахстану.</p>
+      <a class="btn" href="shop.html" data-i18n="hero.cta">Перейти в каталог</a>
+    </div>
+    <div class="hero-visual">
+      <img src="assets/Колье из жемчуга 60.000 тг.JPG" alt="Украшения из жемчуга и натуральных камней — Livi Jewelry">
+    </div>
+  </section>
 
-  <section class="section">
-    <h2 data-i18n="feat.title">Избранные товары</h2>
-    <div class="rule"></div>
-    <div id="featGrid" class="grid" aria-live="polite"></div>
-  </section>
+  <section class="section">
+    <h2 data-i18n="feat.title">Избранные товары</h2>
+    <div class="rule"></div>
+    <div id="featGrid" class="grid" aria-live="polite"></div>
+  </section>
 
-  <section class="about" id="about">
-    <div class="about-inner">
-      <h2 data-i18n="about.title">О нас</h2>
-      <div class="rule"></div>
-      <p data-i18n="about.text">
-        Livi Jewelry — мастерская бижутерии из натурального жемчуга и камней. Мы создаём серьги, браслеты, кулоны и кольца в наличии и на заказ — под ваш размер, оттенок фурнитуры и стиль. Фото соответствуют изделиям, бережная упаковка, отправка по Казахстану.
-      </p>
-    </div>
-  </section>
+  <section class="about" id="about">
+    <div class="about-inner">
+      <h2 data-i18n="about.title">О нас</h2>
+      <div class="rule"></div>
+      <p data-i18n="about.text">
+        Livi Jewelry — мастерская бижутерии из натурального жемчуга и камней. Мы создаём серьги, браслеты, кулоны и кольца в наличии и на заказ — под ваш размер, оттенок фурнитуры и стиль. Фото соответствуют изделиям, бережная упаковка, отправка по Казахстану.
+      </p>
+    </div>
+  </section>
 
-  <footer id="contact">
-    <div class="foot">
-      <div class="links">
-        <a href="#" data-i18n="foot.privacy">Политика конфиденциальности</a>
-        <a href="#" data-i18n="foot.terms">Условия использования</a>
-        <a href="#" data-i18n="foot.delivery">Доставка и возврат</a>
-      </div>
-      <div class="copy">© <span id="year"></span> Livi Jewelry — <span data-i18n="foot.rights">Все права защищены.</span></div>
-      <div class="links">
-        <a class="tag" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="tag" href="https://wa.me/77054510584" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-    </div>
-  </footer>
+  <footer id="contact">
+    <div class="foot">
+      <div class="links">
+        <a href="#" data-i18n="foot.privacy">Политика конфиденциальности</a>
+        <a href="#" data-i18n="foot.terms">Условия использования</a>
+        <a href="#" data-i18n="foot.delivery">Доставка и возврат</a>
+      </div>
+      <div class="copy">© <span id="year"></span> Livi Jewelry — <span data-i18n="foot.rights">Все права защищены.</span></div>
+      <div class="links">
+        <a class="tag" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
+        <a class="tag" href="https://wa.me/77054510584" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
 
-  <script>
-    /* ===== i18n ===== */
-    const I18N={
-      ru:{
-        'meta.title':'Купить украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, кулоны, кольца | Livi Jewelry',
-        'nav.home':'Главная','nav.shop':'Каталог','nav.cart':'Корзина',
-        'hero.title':'Купить украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, кулоны, кольца',
-        'hero.text':'Ручная работа, аккуратная упаковка и внимание к деталям. В наличии и на заказ, доставка по Казахстану.',
-        'hero.cta':'Перейти в каталог',
-        'feat.title':'Избранные товары',
-        'about.title':'О нас',
-        'about.text':'Livi Jewelry — мастерская бижутерии из натурального жемчуга и камней. Мы создаём серьги, браслеты, кулоны и кольца в наличии и на заказ — под ваш размер, оттенок фурнитуры и стиль. Фото соответствуют изделиям, бережная упаковка, отправка по Казахстану.',
-        'foot.privacy':'Политика конфиденциальности','foot.terms':'Условия использования','foot.delivery':'Доставка и возврат','foot.rights':'Все права защищены.'
-      },
-      kk:{
-        'meta.title':'Інжу мен табиғи тастардан әшекейлер — сырғалар, білезіктер, кулондар, сақиналар | Livi Jewelry',
-        'nav.home':'Басты бет','nav.shop':'Дүкен','nav.cart':'Себет',
-        'hero.title':'Інжу мен табиғи тастардан әшекейлер: сырғалар, білезіктер, кулондар, сақиналар',
-        'hero.text':'Қолмен жасалған, ұқыпты қаптама. Дайын және тапсырыспен, Қазақстан бойынша жеткізу.',
-        'hero.cta':'Дүкенге өту',
-        'feat.title':'Таңдамалы тауарлар',
-        'about.title':'Біз туралы',
-        'about.text':'Livi Jewelry — табиғи інжу мен тастардан жасалған бижутерия шеберханасы. Біз сырға, білезік, кулон және сақиналарды дайын әрі тапсырыспен жасаймыз. Қазақстан бойынша жібереміз.',
-        'foot.privacy':'Құпиялылық саясаты','foot.terms':'Пайдалану шарттары','foot.delivery':'Жеткізу және қайтару','foot.rights':'Барлық құқықтар қорғалған.'
-      },
-      en:{
-        'meta.title':'Buy pearl & natural stone jewellery — earrings, bracelets, pendants, rings | Livi Jewelry',
-        'nav.home':'Home','nav.shop':'Shop','nav.cart':'Cart',
-        'hero.title':'Pearl & natural stone jewellery — earrings, bracelets, pendants, rings',
-        'hero.text':'Handmade, carefully packed. In stock & made to order, shipping across Kazakhstan.',
-        'hero.cta':'Shop Now',
-        'feat.title':'Featured Products',
-        'about.title':'About Us',
-        'about.text':'Livi Jewelry crafts jewellery from natural pearls and stones. We make earrings, bracelets, pendants and rings — in stock and made to order. Shipped across Kazakhstan.',
-        'foot.privacy':'Privacy Policy','foot.terms':'Terms and Conditions','foot.delivery':'Delivery & Returns','foot.rights':'All Rights Reserved.'
-      }
-    };
-    function lang(){ return localStorage.getItem('lang') || 'ru'; }
-    function setLang(l){ localStorage.setItem('lang',l); applyLang(); }
-    function applyLang(){
-      const L=I18N[lang()];
-      document.title = L['meta.title'] || document.title;
-      document.documentElement.lang = lang();
-      document.querySelectorAll('[data-i18n]').forEach(el=>{
-        const k=el.getAttribute('data-i18n'); if(L[k]) el.textContent=L[k];
-      });
-    }
+  <script>
+    /* ===== i18n ===== */
+    const I18N={
+      ru:{
+        'meta.title':'Купить украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, кулоны, кольца | Livi Jewelry',
+        'nav.home':'Главная','nav.shop':'Каталог','nav.cart':'Корзина',
+        'hero.title':'Купить украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, кулоны, кольца',
+        'hero.text':'Ручная работа, аккуратная упаковка и внимание к деталям. В наличии и на заказ, доставка по Казахстану.',
+        'hero.cta':'Перейти в каталог',
+        'feat.title':'Избранные товары',
+        'about.title':'О нас',
+        'about.text':'Livi Jewelry — мастерская бижутерии из натурального жемчуга и камней. Мы создаём серьги, браслеты, кулоны и кольца в наличии и на заказ — под ваш размер, оттенок фурнитуры и стиль. Фото соответствуют изделиям, бережная упаковка, отправка по Казахстану.',
+        'foot.privacy':'Политика конфиденциальности','foot.terms':'Условия использования','foot.delivery':'Доставка и возврат','foot.rights':'Все права защищены.'
+      },
+      kk:{
+        'meta.title':'Інжу мен табиғи тастардан әшекейлер — сырғалар, білезіктер, кулондар, сақиналар | Livi Jewelry',
+        'nav.home':'Басты бет','nav.shop':'Дүкен','nav.cart':'Себет',
+        'hero.title':'Інжу мен табиғи тастардан әшекейлер: сырғалар, білезіктер, кулондар, сақиналар',
+        'hero.text':'Қолмен жасалған, ұқыпты қаптама. Дайын және тапсырыспен, Қазақстан бойынша жеткізу.',
+        'hero.cta':'Дүкенге өту',
+        'feat.title':'Таңдамалы тауарлар',
+        'about.title':'Біз туралы',
+        'about.text':'Livi Jewelry — табиғи інжу мен тастардан жасалған бижутерия шеберханасы. Біз сырға, білезік, кулон және сақиналарды дайын әрі тапсырыспен жасаймыз. Қазақстан бойынша жібереміз.',
+        'foot.privacy':'Құпиялылық саясаты','foot.terms':'Пайдалану шарттары','foot.delivery':'Жеткізу және қайтару','foot.rights':'Барлық құқықтар қорғалған.'
+      },
+      en:{
+        'meta.title':'Buy pearl & natural stone jewellery — earrings, bracelets, pendants, rings | Livi Jewelry',
+        'nav.home':'Home','nav.shop':'Shop','nav.cart':'Cart',
+        'hero.title':'Pearl & natural stone jewellery — earrings, bracelets, pendants, rings',
+        'hero.text':'Handmade, carefully packed. In stock & made to order, shipping across Kazakhstan.',
+        'hero.cta':'Shop Now',
+        'feat.title':'Featured Products',
+        'about.title':'About Us',
+        'about.text':'Livi Jewelry crafts jewellery from natural pearls and stones. We make earrings, bracelets, pendants and rings — in stock and made to order. Shipped across Kazakhstan.',
+        'foot.privacy':'Privacy Policy','foot.terms':'Terms and Conditions','foot.delivery':'Delivery & Returns','foot.rights':'All Rights Reserved.'
+      }
+    };
+    function lang(){ return localStorage.getItem('lang') || 'ru'; }
+    function setLang(l){ localStorage.setItem('lang',l); applyLang(); }
+    function applyLang(){
+      const L=I18N[lang()];
+      document.title = L['meta.title'] || document.title;
+      document.documentElement.lang = lang();
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const k=el.getAttribute('data-i18n'); if(L[k]) el.textContent=L[k];
+      });
+    }
 
-    // Featured: обновлено на новые товары
-    // ПОПРАВКА: Имена файлов изменены на латиницу в соответствии с рекомендациями SEO
-    const FEATURED = [
-      {img:'assets/kolye-gematitovaya-pyl-23000-tg.jpeg', title:'Колье «Гематитовая пыль»', price:'23 000 тг'},
-      {img:'assets/choker-lunnyi-kamen-s-zhemchugom-18000-tg.jpeg', title:'Чокер «Лунный камень» с жемчугом', price:'18 000 тг'},
-      {img:'assets/komplekt-kolye-barokko-30000-tg-plus-sergi-10000-tg.jpeg', title:'Комплект: колье «Барокко» + серьги', price:'40 000 тг'},
-      {img:'assets/komplekt-sotuar-galstuk-iz-zhemchuga-i-gornogo-khrustalya-18000-tg.jpeg', title:'Комплект: сотуар-галстук (жемчуг, хрусталь)', price:'18 000 тг'}
-    ];
-    (function renderFeat(){
-      const grid=document.getElementById('featGrid');
-      FEATURED.forEach(p=>{
-        const altBase = 'украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, кулоны, кольца';
-        const c=document.createElement('article'); c.className='card';
-        // Добавлены width и height, чтобы избежать сдвигов контента (CLS)
-        c.innerHTML=`<img src="${p.img}" alt="${p.title} — ${altBase}" loading="lazy" decoding="async" width="200" height="250"><div class="body"><div class="title">${p.title}</div><div class="muted">${p.price}</div></div>`;
-        c.onclick=()=>location.href='shop.html'; grid.appendChild(c);
-      });
-    })();
+    // Featured: обновлено на новые товары
+    const FEATURED = [
+      {img:'assets/Колье Гематитовая пыль 23.000. тг.jpeg', title:'Колье «Гематитовая пыль»', price:'23 000 тг'},
+      {img:'assets/Чокер Лунный камень с жемчугом 18.000 тг.jpeg', title:'Чокер «Лунный камень» с жемчугом', price:'18 000 тг'},
+      {img:'assets/Комплект Колье Барокко 30.000 тг + серьги 10.000 тг.jpeg', title:'Комплект: колье «Барокко» + серьги', price:'40 000 тг'},
+      {img:'assets/Комплект Сотуар галстук из жемчуга и горного хрусталя 18.000 тг.jpeg', title:'Комплект: сотуар-галстук (жемчуг, хрусталь)', price:'18 000 тг'}
+    ];
+    (function renderFeat(){
+      const grid=document.getElementById('featGrid');
+      FEATURED.forEach(p=>{
+        const altBase = 'украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, кулоны, кольца';
+        const c=document.createElement('article'); c.className='card';
+        c.innerHTML=`<img src="${p.img}" alt="${p.title} — ${altBase}" loading="lazy" decoding="async"><div class="body"><div class="title">${p.title}</div><div class="muted">${p.price}</div></div>`;
+        c.onclick=()=>location.href='shop.html'; grid.appendChild(c);
+      });
+    })();
 
-    // Drawer
-    const drawer=document.getElementById('drawer'), burger=document.getElementById('burger');
-    const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
-    burger.onclick=()=>{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); };
-    drawer.querySelector('.drawer-back').onclick=()=>{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); };
-    ruBtn.onclick=()=>setLang('ru'); kkBtn.onclick=()=>setLang('kk'); enBtn.onclick=()=>setLang('en');
+    // Drawer
+    const drawer=document.getElementById('drawer'), burger=document.getElementById('burger');
+    const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
+    burger.onclick=()=>{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); };
+    drawer.querySelector('.drawer-back').onclick=()=>{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); };
+    ruBtn.onclick=()=>setLang('ru'); kkBtn.onclick=()=>setLang('kk'); enBtn.onclick=()=>setLang('en');
 
-    // Badge
-    const KEY='livi_cart_v2';
-    function readCart(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []} }
-    function updateBadge(){
-      const count=readCart().reduce((s,i)=>s+Number(i.qty||0),0);
-      const b=document.getElementById('cartBadge');
-      if(!b) return; b.style.display = count>0 ? 'inline-block':'none'; if(count>0) b.textContent=count;
-    }
-    window.addEventListener('storage',e=>{ if(e.key===KEY) updateBadge(); });
+    // Badge
+    const KEY='livi_cart_v2';
+    function readCart(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []} }
+    function updateBadge(){
+      const count=readCart().reduce((s,i)=>s+Number(i.qty||0),0);
+      const b=document.getElementById('cartBadge');
+      if(!b) return; b.style.display = count>0 ? 'inline-block':'none'; if(count>0) b.textContent=count;
+    }
+    window.addEventListener('storage',e=>{ if(e.key===KEY) updateBadge(); });
 
-    document.getElementById('year').textContent = new Date().getFullYear();
-    applyLang(); updateBadge();
+    document.getElementById('year').textContent = new Date().getFullYear();
+    applyLang(); updateBadge();
 
-    /* ===== Конверсия WhatsApp без inline onclick ===== */
-    (function(){
-      function isWaLink(a){
-        if(!a || !a.href) return false;
-        const href=a.href.toLowerCase();
-        return href.includes('wa.me') || href.includes('whatsapp');
-      }
-      function reportConversion(url){
-        try{
-          const callback=function(){ if(url){ window.location=url; } };
-          gtag('event','conversion',{
-            'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
-            'value':0,
-            'currency':'KZT',
-            'event_callback':callback
-          });
-          return false;
-        }catch(e){
-          if(url){ window.location=url; }
-          return false;
-        }
-      }
-      document.addEventListener('click',function(e){
-        const a = e.target.closest('a');
-        if(!a) return;
-        if(isWaLink(a)){
-          e.preventDefault();
-          reportConversion(a.href);
-        }
-      });
-    })();
-  </script>
+    /* ===== Конверсия WhatsApp без inline onclick ===== */
+    (function(){
+      function isWaLink(a){
+        if(!a || !a.href) return false;
+        const href=a.href.toLowerCase();
+        return href.includes('wa.me') || href.includes('whatsapp');
+      }
+      function reportConversion(url){
+        try{
+          const callback=function(){ if(url){ window.location=url; } };
+          gtag('event','conversion',{
+            'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+            'value':0,
+            'currency':'KZT',
+            'event_callback':callback
+          });
+          return false;
+        }catch(e){
+          if(url){ window.location=url; }
+          return false;
+        }
+      }
+      document.addEventListener('click',function(e){
+        const a = e.target.closest('a');
+        if(!a) return;
+        if(isWaLink(a)){
+          e.preventDefault();
+          reportConversion(a.href);
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
