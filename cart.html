@@ -47,7 +47,7 @@
     .hamburger span{width:18px;height:2px;background:#111;display:block;position:relative}
     .hamburger span::before,.hamburger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:#111}
     .hamburger span::before{top:-6px}.hamburger span::after{top:6px}
-    .brand{justify-self:center;display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:.06em}
+    .brand{justify-self:center;display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:.06ем}
     .brand img{height:24px}
     .cart-link{justify-self:end;position:relative;border:1px solid var(--line);border-radius:999px;padding:8px 12px}
     .cart-badge{position:absolute;top:-6px;right:-6px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:4px 6px;min-width:20px;text-align:center;display:none}
@@ -141,17 +141,46 @@
     /* ===== Cart logic ===== */
     const KEY='livi_cart_v2';
 
+    // 1) Первая цена в строке "… тг"
     function parseFirstKZT(priceStr){
       const m = String(priceStr||'').match(/([\d\s.,]+)\s*тг/i);
       if(!m) return 0;
       return parseInt(m[1].replace(/[^\d]/g,''),10) || 0;
     }
-    function unitPrice(item){ return (typeof item.unit==='number') ? item.unit : parseFirstKZT(item.price); }
+    // 2) Сумма всех цен в строке "… тг" (для комплектов)
+    function parseSumKZT(priceStr){
+      const rx = /([\d\s.,]+)\s*тг/ig;
+      let s=0, m;
+      while((m = rx.exec(String(priceStr||'')))!==null){
+        s += parseInt(m[1].replace(/[^\d]/g,''),10) || 0;
+      }
+      return s;
+    }
+    // 3) Логика единичной цены:
+    //    - если item.unit уже сохранён в товаре — используем его;
+    //    - иначе, если заголовок содержит «Комплект», считаем сумму всех цен;
+    //    - иначе — берём первую цену.
+    function unitPrice(item){
+      if (typeof item.unit === 'number') return item.unit;
+      const title = (item.title||'').toLowerCase();
+      if (title.includes('комплект')) {
+        const sum = parseSumKZT(item.price);
+        return sum > 0 ? sum : parseFirstKZT(item.price);
+      }
+      return parseFirstKZT(item.price);
+    }
 
-    // миграция unit
+    // Миграция unit для уже добавленных позиций (запишем unit, чтобы дальше было быстрее)
     (function migrate(){
       let cart; try{ cart=JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ cart=[]; }
-      let changed=false; for(const it of cart){ if(typeof it.unit!=='number'){ it.unit=parseFirstKZT(it.price); changed=true; } }
+      let changed=false;
+      for(const it of cart){
+        const needUnit = (typeof it.unit !== 'number' || !isFinite(it.unit) || it.unit<=0);
+        if(needUnit){
+          it.unit = unitPrice(it);
+          changed = true;
+        }
+      }
       if(changed) localStorage.setItem(KEY, JSON.stringify(cart));
     })();
 
