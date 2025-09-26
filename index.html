@@ -3,7 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title data-i18n="meta.title">Livi Jewelry — Украшения ручной работы</title>
+
+  <!-- SEO: title + description + canonical -->
+  <title data-i18n="meta.title">Купить украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, кулоны, кольца | Livi Jewelry</title>
+  <meta name="description" content="Купить украшения из жемчуга и натуральных камней: бижутерия — серьги, браслеты, кулоны, кольца. В наличии и на заказ. Livi Jewelry, доставка по Казахстану.">
+  <link rel="canonical" href="https://livijewelry.kz/">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Украшения из жемчуга и натуральных камней — Livi Jewelry">
+  <meta property="og:description" content="Бижутерия: серьги, браслеты, кулоны, кольца. В наличии и на заказ.">
+  <meta property="og:url" content="https://livijewelry.kz/">
+  <meta property="og:image" content="https://livijewelry.kz/images/og-cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
@@ -18,7 +30,7 @@
   <meta name="theme-color" content="#111111">
   <meta name="msapplication-TileColor" content="#111111">
 
-  <!-- Google tag (gtag.js): GA4 + Google Ads -->
+  <!-- Google tag (gtag.js): GA4 + Google Ads (НЕ ТРОГАЛ) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -101,6 +113,44 @@
       .grid{gap:14px}
     }
   </style>
+
+  <!-- Structured Data: Organization + WebSite (SearchAction) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"Organization",
+        "name":"Livi Jewelry",
+        "url":"https://livijewelry.kz/",
+        "logo":"https://livijewelry.kz/favicon-32.png"
+      },
+      {
+        "@type":"WebSite",
+        "url":"https://livijewelry.kz/",
+        "name":"Livi Jewelry",
+        "potentialAction":{
+          "@type":"SearchAction",
+          "target":"https://livijewelry.kz/shop.html?q={search_term_string}",
+          "query-input":"required name=search_term_string"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Structured Data: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Это натуральный жемчуг?","acceptedAnswer":{"@type":"Answer","text":"Да, используем натуральный жемчуг; характеристики указаны в карточках."}},
+      {"@type":"Question","name":"Можно на заказ?","acceptedAnswer":{"@type":"Answer","text":"Изготовим серьги, браслеты, кулоны и кольца по вашим параметрам."}},
+      {"@type":"Question","name":"Доставка по Казахстану?","acceptedAnswer":{"@type":"Answer","text":"Да, отправляем по всем регионам; сроки и стоимость видны при оформлении."}}
+    ]
+  }
+  </script>
 </head>
 <body>
   <!-- Drawer -->
@@ -131,13 +181,13 @@
 
   <section class="hero">
     <div>
-      <h1 data-i18n="hero.title">Украшения, которые делают образ уникальным</h1>
-      <p data-i18n="hero.text">Жемчуг, камни и сталь. Ручная работа, аккуратная упаковка и внимание к деталям.</p>
+      <h1 data-i18n="hero.title">Купить украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, кулоны, кольца</h1>
+      <p data-i18n="hero.text">Ручная работа, аккуратная упаковка и внимание к деталям. В наличии и на заказ, доставка по Казахстану.</p>
       <a class="btn" href="shop.html" data-i18n="hero.cta">Перейти в каталог</a>
     </div>
     <div class="hero-visual">
       <!-- фото из товара "Колье из жемчуга 60 000 тг" -->
-      <img src="assets/Колье из жемчуга 60.000 тг.JPG" alt="Livi Jewelry">
+      <img src="assets/Колье из жемчуга 60.000 тг.JPG" alt="Украшения из жемчуга и натуральных камней — Livi Jewelry">
     </div>
   </section>
 
@@ -152,8 +202,7 @@
       <h2 data-i18n="about.title">О нас</h2>
       <div class="rule"></div>
       <p data-i18n="about.text">
-        Мы создаём украшения из натурального жемчуга и камней — вручную и с трепетом.
-        Каждый комплект продуман до мелочей, бережно упакован и сопровождается памяткой по уходу.
+        Livi Jewelry — мастерская бижутерии из натурального жемчуга и камней. Мы создаём серьги, браслеты, кулоны и кольца в наличии и на заказ — под ваш размер, оттенок фурнитуры и стиль. Фото соответствуют изделиям, бережная упаковка, отправка по Казахстану.
       </p>
     </div>
   </section>
@@ -177,36 +226,36 @@
     /* ===== i18n ===== */
     const I18N={
       ru:{
-        'meta.title':'Livi Jewelry — Украшения ручной работы',
+        'meta.title':'Купить украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, кулоны, кольца | Livi Jewelry',
         'nav.home':'Главная','nav.shop':'Каталог','nav.cart':'Корзина',
-        'hero.title':'Украшения, которые делают образ уникальным',
-        'hero.text':'Жемчуг, камни и сталь. Ручная работа, аккуратная упаковка и внимание к деталям.',
+        'hero.title':'Купить украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, кулоны, кольца',
+        'hero.text':'Ручная работа, аккуратная упаковка и внимание к деталям. В наличии и на заказ, доставка по Казахстану.',
         'hero.cta':'Перейти в каталог',
         'feat.title':'Избранные товары',
         'about.title':'О нас',
-        'about.text':'Мы создаём украшения из натурального жемчуга и камней — вручную и с трепетом. Каждый комплект продуман до мелочей, бережно упакован и сопровождается памяткой по уходу.',
+        'about.text':'Livi Jewelry — мастерская бижутерии из натурального жемчуга и камней. Мы создаём серьги, браслеты, кулоны и кольца в наличии и на заказ — под ваш размер, оттенок фурнитуры и стиль. Фото соответствуют изделиям, бережная упаковка, отправка по Казахстану.',
         'foot.privacy':'Политика конфиденциальности','foot.terms':'Условия использования','foot.delivery':'Доставка и возврат','foot.rights':'Все права защищены.'
       },
       kk:{
-        'meta.title':'Livi Jewelry — Қолөнер әшекейлері',
+        'meta.title':'Інжу мен табиғи тастардан әшекейлер — сырғалар, білезіктер, кулондар, сақиналар | Livi Jewelry',
         'nav.home':'Басты бет','nav.shop':'Дүкен','nav.cart':'Себет',
-        'hero.title':'Образды ерекше ететін әшекейлер',
-        'hero.text':'Інжу, тастар және болат. Қолмен жасалады, ұқыпты қаптама және ұсақ-түйекке мән беріледі.',
+        'hero.title':'Інжу мен табиғи тастардан әшекейлер: сырғалар, білезіктер, кулондар, сақиналар',
+        'hero.text':'Қолмен жасалған, ұқыпты қаптама. Дайын және тапсырыспен, Қазақстан бойынша жеткізу.',
         'hero.cta':'Дүкенге өту',
         'feat.title':'Таңдамалы тауарлар',
         'about.title':'Біз туралы',
-        'about.text':'Біз табиғи інжу мен тастардан әшекейлерді сүйіспеншілікпен қолмен жасаймыз. Әр бұйым ұқыпты оралып, күтім нұсқаулығымен жеткізіледі.',
+        'about.text':'Livi Jewelry — табиғи інжу мен тастардан жасалған бижутерия шеберханасы. Біз сырға, білезік, кулон және сақиналарды дайын әрі тапсырыспен жасаймыз. Қазақстан бойынша жібереміз.',
         'foot.privacy':'Құпиялылық саясаты','foot.terms':'Пайдалану шарттары','foot.delivery':'Жеткізу және қайтару','foot.rights':'Барлық құқықтар қорғалған.'
       },
       en:{
-        'meta.title':'Livi Jewelry — Handmade Jewellery',
+        'meta.title':'Buy pearl & natural stone jewellery — earrings, bracelets, pendants, rings | Livi Jewelry',
         'nav.home':'Home','nav.shop':'Shop','nav.cart':'Cart',
-        'hero.title':'Jewellery that makes you feel unique',
-        'hero.text':'Pearl, stones and steel. Handmade with care, thoughtful packaging and attention to detail.',
+        'hero.title':'Pearl & natural stone jewellery — earrings, bracelets, pendants, rings',
+        'hero.text':'Handmade, carefully packed. In stock & made to order, shipping across Kazakhstan.',
         'hero.cta':'Shop Now',
         'feat.title':'Featured Products',
         'about.title':'About Us',
-        'about.text':'We handcraft jewellery from natural pearls and stones — with care and devotion. Each piece is thoughtfully finished and gently packed.',
+        'about.text':'Livi Jewelry crafts jewellery from natural pearls and stones. We make earrings, bracelets, pendants and rings — in stock and made to order. Shipped across Kazakhstan.',
         'foot.privacy':'Privacy Policy','foot.terms':'Terms and Conditions','foot.delivery':'Delivery & Returns','foot.rights':'All Rights Reserved.'
       }
     };
@@ -231,8 +280,9 @@
     (function renderFeat(){
       const grid=document.getElementById('featGrid');
       FEATURED.forEach(p=>{
+        const altBase = 'украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, кулоны, кольца';
         const c=document.createElement('article'); c.className='card';
-        c.innerHTML=`<img src="${p.img}" alt=""><div class="body"><div class="title">${p.title}</div><div class="muted">${p.price}</div></div>`;
+        c.innerHTML=`<img src="${p.img}" alt="${p.title} — ${altBase}" loading="lazy"><div class="body"><div class="title">${p.title}</div><div class="muted">${p.price}</div></div>`;
         c.onclick=()=>location.href='shop.html'; grid.appendChild(c);
       });
     })();
@@ -257,7 +307,7 @@
     document.getElementById('year').textContent = new Date().getFullYear();
     applyLang(); updateBadge();
 
-    /* ===== Конверсия WhatsApp без inline onclick ===== */
+    /* ===== Конверсия WhatsApp без inline onclick (НЕ МЕНЯЛ SEND_TO) ===== */
     (function(){
       function isWaLink(a){
         if(!a || !a.href) return false;
