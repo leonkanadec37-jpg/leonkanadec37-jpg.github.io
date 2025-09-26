@@ -36,9 +36,7 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
-    // GA4
     gtag('config', 'G-4H6HK8K9SJ');
-    // Google Ads (для конверсий)
     gtag('config', 'AW-16793974126');
   </script>
 
@@ -100,7 +98,6 @@
     .modal-actions{display:flex;gap:10px;flex-wrap:wrap}
     .close{position:absolute;top:12px;right:12px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 10px;cursor:pointer}
 
-    /* Mobile */
     @media(max-width:520px){
       .grid{grid-template-columns:repeat(2,1fr);gap:12px}
       .card img{height:170px;aspect-ratio:auto}
@@ -125,7 +122,6 @@
   <header>
     <div class="nav">
       <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
-      <!-- логотип: заменён на favicon.svg -->
       <a class="brand" href="index.html">
         <img src="favicon.svg" alt="Livi Jewelry logo">
         <span>LIVI JEWELRY</span>
@@ -199,6 +195,7 @@
 
     /* ===== PRODUCTS ===== */
     const PRODUCTS = [
+      /* --- существующие товары (оставил как было) --- */
       {id:'p01', img:'assets/Колье 20.000 тг.JPG', cat:'Necklaces',
         title:{ru:'Колье «Мини»',kk:'«Мини» алқа',en:'Necklace “Mini”'},
         price:'20 000 тг',
@@ -310,7 +307,73 @@
       {id:'p30', img:'assets/Чокеры из натурального жемчуга 20.000 тг Серьги 10.000 тг.jpg', cat:'Sets',
         title:{ru:'Чокеры из натурального жемчуга + серьги',kk:'Табиғи інжу чокерлері + сырға',en:'Natural Pearl Chokers + Earrings'},
         price:'Чокер 20 000 тг · Серьги 10 000 тг',
-        desc:{ru:'Набор чокеров.', kk:'Чокер жиыны.', en:'Set of chokers.'}}
+        desc:{ru:'Набор чокеров.', kk:'Чокер жиыны.', en:'Set of chokers.'}},
+
+      /* --- НОВЫЕ 16 ФАЙЛОВ --- */
+      {id:'p101', img:'assets/Колье Гематитовая пыль 23.000. тг.jpeg', cat:'Necklaces',
+        title:{ru:'Колье «Гематитовая пыль»', kk:'«Гематит ұнтағы» алқа', en:'Necklace “Hematite Dust”'},
+        price:'23 000 тг',
+        desc:{ru:'Гематит и сталь с мерцающим блеском.', kk:'Гематит пен болаттың жарқылы.', en:'Hematite and steel with shimmering shine.'}},
+      {id:'p102', img:'assets/Колье из аква-кварца, жемчуга и горного хрусталя и гематита. 30.000 тг.jpeg', cat:'Necklaces',
+        title:{ru:'Колье: аква-кварц, жемчуг, хрусталь, гематит', kk:'Аква-кварц, інжу, хрусталь, гематит алқасы', en:'Necklace: aqua-quartz, pearls, crystal, hematite'},
+        price:'30 000 тг',
+        desc:{ru:'Светлая смесь фактур и минералов.', kk:'Минералдар мен фактураның үйлесімі.', en:'Airy mix of textures and minerals.'}},
+      {id:'p103', img:'assets/Колье из разных форм и цветов жемчуга 50.000 тг.jpeg', cat:'Necklaces',
+        title:{ru:'Колье из жемчуга разной формы и цвета', kk:'Әртүрлі пішін/түсті інжу алқасы', en:'Mixed Shapes & Colors Pearl Necklace'},
+        price:'50 000 тг',
+        desc:{ru:'Разноформатные жемчужины — живой ритм.', kk:'Әртүрлі інжулер — динамикалық ырғақ.', en:'Varied pearls for a lively rhythm.'}},
+      {id:'p104', img:'assets/Комплект двойной чокер трансформер 25.000 тг + серьги этно 12.000 тг.jpeg', cat:'Sets',
+        title:{ru:'Комплект: двойной чокер-трансформер + серьги этно', kk:'Жиын: қос чокер-трансформер + этно сырға', en:'Set: Double Transformer Choker + Ethno Earrings'},
+        price:'Чокер 25 000 тг · Серьги 12 000 тг',
+        desc:{ru:'Трансформируемая сборка, этнические акценты.', kk:'Түрленетін жинақ, этно акценттер.', en:'Convertible styling with ethnic accents.'}},
+      {id:'p105', img:'assets/Комплект Колье Барокко 30.000 тг + серьги 10.000 тг.jpeg', cat:'Sets',
+        title:{ru:'Комплект: колье «Барокко» + серьги', kk:'Жиын: «Барокко» алқа + сырға', en:'Set: Baroque Necklace + Earrings'},
+        price:'Колье 30 000 тг · Серьги 10 000 тг',
+        desc:{ru:'Барочные формы с мягким блеском.', kk:'Барокко пішіндері, жұмсақ жарқыл.', en:'Baroque shapes with gentle shine.'}},
+      {id:'p106', img:'assets/Комплект колье жемчуг + серьги этно 30.000.jpeg', cat:'Sets',
+        title:{ru:'Комплект: колье жемчуг + серьги этно', kk:'Жиын: інжу алқа + этно сырға', en:'Set: Pearl Necklace + Ethno Earrings'},
+        price:'Комплект 30 000 тг',
+        desc:{ru:'Базовый перламутровый сет.', kk:'Негізгі інжу жиыны.', en:'Essential pearl set.'}},
+      {id:'p107', img:'assets/Комплект Колье из розового жемчуга 36.000 тг + серьги 12.000 тг.jpeg', cat:'Sets',
+        title:{ru:'Комплект: колье из розового жемчуга + серьги', kk:'Жиын: қызғылт інжу алқа + сырға', en:'Set: Pink Pearl Necklace + Earrings'},
+        price:'Колье 36 000 тг · Серьги 12 000 тг',
+        desc:{ru:'Нежные розовые оттенки.', kk:'Жұмсақ қызғылт реңктер.', en:'Soft pink tones.'}},
+      {id:'p108', img:'assets/Комплект Колье из Розового жемчуга Майорка 30.000 + тг. Серьги 10.000 тг.jpeg', cat:'Sets',
+        title:{ru:'Комплект: колье «Майорка» (розовый) + серьги', kk:'Жиын: «Майорка» қызғылт алқа + сырға', en:'Set: Pink “Mallorca” Necklace + Earrings'},
+        price:'Колье 30 000 тг · Серьги 10 000 тг',
+        desc:{ru:'Майорка и мягкое золото в деталях.', kk:'Майорка және жұмсақ алтын екпіндері.', en:'Mallorca pearls with warm accents.'}},
+      {id:'p109', img:'assets/Комплект Колье трансформер 23.000 + серьги 10.000.jpeg', cat:'Sets',
+        title:{ru:'Комплект: колье-трансформер + серьги', kk:'Жиын: трансформер алқа + сырға', en:'Set: Transformer Necklace + Earrings'},
+        price:'Колье 23 000 тг · Серьги 10 000 тг',
+        desc:{ru:'Многообразие посадки и сочетаний.', kk:'Түрлі кию нұсқалары.', en:'Versatile wearing options.'}},
+      {id:'p110', img:'assets/Комплект Сотуар галстук из жемчуга и горного хрусталя 18.000 тг.jpeg', cat:'Sets',
+        title:{ru:'Комплект: сотуар-галстук (жемчуг, хрусталь)', kk:'Жиын: сотуар-галстук (інжу, хрусталь)', en:'Set: Lariat Tie (pearls & crystal)'},
+        price:'Сотуар 18 000 тг',
+        desc:{ru:'Акцентная подвеска-галстук.', kk:'Галстук-сотуар акценті.', en:'Statement lariat tie.'}},
+      {id:'p111', img:'assets/Комплект Чокер Барокко 23.000 тг. + Серьги 8.500 тг.jpeg', cat:'Sets',
+        title:{ru:'Комплект: чокер «Барокко» + серьги', kk:'Жиын: «Барокко» чокер + сырға', en:'Set: Baroque Choker + Earrings'},
+        price:'Чокер 23 000 тг · Серьги 8 500 тг',
+        desc:{ru:'Фактурные элементы и барочный шарм.', kk:'Фактуралы элементтер, барокко мәнері.', en:'Textured elements with baroque charm.'}},
+      {id:'p112', img:'assets/Комплект чокер из гематита и жемчуга 15.000 тг + серьги 10.000.jpeg', cat:'Sets',
+        title:{ru:'Комплект: чокер из гематита и жемчуга + серьги', kk:'Жиын: гематит пен інжу чокері + сырға', en:'Set: Hematite & Pearl Choker + Earrings'},
+        price:'Чокер 15 000 тг · Серьги 10 000 тг',
+        desc:{ru:'Сдержанный металл и перламутр.', kk:'Металл мен інжу үйлесімі.', en:'Cool metal meets pearl sheen.'}},
+      {id:'p113', img:'assets/Комплект Этно стиль 18.000 тг , Серьги 12.000 тг.jpeg', cat:'Sets',
+        title:{ru:'Комплект: Этно-стиль — чокер + серьги', kk:'Жиын: Этно стиль — чокер + сырға', en:'Set: Ethno Style — Choker + Earrings'},
+        price:'Чокер 18 000 тг · Серьги 12 000 тг',
+        desc:{ru:'Этнические мотивы в современном чтении.', kk:'Қазіргі этно мотивтер.', en:'Ethno motifs with a modern twist.'}},
+      {id:'p114', img:'assets/Чокер из Аквамарина и жемчуга 15.000 тг.jpeg', cat:'Necklaces',
+        title:{ru:'Чокер из аквамарина и жемчуга', kk:'Аквамарин мен інжу чокері', en:'Aquamarine & Pearl Choker'},
+        price:'15 000 тг',
+        desc:{ru:'Холодная свежесть аквамарина.', kk:'Аквамариннің салқын сергістігі.', en:'Cool freshness of aquamarine.'}},
+      {id:'p115', img:'assets/Чокер из горного хрусталя и жемчуга 18.000 тг.jpeg', cat:'Necklaces',
+        title:{ru:'Чокер из горного хрусталя и жемчуга', kk:'Тау хрусталі мен інжу чокері', en:'Rock Crystal & Pearl Choker'},
+        price:'18 000 тг',
+        desc:{ru:'Прозрачные грани и перламутр.', kk:'Мөлдір қырлар мен інжу.', en:'Clear facets and nacre.'}},
+      {id:'p116', img:'assets/Чокер Лунный камень с жемчугом 18.000 тг.jpeg', cat:'Necklaces',
+        title:{ru:'Чокер «Лунный камень» с жемчугом', kk:'«Ай тасы» інжу чокері', en:'Moonstone & Pearl Choker'},
+        price:'18 000 тг',
+        desc:{ru:'Иридесцентный лунный камень и жемчуг.', kk:'Ай тасының иридесценциясы мен інжу.', en:'Iridescent moonstone with pearls.'}}
     ];
 
     const KEY='livi_cart_v2';
