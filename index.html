@@ -173,7 +173,6 @@
       <!-- Логотип бренда (inline SVG, не фавикон) -->
       <a class="brand" href="index.html" aria-label="Livi Jewelry — на главную">
         <svg viewBox="0 0 256 64" role="img" aria-label="LIVI">
-          <!-- простой контрастный знак без внешних шрифтов -->
           <rect x="0" y="8" width="40" height="48" rx="8" fill="#111"/>
           <rect x="72" y="8" width="40" height="48" rx="8" fill="#111"/>
           <rect x="144" y="8" width="40" height="48" rx="8" fill="#111"/>
@@ -193,7 +192,6 @@
       <a class="btn" href="shop.html" data-i18n="hero.cta">Перейти в каталог</a>
     </div>
     <div class="hero-visual">
-      <!-- фото из товара "Колье из жемчуга 60 000 тг" -->
       <img src="assets/Колье из жемчуга 60.000 тг.JPG" alt="Украшения из жемчуга и натуральных камней — Livi Jewelry">
     </div>
   </section>
@@ -277,19 +275,19 @@
       });
     }
 
-    // Featured
+    // Featured: обновлено на новые товары
     const FEATURED = [
-      {img:'assets/Колье из жемчуга 65.000 тг.jpg', title:'Колье из жемчуга', price:'65 000 тг'},
-      {img:'assets/Колье из жемчуга 70.000 тг.jpg', title:'Колье из жемчуга', price:'70 000 тг'},
-      {img:'assets/Цепь Родированная 23.000 тг Браслет 15.000 тг.jpg', title:'Комплект: Цепь + Браслет', price:'Цепь 23 000 тг · Браслет 15 000 тг'},
-      {img:'assets/Чокер из натурального жемчуга 22.000 тг.jpg', title:'Чокер из натурального жемчуга', price:'22 000 тг'}
+      {img:'assets/Колье Гематитовая пыль 23.000. тг.jpeg', title:'Колье «Гематитовая пыль»', price:'23 000 тг'},
+      {img:'assets/Чокер Лунный камень с жемчугом 18.000 тг.jpeg', title:'Чокер «Лунный камень» с жемчугом', price:'18 000 тг'},
+      {img:'assets/Комплект Колье Барокко 30.000 тг + серьги 10.000 тг.jpeg', title:'Комплект: колье «Барокко» + серьги', price:'40 000 тг'},
+      {img:'assets/Комплект Сотуар галстук из жемчуга и горного хрусталя 18.000 тг.jpeg', title:'Комплект: сотуар-галстук (жемчуг, хрусталь)', price:'18 000 тг'}
     ];
     (function renderFeat(){
       const grid=document.getElementById('featGrid');
       FEATURED.forEach(p=>{
         const altBase = 'украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, кулоны, кольца';
         const c=document.createElement('article'); c.className='card';
-        c.innerHTML=`<img src="${p.img}" alt="${p.title} — ${altBase}" loading="lazy"><div class="body"><div class="title">${p.title}</div><div class="muted">${p.price}</div></div>`;
+        c.innerHTML=`<img src="${p.img}" alt="${p.title} — ${altBase}" loading="lazy" decoding="async"><div class="body"><div class="title">${p.title}</div><div class="muted">${p.price}</div></div>`;
         c.onclick=()=>location.href='shop.html'; grid.appendChild(c);
       });
     })();
