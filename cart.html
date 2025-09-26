@@ -156,7 +156,7 @@
     })();
 
     function read(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []} }
-    function write(v){ localStorage.setItem(KEY, JSON.stringify(v)); render(); }
+    function write(v){ localStorage.setItem(KEY, JSON.stringify(v)); render(); updateBadge(); }
 
     function updateBadge(){
       const count = read().reduce((s,i)=>s+Number(i.qty||0),0);
@@ -183,38 +183,38 @@
 
         const row=document.createElement('div'); row.className='item';
         row.innerHTML = `
-          <div class="thumb"><img src="\${i.img}" alt="" onerror="this.onerror=null;this.src='assets/placeholder.jpg'"></div>
-          <div><div class="title">\${i.title||''}</div><div class="muted">\${i.price||''}</div></div>
+          <div class="thumb"><img src="${i.img}" alt="" onerror="this.onerror=null;this.src='assets/placeholder.jpg'"></div>
+          <div><div class="title">${i.title||''}</div><div class="muted">${i.price||''}</div></div>
           <div class="qty">
             <button class="btn" aria-label="minus">−</button>
-            <span>\${i.qty}</span>
+            <span>${i.qty}</span>
             <button class="btn" aria-label="plus">+</button>
           </div>
-          <button class="btn" aria-label="remove">\${tr('remove')}</button>
+          <button class="btn" aria-label="remove">${tr('remove')}</button>
         `;
-        const [minusBtn, qtyEl, plusBtn] = row.querySelectorAll('.qty .btn, .qty span');
-        minusBtn.onclick=()=>{ const c=read(); if(c[idx].qty>1)c[idx].qty--; else c.splice(idx,1); write(c); updateBadge(); };
-        plusBtn.onclick =()=>{ const c=read(); c[idx].qty++; write(c); updateBadge(); };
-        row.querySelector('[aria-label="remove"]').onclick=()=>{ const c=read(); c.splice(idx,1); write(c); updateBadge(); };
+        const [minusBtn, , plusBtn] = row.querySelectorAll('.qty .btn, .qty span');
+        minusBtn.onclick=()=>{ const c=read(); if(c[idx].qty>1)c[idx].qty--; else c.splice(idx,1); write(c); };
+        plusBtn.onclick =()=>{ const c=read(); c[idx].qty++; write(c); };
+        row.querySelector('[aria-label="remove"]').onclick=()=>{ const c=read(); c.splice(idx,1); write(c); };
         list.appendChild(row);
       });
 
       const totalEl=document.createElement('div'); totalEl.className='total';
-      totalEl.innerHTML = `<div>\${tr('total')}</div><div>\${total.toLocaleString('ru-RU')} тг</div>`;
+      totalEl.innerHTML = `<div>${tr('total')}</div><div>${total.toLocaleString('ru-RU')} тг</div>`;
 
       const actions=document.createElement('div'); actions.className='actions';
       actions.innerHTML = `
-        <button class="btn" id="clear">\${tr('clear')}</button>
-        <a class="btn btn--primary" id="wa" target="_blank" rel="noopener">\${tr('checkout')}</a>
+        <button class="btn" id="clear">${tr('clear')}</button>
+        <a class="btn btn--primary" id="wa" target="_blank" rel="noopener">${tr('checkout')}</a>
       `;
 
       root.innerHTML=''; root.appendChild(list); root.appendChild(totalEl); root.appendChild(actions);
 
-      document.getElementById('clear').onclick=()=>{ write([]); updateBadge(); };
+      document.getElementById('clear').onclick=()=>{ write([]); };
 
       const text = encodeURIComponent(
         (lang()==='en'?'Hello! I want to place an order:\n\n':lang()==='kk'?'Сәлем! Тапсырыс бергім келеді:\n\n':'Здравствуйте! Хочу оформить заказ:\n\n')
-        + cart.map(i=>`• \${i.title} — \${i.price} × \${i.qty}`).join('\n'));
+        + cart.map(i=>`• ${i.title} — ${i.price} × ${i.qty}`).join('\n'));
       document.getElementById('wa').href = 'https://wa.me/77054510584?text='+text;
 
       updateBadge(); applyLang();
