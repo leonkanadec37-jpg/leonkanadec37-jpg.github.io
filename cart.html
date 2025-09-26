@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title data-i18n="meta.title">Livi Jewelry — Корзина</title>
 
+  <!-- SEO: закрыть корзину от индексации и зафиксировать канонический URL -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <link rel="canonical" href="https://livijewelry.kz/cart.html">
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +22,7 @@
   <meta name="theme-color" content="#111111">
   <meta name="msapplication-TileColor" content="#111111">
 
-  <!-- Google tag (gtag.js): GA4 + Google Ads -->
+  <!-- Google tag (gtag.js): GA4 + Google Ads (НЕ ТРОГАЛ) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -179,14 +183,14 @@
 
         const row=document.createElement('div'); row.className='item';
         row.innerHTML = `
-          <div class="thumb"><img src="${i.img}" alt="" onerror="this.onerror=null;this.src='assets/placeholder.jpg'"></div>
-          <div><div class="title">${i.title||''}</div><div class="muted">${i.price||''}</div></div>
+          <div class="thumb"><img src="\${i.img}" alt="" onerror="this.onerror=null;this.src='assets/placeholder.jpg'"></div>
+          <div><div class="title">\${i.title||''}</div><div class="muted">\${i.price||''}</div></div>
           <div class="qty">
             <button class="btn" aria-label="minus">−</button>
-            <span>${i.qty}</span>
+            <span>\${i.qty}</span>
             <button class="btn" aria-label="plus">+</button>
           </div>
-          <button class="btn" aria-label="remove">${tr('remove')}</button>
+          <button class="btn" aria-label="remove">\${tr('remove')}</button>
         `;
         const [minusBtn, qtyEl, plusBtn] = row.querySelectorAll('.qty .btn, .qty span');
         minusBtn.onclick=()=>{ const c=read(); if(c[idx].qty>1)c[idx].qty--; else c.splice(idx,1); write(c); updateBadge(); };
@@ -196,12 +200,12 @@
       });
 
       const totalEl=document.createElement('div'); totalEl.className='total';
-      totalEl.innerHTML = `<div>${tr('total')}</div><div>${total.toLocaleString('ru-RU')} тг</div>`;
+      totalEl.innerHTML = `<div>\${tr('total')}</div><div>\${total.toLocaleString('ru-RU')} тг</div>`;
 
       const actions=document.createElement('div'); actions.className='actions';
       actions.innerHTML = `
-        <button class="btn" id="clear">${tr('clear')}</button>
-        <a class="btn btn--primary" id="wa" target="_blank" rel="noopener">${tr('checkout')}</a>
+        <button class="btn" id="clear">\${tr('clear')}</button>
+        <a class="btn btn--primary" id="wa" target="_blank" rel="noopener">\${tr('checkout')}</a>
       `;
 
       root.innerHTML=''; root.appendChild(list); root.appendChild(totalEl); root.appendChild(actions);
@@ -210,7 +214,7 @@
 
       const text = encodeURIComponent(
         (lang()==='en'?'Hello! I want to place an order:\n\n':lang()==='kk'?'Сәлем! Тапсырыс бергім келеді:\n\n':'Здравствуйте! Хочу оформить заказ:\n\n')
-        + cart.map(i=>`• ${i.title} — ${i.price} × ${i.qty}`).join('\n'));
+        + cart.map(i=>`• \${i.title} — \${i.price} × \${i.qty}`).join('\n'));
       document.getElementById('wa').href = 'https://wa.me/77054510584?text='+text;
 
       updateBadge(); applyLang();
@@ -218,7 +222,7 @@
 
     applyLang(); render(); updateBadge();
 
-    /* ===== Конверсия WhatsApp без inline onclick ===== */
+    /* ===== Конверсия WhatsApp без inline onclick (НЕ ТРОГАЛ) ===== */
     (function(){
       function isWaLink(a){
         if(!a || !a.href) return false;
