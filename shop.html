@@ -45,7 +45,6 @@
     *{box-sizing:border-box;margin:0;padding:0}
     body{font:16px/1.6 "Montserrat",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#fff;color:var(--fg)}
     a{text-decoration:none;color:inherit}
-
     header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.95);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
     .nav{max-width:var(--max);margin:0 auto;padding:12px 16px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px}
     .hamburger{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:#fff;display:inline-grid;place-items:center;cursor:pointer}
@@ -190,257 +189,30 @@
       [ruBtn,kkBtn,enBtn].forEach(b=>b.classList.remove('active')); (lang()==='kk'?kkBtn:lang()==='en'?enBtn:ruBtn).classList.add('active');
     }
 
-    /* ===== СТАРЫЕ ТОВАРЫ (оставлены как есть) ===== */
-    const LEGACY_PRODUCTS = [
-      {id:'p01', img:'assets/Колье 20.000 тг.JPG', cat:'Necklaces',
-        title:{ru:'Колье «Мини»',kk:'«Мини» алқа',en:'Necklace “Mini”'},
-        price:'20 000 тг',
-        desc:{ru:'Минималистичное колье ручной работы.', kk:'Минималистік қолдан жасалған алқа.', en:'Minimalist handcrafted necklace.'}},
-      {id:'p02', img:'assets/Колье 40.000 тг Серьги 10.000 тг.jpg', cat:'Sets',
-        title:{ru:'Комплект: Колье + Серьги',kk:'Жиын: Алқа + Сырға',en:'Set: Necklace + Earrings'},
-        price:'Колье 40 000 тг · Серьги 10 000 тг',
-        desc:{ru:'Собран вручную. Серьги приобретаются отдельно.', kk:'Қолмен жиналған. Сырғалар бөлек сатылады.', en:'Hand-assembled. Earrings sold separately.'}},
-      {id:'p03', img:'assets/Колье 40.000 тг.jpg', cat:'Necklaces',
-        title:{ru:'Колье «Классик»',kk:'«Классик» алқа',en:'Necklace “Classic”'},
-        price:'40 000 тг',
-        desc:{ru:'Классический силуэт с акцентной подвеской.', kk:'Классикалық силуэт, акцент кулон.', en:'Classic silhouette with an accent pendant.'}},
-      {id:'p04', img:'assets/Колье из гематита 20.000 тг.jpg', cat:'Necklaces',
-        title:{ru:'Колье из гематита',kk:'Гематит алқасы',en:'Hematite Necklace'},
-        price:'20 000 тг',
-        desc:{ru:'Сталь и гематит — ровный блеск и универсальность.', kk:'Болат пен гематит — жинақы жылтыр.', en:'Steel and hematite for a subtle sheen.'}},
-      {id:'p05', img:'assets/Колье из жемчуга 60.000 тг.JPG', cat:'Necklaces',
-        title:{ru:'Колье из жемчуга',kk:'Інжу алқа',en:'Pearl Necklace'},
-        price:'60 000 тг',
-        desc:{ru:'Натуральный жемчуг и фурнитура люкс-класса.', kk:'Табиғи інжу, сапалы фурнитура.', en:'Natural pearls with premium hardware.'}},
-      {id:'p06', img:'assets/Колье из жемчуга 65.000 тг.jpg', cat:'Necklaces',
-        title:{ru:'Колье из жемчуга',kk:'Інжу алқа',en:'Pearl Necklace'},
-        price:'65 000 тг',
-        desc:{ru:'Элегантная классика с лёгким барочным характером.', kk:'Элегант классика, барокко ноталарымен.', en:'Elegant classic with a baroque touch.'}},
-      {id:'p07', img:'assets/Колье из жемчуга 70.000 тг.jpg', cat:'Necklaces',
-        title:{ru:'Колье из жемчуга',kk:'Інжу алқа',en:'Pearl Necklace'},
-        price:'70 000 тг',
-        desc:{ru:'Выразительные жемчужины и стойкая фурнитура.', kk:'Айқын інжулер, берік фурнитура.', en:'Striking pearls with durable hardware.'}},
-      {id:'p08', img:'assets/Колье из жемчуга Майорка 28.000 тг.jpg', cat:'Necklaces',
-        title:{ru:'Колье «Майорка»',kk:'«Майорка» алқа',en:'“Mallorca” Pearl Necklace'},
-        price:'28 000 тг',
-        desc:{ru:'Мягкий блеск и аккуратные пропорции.', kk:'Жұмсақ жылтыр және ұқыпты пропорциялар.', en:'Soft lustre and balanced proportions.'}},
-      {id:'p09', img:'assets/Колье из жемчуга Майорка 32.000 тг.jpg', cat:'Necklaces',
-        title:{ru:'Колье «Майорка»',kk:'«Майорка» алқа',en:'“Mallorca” Pearl Necklace'},
-        price:'32 000 тг',
-        desc:{ru:'Тёплые золотистые акценты.', kk:'Алтын түсті акценттер.', en:'Warm golden accents.'}},
-      {id:'p10', img:'assets/Колье из натуральных камней 20.000 тг.jpg', cat:'Necklaces',
-        title:{ru:'Колье из натуральных камней',kk:'Табиғи тастар алқасы',en:'Natural Stone Necklace'},
-        price:'20 000 тг',
-        desc:{ru:'Тактильная фактура и природные оттенки.', kk:'Табиғи реңктер, тактильді фактура.', en:'Tactile texture in natural tones.'}},
-      {id:'p11', img:'assets/Колье из натуральных камней 23.000 тг Браслет 8.500 тг Серьги 8.500 тг.jpg', cat:'Necklaces',
-        title:{ru:'Колье из натуральных камней',kk:'Табиғи тастар алқасы',en:'Natural Stone Necklace'},
-        price:'23 000 тг (браслет 8 500, серьги 8 500 отдельно)',
-        desc:{ru:'Природная палитра. Браслет и серьги отдельно.', kk:'Табиғи палитра. Білезік пен сырға бөлек.', en:'Earthy palette. Bracelet & earrings sold separately.'}},
-      {id:'p12', img:'assets/Колье из натуральных камней 40.000 тг.jpg', cat:'Necklaces',
-        title:{ru:'Колье из натуральных камней',kk:'Табиғи тастар алқасы',en:'Natural Stone Necklace'},
-        price:'40 000 тг',
-        desc:{ru:'Насыщенные оттенки и гладкая посадка.', kk:'Қанық реңктер, ыңғайлы отырыс.', en:'Rich hues with a smooth fit.'}},
-      {id:'p13', img:'assets/Колье из ракушки 14.000 тг.jpg', cat:'Necklaces',
-        title:{ru:'Колье из ракушки',kk:'Қабықтан алқа',en:'Shell Necklace'},
-        price:'14 000 тг',
-        desc:{ru:'Лёгкие формы и летнее настроение.', kk:'Жеңіл пішін, жазғы көңіл-күй.', en:'Light shapes with a summer vibe.'}},
-      {id:'p15', img:'assets/Колье трансформер 40.000 тг.jpg', cat:'Necklaces',
-        title:{ru:'Колье-трансформер',kk:'Трансформер алқа',en:'Transformer Necklace'},
-        price:'40 000 тг',
-        desc:{ru:'Несколько способов ношения.', kk:'Киюдің бірнеше тәсілі.', en:'Multiple ways to wear.'}},
-      {id:'p17', img:'assets/Многослойные браслеты 15.000 тг.jpg', cat:'Bracelets',
-        title:{ru:'Многослойные браслеты',kk:'Қабат-қабат білезіктер',en:'Layered Bracelets'},
-        price:'15 000 тг',
-        desc:{ru:'Сеты, которые легко миксовать.', kk:'Еркін үйлестірілетін сеттер.', en:'Easy-to-mix bracelet sets.'}},
-      {id:'p18', img:'assets/Сотуар галстук 27.000 тг Серьги 12.000 тг.jpg', cat:'Lariats',
-        title:{ru:'Сотуар-галстук + серьги',kk:'Сотуар-галстук + сырға',en:'Lariat Tie + Earrings'},
-        price:'Сотуар 27 000 тг · Серьги 12 000 тг',
-        desc:{ru:'Можно по отдельности.', kk:'Бөлек алуға болады.', en:'Available separately.'}},
-      {id:'p19', img:'assets/Сотуар трансформер 20.000 тг Серьги 10.000 тг.jpg', cat:'Lariats',
-        title:{ru:'Сотуар-трансформер + серьги',kk:'Сотуар-трансформер + сырға',en:'Transformer Lariat + Earrings'},
-        price:'Сотуар 20 000 тг · Серьги 10 000 тг',
-        desc:{ru:'Легко стилизовать под образ.', kk:'Образға сай бейімдеңіз.', en:'Style it to your look.'}},
-      {id:'p20', img:'assets/Цепь 15.000 тг.jpg', cat:'Chains',
-        title:{ru:'Цепь',kk:'Тізбек',en:'Chain'},
-        price:'15 000 тг',
-        desc:{ru:'Минимализм на каждый день.', kk:'Күнделікті минимализм.', en:'Everyday minimalism.'}},
-      {id:'p21', img:'assets/Цепь Родированная 23.000 тг Браслет 15.000 тг.jpg', cat:'Sets',
-        title:{ru:'Комплект: Цепь + Браслет (родий)',kk:'Жиын: Тізбек + Білезік (родий)',en:'Set: Chain + Bracelet (rhodium)'},
-        price:'Цепь 23 000 тг · Браслет 15 000 тг',
-        desc:{ru:'Родированная сталь и барочная жемчужина.', kk:'Родийленген болат, барокко інжу.', en:'Rhodium steel with a baroque pearl.'}},
-      {id:'p22', img:'assets/Цепь с барочной жемчужиной в позолоте 23.000 тг Браслет 15.000 тг.JPG', cat:'Sets',
-        title:{ru:'Комплект: Цепь + Браслет (позолота)',kk:'Жиын: Тізбек + Білезік (алтын жалату)',en:'Set: Chain + Bracelet (gold tone)'},
-        price:'Цепь 23 000 тг · Браслет 15 000 тг',
-        desc:{ru:'Позолоченная сталь и барочная жемчужина.', kk:'Алтын жалатылған болат, барокко інжу.', en:'Gold-tone steel with warm accents.'}},
-      {id:'p23', img:'assets/Чокер в этно стиле из ювелирного стекла и жемчуга 14.000 тг.jpg', cat:'Necklaces',
-        title:{ru:'Чокер в этно-стиле',kk:'Этно-стиль чокер',en:'Ethno-Style Choker'},
-        price:'14 000 тг',
-        desc:{ru:'Ювелирное стекло и жемчуг.', kk:'Зергерлік әйнек пен інжу.', en:'Jewellery glass and pearls.'}},
-      {id:'p24', img:'assets/Чокер из голубого жемчуга 20.000 тг Серьги 14.000 тг.jpg', cat:'Sets',
-        title:{ru:'Чокер из голубого жемчуга + серьги',kk:'Көк інжу чокер + сырға',en:'Blue Pearl Choker + Earrings'},
-        price:'Чокер 20 000 тг · Серьги 14 000 тг',
-        desc:{ru:'Можно отдельно.', kk:'Бөлек алынады.', en:'Available separately.'}},
-      {id:'p25', img:'assets/Чокер из голубого жемчуга 20.000 тг.jpg', cat:'Necklaces',
-        title:{ru:'Чокер из голубого жемчуга',kk:'Көк інжу чокер',en:'Blue Pearl Choker'},
-        price:'20 000 тг',
-        desc:{ru:'Аккуратный и универсальный.', kk:'Ұқыпты әрі әмбебап.', en:'Neat and versatile.'}},
-      {id:'p26', img:'assets/Чокер из натурального жемчуга 18.000 тг Серьги 12.000 тг.jpg', cat:'Sets',
-        title:{ru:'Чокер из натурального жемчуга + серьги',kk:'Табиғи інжу чокері + сырға',en:'Natural Pearl Choker + Earrings'},
-        price:'Чокер 18 000 тг · Серьги 12 000 тг',
-        desc:{ru:'Натуральный жемчуг.', kk:'Табиғи інжу.', en:'Natural pearls.'}},
-      {id:'p27', img:'assets/Чокер из натурального жемчуга 20.000 тг Серьги 15.000 тг.jpg', cat:'Sets',
-        title:{ru:'Чокер из натурального жемчуга + серьги',kk:'Табиғи інжу чокері + сырға',en:'Natural Pearl Choker + Earrings'},
-        price:'Чокер 20 000 тг · Серьги 15 000 тг',
-        desc:{ru:'Второй вариант комплекта.', kk:'Жиынның басқа нұсқасы.', en:'Another set option.'}},
-        {id:'p28', img:'assets/Чокер из натурального жемчуга 22.000 тг.jpg', cat:'Necklaces',
-        title:{ru:'Чокер из натурального жемчуга',kk:'Табиғи інжу чокері',en:'Natural Pearl Choker'},
-        price:'22 000 тг',
-        desc:{ru:'Классический силуэт.', kk:'Классикалық пішін.', en:'Classic silhouette.'}},
-      {id:'p29', img:'assets/Чокер из натурального жемчуга с добавлением барочных жемчужин 26.000 тг Серьги 12.000 тг.jpg', cat:'Sets',
-        title:{ru:'Чокер с барочными жемчужинами + серьги',kk:'Барокко інжулерімен чокер + сырға',en:'Baroque Pearl Choker + Earrings'},
-        price:'Чокер 26 000 тг · Серьги 12 000 тг',
-        desc:{ru:'Жемчужины разного калибра.', kk:'Әртүрлі калибрдегі інжулер.', en:'Mixed sizes of pearls.'}},
-      {id:'p30', img:'assets/Чокеры из натурального жемчуга 20.000 тг Серьги 10.000 тг.jpg', cat:'Sets',
-        title:{ru:'Чокеры из натурального жемчуга + серьги',kk:'Табиғи інжу чокерлері + сырға',en:'Natural Pearl Chokers + Earrings'},
-        price:'Чокер 20 000 тг · Серьги 10 000 тг',
-        desc:{ru:'Набор чокеров.', kk:'Чокер жиыны.', en:'Set of chokers.'}}
+    /* ===== AUTOLOAD FROM ASSETS =====
+       Добавляй новые webp в /assets/ и просто дописывай имя в FILES.
+       Дополнительно: если создать /assets/manifest.json со списком имён, код его подхватит. */
+    const FILES = [
+      'Choker_iz_Akvamarina_i_zhemchuga_15000_tg.webp',
+      'Choker_iz_gornogo_khrustalya_i_zhemchuga_18000_tg.webp',
+      'Choker_Lunnyy_kamen_s_zhemchugom_18000_tg.webp',
+      'Chokery_s_zhemchugom_i_tsirkonami_20000_tg.webp',
+      'Kolye_Gematitovaya_pyl_23000_tg.webp',
+      'Kolye_iz_akva_kvartsa_zhemchuga_i_gornogo_khrustalya_i_gematita_30000_tg.webp',
+      'Kolye_iz_raznykh_form_i_tsvetov_zhemchuga_50000_tg.webp',
+      'Komplekt_Choker_Barokko_23000_tg_plus_Sergi_8500_tg.webp',
+      'Komplekt_choker_iz_gematita_i_zhemchuga_15000_tg_plus_sergi_10000.webp',
+      'Komplekt_dvoynoy_choker_transformer_25000_tg_plus_sergi_etno_12000_tg.webp',
+      'Komplekt_Etno_stil_18000_tg_Sergi_12000_tg.webp',
+      'Komplekt_Kolye_Barokko_30000_tg_plus_sergi_10000_tg.webp',
+      'Komplekt_Kolye_iz_rozovogo_zhemchuga_36000_tg_plus_sergi_12000_tg.webp',
+      'Komplekt_Kolye_iz_Rozovogo_zhemchuga_Mayorka_30000_plus_tg_Sergi_10000_tg.webp',
+      'Komplekt_kolye_zhemchug_plus_sergi_etno_30000.webp.webp'
+      /* новые добавляй сюда, пример: 'Choker_nazvanie_18000_tg.webp' */
     ];
 
-    /* ===== НОВЫЕ ФАЙЛЫ ИЗ /assets/ (только .webp) =====
-       Просто добавляй имена сюда по мере загрузки.
-       Русские имена допускаются. JPG/JPEG игнорируются. */
-    const NEW_FILES = [
-      // первая партия (10)
-      'assets/Choker_iz_Akvamarina_i_zhemchuga_15000_tg.webp',
-      'assets/Choker_iz_gornogo_khrustalya_i_zhemchuga_18000_tg.webp',
-      'assets/Choker_Lunnyy_kamen_s_zhemchugom_18000_tg.webp',
-      'assets/Chokery_s_zhemchugom_i_tsirkonami_20000_tg.webp',
-      'assets/Kolye_Gematitovaya_pyl_23000_tg.webp',
-      'assets/Kolye_iz_akva_kvartsa_zhemchuga_i_gornogo_khrustalya_i_gematita_30000_tg.webp',
-      'assets/Kolye_iz_raznykh_form_i_tsvetov_zhemchuga_50000_tg.webp',
-      'assets/Komplekt_Choker_Barokko_23000_tg_plus_Sergi_8500_tg.webp',
-      'assets/Komplekt_choker_iz_gematita_i_zhemchuga_15000_tg_plus_sergi_10000.webp',
-      'assets/Komplekt_dvoynoy_choker_transformer_25000_tg_plus_sergi_etno_12000_tg.webp',
-      // добавленные последние (используем только webp)
-      'assets/Komplekt_Etno_stil_18000_tg_Sergi_12000_tg.webp',
-      'assets/Komplekt_Kolye_Barokko_30000_tg_plus_sergi_10000_tg.webp',
-      'assets/Komplekt_Kolye_iz_rozovogo_zhemchuga_36000_tg_plus_sergi_12000_tg.webp',
-      'assets/Komplekt_Kolye_iz_Rozovogo_zhemchuga_Mayorka_30000_plus_tg_Sergi_10000_tg.webp',
-      'assets/Komplekt_kolye_zhemchug_plus_sergi_etno_30000.webp.webp'
-      // Примечание: .jpg/.jpeg специально не добавляем
-    ].filter(f => /\.webp$/i.test(f));
-
-    /* ===== Парсинг имени файла → категория/цена/название ===== */
-    function detectCatFromName(name){
-      const n = name.toLowerCase();
-      if(n.includes('komplekt') || n.includes('комплект')) return 'Sets';
-      if(n.includes('choker') || n.includes('чокер')) return 'Necklaces';
-      if(n.includes('kolye')  || n.includes('колье'))  return 'Necklaces';
-      if(n.includes('bracelet')||n.includes('браслет'))return 'Bracelets';
-      if(n.includes('sotuar') || n.includes('сотуар') || n.includes('galstuk') || n.includes('галстук')) return 'Lariats';
-      if(n.includes('chain') || n.includes('цеп')) return 'Chains';
-      return 'Necklaces';
-    }
-    function extractNumbersKZT(name){
-      const nums = Array.from(String(name).matchAll(/(\d[\d\s.]*)\s*(?:tg|тг)?/gi))
-                        .map(m => parseInt(m[1].replace(/[^\d]/g,''),10))
-                        .filter(x => Number.isFinite(x) && x>0);
-      return nums;
-    }
-    function humanizeTitleFromName(name){
-      const base = name.replace(/^assets[\\/]/i,'').replace(/\.(webp)$/i,'');
-      const clean = base.replace(/[_-]+/g,' ')
-                        .replace(/\b(tg|тг)\b/gi,'')
-                        .replace(/\s+/g,' ')
-                        .trim();
-      // Нормализуем начальные слова
-      return clean
-        .replace(/\bchoker\b/i,'Чокер')
-        .replace(/\bkolye\b/i,'Колье')
-        .replace(/\bkomplekt\b/i,'Комплект')
-        .replace(/\bbarokko\b/i,'Барокко')
-        .replace(/\blunnyy\b/i,'Лунный')
-        .replace(/\bkhrustal(?:ya|)\b/i,'Хрусталь')
-        .replace(/\bakvamarin\b/i,'Аквамарин')
-        .replace(/\bzemchug[a]?\b/i,'Жемчуг')
-        .replace(/\bsergi\b/i,'Серьги')
-        .replace(/\betno\b/i,'Этно');
-    }
-    function priceStr(kzt){ return (kzt && Number.isFinite(kzt)) ? (kzt.toLocaleString('ru-RU') + ' тг') : ''; }
-
-    // ALT без бренда, с ключами
-    function generateAlt(item){
-      const cat = item.cat;
-      let catWord = 'украшения';
-      if(cat==='Necklaces') catWord = 'колье и чокеры';
-      else if(cat==='Bracelets') catWord = 'браслеты';
-      else if(cat==='Lariats') catWord = 'сотуары';
-      else if(cat==='Chains') catWord = 'цепи и кулоны';
-      else if(cat==='Sets') catWord = 'комплекты';
-      // Вариируем хвост, чтобы не дублировать дословно
-      const tails = [
-        'украшения, бижутерия, серьги, браслеты, колье',
-        'бижутерия, украшения, колье, браслеты, серьги',
-        'украшения, бижутерия, кольца, браслеты, колье'
-      ];
-      const tail = tails[Math.abs(hashCode(item.id)) % tails.length];
-      return `${item.title.ru} — ${catWord}: ${tail}`;
-    }
-    function hashCode(str){ let h=0; for(let i=0;i<str.length;i++){ h=((h<<5)-h)+str.charCodeAt(i); h|=0; } return h; }
-
-    function buildFromFiles(files){
-      const out = [];
-      let idx = 1000;
-      files.forEach(f=>{
-        const cat = detectCatFromName(f);
-        const nums = extractNumbersKZT(f);
-        const titleRu = humanizeTitleFromName(f);
-
-        // Комплекты: базовая цена + опция "серьги"
-        const isSet = (cat==='Sets');
-        if(isSet && nums.length>=2){
-          const base = nums[0];
-          const add  = nums[1];
-          const baseItem = {
-            id:'n'+(idx++),
-            img:f,
-            cat:'Sets',
-            title:{ru: titleRu.replace(/^Комплект\s*:?/i,'Комплект').trim()},
-            price: priceStr(base),
-            desc:{ru: 'Украшения, бижутерия: комплект. Возможна конфигурация с серьгами.'}
-          };
-          const withEarrings = {
-            id:'n'+(idx++),
-            img:f,
-            cat:'Sets',
-            title:{ru: titleRu.replace(/^Комплект\s*:?/i,'Комплект')+' + серьги'},
-            price: priceStr(base + add),
-            desc:{ru: 'Украшения, бижутерия: комплект с серьгами.'}
-          };
-          out.push(baseItem, withEarrings);
-        } else {
-          const priceKZT = nums[0]||0;
-          const item = {
-            id:'n'+(idx++),
-            img:f,
-            cat,
-            title:{ru: titleRu},
-            price: priceStr(priceKZT),
-            desc:{ru: 'Украшения, бижутерия: изделие ручной работы из жемчуга и камней.'}
-          };
-          out.push(item);
-        }
-      });
-      return out;
-    }
-
-    /* ===== Итоговый список товаров ===== */
-    const NEW_PRODUCTS = buildFromFiles(NEW_FILES);
-    const PRODUCTS = [...LEGACY_PRODUCTS, ...NEW_PRODUCTS];
-
-    const KEY='livi_cart_v2';
     const CATS = ['All','Necklaces','Sets','Bracelets','Lariats','Chains'];
-
+    const KEY='livi_cart_v2';
     const grid=document.getElementById('grid');
     const filters=document.getElementById('filters');
     let activeCat = localStorage.getItem('livi_active_cat') || 'All';
@@ -448,27 +220,230 @@
     function parseUnit(priceStr){ const m=String(priceStr||'').match(/([\d\s.,]+)\s*тг/i); if(!m) return 0; return parseInt(m[1].replace(/[^\d]/g,''),10)||0; }
     function readCart(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []} }
     function writeCart(v){ localStorage.setItem(KEY, JSON.stringify(v)); updateBadge(); }
+    function updateBadge(){ const count=readCart().reduce((s,i)=>s+Number(i.qty||0),0); const b=document.getElementById('cartBadge'); if(!b) return; b.style.display = count>0 ? 'inline-block':'none'; if(count>0) b.textContent=count; }
+    window.addEventListener('storage',e=>{ if(e.key===KEY) updateBadge(); });
+
+    function catFromName(name){
+      const n=name.toLowerCase();
+      if(n.startsWith('komplekt')) return 'Sets';
+      if(n.startsWith('kolye') || n.startsWith('choker') || n.startsWith('chokery')) return 'Necklaces';
+      if(n.startsWith('bracelet') || n.includes('braslet')) return 'Bracelets';
+      if(n.startsWith('sotuar') || n.includes('galstuk')) return 'Lariats';
+      if(n.startsWith('chain') || n.includes('cep')) return 'Chains';
+      return 'Necklaces';
+    }
+    function humanizeTitle(name){
+      // убираем расширение и цены
+      let base = name.replace(/\.[a-z0-9]+$/i,'');
+      base = base.replace(/[_-]?\d[\d\s.,]*\s*tg/ig,'');
+      base = base.replace(/[_-]?(plus|плюс)[^_-\s]*/ig,'');
+      base = base.replace(/[_-]+/g,' ').trim();
+      // первая буква заглавная, сохраняем ключевые слова
+      return base
+        .replace(/\s+/g,' ')
+        .replace(/\b([a-zа-яё])([a-zа-яё]*)/gi,(m,a,b)=>a.toUpperCase()+b.toLowerCase());
+    }
+    function extractPrices(name){
+      // находим все числа до/рядом с "tg"
+      const nums = [...name.matchAll(/(\d[\d\s.,]*)\s*тг/ig)].map(m=>parseInt(m[1].replace(/[^\d]/g,''),10)).filter(Boolean);
+      if(nums.length===0){
+        // поддержим формат без "тг": ...--18000.webp
+        const m = name.match(/(\d[\d\s.,]*)\D*$/); 
+        return {base: m ? parseInt(m[1].replace(/[^\d]/g,''),10) : 0, extra: 0};
+      }
+      // эвристика: base — первое число; если есть второе — это опция «серьги»
+      return {base: nums[0]||0, extra: nums[1]||0};
+    }
+    function altByCat(cat, title){
+      switch(cat){
+        case 'Necklaces': return `${title} — украшения, бижутерия, колье, чокеры`;
+        case 'Sets':      return `${title} — украшения, бижутерия, комплекты, серьги`;
+        case 'Bracelets': return `${title} — украшения, бижутерия, браслеты`;
+        case 'Lariats':   return `${title} — украшения, бижутерия, сотуары, подвески`;
+        case 'Chains':    return `${title} — украшения, бижутерия, цепи, кулоны`;
+        default:          return `${title} — украшения, бижутерия`;
+      }
+    }
+
+    function makeProductObjects(files){
+      const list=[];
+      files.forEach(raw=>{
+        const name = raw.trim();
+        if(!name) return;
+        // работаем только с .webp
+        if(!/\.webp$/i.test(name)) return;
+        const cat = catFromName(name);
+        const {base, extra} = extractPrices(name);
+        const title = humanizeTitle(name)
+          .replace(/^Choker/i,'Чокер')
+          .replace(/^Chokery/i,'Чокеры')
+          .replace(/^Kolye/i,'Колье')
+          .replace(/^Komplekt/i,'Комплект');
+        const img = `assets/${name}`;
+        const ru = title;
+        const kk = title; // заполним тем же, чтобы не было пустых
+        const en = title;
+
+        // базовый товар
+        list.push({
+          id: `auto_${name}_base`,
+          img, cat,
+          title:{ru,kk,en},
+          price: base ? `${base.toLocaleString('ru-RU')} тг` : 'Цена по запросу',
+          desc:{ru:'Украшения ручной работы из жемчуга и камней.', kk:'Інжу мен тастардан қолдан жасалған әшекейлер.', en:'Handcrafted jewellery with pearls and stones.'},
+          alt: altByCat(cat, ru)
+        });
+
+        // вариант с серьгами (если найден второй ценник/подсказка)
+        const hasSergi = /sergi|серьги/i.test(name) || /plus/i.test(name) || extra>0;
+        if(hasSergi){
+          const sum = (base||0) + (extra||0);
+          const titlePlus = `${ru} + серьги`;
+          list.push({
+            id: `auto_${name}_plus`,
+            img, cat: 'Sets',
+            title:{ru:titlePlus,kk:titlePlus,en:titlePlus},
+            price: sum ? `${sum.toLocaleString('ru-RU')} тг` : (base ? `${base.toLocaleString('ru-RU')} тг` : 'Цена по запросу'),
+            desc:{ru:'Комплект: база и серьги. Состав и длина уточняются при заказе.', kk:'Жиын: база және сырға. Ұзындығы тапсырыста нақтыланады.', en:'Set: base + earrings.'},
+            alt: altByCat('Sets', titlePlus)
+          });
+        }
+      });
+      return list;
+    }
+
+    let PRODUCTS = makeProductObjects(FILES);
+
+    // Опционально: подхватить assets/manifest.json (массив строк имён файлов)
+    fetch('assets/manifest.json')
+      .then(r=>r.ok?r.json():Promise.reject())
+      .then(arr=>{
+        if(Array.isArray(arr) && arr.length){
+          const merged = Array.from(new Set([...FILES, ...arr]));
+          PRODUCTS = makeProductObjects(merged);
+          renderFilters(); renderGrid();
+        }
+      })
+      .catch(()=>{}); // тихо игнорируем, если манифеста нет
+
+    function renderFilters(){
+      filters.innerHTML='';
+      CATS.forEach(c=>{
+        if(c!=='All' && !PRODUCTS.some(p=>p.cat===c)) return;
+        const btn=document.createElement('button');
+        btn.className='tag'+(c===activeCat?' active':'');
+        btn.textContent=tr('cat.'+c);
+        btn.onclick=()=>{ activeCat=c; localStorage.setItem('livi_active_cat',c); renderFilters(); renderGrid(); };
+        filters.appendChild(btn);
+      });
+    }
+
+    function renderGrid(){
+      grid.innerHTML='';
+      const items=activeCat==='All'?PRODUCTS:PRODUCTS.filter(p=>p.cat===activeCat);
+      items.forEach(p=>{
+        const title=p.title[lang()]||p.title['ru'];
+        const card=document.createElement('article'); 
+        card.className='card';
+        card.setAttribute('itemscope','');
+        card.setAttribute('itemtype','https://schema.org/Product');
+
+        const priceNum = (p.price && p.price.match(/([\d\s.,]+)\s*тг/i)) ? parseInt(p.price.replace(/[^\d]/g,''),10) : 0;
+
+        card.innerHTML=`<img src="${p.img}" alt="${p.alt}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" itemprop="image" loading="lazy" decoding="async">
+          <div class="body">
+            <div class="title" itemprop="name">${title}</div>
+            <div class="price"><span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+              <meta itemprop="priceCurrency" content="KZT">
+              <meta itemprop="availability" content="https://schema.org/InStock">
+              ${priceNum ? `<meta itemprop="price" content="${priceNum}">` : ``}
+            </span>${p.price}</div>
+            <button class="btn" data-action="add">${tr('ui.add')}</button>
+          </div>`;
+
+        card.addEventListener('click',(e)=>{ if(e.target && e.target.dataset && e.target.dataset.action==='add'){ return; } openModal(p); }, {passive:true});
+        card.querySelector('[data-action="add"]').onclick=()=>addToCart(p,1);
+        grid.appendChild(card);
+      });
+    }
+
+    /* ===== CART ===== */
     function addToCart(p, qty){
       const q=Math.max(1, Number(qty||1));
       const cart=readCart(); const i=cart.findIndex(x=>x.id===p.id);
-      const unit=parseUnit(p.price); const title=p.title[lang()]||p.title['ru'];
+      const unit = (p.price && p.price.match(/([\d\s.,]+)\s*тг/i)) ? parseInt(p.price.replace(/[^\d]/g,''),10) : 0;
+      const title=p.title[lang()]||p.title['ru'];
       if(i>-1){ cart[i].qty+=q; if(typeof cart[i].unit!=='number') cart[i].unit=unit; cart[i].title=title; }
       else{ cart.push({id:p.id,title,price:p.price,img:p.img,qty:q,unit}); }
       writeCart(cart); updateBadge();
     }
-    function updateBadge(){
-      const count=readCart().reduce((s,i)=>s+Number(i.qty||0),0);
-      const b=document.getElementById('cartBadge'); if(!b) return;
-      b.style.display = count>0 ? 'inline-block':'none'; if(count>0) b.textContent=count;
-    }
-    window.addEventListener('storage',e=>{ if(e.key===KEY) updateBadge(); });
 
-    // ALT-префикс без бренда
-    function catAltPrefix(cat){
-      switch(cat){
-        case 'Necklaces': return 'Колье и чокеры — украшения, бижутерия';
-        case 'Bracelets': return 'Браслеты — украшения, бижутерия';
-        case 'Lariats':   return 'Сотуары — украшения, бижутерия';
-        case 'Chains':    return 'Цепи и кулоны — украшения, бижутерия';
-        case 'Sets':      return 'Комплекты — украшения, бижутерия';
-        default:          return 'Украшения и бижут
+    /* ===== MODAL ===== */
+    const modal=document.getElementById('modal');
+    const mImg=document.getElementById('mImg'), mTitle=document.getElementById('mTitle'), mCat=document.getElementById('mCat'),
+          mPrice=document.getElementById('mPrice'), mDesc=document.getElementById('mDesc'), mQtyEl=document.getElementById('mQty');
+    const mMinus=document.getElementById('mMinus'), mPlus=document.getElementById('mPlus'), mAdd=document.getElementById('mAdd'), mClose=document.getElementById('mClose');
+    let currentProduct=null;
+
+    function openModal(p){
+      currentProduct=p;
+      mImg.src=p.img; mImg.alt=p.alt|| (p.title[lang()]||p.title['ru']);
+      mTitle.textContent=p.title[lang()]||p.title['ru'];
+      mCat.textContent=tr('cat.'+p.cat);
+      mPrice.textContent=p.price;
+      mDesc.textContent=p.desc[lang()]||p.desc['ru'];
+      mQtyEl.textContent='1'; mAdd.textContent=tr('ui.add');
+      modal.classList.add('open'); document.body.style.overflow='hidden';
+    }
+    function closeModal(){ modal.classList.remove('open'); document.body.style.overflow=''; }
+    mMinus.onclick=()=>{ const n=Math.max(1, Number(mQtyEl.textContent)-1); mQtyEl.textContent=n; };
+    mPlus.onclick =()=>{ const n=Number(mQtyEl.textContent)+1; mQtyEl.textContent=n; };
+    mAdd.onclick  =()=>{ if(currentProduct){ addToCart(currentProduct, Number(mQtyEl.textContent)); closeModal(); } };
+    mClose.onclick=closeModal;
+    modal.addEventListener('click',(e)=>{ if(e.target===modal) closeModal(); });
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
+
+    // Drawer controls
+    const drawer=document.getElementById('drawer'), burger=document.getElementById('burger');
+    const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
+    burger.onclick=()=>{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); };
+    drawer.querySelector('.drawer-back').onclick=()=>{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); };
+    ruBtn.onclick=()=>setLang('ru'); kkBtn.onclick=()=>setLang('kk'); enBtn.onclick=()=>setLang('en');
+
+    // Init
+    applyLang(); renderFilters(); renderGrid(); updateBadge();
+
+    /* ===== Конверсия WhatsApp без inline onclick (НЕ ТРОГАЛ) ===== */
+    (function(){
+      function isWaLink(a){
+        if(!a || !a.href) return false;
+        const href=a.href.toLowerCase();
+        return href.includes('wa.me') || href.includes('whatsapp');
+      }
+      function reportConversion(url){
+        try{
+          const callback=function(){ if(url){ window.location=url; } };
+          gtag('event','conversion',{
+            'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+            'value':0,
+            'currency':'KZT',
+            'event_callback':callback
+          });
+          return false;
+        }catch(e){
+          if(url){ window.location=url; }
+          return false;
+        }
+      }
+      document.addEventListener('click',function(e){
+        const a = e.target.closest('a');
+        if(!a) return;
+        if(isWaLink(a)){
+          e.preventDefault();
+          reportConversion(a.href);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
