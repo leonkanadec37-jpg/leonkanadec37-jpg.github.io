@@ -45,6 +45,7 @@
     *{box-sizing:border-box;margin:0;padding:0}
     body{font:16px/1.6 "Montserrat",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#fff;color:var(--fg)}
     a{text-decoration:none;color:inherit}
+
     header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.95);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
     .nav{max-width:var(--max);margin:0 auto;padding:12px 16px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px}
     .hamburger{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:#fff;display:inline-grid;place-items:center;cursor:pointer}
@@ -189,9 +190,7 @@
       [ruBtn,kkBtn,enBtn].forEach(b=>b.classList.remove('active')); (lang()==='kk'?kkBtn:lang()==='en'?enBtn:ruBtn).classList.add('active');
     }
 
-    /* ===== AUTOLOAD FROM ASSETS =====
-       Добавляй новые webp в /assets/ и просто дописывай имя в FILES.
-       Дополнительно: если создать /assets/manifest.json со списком имён, код его подхватит. */
+    /* ===== Источник файлов ===== */
     const FILES = [
       'Choker_iz_Akvamarina_i_zhemchuga_15000_tg.webp',
       'Choker_iz_gornogo_khrustalya_i_zhemchuga_18000_tg.webp',
@@ -207,8 +206,9 @@
       'Komplekt_Kolye_Barokko_30000_tg_plus_sergi_10000_tg.webp',
       'Komplekt_Kolye_iz_rozovogo_zhemchuga_36000_tg_plus_sergi_12000_tg.webp',
       'Komplekt_Kolye_iz_Rozovogo_zhemchuga_Mayorka_30000_plus_tg_Sergi_10000_tg.webp',
-      'Komplekt_kolye_zhemchug_plus_sergi_etno_30000.webp.webp'
-      /* новые добавляй сюда, пример: 'Choker_nazvanie_18000_tg.webp' */
+      'Komplekt_Kolye_transformer_23000_plus_sergi_10000.jpg',
+      'Komplekt_kolye_zhemchug_plus_sergi_etno_30000.webp.webp',
+      'Komplekt_Sotuar_galstuk_iz_zhemchuga_i_gornogo_khrustalya_18000_tg.webp.jpg'
     ];
 
     const CATS = ['All','Necklaces','Sets','Bracelets','Lariats','Chains'];
@@ -223,37 +223,66 @@
     function updateBadge(){ const count=readCart().reduce((s,i)=>s+Number(i.qty||0),0); const b=document.getElementById('cartBadge'); if(!b) return; b.style.display = count>0 ? 'inline-block':'none'; if(count>0) b.textContent=count; }
     window.addEventListener('storage',e=>{ if(e.key===KEY) updateBadge(); });
 
+    /* ===== Категории из имени ===== */
     function catFromName(name){
       const n=name.toLowerCase();
       if(n.startsWith('komplekt')) return 'Sets';
-      if(n.startsWith('kolye') || n.startsWith('choker') || n.startsWith('chokery')) return 'Necklaces';
-      if(n.startsWith('bracelet') || n.includes('braslet')) return 'Bracelets';
+      if(n.startsWith('kolye') || n.startsWith('kole') || n.startsWith('choker') || n.startsWith('chokery')) return 'Necklaces';
       if(n.startsWith('sotuar') || n.includes('galstuk')) return 'Lariats';
       if(n.startsWith('chain') || n.includes('cep')) return 'Chains';
       return 'Necklaces';
     }
-    function humanizeTitle(name){
-      // убираем расширение и цены
-      let base = name.replace(/\.[a-z0-9]+$/i,'');
-      base = base.replace(/[_-]?\d[\d\s.,]*\s*tg/ig,'');
-      base = base.replace(/[_-]?(plus|плюс)[^_-\s]*/ig,'');
-      base = base.replace(/[_-]+/g,' ').trim();
-      // первая буква заглавная, сохраняем ключевые слова
-      return base
-        .replace(/\s+/g,' ')
-        .replace(/\b([a-zа-яё])([a-zа-яё]*)/gi,(m,a,b)=>a.toUpperCase()+b.toLowerCase());
+
+    /* ===== Короткое русское название ===== */
+    function russianTitleFromName(name){
+      const n = name.toLowerCase();
+      const type =
+        n.startsWith('komplekt') ? 'Комплект' :
+        n.startsWith('kolye') || n.startsWith('kole') ? 'Колье' :
+        n.startsWith('chokery') ? 'Чокеры' :
+        n.startsWith('choker') ? 'Чокер' : 'Украшение';
+
+      // материалы/модели
+      const has = s => n.includes(s);
+
+      // Комплекты (по приоритету)
+      if(type==='Комплект'){
+        if(has('choker_barokko')) return 'Комплект: чокер «Барокко»';
+        if(has('kolye_barokko'))  return 'Комплект: колье «Барокко»';
+        if(has('dvoynoy_choker_transformer')) return 'Комплект: двойной чокер-трансформер';
+        if(has('choker_iz_gematita_i_zhemchuga')) return 'Комплект: чокер из гематита и жемчуга';
+        if(has('kolye_transformer')) return 'Комплект: колье-трансформер';
+        if(has('rozovogo_zhemchuga_mayorka')) return 'Комплект: колье «Майорка» (розовый)';
+        if(has('kolye_iz_rozovogo_zhemchuga')) return 'Комплект: колье из розового жемчуга';
+        if(has('sotuar_galstuk')) return 'Комплект: сотуар-галстук (жемчуг и хрусталь)';
+        if(has('etno')) return 'Комплект: этно-стиль';
+        if(has('kolye_zhemchug') && has('sergi_etno')) return 'Комплект: колье из жемчуга + серьги этно';
+        return 'Комплект: колье и серьги';
+      }
+
+      // Колье/чокеры
+      if(has('gematitovaya_pyl')) return `${type} «Гематитовая пыль»`;
+      if(has('akvamarin') && has('zhemchug')) return `${type} из аквамарина и жемчуга`;
+      if((has('gornogo_khrustalya') || has('khrustal')) && has('zhemchug')) return `${type} из горного хрусталя и жемчуга`;
+      if(has('lunnyy_kamen') && has('zhemchug')) return `${type} «Лунный камень» с жемчугом`;
+      if(has('tsirkon')) return `${type} с жемчугом и цирконами`;
+      if(has('akva_kvartsa') && has('zhemchuga') && has('gornogo_khrustalya') && has('gematita')) return `${type} из аква-кварца, жемчуга, хрусталя и гематита`;
+      if(has('raznykh_form_i_tsvetov_zhemchuga')) return `${type} из жемчуга разных форм и цветов`;
+      if(has('kolye') && has('barokko')) return `${type} «Барокко»`;
+      return `${type} из жемчуга`;
     }
+
+    /* ===== Цена из имени ===== */
     function extractPrices(name){
-      // находим все числа до/рядом с "tg"
       const nums = [...name.matchAll(/(\d[\d\s.,]*)\s*тг/ig)].map(m=>parseInt(m[1].replace(/[^\d]/g,''),10)).filter(Boolean);
       if(nums.length===0){
-        // поддержим формат без "тг": ...--18000.webp
-        const m = name.match(/(\d[\d\s.,]*)\D*$/); 
+        const m = name.match(/(\d[\d\s.,]*)\D*$/);
         return {base: m ? parseInt(m[1].replace(/[^\d]/g,''),10) : 0, extra: 0};
       }
-      // эвристика: base — первое число; если есть второе — это опция «серьги»
       return {base: nums[0]||0, extra: nums[1]||0};
     }
+
+    /* ===== ALT по категории ===== */
     function altByCat(cat, title){
       switch(cat){
         case 'Necklaces': return `${title} — украшения, бижутерия, колье, чокеры`;
@@ -265,26 +294,22 @@
       }
     }
 
+    /* ===== Создание карточек ===== */
     function makeProductObjects(files){
       const list=[];
       files.forEach(raw=>{
-        const name = raw.trim();
+        const name = String(raw||'').trim();
         if(!name) return;
-        // работаем только с .webp
-        if(!/\.webp$/i.test(name)) return;
+        // поддерживаем webp и jpg/jpeg
+        if(!/\.(webp|jpe?g)$/i.test(name)) return;
+
         const cat = catFromName(name);
         const {base, extra} = extractPrices(name);
-        const title = humanizeTitle(name)
-          .replace(/^Choker/i,'Чокер')
-          .replace(/^Chokery/i,'Чокеры')
-          .replace(/^Kolye/i,'Колье')
-          .replace(/^Komplekt/i,'Комплект');
+        const titleRu = russianTitleFromName(name);
         const img = `assets/${name}`;
-        const ru = title;
-        const kk = title; // заполним тем же, чтобы не было пустых
-        const en = title;
+        const ru = titleRu, kk = titleRu, en = titleRu;
 
-        // базовый товар
+        // базовая карточка
         list.push({
           id: `auto_${name}_base`,
           img, cat,
@@ -294,17 +319,16 @@
           alt: altByCat(cat, ru)
         });
 
-        // вариант с серьгами (если найден второй ценник/подсказка)
-        const hasSergi = /sergi|серьги/i.test(name) || /plus/i.test(name) || extra>0;
-        if(hasSergi){
-          const sum = (base||0) + (extra||0);
+        // карточка «+ серьги» — ТОЛЬКО если есть вторая цена
+        if(extra > 0){
+          const sum = (base||0) + extra;
           const titlePlus = `${ru} + серьги`;
           list.push({
             id: `auto_${name}_plus`,
             img, cat: 'Sets',
             title:{ru:titlePlus,kk:titlePlus,en:titlePlus},
-            price: sum ? `${sum.toLocaleString('ru-RU')} тг` : (base ? `${base.toLocaleString('ru-RU')} тг` : 'Цена по запросу'),
-            desc:{ru:'Комплект: база и серьги. Состав и длина уточняются при заказе.', kk:'Жиын: база және сырға. Ұзындығы тапсырыста нақтыланады.', en:'Set: base + earrings.'},
+            price: `${sum.toLocaleString('ru-RU')} тг`,
+            desc:{ru:'Комплект: база и серьги. Состав и длина уточняются при заказе.', kk:'Жиын: база және сырға.', en:'Set: base + earrings.'},
             alt: altByCat('Sets', titlePlus)
           });
         }
@@ -312,20 +336,30 @@
       return list;
     }
 
-    let PRODUCTS = makeProductObjects(FILES);
+    function dedupe(items){
+      const map = new Map();
+      items.forEach(p=>{
+        const key = `${p.img}__${p.price}__${p.title.ru}`;
+        if(!map.has(key)) map.set(key, p);
+      });
+      return [...map.values()];
+    }
 
-    // Опционально: подхватить assets/manifest.json (массив строк имён файлов)
+    let PRODUCTS = dedupe(makeProductObjects(FILES));
+
+    // Если есть assets/manifest.json — подхватим его
     fetch('assets/manifest.json')
       .then(r=>r.ok?r.json():Promise.reject())
       .then(arr=>{
         if(Array.isArray(arr) && arr.length){
           const merged = Array.from(new Set([...FILES, ...arr]));
-          PRODUCTS = makeProductObjects(merged);
+          PRODUCTS = dedupe(makeProductObjects(merged));
           renderFilters(); renderGrid();
         }
       })
-      .catch(()=>{}); // тихо игнорируем, если манифеста нет
+      .catch(()=>{});
 
+    /* ===== UI ===== */
     function renderFilters(){
       filters.innerHTML='';
       CATS.forEach(c=>{
@@ -413,7 +447,7 @@
     // Init
     applyLang(); renderFilters(); renderGrid(); updateBadge();
 
-    /* ===== Конверсия WhatsApp без inline onclick (НЕ ТРОГАЛ) ===== */
+    /* ===== Конверсия WhatsApp (НЕ ТРОГАЛ) ===== */
     (function(){
       function isWaLink(a){
         if(!a || !a.href) return false;
