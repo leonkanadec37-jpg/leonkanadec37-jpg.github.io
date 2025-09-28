@@ -14,10 +14,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Icons & Manifest -->
+  <!-- Icons & Manifest (универсальный блок) -->
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#111111">
   <meta name="msapplication-TileColor" content="#111111">
@@ -47,7 +50,7 @@
     .hamburger span{width:18px;height:2px;background:#111;display:block;position:relative}
     .hamburger span::before,.hamburger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:#111}
     .hamburger span::before{top:-6px}.hamburger span::after{top:6px}
-    .brand{justify-self:center;display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:.06ем}
+    .brand{justify-self:center;display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:.06em}
     .brand img{height:24px}
     .cart-link{justify-self:end;position:relative;border:1px solid var(--line);border-radius:999px;padding:8px 12px}
     .cart-badge{position:absolute;top:-6px;right:-6px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:4px 6px;min-width:20px;text-align:center;display:none}
@@ -156,10 +159,7 @@
       }
       return s;
     }
-    // 3) Логика единичной цены:
-    //    - если item.unit уже сохранён в товаре — используем его;
-    //    - иначе, если заголовок содержит «Комплект», считаем сумму всех цен;
-    //    - иначе — берём первую цену.
+    // 3) Логика единичной цены
     function unitPrice(item){
       if (typeof item.unit === 'number') return item.unit;
       const title = (item.title||'').toLowerCase();
@@ -170,7 +170,7 @@
       return parseFirstKZT(item.price);
     }
 
-    // Миграция unit для уже добавленных позиций (запишем unit, чтобы дальше было быстрее)
+    // Миграция unit для уже добавленных позиций
     (function migrate(){
       let cart; try{ cart=JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ cart=[]; }
       let changed=false;
