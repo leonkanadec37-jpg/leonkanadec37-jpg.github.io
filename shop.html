@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 
   <!-- SEO -->
-  <title data-i18n="meta.title">Каталог жемчужной бижутерии — купить серьги, браслеты, кулоны, кольца | Livi Jewelry</title>
-  <meta name="description" content="Украшения из жемчуга и натуральных камней: серьги, браслеты, кулоны, кольца. Бижутерия ручной работы — в наличии и на заказ. Каталог Livi Jewelry, доставка по Казахстану.">
-  <link rel="canonical" href="https://livijewelry.kz/shop.html">
+  <title data-i18n="meta.title">Корзина — Livi Jewelry</title>
+  <meta name="description" content="Корзина Livi Jewelry. Украшения из жемчуга и натуральных камней: серьги, браслеты, кулоны, кольца. Быстрое оформление заказа и доставка по Казахстану.">
+  <link rel="canonical" href="https://livijewelry.kz/cart.html">
 
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Каталог жемчужной бижутерии — Livi Jewelry">
-  <meta property="og:description" content="Серьги, браслеты, кулоны, кольца — бижутерия из натурального жемчуга. В наличии и на заказ.">
-  <meta property="og:url" content="https://livijewelry.kz/shop.html">
+  <meta property="og:title" content="Корзина — Livi Jewelry">
+  <meta property="og:description" content="Оформите заказ на украшения из жемчуга и натуральных камней. Доставка по Казахстану.">
+  <meta property="og:url" content="https://livijewelry.kz/cart.html">
   <meta property="og:image" content="https://livijewelry.kz/images/og-cover.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -22,11 +22,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Icons & Manifest -->
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
-  <link rel="manifest" href="/site.webmanifest">
+  <!-- Icons & Manifest (с версионированием для кэша) -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3">
+  <link rel="icon" href="/favicon.ico?v=3" sizes="any">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest?v=3">
   <meta name="theme-color" content="#111111">
   <meta name="msapplication-TileColor" content="#111111">
 
@@ -38,6 +38,35 @@
     gtag('js', new Date());
     gtag('config', 'G-4H6HK8K9SJ');
     gtag('config', 'AW-16793974126');
+  </script>
+
+  <!-- Structured Data: Organization + WebSite (для логотипа и поиска по сайту) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"Organization",
+        "name":"Livi Jewelry",
+        "url":"https://livijewelry.kz/",
+        "logo":"https://livijewelry.kz/icon-512.png",
+        "sameAs":[
+          "https://instagram.com/livi_jwl",
+          "https://wa.me/77054510584"
+        ]
+      },
+      {
+        "@type":"WebSite",
+        "url":"https://livijewelry.kz/",
+        "name":"Livi Jewelry",
+        "potentialAction":{
+          "@type":"SearchAction",
+          "target":"https://livijewelry.kz/shop.html?q={search_term_string}",
+          "query-input":"required name=search_term_string"
+        }
+      }
+    ]
+  }
   </script>
 
   <style>
@@ -119,7 +148,7 @@
   <header>
     <div class="nav">
       <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
-      <a class="brand" href="index.html">
+      <a class="brand" href="index.html" aria-label="Livi Jewelry — на главную">
         <img src="favicon.svg" alt="Livi Jewelry logo">
         <span>LIVI JEWELRY</span>
       </a>
@@ -128,7 +157,7 @@
   </header>
 
   <main class="wrap">
-    <h1 data-i18n="page.title">Украшения из жемчуга — каталог: серьги, браслеты, кулоны, кольца</h1>
+    <h1 data-i18n="page.title">Корзина</h1>
     <div class="filters" id="filters"></div>
     <div class="grid" id="grid"></div>
   </main>
@@ -160,23 +189,23 @@
     /* ===== i18n ===== */
     const I18N = {
       ru:{
-        'meta.title':'Каталог жемчужной бижутерии — купить серьги, браслеты, кулоны, кольца | Livi Jewelry',
+        'meta.title':'Корзина — Livi Jewelry',
         'nav.home':'Главная','nav.shop':'Каталог','nav.cart':'Корзина',
-        'page.title':'Украшения из жемчуга — каталог: серьги, браслеты, кулоны, кольца',
+        'page.title':'Корзина',
         'cat.All':'Все','cat.Necklaces':'Колье','cat.Sets':'Комплекты','cat.Bracelets':'Браслеты','cat.Lariats':'Сотуары','cat.Chains':'Цепи',
         'ui.add':'В корзину','ui.openCart':'Открыть корзину'
       },
       kk:{
-        'meta.title':'Інжу әшекейлері — сырға, білезік, кулон, сақина каталоги | Livi Jewelry',
+        'meta.title':'Себет — Livi Jewelry',
         'nav.home':'Басты бет','nav.shop':'Дүкен','nav.cart':'Себет',
-        'page.title':'Інжу әшекейлері — каталог: сырғалар, білезіктер, кулондар, сақиналар',
+        'page.title':'Себет',
         'cat.All':'Барлығы','cat.Necklaces':'Алқалар','cat.Sets':'Комплекттер','cat.Bracelets':'Білезіктер','cat.Lariats':'Сотуарлар','cat.Chains':'Тізбектер',
         'ui.add':'Себетке қосу','ui.openCart':'Себетті ашу'
       },
       en:{
-        'meta.title':'Pearl jewellery catalog — buy earrings, bracelets, pendants, rings | Livi Jewelry',
+        'meta.title':'Cart — Livi Jewelry',
         'nav.home':'Home','nav.shop':'Shop','nav.cart':'Cart',
-        'page.title':'Pearl jewellery — catalog: earrings, bracelets, pendants, rings',
+        'page.title':'Cart',
         'cat.All':'All','cat.Necklaces':'Necklaces','cat.Sets':'Sets','cat.Bracelets':'Bracelets','cat.Lariats':'Lariats','cat.Chains':'Chains',
         'ui.add':'Add to cart','ui.openCart':'Open cart'
       }
@@ -190,7 +219,7 @@
       [ruBtn,kkBtn,enBtn].forEach(b=>b.classList.remove('active')); (lang()==='kk'?kkBtn:lang()==='en'?enBtn:ruBtn).classList.add('active');
     }
 
-    /* ===== Источник файлов ===== */
+    /* ===== Источник файлов (твой список — без изменений) ===== */
     const FILES = [
       'Choker_iz_Akvamarina_i_zhemchuga_15000_tg.webp',
       'Choker_iz_gornogo_khrustalya_i_zhemchuga_18000_tg.webp',
@@ -242,10 +271,8 @@
         n.startsWith('chokery') ? 'Чокеры' :
         n.startsWith('choker') ? 'Чокер' : 'Украшение';
 
-      // материалы/модели
       const has = s => n.includes(s);
 
-      // Комплекты (по приоритету)
       if(type==='Комплект'){
         if(has('choker_barokko')) return 'Комплект: чокер «Барокко»';
         if(has('kolye_barokko'))  return 'Комплект: колье «Барокко»';
@@ -260,7 +287,6 @@
         return 'Комплект: колье и серьги';
       }
 
-      // Колье/чокеры
       if(has('gematitovaya_pyl')) return `${type} «Гематитовая пыль»`;
       if(has('akvamarin') && has('zhemchug')) return `${type} из аквамарина и жемчуга`;
       if((has('gornogo_khrustalya') || has('khrustal')) && has('zhemchug')) return `${type} из горного хрусталя и жемчуга`;
@@ -300,7 +326,6 @@
       files.forEach(raw=>{
         const name = String(raw||'').trim();
         if(!name) return;
-        // поддерживаем webp и jpg/jpeg
         if(!/\.(webp|jpe?g)$/i.test(name)) return;
 
         const cat = catFromName(name);
@@ -309,7 +334,6 @@
         const img = `assets/${name}`;
         const ru = titleRu, kk = titleRu, en = titleRu;
 
-        // базовая карточка
         list.push({
           id: `auto_${name}_base`,
           img, cat,
@@ -319,7 +343,6 @@
           alt: altByCat(cat, ru)
         });
 
-        // карточка «+ серьги» — ТОЛЬКО если есть вторая цена
         if(extra > 0){
           const sum = (base||0) + extra;
           const titlePlus = `${ru} + серьги`;
@@ -360,6 +383,10 @@
       .catch(()=>{});
 
     /* ===== UI ===== */
+    const grid=document.getElementById('grid');
+    const filters=document.getElementById('filters');
+    let activeCat = localStorage.getItem('livi_active_cat') || 'All';
+
     function renderFilters(){
       filters.innerHTML='';
       CATS.forEach(c=>{
