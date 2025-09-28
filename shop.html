@@ -14,7 +14,8 @@
   <meta property="og:title" content="Каталог жемчужной бижутерии — Livi Jewelry">
   <meta property="og:description" content="Серьги, браслеты, кулоны, кольца — бижутерия из натурального жемчуга. В наличии и на заказ.">
   <meta property="og:url" content="https://livijewelry.kz/shop.html">
-  <meta property="og:image" content="https://livijewelry.kz/images/og-cover.jpg">
+  <!-- Временно используем icon-512.png, чтобы избежать 404. Когда зальёшь /images/og-cover.jpg (1200×630), поменяем назад. -->
+  <meta property="og:image" content="https://livijewelry.kz/icon-512.png">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Fonts -->
@@ -22,15 +23,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Icons & Manifest -->
+  <!-- Icons & Manifest (универсальный блок) -->
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#111111">
   <meta name="msapplication-TileColor" content="#111111">
 
-  <!-- Google tag (gtag.js): GA4 + Google Ads (НЕ ТРОГАЛ) -->
+  <!-- Google tag (gtag.js): GA4 + Google Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -242,10 +246,8 @@
         n.startsWith('chokery') ? 'Чокеры' :
         n.startsWith('choker') ? 'Чокер' : 'Украшение';
 
-      // материалы/модели
       const has = s => n.includes(s);
 
-      // Комплекты (по приоритету)
       if(type==='Комплект'){
         if(has('choker_barokko')) return 'Комплект: чокер «Барокко»';
         if(has('kolye_barokko'))  return 'Комплект: колье «Барокко»';
@@ -260,7 +262,6 @@
         return 'Комплект: колье и серьги';
       }
 
-      // Колье/чокеры
       if(has('gematitovaya_pyl')) return `${type} «Гематитовая пыль»`;
       if(has('akvamarin') && has('zhemchug')) return `${type} из аквамарина и жемчуга`;
       if((has('gornogo_khrustalya') || has('khrustal')) && has('zhemchug')) return `${type} из горного хрусталя и жемчуга`;
@@ -300,7 +301,6 @@
       files.forEach(raw=>{
         const name = String(raw||'').trim();
         if(!name) return;
-        // поддерживаем webp и jpg/jpeg
         if(!/\.(webp|jpe?g)$/i.test(name)) return;
 
         const cat = catFromName(name);
@@ -309,7 +309,6 @@
         const img = `assets/${name}`;
         const ru = titleRu, kk = titleRu, en = titleRu;
 
-        // базовая карточка
         list.push({
           id: `auto_${name}_base`,
           img, cat,
@@ -319,7 +318,6 @@
           alt: altByCat(cat, ru)
         });
 
-        // карточка «+ серьги» — ТОЛЬКО если есть вторая цена
         if(extra > 0){
           const sum = (base||0) + extra;
           const titlePlus = `${ru} + серьги`;
@@ -347,7 +345,6 @@
 
     let PRODUCTS = dedupe(makeProductObjects(FILES));
 
-    // Если есть assets/manifest.json — подхватим его
     fetch('assets/manifest.json')
       .then(r=>r.ok?r.json():Promise.reject())
       .then(arr=>{
@@ -447,7 +444,7 @@
     // Init
     applyLang(); renderFilters(); renderGrid(); updateBadge();
 
-    /* ===== Конверсия WhatsApp (НЕ ТРОГАЛ) ===== */
+    /* ===== Конверсия WhatsApp ===== */
     (function(){
       function isWaLink(a){
         if(!a || !a.href) return false;
