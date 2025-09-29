@@ -14,7 +14,8 @@
   <meta property="og:title" content="Каталог жемчужной бижутерии — Livi Jewelry">
   <meta property="og:description" content="Серьги, браслеты, кулоны, кольца — бижутерия из натурального жемчуга. В наличии и на заказ.">
   <meta property="og:url" content="https://livijewelry.kz/shop.html">
-  <meta property="og:image" content="https://livijewelry.kz/images/og-cover.jpg">
+  <!-- Временно используем icon-512.png, чтобы избежать 404. Когда зальёшь /images/og-cover.jpg (1200×630), поменяем назад. -->
+  <meta property="og:image" content="https://livijewelry.kz/icon-512.png">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Fonts -->
@@ -22,19 +23,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Icons & Manifest -->
+  <!-- Icons & Manifest (универсальный блок) -->
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="shortcut icon" href="/favicon.ico">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#111111">
   <meta name="msapplication-TileColor" content="#111111">
 
-  <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js): GA4 + Google Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -152,7 +152,7 @@
           <button id="mPlus" aria-label="+">+</button>
         </div>
         <div class="modal-actions">
-          <button id="mAdd" class="btn" data-i18n="ui.add">В корзину</button>
+          <button id="mAdd" class="btn" data-i18n="ui.add">Добавить в корзину</button>
           <a class="btn" href="cart.html" data-i18n="ui.openCart">Открыть корзину</a>
         </div>
       </div>
@@ -194,7 +194,7 @@
       [ruBtn,kkBtn,enBtn].forEach(b=>b.classList.remove('active')); (lang()==='kk'?kkBtn:lang()==='en'?enBtn:ruBtn).classList.add('active');
     }
 
-    /* ===== источник файлов (ТВОИ РАБОЧИЕ имена) ===== */
+    /* ===== Источник файлов ===== */
     const FILES = [
       'Choker_iz_Akvamarina_i_zhemchuga_15000_tg.webp',
       'Choker_iz_gornogo_khrustalya_i_zhemchuga_18000_tg.webp',
@@ -221,7 +221,13 @@
     const filters=document.getElementById('filters');
     let activeCat = localStorage.getItem('livi_active_cat') || 'All';
 
-    /* ===== генерация карточек из имени файла ===== */
+    function parseUnit(priceStr){ const m=String(priceStr||'').match(/([\d\s.,]+)\s*тг/i); if(!m) return 0; return parseInt(m[1].replace(/[^\d]/g,''),10)||0; }
+    function readCart(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []} }
+    function writeCart(v){ localStorage.setItem(KEY, JSON.stringify(v)); updateBadge(); }
+    function updateBadge(){ const count=readCart().reduce((s,i)=>s+Number(i.qty||0),0); const b=document.getElementById('cartBadge'); if(!b) return; b.style.display = count>0 ? 'inline-block':'none'; if(count>0) b.textContent=count; }
+    window.addEventListener('storage',e=>{ if(e.key===KEY) updateBadge(); });
+
+    /* ===== Категории из имени ===== */
     function catFromName(name){
       const n=name.toLowerCase();
       if(n.startsWith('komplekt')) return 'Sets';
@@ -230,6 +236,8 @@
       if(n.startsWith('chain') || n.includes('cep')) return 'Chains';
       return 'Necklaces';
     }
+
+    /* ===== Короткое русское название ===== */
     function russianTitleFromName(name){
       const n = name.toLowerCase();
       const type =
@@ -237,7 +245,9 @@
         n.startsWith('kolye') || n.startsWith('kole') ? 'Колье' :
         n.startsWith('chokery') ? 'Чокеры' :
         n.startsWith('choker') ? 'Чокер' : 'Украшение';
+
       const has = s => n.includes(s);
+
       if(type==='Комплект'){
         if(has('choker_barokko')) return 'Комплект: чокер «Барокко»';
         if(has('kolye_barokko'))  return 'Комплект: колье «Барокко»';
@@ -251,6 +261,7 @@
         if(has('kolye_zhemchug') && has('sergi_etno')) return 'Комплект: колье из жемчуга + серьги этно';
         return 'Комплект: колье и серьги';
       }
+
       if(has('gematitovaya_pyl')) return `${type} «Гематитовая пыль»`;
       if(has('akvamarin') && has('zhemchug')) return `${type} из аквамарина и жемчуга`;
       if((has('gornogo_khrustalya') || has('khrustal')) && has('zhemchug')) return `${type} из горного хрусталя и жемчуга`;
@@ -261,6 +272,8 @@
       if(has('kolye') && has('barokko')) return `${type} «Барокко»`;
       return `${type} из жемчуга`;
     }
+
+    /* ===== Цена из имени ===== */
     function extractPrices(name){
       const nums = [...name.matchAll(/(\d[\d\s.,]*)\s*тг/ig)].map(m=>parseInt(m[1].replace(/[^\d]/g,''),10)).filter(Boolean);
       if(nums.length===0){
@@ -269,6 +282,8 @@
       }
       return {base: nums[0]||0, extra: nums[1]||0};
     }
+
+    /* ===== ALT по категории ===== */
     function altByCat(cat, title){
       switch(cat){
         case 'Necklaces': return `${title} — украшения, бижутерия, колье, чокеры`;
@@ -279,6 +294,8 @@
         default:          return `${title} — украшения, бижутерия`;
       }
     }
+
+    /* ===== Создание карточек ===== */
     function makeProductObjects(files){
       const list=[];
       files.forEach(raw=>{
@@ -300,6 +317,7 @@
           desc:{ru:'Украшения ручной работы из жемчуга и камней.', kk:'Інжу мен тастардан қолдан жасалған әшекейлер.', en:'Handcrafted jewellery with pearls and stones.'},
           alt: altByCat(cat, ru)
         });
+
         if(extra > 0){
           const sum = (base||0) + extra;
           const titlePlus = `${ru} + серьги`;
@@ -315,6 +333,7 @@
       });
       return list;
     }
+
     function dedupe(items){
       const map = new Map();
       items.forEach(p=>{
@@ -326,31 +345,18 @@
 
     let PRODUCTS = dedupe(makeProductObjects(FILES));
 
-    // Если есть assets/manifest.json — подхватим его (например, если ты добавишь новые webp)
     fetch('assets/manifest.json')
       .then(r=>r.ok?r.json():Promise.reject())
       .then(arr=>{
         if(Array.isArray(arr) && arr.length){
           const merged = Array.from(new Set([...FILES, ...arr]));
           PRODUCTS = dedupe(makeProductObjects(merged));
-          renderFilters(); renderGrid(); injectProductsJSONLD(PRODUCTS);
+          renderFilters(); renderGrid();
         }
       })
       .catch(()=>{});
 
     /* ===== UI ===== */
-    const CATS = ['All','Necklaces','Sets','Bracelets','Lariats','Chains'];
-    const grid=document.getElementById('grid');
-    const filters=document.getElementById('filters');
-    let activeCat = localStorage.getItem('livi_active_cat') || 'All';
-
-    function parseUnit(priceStr){ const m=String(priceStr||'').match(/([\d\s.,]+)\s*тг/i); if(!m) return 0; return parseInt(m[1].replace(/[^\d]/g,''),10)||0; }
-    const KEY='livi_cart_v2';
-    function readCart(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []} }
-    function writeCart(v){ localStorage.setItem(KEY, JSON.stringify(v)); updateBadge(); }
-    function updateBadge(){ const count=readCart().reduce((s,i)=>s+Number(i.qty||0),0); const b=document.getElementById('cartBadge'); if(!b) return; b.style.display = count>0 ? 'inline-block':'none'; if(count>0) b.textContent=count; }
-    window.addEventListener('storage',e=>{ if(e.key===KEY) updateBadge(); });
-
     function renderFilters(){
       filters.innerHTML='';
       CATS.forEach(c=>{
@@ -368,27 +374,20 @@
       const items=activeCat==='All'?PRODUCTS:PRODUCTS.filter(p=>p.cat===activeCat);
       items.forEach(p=>{
         const title=p.title[lang()]||p.title['ru'];
-        const priceNum = parseUnit(p.price);
-        const urlAbs = location.origin + '/shop.html#' + p.id;
-
         const card=document.createElement('article'); 
         card.className='card';
         card.setAttribute('itemscope','');
         card.setAttribute('itemtype','https://schema.org/Product');
 
-        card.innerHTML=`
-          <meta itemprop="name" content="${title}">
-          <meta itemprop="description" content="${(p.desc[lang()]||p.desc['ru']).replace(/"/g,'&quot;')}">
-          <link itemprop="image" href="${new URL(p.img, location.origin)}">
-          <meta itemprop="url" content="${urlAbs}">
-          <img src="${p.img}" alt="${p.alt}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" itemprop="image" loading="lazy" decoding="async">
+        const priceNum = (p.price && p.price.match(/([\d\s.,]+)\s*тг/i)) ? parseInt(p.price.replace(/[^\d]/g,''),10) : 0;
+
+        card.innerHTML=`<img src="${p.img}" alt="${p.alt}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" itemprop="image" loading="lazy" decoding="async">
           <div class="body">
-            <div class="title">${title}</div>
+            <div class="title" itemprop="name">${title}</div>
             <div class="price"><span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
               <meta itemprop="priceCurrency" content="KZT">
               <meta itemprop="availability" content="https://schema.org/InStock">
               ${priceNum ? `<meta itemprop="price" content="${priceNum}">` : ``}
-              <meta itemprop="url" content="${urlAbs}">
             </span>${p.price}</div>
             <button class="btn" data-action="add">${tr('ui.add')}</button>
           </div>`;
@@ -399,48 +398,11 @@
       });
     }
 
-    /* ===== JSON-LD (ItemList + Product) ===== */
-    function injectProductsJSONLD(items){
-      const data = {
-        "@context":"https://schema.org",
-        "@type":"ItemList",
-        "itemListElement": items.map((p,i)=>{
-          const title = p.title[lang()] || p.title['ru'];
-          const desc  = p.desc[lang()]  || p.desc['ru'];
-          const price = parseUnit(p.price);
-          const url   = location.origin + '/shop.html#' + p.id;
-          return {
-            "@type":"ListItem",
-            "position": i+1,
-            "url": url,
-            "item":{
-              "@type":"Product",
-              "name": title,
-              "image": [ new URL(p.img, location.origin).href ],
-              "description": desc,
-              "sku": p.id,
-              "offers":{
-                "@type":"Offer",
-                "priceCurrency":"KZT",
-                ...(price ? { "price": String(price) } : {}),
-                "availability":"https://schema.org/InStock",
-                "url": url
-              }
-            }
-          };
-        })
-      };
-      const s=document.createElement('script');
-      s.type='application/ld+json';
-      s.textContent=JSON.stringify(data);
-      document.head.appendChild(s);
-    }
-
     /* ===== CART ===== */
     function addToCart(p, qty){
       const q=Math.max(1, Number(qty||1));
       const cart=readCart(); const i=cart.findIndex(x=>x.id===p.id);
-      const unit = parseUnit(p.price);
+      const unit = (p.price && p.price.match(/([\d\s.,]+)\s*тг/i)) ? parseInt(p.price.replace(/[^\d]/g,''),10) : 0;
       const title=p.title[lang()]||p.title['ru'];
       if(i>-1){ cart[i].qty+=q; if(typeof cart[i].unit!=='number') cart[i].unit=unit; cart[i].title=title; }
       else{ cart.push({id:p.id,title,price:p.price,img:p.img,qty:q,unit}); }
@@ -480,23 +442,37 @@
     ruBtn.onclick=()=>setLang('ru'); kkBtn.onclick=()=>setLang('kk'); enBtn.onclick=()=>setLang('en');
 
     // Init
-    applyLang(); renderFilters(); renderGrid(); updateBadge(); injectProductsJSONLD(PRODUCTS);
+    applyLang(); renderFilters(); renderGrid(); updateBadge();
 
     /* ===== Конверсия WhatsApp ===== */
     (function(){
-      function isWaLink(a){ if(!a || !a.href) return false; const href=a.href.toLowerCase(); return href.includes('wa.me') || href.includes('whatsapp'); }
+      function isWaLink(a){
+        if(!a || !a.href) return false;
+        const href=a.href.toLowerCase();
+        return href.includes('wa.me') || href.includes('whatsapp');
+      }
       function reportConversion(url){
         try{
           const callback=function(){ if(url){ window.location=url; } };
           gtag('event','conversion',{
-            'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-','value':0,'currency':'KZT','event_callback':callback
+            'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+            'value':0,
+            'currency':'KZT',
+            'event_callback':callback
           });
           return false;
-        }catch(e){ if(url){ window.location=url; } return false; }
+        }catch(e){
+          if(url){ window.location=url; }
+          return false;
+        }
       }
       document.addEventListener('click',function(e){
-        const a = e.target.closest('a'); if(!a) return;
-        if(isWaLink(a)){ e.preventDefault(); reportConversion(a.href); }
+        const a = e.target.closest('a');
+        if(!a) return;
+        if(isWaLink(a)){
+          e.preventDefault();
+          reportConversion(a.href);
+        }
       });
     })();
   </script>
