@@ -14,7 +14,6 @@
   <meta property="og:title" content="Каталог жемчужной бижутерии — Livi Jewelry">
   <meta property="og:description" content="Серьги, браслеты, кулоны, кольца — бижутерия из натурального жемчуга. В наличии и на заказ.">
   <meta property="og:url" content="https://livijewelry.kz/shop.html">
-  <!-- Временно используем icon-512.png, чтобы избежать 404. Когда зальёшь /images/og-cover.jpg (1200×630), поменяем назад. -->
   <meta property="og:image" content="https://livijewelry.kz/icon-512.png">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -59,9 +58,7 @@
     .brand{justify-self:center;display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:.06em}
     .brand img{height:24px}
 
-    /* >>> добавлено: контейнер справа */
     .nav-actions{justify-self:end;display:flex;align-items:center;gap:8px;flex-wrap:nowrap}
-
     .cart-link{position:relative;border:1px solid var(--line);border-radius:999px;padding:8px 12px}
     .cart-badge{position:absolute;top:-6px;right:-6px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:4px 6px;min-width:20px;text-align:center;display:none}
 
@@ -103,21 +100,13 @@
     .modal-actions{display:flex;gap:10px;flex-wrap:wrap}
     .close{position:absolute;top:12px;right:12px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 10px;cursor:pointer}
 
-    /* >>> добавлено: кнопки Instagram/WhatsApp */
-    .quick-link{
-      display:inline-flex;align-items:center;gap:6px;
-      border:1px solid var(--line);padding:8px 12px;border-radius:999px;
-      font-size:15px;font-weight:500;background:#fff;transition:background .2s,color .2s,border-color .2s
-    }
+    .quick-link{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);padding:8px 12px;border-radius:999px;font-size:15px;font-weight:500;background:#fff;transition:background .2s,color .2s,border-color .2s}
     .quick-link svg{display:block}
     .ig-link:hover{border-color:#E4405F;color:#E4405F}
     .wa-link{border-color:#25D366;color:#25D366}
     .wa-link:hover{background:#25D366;color:#fff}
 
-    @media(max-width:600px){
-      .ql-text{display:none} /* на телефоне оставляем только иконки */
-    }
-
+    @media(max-width:600px){ .ql-text{display:none} }
     @media(max-width:520px){
       .grid{grid-template-columns:repeat(2,1fr);gap:12px}
       .card img{height:170px;aspect-ratio:auto}
@@ -147,22 +136,18 @@
         <span>LIVI JEWELRY</span>
       </a>
 
-      <!-- >>> изменено: блок справа со всеми действиями -->
       <div class="nav-actions">
         <a class="cart-link" href="cart.html" data-i18n="nav.cart">
           Корзина <span id="cartBadge" class="cart-badge">0</span>
         </a>
 
-        <!-- Instagram -->
-        <a class="quick-link ig-link" href="https://instagram.com/livi_jwl"
-           target="_blank" rel="noopener" aria-label="Открыть Instagram Livi Jewelry">
+        <a class="quick-link ig-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener" aria-label="Открыть Instagram Livi Jewelry">
           <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
             <path fill="#E4405F" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A4.5 4.5 0 1 0 16.5 12 4.505 4.505 0 0 0 12 7.5zm6.5-.75a1.25 1.25 0 1 0 1.25 1.25A1.25 1.25 0 0 0 18.5 6.75Zm-6.5 2A3.25 3.25 0 1 1 8.75 12 3.254 3.254 0 0 1 12 8.75Z"/>
           </svg>
           <span class="ql-text">Instagram</span>
         </a>
 
-        <!-- WhatsApp -->
         <a class="quick-link wa-link"
            href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry."
            target="_blank" rel="noopener" aria-label="Написать в WhatsApp">
@@ -173,7 +158,6 @@
           <span class="ql-text">WhatsApp</span>
         </a>
       </div>
-      <!-- <<< конец нового блока -->
     </div>
   </header>
 
@@ -296,10 +280,20 @@
     const filters=document.getElementById('filters');
     let activeCat = localStorage.getItem('livi_active_cat') || 'All';
 
-    function parseUnit(priceStr){ const m=String(priceStr||'').match(/([\d\s.,]+)\s*тг/i); if(!m) return 0; return parseInt(m[1].replace(/[^\d]/g,''),10)||0; }
+    function parseUnit(priceStr){
+      const m=String(priceStr||'').match(/([\d\s.,]+)\s*тг/i);
+      if(!m) return 0;
+      return parseInt(m[1].replace(/[^\d]/g,''),10)||0;
+    }
     function readCart(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []} }
     function writeCart(v){ localStorage.setItem(KEY, JSON.stringify(v)); updateBadge(); }
-    function updateBadge(){ const count=readCart().reduce((s,i)=>s+Number(i.qty||0),0); const b=document.getElementById('cartBadge'); if(!b) return; b.style.display = count>0 ? 'inline-block':'none'; if(count>0) b.textContent=count; }
+    function updateBadge(){
+      const count=readCart().reduce((s,i)=>s+Number(i.qty||0),0);
+      const b=document.getElementById('cartBadge');
+      if(!b) return;
+      b.style.display = count>0 ? 'inline-block':'none';
+      if(count>0) b.textContent=count;
+    }
     window.addEventListener('storage',e=>{ if(e.key===KEY) updateBadge(); });
 
     /* ===== Категории из имени ===== */
@@ -308,49 +302,97 @@
       if(n.startsWith('komplekt')) return 'Sets';
       if(n.startsWith('kolye') || n.startsWith('kole') || n.startsWith('choker') || n.startsWith('chokery')) return 'Necklaces';
       if(n.startsWith('sotuar') || n.includes('galstuk')) return 'Lariats';
-      if(n.startsWith('chain') || n.includes('cep')) return 'Chains';
+      if(n.startsWith('chain') || n.includes('cep') || n.startsWith('tsep')) return 'Chains';
+      if(n.includes('braslet')) return 'Bracelets';
       return 'Necklaces';
     }
 
-    /* ===== Короткое русское название ===== */
+    /* ===== Заголовок из имени файла (нормализация + перевод) ===== */
     function russianTitleFromName(name){
-      const n = name.toLowerCase();
-      const type =
-        n.startsWith('komplekt') ? 'Комплект' :
-        n.startsWith('kolye') || n.startsWith('kole') ? 'Колье' :
-        n.startsWith('chokery') ? 'Чокеры' :
-        n.startsWith('choker') ? 'Чокер' : 'Украшение';
+      // 1) очистка служебных частей (расширение, цены, tg, plus, Sergi/Braslet и т.п.)
+      let base = String(name || '')
+        .replace(/\.(webp|jpe?g)$/i, '')
+        .replace(/(^|_)plus(_|$)/ig, '_')
+        .replace(/(^|_)(\d[\d.,]*)_?tg/ig, '_')
+        .replace(/(^|_)sergi(_|$)/ig, '_')
+        .replace(/(^|_)braslet(_|$)/ig, '_')
+        .replace(/_+/g, '_')
+        .replace(/^_+|_+$/g, '');
 
-      const has = s => n.includes(s);
+      // 2) словарь токенов → русский
+      const map = {
+        // типы
+        'choker':'Чокер','chokery':'Чокеры',
+        'kolye':'Колье','kole':'Колье',
+        'komplekt':'Комплект',
+        'sotuar':'Сотуар',
+        'chain':'Цепь','tsep':'Цепь',
 
-      if(type==='Комплект'){
-        if(has('choker_barokko')) return 'Комплект: чокер «Барокко»';
-        if(has('kolye_barokko'))  return 'Комплект: колье «Барокко»';
-        if(has('dvoynoy_choker_transformer')) return 'Комплект: двойной чокер-трансформер';
-        if(has('choker_iz_gematita_i_zhemchuga')) return 'Комплект: чокер из гематита и жемчуга';
-        if(has('kolye_transformer')) return 'Комплект: колье-трансформер';
-        if(has('rozovogo_zhemchuga_mayorka')) return 'Комплект: колье «Майорка» (розовый)';
-        if(has('kolye_iz_rozovogo_zhemchuga')) return 'Комплект: колье из розового жемчуга';
-        if(has('sotuar_galstuk')) return 'Комплект: сотуар-галстук (жемчуг и хрусталь)';
-        if(has('etno')) return 'Комплект: этно-стиль';
-        if(has('kolye_zhemchug') && has('sergi_etno')) return 'Комплект: колье из жемчуга + серьги этно';
-        return 'Комплект: колье и серьги';
+        // материалы/прилагательные/мод-слова
+        'mnogosloynye':'Многослойные',
+        'premium_klassa':'премиум-класса',
+        'transformer':'трансформер',
+        'galstuk':'галстук',
+        'mayorka':'Майорка',
+        'yuvelirnogo_stekla':'ювелирного стекла',
+        'gornogo_khrustalya':'горного хрусталя',
+        'khrustalya':'хрусталя',
+        'akva_kvartsa':'аква-кварца',
+        'lunnyy_kamen':'Лунный камень',
+        'gematitovaya_pyl':'Гематитовая пыль',
+        'gematita':'гематита','gematit':'гематит',
+        'zhemchug':'жемчуг','zhemchuga':'жемчуга',
+        'zhemchuzhinoy':'жемчужиной','zhemchuzhin':'жемчужин',
+        'barochnoy':'барочной','barochnykh':'барочных',
+        'naturalnogo':'натурального','naturalnykh':'натуральных',
+        'rakushki':'ракушки',
+        'akvamarina':'аквамарина',
+        'golubogo':'голубого','rozovogo':'розового',
+        'raznykh_form_i_tsvetov':'разных форм и цветов',
+        'rodirovannaya':'родированная',
+        'v_pozolote':'в позолоте',
+        'na_leske':'на леске',
+        's_biserom':'с бисером','biserom':'бисером',
+        'etno':'этно','etno_stile':'в этно-стиле',
+        'barokko':'Барокко',
+
+        // служебные предлоги/союзы
+        'iz':'из','s':'с','i':'и','v':'в','na':'на','plus':''
+      };
+
+      const words = base.split('_').filter(Boolean).map(w=>{
+        const key = w.toLowerCase();
+        return map[key] !== undefined ? map[key] : w;
+      });
+
+      let phrase = words.join(' ').replace(/\s{2,}/g,' ').trim();
+
+      // косметические дефисы для устойчивых сочетаний
+      phrase = phrase
+        .replace(/\bЧокер трансформер\b/ig, 'Чокер-трансформер')
+        .replace(/\bСотуар трансформер\b/ig, 'Сотуар-трансформер');
+
+      // Первая буква заглавная
+      if(phrase) phrase = phrase.charAt(0).toUpperCase() + phrase.slice(1);
+
+      if(!phrase){
+        const n = (name||'').toLowerCase();
+        if(n.startsWith('komplekt')) return 'Комплект';
+        if(n.startsWith('kolye') || n.startsWith('kole')) return 'Колье';
+        if(n.startsWith('chokery')) return 'Чокеры';
+        if(n.startsWith('choker')) return 'Чокер';
+        if(n.startsWith('sotuar')) return 'Сотуар';
+        if(n.startsWith('tsep') || n.startsWith('chain')) return 'Цепь';
+        return 'Украшение';
       }
-
-      if(has('gematitovaya_pyl')) return `${type} «Гематитовая пыль»`;
-      if(has('akvamarin') && has('zhemchug')) return `${type} из аквамарина и жемчуга`;
-      if((has('gornogo_khrustalya') || has('khrustal')) && has('zhemchug')) return `${type} из горного хрусталя и жемчуга`;
-      if(has('lunnyy_kamen') && has('zhemchug')) return `${type} «Лунный камень» с жемчугом`;
-      if(has('tsirkon')) return `${type} с жемчугом и цирконами`;
-      if(has('akva_kvartsa') && has('zhemchuga') && has('gornogo_khrustalya') && has('gematita')) return `${type} из аква-кварца, жемчуга, хрусталя и гематита`;
-      if(has('raznykh_form_i_tsvetov_zhemchuga')) return `${type} из жемчуга разных форм и цветов`;
-      if(has('kolye') && has('barokko')) return `${type} «Барокко»`;
-      return `${type} из жемчуга`;
+      return phrase;
     }
 
     /* ===== Цена из имени ===== */
     function extractPrices(name){
-      const nums = [...name.matchAll(/(\d[\d\s.,]*)\s*тг/ig)].map(m=>parseInt(m[1].replace(/[^\d]/g,''),10)).filter(Boolean);
+      const nums = [...name.matchAll(/(\d[\d\s.,]*)\s*тг/ig)]
+        .map(m=>parseInt(m[1].replace(/[^\d]/g,''),10))
+        .filter(Boolean);
       if(nums.length===0){
         const m = name.match(/(\d[\d\s.,]*)\D*$/);
         return {base: m ? parseInt(m[1].replace(/[^\d]/g,''),10) : 0, extra: 0};
@@ -419,7 +461,8 @@
     }
 
     let PRODUCTS = dedupe(makeProductObjects(FILES));
-    // ВАЖНО: никаких fetch('assets/manifest.json') — чтобы не было дублей
+
+    // Без manifest.json — чтобы не было дублей
     renderFilters();
     renderGrid();
 
@@ -441,7 +484,7 @@
       const items=activeCat==='All'?PRODUCTS:PRODUCTS.filter(p=>p.cat===activeCat);
       items.forEach(p=>{
         const title=p.title[lang()]||p.title['ru'];
-        const card=document.createElement('article'); 
+        const card=document.createElement('article');
         card.className='card';
         card.setAttribute('itemscope','');
         card.setAttribute('itemtype','https://schema.org/Product');
@@ -510,38 +553,6 @@
 
     // Init
     applyLang(); updateBadge();
-
-    /* ===== Конверсия WhatsApp ===== */
-    (function(){
-      function isWaLink(a){
-        if(!a || !a.href) return false;
-        const href=a.href.toLowerCase();
-        return href.includes('wa.me') || href.includes('whatsapp');
-      }
-      function reportConversion(url){
-        try{
-          const callback=function(){ if(url){ window.location=url; } };
-          gtag('event','conversion',{
-            'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
-            'value':0,
-            'currency':'KZT',
-            'event_callback':callback
-          });
-          return false;
-        }catch(e){
-          if(url){ window.location=url; }
-          return false;
-        }
-      }
-      document.addEventListener('click',function(e){
-        const a = e.target.closest('a');
-        if(!a) return;
-        if(isWaLink(a)){
-          e.preventDefault();
-          reportConversion(a.href);
-        }
-      });
-    })();
   </script>
 </body>
 </html>
