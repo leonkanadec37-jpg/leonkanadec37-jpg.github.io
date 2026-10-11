@@ -1,621 +1,36 @@
 [
   {
     "id": "prod_01",
-    "title": "Чокер «Лунный камень» с жемчугом",
+    "title": "Колье из натурального жемчуга",
     "category": "Necklaces",
-    "price": 18000,
-    "image": "assets/choker-lunnyy-kamen-zhemchug-18000.webp",
+    "price": 80000,
+    "image": "assets/kole-iz-naturalnogo-zhemchuga-80000.webp",
     "materials": [
       "Натуральный жемчуг",
-      "Лунный камень",
+      "Барочный жемчуг",
       "Ювелирный сплав"
     ],
-    "description": "Чокер «Лунный камень» с жемчугом — ручная работа из натурального лунного камня и жемчуга. Лаконичное и утонченное сияние.",
+    "description": "Роскошное многорядное колье из отборного натурального жемчуга с акцентной подвеской из крупной барочной жемчужины.",
     "inStock": true,
     "featured": true
   },
   {
     "id": "prod_02",
-    "title": "Чокер из аквамарина и жемчуга",
+    "title": "Колье из натурального жемчуга (Премиум)",
     "category": "Necklaces",
-    "price": 15000,
-    "image": "assets/choker-akvamarin-zhemchug-15000.webp",
+    "price": 80000,
+    "image": "assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp",
     "materials": [
       "Натуральный жемчуг",
-      "Аквамарин",
+      "Горный хрусталь",
       "Ювелирный сплав"
     ],
-    "description": "Нежный чокер ручной работы из натурального аквамарина и отборного жемчуга.",
+    "description": "Многослойное колье из натурального жемчуга премиальной селекции и горного хрусталя с акцентной барочной жемчужиной.",
     "inStock": true,
-    "featured": false
+    "featured": true
   },
   {
     "id": "prod_03",
-    "title": "Чокер из голубого жемчуга",
-    "category": "Necklaces",
-    "price": 20000,
-    "image": "assets/choker-goluboy-zhemchug-20000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Изящный чокер из натурального жемчуга редкого голубого оттенка.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_04",
-    "title": "Комплект: чокер из голубого жемчуга + серьги",
-    "category": "Sets",
-    "price": 20000,
-    "image": "assets/komplekt-choker-goluboy-zhemchug-sergi-20000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Гармоничный комплект: чокер из голубого жемчуга и утонченные серьги ручной работы.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_05",
-    "title": "Чокер из горного хрусталя и жемчуга",
-    "category": "Necklaces",
-    "price": 18000,
-    "image": "assets/choker-gornyy-khrustal-zhemchug-18000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Горный хрусталь",
-      "Ювелирный сплав"
-    ],
-    "description": "Элегантный чокер из сверкающего горного хрусталя и натурального белого жемчуга.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_06",
-    "title": "Комплект: чокер из натурального жемчуга + серьги",
-    "category": "Sets",
-    "price": 18000,
-    "image": "assets/komplekt-choker-zhemchug-sergi-18000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Классический комплект на каждый день: жемчужный чокер и аккуратные серьги.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_07",
-    "title": "Комплект: чокер из жемчуга + серьги",
-    "category": "Sets",
-    "price": 20000,
-    "image": "assets/komplekt-choker-zhemchug-sergi-20000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Универсальный жемчужный гарнитур ручной работы: чокер и лаконичные серьги.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_08",
-    "title": "Чокер из натурального жемчуга",
-    "category": "Necklaces",
-    "price": 22000,
-    "image": "assets/choker-zhemchug-22000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Премиальный чокер из гладкого калиброванного натурального жемчуга с надежным замочком.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_09",
-    "title": "Комплект: чокер с барочным жемчугом + серьги",
-    "category": "Sets",
-    "price": 26000,
-    "image": "assets/komplekt-choker-barochnyy-zhemchug-sergi-26000.webp",
-    "materials": [
-      "Натуральный барочный жемчуг",
-      "Натуральный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Фактурный чокер с добавлением барочных жемчужин уникальной формы в паре с серьгами.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_10",
-    "title": "Чокер в этно-стиле из ювелирного стекла и жемчуга",
-    "category": "Necklaces",
-    "price": 14000,
-    "image": "assets/choker-etno-steklo-zhemchug-14000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Ювелирное стекло",
-      "Ювелирный сплав"
-    ],
-    "description": "Колоритный чокер в этно-стилистике, сочетающий гранёное ювелирное стекло и нежный жемчуг.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_11",
-    "title": "Комплект: чокеры из натурального жемчуга + серьги",
-    "category": "Sets",
-    "price": 20000,
-    "image": "assets/komplekt-chokery-zhemchug-sergi-20000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Многорядный чокерный комплект из натурального жемчуга с подходящими серьгами.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_12",
-    "title": "Чокеры на леске с бисером",
-    "category": "Necklaces",
-    "price": 10000,
-    "image": "assets/chokery-leska-biser-10000.webp",
-    "materials": [
-      "Бисер",
-      "Леска",
-      "Ювелирный сплав"
-    ],
-    "description": "Легкие невесомые чокеры на прочной леске с ювелирным бисером — идеальны для многослойных сетов.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_13",
-    "title": "Чокеры с жемчугом и цирконами (сет 1)",
-    "category": "Necklaces",
-    "price": 20000,
-    "image": "assets/chokery-zhemchug-tsirkony-20000-v1.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Цирконы",
-      "Ювелирный сплав"
-    ],
-    "description": "Изысканный чокер с отборным жемчугом и сверкающими вставками микроцирконов.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_14",
-    "title": "Чокеры с жемчугом и цирконами (сет 2)",
-    "category": "Necklaces",
-    "price": 20000,
-    "image": "assets/chokery-zhemchug-tsirkony-20000-v2.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Цирконы",
-      "Ювелирный сплав"
-    ],
-    "description": "Стильный двухрядный дизайн с натуральным жемчугом и акцентными циркониевыми бусинами.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_15",
-    "title": "Колье «Мини»",
-    "category": "Necklaces",
-    "price": 20000,
-    "image": "assets/kole-mini-20000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Минималистичное колье ручной работы с аккуратным жемчужным плетением.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_16",
-    "title": "Комплект: колье «Классик» + серьги",
-    "category": "Sets",
-    "price": 40000,
-    "image": "assets/komplekt-kole-klassik-sergi-40000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Роскошный классический комплект: колье с отборным жемчугом и изящные серьги.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_17",
-    "title": "Колье из гематита",
-    "category": "Necklaces",
-    "price": 20000,
-    "image": "assets/kole-gematit-20000.webp",
-    "materials": [
-      "Гематит",
-      "Ювелирный сплав"
-    ],
-    "description": "Стильное геометричное колье из зеркального графитового гематита.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_18",
-    "title": "Колье из натуральных камней",
-    "category": "Necklaces",
-    "price": 20000,
-    "image": "assets/kole-naturalnye-kamni-20000.webp",
-    "materials": [
-      "Натуральные камни",
-      "Ювелирный сплав"
-    ],
-    "description": "Авторское колье из микса натуральных камней ручной огранки.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_19",
-    "title": "Колье из натуральных камней (сет с браслетом и серьгами)",
-    "category": "Bracelets",
-    "price": 23500,
-    "image": "assets/kole-naturalnye-kamni-braslet-sergi-23500.webp",
-    "materials": [
-      "Натуральные камни",
-      "Ювелирный сплав"
-    ],
-    "description": "Комплексное решение: колье, браслет и серьги из натуральных самоцветов.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_20",
-    "title": "Колье из натуральных камней «Гранж»",
-    "category": "Necklaces",
-    "price": 40000,
-    "image": "assets/kole-naturalnye-kamni-40000.webp",
-    "materials": [
-      "Натуральные камни",
-      "Ювелирный сплав"
-    ],
-    "description": "Богатое акцентное колье из крупных натуральных камней глубокого оттенка.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_21",
-    "title": "Колье из ракушки",
-    "category": "Necklaces",
-    "price": 14000,
-    "image": "assets/kole-rakushka-14000.webp",
-    "materials": [
-      "Ракушка",
-      "Перламутр",
-      "Ювелирный сплав"
-    ],
-    "description": "Летнее морское колье из натурального перламутра и резной ракушки.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_22",
-    "title": "Колье из жемчуга королевское",
-    "category": "Necklaces",
-    "price": 60000,
-    "image": "assets/kole-zhemchug-60000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Роскошное крупное жемчужное колье премиум качества — центральное украшение вечернего образа.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_23",
-    "title": "Колье «Майорка» 28",
-    "category": "Necklaces",
-    "price": 28000,
-    "image": "assets/kole-mayorka-28000.webp",
-    "materials": [
-      "Жемчуг Майорка",
-      "Ювелирный сплав"
-    ],
-    "description": "Колье из органического жемчуга Майорка идеальной сферической формы с шелковистым отливом.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_24",
-    "title": "Колье «Майорка» 32",
-    "category": "Necklaces",
-    "price": 32000,
-    "image": "assets/kole-mayorka-32000.webp",
-    "materials": [
-      "Жемчуг Майорка",
-      "Ювелирный сплав"
-    ],
-    "description": "Удлиненное колье Майорка с укрупненными жемчужинами совершенного блеска.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_25",
-    "title": "Колье из жемчуга трансформер",
-    "category": "Necklaces",
-    "price": 70000,
-    "image": "assets/kole-zhemchug-transformer-70000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Многофункциональное колье-трансформер: можно носить как длинную нить, двойной чокер или браслет.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_26",
-    "title": "Колье премиум класса из жемчуга",
-    "category": "Necklaces",
-    "price": 65000,
-    "image": "assets/kole-zhemchug-premium-65000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Безупречный жемчуг премиальной селекции с глубоким перламутровым свечением.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_27",
-    "title": "Колье-трансформер",
-    "category": "Necklaces",
-    "price": 40000,
-    "image": "assets/kole-transformer-40000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Универсальное колье со съёмными элементами для вариативных стилизаций.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_28",
-    "title": "Колье «Гематитовая пыль»",
-    "category": "Necklaces",
-    "price": 23000,
-    "image": "assets/kole-gematitovaya-pyl-23000.webp",
-    "materials": [
-      "Гематит",
-      "Ювелирный сплав"
-    ],
-    "description": "Мерцающее колье с микроогранкой «Гематитовая пыль», переливающееся металлическим блеском при каждом движении.",
-    "inStock": true,
-    "featured": true
-  },
-  {
-    "id": "prod_29",
-    "title": "Колье: аква-кварц, жемчуг, хрусталь, гематит",
-    "category": "Necklaces",
-    "price": 30000,
-    "image": "assets/kolye-akva-kvarts-zhemchug-khrustal-gematit-30000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Аква-кварц",
-      "Горный хрусталь",
-      "Гематит"
-    ],
-    "description": "Богатая палитра камней: прозрачный аква-кварц, ледяной хрусталь, темный гематит и натуральный жемчуг.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_30",
-    "title": "Колье из жемчуга разных форм и цветов",
-    "category": "Necklaces",
-    "price": 50000,
-    "image": "assets/kolye-raznye-formy-zhemchug-50000.webp",
-    "materials": [
-      "Натуральный барочный жемчуг",
-      "Цветной жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Авангардная композиция из жемчужин необычных природных форм, оттенков и текстур.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_31",
-    "title": "Комплект: чокер «Барокко» + серьги",
-    "category": "Sets",
-    "price": 23000,
-    "image": "assets/komplekt-choker-barokko-sergi-23000.webp",
-    "materials": [
-      "Натуральный барочный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Эффектный гарнитур с крупным акцентным барочным жемчугом и серьгами.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_32",
-    "title": "Комплект: этно-стиль + серьги",
-    "category": "Sets",
-    "price": 18000,
-    "image": "assets/komplekt-etno-stil-sergi-18000.webp",
-    "materials": [
-      "Натуральные камни",
-      "Ювелирный сплав"
-    ],
-    "description": "Этнический комплект ручной работы с самобытным декором и серьгами в тон.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_33",
-    "title": "Комплект: колье «Барокко» + серьги",
-    "category": "Sets",
-    "price": 30000,
-    "image": "assets/komplekt-kolye-barokko-sergi-30000.webp",
-    "materials": [
-      "Натуральный барочный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Изысканный комплект: колье с массивной барочной жемчужиной и серьги с жемчужными подвесками.",
-    "inStock": true,
-    "featured": true
-  },
-  {
-    "id": "prod_34",
-    "title": "Комплект: сотуар-галстук (жемчуг, хрусталь)",
-    "category": "Sets",
-    "price": 18000,
-    "image": "assets/komplekt-sotuar-galstuk-zhemchug-khrustal-18000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Горный хрусталь",
-      "Ювелирный сплав"
-    ],
-    "description": "Трендовый сотуар-галстук с ниспадающими жемчужными кистями и гранями хрусталя.",
-    "inStock": true,
-    "featured": true
-  },
-  {
-    "id": "prod_35",
-    "title": "Комплект: чокер из гематита и жемчуга + серьги",
-    "category": "Sets",
-    "price": 15000,
-    "image": "assets/komplekt-choker-gematit-zhemchug-sergi-15000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Гематит",
-      "Ювелирный сплав"
-    ],
-    "description": "Контрастное сочетание блестящего темного гематита и светлого жемчуга с сережками.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_36",
-    "title": "Комплект: двойной чокер-трансформер + серьги этно",
-    "category": "Sets",
-    "price": 25000,
-    "image": "assets/komplekt-dvoynoy-choker-transformer-sergi-etno-25000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Двойной чокер с возможностью трансформации в браслет, дополненный серьгами в этническом стиле.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_37",
-    "title": "Комплект: колье жемчуг + серьги этно",
-    "category": "Sets",
-    "price": 30000,
-    "image": "assets/komplekt-kolye-zhemchug-sergi-etno-30000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Стильный комплект из жемчужного колье и серег с этническими акцентами.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_38",
-    "title": "Многослойные браслеты",
-    "category": "Bracelets",
-    "price": 15000,
-    "image": "assets/mnogosloynye-braslety-15000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Натуральные камни",
-      "Ювелирный сплав"
-    ],
-    "description": "Эффектный многорядный браслет на руку из натурального жемчуга и камней.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_39",
-    "title": "Сотуар-галстук + серьги",
-    "category": "Lariats",
-    "price": 27000,
-    "image": "assets/komplekt-sotuar-galstuk-sergi-27000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Длинный изящный сотуар Y-силуэта с жемчужным декором и парными серьгами.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_40",
-    "title": "Сотуар-трансформер + серьги",
-    "category": "Lariats",
-    "price": 20000,
-    "image": "assets/komplekt-sotuar-transformer-sergi-20000.webp",
-    "materials": [
-      "Натуральный жемчуг",
-      "Ювелирный сплав"
-    ],
-    "description": "Трансформируемый сотуар свободного плетения в наборе с серьгами.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_41",
-    "title": "Цепь классическая",
-    "category": "Chains",
-    "price": 15000,
-    "image": "assets/tsep-15000.webp",
-    "materials": [
-      "Родированная фурнитура"
-    ],
-    "description": "Стильная родированная цепочка базового плетения под кулоны или самостоятельное ношение.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_42",
-    "title": "Комплект: цепь родированная + браслет",
-    "category": "Chains",
-    "price": 23000,
-    "image": "assets/komplekt-tsep-rodirovannaya-braslet-23000.webp",
-    "materials": [
-      "Родированная фурнитура"
-    ],
-    "description": "Гарнитур из родированной цепи и браслета в едином звеньевом стиле со стойким покрытием.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_43",
-    "title": "Комплект: цепь с барочной жемчужиной + браслет (позолота)",
-    "category": "Chains",
-    "price": 23000,
-    "image": "assets/komplekt-tsep-barochnyy-zhemchug-pozolota-braslet-23000.webp",
-    "materials": [
-      "Позолота",
-      "Натуральный барочный жемчуг"
-    ],
-    "description": "Позолоченная цепь с подвеской из барочной жемчужины в паре с утонченным браслетом.",
-    "inStock": true,
-    "featured": false
-  },
-  {
-    "id": "prod_44",
     "title": "Колье из жемчуга Майорка",
     "category": "Necklaces",
     "price": 34000,
@@ -626,6 +41,34 @@
       "Ювелирный сплав"
     ],
     "description": "Многослойное колье из жемчуга Майорка ручной работы с расписными элементами и подвеской.",
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "prod_04",
+    "title": "Комплект: цепь + браслет",
+    "category": "Sets",
+    "price": 40000,
+    "image": "assets/komplekt-tsep-braslet-40000.webp",
+    "materials": [
+      "Позолота",
+      "Натуральный барочный жемчуг"
+    ],
+    "description": "Позолоченная цепь с подвеской из барочной жемчужины в паре с утонченным звеньевым браслетом.",
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "prod_05",
+    "title": "Цепь родированная + браслет",
+    "category": "Chains",
+    "price": 40000,
+    "image": "assets/tsep-rodirovannaya-braslet-40000.webp",
+    "materials": [
+      "Родированная фурнитура",
+      "Натуральный барочный жемчуг"
+    ],
+    "description": "Гарнитур из родированной цепи с барочной жемчужиной и браслета в едином звеньевом стиле со стойким покрытием.",
     "inStock": true,
     "featured": true
   }

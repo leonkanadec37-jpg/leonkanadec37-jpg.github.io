@@ -199,7 +199,7 @@
       <a class="btn" href="shop.html" data-i18n="hero.cta">Перейти в каталог</a>
     </div>
     <div class="hero-visual">
-      <img src="assets/hero-kole-zhemchug-60000.webp" alt="Украшения из жемчуга и натуральных камней — Livi Jewelry">
+      <img src="assets/hero-kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Украшения из жемчуга и натуральных камней — Livi Jewelry">
     </div>
   </section>
 
@@ -296,7 +296,7 @@
       });
     }
 
-    fetch('products.json')
+    fetch('products.json?v=' + Date.now(), {cache: 'no-cache'})
       .then(r=>r.ok ? r.json() : Promise.reject())
       .then(data=>{
         const feat = data.filter(p=>p.featured);
@@ -305,10 +305,11 @@
       .catch(()=>{
         // Резервный фолбэк
         const FALLBACK = [
-          {image:'assets/kole-gematitovaya-pyl-23000.webp', title:'Колье «Гематитовая пыль»', price:23000},
-          {image:'assets/choker-lunnyy-kamen-zhemchug-18000.webp', title:'Чокер «Лунный камень» с жемчугом', price:18000},
-          {image:'assets/komplekt-kolye-barokko-sergi-30000.webp', title:'Комплект: колье «Барокко» + серьги', price:30000},
-          {image:'assets/komplekt-sotuar-galstuk-zhemchug-khrustal-18000.webp', title:'Комплект: сотуар-галстук (жемчуг, хрусталь)', price:18000}
+          {image:'assets/kole-iz-naturalnogo-zhemchuga-80000.webp', title:'Колье из натурального жемчуга', price:80000},
+          {image:'assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp', title:'Колье из натурального жемчуга (Премиум)', price:80000},
+          {image:'assets/kole-iz-zhemchuga-mayorka-34000.webp', title:'Колье из жемчуга Майорка', price:34000},
+          {image:'assets/komplekt-tsep-braslet-40000.webp', title:'Комплект: цепь + браслет', price:40000},
+          {image:'assets/tsep-rodirovannaya-braslet-40000.webp', title:'Цепь родированная + браслет', price:40000}
         ];
         renderFeat(FALLBACK);
       });

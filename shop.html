@@ -433,13 +433,17 @@
     }
 
     // Load products.json
-    fetch('products.json')
+    fetch('products.json?v=' + Date.now(), {cache: 'no-cache'})
       .then(res => {
         if(!res.ok) throw new Error('Failed to load products.json');
         return res.json();
       })
       .then(data => {
         PRODUCTS = data;
+        if(activeCat !== 'All' && !PRODUCTS.some(p => p.category === activeCat)){
+          activeCat = 'All';
+          localStorage.setItem('livi_active_cat', 'All');
+        }
         renderFilters();
         renderGrid();
       })
