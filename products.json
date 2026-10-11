@@ -613,5 +613,20 @@
     "description": "Позолоченная цепь с подвеской из барочной жемчужины в паре с утонченным браслетом.",
     "inStock": true,
     "featured": false
+  },
+  {
+    "id": "prod_44",
+    "title": "Колье из жемчуга Майорка",
+    "category": "Necklaces",
+    "price": 34000,
+    "image": "assets/kole-iz-zhemchuga-mayorka-34000.webp",
+    "materials": [
+      "Жемчуг Майорка",
+      "Керамические бусины",
+      "Ювелирный сплав"
+    ],
+    "description": "Многослойное колье из жемчуга Майорка ручной работы с расписными элементами и подвеской.",
+    "inStock": true,
+    "featured": true
   }
 ]
