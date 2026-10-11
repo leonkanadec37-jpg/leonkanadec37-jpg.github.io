@@ -73,33 +73,44 @@
     .wrap{max-width:var(--max);margin:0 auto;padding:24px 16px}
     h1{font-size:clamp(24px,5vw,42px);margin-bottom:18px;text-align:center}
 
-    .filters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+    .toolbar{display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:20px}
+    .search-box{position:relative;width:min(480px,100%)}
+    .search-input{width:100%;border:1px solid var(--line);border-radius:999px;padding:10px 42px 10px 18px;font-size:15px;font-family:inherit;outline:none;transition:border-color .2s,box-shadow .2s}
+    .search-input:focus{border-color:#111;box-shadow:0 0 0 3px rgba(0,0,0,.06)}
+    .search-clear{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:0;color:#999;font-size:16px;cursor:pointer;display:none}
+
+    .filters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
     .tag{border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:14px;font-weight:600;color:#111;letter-spacing:.02em;background:#fff;cursor:pointer;transition:.2s}
     .tag.active,.tag:hover{background:#111;color:#fff;border-color:#111}
 
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
-    .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.04);transition:.25s;cursor:pointer}
+    .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.04);transition:.25s;cursor:pointer;display:flex;flex-direction:column}
     .card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
     .card img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
-    .body{padding:12px}
-    .title{font-weight:600;margin-bottom:6px}
-    .price{font-weight:700}
-    .btn{display:inline-block;background:#111;color:#fff;padding:8px 14px;border-radius:999px;font-size:14px;border:0;cursor:pointer;margin-top:10px}
+    .body{padding:12px;display:flex;flex-direction:column;flex:1}
+    .title{font-weight:600;margin-bottom:6px;line-height:1.3}
+    .price{font-weight:700;margin-top:auto}
+    .btn{display:inline-block;background:#111;color:#fff;padding:8px 14px;border-radius:999px;font-size:14px;border:0;cursor:pointer;margin-top:10px;text-align:center}
     .btn:active{transform:translateY(1px)}
+
+    .empty-state{text-align:center;padding:48px 16px;color:var(--muted);font-size:16px;grid-column:1/-1}
 
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:10px;z-index:100}
     .modal.open{display:flex}
-    .modal-card{width:min(900px,96vw);max-height:92vh;overflow:auto;background:#fff;border-radius:20px;display:grid;grid-template-columns:1fr 1fr}
-    .modal-left{background:#000}
-    .modal-left img{width:100%;height:100%;object-fit:contain}
-    .modal-right{padding:18px}
-    .modal-title{font-size:22px;font-weight:700;margin-bottom:8px}
-    .modal-price{font-weight:700;margin-bottom:8px}
-    .modal-desc{color:var(--muted);font-size:15px;margin-bottom:16px}
+    .modal-card{width:min(900px,96vw);max-height:92vh;overflow:auto;background:#fff;border-radius:20px;display:grid;grid-template-columns:1fr 1fr;position:relative}
+    .modal-left{background:#000;display:flex;align-items:center;justify-content:center}
+    .modal-left img{width:100%;height:100%;object-fit:contain;max-height:80vh}
+    .modal-right{padding:24px;display:flex;flex-direction:column}
+    .modal-title{font-size:22px;font-weight:700;margin-bottom:6px;line-height:1.3}
+    .modal-cat{color:var(--muted);font-size:14px;margin-bottom:10px;font-weight:500}
+    .modal-price{font-size:20px;font-weight:700;margin-bottom:12px}
+    .modal-materials{font-size:13px;color:#555;margin-bottom:12px;display:flex;flex-wrap:wrap;gap:6px}
+    .mat-pill{background:#f3f3f3;padding:4px 10px;border-radius:999px}
+    .modal-desc{color:var(--muted);font-size:15px;margin-bottom:20px;line-height:1.5}
     .qty{display:flex;align-items:center;gap:10px;margin-bottom:16px}
     .qty button{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:20px}
-    .modal-actions{display:flex;gap:10px;flex-wrap:wrap}
-    .close{position:absolute;top:12px;right:12px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 10px;cursor:pointer}
+    .modal-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
+    .close{position:absolute;top:12px;right:12px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 10px;cursor:pointer;font-size:14px;z-index:10}
 
     .quick-link{
       display:inline-flex;align-items:center;gap:6px;
@@ -171,7 +182,13 @@
 
   <main class="wrap">
     <h1 data-i18n="page.title">Украшения из жемчуга — каталог: серьги, браслеты, кулоны, кольца</h1>
-    <div class="filters" id="filters"></div>
+    <div class="toolbar">
+      <div class="search-box">
+        <input type="text" id="searchInput" class="search-input" placeholder="Поиск украшений..." aria-label="Поиск украшений">
+        <button id="searchClear" class="search-clear" aria-label="Очистить поиск">✕</button>
+      </div>
+      <div class="filters" id="filters"></div>
+    </div>
     <div class="grid" id="grid"></div>
   </main>
 
@@ -181,8 +198,9 @@
       <div class="modal-left"><img id="mImg" alt=""></div>
       <div class="modal-right">
         <div class="modal-title" id="mTitle"></div>
-        <div class="muted" id="mCat"></div>
+        <div class="modal-cat" id="mCat"></div>
         <div class="modal-price" id="mPrice"></div>
+        <div class="modal-materials" id="mMats"></div>
         <div class="modal-desc" id="mDesc"></div>
         <div class="qty">
           <button id="mMinus" aria-label="−">−</button>
@@ -194,8 +212,8 @@
           <a class="btn" href="cart.html" data-i18n="ui.openCart">Открыть корзину</a>
         </div>
       </div>
+      <button class="close" id="mClose" aria-label="Закрыть">✕</button>
     </div>
-    <button class="close" id="mClose" aria-label="Закрыть">✕</button>
   </div>
 
   <script>
@@ -206,21 +224,24 @@
         'nav.home':'Главная','nav.shop':'Каталог','nav.cart':'Корзина',
         'page.title':'Украшения из жемчуга — каталог: серьги, браслеты, кулоны, кольца',
         'cat.All':'Все','cat.Necklaces':'Колье','cat.Sets':'Комплекты','cat.Bracelets':'Браслеты','cat.Lariats':'Сотуары','cat.Chains':'Цепи',
-        'ui.add':'В корзину','ui.openCart':'Открыть корзину'
+        'ui.add':'В корзину','ui.openCart':'Открыть корзину',
+        'search.placeholder':'Поиск украшений...','search.empty':'По вашему запросу ничего не найдено'
       },
       kk:{
         'meta.title':'Інжу әшекейлері — сырға, білезік, кулон, сақина каталоги | Livi Jewelry',
         'nav.home':'Басты бет','nav.shop':'Дүкен','nav.cart':'Себет',
         'page.title':'Інжу әшекейлері — каталог: сырғалар, білезіктер, кулондар, сақиналар',
         'cat.All':'Барлығы','cat.Necklaces':'Алқалар','cat.Sets':'Комплекттер','cat.Bracelets':'Білезіктер','cat.Lariats':'Сотуарлар','cat.Chains':'Тізбектер',
-        'ui.add':'Себетке қосу','ui.openCart':'Себетті ашу'
+        'ui.add':'Себетке қосу','ui.openCart':'Себетті ашу',
+        'search.placeholder':'Әшекейлерді іздеу...','search.empty':'Сұранысыңыз бойынша ештеңе табылмады'
       },
       en:{
         'meta.title':'Pearl jewellery catalog — buy earrings, bracelets, pendants, rings | Livi Jewelry',
         'nav.home':'Home','nav.shop':'Shop','nav.cart':'Cart',
         'page.title':'Pearl jewellery — catalog: earrings, bracelets, pendants, rings',
         'cat.All':'All','cat.Necklaces':'Necklaces','cat.Sets':'Sets','cat.Bracelets':'Bracelets','cat.Lariats':'Lariats','cat.Chains':'Chains',
-        'ui.add':'Add to cart','ui.openCart':'Open cart'
+        'ui.add':'Add to cart','ui.openCart':'Open cart',
+        'search.placeholder':'Search jewellery...','search.empty':'No items found matching your search'
       }
     };
     function lang(){ return localStorage.getItem('lang') || 'ru'; }
@@ -229,298 +250,40 @@
     function applyLang(){
       document.title = tr('meta.title'); document.documentElement.lang = lang();
       document.querySelectorAll('[data-i18n]').forEach(el=>{ el.textContent = tr(el.getAttribute('data-i18n')); });
+      document.getElementById('searchInput').placeholder = tr('search.placeholder');
       [ruBtn,kkBtn,enBtn].forEach(b=>b.classList.remove('active')); (lang()==='kk'?kkBtn:lang()==='en'?enBtn:ruBtn).classList.add('active');
     }
-
-    /* ===== Источник файлов (актуальный список) ===== */
-    const FILES = [
-      'Choker_Lunnyy_kamen_s_zhemchugom_18000_tg.webp',
-      'Choker_iz_Akvamarina_i_zhemchuga_15000_tg.webp',
-      'Choker_iz_golubogo_zhemchuga_20.000_tg.webp',
-      'Choker_iz_golubogo_zhemchuga_20.000_tg_Sergi_20.000_tg.webp',
-      'Choker_iz_gornogo_khrustalya_i_zhemchuga_18000_tg.webp',
-      'Choker_iz_naturalnogo_zhemchuga_18.000_tg_Sergi_18.000_tg.webp',
-      'Choker_iz_naturalnogo_zhemchuga_20.000_tg_Sergi_20.000_tg.webp',
-      'Choker_iz_naturalnogo_zhemchuga_22.000_tg.webp',
-      'Choker_iz_naturalnogo_zhemchuga_s_dobavleniem_barochnykh_zhemchuzhin_26.000_tg_Sergi_26.000_tg.webp',
-      'Choker_v_etno_stile_iz_yuvelirnogo_stekla_i_zhemchuga_14.000_tg.webp',
-      'Chokery_iz_naturalnogo_zhemchuga_20.000_tg_Sergi_20.000_tg.webp',
-      'Chokery_na_leske_i_s_biserom_10.000_tg.webp',
-      'Chokery_s_zhemchugom_i_tsirkonami_20.000_tg.webp',
-      'Chokery_s_zhemchugom_i_tsirkonami_20000_tg.webp',
-      'Kole_20.000_tg.webp',
-      'Kole_40.000_tg_Sergi_40.000_tg.webp',
-      'Kole_iz_gematita_20.000_tg.webp',
-      'Kole_iz_naturalnykh_kamney_20.000_tg.webp',
-      'Kole_iz_naturalnykh_kamney_23.000_tg_Braslet_8.500_tg_Sergi_23.500_tg.webp',
-      'Kole_iz_naturalnykh_kamney_40.000_tg.webp',
-      'Kole_iz_rakushki_14.000_tg.webp',
-      'Kole_iz_zhemchuga_60.000_tg.webp',
-      'Kole_iz_zhemchuga_Mayorka_28.000_tg.webp',
-      'Kole_iz_zhemchuga_Mayorka_32.000_tg.webp',
-      'Kole_iz_zhemchuga_transformer_70.000_tg.webp',
-      'Kole_premium_klassa_iz_zhemchuga_65.000_tg.webp',
-      'Kole_transformer_40.000_tg.webp',
-      'Kolye_Gematitovaya_pyl_23000_tg.webp',
-      'Kolye_iz_akva_kvartsa_zhemchuga_i_gornogo_khrustalya_i_gematita_30000_tg.webp',
-      'Kolye_iz_raznykh_form_i_tsvetov_zhemchuga_50000_tg.webp',
-      'Komplekt_Choker_Barokko_23000_tg_plus_Sergi_23.000_tg.webp',
-      'Komplekt_Etno_stil_18000_tg_Sergi_18.000_tg.webp',
-      'Komplekt_Kolye_Barokko_30000_tg_plus_sergi_30.000_tg.webp',
-      'Komplekt_Kolye_iz_Rozovogo_zhemchuga_Mayorka_30000_plus_tg_Sergi_30.000_tg.webp',
-      'Komplekt_Kolye_iz_rozovogo_zhemchuga_36000_tg_plus_sergi_36.000_tg.webp',
-      'Komplekt_Kolye_transformer_23000_plus_sergi_23.000.jpg',
-      'Komplekt_Sotuar_galstuk_iz_zhemchuga_i_gornogo_khrustalya_18000_tg.webp.jpg',
-      'Komplekt_choker_iz_gematita_i_zhemchuga_15000_tg_plus_sergi_15.000.webp',
-      'Komplekt_dvoynoy_choker_transformer_25000_tg_plus_sergi_etno_25.000_tg.webp',
-      'Komplekt_kolye_zhemchug_plus_sergi_etno_30000.webp',
-      'Mnogosloynye_braslety_15.000_tg.webp',
-      'Sotuar_galstuk_27.000_tg_Sergi_27.000_tg.webp',
-      'Sotuar_transformer_20.000_tg_Sergi_20.000_tg.webp',
-      'Tsep_15.000_tg.webp',
-      'Tsep_Rodirovannaya_23.000_tg_Braslet_23.000_tg.webp',
-      'Tsep_s_barochnoy_zhemchuzhinoy_v_pozolote_23.000_tg_Braslet_23.000_tg.webp'
-    ];
 
     const CATS = ['All','Necklaces','Sets','Bracelets','Lariats','Chains'];
     const KEY='livi_cart_v2';
     const grid=document.getElementById('grid');
     const filters=document.getElementById('filters');
+    const searchInput=document.getElementById('searchInput');
+    const searchClear=document.getElementById('searchClear');
     let activeCat = localStorage.getItem('livi_active_cat') || 'All';
+    let searchQuery = '';
+    let PRODUCTS = [];
 
-    function parseUnit(priceStr){ const m=String(priceStr||'').match(/([\d\s.,]+)\s*тг/i); if(!m) return 0; return parseInt(m[1].replace(/[^\d]/g,''),10)||0; }
     function readCart(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []} }
     function writeCart(v){ localStorage.setItem(KEY, JSON.stringify(v)); updateBadge(); }
     function updateBadge(){ const count=readCart().reduce((s,i)=>s+Number(i.qty||0),0); const b=document.getElementById('cartBadge'); if(!b) return; b.style.display = count>0 ? 'inline-block':'none'; if(count>0) b.textContent=count; }
     window.addEventListener('storage',e=>{ if(e.key===KEY) updateBadge(); });
 
-    /* ===== Утилиты парсинга ===== */
-    function norm(s){
-      return String(s||'')
-        .toLowerCase()
-        .replace(/[\s\-]+/g,'_')
-        .replace(/ё/g,'е'); // унификация
-    }
-    function has(n, token){ return n.includes(token); }
-
-    /* ===== Тип по имени ===== */
-    function typeFromName(n){
-      if(n.startsWith('komplekt')) return 'Комплект';
-      if(n.startsWith('tsep')) return 'Цепь';
-      if(n.startsWith('sotuar')) return 'Сотуар';
-      if(n.startsWith('mnogosloynye') || n.includes('braslet')) return 'Браслет';
-      if(n.startsWith('kolye') || n.startsWith('kole')) return 'Колье';
-      if(n.startsWith('chokery')) return 'Чокеры';
-      if(n.startsWith('choker')) return 'Чокер';
-      return 'Украшение';
-    }
-
-    /* ===== Категория по имени ===== */
-    function catFromName(name){
-      const n = norm(name);
-      if(n.startsWith('komplekt')) return 'Sets';
-      if(n.startsWith('tsep')) return 'Chains';
-      if(n.startsWith('sotuar')) return 'Lariats';
-      if(n.startsWith('mnogosloynye') || n.includes('braslet')) return 'Bracelets';
-      if(n.startsWith('kolye') || n.startsWith('kole') || n.startsWith('choker') || n.startsWith('chokery')) return 'Necklaces';
-      return 'Necklaces';
-    }
-
-    /* ===== Умный генератор короткого названия ===== */
-    function russianTitleFromName(name){
-      const n = norm(name);
-
-      const t = typeFromName(n);
-
-      // Спец-серии/названия
-      const isBarokko = has(n,'barokko');
-      const isMayorka = has(n,'mayorka');
-      const isLunnyy  = has(n,'lunnyy_kamen');
-      const isGematit = has(n,'gematitovaya_pyl');
-
-      // Материалы/описания
-      const hasPearl    = has(n,'zhemchug') || has(n,'zhemchuga');
-      const hasCrystal  = has(n,'gornogo_khrustalya') || (has(n,'gornogo') && has(n,'khrustal'));
-      const hasAquaq    = has(n,'akva_kvartsa') || has(n,'akvamarin'); // покрываем оба твоих кейса
-      const hasHematite = has(n,'gematita') || has(n,'gematit');
-      const hasForms    = has(n,'raznykh_form_i_tsvetov');
-      const hasShell    = has(n,'rakushki');
-      const hasGlass    = has(n,'yuvelirnogo_stekla');
-      const hasEtno     = has(n,'etno');
-      const hasZircon   = has(n,'tsirkon');
-      const hasLeska    = has(n,'leske');
-      const hasBiser    = has(n,'biser');
-      const hasBaroch   = has(n,'barochnoy') || has(n,'barochnykh');
-
-      // Базовая заготовка
-      let base = t;
-
-      // Украшения-«имена»
-      if(isLunnyy) base += ' «Лунный камень»';
-      if(isGematit) base += ' «Гематитовая пыль»';
-      if(isMayorka) base += ' «Майорка»';
-      if(isBarokko) base += ' «Барокко»';
-
-      // Конструкции материала
-      const parts = [];
-      if(hasPearl) parts.push('жемчуга');
-      if(hasAquaq) parts.push('аква-кварца');
-      if(hasHematite) parts.push('гематита');
-      if(hasCrystal) parts.push('горного хрусталя');
-      if(hasShell) parts.push('ракушки');
-      if(hasGlass) parts.push('ювелирного стекла');
-
-      // Особые формулировки
-      let tail = '';
-      if(hasForms) tail = ' из жемчуга разных форм и цветов';
-      else if(parts.length){
-        // «из X и Y»
-        tail = ' из ' + parts.join(' и ');
-      }else if(hasLeska || hasBiser){
-        // чокеры/чокер на леске с бисером
-        const onLeska = hasLeska ? ' на леске' : '';
-        const withBiser = hasBiser ? ' с бисером' : '';
-        tail = onLeska + withBiser;
-      }else if(hasZircon){
-        tail = ' с цирконами';
-      }else if(hasBaroch){
-        tail = ' с барочной жемчужиной';
-      }else if(hasEtno){
-        tail = ': этно-стиль';
-      }else if(hasPearl){
-        tail = ' из жемчуга';
-      }
-
-      // Специальные кейсы из твоего списка
-      if(has(n,'choker_v_etno_stile')) base = 'Чокер в этно-стиле';
-      if(has(n,'sotuar_galstuk')) base = t + '-галстук';
-
-      // Сборка
-      let title = base + tail;
-
-      // Правки стиля: пробелы, дефисы
-      title = title
-        .replace(/\s+/g,' ')
-        .replace(/-+/g,'-')
-        .replace(/:\s*:/g,':')
-        .trim();
-
-      return title;
-    }
-
-    /* ===== Умный генератор расширенного названия/описания ===== */
-    function russianDescFromName(name, shortTitle){
-      const n = norm(name);
-
-      // Базовые признаки для текста
-      const hand = 'Украшение ручной работы';
-      const nat  = (has(n,'naturaln') || has(n,'zhemchug') || has(n,'kamney')) ? ' из натуральных материалов' : '';
-      const set  = has(n,'komplekt') ? ' (комплект)' : '';
-
-      // Доп. детали
-      const extra = [];
-      if(has(n,'transformer')) extra.push('трансформер');
-      if(has(n,'dvoynoy')) extra.push('двойной дизайн');
-      if(has(n,'etno')) extra.push('этно-стиль');
-      if(has(n,'tsirkon')) extra.push('вставки цирконов');
-      if(has(n,'barochn')) extra.push('барочные жемчужины');
-      if(has(n,'leske')) extra.push('на леске');
-      if(has(n,'biser')) extra.push('ручное бисероплетение');
-
-      const extras = extra.length ? ' · ' + extra.join(' · ') : '';
-
-      // Итог: чуть длиннее, как просил
-      return `${shortTitle} — ${hand}${nat}${set}.${extras ? ' ' + extras : ''}`;
-    }
-
-    /* ===== ALT по категории ===== */
     function altByCat(cat, title){
       switch(cat){
-        case 'Necklaces': return `${title} — украшения, бижутерия, колье, чокеры`;
-        case 'Sets':      return `${title} — украшения, бижутерия, комплекты, серьги`;
-        case 'Bracelets': return `${title} — украшения, бижутерия, браслеты`;
-        case 'Lariats':   return `${title} — украшения, бижутерия, сотуары, подвески`;
-        case 'Chains':    return `${title} — украшения, бижутерия, цепи, кулоны`;
-        default:          return `${title} — украшения, бижутерия`;
+        case 'Necklaces': return `${title} — колье и чокеры, жемчужная бижутерия`;
+        case 'Sets':      return `${title} — комплект с серьгами, украшения из жемчуга`;
+        case 'Bracelets': return `${title} — браслеты из жемчуга и камней`;
+        case 'Lariats':   return `${title} — сотуары и подвески ручной работы`;
+        case 'Chains':    return `${title} — цепи и колье из натурального жемчуга`;
+        default:          return `${title} — украшения из натурального жемчуга Livi Jewelry`;
       }
     }
 
-    /* ===== Цена из имени ===== */
-    function extractPrices(name){
-      // 1) «18.000 тг», «18,000 тг», «18000 тг»
-      const tgNums = [...String(name).matchAll(/(\d[\d\s.,]*)\s*тг/ig)]
-        .map(m=>parseInt(m[1].replace(/[^\d]/g,''),10))
-        .filter(Boolean);
-      if(tgNums.length){
-        return {base: tgNums[0]||0, extra: tgNums[1]||0};
-      }
-      // 2) Фолбэк — последний блок цифр
-      const m = String(name).match(/(\d[\d\s.,]*)\D*$/);
-      return {base: m ? parseInt(m[1].replace(/[^\d]/g,''),10) : 0, extra: 0};
-    }
-
-    /* ===== Создание карточек ===== */
-    function makeProductObjects(files){
-      const list=[];
-      files.forEach(raw=>{
-        const name = String(raw||'').trim();
-        if(!name) return;
-        if(!/\.(webp|jpe?g)$/i.test(name)) return;
-
-        const cat   = catFromName(name);
-        const short = russianTitleFromName(name);
-        const {base, extra} = extractPrices(name);
-
-        const img = `assets/${name}`;
-        const ruShort = short;
-        const ruLong  = russianDescFromName(name, ruShort);
-
-        // Карточка/позиция
-        list.push({
-          id: `auto_${name}_base`,
-          img, cat,
-          title:{ru:ruShort,kk:ruShort,en:ruShort},
-          price: base ? `${base.toLocaleString('ru-RU')} тг` : 'Цена по запросу',
-          desc:{ru:ruLong, kk:ruLong, en:ruLong},
-          alt: altByCat(cat, ruShort)
-        });
-
-        // Если в имени есть доп. цена (обычно «+ серьги») — делаем комплект
-        if(extra > 0){
-          const sum = (base||0) + extra;
-          const plusTitle = /komplekt/i.test(name) ? ruShort : `${ruShort} + серьги`;
-          const ruLongPlus = russianDescFromName(name, plusTitle);
-
-          list.push({
-            id: `auto_${name}_plus`,
-            img, cat: 'Sets',
-            title:{ru:plusTitle,kk:plusTitle,en:plusTitle},
-            price: `${sum.toLocaleString('ru-RU')} тг`,
-            desc:{ru:ruLongPlus, kk:ruLongPlus, en:ruLongPlus},
-            alt: altByCat('Sets', plusTitle)
-          });
-        }
-      });
-      return list;
-    }
-
-    /* ===== Удаляем дубли (по картинке и названию) ===== */
-    function dedupe(items){
-      const map = new Map();
-      items.forEach(p=>{
-        const key = `${p.img}__${p.title.ru}`;
-        if(!map.has(key)) map.set(key, p);
-      });
-      return [...map.values()];
-    }
-
-    let PRODUCTS = dedupe(makeProductObjects(FILES));
-
-    // Никаких manifest.json, чтобы не плодить дубли
     function renderFilters(){
       filters.innerHTML='';
       CATS.forEach(c=>{
-        if(c!=='All' && !PRODUCTS.some(p=>p.cat===c)) return;
+        if(c!=='All' && !PRODUCTS.some(p=>p.category===c)) return;
         const btn=document.createElement('button');
         btn.className='tag'+(c===activeCat?' active':'');
         btn.textContent=tr('cat.'+c);
@@ -531,67 +294,105 @@
 
     function renderGrid(){
       grid.innerHTML='';
-      const items=activeCat==='All'?PRODUCTS:PRODUCTS.filter(p=>p.cat===activeCat);
+      let items = PRODUCTS;
+      if(activeCat !== 'All'){
+        items = items.filter(p => p.category === activeCat);
+      }
+      if(searchQuery.trim()){
+        const q = searchQuery.toLowerCase().trim();
+        items = items.filter(p => {
+          const t = (p.title || '').toLowerCase();
+          const d = (p.description || '').toLowerCase();
+          const m = (p.materials || []).join(' ').toLowerCase();
+          return t.includes(q) || d.includes(q) || m.includes(q);
+        });
+      }
+
+      if(!items.length){
+        grid.innerHTML = `<div class="empty-state">${tr('search.empty')}</div>`;
+        return;
+      }
+
       items.forEach(p=>{
-        const title=p.title[lang()]||p.title['ru'];
         const card=document.createElement('article');
         card.className='card';
         card.setAttribute('itemscope','');
         card.setAttribute('itemtype','https://schema.org/Product');
 
-        const priceNum = (p.price && p.price.match(/([\d\s.,]+)\s*тг/i)) ? parseInt(p.price.replace(/[^\d]/g,''),10) : 0;
+        const priceNum = Number(p.price) || 0;
+        const priceStr = priceNum ? `${priceNum.toLocaleString('ru-RU')} тг` : 'Цена по запросу';
+        const altText = altByCat(p.category, p.title);
 
-        card.innerHTML=`<img src="${p.img}" alt="${p.alt}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" itemprop="image" loading="lazy" decoding="async">
+        card.innerHTML=`<img src="${p.image}" alt="${altText}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" itemprop="image" loading="lazy" decoding="async">
           <div class="body">
-            <div class="title" itemprop="name">${title}</div>
+            <div class="title" itemprop="name">${p.title}</div>
             <div class="price"><span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
               <meta itemprop="priceCurrency" content="KZT">
               <meta itemprop="availability" content="https://schema.org/InStock">
               ${priceNum ? `<meta itemprop="price" content="${priceNum}">` : ``}
-            </span>${p.price}</div>
+            </span>${priceStr}</div>
             <button class="btn" data-action="add">${tr('ui.add')}</button>
           </div>`;
 
-        // Клик по карточке — открыть модалку
         card.addEventListener('click',(e)=>{
           if(e.target && e.target.dataset && e.target.dataset.action==='add'){ return; }
           openModal(p);
         }, {passive:true});
 
-        card.querySelector('[data-action="add"]').onclick=()=>addToCart(p,1);
+        card.querySelector('[data-action="add"]').onclick=()=>addToCart(p, 1);
         grid.appendChild(card);
       });
     }
 
     /* ===== CART ===== */
     function addToCart(p, qty){
-      const q=Math.max(1, Number(qty||1));
-      const cart=readCart(); const i=cart.findIndex(x=>x.id===p.id);
-      const unit = (p.price && p.price.match(/([\d\s.,]+)\s*тг/i)) ? parseInt(p.price.replace(/[^\d]/g,''),10) : 0;
-      const title=p.title[lang()]||p.title['ru'];
-      if(i>-1){ cart[i].qty+=q; if(typeof cart[i].unit!=='number') cart[i].unit=unit; cart[i].title=title; }
-      else{ cart.push({id:p.id,title,price:p.price,img:p.img,qty:q,unit}); }
-      writeCart(cart); updateBadge();
+      const q = Math.max(1, Number(qty||1));
+      const cart = readCart();
+      const i = cart.findIndex(x => x.id === p.id);
+      const unit = Number(p.price) || 0;
+      const priceStr = unit ? `${unit.toLocaleString('ru-RU')} тг` : 'Цена по запросу';
+      if(i > -1){
+        cart[i].qty += q;
+        if(typeof cart[i].unit !== 'number') cart[i].unit = unit;
+        cart[i].title = p.title;
+      } else {
+        cart.push({id:p.id, title:p.title, price:priceStr, img:p.image, qty:q, unit});
+      }
+      writeCart(cart);
+      updateBadge();
     }
 
     /* ===== MODAL ===== */
     const modal=document.getElementById('modal');
     const mImg=document.getElementById('mImg'), mTitle=document.getElementById('mTitle'), mCat=document.getElementById('mCat'),
-          mPrice=document.getElementById('mPrice'), mDesc=document.getElementById('mDesc'), mQtyEl=document.getElementById('mQty');
+          mPrice=document.getElementById('mPrice'), mMats=document.getElementById('mMats'), mDesc=document.getElementById('mDesc'), mQtyEl=document.getElementById('mQty');
     const mMinus=document.getElementById('mMinus'), mPlus=document.getElementById('mPlus'), mAdd=document.getElementById('mAdd'), mClose=document.getElementById('mClose');
     let currentProduct=null;
 
     function openModal(p){
       currentProduct=p;
-      mImg.src=p.img; mImg.alt=p.alt|| (p.title[lang()]||p.title['ru']);
-      // короткое название на карточке → расширенное в модалке:
-      const long = p.desc[lang()] || p.desc['ru'];
-      mTitle.textContent= long.replace(/\s—.*$/,''); // длинное, но без хвоста после тире (чтобы не перегружать заголовок)
-      mCat.textContent=tr('cat.'+p.cat);
-      mPrice.textContent=p.price;
-      mDesc.textContent= long; // здесь весь расширенный текст
-      mQtyEl.textContent='1'; mAdd.textContent=tr('ui.add');
-      modal.classList.add('open'); document.body.style.overflow='hidden';
+      mImg.src=p.image;
+      mImg.alt=altByCat(p.category, p.title);
+      mTitle.textContent=p.title;
+      mCat.textContent=tr('cat.'+p.category);
+      const priceNum = Number(p.price) || 0;
+      mPrice.textContent=priceNum ? `${priceNum.toLocaleString('ru-RU')} тг` : 'Цена по запросу';
+      
+      mMats.innerHTML = '';
+      if(p.materials && p.materials.length){
+        p.materials.forEach(m => {
+          const span = document.createElement('span');
+          span.className = 'mat-pill';
+          span.textContent = m;
+          mMats.appendChild(span);
+        });
+      }
+
+      mDesc.textContent=p.description || '';
+      mQtyEl.textContent='1';
+      mAdd.textContent=tr('ui.add');
+      modal.classList.add('open');
+      document.body.style.overflow='hidden';
     }
     function closeModal(){ modal.classList.remove('open'); document.body.style.overflow=''; }
     mMinus.onclick=()=>{ const n=Math.max(1, Number(mQtyEl.textContent)-1); mQtyEl.textContent=n; };
@@ -608,8 +409,47 @@
     drawer.querySelector('.drawer-back').onclick=()=>{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); };
     ruBtn.onclick=()=>setLang('ru'); kkBtn.onclick=()=>setLang('kk'); enBtn.onclick=()=>setLang('en');
 
-    // Init
-    applyLang(); renderFilters(); renderGrid(); updateBadge();
+    // Search controls
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      searchClear.style.display = searchQuery ? 'block' : 'none';
+      renderGrid();
+    });
+    searchClear.addEventListener('click', () => {
+      searchInput.value = '';
+      searchQuery = '';
+      searchClear.style.display = 'none';
+      searchInput.focus();
+      renderGrid();
+    });
+
+    // URL search param ?q=
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialQuery = urlParams.get('q');
+    if(initialQuery){
+      searchInput.value = initialQuery;
+      searchQuery = initialQuery;
+      searchClear.style.display = 'block';
+    }
+
+    // Load products.json
+    fetch('products.json')
+      .then(res => {
+        if(!res.ok) throw new Error('Failed to load products.json');
+        return res.json();
+      })
+      .then(data => {
+        PRODUCTS = data;
+        renderFilters();
+        renderGrid();
+      })
+      .catch(err => {
+        console.error('Error loading products:', err);
+        grid.innerHTML = '<div class="empty-state">Ошибка загрузки каталога. Пожалуйста, обновите страницу.</div>';
+      });
+
+    applyLang();
+    updateBadge();
 
     /* ===== Конверсия WhatsApp ===== */
     (function(){
