@@ -715,15 +715,19 @@
           localStorage.setItem('livi_orders_history', JSON.stringify(history.slice(0, 30)));
         } catch(err){}
 
-        // 2. Отправка на Webhook (если настроен)
+        // 2. Отправка на Webhook
         if (ORDER_WEBHOOK_URL) {
           try {
-            await fetch(ORDER_WEBHOOK_URL, {
+            const resp = await fetch(ORDER_WEBHOOK_URL, {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(orderData),
-              mode: 'no-cors'
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(orderData)
             });
+            if (!resp.ok) {
+              console.warn('Webhook response not OK:', resp.status);
+            }
           } catch(err) {
             console.warn('Webhook dispatch error:', err);
           }
