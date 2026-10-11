@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Icons & Manifest (универсальный блок) -->
+  <!-- Icons & Manifest -->
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
@@ -25,26 +25,24 @@
   <meta name="theme-color" content="#111111">
   <meta name="msapplication-TileColor" content="#111111">
 
-  <!-- Google tag (gtag.js): GA4 + Google Ads (НЕ ТРОГАЛ) -->
+  <!-- Google tag (gtag.js): GA4 + Google Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4H6HK8K9SJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
-    // GA4
     gtag('config', 'G-4H6HK8K9SJ');
-    // Google Ads (для конверсий)
     gtag('config', 'AW-16793974126');
   </script>
 
   <style>
-    :root{--fg:#111;--muted:#666;--line:#eee;--radius:16px;--shadow:0 8px 28px rgba(0,0,0,.08);--max:1240px}
+    :root{--fg:#111;--muted:#666;--line:#eee;--radius:16px;--shadow:0 8px 28px rgba(0,0,0,.08);--max:1240px;--gold:#c5a880}
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font:16px/1.6 "Montserrat",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#fff;color:var(--fg)}
+    body{font:16px/1.6 "Montserrat",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#fff;color:var(--fg);-webkit-font-smoothing:antialiased}
     a{text-decoration:none;color:inherit}
 
-    /* Header with burger + cart (cart stays right) */
-    header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.95);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
+    /* Header with burger + cart */
+    header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.96);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
     .nav{max-width:var(--max);margin:0 auto;padding:12px 16px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px}
     .hamburger{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:#fff;display:inline-grid;place-items:center;cursor:pointer}
     .hamburger span{width:18px;height:2px;background:#111;display:block;position:relative}
@@ -52,7 +50,7 @@
     .hamburger span::before{top:-6px}.hamburger span::after{top:6px}
     .brand{justify-self:center;display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:.06em}
     .brand img{height:24px}
-    .cart-link{justify-self:end;position:relative;border:1px solid var(--line);border-radius:999px;padding:8px 12px}
+    .cart-link{justify-self:end;position:relative;border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-weight:600}
     .cart-badge{position:absolute;top:-6px;right:-6px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:4px 6px;min-width:20px;text-align:center;display:none}
 
     /* Drawer */
@@ -60,29 +58,122 @@
     .drawer.open{display:block}
     .drawer-back{position:absolute;inset:0;background:rgba(0,0,0,.5)}
     .drawer-panel{position:absolute;left:10px;top:10px;bottom:10px;width:min(86vw,320px);background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:14px;display:flex;flex-direction:column;gap:10px}
-    .drawer a,.drawer button{display:block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;text-align:left;cursor:pointer}
+    .drawer a,.drawer button{display:block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;text-align:left;cursor:pointer;font-family:inherit;font-size:15px}
     .lang{display:flex;gap:8px}.lang button{flex:1}
 
-    .wrap{max-width:960px;margin:0 auto;padding:28px 16px}
-    h1{font-size:clamp(24px,5vw,40px);margin-bottom:20px;text-align:center}
+    .wrap{max-width:880px;margin:0 auto;padding:24px 16px 48px}
+    h1{font-size:clamp(24px,5vw,36px);margin-bottom:20px;text-align:center;font-weight:700}
 
-    .empty{padding:28px;border:1px dashed var(--line);border-radius:16px;text-align:center;color:var(--muted)}
-    .list{display:grid;gap:14px;margin:18px 0}
-    .item{display:grid;grid-template-columns:96px 1fr auto auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:var(--radius);padding:12px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.04)}
-    .thumb{width:96px;height:96px;border-radius:12px;overflow:hidden;background:#f5f5f5}
+    .empty{padding:40px 20px;border:1px dashed var(--line);border-radius:16px;text-align:center;color:var(--muted)}
+    .list{display:grid;gap:12px;margin:18px 0}
+    .item{display:grid;grid-template-columns:90px 1fr auto auto;gap:14px;align-items:center;border:1px solid var(--line);border-radius:var(--radius);padding:12px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.03)}
+    .thumb{width:90px;height:90px;border-radius:12px;overflow:hidden;background:#f8f8f8}
     .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-    .title{font-weight:600}
-    .muted{color:var(--muted);font-size:14px}
+    .title{font-weight:600;font-size:15px;line-height:1.3}
+    .muted{color:var(--muted);font-size:14px;margin-top:2px}
     .qty{display:flex;gap:8px;align-items:center}
-    .btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:6px 10px;cursor:pointer}
-    .btn--primary{background:#111;color:#fff;border-color:#111}
-    .total{display:flex;justify-content:space-between;align-items:center;margin-top:20px;border-top:1px solid var(--line);padding-top:14px;font-size:18px;font-weight:600}
-    .actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .btn-qty{width:32px;height:32px;border:1px solid var(--line);background:#fff;border-radius:8px;cursor:pointer;display:grid;place-items:center;font-weight:600}
+    .btn-qty:hover{background:#f5f5f5}
+    .btn-remove{border:none;background:transparent;color:#999;cursor:pointer;padding:6px;font-size:13px}
+    .btn-remove:hover{color:#d32f2f}
+
+    .total-box{display:flex;justify-content:space-between;align-items:center;margin:20px 0;padding:16px 20px;background:#fafafa;border:1px solid var(--line);border-radius:14px;font-size:18px;font-weight:700}
+    .total-sum{font-size:22px;letter-spacing:-.02em}
+
+    /* Checkout Card */
+    .checkout-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px 20px;box-shadow:var(--shadow);margin-top:24px}
+    .checkout-title{font-size:20px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+    .checkout-title span{font-size:22px}
+
+    .form-group{margin-bottom:16px;display:flex;flex-direction:column}
+    .form-group label{font-size:14px;font-weight:600;margin-bottom:6px;color:#222}
+    .form-group input, .form-group textarea{
+      width:100%;padding:13px 14px;border:1px solid #ddd;border-radius:12px;font:inherit;font-size:15px;
+      background:#fff;transition:border-color .2s,box-shadow .2s;color:#111;
+    }
+    .form-group input:focus, .form-group textarea:focus{
+      border-color:#111;outline:none;box-shadow:0 0 0 3px rgba(17,17,17,.08);
+    }
+    .form-hint{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.4}
+
+    /* Delivery Type Tabs */
+    .del-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+    .del-tab{
+      padding:12px 10px;border:1px solid var(--line);background:#f9f9f9;border-radius:12px;
+      text-align:center;cursor:pointer;font-weight:600;font-size:14px;transition:all .2s;display:flex;
+      align-items:center;justify-content:center;gap:6px;
+    }
+    .del-tab.active{background:#111;color:#fff;border-color:#111;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+
+    /* Payment Notice Badge */
+    .payment-notice{
+      display:flex;gap:12px;align-items:flex-start;background:#faf6f0;border:1px solid #ebd8b8;
+      border-radius:14px;padding:14px 16px;margin:20px 0;
+    }
+    .payment-notice .icon{font-size:24px;line-height:1}
+    .payment-notice .content{font-size:13px;line-height:1.5}
+    .payment-notice strong{display:block;font-size:14px;margin-bottom:3px;color:#333}
+
+    /* Primary Checkout Button */
+    .btn-submit-order{
+      width:100%;background:#111;color:#fff;border:none;padding:16px 20px;border-radius:14px;
+      font-size:16px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;
+      align-items:center;box-shadow:0 6px 18px rgba(0,0,0,.15);transition:all .2s;font-family:inherit;
+    }
+    .btn-submit-order:hover{background:#222;transform:translateY(-1px)}
+    .btn-submit-order:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+    /* Alternate WhatsApp Button */
+    .btn-alt-wa{
+      width:100%;background:#25D366;color:#fff;border:none;padding:13px 18px;border-radius:14px;
+      font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;
+      gap:10px;margin-top:12px;cursor:pointer;text-decoration:none;box-shadow:0 4px 14px rgba(37,211,102,.2);
+      transition:all .2s;
+    }
+    .btn-alt-wa:hover{background:#20ba59}
+    .btn-alt-wa svg{width:20px;height:20px;fill:currentColor}
+
+    .btn-clear-cart{
+      display:block;width:100%;text-align:center;margin-top:16px;background:none;border:none;
+      color:#888;font-size:13px;text-decoration:underline;cursor:pointer;
+    }
+    .btn-clear-cart:hover{color:#111}
+
+    /* Modal / Success Dialog */
+    .modal-overlay{
+      position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);z-index:200;
+      display:none;align-items:center;justify-content:center;padding:16px;
+    }
+    .modal-overlay.open{display:flex}
+    .modal-box{
+      background:#fff;border-radius:24px;max-width:500px;width:100%;padding:32px 24px;
+      text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.25);animation:popIn .3s ease-out;
+    }
+    @keyframes popIn{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
+    .modal-badge{
+      width:68px;height:68px;background:#e8f5e9;color:#2e7d32;border-radius:50%;display:inline-grid;
+      place-items:center;font-size:32px;margin-bottom:16px;
+    }
+    .modal-title{font-size:22px;font-weight:700;margin-bottom:8px}
+    .modal-order-no{display:inline-block;background:#f5f5f5;padding:4px 12px;border-radius:8px;font-size:14px;font-weight:600;margin-bottom:16px}
+    .modal-steps{text-align:left;background:#fafafa;border:1px solid var(--line);border-radius:16px;padding:16px;margin:16px 0;font-size:13px;line-height:1.6}
+    .modal-steps li{margin-bottom:10px;list-style:none;display:flex;gap:10px}
+    .modal-steps li span.step-num{
+      min-width:22px;height:22px;border-radius:50%;background:#111;color:#fff;font-size:12px;
+      font-weight:700;display:inline-grid;place-items:center;line-height:1;margin-top:2px;
+    }
+    .modal-actions{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+    .btn-modal-close{
+      width:100%;background:#111;color:#fff;border:none;padding:14px;border-radius:12px;
+      font-size:15px;font-weight:600;cursor:pointer;
+    }
 
     @media(max-width:560px){
       .item{grid-template-columns:72px 1fr;grid-template-areas:"thumb title" "thumb qty" "thumb del";align-items:start}
       .thumb{width:72px;height:72px}
-      .actions .btn{width:100%}
+      .btn-remove{grid-area:del}
+      .del-tabs{grid-template-columns:1fr}
+      .checkout-card{padding:18px 14px}
     }
   </style>
 </head>
@@ -102,7 +193,6 @@
   <header>
     <div class="nav">
       <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
-      <!-- логотип: заменён на favicon.svg -->
       <a class="brand" href="index.html">
         <img src="favicon.svg" alt="Livi Jewelry logo">
         <span>LIVI JEWELRY</span>
@@ -116,52 +206,206 @@
     <div id="root"></div>
   </main>
 
+  <!-- Success Order Modal -->
+  <div id="successModal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true">
+      <div class="modal-badge">✓</div>
+      <h2 class="modal-title" data-i18n="modal.title">Заказ успешно оформлен!</h2>
+      <div id="modalOrderNo" class="modal-order-no">Заказ № LV-2410-01</div>
+      
+      <div class="modal-steps">
+        <ul>
+          <li>
+            <span class="step-num">1</span>
+            <div><strong data-i18n="modal.step1_h">Удаленный счёт в Kaspi.kz</strong><br><span data-i18n="modal.step1_t">В течение 5–10 минут вам в приложение Kaspi.kz на указанный номер поступит счёт на оплату от ИП Livi Jewelry.</span></div>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <div><strong data-i18n="modal.step2_h">Оплата в 1 клик</strong><br><span data-i18n="modal.step2_t">Перейдите в раздел «Счета к оплате» в Kaspi и подтвердите платёж.</span></div>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <div><strong data-i18n="modal.step3_h">Отправка через СДЭК</strong><br><span data-i18n="modal.step3_t">После оплаты мы заботливо упакуем украшение и передадим в СДЭК. Трек-номер придет по SMS и в WhatsApp.</span></div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="modal-actions">
+        <button id="modalCloseBtn" class="btn-modal-close" data-i18n="modal.close_btn">Вернуться в каталог</button>
+        <a id="modalWaBtn" class="btn-alt-wa" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 6.46 17.5 2 12.04 2M12.05 20.15C10.57 20.15 9.12 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.05 3.67C16.6 3.67 20.3 7.37 20.3 11.92C20.3 16.47 16.6 20.15 12.05 20.15M16.57 14.46C16.32 14.33 15.1 13.73 14.88 13.65C14.65 13.56 14.49 13.52 14.32 13.77C14.16 14.02 13.69 14.57 13.55 14.73C13.41 14.9 13.26 14.92 13.01 14.79C12.76 14.67 11.96 14.4 11.01 13.56C10.27 12.9 9.77 12.09 9.53 11.67C9.28 11.26 9.5 11.04 9.63 10.91C9.74 10.8 9.88 10.62 10.01 10.47C10.13 10.32 10.17 10.22 10.26 10.05C10.34 9.89 10.3 9.74 10.24 9.62C10.18 9.5 9.69 8.29 9.48 7.8C9.28 7.31 9.08 7.38 8.92 7.37H8.44C8.28 7.37 8.01 7.43 7.78 7.68C7.55 7.93 6.91 8.53 6.91 9.75C6.91 10.97 7.8 12.14 7.92 12.31C8.04 12.47 9.67 14.98 12.16 16.05C12.75 16.31 13.21 16.46 13.57 16.58C14.17 16.77 14.71 16.74 15.14 16.68C15.62 16.61 16.62 16.08 16.82 15.49C17.03 14.91 17.03 14.42 16.97 14.31C16.91 14.2 16.75 14.14 16.57 14.46Z"/></svg>
+          <span data-i18n="modal.wa_btn">Написать в WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
   <script>
+    /* ===== URL Webhook для приёма заказов (Leo AI на VPS https://leoai.kz) ===== */
+    const ORDER_WEBHOOK_URL = 'https://leoai.kz/api/orders';
+    const WA_PHONE = '77054510584';
+
     /* ===== i18n ===== */
-    const I18N={
-      ru:{'meta.title':'Livi Jewelry — Корзина','nav.home':'Главная','nav.shop':'Каталог','nav.cart':'Корзина','page.title':'Корзина',
-          'empty':'Ваша корзина пуста.','go':'Перейти в каталог','total':'Итого:','clear':'Очистить','checkout':'Оформить в WhatsApp','remove':'Удалить'},
-      kk:{'meta.title':'Livi Jewelry — Себет','nav.home':'Басты бет','nav.shop':'Дүкен','nav.cart':'Себет','page.title':'Себет',
-          'empty':'Себет бос.','go':'Дүкенге өту','total':'Барлығы:','clear':'Тазарту','checkout':'WhatsApp арқылы рәсімдеу','remove':'Жою'},
-      en:{'meta.title':'Livi Jewelry — Cart','nav.home':'Home','nav.shop':'Shop','nav.cart':'Cart','page.title':'Cart',
-          'empty':'Your cart is empty.','go':'Go to catalog','total':'Total:','clear':'Clear','checkout':'Checkout via WhatsApp','remove':'Remove'}
+    const I18N = {
+      ru: {
+        'meta.title': 'Livi Jewelry — Корзина',
+        'nav.home': 'Главная',
+        'nav.shop': 'Каталог',
+        'nav.cart': 'Корзина',
+        'page.title': 'Корзина',
+        'empty': 'Ваша корзина пуста.',
+        'go': 'Перейти в каталог',
+        'total': 'Итого к оплате:',
+        'clear': 'Очистить корзину',
+        'remove': 'Удалить',
+        'checkout.title': 'Оформление заказа и доставка СДЭК',
+        'checkout.label_name': 'Ваше имя и фамилия *',
+        'checkout.hint_name': 'Для получения заказа в отделении СДЭК по удостоверению',
+        'checkout.label_phone': 'Номер телефона (для Kaspi) *',
+        'checkout.hint_phone': 'На этот номер в приложении Kaspi.kz поступит счёт от ИП Livi Jewelry',
+        'checkout.label_city': 'Город доставки *',
+        'checkout.del_pvz': '📦 До пункта выдачи (ПВЗ)',
+        'checkout.del_door': '🚪 Курьером до двери',
+        'checkout.label_addr_pvz': 'Адрес отделения СДЭК *',
+        'checkout.placeholder_addr_pvz': 'Например: ул. Достык, 12 или номер ПВЗ',
+        'checkout.hint_addr_pvz': 'Укажите удобный ПВЗ или ближайший ориентир, мы поможем выбрать',
+        'checkout.label_addr_door': 'Адрес доставки (до двери) *',
+        'checkout.placeholder_addr_door': 'Улица, дом, квартира / офис',
+        'checkout.hint_addr_door': 'Курьер СДЭК свяжется перед доставкой',
+        'checkout.label_comment': 'Комментарий к заказу (необязательно)',
+        'checkout.placeholder_comment': 'Пожелания по длине колье, подарочная коробка...',
+        'checkout.pay_badge_title': 'Оплата: Удаленный счёт Kaspi Pay',
+        'checkout.pay_badge_desc': 'После оформления вам в мобильное приложение Kaspi.kz поступит счёт от ИП Livi Jewelry на сумму ',
+        'checkout.btn_submit': 'Оформить заказ и получить счёт Kaspi',
+        'checkout.btn_alt_wa': 'Задать вопрос / Заказ в WhatsApp',
+        'modal.title': 'Заказ успешно оформлен!',
+        'modal.step1_h': 'Удаленный счёт в Kaspi.kz',
+        'modal.step1_t': 'В течение 5–10 минут вам в приложение Kaspi.kz на указанный номер поступит счёт на оплату от ИП Livi Jewelry.',
+        'modal.step2_h': 'Оплата в 1 клик',
+        'modal.step2_t': 'Перейдите в раздел «Счета к оплате» в Kaspi и подтвердите платёж.',
+        'modal.step3_h': 'Отправка через СДЭК',
+        'modal.step3_t': 'После оплаты мы заботливо упакуем украшение и передадим в СДЭК. Трек-номер придет по SMS и в WhatsApp.',
+        'modal.close_btn': 'Вернуться в каталог',
+        'modal.wa_btn': 'Открыть диалог в WhatsApp'
+      },
+      kk: {
+        'meta.title': 'Livi Jewelry — Себет',
+        'nav.home': 'Басты бет',
+        'nav.shop': 'Дүкен',
+        'nav.cart': 'Себет',
+        'page.title': 'Себет',
+        'empty': 'Себет бос.',
+        'go': 'Дүкенге өту',
+        'total': 'Барлығы төлеуге:',
+        'clear': 'Себетті тазарту',
+        'remove': 'Жою',
+        'checkout.title': 'Тапсырыс беру және CDEK жеткізу',
+        'checkout.label_name': 'Аты-жөніңіз *',
+        'checkout.hint_name': 'CDEK бөлімшесінде құжат бойынша алу үшін',
+        'checkout.label_phone': 'Телефон нөмірі (Kaspi үшін) *',
+        'checkout.hint_phone': 'Осы нөмірге Kaspi.kz қосымшасында шот жіберіледі',
+        'checkout.label_city': 'Жеткізу қаласы *',
+        'checkout.del_pvz': '📦 Бөлімшеге дейін (ПВЗ)',
+        'checkout.del_door': '🚪 Есікке дейін курьермен',
+        'checkout.label_addr_pvz': 'CDEK бөлімшесінің мекенжайы *',
+        'checkout.placeholder_addr_pvz': 'Мысалы: Достық к-сі, 12 немесе ПВЗ нөмірі',
+        'checkout.hint_addr_pvz': 'Ыңғайлы бөлімше мекенжайын көрсетіңіз',
+        'checkout.label_addr_door': 'Мекенжай (есікке дейін) *',
+        'checkout.placeholder_addr_door': 'Көше, үй, пәтер / кеңсе',
+        'checkout.hint_addr_door': 'Курьер жеткізу алдында хабарласады',
+        'checkout.label_comment': 'Тапсырысқа пікір (міндетті емес)',
+        'checkout.placeholder_comment': 'Әшекей ұзындығы, сыйлық қаптамасы...',
+        'checkout.pay_badge_title': 'Төлем: Kaspi Pay қашықтан шот жіберу',
+        'checkout.pay_badge_desc': 'Тапсырыстан кейін Kaspi.kz қосымшаңызда ИП Livi Jewelry шоты пайда болады, сомасы: ',
+        'checkout.btn_submit': 'Тапсырыс беру және Kaspi шотын алу',
+        'checkout.btn_alt_wa': 'Сұрақ қою / WhatsApp арқылы тапсырыс',
+        'modal.title': 'Тапсырыс сәтті қабылданды!',
+        'modal.step1_h': 'Kaspi.kz қосымшасындағы шот',
+        'modal.step1_t': '5–10 минут ішінде көрсетілген нөмірге Kaspi.kz арқылы төлем шоты келеді.',
+        'modal.step2_h': '1 түртумен төлеу',
+        'modal.step2_t': 'Kaspi-де «Төлем шоттары» бөліміне өтіп, төлемді растаңыз.',
+        'modal.step3_h': 'CDEK арқылы жеткізу',
+        'modal.step3_t': 'Төлемнен кейін әшекей CDEK-ке тапсырылып, трек-код WhatsApp арқылы жіберіледі.',
+        'modal.close_btn': 'Дүкенге оралу',
+        'modal.wa_btn': 'WhatsApp диалогын ашу'
+      },
+      en: {
+        'meta.title': 'Livi Jewelry — Cart',
+        'nav.home': 'Home',
+        'nav.shop': 'Shop',
+        'nav.cart': 'Cart',
+        'page.title': 'Cart',
+        'empty': 'Your cart is empty.',
+        'go': 'Go to catalog',
+        'total': 'Total to pay:',
+        'clear': 'Clear cart',
+        'remove': 'Remove',
+        'checkout.title': 'Checkout & CDEK Delivery',
+        'checkout.label_name': 'Full name *',
+        'checkout.hint_name': 'Required to pick up parcel with ID card',
+        'checkout.label_phone': 'Phone number (for Kaspi) *',
+        'checkout.hint_phone': 'Remote invoice will be issued to this number in Kaspi.kz app',
+        'checkout.label_city': 'Delivery city *',
+        'checkout.del_pvz': '📦 Pickup Point (PVZ)',
+        'checkout.del_door': '🚪 Courier to Door',
+        'checkout.label_addr_pvz': 'CDEK Pickup point address *',
+        'checkout.placeholder_addr_pvz': 'E.g., Dostyk ave. 12 or PVZ code',
+        'checkout.hint_addr_pvz': 'Specify convenient pickup point address',
+        'checkout.label_addr_door': 'Delivery address (to door) *',
+        'checkout.placeholder_addr_door': 'Street, building, apt / office',
+        'checkout.hint_addr_door': 'Courier will call prior to delivery',
+        'checkout.label_comment': 'Order notes (optional)',
+        'checkout.placeholder_comment': 'Sizing preferences, gift packaging...',
+        'checkout.pay_badge_title': 'Payment: Kaspi Pay Remote Invoice',
+        'checkout.pay_badge_desc': 'Within 5–10 mins you will receive an invoice in Kaspi.kz app from IP Livi Jewelry for ',
+        'checkout.btn_submit': 'Place order & get Kaspi invoice',
+        'checkout.btn_alt_wa': 'Ask question / Order via WhatsApp',
+        'modal.title': 'Order successfully placed!',
+        'modal.step1_h': 'Remote Invoice in Kaspi.kz',
+        'modal.step1_t': 'Within 5–10 minutes an invoice from IP Livi Jewelry will arrive in your Kaspi.kz app.',
+        'modal.step2_h': '1-Click Payment',
+        'modal.step2_t': 'Go to Invoices to Pay in Kaspi and confirm the payment.',
+        'modal.step3_h': 'Dispatch via CDEK',
+        'modal.step3_t': 'Once paid, we will pack your jewelry and dispatch via CDEK. Tracking code will be sent by SMS & WhatsApp.',
+        'modal.close_btn': 'Back to catalog',
+        'modal.wa_btn': 'Chat on WhatsApp'
+      }
     };
+
     function lang(){ return localStorage.getItem('lang') || 'ru'; }
-    function setLang(l){ localStorage.setItem('lang',l); applyLang(); render(); }
-    function tr(k){ return (I18N[lang()]&&I18N[lang()][k]) || (I18N['ru']&&I18N['ru'][k]) || k; }
+    function setLang(l){ localStorage.setItem('lang', l); applyLang(); render(); }
+    function tr(k){ return (I18N[lang()] && I18N[lang()][k]) || (I18N['ru'] && I18N['ru'][k]) || k; }
     function applyLang(){
       document.title = tr('meta.title'); document.documentElement.lang = lang();
-      document.querySelectorAll('[data-i18n]').forEach(el=>{ el.textContent = tr(el.getAttribute('data-i18n')); });
+      document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = tr(el.getAttribute('data-i18n')); });
     }
 
     // Drawer + lang
-    const drawer=document.getElementById('drawer'), burger=document.getElementById('burger');
-    const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
-    burger.onclick=()=>{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); };
-    drawer.querySelector('.drawer-back').onclick=()=>{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); };
-    ruBtn.onclick=()=>setLang('ru'); kkBtn.onclick=()=>setLang('kk'); enBtn.onclick=()=>setLang('en');
+    const drawer = document.getElementById('drawer'), burger = document.getElementById('burger');
+    const ruBtn = document.getElementById('ruBtn'), kkBtn = document.getElementById('kkBtn'), enBtn = document.getElementById('enBtn');
+    burger.onclick = () => { drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); };
+    drawer.querySelector('.drawer-back').onclick = () => { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); };
+    ruBtn.onclick = () => setLang('ru'); kkBtn.onclick = () => setLang('kk'); enBtn.onclick = () => setLang('en');
 
     /* ===== Cart logic ===== */
-    const KEY='livi_cart_v2';
+    const KEY = 'livi_cart_v2';
+    let currentDeliveryType = 'pvz';
 
-    // 1) Первая цена в строке "… тг"
     function parseFirstKZT(priceStr){
       const m = String(priceStr||'').match(/([\d\s.,]+)\s*тг/i);
       if(!m) return 0;
       return parseInt(m[1].replace(/[^\d]/g,''),10) || 0;
     }
-    // 2) Сумма всех цен в строке "… тг" (для комплектов)
     function parseSumKZT(priceStr){
       const rx = /([\d\s.,]+)\s*тг/ig;
-      let s=0, m;
+      let s = 0, m;
       while((m = rx.exec(String(priceStr||'')))!==null){
         s += parseInt(m[1].replace(/[^\d]/g,''),10) || 0;
       }
       return s;
     }
-    // 3) Логика единичной цены
     function unitPrice(item){
-      if (typeof item.unit === 'number') return item.unit;
+      if (typeof item.unit === 'number' && isFinite(item.unit) && item.unit > 0) return item.unit;
       const title = (item.title||'').toLowerCase();
       if (title.includes('комплект')) {
         const sum = parseSumKZT(item.price);
@@ -170,113 +414,397 @@
       return parseFirstKZT(item.price);
     }
 
-    // Миграция unit для уже добавленных позиций
-    (function migrate(){
-      let cart; try{ cart=JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ cart=[]; }
-      let changed=false;
-      for(const it of cart){
-        const needUnit = (typeof it.unit !== 'number' || !isFinite(it.unit) || it.unit<=0);
-        if(needUnit){
-          it.unit = unitPrice(it);
-          changed = true;
-        }
-      }
-      if(changed) localStorage.setItem(KEY, JSON.stringify(cart));
-    })();
-
-    function read(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []} }
+    function read(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ return []; } }
     function write(v){ localStorage.setItem(KEY, JSON.stringify(v)); render(); updateBadge(); }
 
     function updateBadge(){
       const count = read().reduce((s,i)=>s+Number(i.qty||0),0);
-      const b=document.getElementById('cartBadge'); if(!b) return;
+      const b = document.getElementById('cartBadge'); if(!b) return;
       b.style.display = count>0 ? 'inline-block':'none'; if(count>0) b.textContent = count;
     }
-    window.addEventListener('storage', e=>{ if(e.key===KEY) updateBadge(); });
+    window.addEventListener('storage', e => { if(e.key === KEY) updateBadge(); });
+
+    // Phone mask helper for +7 (7XX) XXX-XX-XX
+    function formatKZPhone(value){
+      let digits = value.replace(/\D/g, '');
+      if (digits.startsWith('8')) digits = '7' + digits.slice(1);
+      if (!digits.startsWith('7')) digits = '7' + digits;
+      digits = digits.slice(0, 11);
+
+      let formatted = '+7';
+      if (digits.length > 1) formatted += ' (' + digits.slice(1, 4);
+      if (digits.length >= 4) formatted += ') ' + digits.slice(4, 7);
+      if (digits.length >= 7) formatted += '-' + digits.slice(7, 9);
+      if (digits.length >= 9) formatted += '-' + digits.slice(9, 11);
+      return formatted;
+    }
+
+    function calculateCartTotal(){
+      return read().reduce((sum, item) => sum + (unitPrice(item) * Number(item.qty || 0)), 0);
+    }
+
+    function generateOrderId(){
+      const rand = Math.floor(100 + Math.random() * 900);
+      const datePart = new Date().toISOString().slice(2,10).replace(/-/g,'');
+      return `LV-${datePart}-${rand}`;
+    }
 
     function render(){
-      const root=document.getElementById('root');
-      const cart=read();
+      const root = document.getElementById('root');
+      const cart = read();
 
-      if(cart.length===0){
-        root.innerHTML = `<div class="empty">${tr('empty')}<br><br><a href="shop.html">${tr('go')}</a></div>`;
+      if(cart.length === 0){
+        root.innerHTML = `<div class="empty">${tr('empty')}<br><br><a href="shop.html" style="font-weight:600;text-decoration:underline">${tr('go')}</a></div>`;
         updateBadge(); return;
       }
 
-      const list=document.createElement('div'); list.className='list';
-      let total=0;
+      const total = calculateCartTotal();
 
-      cart.forEach((i,idx)=>{
-        const unit = unitPrice(i);
-        total += unit * Number(i.qty||0);
+      // 1. Items list
+      const list = document.createElement('div');
+      list.className = 'list';
 
-        const row=document.createElement('div'); row.className='item';
+      cart.forEach((i, idx) => {
+        const row = document.createElement('div');
+        row.className = 'item';
         row.innerHTML = `
           <div class="thumb"><img src="${i.img}" alt="" onerror="this.onerror=null;this.src='assets/placeholder.jpg'"></div>
-          <div><div class="title">${i.title||''}</div><div class="muted">${i.price||''}</div></div>
-          <div class="qty">
-            <button class="btn" aria-label="minus">−</button>
-            <span>${i.qty}</span>
-            <button class="btn" aria-label="plus">+</button>
+          <div>
+            <div class="title">${i.title||''}</div>
+            <div class="muted">${i.price||''}</div>
           </div>
-          <button class="btn" aria-label="remove">${tr('remove')}</button>
+          <div class="qty">
+            <button class="btn-qty" data-act="minus" aria-label="minus">−</button>
+            <span style="min-width:20px;text-align:center;font-weight:600">${i.qty}</span>
+            <button class="btn-qty" data-act="plus" aria-label="plus">+</button>
+          </div>
+          <button class="btn-remove" data-act="remove" aria-label="remove">${tr('remove')}</button>
         `;
-        const [minusBtn, , plusBtn] = row.querySelectorAll('.qty .btn, .qty span');
-        minusBtn.onclick=()=>{ const c=read(); if(c[idx].qty>1)c[idx].qty--; else c.splice(idx,1); write(c); };
-        plusBtn.onclick =()=>{ const c=read(); c[idx].qty++; write(c); };
-        row.querySelector('[aria-label="remove"]').onclick=()=>{ const c=read(); c.splice(idx,1); write(c); };
+        row.querySelector('[data-act="minus"]').onclick = () => {
+          const c = read();
+          if (c[idx].qty > 1) c[idx].qty--; else c.splice(idx, 1);
+          write(c);
+        };
+        row.querySelector('[data-act="plus"]').onclick = () => {
+          const c = read(); c[idx].qty++; write(c);
+        };
+        row.querySelector('[data-act="remove"]').onclick = () => {
+          const c = read(); c.splice(idx, 1); write(c);
+        };
         list.appendChild(row);
       });
 
-      const totalEl=document.createElement('div'); totalEl.className='total';
-      totalEl.innerHTML = `<div>${tr('total')}</div><div>${total.toLocaleString('ru-RU')} тг</div>`;
-
-      const actions=document.createElement('div'); actions.className='actions';
-      actions.innerHTML = `
-        <button class="btn" id="clear">${tr('clear')}</button>
-        <a class="btn btn--primary" id="wa" target="_blank" rel="noopener">${tr('checkout')}</a>
+      // 2. Total block
+      const totalBox = document.createElement('div');
+      totalBox.className = 'total-box';
+      totalBox.innerHTML = `
+        <div>${tr('total')}</div>
+        <div class="total-sum">${total.toLocaleString('ru-RU')} тг</div>
       `;
 
-      root.innerHTML=''; root.appendChild(list); root.appendChild(totalEl); root.appendChild(actions);
+      // 3. Checkout Form
+      const checkoutCard = document.createElement('div');
+      checkoutCard.className = 'checkout-card';
+      checkoutCard.innerHTML = `
+        <div class="checkout-title">
+          <span>✨</span>
+          <div data-i18n="checkout.title">${tr('checkout.title')}</div>
+        </div>
 
-      document.getElementById('clear').onclick=()=>{ write([]); };
+        <form id="orderForm" autocomplete="on">
+          <div class="form-group">
+            <label for="orderName" data-i18n="checkout.label_name">${tr('checkout.label_name')}</label>
+            <input type="text" id="orderName" required placeholder="Алия Серикова" autocomplete="name">
+            <span class="form-hint" data-i18n="checkout.hint_name">${tr('checkout.hint_name')}</span>
+          </div>
 
-      const text = encodeURIComponent(
-        (lang()==='en'?'Hello! I want to place an order:\n\n':lang()==='kk'?'Сәлем! Тапсырыс бергім келеді:\n\n':'Здравствуйте! Хочу оформить заказ:\n\n')
-        + cart.map(i=>`• ${i.title} — ${i.price} × ${i.qty}`).join('\n'));
-      document.getElementById('wa').href = 'https://wa.me/77054510584?text='+text;
+          <div class="form-group">
+            <label for="orderPhone" data-i18n="checkout.label_phone">${tr('checkout.label_phone')}</label>
+            <input type="tel" id="orderPhone" required placeholder="+7 (705) 000-00-00" autocomplete="tel">
+            <span class="form-hint" data-i18n="checkout.hint_phone">${tr('checkout.hint_phone')}</span>
+          </div>
 
-      updateBadge(); applyLang();
+          <div class="form-group">
+            <label for="orderCity" data-i18n="checkout.label_city">${tr('checkout.label_city')}</label>
+            <input type="text" id="orderCity" required placeholder="Алматы, Астана, Шымкент..." list="kzCities" autocomplete="address-level2">
+            <datalist id="kzCities">
+              <option value="Алматы"><option value="Астана"><option value="Шымкент">
+              <option value="Актобе"><option value="Караганда"><option value="Тараз">
+              <option value="Павлодар"><option value="Усть-Каменогорск"><option value="Семей">
+              <option value="Атырау"><option value="Костанай"><option value="Кызылорда">
+              <option value="Уральск"><option value="Петропавловск"><option value="Актау">
+              <option value="Темиртау"><option value="Туркестан"><option value="Кокшетау">
+            </datalist>
+          </div>
+
+          <div class="del-tabs">
+            <div class="del-tab active" id="tabPvz" data-type="pvz">
+              <span>📦</span> <span data-i18n="checkout.del_pvz">${tr('checkout.del_pvz')}</span>
+            </div>
+            <div class="del-tab" id="tabDoor" data-type="door">
+              <span>🚪</span> <span data-i18n="checkout.del_door">${tr('checkout.del_door')}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label id="addrLabel" for="orderAddress">${tr('checkout.label_addr_pvz')}</label>
+            <input type="text" id="orderAddress" required placeholder="${tr('checkout.placeholder_addr_pvz')}" autocomplete="street-address">
+            <span class="form-hint" id="addrHint">${tr('checkout.hint_addr_pvz')}</span>
+          </div>
+
+          <div class="form-group">
+            <label for="orderComment" data-i18n="checkout.label_comment">${tr('checkout.label_comment')}</label>
+            <textarea id="orderComment" rows="2" placeholder="${tr('checkout.placeholder_comment')}"></textarea>
+          </div>
+
+          <div class="payment-notice">
+            <div class="icon">💳</div>
+            <div class="content">
+              <strong data-i18n="checkout.pay_badge_title">${tr('checkout.pay_badge_title')}</strong>
+              <div>
+                <span data-i18n="checkout.pay_badge_desc">${tr('checkout.pay_badge_desc')}</span>
+                <strong>${total.toLocaleString('ru-RU')} тг</strong>.
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit-order" id="submitOrderBtn">
+            <span data-i18n="checkout.btn_submit">${tr('checkout.btn_submit')}</span>
+            <span>→</span>
+          </button>
+        </form>
+
+        <a class="btn-alt-wa" id="waAltBtn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 6.46 17.5 2 12.04 2M12.05 20.15C10.57 20.15 9.12 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.05 3.67C16.6 3.67 20.3 7.37 20.3 11.92C20.3 16.47 16.6 20.15 12.05 20.15M16.57 14.46C16.32 14.33 15.1 13.73 14.88 13.65C14.65 13.56 14.49 13.52 14.32 13.77C14.16 14.02 13.69 14.57 13.55 14.73C13.41 14.9 13.26 14.92 13.01 14.79C12.76 14.67 11.96 14.4 11.01 13.56C10.27 12.9 9.77 12.09 9.53 11.67C9.28 11.26 9.5 11.04 9.63 10.91C9.74 10.8 9.88 10.62 10.01 10.47C10.13 10.32 10.17 10.22 10.26 10.05C10.34 9.89 10.3 9.74 10.24 9.62C10.18 9.5 9.69 8.29 9.48 7.8C9.28 7.31 9.08 7.38 8.92 7.37H8.44C8.28 7.37 8.01 7.43 7.78 7.68C7.55 7.93 6.91 8.53 6.91 9.75C6.91 10.97 7.8 12.14 7.92 12.31C8.04 12.47 9.67 14.98 12.16 16.05C12.75 16.31 13.21 16.46 13.57 16.58C14.17 16.77 14.71 16.74 15.14 16.68C15.62 16.61 16.62 16.08 16.82 15.49C17.03 14.91 17.03 14.42 16.97 14.31C16.91 14.2 16.75 14.14 16.57 14.46Z"/></svg>
+          <span data-i18n="checkout.btn_alt_wa">${tr('checkout.btn_alt_wa')}</span>
+        </a>
+
+        <button type="button" class="btn-clear-cart" id="clearBtn" data-i18n="clear">${tr('clear')}</button>
+      `;
+
+      root.innerHTML = '';
+      root.appendChild(list);
+      root.appendChild(totalBox);
+      root.appendChild(checkoutCard);
+
+      // Event Listeners for Checkout Form
+      setupCheckoutEvents(cart, total);
+      updateBadge();
+      applyLang();
+    }
+
+    function setupCheckoutEvents(cart, total){
+      const phoneInput = document.getElementById('orderPhone');
+      const tabPvz = document.getElementById('tabPvz');
+      const tabDoor = document.getElementById('tabDoor');
+      const addrLabel = document.getElementById('addrLabel');
+      const addrInput = document.getElementById('orderAddress');
+      const addrHint = document.getElementById('addrHint');
+      const orderForm = document.getElementById('orderForm');
+      const waAltBtn = document.getElementById('waAltBtn');
+      const clearBtn = document.getElementById('clearBtn');
+
+      clearBtn.onclick = () => { write([]); };
+
+      // Phone formatting
+      phoneInput.addEventListener('input', (e) => {
+        const cursor = phoneInput.selectionStart;
+        phoneInput.value = formatKZPhone(phoneInput.value);
+      });
+
+      // Delivery type switch
+      function setDeliveryType(type){
+        currentDeliveryType = type;
+        if(type === 'pvz'){
+          tabPvz.classList.add('active');
+          tabDoor.classList.remove('active');
+          addrLabel.textContent = tr('checkout.label_addr_pvz');
+          addrInput.placeholder = tr('checkout.placeholder_addr_pvz');
+          addrHint.textContent = tr('checkout.hint_addr_pvz');
+        } else {
+          tabDoor.classList.add('active');
+          tabPvz.classList.remove('active');
+          addrLabel.textContent = tr('checkout.label_addr_door');
+          addrInput.placeholder = tr('checkout.placeholder_addr_door');
+          addrHint.textContent = tr('checkout.hint_addr_door');
+        }
+        updateWaLink();
+      }
+
+      tabPvz.onclick = () => setDeliveryType('pvz');
+      tabDoor.onclick = () => setDeliveryType('door');
+
+      // Sync form data with WhatsApp alternate button
+      function updateWaLink(){
+        const name = document.getElementById('orderName')?.value.trim() || '';
+        const phone = document.getElementById('orderPhone')?.value.trim() || '';
+        const city = document.getElementById('orderCity')?.value.trim() || '';
+        const addr = document.getElementById('orderAddress')?.value.trim() || '';
+        const comment = document.getElementById('orderComment')?.value.trim() || '';
+
+        let text = (lang()==='en' ? 'Hello! I want to order from Livi Jewelry:\n\n' :
+                    lang()==='kk' ? 'Сәлем! Livi Jewelry-ден тапсырыс бергім келеді:\n\n' :
+                    'Здравствуйте! Хочу оформить заказ в Livi Jewelry:\n\n');
+
+        text += cart.map(i => `• ${i.title} — ${i.price} × ${i.qty}`).join('\n');
+        text += `\n\n💰 Итого: ${total.toLocaleString('ru-RU')} тг`;
+
+        if(name || phone || city || addr){
+          text += `\n\n🚚 Данные доставки СДЭК:\n`;
+          if(name) text += `• Получатель: ${name}\n`;
+          if(phone) text += `• Телефон Kaspi: ${phone}\n`;
+          if(city) text += `• Город: ${city}\n`;
+          text += `• Способ: ${currentDeliveryType === 'pvz' ? 'Пункт выдачи СДЭК' : 'Курьером до двери'}\n`;
+          if(addr) text += `• Адрес: ${addr}\n`;
+          if(comment) text += `• Комментарий: ${comment}\n`;
+          text += `• Оплата: Удаленный счёт Kaspi Pay`;
+        }
+        waAltBtn.href = `https://wa.me/${WA_PHONE}?text=` + encodeURIComponent(text);
+      }
+
+      ['orderName', 'orderPhone', 'orderCity', 'orderAddress', 'orderComment'].forEach(id => {
+        document.getElementById(id).addEventListener('input', updateWaLink);
+      });
+      updateWaLink();
+
+      // Submit Form Handler
+      orderForm.onsubmit = async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('orderName').value.trim();
+        const phone = document.getElementById('orderPhone').value.trim();
+        const city = document.getElementById('orderCity').value.trim();
+        const address = document.getElementById('orderAddress').value.trim();
+        const comment = document.getElementById('orderComment').value.trim();
+
+        if(!name || !phone || !city || !address){
+          alert('Пожалуйста, заполните все обязательные поля.');
+          return;
+        }
+
+        const submitBtn = document.getElementById('submitOrderBtn');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Оформляем заказ...</span>';
+
+        const orderId = generateOrderId();
+        const orderData = {
+          orderId,
+          createdAt: new Date().toISOString(),
+          customerName: name,
+          phone,
+          city,
+          deliveryType: currentDeliveryType,
+          deliveryTypeTitle: currentDeliveryType === 'pvz' ? 'ПВЗ СДЭК' : 'Курьер до двери',
+          address,
+          comment,
+          paymentMethod: 'kaspi_remote_invoice',
+          totalAmount: total,
+          items: cart.map(it => ({
+            title: it.title,
+            price: it.price,
+            unit: unitPrice(it),
+            qty: it.qty,
+            img: it.img
+          }))
+        };
+
+        // 1. Сохраняем заказ в историю браузера
+        try {
+          const history = JSON.parse(localStorage.getItem('livi_orders_history') || '[]');
+          history.unshift(orderData);
+          localStorage.setItem('livi_orders_history', JSON.stringify(history.slice(0, 30)));
+        } catch(err){}
+
+        // 2. Отправка на Webhook (если настроен)
+        if (ORDER_WEBHOOK_URL) {
+          try {
+            await fetch(ORDER_WEBHOOK_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(orderData),
+              mode: 'no-cors'
+            });
+          } catch(err) {
+            console.warn('Webhook dispatch error:', err);
+          }
+        }
+
+        // 3. Отправка конверсии в Google Ads и GA4
+        try {
+          gtag('event', 'purchase', {
+            transaction_id: orderId,
+            value: total,
+            currency: 'KZT',
+            items: cart.map(it => ({ item_name: it.title, quantity: it.qty, price: unitPrice(it) }))
+          });
+          gtag('event', 'conversion', {
+            'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+            'value': total,
+            'currency': 'KZT',
+            'transaction_id': orderId
+          });
+        } catch(err){}
+
+        // 4. Показываем всплывающее окно успеха
+        showSuccessModal(orderData);
+
+        // 5. Очищаем корзину
+        write([]);
+      };
+    }
+
+    function showSuccessModal(orderData){
+      const modal = document.getElementById('successModal');
+      const orderNoEl = document.getElementById('modalOrderNo');
+      const waBtn = document.getElementById('modalWaBtn');
+      const closeBtn = document.getElementById('modalCloseBtn');
+
+      orderNoEl.textContent = `Заказ № ${orderData.orderId} (${orderData.totalAmount.toLocaleString('ru-RU')} тг)`;
+
+      let waText = `Здравствуйте! Я оформил заказ № ${orderData.orderId} на сайте livijewelry.kz.\n`;
+      waText += `Сумма: ${orderData.totalAmount.toLocaleString('ru-RU')} тг\n`;
+      waText += `Номер Kaspi для выставления счета: ${orderData.phone}\n`;
+      waText += `Получатель: ${orderData.customerName}, г. ${orderData.city}, СДЭК: ${orderData.address}`;
+      waBtn.href = `https://wa.me/${WA_PHONE}?text=` + encodeURIComponent(waText);
+
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+
+      closeBtn.onclick = () => {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        window.location.href = 'shop.html';
+      };
     }
 
     applyLang(); render(); updateBadge();
 
-    /* ===== Конверсия WhatsApp без inline onclick (НЕ ТРОГАЛ) ===== */
+    /* ===== Конверсия WhatsApp кликов (сохранена) ===== */
     (function(){
       function isWaLink(a){
         if(!a || !a.href) return false;
-        const href=a.href.toLowerCase();
+        const href = a.href.toLowerCase();
         return href.includes('wa.me') || href.includes('whatsapp');
       }
       function reportConversion(url){
         try{
-          const callback=function(){ if(url){ window.location=url; } };
-          gtag('event','conversion',{
-            'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
-            'value':0,
-            'currency':'KZT',
-            'event_callback':callback
+          const callback = function(){ if(url){ window.location = url; } };
+          gtag('event', 'conversion', {
+            'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+            'value': 0,
+            'currency': 'KZT',
+            'event_callback': callback
           });
           return false;
         }catch(e){
-          if(url){ window.location=url; }
+          if(url){ window.location = url; }
           return false;
         }
       }
-      document.addEventListener('click',function(e){
+      document.addEventListener('click', function(e){
         const a = e.target.closest('a');
         if(!a) return;
-        if(isWaLink(a)){
+        if(isWaLink(a) && a.id !== 'modalWaBtn'){
           e.preventDefault();
           reportConversion(a.href);
         }
