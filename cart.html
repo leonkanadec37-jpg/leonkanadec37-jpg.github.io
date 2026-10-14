@@ -447,7 +447,17 @@
       const rand = Math.floor(100 + Math.random() * 900);
       const datePart = new Date().toISOString().slice(2,10).replace(/-/g,'');
       return `LV-${datePart}-${rand}`;
-    }
+          }
+      // Kaspi invoice creation helper
+      async function createKaspiInvoice(payload){
+        const resp = await fetch('https://kaspi.kz/api/v1/invoice/create',{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify(payload)
+        });
+        if(!resp.ok) throw new Error('Kaspi invoice error');
+        return await resp.json(); // expects {invoiceUrl,...}
+      }
 
     function render(){
       const root = document.getElementById('root');
@@ -707,6 +717,21 @@
             img: it.img
           }))
         };
+
+        // 0. Создаём удалённый счёт Kaspi и обновляем бейдж оплаты
+        try {
+          const kaspiResp = await createKaspiInvoice({
+            orderId,
+            amount: total,
+            phone,
+            description: `Order ${orderId} – ${total.toLocaleString('ru-RU')} тг`
+          });
+          const badge = document.querySelector('.payment-notice .content');
+          if (badge) {
+            badge.innerHTML = `<strong>${tr('checkout.pay_badge_title')}</strong> ${tr('checkout.pay_badge_desc')} ${total.toLocaleString('ru-RU')} тг.<br>` +
+              `<a href="${kaspiResp.invoiceUrl}" target="_blank" rel="noopener">Kaspi invoice</a>`;
+          }
+        } catch (e) { console.warn('Kaspi invoice error', e); }
 
         // 1. Сохраняем заказ в историю браузера
         try {
