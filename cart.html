@@ -468,7 +468,7 @@
         const row = document.createElement('div');
         row.className = 'item';
         row.innerHTML = `
-          <div class="thumb"><img src="${i.img}" alt="" onerror="this.onerror=null;this.src='assets/placeholder.jpg'"></div>
+          <div class="thumb"><img src="${i.img}" alt="" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" loading="lazy" decoding="async"></div>
           <div>
             <div class="title">${i.title||''}</div>
             <div class="muted">${i.price||''}</div>
