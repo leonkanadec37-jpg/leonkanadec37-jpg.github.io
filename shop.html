@@ -45,6 +45,24 @@
     gtag('config', 'AW-16793974126');
   </script>
 
+  <!-- Meta Pixel Code (ID: 199604456030882) -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '199604456030882');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=199604456030882&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+
 
 <script type="application/ld+json">
 {
@@ -519,11 +537,35 @@
       }
       modal.classList.add('open');
       document.body.style.overflow='hidden';
+
+      if(window.fbq){
+        fbq('track', 'ViewContent', {
+          content_name: p.title,
+          content_ids: [p.id],
+          content_type: 'product',
+          value: priceNum,
+          currency: 'KZT'
+        });
+      }
     }
     function closeModal(){ modal.classList.remove('open'); document.body.style.overflow=''; }
     mMinus.onclick=()=>{ const n=Math.max(1, Number(mQtyEl.textContent)-1); mQtyEl.textContent=n; };
     mPlus.onclick =()=>{ const n=Number(mQtyEl.textContent)+1; mQtyEl.textContent=n; };
-    mAdd.onclick  =()=>{ if(currentProduct){ addToCart(currentProduct, Number(mQtyEl.textContent)); closeModal(); } };
+    mAdd.onclick  =()=>{ 
+      if(currentProduct){ 
+        addToCart(currentProduct, Number(mQtyEl.textContent)); 
+        if(window.fbq){
+          fbq('track', 'AddToCart', {
+            content_name: currentProduct.title,
+            content_ids: [currentProduct.id],
+            content_type: 'product',
+            value: Number(currentProduct.price) || 0,
+            currency: 'KZT'
+          });
+        }
+        closeModal(); 
+      } 
+    };
     mClose.onclick=closeModal;
     modal.addEventListener('click',(e)=>{ if(e.target===modal) closeModal(); });
     document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
@@ -598,6 +640,7 @@
       }
       function reportConversion(url){
         try{
+          if(window.fbq) fbq('track', 'Contact');
           const callback=function(){ if(url){ window.location=url; } };
           gtag('event','conversion',{
             'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
