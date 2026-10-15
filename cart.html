@@ -132,8 +132,7 @@
   </div>
 
   <script>
-    /* ===== URL Webhook для приёма заказов (Leo AI на VPS https://leoai.kz) ===== */
-    const ORDER_WEBHOOK_URL = 'https://leoai.kz/api/orders';
+    /* ===== Номер WhatsApp для приёма заказов напрямую ===== */
     const WA_PHONE = '77054510584';
 
     /* ===== i18n ===== */
@@ -167,17 +166,17 @@
         'checkout.placeholder_comment': 'Пожелания по длине колье, подарочная коробка...',
         'checkout.pay_badge_title': 'Оплата: Удаленный счёт Kaspi Pay',
         'checkout.pay_badge_desc': 'После оформления вам в мобильное приложение Kaspi.kz поступит счёт от ИП Livi Jewelry на сумму ',
-        'checkout.btn_submit': 'Оформить заказ и получить счёт Kaspi',
-        'checkout.btn_alt_wa': 'Задать вопрос / Заказ в WhatsApp',
-        'modal.title': 'Заказ успешно оформлен!',
-        'modal.step1_h': 'Удаленный счёт в Kaspi.kz',
-        'modal.step1_t': 'В течение 5–10 минут вам в приложение Kaspi.kz на указанный номер поступит счёт на оплату от ИП Livi Jewelry.',
-        'modal.step2_h': 'Оплата в 1 клик',
-        'modal.step2_t': 'Перейдите в раздел «Счета к оплате» в Kaspi и подтвердите платёж.',
+        'checkout.btn_submit': 'Оформить заказ в WhatsApp',
+        'checkout.btn_alt_wa': 'Задать вопрос в WhatsApp',
+        'modal.title': 'Заказ сформирован!',
+        'modal.step1_h': 'Отправка в WhatsApp напрямую',
+        'modal.step1_t': 'Сейчас откроется WhatsApp с готовым заказом — просто нажмите «Отправить», чтобы передать данные напрямую.',
+        'modal.step2_h': 'Счёт в приложении Kaspi.kz',
+        'modal.step2_t': 'ИП Livi Jewelry примет заказ и выставит удаленный счёт в Kaspi.kz на ваш номер.',
         'modal.step3_h': 'Отправка через СДЭК',
-        'modal.step3_t': 'После оплаты мы заботливо упакуем украшение и передадим в СДЭК. Трек-номер придет по SMS и в WhatsApp.',
+        'modal.step3_t': 'После оплаты мы бережно упакуем украшение, передадим в СДЭК и пришлём трек-номер прямо в этот диалог WhatsApp.',
         'modal.close_btn': 'Вернуться в каталог',
-        'modal.wa_btn': 'Открыть диалог в WhatsApp'
+        'modal.wa_btn': '👉 Перейти в WhatsApp и отправить заказ'
       },
       kk: {
         'meta.title': 'Livi Jewelry — Себет',
@@ -208,17 +207,17 @@
         'checkout.placeholder_comment': 'Әшекей ұзындығы, сыйлық қаптамасы...',
         'checkout.pay_badge_title': 'Төлем: Kaspi Pay қашықтан шот жіберу',
         'checkout.pay_badge_desc': 'Тапсырыстан кейін Kaspi.kz қосымшаңызда ИП Livi Jewelry шоты пайда болады, сомасы: ',
-        'checkout.btn_submit': 'Тапсырыс беру және Kaspi шотын алу',
-        'checkout.btn_alt_wa': 'Сұрақ қою / WhatsApp арқылы тапсырыс',
-        'modal.title': 'Тапсырыс сәтті қабылданды!',
-        'modal.step1_h': 'Kaspi.kz қосымшасындағы шот',
-        'modal.step1_t': '5–10 минут ішінде көрсетілген нөмірге Kaspi.kz арқылы төлем шоты келеді.',
-        'modal.step2_h': '1 түртумен төлеу',
-        'modal.step2_t': 'Kaspi-де «Төлем шоттары» бөліміне өтіп, төлемді растаңыз.',
+        'checkout.btn_submit': 'Тапсырысты WhatsApp арқылы жіберу',
+        'checkout.btn_alt_wa': 'WhatsApp-та сұрақ қою',
+        'modal.title': 'Тапсырыс дайын!',
+        'modal.step1_h': 'WhatsApp-қа тікелей жіберу',
+        'modal.step1_t': 'Қазір WhatsApp ашылады — деректерді тікелей жіберу үшін жай ғана «Жіберу» батырмасын басыңыз.',
+        'modal.step2_h': 'Kaspi.kz қосымшасындағы шот',
+        'modal.step2_t': 'ИП Livi Jewelry тапсырысты қабылдап, Kaspi.kz арқылы қашықтан шот жібереді.',
         'modal.step3_h': 'CDEK арқылы жеткізу',
-        'modal.step3_t': 'Төлемнен кейін әшекей CDEK-ке тапсырылып, трек-код WhatsApp арқылы жіберіледі.',
+        'modal.step3_t': 'Төлемнен кейін әшекей CDEK-ке тапсырылып, трек-код осы чатқа жіберіледі.',
         'modal.close_btn': 'Дүкенге оралу',
-        'modal.wa_btn': 'WhatsApp диалогын ашу'
+        'modal.wa_btn': '👉 WhatsApp-ты ашып, тапсырысты жіберу'
       },
       en: {
         'meta.title': 'Livi Jewelry — Cart',
@@ -249,17 +248,17 @@
         'checkout.placeholder_comment': 'Sizing preferences, gift packaging...',
         'checkout.pay_badge_title': 'Payment: Kaspi Pay Remote Invoice',
         'checkout.pay_badge_desc': 'Within 5–10 mins you will receive an invoice in Kaspi.kz app from IP Livi Jewelry for ',
-        'checkout.btn_submit': 'Place order & get Kaspi invoice',
-        'checkout.btn_alt_wa': 'Ask question / Order via WhatsApp',
-        'modal.title': 'Order successfully placed!',
-        'modal.step1_h': 'Remote Invoice in Kaspi.kz',
-        'modal.step1_t': 'Within 5–10 minutes an invoice from IP Livi Jewelry will arrive in your Kaspi.kz app.',
-        'modal.step2_h': '1-Click Payment',
-        'modal.step2_t': 'Go to Invoices to Pay in Kaspi and confirm the payment.',
-        'modal.step3_h': 'Dispatch via CDEK',
-        'modal.step3_t': 'Once paid, we will pack your jewelry and dispatch via CDEK. Tracking code will be sent by SMS & WhatsApp.',
+        'checkout.btn_submit': 'Place Order via WhatsApp',
+        'checkout.btn_alt_wa': 'Ask a Question in WhatsApp',
+        'modal.title': 'Order Prepared!',
+        'modal.step1_h': 'Direct WhatsApp Dispatch',
+        'modal.step1_t': 'WhatsApp will now open — simply press "Send" to deliver your order details directly.',
+        'modal.step2_h': 'Kaspi.kz Remote Invoice',
+        'modal.step2_t': 'IP Livi Jewelry will review the order and issue a remote invoice in your Kaspi.kz app.',
+        'modal.step3_h': 'CDEK Delivery',
+        'modal.step3_t': 'Once paid, we will pack your jewelry, dispatch via CDEK, and send the tracking number to this chat.',
         'modal.close_btn': 'Back to catalog',
-        'modal.wa_btn': 'Chat on WhatsApp'
+        'modal.wa_btn': '👉 Open WhatsApp and Send Order'
       }
     };
 
@@ -338,17 +337,7 @@
       const rand = Math.floor(100 + Math.random() * 900);
       const datePart = new Date().toISOString().slice(2,10).replace(/-/g,'');
       return `LV-${datePart}-${rand}`;
-          }
-      // Kaspi invoice creation helper
-      async function createKaspiInvoice(payload){
-        const resp = await fetch('https://kaspi.kz/api/v1/invoice/create',{
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify(payload)
-        });
-        if(!resp.ok) throw new Error('Kaspi invoice error');
-        return await resp.json(); // expects {invoiceUrl,...}
-      }
+    }
 
     function render(){
       const root = document.getElementById('root');
@@ -585,7 +574,7 @@
 
         const submitBtn = document.getElementById('submitOrderBtn');
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span>Оформляем заказ...</span>';
+        submitBtn.innerHTML = '<span>Открываем WhatsApp...</span>';
 
         const orderId = generateOrderId();
         const orderData = {
@@ -595,7 +584,7 @@
           phone,
           city,
           deliveryType: currentDeliveryType,
-          deliveryTypeTitle: currentDeliveryType === 'pvz' ? 'ПВЗ СДЭК' : 'Курьер до двери',
+          deliveryTypeTitle: currentDeliveryType === 'pvz' ? 'Пункт выдачи (ПВЗ СДЭК)' : 'Курьер до двери',
           address,
           comment,
           paymentMethod: 'kaspi_remote_invoice',
@@ -609,21 +598,6 @@
           }))
         };
 
-        // 0. Создаём удалённый счёт Kaspi и обновляем бейдж оплаты
-        try {
-          const kaspiResp = await createKaspiInvoice({
-            orderId,
-            amount: total,
-            phone,
-            description: `Order ${orderId} – ${total.toLocaleString('ru-RU')} тг`
-          });
-          const badge = document.querySelector('.payment-notice .content');
-          if (badge) {
-            badge.innerHTML = `<strong>${tr('checkout.pay_badge_title')}</strong> ${tr('checkout.pay_badge_desc')} ${total.toLocaleString('ru-RU')} тг.<br>` +
-              `<a href="${kaspiResp.invoiceUrl}" target="_blank" rel="noopener">Kaspi invoice</a>`;
-          }
-        } catch (e) { console.warn('Kaspi invoice error', e); }
-
         // 1. Сохраняем заказ в историю браузера
         try {
           const history = JSON.parse(localStorage.getItem('livi_orders_history') || '[]');
@@ -631,25 +605,7 @@
           localStorage.setItem('livi_orders_history', JSON.stringify(history.slice(0, 30)));
         } catch(err){}
 
-        // 2. Отправка на Webhook
-        if (ORDER_WEBHOOK_URL) {
-          try {
-            const resp = await fetch(ORDER_WEBHOOK_URL, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(orderData)
-            });
-            if (!resp.ok) {
-              console.warn('Webhook response not OK:', resp.status);
-            }
-          } catch(err) {
-            console.warn('Webhook dispatch error:', err);
-          }
-        }
-
-        // 3. Отправка конверсии в Meta Pixel, Google Ads и GA4
+        // 2. Отправка конверсии в Meta Pixel, Google Ads и GA4
         try {
           if(window.fbq){
             fbq('track', 'Purchase', {
@@ -673,27 +629,49 @@
           });
         } catch(err){}
 
+        // 3. Формируем подробный структурированный текст заказа напрямую супруге
+        let waText = (lang()==='en' ? 'Hello! I want to place an order in Livi Jewelry:\n\n' :
+                      lang()==='kk' ? 'Сәлем! Livi Jewelry-ге тапсырыс бергім келеді:\n\n' :
+                      'Здравствуйте! Хочу оформить заказ в Livi Jewelry:\n\n');
+
+        waText += `🛍 *Заказ № ${orderId}*\n`;
+        waText += `━━━━━━━━━━━━━━━━━━━━━\n`;
+        waText += `💎 *Состав заказа:*\n`;
+        waText += cart.map(i => `• ${i.title} — ${i.price} × ${i.qty}`).join('\n');
+        waText += `\n\n💰 *Итого к оплате:* *${total.toLocaleString('ru-RU')} тг*\n`;
+        waText += `━━━━━━━━━━━━━━━━━━━━━\n`;
+        waText += `🚚 *Данные доставки СДЭК:*\n`;
+        waText += `• Получатель: ${name}\n`;
+        waText += `• Телефон Kaspi: ${phone}\n`;
+        waText += `• Город: ${city}\n`;
+        waText += `• Способ доставки: ${currentDeliveryType === 'pvz' ? 'Пункт выдачи (ПВЗ СДЭК)' : 'Курьером до двери'}\n`;
+        waText += `• Адрес: ${address}\n`;
+        if (comment) waText += `• Комментарий: ${comment}\n`;
+        waText += `\n💳 *Оплата:* Удаленный счёт Kaspi Pay («ИП Livi Jewelry»)`;
+
+        const waUrl = `https://wa.me/${WA_PHONE}?text=` + encodeURIComponent(waText);
+
         // 4. Показываем всплывающее окно успеха
-        showSuccessModal(orderData);
+        showSuccessModal(orderData, waUrl);
 
         // 5. Очищаем корзину
         write([]);
+
+        // 6. Переходим в WhatsApp
+        setTimeout(() => {
+          window.location.href = waUrl;
+        }, 250);
       };
     }
 
-    function showSuccessModal(orderData){
+    function showSuccessModal(orderData, waUrl){
       const modal = document.getElementById('successModal');
       const orderNoEl = document.getElementById('modalOrderNo');
       const waBtn = document.getElementById('modalWaBtn');
       const closeBtn = document.getElementById('modalCloseBtn');
 
       orderNoEl.textContent = `Заказ № ${orderData.orderId} (${orderData.totalAmount.toLocaleString('ru-RU')} тг)`;
-
-      let waText = `Здравствуйте! Я оформил заказ № ${orderData.orderId} на сайте livijewelry.kz.\n`;
-      waText += `Сумма: ${orderData.totalAmount.toLocaleString('ru-RU')} тг\n`;
-      waText += `Номер Kaspi для выставления счета: ${orderData.phone}\n`;
-      waText += `Получатель: ${orderData.customerName}, г. ${orderData.city}, СДЭК: ${orderData.address}`;
-      waBtn.href = `https://wa.me/${WA_PHONE}?text=` + encodeURIComponent(waText);
+      waBtn.href = waUrl;
 
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
