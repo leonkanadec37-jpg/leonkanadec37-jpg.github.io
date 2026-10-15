@@ -295,11 +295,16 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
         with open(products_file, "w", encoding="utf-8") as f:
             json.dump(products, f, ensure_ascii=False, indent=2)
         update_shop_schema(products)
+        try:
+            from generate_feed import generate_feed
+            generate_feed()
+        except Exception:
+            pass
         print(f"\n[SUCCESS] Добавлено новых товаров: {added_count}. Всего товаров: {len(products)}")
 
         if auto_commit or auto_push:
             try:
-                subprocess.run(["git", "add", products_file, "shop.html", "assets/"], check=True)
+                subprocess.run(["git", "add", products_file, "shop.html", "assets/", "google_merchant_feed.xml"], check=True)
                 msg = f"Автосинхронизация каталога: добавлено {added_count} новых товаров"
                 subprocess.run(["git", "commit", "-m", msg], check=True)
                 print(f"[OK] Git commit: {msg}")

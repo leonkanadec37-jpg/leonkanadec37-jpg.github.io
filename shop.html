@@ -555,6 +555,14 @@
         }
         renderFilters();
         renderGrid();
+
+        const targetItemId = urlParams.get('item');
+        if(targetItemId){
+          const targetProduct = PRODUCTS.find(p => p.id === targetItemId);
+          if(targetProduct){
+            setTimeout(() => openModal(targetProduct), 150);
+          }
+        }
       })
       .catch(err => {
         console.error('Error loading products:', err);
