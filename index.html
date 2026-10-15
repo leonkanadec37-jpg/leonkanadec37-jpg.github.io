@@ -9,14 +9,7 @@
   <meta name="description" content="Купить украшения из жемчуга и натуральных камней: бижутерия — серьги, браслеты, кулоны, кольца. В наличии и на заказ. Livi Jewelry, доставка по Казахстану.">
   <link rel="canonical" href="https://livijewelry.kz/">
 
-  <style>
-  :root{--fg:#111;--muted:#666;--line:#eee;--bg:#fff;--radius:18px;--shadow:0 8px 28px rgba(0,0,0,.08);--max:1240px}
-  body{font:16px/1.6 "Montserrat",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#fff;color:var(--fg)}
-  header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.95);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
-  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
-  .card{border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden}
-</style>
+
 <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Украшения из жемчуга и натуральных камней — Livi Jewelry">
@@ -26,10 +19,10 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 
   <!-- Icons & Manifest (robust for search) -->
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
@@ -54,76 +47,7 @@
     gtag('config', 'AW-16793974126');
   </script>
 
-  <style>
-    :root{
-      --fg:#111; --muted:#666; --line:#eee; --bg:#fff;
-      --radius:18px; --shadow:0 8px 28px rgba(0,0,0,.08); --max:1240px;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{font:16px/1.6 "Montserrat",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#fff;color:var(--fg)}
-    a{text-decoration:none;color:inherit}
-    img{display:block;max-width:100%}
 
-    /* Header */
-    header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.95);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
-    .nav{max-width:var(--max);margin:0 auto;padding:12px 16px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px}
-    .hamburger{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:#fff;display:inline-grid;place-items:center;cursor:pointer}
-    .hamburger span{width:18px;height:2px;background:#111;display:block;position:relative}
-    .hamburger span::before,.hamburger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:#111}
-    .hamburger span::before{top:-6px}.hamburger span::after{top:6px}
-
-    .brand{justify-self:center;display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.06em}
-    .brand svg{height:24px;width:auto;display:block}
-
-    .cart-link{justify-self:end;position:relative;border:1px solid var(--line);border-radius:999px;padding:8px 12px}
-    .cart-badge{position:absolute;top:-6px;right:-6px;background:#111;color:#fff;border-radius:999px;font-size:12px;line-height:1;padding:4px 6px;min-width:20px;text-align:center;display:none}
-
-    /* Drawer */
-    .drawer{position:fixed;inset:0;z-index:100;display:none}
-    .drawer.open{display:block}
-    .drawer-back{position:absolute;inset:0;background:rgba(0,0,0,.5)}
-    .drawer-panel{position:absolute;left:10px;top:10px;bottom:10px;width:min(86vw,320px);background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:14px;display:flex;flex-direction:column;gap:10px}
-    .drawer a,.drawer button{display:block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;text-align:left;cursor:pointer}
-    .lang{display:flex;gap:8px}
-    .lang button{flex:1}
-
-    /* Hero */
-    .hero{max-width:var(--max);margin:0 auto;padding:24px 16px;display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}
-    .hero h1{font-size:clamp(28px,5vw,48px);line-height:1.15;margin-bottom:12px}
-    .hero p{color:var(--muted);font-size:18px;margin-bottom:18px}
-    .btn{display:inline-block;background:#111;color:#fff;padding:12px 20px;border-radius:999px;font-size:15px}
-    .hero-visual{border-radius:18px;overflow:hidden;box-shadow:var(--shadow);min-height:340px;background:#000}
-    .hero-visual img{width:100%;height:100%;object-fit:cover}
-
-    /* Featured */
-    .section{max-width:var(--max);margin:0 auto;padding:16px}
-    .section h2{font-size:clamp(22px,4vw,34px);text-align:center;margin:8px 0 6px}
-    .rule{height:1px;background:var(--line);margin:12px auto 18px;max-width:120px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
-    .card{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.04)}
-    .card img{width:100%;aspect-ratio:4/5;object-fit:cover}
-    .card .body{padding:12px}
-    .title{font-weight:600;margin-bottom:4px}
-    .muted{color:var(--muted);font-size:14px;margin-top:4px}
-
-    /* About */
-    .about{background:#fafafa;margin-top:20px;padding:40px 16px}
-    .about-inner{max-width:860px;margin:0 auto;text-align:center}
-    .about-inner p{color:var(--muted);font-size:17px}
-
-    /* Footer */
-    footer{border-top:1px solid var(--line);margin-top:28px}
-    .foot{max-width:var(--max);margin:0 auto;padding:18px 16px 28px;display:grid;gap:8px}
-    .foot .links{display:flex;gap:14px;flex-wrap:wrap}
-    .copy{color:var(--muted);font-size:14px}
-
-    @media (max-width:860px){ .hero{grid-template-columns:1fr;gap:22px} }
-    @media (max-width:520px){
-      .nav{padding:10px 12px}
-      .grid{gap:14px}
-    }
-  </style>
 
   <!-- Structured Data: Organization + WebSite (SearchAction) -->
   <script type="application/ld+json">
