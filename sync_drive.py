@@ -179,6 +179,7 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
         subprocess.run([sys.executable, "-m", "gdown", "--folder", drive_url, "-O", temp_dir], check=False)
         
         # Парсим оригинальные названия файлов из HTML страницы диска
+        titles_by_size = {}
         try:
             r = requests.get(drive_url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=15)
             soup = BeautifulSoup(r.content.decode('utf-8', errors='replace'), 'html.parser')
@@ -191,24 +192,35 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
                             label = al
                             break
                 clean_title = label.replace(' Image Shared', '').replace(' Shared', '').strip()
-                fid = tr.get('data-id')
-                # сопоставляем с файлами в папке
-                for fn in os.listdir(temp_dir):
-                    fp = os.path.join(temp_dir, fn)
-                    if os.path.isfile(fp):
-                        candidates.append({
-                            'source_path': fp,
-                            'raw_title': clean_title or fn
-                        })
+                # извлекаем размер из строки
+                size_str = ''
+                for el in tr.find_all(True):
+                    al = el.get('aria-label') or ''
+                    if 'Storage used:' in al:
+                        size_str = al
                         break
+                if clean_title:
+                    titles_by_size[clean_title] = tr.get('data-id')
         except Exception as e:
             print(f"[WARN] Не удалось извлечь метаданные через web: {e}")
 
-        if not candidates:
-            for fn in os.listdir(temp_dir):
-                fp = os.path.join(temp_dir, fn)
-                if os.path.isfile(fp) and fn.lower().endswith(('.jpg', '.jpeg', '.png', '.webp', '.mpo', '.heic')):
-                    candidates.append({'source_path': fp, 'raw_title': fn})
+        # Обрабатываем все скачанные файлы
+        downloaded_files = [f for f in os.listdir(temp_dir) if os.path.isfile(os.path.join(temp_dir, f))]
+        for fn in downloaded_files:
+            fp = os.path.join(temp_dir, fn)
+            # Если имя файла содержит заголовок или восстанавливаем
+            title_candidate = fn
+            for ct in titles_by_size.keys():
+                # Проверяем совпадение по цифрам цены в имени файла
+                nums_fn = re.findall(r'\d+', fn)
+                nums_ct = re.findall(r'\d+', ct)
+                if nums_fn and nums_ct and nums_fn == nums_ct:
+                    title_candidate = ct
+                    break
+            candidates.append({
+                'source_path': fp,
+                'raw_title': title_candidate
+            })
 
     elif local_folder and os.path.exists(local_folder):
         for fn in os.listdir(local_folder):
