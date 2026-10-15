@@ -178,12 +178,16 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
         print(f"[INFO] Скачиваем файлы из Google Drive: {drive_url}")
         subprocess.run([sys.executable, "-m", "gdown", "--folder", drive_url, "-O", temp_dir], check=False)
         
-        # Парсим оригинальные названия файлов из HTML страницы диска
+        # Парсим оригинальные названия файлов и ID из HTML страницы диска
         titles_by_size = {}
+        current_drive_ids = set()
         try:
             r = requests.get(drive_url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=15)
             soup = BeautifulSoup(r.content.decode('utf-8', errors='replace'), 'html.parser')
             for tr in soup.find_all('tr', attrs={'data-id': True}):
+                fid = tr.get('data-id')
+                if fid:
+                    current_drive_ids.add(fid)
                 label = tr.get('aria-label') or ''
                 if not label:
                     for el in tr.find_all(True):
@@ -192,15 +196,8 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
                             label = al
                             break
                 clean_title = label.replace(' Image Shared', '').replace(' Shared', '').strip()
-                # извлекаем размер из строки
-                size_str = ''
-                for el in tr.find_all(True):
-                    al = el.get('aria-label') or ''
-                    if 'Storage used:' in al:
-                        size_str = al
-                        break
-                if clean_title:
-                    titles_by_size[clean_title] = tr.get('data-id')
+                if clean_title and fid:
+                    titles_by_size[clean_title] = fid
         except Exception as e:
             print(f"[WARN] Не удалось извлечь метаданные через web: {e}")
 
@@ -208,18 +205,19 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
         downloaded_files = [f for f in os.listdir(temp_dir) if os.path.isfile(os.path.join(temp_dir, f))]
         for fn in downloaded_files:
             fp = os.path.join(temp_dir, fn)
-            # Если имя файла содержит заголовок или восстанавливаем
             title_candidate = fn
-            for ct in titles_by_size.keys():
-                # Проверяем совпадение по цифрам цены в имени файла
+            cand_fid = None
+            for ct, fid in titles_by_size.items():
                 nums_fn = re.findall(r'\d+', fn)
                 nums_ct = re.findall(r'\d+', ct)
                 if nums_fn and nums_ct and nums_fn == nums_ct:
                     title_candidate = ct
+                    cand_fid = fid
                     break
             candidates.append({
                 'source_path': fp,
-                'raw_title': title_candidate
+                'raw_title': title_candidate,
+                'drive_id': cand_fid
             })
 
     elif local_folder and os.path.exists(local_folder):
@@ -261,6 +259,8 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
                     break
 
         if is_duplicate:
+            if cand.get('drive_id') and not ep.get('drive_id'):
+                ep['drive_id'] = cand['drive_id']
             print(f"[SKIP] Товар пропущен (дубликат): {raw_t} -> {duplicate_reason}")
             continue
 
@@ -297,27 +297,51 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
             "inStock": True,
             "featured": True
         }
+        if cand.get('drive_id'):
+            new_prod['drive_id'] = cand['drive_id']
+
         products.append(new_prod)
         existing_fps[new_id] = (cand_fp, new_prod)
         added_count += 1
         print(f"[ADD] Добавлен товар {new_id}: {clean_name} ({price} тг) -> assets/{filename}")
 
-    # Сохраняем products.json
-    if added_count > 0:
+    # Двусторонняя синхронизация: удаление товаров, которые были удалены с Google Диска
+    deleted_count = 0
+    if drive_url and len(current_drive_ids) > 0:
+        remaining_products = []
+        for p in products:
+            p_drive_id = p.get('drive_id')
+            if p_drive_id and p_drive_id not in current_drive_ids:
+                print(f"[DELETE] Товар {p['id']} (\"{p.get('title')}\") удален с сайта, так как отсутствует на Google Диске.")
+                img_path = p.get('image')
+                if img_path and os.path.exists(img_path):
+                    try:
+                        os.remove(img_path)
+                    except Exception:
+                        pass
+                deleted_count += 1
+            else:
+                remaining_products.append(p)
+        products = remaining_products
+
+    # Сохраняем products.json при наличии любых изменений (добавления или удаления)
+    if added_count > 0 or deleted_count > 0:
         with open(products_file, "w", encoding="utf-8") as f:
             json.dump(products, f, ensure_ascii=False, indent=2)
         update_shop_schema(products)
-        try:
-            from generate_feed import generate_feed
-            generate_feed()
-        except Exception:
-            pass
-        print(f"\n[SUCCESS] Добавлено новых товаров: {added_count}. Всего товаров: {len(products)}")
+
+        actions = []
+        if added_count > 0:
+            actions.append(f"добавлено: {added_count}")
+        if deleted_count > 0:
+            actions.append(f"удалено: {deleted_count}")
+        summary_str = ", ".join(actions)
+        print(f"\n[SUCCESS] Синхронизация завершена ({summary_str}). Всего товаров: {len(products)}")
 
         if auto_commit or auto_push:
             try:
-                subprocess.run(["git", "add", products_file, "shop.html", "assets/", "google_merchant_feed.xml"], check=True)
-                msg = f"Автосинхронизация каталога: добавлено {added_count} новых товаров"
+                subprocess.run(["git", "add", "-A", products_file, "shop.html", "assets/"], check=True)
+                msg = f"Автосинхронизация каталога: {summary_str}"
                 subprocess.run(["git", "commit", "-m", msg], check=True)
                 print(f"[OK] Git commit: {msg}")
                 if auto_push:
@@ -326,7 +350,7 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
             except Exception as e:
                 print(f"[WARN] Ошибка git: {e}")
     else:
-        print("\n[OK] Новых товаров не найдено — все товары уже есть в каталоге!")
+        print("\n[OK] Изменений нет — каталог полностью соответствует Google Диску!")
 
     # Удаляем временные файлы
     if os.path.exists(temp_dir):
