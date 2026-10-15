@@ -258,7 +258,6 @@
     <div class="nav">
       <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
       <a class="brand" href="index.html">
-        <img src="favicon.svg" alt="Livi Jewelry logo">
         <span>LIVI JEWELRY</span>
       </a>
 
@@ -319,7 +318,8 @@
         </div>
         <div class="modal-actions">
           <button id="mAdd" class="btn" data-i18n="ui.add">Добавить в корзину</button>
-          <a class="btn" href="cart.html" data-i18n="ui.openCart">Открыть корзину</a>
+          <a id="mWa" class="btn btn-outline-wa" target="_blank" rel="noopener">Заказать в WhatsApp</a>
+          <a class="btn btn-secondary" href="cart.html" data-i18n="ui.openCart">Открыть корзину</a>
         </div>
       </div>
       <button class="close" id="mClose" aria-label="Закрыть">✕</button>
@@ -433,7 +433,7 @@
         const priceStr = priceNum ? `${priceNum.toLocaleString('ru-RU')} тг` : 'Цена по запросу';
         const altText = altByCat(p.category, p.title);
 
-        card.innerHTML=`<img src="${p.image}" alt="${altText}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" itemprop="image" loading="lazy" decoding="async">
+        card.innerHTML=`<div class="card-img-wrap"><img src="${p.image}" alt="${altText}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" itemprop="image" loading="lazy" decoding="async"></div>
           <div class="body">
             <div class="title" itemprop="name">${p.title}</div>
             <div class="price"><span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
@@ -441,15 +441,9 @@
               <meta itemprop="availability" content="https://schema.org/InStock">
               ${priceNum ? `<meta itemprop="price" content="${priceNum}">` : ``}
             </span>${priceStr}</div>
-            <button class="btn" data-action="add">${tr('ui.add')}</button>
           </div>`;
 
-        card.addEventListener('click',(e)=>{
-          if(e.target && e.target.dataset && e.target.dataset.action==='add'){ return; }
-          openModal(p);
-        }, {passive:true});
-
-        card.querySelector('[data-action="add"]').onclick=()=>addToCart(p, 1);
+        card.addEventListener('click',()=>openModal(p));
         grid.appendChild(card);
       });
     }
@@ -501,6 +495,11 @@
       mDesc.textContent=p.description || '';
       mQtyEl.textContent='1';
       mAdd.textContent=tr('ui.add');
+      const mWa=document.getElementById('mWa');
+      if(mWa){
+        const waText=encodeURIComponent(`Здравствуйте! Меня интересует украшение «${p.title}» (${priceNum ? priceNum.toLocaleString('ru-RU') + ' тг' : ''}). Есть ли в наличии?`);
+        mWa.href=`https://wa.me/77054510584?text=${waText}`;
+      }
       modal.classList.add('open');
       document.body.style.overflow='hidden';
     }
