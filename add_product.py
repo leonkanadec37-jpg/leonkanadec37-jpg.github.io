@@ -47,6 +47,19 @@ def slugify(text):
     slug = re.sub(r'-+', '-', slug).strip('-')
     return slug or 'tovar'
 
+def get_image_fingerprint(image_path):
+    try:
+        with Image.open(image_path) as im:
+            im = ImageOps.exif_transpose(im).convert('L').resize((32, 32), Image.Resampling.LANCZOS)
+            return list(getattr(im, 'get_flattened_data', im.getdata)())
+    except Exception:
+        return None
+
+def compute_diff(fp1, fp2):
+    if not fp1 or not fp2 or len(fp1) != len(fp2):
+        return 999.0
+    return sum(abs(a - b) for a, b in zip(fp1, fp2)) / len(fp1)
+
 def optimize_image(src_path, dst_path, max_w=1440, max_h=1920, quality=82):
     with Image.open(src_path) as im:
         im = ImageOps.exif_transpose(im)
@@ -76,6 +89,7 @@ def main():
     parser.add_argument("--description", default="", help="Описание товара")
     parser.add_argument("--featured", action="store_true", help="Поместить в избранное на главной")
     parser.add_argument("--out-of-stock", action="store_true", help="Пометить как отсутствующий")
+    parser.add_argument("--force", action="store_true", help="Добавить принудительно, игнорируя защиту от дубликатов")
     parser.add_argument("--commit", action="store_true", help="Сформировать git commit после выгрузки")
     parser.add_argument("--push", action="store_true", help="Сделать git push в репозиторий")
 
@@ -91,6 +105,23 @@ def main():
             products = json.load(f)
     else:
         products = []
+
+    # Защита от дубликатов (по фото и названию)
+    if not args.force:
+        cand_fp = get_image_fingerprint(args.image)
+        norm_title = re.sub(r'[\s\W_]+', '', args.title.lower())
+        for p in products:
+            if cand_fp and p.get("image") and os.path.exists(p["image"]):
+                efp = get_image_fingerprint(p["image"])
+                if efp and compute_diff(cand_fp, efp) < 12.0:
+                    print(f"[SKIP] Товар уже есть в каталоге! Фото совпадает с {p['id']} (\"{p.get('title')}\").")
+                    print("       Используйте флаг --force, если действительно хотите добавить повторно.")
+                    sys.exit(0)
+            norm_existing = re.sub(r'[\s\W_]+', '', p.get("title", "").lower())
+            if norm_title == norm_existing and p.get("price") == args.price:
+                print(f"[SKIP] Товар уже есть в каталоге! Название и цена совпадают с {p['id']} (\"{p.get('title')}\").")
+                print("       Используйте флаг --force, если действительно хотите добавить повторно.")
+                sys.exit(0)
 
     # Генерация ID
     existing_ids = [int(re.sub(r'\D', '', p.get("id", "0")) or 0) for p in products]
