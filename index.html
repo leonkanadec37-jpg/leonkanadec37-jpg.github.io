@@ -308,7 +308,7 @@
         const priceStr = priceNum ? `${priceNum.toLocaleString('ru-RU')} тг` : 'Цена по запросу';
         const c=document.createElement('article'); c.className='card';
         c.innerHTML=`<div class="card-img-wrap"><img src="${p.image}" alt="${p.title} — ${altBase}" loading="lazy" decoding="async"></div><div class="body"><div class="title">${p.title}</div><div class="price">${priceStr}</div></div>`;
-        c.onclick=()=>location.href='shop.html'; grid.appendChild(c);
+        c.onclick=()=>location.href='shop.html' + (p.id ? '?item=' + encodeURIComponent(p.id) : ''); grid.appendChild(c);
       });
     }
 
