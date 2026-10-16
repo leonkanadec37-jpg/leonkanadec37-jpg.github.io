@@ -173,14 +173,26 @@ def main():
     print(f"     Категория: {args.category} | Цена: {args.price} тг | Фото: assets/{img_filename}")
 
     try:
+        from generate_product_pages import generate_product_pages
+        generate_product_pages()
+    except Exception:
+        pass
+
+    try:
         from generate_feed import generate_feed
         generate_feed()
     except Exception:
         pass
 
+    try:
+        from generate_sitemap import generate_sitemap
+        generate_sitemap()
+    except Exception:
+        pass
+
     if args.commit or args.push:
         try:
-            subprocess.run(["git", "add", "products.json", dst_img_path, "google_merchant_feed.xml"], check=True)
+            subprocess.run(["git", "add", "products.json", dst_img_path, "product/", "google_merchant_feed.xml", "sitemap.xml"], check=True)
             commit_msg = f"Добавлен товар: {args.title} ({args.price} тг)"
             subprocess.run(["git", "commit", "-m", commit_msg], check=True)
             print(f"[OK] Git commit создан: \"{commit_msg}\"")

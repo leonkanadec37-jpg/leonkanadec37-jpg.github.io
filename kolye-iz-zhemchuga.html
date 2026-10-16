@@ -380,72 +380,72 @@
 
       <div class="grid">
         <!-- Product 1 -->
-        <article class="card" onclick="location.href='shop.html?item=prod_01'">
+        <article class="card" onclick="location.href='product/prod_01.html'">
           <div class="card-img-wrap">
             <img src="assets/kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Колье из натурального жемчуга" loading="lazy">
           </div>
           <div class="body">
-            <h3 class="title">Колье из натурального жемчуга</h3>
+            <h3 class="title"><a href="product/prod_01.html" class="card-title-link">Колье из натурального жемчуга</a></h3>
             <div class="price">80 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Натуральный речной жемчуг, барочная жемчужина</div>
           </div>
         </article>
 
         <!-- Product 2 -->
-        <article class="card" onclick="location.href='shop.html?item=prod_02'">
+        <article class="card" onclick="location.href='product/prod_02.html'">
           <div class="card-img-wrap">
             <img src="assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp" alt="Колье из натурального жемчуга Премиум" loading="lazy">
           </div>
           <div class="body">
-            <h3 class="title">Колье из натурального жемчуга (Премиум)</h3>
+            <h3 class="title"><a href="product/prod_02.html" class="card-title-link">Колье из натурального жемчуга (Премиум)</a></h3>
             <div class="price">80 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Отборный жемчуг, горный хрусталь</div>
           </div>
         </article>
 
         <!-- Product 3 -->
-        <article class="card" onclick="location.href='shop.html?item=prod_03'">
+        <article class="card" onclick="location.href='product/prod_03.html'">
           <div class="card-img-wrap">
             <img src="assets/kole-iz-zhemchuga-mayorka-34000.webp" alt="Колье из жемчуга Майорка" loading="lazy">
           </div>
           <div class="body">
-            <h3 class="title">Колье из жемчуга Майорка</h3>
+            <h3 class="title"><a href="product/prod_03.html" class="card-title-link">Колье из жемчуга Майорка</a></h3>
             <div class="price">34 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Жемчуг Майорка, керамика, роспись</div>
           </div>
         </article>
 
         <!-- Product 4 -->
-        <article class="card" onclick="location.href='shop.html?item=prod_08'">
+        <article class="card" onclick="location.href='product/prod_08.html'">
           <div class="card-img-wrap">
             <img src="assets/kole-lapy-40000.webp" alt="Дизайнерское колье Лапы" loading="lazy">
           </div>
           <div class="body">
-            <h3 class="title">Колье «Лапы»</h3>
+            <h3 class="title"><a href="product/prod_08.html" class="card-title-link">Колье «Лапы»</a></h3>
             <div class="price">40 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Крупный барочный жемчуг, позолота</div>
           </div>
         </article>
 
         <!-- Product 5 -->
-        <article class="card" onclick="location.href='shop.html?item=prod_15'">
+        <article class="card" onclick="location.href='product/prod_15.html'">
           <div class="card-img-wrap">
             <img src="assets/kole-iz-rozovogo-kvartsa-i-zhemchuga-s-sergami-40000.webp" alt="Колье из розового кварца и жемчуга" loading="lazy">
           </div>
           <div class="body">
-            <h3 class="title">Колье из розового кварца и жемчуга</h3>
+            <h3 class="title"><a href="product/prod_15.html" class="card-title-link">Колье из розового кварца и жемчуга</a></h3>
             <div class="price">40 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Розовый кварц, жемчуг (серьги в комплект)</div>
           </div>
         </article>
 
         <!-- Product 6 -->
-        <article class="card" onclick="location.href='shop.html?item=prod_17'">
+        <article class="card" onclick="location.href='product/prod_17.html'">
           <div class="card-img-wrap">
             <img src="assets/ukrashenie-sotuar-iz-agata-i-granata-36000.webp" alt="Украшение-сотуар из агата и граната" loading="lazy">
           </div>
           <div class="body">
-            <h3 class="title">Украшение-сотуар из агата и граната</h3>
+            <h3 class="title"><a href="product/prod_17.html" class="card-title-link">Украшение-сотуар из агата и граната</a></h3>
             <div class="price">36 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Натуральный агат, гранат, шёлковая кисть</div>
           </div>
@@ -620,7 +620,13 @@
       a.addEventListener('click', function() {
         try {
           if (typeof gtag === 'function') {
-            gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_kolye' });
+            gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_kolye', value: 45000, currency: 'KZT' });
+            gtag('event', 'conversion', {
+              'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+              'value': Math.round(45000 * 0.2),
+              'currency': 'KZT',
+              'transaction_id': 'WA-KOLYE-' + Date.now()
+            });
           }
           if (typeof fbq === 'function') {
             fbq('track', 'Contact');

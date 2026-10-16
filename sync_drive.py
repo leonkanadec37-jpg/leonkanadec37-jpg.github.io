@@ -506,10 +506,22 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
             json.dump(products, f, ensure_ascii=False, indent=2)
         update_shop_schema(products)
         try:
+            from generate_product_pages import generate_product_pages
+            generate_product_pages()
+        except Exception as e:
+            print(f"[WARN] Ошибка генерации статических страниц товаров: {e}")
+
+        try:
             from generate_feed import generate_feed
             generate_feed()
         except Exception as e:
             print(f"[WARN] Ошибка обновления XML-фида: {e}")
+
+        try:
+            from generate_sitemap import generate_sitemap
+            generate_sitemap()
+        except Exception as e:
+            print(f"[WARN] Ошибка обновления sitemap.xml: {e}")
 
         actions = []
         if added_count > 0:
@@ -523,7 +535,7 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
 
         if auto_commit or auto_push:
             try:
-                subprocess.run(["git", "add", "-A", products_file, "shop.html", "assets/", "google_merchant_feed.xml"], check=True)
+                subprocess.run(["git", "add", "-A", products_file, "shop.html", "assets/", "product/", "google_merchant_feed.xml", "sitemap.xml"], check=True)
                 msg = f"Автосинхронизация каталога: {summary_str}"
                 subprocess.run(["git", "commit", "-m", msg], check=True)
                 print(f"[OK] Git commit: {msg}")

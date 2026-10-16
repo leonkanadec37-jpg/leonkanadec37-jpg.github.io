@@ -280,6 +280,9 @@
 
     /* ===== Cart logic ===== */
     const KEY = 'livi_cart_v2';
+    const WA_PHONE = '77054510584';
+    // Google Apps Script Webhook URL (из google_apps_script_order_backend.js)
+    const ORDER_WEBHOOK_URL = '';
     let currentDeliveryType = 'pvz';
 
     function parseFirstKZT(priceStr){
@@ -556,53 +559,49 @@
         waAltBtn.href = `https://wa.me/${WA_PHONE}?text=` + encodeURIComponent(text);
       }
 
-      // GA4 view_cart event
+      // GA4 & Google Ads Dynamic Remarketing Items Mapping
+      const dynamicItems = cart.map((it, idx) => ({
+        id: it.id,
+        item_id: it.id,
+        item_name: it.title,
+        price: unitPrice(it),
+        item_brand: 'Livi Jewelry',
+        quantity: Number(it.qty || 1),
+        index: idx + 1,
+        google_business_vertical: 'retail'
+      }));
+
+      // GA4 & Google Ads view_cart + automatic begin_checkout
       if(typeof gtag === 'function' && cart.length > 0){
         gtag('event', 'view_cart', {
           currency: 'KZT',
           value: total,
-          items: cart.map((it, idx) => ({
-            item_id: it.id,
-            item_name: it.title,
-            price: unitPrice(it),
-            quantity: Number(it.qty || 1),
-            index: idx + 1
-          }))
+          items: dynamicItems
         });
+
+        if(!window._cartBeginCheckoutSent){
+          window._cartBeginCheckoutSent = true;
+          gtag('event', 'begin_checkout', {
+            currency: 'KZT',
+            value: total,
+            items: dynamicItems
+          });
+        }
       }
 
-      // GA4 begin_checkout event on form interaction
-      let checkoutTracked = false;
-      function onCheckoutStart(){
-        if(!checkoutTracked && cart.length > 0){
-          checkoutTracked = true;
-          if(typeof gtag === 'function'){
-            gtag('event', 'begin_checkout', {
-              currency: 'KZT',
-              value: total,
-              items: cart.map((it, idx) => ({
-                item_id: it.id,
-                item_name: it.title,
-                price: unitPrice(it),
-                quantity: Number(it.qty || 1),
-                index: idx + 1
-              }))
-            });
-          }
-          if(window.fbq){
-            fbq('track', 'InitiateCheckout', {
-              value: total,
-              currency: 'KZT',
-              num_items: cart.reduce((s,i)=>s+Number(i.qty||0),0)
-            });
-          }
-        }
+      // Meta Pixel InitiateCheckout
+      if(window.fbq && cart.length > 0 && !window._fbqInitiateSent){
+        window._fbqInitiateSent = true;
+        fbq('track', 'InitiateCheckout', {
+          value: total,
+          currency: 'KZT',
+          num_items: cart.reduce((s,i)=>s+Number(i.qty||0),0)
+        });
       }
 
       ['orderName', 'orderPhone', 'orderCity', 'orderAddress', 'orderComment'].forEach(id => {
         const el = document.getElementById(id);
         if(el) {
-          el.addEventListener('focus', onCheckoutStart, { once: true });
           el.addEventListener('input', updateWaLink);
         }
       });
@@ -612,7 +611,18 @@
         waAltBtn.addEventListener('click', () => {
           try {
             if (typeof gtag === 'function') {
-              gtag('event', 'whatsapp_click', { currency: 'KZT', value: total, lead_source: 'cart_whatsapp_direct' });
+              gtag('event', 'whatsapp_click', {
+                currency: 'KZT',
+                value: total,
+                lead_source: 'cart_whatsapp_direct',
+                items: dynamicItems
+              });
+              gtag('event', 'conversion', {
+                'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+                'value': Math.round(total * 0.2),
+                'currency': 'KZT',
+                'transaction_id': 'WA-CART-' + Date.now()
+              });
             }
             if (typeof fbq === 'function') fbq('track', 'Contact');
           } catch(err){}
@@ -661,6 +671,20 @@
           }))
         };
 
+        // 0. Отправка заказа в Google Apps Script (Таблица + Telegram) в фоновом режиме
+        if (ORDER_WEBHOOK_URL && ORDER_WEBHOOK_URL.startsWith('http')) {
+          try {
+            fetch(ORDER_WEBHOOK_URL, {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(orderData)
+            }).catch(e => console.warn('Order webhook call:', e));
+          } catch(e) {
+            console.warn('Order webhook error:', e);
+          }
+        }
+
         // 1. Сохраняем заказ в историю браузера
         try {
           const history = JSON.parse(localStorage.getItem('livi_orders_history') || '[]');
@@ -679,25 +703,25 @@
             });
           }
 
-          // Enhanced Conversions: чистый номер телефона для Google Ads
+          // Enhanced Conversions: чистый номер телефона + имя + город для Google Ads
           const cleanDigits = phone.replace(/\D/g, '');
           const formattedPhone = cleanDigits.length === 11 ? '+7' + cleanDigits.slice(1) : '+7' + cleanDigits;
-          
+          const firstName = name.trim().split(/\s+/)[0] || name.trim();
+
           if(typeof gtag === 'function'){
             gtag('set', 'user_data', {
-              phone_number: formattedPhone
+              phone_number: formattedPhone,
+              address: {
+                first_name: firstName,
+                city: city,
+                country: 'KZ'
+              }
             });
             gtag('event', 'purchase', {
               transaction_id: orderId,
               value: total,
               currency: 'KZT',
-              items: cart.map((it, idx) => ({
-                item_id: it.id,
-                item_name: it.title,
-                price: unitPrice(it),
-                quantity: Number(it.qty || 1),
-                index: idx + 1
-              }))
+              items: dynamicItems
             });
             gtag('event', 'conversion', {
               'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',

@@ -6,9 +6,9 @@
     <description>Каталог авторских украшений ручной работы из натурального жемчуга, малахита, агата и кварца с доставкой по Казахстану.</description>
     <item>
       <g:id>prod_01</g:id>
-      <g:title>Колье из натурального жемчуга | Livi Jewelry</g:title>
+      <g:title>Колье из натурального жемчуга Livi Jewelry — Натуральный жемчуг (Колье)</g:title>
       <g:description>Роскошное многорядное колье из отборного натурального жемчуга с акцентной подвеской из крупной барочной жемчужины.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_01</g:link>
+      <g:link>https://livijewelry.kz/product/prod_01.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/kole-iz-naturalnogo-zhemchuga-80000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -16,16 +16,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>197</g:google_product_category>
       <g:product_type>Украшения &gt; Колье</g:product_type>
-      <g:material>Натуральный жемчуг, Барочный жемчуг, Ювелирный сплав</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральный жемчуг / Барочный жемчуг / Ювелирный сплав</g:material>
+      <g:color>Белый / Перламутровый</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>High_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_02</g:id>
-      <g:title>Колье из натурального жемчуга (Премиум) | Livi Jewelry</g:title>
+      <g:title>Колье из натурального жемчуга (Премиум) Livi Jewelry — Натуральный жемчуг (Колье)</g:title>
       <g:description>Многослойное колье из натурального жемчуга премиальной селекции и горного хрусталя с акцентной барочной жемчужиной.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_02</g:link>
+      <g:link>https://livijewelry.kz/product/prod_02.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -33,16 +36,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>197</g:google_product_category>
       <g:product_type>Украшения &gt; Колье</g:product_type>
-      <g:material>Натуральный жемчуг, Горный хрусталь, Ювелирный сплав</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральный жемчуг / Горный хрусталь / Ювелирный сплав</g:material>
+      <g:color>Белый / Перламутровый</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>High_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_03</g:id>
-      <g:title>Колье из жемчуга Майорка | Livi Jewelry</g:title>
+      <g:title>Колье из жемчуга Майорка Livi Jewelry — Натуральный жемчуг (Колье)</g:title>
       <g:description>Многослойное колье из жемчуга Майорка ручной работы с расписными элементами и подвеской.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_03</g:link>
+      <g:link>https://livijewelry.kz/product/prod_03.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/kole-iz-zhemchuga-mayorka-34000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -50,16 +56,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>197</g:google_product_category>
       <g:product_type>Украшения &gt; Колье</g:product_type>
-      <g:material>Жемчуг Майорка, Керамические бусины, Ювелирный сплав</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Жемчуг Майорка / Керамические бусины / Ювелирный сплав</g:material>
+      <g:color>Белый / Перламутровый</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>Mid_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_04</g:id>
-      <g:title>Комплект: цепь + браслет | Livi Jewelry</g:title>
+      <g:title>Комплект: цепь + браслет Livi Jewelry — Натуральный жемчуг (Комплект)</g:title>
       <g:description>Позолоченная цепь с подвеской из барочной жемчужины в паре с утонченным звеньевым браслетом.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_04</g:link>
+      <g:link>https://livijewelry.kz/product/prod_04.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/komplekt-tsep-braslet-40000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -67,16 +76,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>200</g:google_product_category>
       <g:product_type>Украшения &gt; Комплекты</g:product_type>
-      <g:material>Позолота, Натуральный барочный жемчуг</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Позолота / Натуральный барочный жемчуг</g:material>
+      <g:color>Золотистый / Перламутровый</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>Mid_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_05</g:id>
-      <g:title>Цепь родированная + браслет | Livi Jewelry</g:title>
+      <g:title>Цепь родированная + браслет Livi Jewelry — Натуральный жемчуг (Цепь)</g:title>
       <g:description>Гарнитур из родированной цепи с барочной жемчужиной и браслета в едином звеньевом стиле со стойким покрытием.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_05</g:link>
+      <g:link>https://livijewelry.kz/product/prod_05.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/tsep-rodirovannaya-braslet-40000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -84,16 +96,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>197</g:google_product_category>
       <g:product_type>Украшения &gt; Цепи</g:product_type>
-      <g:material>Родированная фурнитура, Натуральный барочный жемчуг</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Родированная фурнитура / Натуральный барочный жемчуг</g:material>
+      <g:color>Серебристый / Металлик</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>Mid_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_06</g:id>
-      <g:title>Браслет из малахита | Livi Jewelry</g:title>
+      <g:title>Браслет из малахита Livi Jewelry — Натуральный жемчуг (Браслет)</g:title>
       <g:description>Изысканный многорядный браслет из отборного натурального малахита глубокого изумрудного оттенка с золотистыми бусинами-акцентами и регулируемой застежкой.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_06</g:link>
+      <g:link>https://livijewelry.kz/product/prod_06.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/braslet-iz-malakhita-25000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -101,16 +116,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>191</g:google_product_category>
       <g:product_type>Украшения &gt; Браслеты</g:product_type>
-      <g:material>Натуральный малахит, Ювелирный сплав, Позолота</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральный малахит / Ювелирный сплав / Позолота</g:material>
+      <g:color>Изумрудный / Зеленый</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>Entry_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_07</g:id>
-      <g:title>Гарнитур: булавка из аметиста и жемчуга, браслет, кольцо | Livi Jewelry</g:title>
+      <g:title>Гарнитур: булавка из аметиста и жемчуга, браслет, кольцо Livi Jewelry — Натуральный жемчуг (Комплект)</g:title>
       <g:description>В комплекте: Булавка из аметиста и жемчуга — 40 000 тг, Браслет — 20 000 тг, Кольцо — 14 000 тг. Полная стоимость комплекта — 74 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_07</g:link>
+      <g:link>https://livijewelry.kz/product/prod_07.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/garnitur-iz-ametista-i-zhemchuga-40000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -118,16 +136,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>200</g:google_product_category>
       <g:product_type>Украшения &gt; Комплекты</g:product_type>
-      <g:material>Натуральный аметист, Натуральный жемчуг, Ювелирный сплав</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральный аметист / Натуральный жемчуг / Ювелирный сплав</g:material>
+      <g:color>Фиолетовый</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>High_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_08</g:id>
-      <g:title>Колье «Лапы» | Livi Jewelry</g:title>
+      <g:title>Колье «Лапы» Livi Jewelry — Натуральный жемчуг (Колье)</g:title>
       <g:description>Дизайнерское колье «Лапы» с акцентными позолоченными элементами и крупными жемчужинами в дерзком современном стиле.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_08</g:link>
+      <g:link>https://livijewelry.kz/product/prod_08.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/kole-lapy-40000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -135,16 +156,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>197</g:google_product_category>
       <g:product_type>Украшения &gt; Колье</g:product_type>
-      <g:material>Натуральный жемчуг, Ювелирный сплав, Позолота</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральный жемчуг / Ювелирный сплав / Позолота</g:material>
+      <g:color>Золотистый / Перламутровый</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>Mid_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_09</g:id>
-      <g:title>Комплект: Колье из авантюрина, серьги | Livi Jewelry</g:title>
+      <g:title>Комплект: Колье из авантюрина, серьги Livi Jewelry — Натуральный жемчуг (Комплект)</g:title>
       <g:description>В комплекте: Колье из авантюрина — 34 000 тг, Серьги — 10 000 тг. Полная стоимость комплекта — 44 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_09</g:link>
+      <g:link>https://livijewelry.kz/product/prod_09.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/kole-iz-avantyurina-s-sergami-34000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -152,16 +176,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>200</g:google_product_category>
       <g:product_type>Украшения &gt; Комплекты</g:product_type>
-      <g:material>Натуральный авантюрин, Ювелирный сплав, Позолота</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральный авантюрин / Ювелирный сплав / Позолота</g:material>
+      <g:color>Синий / Золотисто-коричневый</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>Mid_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_10</g:id>
-      <g:title>Комплект: Колье из Агата и граната, кольцо | Livi Jewelry</g:title>
+      <g:title>Комплект: Колье из Агата и граната, кольцо Livi Jewelry — Натуральный жемчуг (Комплект)</g:title>
       <g:description>В комплекте: Колье из Агата и граната — 40 000 тг, Кольцо — 12 000 тг. Полная стоимость комплекта — 52 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_10</g:link>
+      <g:link>https://livijewelry.kz/product/prod_10.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/kole-iz-agata-i-granata-s-koltsom-40000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -169,16 +196,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>200</g:google_product_category>
       <g:product_type>Украшения &gt; Комплекты</g:product_type>
-      <g:material>Натуральный агат, Натуральный гранат, Ювелирный сплав</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральный агат / Натуральный гранат / Ювелирный сплав</g:material>
+      <g:color>Бордовый / Темно-красный</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>High_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_11</g:id>
-      <g:title>Комплект: Колье из аметиста и розового кварца, серьги из аметиста | Livi Jewelry</g:title>
+      <g:title>Комплект: Колье из аметиста и розового кварца, серьги из аметиста Livi Jewelry — Натуральный жемчуг (Комплект)</g:title>
       <g:description>В комплекте: Колье из аметиста и розового кварца — 45 000 тг, Серьги из аметиста — 16 000 тг. Полная стоимость комплекта — 61 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_11</g:link>
+      <g:link>https://livijewelry.kz/product/prod_11.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -186,16 +216,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>200</g:google_product_category>
       <g:product_type>Украшения &gt; Комплекты</g:product_type>
-      <g:material>Натуральный аметист, Розовый кварц, Ювелирный сплав</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральный аметист / Розовый кварц / Ювелирный сплав</g:material>
+      <g:color>Фиолетовый</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>High_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_12</g:id>
-      <g:title>Комплект: Колье из Жадеита и Тигрового глаза, серьги из тигрового глаза | Livi Jewelry</g:title>
+      <g:title>Комплект: Колье из Жадеита и Тигрового глаза, серьги из тигрового глаза Livi Jewelry — Натуральный жемчуг (Комплект)</g:title>
       <g:description>В комплекте: Колье из Жадеита и Тигрового глаза — 36 000 тг, Серьги из Тигрового глаза — 16 000 тг. Полная стоимость комплекта — 52 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_12</g:link>
+      <g:link>https://livijewelry.kz/product/prod_12.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/kole-iz-zhadeita-i-tigrovogo-glaza-s-sergami-36000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -203,16 +236,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>200</g:google_product_category>
       <g:product_type>Украшения &gt; Комплекты</g:product_type>
-      <g:material>Натуральный жадеит, Тигровый глаз, Ювелирный сплав</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральный жадеит / Тигровый глаз / Ювелирный сплав</g:material>
+      <g:color>Коричневый / Золотистый</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>High_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_13</g:id>
-      <g:title>Комплект: Колье из жемчуга Майорка, серьги | Livi Jewelry</g:title>
+      <g:title>Комплект: Колье из жемчуга Майорка, серьги Livi Jewelry — Натуральный жемчуг (Комплект)</g:title>
       <g:description>В комплекте: Колье из жемчуга Майорка — 35 000 тг, Серьги — 10 000 тг. Полная стоимость комплекта — 45 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_13</g:link>
+      <g:link>https://livijewelry.kz/product/prod_13.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/kole-iz-zhemchuga-mayorka-s-sergami-35000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -220,16 +256,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>200</g:google_product_category>
       <g:product_type>Украшения &gt; Комплекты</g:product_type>
-      <g:material>Жемчуг Майорка, Ювелирный сплав, Позолота</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Жемчуг Майорка / Ювелирный сплав / Позолота</g:material>
+      <g:color>Золотистый / Перламутровый</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>Mid_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_14</g:id>
-      <g:title>Комплект: Колье из коралла и яшмы, браслет, серьги | Livi Jewelry</g:title>
+      <g:title>Комплект: Колье из коралла и яшмы, браслет, серьги Livi Jewelry — Натуральный жемчуг (Комплект)</g:title>
       <g:description>В комплекте: Колье из коралла и яшмы — 40 000 тг, Браслет — 10 000 тг, Серьги — 10 000 тг. Полная стоимость комплекта — 60 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_14</g:link>
+      <g:link>https://livijewelry.kz/product/prod_14.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/komplekt-iz-koralla-i-yashmy-40000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -237,16 +276,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>200</g:google_product_category>
       <g:product_type>Украшения &gt; Комплекты</g:product_type>
-      <g:material>Натуральный коралл, Яшма, Ювелирный сплав</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральный коралл / Яшма / Ювелирный сплав</g:material>
+      <g:color>Коралловый / Красный</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>High_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_15</g:id>
-      <g:title>Комплект: Колье из розового кварца и жемчуга, серьги | Livi Jewelry</g:title>
+      <g:title>Комплект: Колье из розового кварца и жемчуга, серьги Livi Jewelry — Натуральный жемчуг (Комплект)</g:title>
       <g:description>В комплекте: Колье из розового кварца и жемчуга — 40 000 тг, Серьги — 16 000 тг. Полная стоимость комплекта — 56 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_15</g:link>
+      <g:link>https://livijewelry.kz/product/prod_15.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/kole-iz-rozovogo-kvartsa-i-zhemchuga-s-sergami-40000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -254,16 +296,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>200</g:google_product_category>
       <g:product_type>Украшения &gt; Комплекты</g:product_type>
-      <g:material>Розовый кварц, Натуральный жемчуг, Ювелирный сплав</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Розовый кварц / Натуральный жемчуг / Ювелирный сплав</g:material>
+      <g:color>Розовый / Перламутровый</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>High_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_16</g:id>
-      <g:title>Комплект из натуральной бирюзы | Livi Jewelry</g:title>
+      <g:title>Комплект из натуральной бирюзы Livi Jewelry — Натуральный жемчуг (Комплект)</g:title>
       <g:description>Комплект из натуральной бирюзы — 50 000 тг.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_16</g:link>
+      <g:link>https://livijewelry.kz/product/prod_16.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/komplekt-iz-naturalnoy-biryuzy-50000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -271,16 +316,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>200</g:google_product_category>
       <g:product_type>Украшения &gt; Комплекты</g:product_type>
-      <g:material>Натуральная бирюза, Ювелирный сплав, Позолота</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральная бирюза / Ювелирный сплав / Позолота</g:material>
+      <g:color>Бирюзовый / Голубой</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>High_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_17</g:id>
-      <g:title>Украшение-сотуар из агата и граната | Livi Jewelry</g:title>
+      <g:title>Украшение-сотуар из агата и граната Livi Jewelry — Натуральный жемчуг (Сотуар)</g:title>
       <g:description>Длинное акцентное украшение-сотуар ручной работы из натурального агата и граната с изящной кистью.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_17</g:link>
+      <g:link>https://livijewelry.kz/product/prod_17.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/ukrashenie-sotuar-iz-agata-i-granata-36000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -288,16 +336,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>197</g:google_product_category>
       <g:product_type>Украшения &gt; Сотуары</g:product_type>
-      <g:material>Натуральный агат, Натуральный гранат, Ювелирный сплав</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральный агат / Натуральный гранат / Ювелирный сплав</g:material>
+      <g:color>Бордовый / Темно-красный</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>Mid_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_18</g:id>
-      <g:title>Гарнитур: булавка, браслет, серьги, кольцо (под заказ) | Livi Jewelry</g:title>
+      <g:title>Гарнитур: булавка, браслет, серьги, кольцо (под заказ) Livi Jewelry — Натуральный жемчуг (Комплект)</g:title>
       <g:description>В комплекте: Булавка — 30 000 тг, Браслет — 16 000 тг, Серьги — 14 000 тг, Кольцо — 14 000 тг. Полная стоимость комплекта — 74 000 тг (под заказ). Каждое изделие можно приобрести по отдельности или полным сетом.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_18</g:link>
+      <g:link>https://livijewelry.kz/product/prod_18.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/bulavka-30000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -305,16 +356,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>200</g:google_product_category>
       <g:product_type>Украшения &gt; Комплекты</g:product_type>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
       <g:material>Ювелирный сплав</g:material>
+      <g:color>Белый / Перламутровый</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>High_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_19</g:id>
-      <g:title>Колье из тигрового глаза и гематита | Livi Jewelry</g:title>
+      <g:title>Колье из тигрового глаза и гематита Livi Jewelry — Натуральный жемчуг (Колье)</g:title>
       <g:description>Колье из тигрового глаза и гематита — 50 000 тг.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_19</g:link>
+      <g:link>https://livijewelry.kz/product/prod_19.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/kole-iz-tigrovogo-glaza-i-gematita-50000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -322,16 +376,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>197</g:google_product_category>
       <g:product_type>Украшения &gt; Колье</g:product_type>
-      <g:material>Тигровый глаз, Ювелирный сплав</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Тигровый глаз / Ювелирный сплав</g:material>
+      <g:color>Коричневый / Золотистый</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>High_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_20</g:id>
-      <g:title>Колье из флюорита и цирконов | Livi Jewelry</g:title>
+      <g:title>Колье из флюорита и цирконов Livi Jewelry — Натуральный жемчуг (Колье)</g:title>
       <g:description>Колье из флюорита и цирконов — 35 000 тг.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_20</g:link>
+      <g:link>https://livijewelry.kz/product/prod_20.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/kole-iz-flyuorita-i-tsirkonov-35000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -339,16 +396,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>197</g:google_product_category>
       <g:product_type>Украшения &gt; Колье</g:product_type>
-      <g:material>Натуральный флюорит, Цирконы, Ювелирный сплав</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральный флюорит / Цирконы / Ювелирный сплав</g:material>
+      <g:color>Мятный / Зеленый</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>Mid_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_21</g:id>
-      <g:title>Сет колье: «Клубнички» и розовый кварц с жемчугом | Livi Jewelry</g:title>
+      <g:title>Сет колье: «Клубнички» и розовый кварц с жемчугом Livi Jewelry — Натуральный жемчуг (Комплект)</g:title>
       <g:description>В комплекте: Колье с клубничками — 34 000 тг, Колье из розового кварца и жемчуга — 40 000 тг. Полная стоимость комплекта — 74 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_21</g:link>
+      <g:link>https://livijewelry.kz/product/prod_21.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/kole-s-klubnichkami-34000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -356,16 +416,19 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>200</g:google_product_category>
       <g:product_type>Украшения &gt; Комплекты</g:product_type>
-      <g:material>Натуральный жемчуг, Розовый кварц, Ювелирный сплав</g:material>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральный жемчуг / Розовый кварц / Ювелирный сплав</g:material>
+      <g:color>Розовый / Перламутровый</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>High_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>prod_22</g:id>
-      <g:title>Колье Гранж | Livi Jewelry</g:title>
+      <g:title>Колье Гранж Livi Jewelry — Натуральный жемчуг (Колье)</g:title>
       <g:description>Колье Гранж — 45 000 тг.</g:description>
-      <g:link>https://livijewelry.kz/shop.html?item=prod_22</g:link>
+      <g:link>https://livijewelry.kz/product/prod_22.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/kole-granzh-45000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
@@ -373,7 +436,10 @@
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>197</g:google_product_category>
       <g:product_type>Украшения &gt; Колье</g:product_type>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
       <g:material>Ювелирный сплав</g:material>
+      <g:color>Серебристый / Металлик</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>Mid_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>

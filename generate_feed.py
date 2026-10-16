@@ -3,6 +3,7 @@
 """
 Generate Google Merchant Center XML Product Feed (RSS 2.0 / g: namespace)
 for Livi Jewelry (https://livijewelry.kz)
+Fully optimized for Google Shopping, Performance Max, and Google StoreBot.
 """
 
 import json
@@ -15,14 +16,48 @@ PRODUCTS_FILE = "products.json"
 FEED_FILE = "google_merchant_feed.xml"
 
 # Category mapping to Google Product Taxonomy (Apparel & Accessories > Jewelry)
-# 188: Jewelry, 197: Necklaces, 191: Bracelets, 200: Jewelry Sets
+# 188: Jewelry, 197: Necklaces, 191: Bracelets, 200: Jewelry Sets, 194: Earrings
 GOOGLE_CATEGORIES = {
-    "Necklaces": ("197", "Apparel & Accessories > Jewelry > Necklaces", "Украшения > Колье"),
-    "Bracelets": ("191", "Apparel & Accessories > Jewelry > Bracelets", "Украшения > Браслеты"),
-    "Sets": ("200", "Apparel & Accessories > Jewelry > Jewelry Sets", "Украшения > Комплекты"),
-    "Lariats": ("197", "Apparel & Accessories > Jewelry > Necklaces", "Украшения > Сотуары"),
-    "Chains": ("197", "Apparel & Accessories > Jewelry > Necklaces", "Украшения > Цепи"),
+    "Necklaces": ("197", "Apparel & Accessories > Jewelry > Necklaces", "Украшения > Колье", "Колье"),
+    "Bracelets": ("191", "Apparel & Accessories > Jewelry > Bracelets", "Украшения > Браслеты", "Браслет"),
+    "Sets": ("200", "Apparel & Accessories > Jewelry > Jewelry Sets", "Украшения > Комплекты", "Комплект"),
+    "Lariats": ("197", "Apparel & Accessories > Jewelry > Necklaces", "Украшения > Сотуары", "Сотуар"),
+    "Chains": ("197", "Apparel & Accessories > Jewelry > Necklaces", "Украшения > Цепи", "Цепь"),
+    "Rings": ("200", "Apparel & Accessories > Jewelry > Rings", "Украшения > Кольца", "Кольцо"),
+    "Earrings": ("194", "Apparel & Accessories > Jewelry > Earrings", "Украшения > Серьги", "Серьги"),
 }
+
+def detect_color(title, materials):
+    text = (title + " " + " ".join(materials)).lower()
+    if "малахит" in text:
+        return "Изумрудный / Зеленый"
+    if "аметист" in text:
+        return "Фиолетовый"
+    if "тигров" in text:
+        return "Коричневый / Золотистый"
+    if "жадеит" in text:
+        return "Зеленый"
+    if "гранат" in text:
+        return "Бордовый / Темно-красный"
+    if "агат" in text:
+        return "Черный"
+    if "бирюз" in text:
+        return "Бирюзовый / Голубой"
+    if any(k in text for k in ["розов", "кварц", "клубнич"]):
+        return "Розовый / Перламутровый"
+    if "флюорит" in text:
+        return "Мятный / Зеленый"
+    if "коралл" in text:
+        return "Коралловый / Красный"
+    if "яшм" in text:
+        return "Терракотовый / Разноцветный"
+    if "авантюрин" in text:
+        return "Синий / Золотисто-коричневый"
+    if any(k in text for k in ["позолот", "золот"]):
+        return "Золотистый / Перламутровый"
+    if any(k in text for k in ["родирован", "гематит", "серебр", "гранж"]):
+        return "Серебристый / Металлик"
+    return "Белый / Перламутровый"
 
 def generate_feed():
     if not os.path.exists(PRODUCTS_FILE):
@@ -49,63 +84,80 @@ def generate_feed():
 
     for p in products:
         item = ET.SubElement(channel, "item")
+        pid = str(p.get("id"))
 
-        # Basic ID
+        # 1. Basic ID / SKU
         g_id = ET.SubElement(item, "g:id")
-        g_id.text = str(p.get("id"))
+        g_id.text = pid
 
-        # Title
+        # 2. Optimized Title for Google Shopping Algorithm
+        # Formula: {title} Livi Jewelry — Натуральный жемчуг ({category_ru})
         title = p.get("title", "Украшение Livi Jewelry")
-        g_title = ET.SubElement(item, "g:title")
-        g_title.text = f"{title} | Livi Jewelry"
+        cat_key = p.get("category", "Necklaces")
+        cat_info = GOOGLE_CATEGORIES.get(cat_key, ("188", "Apparel & Accessories > Jewelry", "Украшения", "Украшение"))
+        cat_ru = cat_info[3]
 
-        # Description
+        feed_title = f"{title} Livi Jewelry — Натуральный жемчуг ({cat_ru})"
+        if len(feed_title) > 150:
+            feed_title = feed_title[:147] + "..."
+
+        g_title = ET.SubElement(item, "g:title")
+        g_title.text = feed_title
+
+        # 3. Description
         desc = p.get("description", title)
         g_desc = ET.SubElement(item, "g:description")
         g_desc.text = desc
 
-        # Link
+        # 4. Canonical Link to Static Product Page
         g_link = ET.SubElement(item, "g:link")
-        g_link.text = f"{BASE_URL}/shop.html?item={p.get('id')}"
+        g_link.text = f"{BASE_URL}/product/{pid}.html"
 
-        # Image Link
+        # 5. Image Link
         img_rel = p.get("image", "").lstrip("/")
         g_img = ET.SubElement(item, "g:image_link")
         g_img.text = f"{BASE_URL}/{img_rel}"
 
-        # Availability & Condition
+        # 6. Availability & Condition
         g_avail = ET.SubElement(item, "g:availability")
         g_avail.text = "in_stock" if p.get("inStock", True) else "out_of_stock"
 
         g_cond = ET.SubElement(item, "g:condition")
         g_cond.text = "new"
 
-        # Price in KZT
+        # 7. Price in KZT
         price_num = int(p.get("price", 0))
         g_price = ET.SubElement(item, "g:price")
         g_price.text = f"{price_num} KZT"
 
-        # Brand
+        # 8. Brand
         g_brand = ET.SubElement(item, "g:brand")
         g_brand.text = "Livi Jewelry"
 
-        # Categories
-        cat_key = p.get("category", "Necklaces")
-        cat_info = GOOGLE_CATEGORIES.get(cat_key, ("188", "Apparel & Accessories > Jewelry", "Украшения"))
-        
+        # 9. Google Categories & Product Type
         g_cat = ET.SubElement(item, "g:google_product_category")
         g_cat.text = cat_info[0]
 
         g_prod_type = ET.SubElement(item, "g:product_type")
         g_prod_type.text = cat_info[2]
 
-        # Materials
+        # 10. Apparel / Jewelry Attributes: Gender & Age Group
+        g_gender = ET.SubElement(item, "g:gender")
+        g_gender.text = "female"
+
+        g_age = ET.SubElement(item, "g:age_group")
+        g_age.text = "adult"
+
+        # 11. Material & Color
         materials = p.get("materials", [])
         if materials:
             g_mat = ET.SubElement(item, "g:material")
-            g_mat.text = ", ".join(materials)
+            g_mat.text = " / ".join(materials)
 
-        # Custom Labels for PMax segmentation
+        g_color = ET.SubElement(item, "g:color")
+        g_color.text = detect_color(title, materials)
+
+        # 12. Custom Labels for PMax segmentation
         g_label0 = ET.SubElement(item, "g:custom_label_0")
         g_label0.text = "Featured" if p.get("featured", False) else "Standard"
 
@@ -117,7 +169,7 @@ def generate_feed():
         else:
             g_label1.text = "Entry_Ticket"
 
-        # Handmade / Custom product identifier
+        # 13. Handmade / Custom product identifier
         g_identifier = ET.SubElement(item, "g:identifier_exists")
         g_identifier.text = "no"
 

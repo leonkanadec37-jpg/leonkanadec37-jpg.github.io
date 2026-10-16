@@ -379,72 +379,72 @@
 
       <div class="grid">
         <!-- Product 1 -->
-        <article class="card" onclick="location.href='shop.html?item=prod_13'">
+        <article class="card" onclick="location.href='product/prod_13.html'">
           <div class="card-img-wrap">
             <img src="assets/kole-iz-zhemchuga-mayorka-s-sergami-35000.webp" alt="Колье из жемчуга Майорка с серьгами" loading="lazy">
           </div>
           <div class="body">
-            <h3 class="title">Колье из жемчуга Майорка с серьгами</h3>
+            <h3 class="title"><a href="product/prod_13.html" class="card-title-link">Колье из жемчуга Майорка с серьгами</a></h3>
             <div class="price">35 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Колье 35 000 ₸, серьги 10 000 ₸ (доступны отдельно)</div>
           </div>
         </article>
 
         <!-- Product 2 -->
-        <article class="card" onclick="location.href='shop.html?item=prod_11'">
+        <article class="card" onclick="location.href='product/prod_11.html'">
           <div class="card-img-wrap">
             <img src="assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp" alt="Серьги и колье из аметиста и кварца" loading="lazy">
           </div>
           <div class="body">
-            <h3 class="title">Серьги и колье из аметиста и кварца</h3>
+            <h3 class="title"><a href="product/prod_11.html" class="card-title-link">Серьги и колье из аметиста и кварца</a></h3>
             <div class="price">45 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Колье 45 000 ₸, серьги из аметиста 16 000 ₸</div>
           </div>
         </article>
 
         <!-- Product 3 -->
-        <article class="card" onclick="location.href='shop.html?item=prod_09'">
+        <article class="card" onclick="location.href='product/prod_09.html'">
           <div class="card-img-wrap">
             <img src="assets/kole-iz-avantyurina-s-sergami-34000.webp" alt="Колье из авантюрина с серьгами" loading="lazy">
           </div>
           <div class="body">
-            <h3 class="title">Колье из авантюрина с серьгами</h3>
+            <h3 class="title"><a href="product/prod_09.html" class="card-title-link">Колье из авантюрина с серьгами</a></h3>
             <div class="price">34 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Колье 34 000 ₸, мерцающие серьги 10 000 ₸</div>
           </div>
         </article>
 
         <!-- Product 4 -->
-        <article class="card" onclick="location.href='shop.html?item=prod_12'">
+        <article class="card" onclick="location.href='product/prod_12.html'">
           <div class="card-img-wrap">
             <img src="assets/kole-iz-zhadeita-i-tigrovogo-glaza-s-sergami-36000.webp" alt="Серьги и колье из жадеита и тигрового глаза" loading="lazy">
           </div>
           <div class="body">
-            <h3 class="title">Серьги из тигрового глаза и жадеита</h3>
+            <h3 class="title"><a href="product/prod_12.html" class="card-title-link">Серьги из тигрового глаза и жадеита</a></h3>
             <div class="price">36 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Колье 36 000 ₸, серьги 16 000 ₸</div>
           </div>
         </article>
 
         <!-- Product 5 -->
-        <article class="card" onclick="location.href='shop.html?item=prod_14'">
+        <article class="card" onclick="location.href='product/prod_14.html'">
           <div class="card-img-wrap">
             <img src="assets/komplekt-iz-koralla-i-yashmy-40000.webp" alt="Комплект из коралла и яшмы" loading="lazy">
           </div>
           <div class="body">
-            <h3 class="title">Комплект из коралла и яшмы</h3>
+            <h3 class="title"><a href="product/prod_14.html" class="card-title-link">Комплект из коралла и яшмы</a></h3>
             <div class="price">40 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Серьги 10 000 ₸, браслет 10 000 ₸, колье 40 000 ₸</div>
           </div>
         </article>
 
         <!-- Product 6 -->
-        <article class="card" onclick="location.href='shop.html?item=prod_01'">
+        <article class="card" onclick="location.href='product/prod_01.html'">
           <div class="card-img-wrap">
             <img src="assets/kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Колье из натурального жемчуга" loading="lazy">
           </div>
           <div class="body">
-            <h3 class="title">Колье из натурального жемчуга</h3>
+            <h3 class="title"><a href="product/prod_01.html" class="card-title-link">Колье из натурального жемчуга</a></h3>
             <div class="price">80 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Идеальная пара к жемчужным пусетам и подвескам</div>
           </div>
@@ -613,7 +613,13 @@
       a.addEventListener('click', function() {
         try {
           if (typeof gtag === 'function') {
-            gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_sergi' });
+            gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_sergi', value: 35000, currency: 'KZT' });
+            gtag('event', 'conversion', {
+              'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+              'value': Math.round(35000 * 0.2),
+              'currency': 'KZT',
+              'transaction_id': 'WA-SERGI-' + Date.now()
+            });
           }
           if (typeof fbq === 'function') {
             fbq('track', 'Contact');

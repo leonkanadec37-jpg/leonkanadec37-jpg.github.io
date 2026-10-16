@@ -379,72 +379,72 @@
 
       <div class="grid">
         <!-- Product 1 -->
-        <article class="card" onclick="location.href='shop.html?item=prod_06'">
+        <article class="card" onclick="location.href='product/prod_06.html'">
           <div class="card-img-wrap">
             <img src="assets/braslet-iz-malakhita-25000.webp" alt="Браслет из натурального малахита" loading="lazy">
           </div>
           <div class="body">
-            <h3 class="title">Браслет из малахита</h3>
+            <h3 class="title"><a href="product/prod_06.html" class="card-title-link">Браслет из малахита</a></h3>
             <div class="price">25 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Натуральный малахит, позолота, регулируемый размер</div>
           </div>
         </article>
 
         <!-- Product 2 -->
-        <article class="card" onclick="location.href='shop.html?item=prod_04'">
+        <article class="card" onclick="location.href='product/prod_04.html'">
           <div class="card-img-wrap">
             <img src="assets/komplekt-tsep-braslet-40000.webp" alt="Комплект позолоченная цепь и браслет" loading="lazy">
           </div>
           <div class="body">
-            <h3 class="title">Комплект: цепь + браслет</h3>
+            <h3 class="title"><a href="product/prod_04.html" class="card-title-link">Комплект: цепь + браслет</a></h3>
             <div class="price">40 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Барочный жемчуг, звеньевой браслет, позолота</div>
           </div>
         </article>
 
         <!-- Product 3 -->
-        <article class="card" onclick="location.href='shop.html?item=prod_05'">
+        <article class="card" onclick="location.href='product/prod_05.html'">
           <div class="card-img-wrap">
             <img src="assets/tsep-rodirovannaya-braslet-40000.webp" alt="Цепь родированная и браслет" loading="lazy">
           </div>
           <div class="body">
-            <h3 class="title">Цепь родированная + браслет</h3>
+            <h3 class="title"><a href="product/prod_05.html" class="card-title-link">Цепь родированная + браслет</a></h3>
             <div class="price">40 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Родиевое покрытие, барочный жемчуг, стойкий блеск</div>
           </div>
         </article>
 
         <!-- Product 4 -->
-        <article class="card" onclick="location.href='shop.html?item=prod_07'">
+        <article class="card" onclick="location.href='product/prod_07.html'">
           <div class="card-img-wrap">
             <img src="assets/garnitur-iz-ametista-i-zhemchuga-40000.webp" alt="Гарнитур из аметиста и жемчуга с браслетом" loading="lazy">
           </div>
           <div class="body">
-            <h3 class="title">Гарнитур из аметиста и жемчуга</h3>
+            <h3 class="title"><a href="product/prod_07.html" class="card-title-link">Гарнитур из аметиста и жемчуга</a></h3>
             <div class="price">40 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Браслет 20 000 ₸, брошь-булавка 40 000 ₸</div>
           </div>
         </article>
 
         <!-- Product 5 -->
-        <article class="card" onclick="location.href='shop.html?item=prod_14'">
+        <article class="card" onclick="location.href='product/prod_14.html'">
           <div class="card-img-wrap">
             <img src="assets/komplekt-iz-koralla-i-yashmy-40000.webp" alt="Комплект из коралла и яшмы" loading="lazy">
           </div>
           <div class="body">
-            <h3 class="title">Комплект из коралла и яшмы</h3>
+            <h3 class="title"><a href="product/prod_14.html" class="card-title-link">Комплект из коралла и яшмы</a></h3>
             <div class="price">40 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Браслет 10 000 ₸, колье 40 000 ₸, серьги 10 000 ₸</div>
           </div>
         </article>
 
         <!-- Product 6 -->
-        <article class="card" onclick="location.href='shop.html?item=prod_16'">
+        <article class="card" onclick="location.href='product/prod_16.html'">
           <div class="card-img-wrap">
             <img src="assets/komplekt-iz-naturalnoy-biryuzy-50000.webp" alt="Комплект из натуральной бирюзы" loading="lazy">
           </div>
           <div class="body">
-            <h3 class="title">Комплект из натуральной бирюзы</h3>
+            <h3 class="title"><a href="product/prod_16.html" class="card-title-link">Комплект из натуральной бирюзы</a></h3>
             <div class="price">50 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Натуральная бирюза, роскошный небесный оттенок</div>
           </div>
@@ -613,7 +613,13 @@
       a.addEventListener('click', function() {
         try {
           if (typeof gtag === 'function') {
-            gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_braslety' });
+            gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_braslety', value: 35000, currency: 'KZT' });
+            gtag('event', 'conversion', {
+              'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+              'value': Math.round(35000 * 0.2),
+              'currency': 'KZT',
+              'transaction_id': 'WA-BRASLETY-' + Date.now()
+            });
           }
           if (typeof fbq === 'function') {
             fbq('track', 'Contact');
