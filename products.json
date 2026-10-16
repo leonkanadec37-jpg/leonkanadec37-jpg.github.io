@@ -264,5 +264,62 @@
     "inStock": true,
     "featured": true,
     "drive_id": "1KwWcZIEwUjyHCHdVxyupE8cmEf6Kyrxq"
+  },
+  {
+    "id": "prod_18",
+    "title": "Булавка",
+    "category": "Necklaces",
+    "price": 30000,
+    "image": "assets/bulavka-30000.webp",
+    "materials": [
+      "Ювелирный сплав"
+    ],
+    "description": "Булавка — авторское украшение ручной работы из натуральных камней.",
+    "inStock": true,
+    "featured": true,
+    "drive_id": "1BFP7hb27jnzJrzWNQu6lqGoxnck8jJ4N"
+  },
+  {
+    "id": "prod_19",
+    "title": "Колье из тигрового глаза и гематита",
+    "category": "Necklaces",
+    "price": 50000,
+    "image": "assets/kole-iz-tigrovogo-glaza-i-gematita-50000.webp",
+    "materials": [
+      "Тигровый глаз",
+      "Ювелирный сплав"
+    ],
+    "description": "Колье из тигрового глаза и гематита — авторское украшение ручной работы из натуральных камней.",
+    "inStock": true,
+    "featured": true,
+    "drive_id": "1ND7C-2K3SoTjAGI-YmAK9Rd3rK7Ipyxm"
+  },
+  {
+    "id": "prod_20",
+    "title": "Колье из флюорита и цирконов",
+    "category": "Necklaces",
+    "price": 35000,
+    "image": "assets/kole-iz-flyuorita-i-tsirkonov-35000.webp",
+    "materials": [
+      "Ювелирный сплав"
+    ],
+    "description": "Колье из флюорита и цирконов — авторское украшение ручной работы из натуральных камней.",
+    "inStock": true,
+    "featured": true,
+    "drive_id": "1AGMaRF4ZNXa36h8hWiHtQB7vc4zXm2vN"
+  },
+  {
+    "id": "prod_21",
+    "title": "Колье с клубничками",
+    "category": "Necklaces",
+    "price": 34000,
+    "image": "assets/kole-s-klubnichkami-34000.webp",
+    "materials": [
+      "Ювелирный сплав"
+    ],
+    "description": "Колье с клубничками — авторское украшение ручной работы из натуральных камней.",
+    "inStock": true,
+    "featured": true,
+    "drive_id": "1H8q7ZQ0cFAFvbt-9h5qrh9Xco8UH41al"
   }
 ]
