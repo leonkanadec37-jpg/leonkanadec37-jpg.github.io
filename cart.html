@@ -360,16 +360,19 @@
         row.className = 'item';
         row.innerHTML = `
           <div class="thumb"><img src="${i.img}" alt="" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" loading="lazy" decoding="async"></div>
-          <div>
+          <div class="item-info">
             <div class="title">${i.title||''}</div>
-            <div class="muted">${i.price||''}</div>
+            <div class="muted item-price">${i.price||''}</div>
           </div>
           <div class="qty">
             <button class="btn-qty" data-act="minus" aria-label="minus">−</button>
-            <span style="min-width:20px;text-align:center;font-weight:600">${i.qty}</span>
+            <span class="qty-num">${i.qty}</span>
             <button class="btn-qty" data-act="plus" aria-label="plus">+</button>
           </div>
-          <button class="btn-remove" data-act="remove" aria-label="remove">${tr('remove')}</button>
+          <button class="btn-remove" data-act="remove" aria-label="remove" title="${tr('remove')}">
+            <span class="remove-label">${tr('remove')}</span>
+            <span class="remove-icon" aria-hidden="true">✕</span>
+          </button>
         `;
         row.querySelector('[data-act="minus"]').onclick = () => {
           const c = read();
