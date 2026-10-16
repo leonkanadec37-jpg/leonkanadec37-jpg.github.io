@@ -326,8 +326,8 @@
       </a>
 
       <div class="nav-actions">
-        <a class="cart-link" href="cart.html" data-i18n="nav.cart">
-          Корзина <span id="cartBadge" class="cart-badge">0</span>
+        <a class="cart-link" href="cart.html">
+          <span data-i18n="nav.cart">Корзина</span> <span id="cartBadge" class="cart-badge">0</span>
         </a>
 
         <!-- Instagram -->
@@ -455,7 +455,18 @@
 
     function readCart(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []} }
     function writeCart(v){ localStorage.setItem(KEY, JSON.stringify(v)); updateBadge(); }
-    function updateBadge(){ const count=readCart().reduce((s,i)=>s+Number(i.qty||0),0); const b=document.getElementById('cartBadge'); if(!b) return; b.style.display = count>0 ? 'inline-block':'none'; if(count>0) b.textContent=count; }
+    function updateBadge(){
+      const count = readCart().reduce((s,i) => s + Number(i.qty || 0), 0);
+      const b = document.getElementById('cartBadge');
+      if(!b) return;
+      b.style.display = count > 0 ? 'inline-block' : 'none';
+      b.textContent = count;
+      if(count > 0){
+        b.classList.remove('badge-pop');
+        void b.offsetWidth;
+        b.classList.add('badge-pop');
+      }
+    }
     window.addEventListener('storage',e=>{ if(e.key===KEY) updateBadge(); });
 
     function altByCat(cat, title){
@@ -629,7 +640,11 @@
             }]
           });
         }
-        closeModal(); 
+        mAdd.textContent = '✓ Добавлено (' + qty + ')';
+        setTimeout(() => {
+          closeModal();
+          mAdd.textContent = tr('ui.add');
+        }, 350);
       } 
     };
     mClose.onclick=closeModal;
