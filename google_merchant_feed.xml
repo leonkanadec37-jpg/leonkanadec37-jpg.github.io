@@ -293,5 +293,73 @@
       <g:custom_label_1>Mid_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
+    <item>
+      <g:id>prod_18</g:id>
+      <g:title>Булавка | Livi Jewelry</g:title>
+      <g:description>Булавка — авторское украшение ручной работы из натуральных камней.</g:description>
+      <g:link>https://livijewelry.kz/shop.html?item=prod_18</g:link>
+      <g:image_link>https://livijewelry.kz/assets/bulavka-30000.webp</g:image_link>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:price>30000 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:google_product_category>197</g:google_product_category>
+      <g:product_type>Украшения &gt; Колье</g:product_type>
+      <g:material>Ювелирный сплав</g:material>
+      <g:custom_label_0>Featured</g:custom_label_0>
+      <g:custom_label_1>Mid_Ticket</g:custom_label_1>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>prod_19</g:id>
+      <g:title>Колье из тигрового глаза и гематита | Livi Jewelry</g:title>
+      <g:description>Колье из тигрового глаза и гематита — авторское украшение ручной работы из натуральных камней.</g:description>
+      <g:link>https://livijewelry.kz/shop.html?item=prod_19</g:link>
+      <g:image_link>https://livijewelry.kz/assets/kole-iz-tigrovogo-glaza-i-gematita-50000.webp</g:image_link>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:price>50000 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:google_product_category>197</g:google_product_category>
+      <g:product_type>Украшения &gt; Колье</g:product_type>
+      <g:material>Тигровый глаз, Ювелирный сплав</g:material>
+      <g:custom_label_0>Featured</g:custom_label_0>
+      <g:custom_label_1>High_Ticket</g:custom_label_1>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>prod_20</g:id>
+      <g:title>Колье из флюорита и цирконов | Livi Jewelry</g:title>
+      <g:description>Колье из флюорита и цирконов — авторское украшение ручной работы из натуральных камней.</g:description>
+      <g:link>https://livijewelry.kz/shop.html?item=prod_20</g:link>
+      <g:image_link>https://livijewelry.kz/assets/kole-iz-flyuorita-i-tsirkonov-35000.webp</g:image_link>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:price>35000 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:google_product_category>197</g:google_product_category>
+      <g:product_type>Украшения &gt; Колье</g:product_type>
+      <g:material>Ювелирный сплав</g:material>
+      <g:custom_label_0>Featured</g:custom_label_0>
+      <g:custom_label_1>Mid_Ticket</g:custom_label_1>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>prod_21</g:id>
+      <g:title>Колье с клубничками | Livi Jewelry</g:title>
+      <g:description>Колье с клубничками — авторское украшение ручной работы из натуральных камней.</g:description>
+      <g:link>https://livijewelry.kz/shop.html?item=prod_21</g:link>
+      <g:image_link>https://livijewelry.kz/assets/kole-s-klubnichkami-34000.webp</g:image_link>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:price>34000 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:google_product_category>197</g:google_product_category>
+      <g:product_type>Украшения &gt; Колье</g:product_type>
+      <g:material>Ювелирный сплав</g:material>
+      <g:custom_label_0>Featured</g:custom_label_0>
+      <g:custom_label_1>Mid_Ticket</g:custom_label_1>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
   </channel>
 </rss>
