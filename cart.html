@@ -33,7 +33,7 @@
     function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-4H6HK8K9SJ');
-    gtag('config', 'AW-16793974126');
+    gtag('config', 'AW-16793974126', { allow_enhanced_conversions: true });
   </script>
 
   <!-- Meta Pixel Code (ID: 199604456030882) -->
@@ -553,10 +553,69 @@
         waAltBtn.href = `https://wa.me/${WA_PHONE}?text=` + encodeURIComponent(text);
       }
 
+      // GA4 view_cart event
+      if(typeof gtag === 'function' && cart.length > 0){
+        gtag('event', 'view_cart', {
+          currency: 'KZT',
+          value: total,
+          items: cart.map((it, idx) => ({
+            item_id: it.id,
+            item_name: it.title,
+            price: unitPrice(it),
+            quantity: Number(it.qty || 1),
+            index: idx + 1
+          }))
+        });
+      }
+
+      // GA4 begin_checkout event on form interaction
+      let checkoutTracked = false;
+      function onCheckoutStart(){
+        if(!checkoutTracked && cart.length > 0){
+          checkoutTracked = true;
+          if(typeof gtag === 'function'){
+            gtag('event', 'begin_checkout', {
+              currency: 'KZT',
+              value: total,
+              items: cart.map((it, idx) => ({
+                item_id: it.id,
+                item_name: it.title,
+                price: unitPrice(it),
+                quantity: Number(it.qty || 1),
+                index: idx + 1
+              }))
+            });
+          }
+          if(window.fbq){
+            fbq('track', 'InitiateCheckout', {
+              value: total,
+              currency: 'KZT',
+              num_items: cart.reduce((s,i)=>s+Number(i.qty||0),0)
+            });
+          }
+        }
+      }
+
       ['orderName', 'orderPhone', 'orderCity', 'orderAddress', 'orderComment'].forEach(id => {
-        document.getElementById(id).addEventListener('input', updateWaLink);
+        const el = document.getElementById(id);
+        if(el) {
+          el.addEventListener('focus', onCheckoutStart, { once: true });
+          el.addEventListener('input', updateWaLink);
+        }
       });
       updateWaLink();
+
+      if(waAltBtn){
+        waAltBtn.addEventListener('click', () => {
+          try {
+            if (typeof gtag === 'function') {
+              gtag('event', 'conversion', { 'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-' });
+              gtag('event', 'generate_lead', { currency: 'KZT', value: total, lead_source: 'cart_whatsapp_direct' });
+            }
+            if (typeof fbq === 'function') fbq('track', 'Contact');
+          } catch(err){}
+        });
+      }
 
       // Submit Form Handler
       orderForm.onsubmit = async (e) => {
@@ -591,6 +650,7 @@
           paymentMethod: 'kaspi_remote_invoice',
           totalAmount: total,
           items: cart.map(it => ({
+            id: it.id,
             title: it.title,
             price: it.price,
             unit: unitPrice(it),
@@ -606,7 +666,7 @@
           localStorage.setItem('livi_orders_history', JSON.stringify(history.slice(0, 30)));
         } catch(err){}
 
-        // 2. Отправка конверсии в Meta Pixel, Google Ads и GA4
+        // 2. Отправка конверсии в Meta Pixel, Google Ads (Enhanced) и GA4
         try {
           if(window.fbq){
             fbq('track', 'Purchase', {
@@ -616,18 +676,34 @@
               num_items: cart.reduce((s,i)=>s+Number(i.qty||0),0)
             });
           }
-          gtag('event', 'purchase', {
-            transaction_id: orderId,
-            value: total,
-            currency: 'KZT',
-            items: cart.map(it => ({ item_name: it.title, quantity: it.qty, price: unitPrice(it) }))
-          });
-          gtag('event', 'conversion', {
-            'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
-            'value': total,
-            'currency': 'KZT',
-            'transaction_id': orderId
-          });
+
+          // Enhanced Conversions: чистый номер телефона для Google Ads
+          const cleanDigits = phone.replace(/\D/g, '');
+          const formattedPhone = cleanDigits.length === 11 ? '+7' + cleanDigits.slice(1) : '+7' + cleanDigits;
+          
+          if(typeof gtag === 'function'){
+            gtag('set', 'user_data', {
+              phone_number: formattedPhone
+            });
+            gtag('event', 'purchase', {
+              transaction_id: orderId,
+              value: total,
+              currency: 'KZT',
+              items: cart.map((it, idx) => ({
+                item_id: it.id,
+                item_name: it.title,
+                price: unitPrice(it),
+                quantity: Number(it.qty || 1),
+                index: idx + 1
+              }))
+            });
+            gtag('event', 'conversion', {
+              'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+              'value': total,
+              'currency': 'KZT',
+              'transaction_id': orderId
+            });
+          }
         } catch(err){}
 
         // 3. Формируем подробный структурированный текст заказа напрямую супруге

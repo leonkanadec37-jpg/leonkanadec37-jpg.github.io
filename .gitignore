@@ -1,0 +1,5 @@
+downloaded_report.csv
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

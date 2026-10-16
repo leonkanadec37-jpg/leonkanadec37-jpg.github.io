@@ -30,7 +30,7 @@
     function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-4H6HK8K9SJ');
-    gtag('config', 'AW-16793974126');
+    gtag('config', 'AW-16793974126', { allow_enhanced_conversions: true });
   </script>
 
   <!-- Meta Pixel Code (ID: 199604456030882) -->
@@ -182,6 +182,21 @@
       } catch(e){}
     }
     updateBadge();
+
+    // Universal WhatsApp Conversion Tracking (GA4 generate_lead + Google Ads conversion + Meta Contact)
+    document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
+      a.addEventListener('click', function() {
+        try {
+          if (typeof gtag === 'function') {
+            gtag('event', 'conversion', { 'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-' });
+            gtag('event', 'generate_lead', { currency: 'KZT', value: 0, lead_source: 'whatsapp_delivery' });
+          }
+          if (typeof fbq === 'function') {
+            fbq('track', 'Contact');
+          }
+        } catch(e) {}
+      });
+    });
   </script>
 </body>
 </html>

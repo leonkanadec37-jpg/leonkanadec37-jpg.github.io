@@ -39,7 +39,7 @@
     function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-4H6HK8K9SJ');
-    gtag('config', 'AW-16793974126');
+    gtag('config', 'AW-16793974126', { allow_enhanced_conversions: true });
   </script>
 
   <!-- Meta Pixel Code (Dual Pixel: Primary 199604456030882 + Secondary 4185620171718327) -->
@@ -601,12 +601,27 @@
     window.addEventListener('storage', updateBadge);
     window.addEventListener('pageshow', updateBadge);
 
-    // WhatsApp Conversion Tracking (Google Ads + Meta Pixel)
+    // GA4 view_item_list event
+    if (typeof gtag === 'function') {
+      gtag('event', 'view_item_list', {
+        item_list_id: 'category_necklaces',
+        item_list_name: 'Колье из жемчуга',
+        items: [
+          { item_id: 'prod_01', item_name: 'Колье из натурального жемчуга', price: 80000, item_category: 'Necklaces', index: 1 },
+          { item_id: 'prod_02', item_name: 'Колье из натурального жемчуга (Премиум)', price: 80000, item_category: 'Necklaces', index: 2 },
+          { item_id: 'prod_03', item_name: 'Колье из жемчуга Майорка', price: 34000, item_category: 'Necklaces', index: 3 },
+          { item_id: 'prod_08', item_name: 'Колье «Лапы»', price: 40000, item_category: 'Necklaces', index: 4 }
+        ]
+      });
+    }
+
+    // WhatsApp Conversion Tracking (Google Ads + GA4 generate_lead + Meta Pixel)
     document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
       a.addEventListener('click', function() {
         try {
           if (typeof gtag === 'function') {
             gtag('event', 'conversion', { 'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-' });
+            gtag('event', 'generate_lead', { currency: 'KZT', value: 0, lead_source: 'whatsapp_kolye' });
           }
           if (typeof fbq === 'function') {
             fbq('track', 'Contact');

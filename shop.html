@@ -42,7 +42,7 @@
     function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-4H6HK8K9SJ');
-    gtag('config', 'AW-16793974126');
+    gtag('config', 'AW-16793974126', { allow_enhanced_conversions: true });
   </script>
 
   <!-- Meta Pixel Code (ID: 199604456030882) -->
@@ -592,20 +592,47 @@
           currency: 'KZT'
         });
       }
+      if(typeof gtag === 'function'){
+        gtag('event', 'view_item', {
+          currency: 'KZT',
+          value: priceNum,
+          items: [{
+            item_id: p.id,
+            item_name: p.title,
+            price: priceNum,
+            item_category: p.category
+          }]
+        });
+      }
     }
     function closeModal(){ modal.classList.remove('open'); document.body.style.overflow=''; }
     mMinus.onclick=()=>{ const n=Math.max(1, Number(mQtyEl.textContent)-1); mQtyEl.textContent=n; };
     mPlus.onclick =()=>{ const n=Number(mQtyEl.textContent)+1; mQtyEl.textContent=n; };
     mAdd.onclick  =()=>{ 
       if(currentProduct){ 
-        addToCart(currentProduct, Number(mQtyEl.textContent)); 
+        const qty = Number(mQtyEl.textContent) || 1;
+        const priceNum = Number(currentProduct.price) || 0;
+        addToCart(currentProduct, qty); 
         if(window.fbq){
           fbq('track', 'AddToCart', {
             content_name: currentProduct.title,
             content_ids: [currentProduct.id],
             content_type: 'product',
-            value: Number(currentProduct.price) || 0,
+            value: priceNum * qty,
             currency: 'KZT'
+          });
+        }
+        if(typeof gtag === 'function'){
+          gtag('event', 'add_to_cart', {
+            currency: 'KZT',
+            value: priceNum * qty,
+            items: [{
+              item_id: currentProduct.id,
+              item_name: currentProduct.title,
+              price: priceNum,
+              quantity: qty,
+              item_category: currentProduct.category
+            }]
           });
         }
         closeModal(); 
@@ -686,6 +713,9 @@
       function reportConversion(url){
         try{
           if(window.fbq) fbq('track', 'Contact');
+          if(typeof gtag === 'function'){
+            gtag('event', 'generate_lead', { currency: 'KZT', value: 0, lead_source: 'whatsapp_shop' });
+          }
           const callback=function(){ if(url){ window.location=url; } };
           gtag('event','conversion',{
             'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-',

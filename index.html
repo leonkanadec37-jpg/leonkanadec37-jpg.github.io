@@ -45,7 +45,7 @@
     // GA4
     gtag('config', 'G-4H6HK8K9SJ');
     // Google Ads (для конверсий)
-    gtag('config', 'AW-16793974126');
+    gtag('config', 'AW-16793974126', { allow_enhanced_conversions: true });
   </script>
 
   <!-- Meta Pixel Code (ID: 199604456030882) -->
@@ -360,6 +360,9 @@
       function reportConversion(url){
         try{
           if(window.fbq) fbq('track', 'Contact');
+          if(typeof gtag === 'function'){
+            gtag('event', 'generate_lead', { currency: 'KZT', value: 0, lead_source: 'whatsapp_home' });
+          }
           const callback=function(){ if(url){ window.location=url; } };
           gtag('event','conversion',{
             'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-',

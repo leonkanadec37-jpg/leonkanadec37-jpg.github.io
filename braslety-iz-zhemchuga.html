@@ -39,7 +39,7 @@
     function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-4H6HK8K9SJ');
-    gtag('config', 'AW-16793974126');
+    gtag('config', 'AW-16793974126', { allow_enhanced_conversions: true });
   </script>
 
   <!-- Meta Pixel Code (Dual Pixel: Primary 199604456030882 + Secondary 4185620171718327) -->
@@ -595,12 +595,26 @@
     window.addEventListener('storage', updateBadge);
     window.addEventListener('pageshow', updateBadge);
 
-    // WhatsApp Conversion Tracking (Google Ads + Meta Pixel)
+    // GA4 view_item_list event
+    if (typeof gtag === 'function') {
+      gtag('event', 'view_item_list', {
+        item_list_id: 'category_bracelets',
+        item_list_name: 'Браслеты из жемчуга и камней',
+        items: [
+          { item_id: 'prod_06', item_name: 'Браслет из малахита', price: 25000, item_category: 'Bracelets', index: 1 },
+          { item_id: 'prod_04', item_name: 'Комплект: цепь + браслет', price: 40000, item_category: 'Sets', index: 2 },
+          { item_id: 'prod_05', item_name: 'Цепь родированная + браслет', price: 40000, item_category: 'Chains', index: 3 }
+        ]
+      });
+    }
+
+    // WhatsApp Conversion Tracking (Google Ads + GA4 generate_lead + Meta Pixel)
     document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
       a.addEventListener('click', function() {
         try {
           if (typeof gtag === 'function') {
             gtag('event', 'conversion', { 'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-' });
+            gtag('event', 'generate_lead', { currency: 'KZT', value: 0, lead_source: 'whatsapp_braslety' });
           }
           if (typeof fbq === 'function') {
             fbq('track', 'Contact');
