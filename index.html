@@ -361,15 +361,9 @@
         try{
           if(window.fbq) fbq('track', 'Contact');
           if(typeof gtag === 'function'){
-            gtag('event', 'generate_lead', { currency: 'KZT', value: 0, lead_source: 'whatsapp_home' });
+            gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_home' });
           }
-          const callback=function(){ if(url){ window.location=url; } };
-          gtag('event','conversion',{
-            'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
-            'value':0,
-            'currency':'KZT',
-            'event_callback':callback
-          });
+          if(url){ window.location=url; }
           return false;
         }catch(e){
           if(url){ window.location=url; }

@@ -188,8 +188,7 @@
       a.addEventListener('click', function() {
         try {
           if (typeof gtag === 'function') {
-            gtag('event', 'conversion', { 'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-' });
-            gtag('event', 'generate_lead', { currency: 'KZT', value: 0, lead_source: 'whatsapp_delivery' });
+            gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_delivery' });
           }
           if (typeof fbq === 'function') {
             fbq('track', 'Contact');

@@ -609,8 +609,7 @@
         waAltBtn.addEventListener('click', () => {
           try {
             if (typeof gtag === 'function') {
-              gtag('event', 'conversion', { 'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-' });
-              gtag('event', 'generate_lead', { currency: 'KZT', value: total, lead_source: 'cart_whatsapp_direct' });
+              gtag('event', 'whatsapp_click', { currency: 'KZT', value: total, lead_source: 'cart_whatsapp_direct' });
             }
             if (typeof fbq === 'function') fbq('track', 'Contact');
           } catch(err){}
@@ -772,13 +771,10 @@
       function reportConversion(url){
         try{
           if(window.fbq) fbq('track', 'Contact');
-          const callback = function(){ if(url){ window.location = url; } };
-          gtag('event', 'conversion', {
-            'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
-            'value': 0,
-            'currency': 'KZT',
-            'event_callback': callback
-          });
+          if(typeof gtag === 'function'){
+            gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_cart' });
+          }
+          if(url){ window.location = url; }
           return false;
         }catch(e){
           if(url){ window.location = url; }

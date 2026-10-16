@@ -635,8 +635,7 @@
           try {
             if(window.fbq) fbq('track', 'Contact', { content_name: currentProduct.title, value: val, currency: 'KZT' });
             if(typeof gtag === 'function'){
-              gtag('event', 'generate_lead', { currency: 'KZT', value: val, lead_source: 'whatsapp_quick_order_modal', item_name: currentProduct.title });
-              gtag('event', 'conversion', { 'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-', 'value': val, 'currency': 'KZT' });
+              gtag('event', 'whatsapp_quick_order', { currency: 'KZT', value: val, lead_source: 'whatsapp_quick_order_modal', item_name: currentProduct.title });
             }
           } catch(e){}
         }
@@ -748,15 +747,9 @@
         try{
           if(window.fbq) fbq('track', 'Contact');
           if(typeof gtag === 'function'){
-            gtag('event', 'generate_lead', { currency: 'KZT', value: 0, lead_source: 'whatsapp_shop' });
+            gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_shop' });
           }
-          const callback=function(){ if(url){ window.location=url; } };
-          gtag('event','conversion',{
-            'send_to':'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
-            'value':0,
-            'currency':'KZT',
-            'event_callback':callback
-          });
+          if(url){ window.location=url; }
           return false;
         }catch(e){
           if(url){ window.location=url; }
