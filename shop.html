@@ -398,13 +398,6 @@
         </div>
         <div class="modal-actions">
           <button id="mAdd" class="btn" data-i18n="ui.add">Добавить в корзину</button>
-          <a id="mWa" class="btn btn-quick-wa" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 32 32" aria-hidden="true">
-              <path fill="currentColor" d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
-              <path fill="currentColor" d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
-            </svg>
-            <span data-i18n="ui.quickWa">Купить в 1 клик в WhatsApp</span>
-          </a>
           <a class="btn btn-secondary" href="cart.html" data-i18n="ui.openCart">Открыть корзину</a>
         </div>
       </div>
@@ -581,7 +574,6 @@
       mDesc.textContent=p.description || '';
       mQtyEl.textContent='1';
       mAdd.textContent=tr('ui.add');
-      updateModalWaLink();
       modal.classList.add('open');
       document.body.style.overflow='hidden';
 
@@ -607,40 +599,9 @@
         });
       }
     }
-    function updateModalWaLink(){
-      if(!currentProduct) return;
-      const mWa = document.getElementById('mWa');
-      if(!mWa) return;
-      const qty = Number(mQtyEl.textContent) || 1;
-      const priceNum = Number(currentProduct.price) || 0;
-      const totalNum = priceNum * qty;
-      const totalStr = totalNum ? `${totalNum.toLocaleString('ru-RU')} тг` : '';
-      const qtyStr = qty > 1 ? ` (${qty} шт. на сумму ${totalStr})` : (totalStr ? ` (${totalStr})` : '');
-      const greeting = lang()==='en' ? `Hello! I would like to place a 1-click order for "${currentProduct.title}"${qtyStr}. Please let me know how to pay via Kaspi and arrange delivery.` :
-                       lang()==='kk' ? `Сәлем! «${currentProduct.title}» әшекейіне 1 басқанда тапсырыс бергім келеді${qtyStr}. Kaspi арқылы төлеу және жеткізу шарттарын айтып жібересіз бе?` :
-                       `Здравствуйте! Хочу оформить заказ в 1 клик на «${currentProduct.title}»${qtyStr}. Подскажите, пожалуйста, детали оплаты Kaspi и доставки.`;
-      mWa.href = `https://wa.me/77054510584?text=${encodeURIComponent(greeting)}`;
-    }
     function closeModal(){ modal.classList.remove('open'); document.body.style.overflow=''; }
-    mMinus.onclick=()=>{ const n=Math.max(1, Number(mQtyEl.textContent)-1); mQtyEl.textContent=n; updateModalWaLink(); };
-    mPlus.onclick =()=>{ const n=Number(mQtyEl.textContent)+1; mQtyEl.textContent=n; updateModalWaLink(); };
-
-    const mWaBtn = document.getElementById('mWa');
-    if(mWaBtn){
-      mWaBtn.addEventListener('click', function(){
-        if(currentProduct){
-          const qty = Number(mQtyEl.textContent) || 1;
-          const priceNum = Number(currentProduct.price) || 0;
-          const val = priceNum * qty;
-          try {
-            if(window.fbq) fbq('track', 'Contact', { content_name: currentProduct.title, value: val, currency: 'KZT' });
-            if(typeof gtag === 'function'){
-              gtag('event', 'whatsapp_quick_order', { currency: 'KZT', value: val, lead_source: 'whatsapp_quick_order_modal', item_name: currentProduct.title });
-            }
-          } catch(e){}
-        }
-      });
-    }
+    mMinus.onclick=()=>{ const n=Math.max(1, Number(mQtyEl.textContent)-1); mQtyEl.textContent=n; };
+    mPlus.onclick =()=>{ const n=Number(mQtyEl.textContent)+1; mQtyEl.textContent=n; };
     mAdd.onclick  =()=>{ 
       if(currentProduct){ 
         const qty = Number(mQtyEl.textContent) || 1;
