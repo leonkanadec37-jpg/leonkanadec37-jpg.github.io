@@ -204,6 +204,8 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
         # Обрабатываем все скачанные файлы
         downloaded_files = [f for f in os.listdir(temp_dir) if os.path.isfile(os.path.join(temp_dir, f))]
         for fn in downloaded_files:
+            if not fn.lower().endswith(('.jpg', '.jpeg', '.png', '.webp', '.mpo', '.heic')):
+                continue
             fp = os.path.join(temp_dir, fn)
             title_candidate = fn
             cand_fid = None
@@ -214,6 +216,12 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
                     title_candidate = ct
                     cand_fid = fid
                     break
+            
+            # Игнорируем служебные файлы (видео, баннеры, файлы с пометкой "не товар")
+            if any(term in title_candidate.lower() for term in ['не товар', 'видео', 'баннер', 'логотип']):
+                print(f"[SKIP] Пропущен служебный файл: {title_candidate}")
+                continue
+
             candidates.append({
                 'source_path': fp,
                 'raw_title': title_candidate,

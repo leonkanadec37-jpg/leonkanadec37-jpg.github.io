@@ -1280,3 +1280,126 @@ footer {
     font-size: 11.5px;
   }
 }
+
+/* ==========================================================================
+   Atelier in Motion (Reels / Live Video Showcase)
+   ========================================================================== */
+.video-section {
+  max-width: var(--max);
+  margin: 72px auto 80px;
+  padding: 0 24px;
+}
+.video-grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 400px) 1fr;
+  gap: 56px;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1px solid var(--line);
+  padding: 48px;
+}
+.video-player-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  max-height: 560px;
+  background: #141312;
+  overflow: hidden;
+  box-shadow: 0 16px 36px rgba(20, 19, 18, 0.08);
+}
+.video-player-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.video-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(20, 19, 18, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #FAF9F6;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  padding: 6px 12px;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.video-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #25D366;
+  box-shadow: 0 0 8px #25D366;
+}
+.video-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.video-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.video-title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3.8vw, 44px);
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--fg);
+  margin-bottom: 18px;
+  letter-spacing: 0.02em;
+}
+.video-desc {
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: var(--fg-soft);
+  font-weight: 300;
+  margin-bottom: 28px;
+}
+.video-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 36px 0;
+  display: grid;
+  gap: 14px;
+}
+.video-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 13.5px;
+  color: var(--fg);
+  line-height: 1.6;
+}
+.video-feature-item svg {
+  color: var(--gold);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.video-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+@media (max-width: 900px) {
+  .video-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 28px 20px;
+  }
+  .video-player-wrap {
+    max-width: 340px;
+    margin: 0 auto;
+  }
+}
