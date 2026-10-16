@@ -1,6 +1,15 @@
 import csv
 import json
 
+# ==============================================================================
+# LIVI JEWELRY - CAMPAIGN ASSETS GENERATOR v2.0
+# Generates:
+#  1. master_negative_keywords_kz.csv (250+ targeted negatives)
+#  2. 1_google_ads_keywords.csv (Keywords with product-level Final URLs)
+#  3. google_ads_campaign_import.csv (Ready for Google Ads Editor / Bulk Upload)
+#  4. import_all_negative_keywords.js (Google Ads Script to attach negative list)
+# ==============================================================================
+
 # ==========================================
 # 1. МИНУС-СЛОВА: 250+ фильтров по 8 категориям
 # ==========================================
@@ -80,9 +89,9 @@ with open("master_negative_keywords_kz.csv", "w", encoding="utf-8", newline="") 
 
 print(f"[OK] master_negative_keywords_kz.csv: {len(negatives)} negative keywords")
 
-# ==========================================
-# 2. КЛЮЧЕВЫЕ СЛОВА ПО 5 ГРУППАМ
-# ==========================================
+# ==============================================================================
+# 2. КЛЮЧЕВЫЕ СЛОВА С ТОЧЕЧНОЙ ПРИВЯЗКОЙ К СТАТИЧЕСКИМ СТРАНИЦАМ ТОВАРОВ v2.0
+# ==============================================================================
 CAMPAIGN_NAME = "Livi Jewelry - Поиск Казахстан"
 
 ad_groups_data = [
@@ -90,21 +99,24 @@ ad_groups_data = [
         "name": "Колье и чокеры из жемчуга",
         "url": "https://livijewelry.kz/kolye-iz-zhemchuga.html",
         "keywords": [
-            ("колье из натурального жемчуга", "Phrase"),
-            ("колье из натурального жемчуга", "Exact"),
-            ("купить колье из жемчуга", "Phrase"),
-            ("чокер из жемчуга алматы", "Phrase"),
-            ("чокер из жемчуга алматы", "Exact"),
-            ("чокер из жемчуга астана", "Phrase"),
-            ("барочный жемчуг колье", "Phrase"),
-            ("барочный жемчуг колье", "Exact"),
-            ("колье из барочного жемчуга алматы", "Phrase"),
-            ("многорядное колье из жемчуга", "Phrase"),
-            ("колье из жемчуга майорка", "Phrase"),
-            ("купить жемчужное колье", "Exact"),
-            ("жемчужный чокер купить казахстан", "Phrase"),
-            ("бусы из натурального жемчуга алматы", "Phrase"),
-            ("авторское колье из жемчуга", "Phrase"),
+            ("колье из натурального жемчуга", "Phrase", "https://livijewelry.kz/product/prod_01.html"),
+            ("колье из натурального жемчуга", "Exact", "https://livijewelry.kz/product/prod_01.html"),
+            ("купить колье из жемчуга", "Phrase", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
+            ("чокер из жемчуга алматы", "Phrase", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
+            ("чокер из жемчуга алматы", "Exact", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
+            ("чокер из жемчуга астана", "Phrase", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
+            ("барочный жемчуг колье", "Phrase", "https://livijewelry.kz/product/prod_01.html"),
+            ("барочный жемчуг колье", "Exact", "https://livijewelry.kz/product/prod_01.html"),
+            ("колье из барочного жемчуга алматы", "Phrase", "https://livijewelry.kz/product/prod_01.html"),
+            ("многорядное колье из жемчуга", "Phrase", "https://livijewelry.kz/product/prod_02.html"),
+            ("колье из жемчуга майорка", "Phrase", "https://livijewelry.kz/product/prod_03.html"),
+            ("колье из жемчуга майорка", "Exact", "https://livijewelry.kz/product/prod_03.html"),
+            ("купить жемчужное колье", "Exact", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
+            ("жемчужный чокер купить казахстан", "Phrase", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
+            ("бусы из натурального жемчуга алматы", "Phrase", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
+            ("авторское колье из жемчуга", "Phrase", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
+            ("колье лапы купить", "Phrase", "https://livijewelry.kz/product/prod_08.html"),
+            ("колье гранж купить", "Phrase", "https://livijewelry.kz/product/prod_22.html")
         ],
         "headlines": [
             "Колье из натурального жемчуга", "Livi Jewelry — Ручная работа", "Жемчуг премиальной селекции",
@@ -124,23 +136,24 @@ ad_groups_data = [
         "name": "Браслеты и минералы",
         "url": "https://livijewelry.kz/braslety-iz-zhemchuga.html",
         "keywords": [
-            ("браслет из малахита алматы", "Phrase"),
-            ("браслет из малахита алматы", "Exact"),
-            ("браслет из натурального малахита", "Phrase"),
-            ("браслет из натуральных камней купить", "Phrase"),
-            ("браслет из натуральных камней купить", "Exact"),
-            ("украшения из натуральной бирюзы", "Phrase"),
-            ("украшения из натуральной бирюзы", "Exact"),
-            ("браслет из бирюзы алматы", "Phrase"),
-            ("браслет из жемчуга алматы", "Phrase"),
-            ("браслет из жемчуга алматы", "Exact"),
-            ("украшения из аметиста алматы", "Phrase"),
-            ("украшения из розового кварца алматы", "Phrase"),
-            ("украшения из натурального агата", "Phrase"),
-            ("колье из авантюрина купить", "Phrase"),
-            ("колье из коралла купить", "Phrase"),
-            ("украшения из граната алматы", "Phrase"),
-            ("браслет из натуральных минералов казахстан", "Phrase")
+            ("браслет из малахита алматы", "Phrase", "https://livijewelry.kz/product/prod_06.html"),
+            ("браслет из малахита алматы", "Exact", "https://livijewelry.kz/product/prod_06.html"),
+            ("браслет из натурального малахита", "Phrase", "https://livijewelry.kz/product/prod_06.html"),
+            ("браслет из натуральных камней купить", "Phrase", "https://livijewelry.kz/braslety-iz-zhemchuga.html"),
+            ("браслет из натуральных камней купить", "Exact", "https://livijewelry.kz/braslety-iz-zhemchuga.html"),
+            ("украшения из натуральной бирюзы", "Phrase", "https://livijewelry.kz/product/prod_16.html"),
+            ("украшения из натуральной бирюзы", "Exact", "https://livijewelry.kz/product/prod_16.html"),
+            ("браслет из бирюзы алматы", "Phrase", "https://livijewelry.kz/product/prod_16.html"),
+            ("браслет из жемчуга алматы", "Phrase", "https://livijewelry.kz/braslety-iz-zhemchuga.html"),
+            ("браслет из жемчуга алматы", "Exact", "https://livijewelry.kz/braslety-iz-zhemchuga.html"),
+            ("украшения из аметиста алматы", "Phrase", "https://livijewelry.kz/product/prod_07.html"),
+            ("украшения из розового кварца алматы", "Phrase", "https://livijewelry.kz/product/prod_15.html"),
+            ("украшения из натурального агата", "Phrase", "https://livijewelry.kz/product/prod_10.html"),
+            ("колье из авантюрина купить", "Phrase", "https://livijewelry.kz/product/prod_09.html"),
+            ("колье из коралла купить", "Phrase", "https://livijewelry.kz/product/prod_14.html"),
+            ("украшения из граната алматы", "Phrase", "https://livijewelry.kz/product/prod_10.html"),
+            ("украшение сотуар из агата", "Phrase", "https://livijewelry.kz/product/prod_17.html"),
+            ("браслет из натуральных минералов казахстан", "Phrase", "https://livijewelry.kz/braslety-iz-zhemchuga.html")
         ],
         "headlines": [
             "Браслеты из камней и жемчуга", "Браслет из малахита Алматы", "Украшения из бирюзы и агата",
@@ -160,19 +173,20 @@ ad_groups_data = [
         "name": "Серьги из жемчуга и камней",
         "url": "https://livijewelry.kz/sergi-iz-zhemchuga.html",
         "keywords": [
-            ("серьги из жемчуга алматы", "Phrase"),
-            ("серьги из жемчуга алматы", "Exact"),
-            ("серьги из натурального жемчуга купить", "Phrase"),
-            ("серьги из натурального жемчуга", "Exact"),
-            ("серьги с барочным жемчугом", "Phrase"),
-            ("серьги с барочным жемчугом", "Exact"),
-            ("серьги ручной работы алматы", "Phrase"),
-            ("серьги из жемчуга астана", "Phrase"),
-            ("серьги из жемчуга астана", "Exact"),
-            ("длинные серьги с жемчугом", "Phrase"),
-            ("серьги с натуральными камнями купить", "Phrase"),
-            ("серьги пусеты из жемчуга алматы", "Phrase"),
-            ("серьги из аметиста купить", "Phrase")
+            ("серьги из жемчуга алматы", "Phrase", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
+            ("серьги из жемчуга алматы", "Exact", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
+            ("серьги из натурального жемчуга купить", "Phrase", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
+            ("серьги из натурального жемчуга", "Exact", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
+            ("серьги с барочным жемчугом", "Phrase", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
+            ("серьги с барочным жемчугом", "Exact", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
+            ("серьги ручной работы алматы", "Phrase", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
+            ("серьги из жемчуга астана", "Phrase", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
+            ("серьги из жемчуга астана", "Exact", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
+            ("длинные серьги с жемчугом", "Phrase", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
+            ("серьги с натуральными камнями купить", "Phrase", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
+            ("серьги пусеты из жемчуга алматы", "Phrase", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
+            ("серьги из аметиста купить", "Phrase", "https://livijewelry.kz/product/prod_11.html"),
+            ("серьги из тигрового глаза купить", "Phrase", "https://livijewelry.kz/product/prod_12.html")
         ],
         "headlines": [
             "Серьги из жемчуга в Алматы", "Серьги с барочным жемчугом", "Livi Jewelry — Авторские серьги",
@@ -192,21 +206,23 @@ ad_groups_data = [
         "name": "Комплекты и ювелирные сеты",
         "url": "https://livijewelry.kz/shop.html",
         "keywords": [
-            ("комплект украшений из жемчуга", "Phrase"),
-            ("комплект украшений из жемчуга", "Exact"),
-            ("набор украшений ручной работы", "Phrase"),
-            ("набор украшений ручной работы", "Exact"),
-            ("ювелирный гарнитур алматы", "Phrase"),
-            ("ювелирный гарнитур алматы", "Exact"),
-            ("гарнитур из натуральных камней", "Phrase"),
-            ("гарнитур из натуральных камней", "Exact"),
-            ("комплект колье и серьги из жемчуга", "Phrase"),
-            ("набор украшений с натуральными камнями", "Phrase"),
-            ("комплект украшений алматы купить", "Phrase"),
-            ("комплект украшений алматы купить", "Exact"),
-            ("гарнитур из жемчуга астана", "Phrase"),
-            ("сет украшений ручной работы", "Phrase"),
-            ("комплект колье и браслет", "Phrase")
+            ("комплект украшений из жемчуга", "Phrase", "https://livijewelry.kz/product/prod_04.html"),
+            ("комплект украшений из жемчуга", "Exact", "https://livijewelry.kz/product/prod_04.html"),
+            ("набор украшений ручной работы", "Phrase", "https://livijewelry.kz/shop.html"),
+            ("набор украшений ручной работы", "Exact", "https://livijewelry.kz/shop.html"),
+            ("ювелирный гарнитур алматы", "Phrase", "https://livijewelry.kz/product/prod_07.html"),
+            ("ювелирный гарнитур алматы", "Exact", "https://livijewelry.kz/product/prod_07.html"),
+            ("гарнитур из натуральных камней", "Phrase", "https://livijewelry.kz/shop.html"),
+            ("гарнитур из натуральных камней", "Exact", "https://livijewelry.kz/shop.html"),
+            ("комплект колье и серьги из жемчуга", "Phrase", "https://livijewelry.kz/product/prod_13.html"),
+            ("набор украшений с натуральными камнями", "Phrase", "https://livijewelry.kz/shop.html"),
+            ("комплект украшений алматы купить", "Phrase", "https://livijewelry.kz/shop.html"),
+            ("комплект украшений алматы купить", "Exact", "https://livijewelry.kz/shop.html"),
+            ("гарнитур из жемчуга астана", "Phrase", "https://livijewelry.kz/product/prod_04.html"),
+            ("сет украшений ручной работы", "Phrase", "https://livijewelry.kz/product/prod_21.html"),
+            ("комплект колье и браслет", "Phrase", "https://livijewelry.kz/product/prod_04.html"),
+            ("комплект из коралла и яшмы", "Phrase", "https://livijewelry.kz/product/prod_14.html"),
+            ("комплект из бирюзы купить", "Phrase", "https://livijewelry.kz/product/prod_16.html")
         ],
         "headlines": [
             "Комплекты украшений ручной работы", "Ювелирные гарнитуры Алматы", "Сеты из жемчуга и камней",
@@ -226,20 +242,20 @@ ad_groups_data = [
         "name": "Подарки и авторские украшения",
         "url": "https://livijewelry.kz/shop.html",
         "keywords": [
-            ("подарок девушке украшения алматы", "Phrase"),
-            ("подарок девушке украшения алматы", "Exact"),
-            ("подарок жене на день рождения украшения", "Phrase"),
-            ("подарок маме украшения алматы", "Phrase"),
-            ("авторские украшения ручной работы", "Phrase"),
-            ("авторские украшения ручной работы", "Exact"),
-            ("ювелирная бижутерия алматы", "Phrase"),
-            ("дизайнерские украшения ручной работы казахстан", "Phrase"),
-            ("украшения ручной работы астана", "Phrase"),
-            ("украшения ручной работы астана", "Exact"),
-            ("украшения на кыз узату алматы", "Phrase"),
-            ("украшения невесты из жемчуга", "Phrase"),
-            ("авторская бижутерия купить алматы", "Exact"),
-            ("подарок женщине ювелирные украшения", "Phrase")
+            ("подарок девушке украшения алматы", "Phrase", "https://livijewelry.kz/shop.html"),
+            ("подарок девушке украшения алматы", "Exact", "https://livijewelry.kz/shop.html"),
+            ("подарок жене на день рождения украшения", "Phrase", "https://livijewelry.kz/product/prod_02.html"),
+            ("подарок маме украшения алматы", "Phrase", "https://livijewelry.kz/product/prod_01.html"),
+            ("авторские украшения ручной работы", "Phrase", "https://livijewelry.kz/shop.html"),
+            ("авторские украшения ручной работы", "Exact", "https://livijewelry.kz/shop.html"),
+            ("ювелирная бижутерия алматы", "Phrase", "https://livijewelry.kz/shop.html"),
+            ("дизайнерские украшения ручной работы казахстан", "Phrase", "https://livijewelry.kz/shop.html"),
+            ("украшения ручной работы астана", "Phrase", "https://livijewelry.kz/shop.html"),
+            ("украшения ручной работы астана", "Exact", "https://livijewelry.kz/shop.html"),
+            ("украшения на кыз узату алматы", "Phrase", "https://livijewelry.kz/product/prod_01.html"),
+            ("украшения невесты из жемчуга", "Phrase", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
+            ("авторская бижутерия купить алматы", "Exact", "https://livijewelry.kz/shop.html"),
+            ("подарок женщине ювелирные украшения", "Phrase", "https://livijewelry.kz/product/prod_02.html")
         ],
         "headlines": [
             "Подарок девушке — Украшения", "Авторские украшения Livi", "Ювелирная бижутерия Алматы",
@@ -261,10 +277,13 @@ ad_groups_data = [
 all_kws_count = 0
 with open("1_google_ads_keywords.csv", "w", encoding="utf-8", newline="") as f:
     writer = csv.writer(f)
-    writer.writerow(["Campaign", "Ad Group", "Keyword", "Criterion Type"])
+    writer.writerow(["Campaign", "Ad Group", "Keyword", "Criterion Type", "Final URL"])
     for group in ad_groups_data:
-        for kw, c_type in group["keywords"]:
-            writer.writerow([CAMPAIGN_NAME, group["name"], kw, c_type])
+        for item in group["keywords"]:
+            kw = item[0]
+            c_type = item[1]
+            final_url = item[2] if len(item) > 2 else group["url"]
+            writer.writerow([CAMPAIGN_NAME, group["name"], kw, c_type, final_url])
             all_kws_count += 1
 
 print(f"[OK] 1_google_ads_keywords.csv: {all_kws_count} keywords across {len(ad_groups_data)} ad groups")
@@ -289,9 +308,12 @@ for group in ad_groups_data:
     ag_row = ["Add", CAMPAIGN_NAME, "", "Search", "", "Maximize Clicks", group["name"]] + [""] * 22
     rows.append(ag_row)
 
-    # 3. Keywords in this group
-    for kw, c_type in group["keywords"]:
-        kw_row = ["Add", CAMPAIGN_NAME, "", "Search", "", "Maximize Clicks", group["name"], kw, c_type] + [""] * 20
+    # 3. Keywords in this group with keyword-level Final URLs
+    for item in group["keywords"]:
+        kw = item[0]
+        c_type = item[1]
+        kw_url = item[2] if len(item) > 2 else group["url"]
+        kw_row = ["Add", CAMPAIGN_NAME, "", "Search", "", "Maximize Clicks", group["name"], kw, c_type] + [""] * 19 + [kw_url]
         rows.append(kw_row)
 
     # 4. Responsive Search Ad in this group
