@@ -75,27 +75,112 @@ def optimize_image(src_path, dst_path, max_w=1440, max_h=1920, quality=82):
         os.makedirs(os.path.dirname(dst_path), exist_ok=True)
         im.save(dst_path, "WEBP", quality=quality, method=6)
 
-def detect_category(title):
-    t = title.lower()
-    if 'браслет' in t:
-        return 'Bracelets'
-    elif 'комплект' in t or 'гарнитур' in t:
-        return 'Sets'
-    elif 'сотуар' in t:
-        return 'Lariats'
-    elif 'цепь' in t:
-        return 'Chains'
-    else:
-        return 'Necklaces'
+def format_num(n):
+    return f"{n:,}".replace(',', ' ')
 
-def extract_price(raw_title):
-    # Ищем цены вида "25.000 тг", "34000 тенге", "40.000"
-    matches = re.findall(r'(\d+[\.\s]?\d{3})', raw_title)
-    if matches:
-        # Берем наибольшую или первую
-        clean = re.sub(r'\D', '', matches[0])
-        return int(clean)
-    return 30000
+def parse_item_info(raw_title):
+    raw = raw_title.strip()
+    
+    # Игнорируем видео и не-товары
+    if 'не товар' in raw.lower() or raw.lower().endswith('.mp4') or 'video' in raw.lower():
+        return None
+
+    note = ""
+    if "под заказ" in raw.lower():
+        note = " (под заказ)"
+    
+    clean_raw = re.sub(r'\s*\(\s*под заказ\s*\)\s*', '', raw, flags=re.IGNORECASE).strip()
+
+    # Заменяем точки-разделители между элементами: "36000 тенге. Серьги" -> "36000 тенге, Серьги"
+    s = re.sub(r'(\d+[\.\s]?\d{3})\.\s*(тг|тенге)', r'\1 \2', clean_raw, flags=re.IGNORECASE)
+    s = re.sub(r'(\d+[\.\s]?\d{3}\s*(?:тг|тенге)?)\.\s+([А-ЯA-Z])', r'\1, \2', s)
+
+    # Разбиваем по запятым
+    chunks = [c.strip() for c in re.split(r'[,;]', s) if c.strip()]
+    
+    elements = []
+    for ch in chunks:
+        p_match = re.search(r'(\d+[\.\s]?\d{3})\s*(?:тг|тенге|\.)?', ch, flags=re.IGNORECASE)
+        if p_match:
+            price_num = int(re.sub(r'\D', '', p_match.group(1)))
+            name = ch[:p_match.start()] + ch[p_match.end():]
+            name = re.sub(r'(?:тг|тенге|\.|\-|–|—)', ' ', name, flags=re.IGNORECASE).strip()
+            name = re.sub(r'^(?:и|\+)\s+', '', name, flags=re.IGNORECASE).strip()
+            if name:
+                elements.append((name, price_num))
+
+    if not elements:
+        p_match = re.search(r'(\d+[\.\s]?\d{3})', raw)
+        price_num = int(re.sub(r'\D', '', p_match.group(1))) if p_match else 30000
+        clean_name = re.sub(r'\s*\.?\s*\d+[\.\s]?\d*\s*(?:тг|тенге|\.)?.*$', '', raw, flags=re.IGNORECASE).strip()
+        elements.append((clean_name or raw, price_num))
+
+    if len(elements) == 1:
+        elem_name, elem_price = elements[0]
+        if elem_name.lower().startswith('коле '):
+            elem_name = 'Колье ' + elem_name[5:]
+        elem_name = elem_name[0].upper() + elem_name[1:] if elem_name else ""
+        elem_name = re.sub(r'\s+', ' ', elem_name).strip(' .')
+        title = elem_name + note
+        if title.lower().startswith('коле '):
+            title = 'Колье ' + title[5:]
+        display_price = elem_price
+        
+        t_low = title.lower()
+        if 'браслет' in t_low:
+            category = 'Bracelets'
+        elif 'комплект' in t_low or 'гарнитур' in t_low:
+            category = 'Sets'
+        elif 'сотуар' in t_low or 'украшение из' in t_low:
+            category = 'Lariats'
+        elif 'цепь' in t_low:
+            category = 'Chains'
+        else:
+            category = 'Necklaces'
+            
+        description = f"{elem_name} — {format_num(elem_price)} тг{note}."
+    else:
+        total_price = sum(p for _, p in elements)
+        category = 'Sets'
+        
+        elem_names_lower = [e[0].lower() for e in elements]
+        if 'булавка' in elem_names_lower[0]:
+            parts = [e[0].lower() for e in elements]
+            title = f"Гарнитур: {', '.join(parts)}" + note
+        elif any('клубничк' in n for n in elem_names_lower):
+            title = "Сет колье: «Клубнички» и розовый кварц с жемчугом" + note
+        elif any('колье' in n for n in elem_names_lower):
+            base = [n[0] for n in elements if 'колье' in n[0].lower()][0]
+            other = [e[0].lower() for e in elements if 'колье' not in e[0].lower()]
+            if other:
+                title = f"Комплект: {base}, {', '.join(other)}" + note
+            else:
+                title = f"Сет: {', '.join(e[0] for e in elements)}" + note
+        else:
+            title = f"Комплект: {', '.join(e[0] for e in elements)}" + note
+            
+        title = title[0].upper() + title[1:]
+        title = re.sub(r'\s+', ' ', title).strip(' .')
+        
+        desc_parts = []
+        for name, p in elements:
+            n_clean = name[0].upper() + name[1:] if name else ""
+            n_clean = re.sub(r'\s+', ' ', n_clean).strip(' .')
+            desc_parts.append(f"{n_clean} — {format_num(p)} тг")
+        
+        items_str = ", ".join(desc_parts)
+        description = f"В комплекте: {items_str}. Полная стоимость комплекта — {format_num(total_price)} тг{note}. Каждое изделие можно приобрести по отдельности или полным сетом."
+        display_price = total_price
+
+    mats = detect_materials(title, description)
+    return {
+        'title': title,
+        'category': category,
+        'display_price': display_price,
+        'description': description,
+        'materials': mats,
+        'elements': elements
+    }
 
 def detect_materials(title, description=""):
     text = (title + " " + description).lower()
@@ -111,11 +196,13 @@ def detect_materials(title, description=""):
     if 'бирюз' in text: mats.append('Натуральная бирюза')
     if 'коралл' in text: mats.append('Натуральный коралл')
     if 'яшм' in text: mats.append('Яшма')
+    if 'флюорит' in text: mats.append('Натуральный флюорит')
+    if 'циркон' in text: mats.append('Цирконы')
+    if 'гематит' in text: mats.append('Гематит')
     if 'авантюрин' in text: mats.append('Натуральный авантюрин')
     if 'позолот' in text or 'золот' in text: mats.append('Позолота')
     
     mats.append('Ювелирный сплав')
-    # Убираем дубли сохраняя порядок
     return list(dict.fromkeys(mats))
 
 def update_shop_schema(products):
@@ -149,6 +236,22 @@ def update_shop_schema(products):
         with open('shop.html', 'w', encoding='utf-8') as f:
             f.write(new_html)
 
+def download_drive_file(fid, dst_path):
+    """Скачивает файл с Google Drive по fid напрямую через drive.usercontent"""
+    url = f"https://drive.usercontent.google.com/download?id={fid}&export=download&authuser=0"
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+    try:
+        r = requests.get(url, headers=headers, timeout=30, stream=True)
+        if r.status_code == 200:
+            with open(dst_path, 'wb') as f:
+                for chunk in r.iter_content(chunk_size=65536):
+                    f.write(chunk)
+            if os.path.exists(dst_path) and os.path.getsize(dst_path) > 1000:
+                return True
+    except Exception as e:
+        print(f"[WARN] Прямое скачивание {fid} не удалось: {e}")
+    return False
+
 def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_push=False):
     products_file = "products.json"
     if os.path.exists(products_file):
@@ -175,58 +278,63 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
     candidates = []
 
     if drive_url:
-        print(f"[INFO] Скачиваем файлы из Google Drive: {drive_url}")
-        subprocess.run([sys.executable, "-m", "gdown", "--folder", drive_url, "-O", temp_dir], check=False)
+        print(f"[INFO] Считываем каталог из Google Drive: {drive_url}")
         
-        # Парсим оригинальные названия файлов и ID из HTML страницы диска
-        titles_by_size = {}
+        # Парсим оригинальные названия файлов и ID из HTML страницы папки Google Диска
         current_drive_ids = set()
+        drive_items = []
         try:
             r = requests.get(drive_url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=15)
             soup = BeautifulSoup(r.content.decode('utf-8', errors='replace'), 'html.parser')
             for tr in soup.find_all('tr', attrs={'data-id': True}):
                 fid = tr.get('data-id')
-                if fid:
-                    current_drive_ids.add(fid)
+                if not fid:
+                    continue
+                current_drive_ids.add(fid)
                 label = tr.get('aria-label') or ''
                 if not label:
                     for el in tr.find_all(True):
                         al = el.get('aria-label') or ''
-                        if 'Image' in al or 'Shared' in al:
+                        if 'Image' in al or 'Shared' in al or 'Video' in al:
                             label = al
                             break
                 clean_title = label.replace(' Image Shared', '').replace(' Shared', '').strip()
-                if clean_title and fid:
-                    titles_by_size[clean_title] = fid
+                if clean_title:
+                    drive_items.append((fid, clean_title))
         except Exception as e:
             print(f"[WARN] Не удалось извлечь метаданные через web: {e}")
 
-        # Обрабатываем все скачанные файлы
-        downloaded_files = [f for f in os.listdir(temp_dir) if os.path.isfile(os.path.join(temp_dir, f))]
-        for fn in downloaded_files:
-            if not fn.lower().endswith(('.jpg', '.jpeg', '.png', '.webp', '.mpo', '.heic')):
-                continue
-            fp = os.path.join(temp_dir, fn)
-            title_candidate = fn
-            cand_fid = None
-            for ct, fid in titles_by_size.items():
-                nums_fn = re.findall(r'\d+', fn)
-                nums_ct = re.findall(r'\d+', ct)
-                if nums_fn and nums_ct and nums_fn == nums_ct:
-                    title_candidate = ct
-                    cand_fid = fid
-                    break
-            
+        # Собираем кандидатов для проверки
+        existing_by_drive_id = {p['drive_id']: p for p in products if p.get('drive_id')}
+
+        for fid, raw_title in drive_items:
             # Игнорируем служебные файлы (видео, баннеры, файлы с пометкой "не товар")
-            if any(term in title_candidate.lower() for term in ['не товар', 'видео', 'баннер', 'логотип']):
-                print(f"[SKIP] Пропущен служебный файл: {title_candidate}")
+            if any(term in raw_title.lower() for term in ['не товар', 'видео', 'баннер', 'логотип']):
+                print(f"[SKIP] Пропущен служебный файл: {raw_title}")
                 continue
 
-            candidates.append({
-                'source_path': fp,
-                'raw_title': title_candidate,
-                'drive_id': cand_fid
-            })
+            # Если товар уже в каталоге, используем его локальное фото для сверки
+            if fid in existing_by_drive_id:
+                local_img = existing_by_drive_id[fid].get('image')
+                if local_img and os.path.exists(local_img):
+                    candidates.append({
+                        'source_path': local_img,
+                        'raw_title': raw_title,
+                        'drive_id': fid
+                    })
+                    continue
+
+            # Новый товар: скачиваем напрямую без ограничений
+            dl_path = os.path.join(temp_dir, f"{fid}.jpg")
+            print(f"[DOWNLOAD] Скачиваем новый товар с Google Диска: {raw_title} (ID: {fid})...")
+            if download_drive_file(fid, dl_path):
+                candidates.append({
+                    'source_path': dl_path,
+                    'raw_title': raw_title,
+                    'drive_id': fid
+                })
+            else:
+                print(f"[ERROR] Не удалось скачать файл {raw_title} (ID: {fid})")
 
     elif local_folder and os.path.exists(local_folder):
         for fn in os.listdir(local_folder):
@@ -239,52 +347,112 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
     existing_ids = [int(re.sub(r'\D', '', p.get("id", "0")) or 0) for p in products]
     next_num = max(existing_ids, default=0) + 1
     added_count = 0
+    updated_count = 0
 
     for cand in candidates:
         src = cand['source_path']
         raw_t = cand['raw_title']
+
+        parsed_info = parse_item_info(raw_t)
+        if not parsed_info:
+            print(f"[IGNORE] Пропущен не-товар: {raw_t}")
+            continue
+
         cand_fp = get_image_fingerprint(src)
 
         # 1. Проверка на дубликат по изображению
         is_duplicate = False
         duplicate_reason = ""
+        matched_prod = None
 
         if cand_fp:
             for pid, (efp, ep) in existing_fps.items():
                 diff = compute_diff(cand_fp, efp)
                 if diff < 12.0:  # порог различия менее 5%
                     is_duplicate = True
+                    matched_prod = ep
                     duplicate_reason = f"визуально совпадает с {pid} (\"{ep.get('title')}\", diff={diff:.2f})"
                     break
 
         # 2. Проверка по нормализованному названию
         if not is_duplicate:
-            norm_cand = normalize_title(raw_t)
+            norm_cand = normalize_title(parsed_info['title'])
             for p in products:
                 if normalize_title(p.get('title', '')) == norm_cand:
                     is_duplicate = True
+                    matched_prod = p
                     duplicate_reason = f"название совпадает с {p['id']} (\"{p.get('title')}\")"
                     break
 
-        if is_duplicate:
-            if cand.get('drive_id') and not ep.get('drive_id'):
-                ep['drive_id'] = cand['drive_id']
-            print(f"[SKIP] Товар пропущен (дубликат): {raw_t} -> {duplicate_reason}")
+        # 3. Проверка по drive_id
+        if not is_duplicate and cand.get('drive_id'):
+            for p in products:
+                if p.get('drive_id') == cand.get('drive_id'):
+                    is_duplicate = True
+                    matched_prod = p
+                    duplicate_reason = f"drive_id совпадает с {p['id']} (\"{p.get('title')}\")"
+                    break
+
+        if is_duplicate and matched_prod:
+            if cand.get('drive_id') and not matched_prod.get('drive_id'):
+                matched_prod['drive_id'] = cand['drive_id']
+            
+            # Актуализируем описание, цены комплекта и заголовок
+            changed = False
+            is_set = len(parsed_info.get('elements', [])) > 1 or parsed_info.get('category') == 'Sets'
+            
+            # Для сетов - всегда применяем полное название, категорию Sets, полную цену и развернутое описание
+            if is_set:
+                if matched_prod.get('title') != parsed_info['title']:
+                    matched_prod['title'] = parsed_info['title']
+                    changed = True
+                if matched_prod.get('price') != parsed_info['display_price']:
+                    matched_prod['price'] = parsed_info['display_price']
+                    changed = True
+                if matched_prod.get('category') != 'Sets':
+                    matched_prod['category'] = 'Sets'
+                    changed = True
+                if matched_prod.get('description') != parsed_info['description']:
+                    matched_prod['description'] = parsed_info['description']
+                    changed = True
+                if not matched_prod.get('materials') or matched_prod.get('materials') == ['Ювелирный сплав']:
+                    matched_prod['materials'] = parsed_info['materials']
+                    changed = True
+            else:
+                # Одиночный товар: актуализируем цену и категорию
+                if matched_prod.get('price') != parsed_info['display_price']:
+                    matched_prod['price'] = parsed_info['display_price']
+                    changed = True
+                # Если название в каталоге содержало опечатку (например "Коле" -> "Колье")
+                if matched_prod.get('title', '').startswith('Коле '):
+                    matched_prod['title'] = parsed_info['title']
+                    changed = True
+                # Если описание было шаблоном ("— авторское украшение ручной работы...")
+                if 'авторское украшение ручной работы из натуральных камней' in matched_prod.get('description', ''):
+                    matched_prod['description'] = parsed_info['description']
+                    changed = True
+                if not matched_prod.get('materials') or matched_prod.get('materials') == ['Ювелирный сплав']:
+                    matched_prod['materials'] = parsed_info['materials']
+                    changed = True
+            
+            if changed:
+                updated_count += 1
+                print(f"[SYNC/UPDATE] Обновлен товар {matched_prod['id']}: {matched_prod['title']} ({matched_prod['price']} тг)")
+            else:
+                print(f"[SKIP] Товар уже есть в каталоге: {raw_t} -> {duplicate_reason}")
             continue
 
         # Создаем новый товар
-        price = extract_price(raw_t)
-        # Очищаем название от цены в конце
-        clean_name = re.sub(r'\s*\.?\s*\d+[\.\s]?\d*\s*(?:тг|тенге|\.)?.*$', '', raw_t, flags=re.IGNORECASE).strip()
-        if not clean_name:
-            clean_name = raw_t
+        title = parsed_info['title']
+        price = parsed_info['display_price']
+        cat = parsed_info['category']
+        mats = parsed_info['materials']
+        desc = parsed_info['description']
 
-        cat = detect_category(clean_name)
-        mats = detect_materials(clean_name)
         new_id = f"prod_{next_num:02d}"
         next_num += 1
 
-        slug = slugify(clean_name)
+        slug = slugify(title)
         filename = f"{slug}-{price}.webp"
         dst_path = os.path.join("assets", filename)
         c = 1
@@ -296,12 +464,12 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
         optimize_image(src, dst_path)
         new_prod = {
             "id": new_id,
-            "title": clean_name,
+            "title": title,
             "category": cat,
             "price": price,
             "image": f"assets/{filename}",
             "materials": mats,
-            "description": f"{clean_name} — авторское украшение ручной работы из натуральных камней.",
+            "description": desc,
             "inStock": True,
             "featured": True
         }
@@ -311,7 +479,7 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
         products.append(new_prod)
         existing_fps[new_id] = (cand_fp, new_prod)
         added_count += 1
-        print(f"[ADD] Добавлен товар {new_id}: {clean_name} ({price} тг) -> assets/{filename}")
+        print(f"[ADD] Добавлен товар {new_id}: {title} ({price} тг) -> assets/{filename}")
 
     # Двусторонняя синхронизация: удаление товаров, которые были удалены с Google Диска
     deleted_count = 0
@@ -332,8 +500,8 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
                 remaining_products.append(p)
         products = remaining_products
 
-    # Сохраняем products.json при наличии любых изменений (добавления или удаления)
-    if added_count > 0 or deleted_count > 0:
+    # Сохраняем products.json при наличии любых изменений (добавления, обновления или удаления)
+    if added_count > 0 or updated_count > 0 or deleted_count > 0:
         with open(products_file, "w", encoding="utf-8") as f:
             json.dump(products, f, ensure_ascii=False, indent=2)
         update_shop_schema(products)
@@ -346,6 +514,8 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
         actions = []
         if added_count > 0:
             actions.append(f"добавлено: {added_count}")
+        if updated_count > 0:
+            actions.append(f"обновлено: {updated_count}")
         if deleted_count > 0:
             actions.append(f"удалено: {deleted_count}")
         summary_str = ", ".join(actions)
