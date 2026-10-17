@@ -36,16 +36,25 @@
   <meta name="theme-color" content="#111111">
   <meta name="msapplication-TileColor" content="#111111">
 
-  <!-- Google tag (gtag.js): GA4 + Google Ads -->
+  <!-- Google tag (gtag.js): Consent Mode v2 + GA4 + Google Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YFF2TR0N36"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      'ad_storage': 'granted',
+      'analytics_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'wait_for_update': 500
+    });
+    gtag('set', 'url_passthrough', true);
+    gtag('set', 'ads_data_redaction', false);
     gtag('js', new Date());
     // GA4
-    gtag('config', 'G-YFF2TR0N36');
+    gtag('config', 'G-YFF2TR0N36', { 'linker': { 'domains': ['livijewelry.kz'] } });
     // Google Ads (для конверсий)
-    gtag('config', 'AW-16793974126', { allow_enhanced_conversions: true });
+    gtag('config', 'AW-16793974126', { 'allow_enhanced_conversions': true, 'linker': { 'domains': ['livijewelry.kz'] } });
   </script>
 
   <!-- Meta Pixel Code (ID: 199604456030882) -->
@@ -163,14 +172,211 @@
       <a class="btn" href="shop.html" data-i18n="hero.cta">Перейти в каталог</a>
     </div>
     <div class="hero-visual">
-      <img src="assets/hero-kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Украшения из жемчуга и натуральных камней — Livi Jewelry" loading="lazy" decoding="async">
+      <img src="assets/hero-kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Украшения из жемчуга и натуральных камней — Livi Jewelry" fetchpriority="high" decoding="async" width="800" height="1067">
     </div>
   </section>
 
   <section class="section">
     <h2 data-i18n="feat.title">Избранные товары</h2>
     <div class="rule"></div>
-    <div id="featGrid" class="grid" aria-live="polite"></div>
+    <div id="featGrid" class="grid" aria-live="polite">
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_01.html'">
+        <div class="card-img-wrap"><img src="assets/kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Колье из натурального жемчуга с барочной подвеской — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_01.html" class="card-title-link">Колье из натурального жемчуга с барочной подвеской</a></div>
+          <div class="price">80 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_02.html'">
+        <div class="card-img-wrap"><img src="assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp" alt="Колье из натурального жемчуга и горного хрусталя (Премиум) — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_02.html" class="card-title-link">Колье из натурального жемчуга и горного хрусталя (Премиум)</a></div>
+          <div class="price">80 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_03.html'">
+        <div class="card-img-wrap"><img src="assets/kole-iz-zhemchuga-mayorka-34000.webp" alt="Колье из жемчуга Майорка — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_03.html" class="card-title-link">Колье из жемчуга Майорка</a></div>
+          <div class="price">34 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_04.html'">
+        <div class="card-img-wrap"><img src="assets/komplekt-tsep-braslet-40000.webp" alt="Комплект: позолоченная цепь и браслет с барочным жемчугом — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_04.html" class="card-title-link">Комплект: позолоченная цепь и браслет с барочным жемчугом</a></div>
+          <div class="price">40 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_05.html'">
+        <div class="card-img-wrap"><img src="assets/tsep-rodirovannaya-braslet-40000.webp" alt="Цепь родированная и браслет с барочным жемчугом — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_05.html" class="card-title-link">Цепь родированная и браслет с барочным жемчугом</a></div>
+          <div class="price">40 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_06.html'">
+        <div class="card-img-wrap"><img src="assets/braslet-iz-malakhita-25000.webp" alt="Браслет из малахита — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_06.html" class="card-title-link">Браслет из малахита</a></div>
+          <div class="price">25 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_07.html'">
+        <div class="card-img-wrap"><img src="assets/garnitur-iz-ametista-i-zhemchuga-40000.webp" alt="Гарнитур: булавка из аметиста и жемчуга, браслет, кольцо — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_07.html" class="card-title-link">Гарнитур: булавка из аметиста и жемчуга, браслет, кольцо</a></div>
+          <div class="price">74 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_08.html'">
+        <div class="card-img-wrap"><img src="assets/kole-lapy-40000.webp" alt="Колье «Лапы» из натурального жемчуга — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_08.html" class="card-title-link">Колье «Лапы» из натурального жемчуга</a></div>
+          <div class="price">40 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_09.html'">
+        <div class="card-img-wrap"><img src="assets/kole-iz-avantyurina-s-sergami-34000.webp" alt="Комплект: Колье из авантюрина, серьги — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_09.html" class="card-title-link">Комплект: Колье из авантюрина, серьги</a></div>
+          <div class="price">44 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_10.html'">
+        <div class="card-img-wrap"><img src="assets/kole-iz-agata-i-granata-s-koltsom-40000.webp" alt="Комплект: Колье из Агата и граната, кольцо — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_10.html" class="card-title-link">Комплект: Колье из Агата и граната, кольцо</a></div>
+          <div class="price">48 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_11.html'">
+        <div class="card-img-wrap"><img src="assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp" alt="Комплект: Колье из аметиста и розового кварца, серьги из аметиста — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_11.html" class="card-title-link">Комплект: Колье из аметиста и розового кварца, серьги из аметиста</a></div>
+          <div class="price">61 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_12.html'">
+        <div class="card-img-wrap"><img src="assets/kole-iz-zhadeita-i-tigrovogo-glaza-s-sergami-36000.webp" alt="Комплект: Колье из Жадеита и Тигрового глаза, серьги из тигрового глаза — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_12.html" class="card-title-link">Комплект: Колье из Жадеита и Тигрового глаза, серьги из тигрового глаза</a></div>
+          <div class="price">52 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_13.html'">
+        <div class="card-img-wrap"><img src="assets/kole-iz-zhemchuga-mayorka-s-sergami-35000.webp" alt="Комплект: Колье из жемчуга Майорка, серьги — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_13.html" class="card-title-link">Комплект: Колье из жемчуга Майорка, серьги</a></div>
+          <div class="price">45 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_14.html'">
+        <div class="card-img-wrap"><img src="assets/komplekt-iz-koralla-i-yashmy-40000.webp" alt="Комплект: Колье из коралла и яшмы, браслет, серьги — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_14.html" class="card-title-link">Комплект: Колье из коралла и яшмы, браслет, серьги</a></div>
+          <div class="price">60 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_15.html'">
+        <div class="card-img-wrap"><img src="assets/kole-iz-rozovogo-kvartsa-i-zhemchuga-s-sergami-40000.webp" alt="Комплект: Колье из розового кварца и жемчуга, серьги — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_15.html" class="card-title-link">Комплект: Колье из розового кварца и жемчуга, серьги</a></div>
+          <div class="price">56 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_16.html'">
+        <div class="card-img-wrap"><img src="assets/komplekt-iz-naturalnoy-biryuzy-50000.webp" alt="Комплект из натуральной бирюзы с позолотой — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_16.html" class="card-title-link">Комплект из натуральной бирюзы с позолотой</a></div>
+          <div class="price">50 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_17.html'">
+        <div class="card-img-wrap"><img src="assets/ukrashenie-sotuar-iz-agata-i-granata-36000.webp" alt="Украшение-сотуар из агата и граната — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_17.html" class="card-title-link">Украшение-сотуар из агата и граната</a></div>
+          <div class="price">36 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_18.html'">
+        <div class="card-img-wrap"><img src="assets/bulavka-30000.webp" alt="Гарнитур: булавка, браслет, серьги, кольцо (под заказ) — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_18.html" class="card-title-link">Гарнитур: булавка, браслет, серьги, кольцо (под заказ)</a></div>
+          <div class="price">74 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_19.html'">
+        <div class="card-img-wrap"><img src="assets/kole-iz-tigrovogo-glaza-i-gematita-50000.webp" alt="Колье из тигрового глаза и гематита — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_19.html" class="card-title-link">Колье из тигрового глаза и гематита</a></div>
+          <div class="price">50 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_20.html'">
+        <div class="card-img-wrap"><img src="assets/kole-iz-flyuorita-i-tsirkonov-35000.webp" alt="Колье из флюорита и цирконов — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_20.html" class="card-title-link">Колье из флюорита и цирконов</a></div>
+          <div class="price">35 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_21.html'">
+        <div class="card-img-wrap"><img src="assets/kole-s-klubnichkami-34000.webp" alt="Сет колье: «Клубнички» и розовый кварц с жемчугом — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_21.html" class="card-title-link">Сет колье: «Клубнички» и розовый кварц с жемчугом</a></div>
+          <div class="price">74 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_22.html'">
+        <div class="card-img-wrap"><img src="assets/kole-granzh-45000.webp" alt="Колье «Гранж» с натуральным жемчугом — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_22.html" class="card-title-link">Колье «Гранж» с натуральным жемчугом</a></div>
+          <div class="price">45 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_23.html'">
+        <div class="card-img-wrap"><img src="assets/kole-iz-granata-40000.webp" alt="Колье из натурального граната — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_23.html" class="card-title-link">Колье из натурального граната</a></div>
+          <div class="price">40 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_24.html'">
+        <div class="card-img-wrap"><img src="assets/kole-iz-zhemchuga-i-lazurita-40000.webp" alt="Колье из жемчуга и лазурита — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_24.html" class="card-title-link">Колье из жемчуга и лазурита</a></div>
+          <div class="price">40 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_25.html'">
+        <div class="card-img-wrap"><img src="assets/granata-i-zhemchuga-40000.webp" alt="Колье из граната и жемчуга — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_25.html" class="card-title-link">Колье из граната и жемчуга</a></div>
+          <div class="price">40 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_26.html'">
+        <div class="card-img-wrap"><img src="assets/komplekt-kole-s-biryuzoy-sergi-50000.webp" alt="Комплект: Колье с бирюзой, серьги — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_26.html" class="card-title-link">Комплект: Колье с бирюзой, серьги</a></div>
+          <div class="price">50 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_27.html'">
+        <div class="card-img-wrap"><img src="assets/komplekt-nefrita-i-gematita-sergi-61000.webp" alt="Комплект: Колье из нефрита и гематита, серьги — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_27.html" class="card-title-link">Комплект: Колье из нефрита и гематита, серьги</a></div>
+          <div class="price">61 000 ₸</div>
+        </div>
+      </article>
+      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_28.html'">
+        <div class="card-img-wrap"><img src="assets/komplekt-komplekt-iz-biryuzy-kole-braslet-sergi-koltso-91000.webp" alt="Комплект из бирюзы: колье, браслет, серьги, кольцо — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца" loading="lazy" decoding="async" width="600" height="800"></div>
+        <div class="body">
+          <div class="title"><a href="/product/prod_28.html" class="card-title-link">Комплект из бирюзы: колье, браслет, серьги, кольцо</a></div>
+          <div class="price">91 000 ₸</div>
+        </div>
+      </article>
+    </div>
   </section>
 
   <!-- Video Showcase: Atelier in Motion -->
@@ -240,6 +446,7 @@
       <div class="links">
         <a href="delivery.html" data-i18n="foot.delivery">Доставка, оплата и возврат</a>
         <a href="privacy.html" data-i18n="foot.privacy">Политика конфиденциальности</a>
+        <a href="terms.html" data-i18n="foot.terms">Условия использования</a>
         <a href="shop.html">Каталог</a>
       </div>
       <div class="copy">© <span id="year"></span> Livi Jewelry — <span data-i18n="foot.rights">Все права защищены.</span></div>
@@ -305,10 +512,10 @@
       items.forEach(p=>{
         const altBase = 'украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца';
         const priceNum = Number(p.price) || 0;
-        const priceStr = priceNum ? `${priceNum.toLocaleString('ru-RU')} тг` : 'Цена по запросу';
+        const priceStr = priceNum ? `${priceNum.toLocaleString('ru-RU')} ₸` : 'Цена по запросу';
         const c=document.createElement('article'); c.className='card';
-        const targetUrl = p.id ? `product/${encodeURIComponent(p.id)}.html` : 'shop.html';
-        c.innerHTML=`<div class="card-img-wrap"><img src="${p.image}" alt="${p.title} — ${altBase}" loading="lazy" decoding="async"></div><div class="body"><div class="title"><a href="${targetUrl}" class="card-title-link">${p.title}</a></div><div class="price">${priceStr}</div></div>`;
+        const targetUrl = p.id ? `/product/${encodeURIComponent(p.id)}.html` : 'shop.html';
+        c.innerHTML=`<div class="card-img-wrap"><img src="${p.image}" alt="${p.title} — ${altBase}" loading="lazy" decoding="async" width="600" height="800"></div><div class="body"><div class="title"><a href="${targetUrl}" class="card-title-link">${p.title}</a></div><div class="price">${priceStr}</div></div>`;
         c.onclick=(e)=>{
           if(!e.target.closest('a')) location.href = targetUrl;
         };
@@ -316,23 +523,13 @@
       });
     }
 
-    fetch('products.json?v=' + Date.now())
-      .then(r => r.ok ? r.json() : fetch('products.json').then(r2 => r2.ok ? r2.json() : Promise.reject()))
+    fetch('products.json')
+      .then(r => r.ok ? r.json() : Promise.reject())
       .then(data => {
         const feat = data.filter(p => p.featured);
-        renderFeat(feat.length ? feat : data.slice(0, 4));
+        renderFeat(feat.length ? feat : data.slice(0, 6));
       })
-      .catch(()=>{
-        // Резервный фолбэк
-        const FALLBACK = [
-          {id:'prod_01', image:'assets/kole-iz-naturalnogo-zhemchuga-80000.webp', title:'Колье из натурального жемчуга', price:80000},
-          {id:'prod_02', image:'assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp', title:'Колье из натурального жемчуга (Премиум)', price:80000},
-          {id:'prod_03', image:'assets/kole-iz-zhemchuga-mayorka-34000.webp', title:'Колье из жемчуга Майорка', price:34000},
-          {id:'prod_04', image:'assets/komplekt-tsep-braslet-40000.webp', title:'Комплект: цепь + браслет', price:40000},
-          {id:'prod_05', image:'assets/tsep-rodirovannaya-braslet-40000.webp', title:'Цепь родированная + браслет', price:40000}
-        ];
-        renderFeat(FALLBACK);
-      });
+      .catch(()=>{});
 
     // Drawer
     const drawer=document.getElementById('drawer'), burger=document.getElementById('burger');
@@ -399,42 +596,58 @@
     document.getElementById('year').textContent = new Date().getFullYear();
     applyLang(); updateBadge();
 
-    /* ===== Конверсия WhatsApp без inline onclick ===== */
-    (function(){
-      function isWaLink(a){
-        if(!a || !a.href) return false;
-        const href=a.href.toLowerCase();
-        return href.includes('wa.me') || href.includes('whatsapp');
+    /* ===== Конверсия WhatsApp и Instagram без обрыва маячков ===== */
+    document.addEventListener('click',function(e){
+      const a = e.target.closest('a[href]');
+      if(!a) return;
+      const href = a.getAttribute('href') || '';
+      if(href.includes('cart.html')){
+        const cart = readCart();
+        if(cart.length > 0 && typeof gtag === 'function'){
+          const totalVal = cart.reduce((s, it) => s + ((Number(it.unit) || 0) * Number(it.qty || 1)), 0);
+          gtag('event', 'begin_checkout', {
+            currency: 'KZT',
+            value: totalVal,
+            items: cart.map(it => ({ item_id: it.id, item_name: it.title, price: Number(it.unit) || 0, quantity: Number(it.qty || 1) }))
+          });
+        }
+        return;
       }
-      function reportConversion(url){
-        try{
-          if(window.fbq) fbq('track', 'Contact');
-          if(typeof gtag === 'function'){
-            gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_home', value: 40000, currency: 'KZT' });
-            gtag('event', 'generate_lead', { lead_source: 'whatsapp_home', value: 40000, currency: 'KZT' });
+      const isWa = href.includes('wa.me') || href.includes('whatsapp.com');
+      const isIg = href.includes('instagram.com');
+      if(!isWa && !isIg) return;
+      const method = isWa ? 'WhatsApp' : 'Instagram';
+      try{
+        if(window.fbq) fbq('track', 'Contact');
+        if(typeof gtag === 'function'){
+          gtag('event', 'generate_lead', {
+            currency: 'KZT',
+            value: 40000,
+            method: method,
+            page_location: window.location.href,
+            lead_source: 'whatsapp_home'
+          });
+          gtag('event', 'contact', {
+            currency: 'KZT',
+            value: 40000,
+            method: method,
+            page_location: window.location.href
+          });
+          if(isWa){
             gtag('event', 'conversion', {
               'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
               'value': Math.round(40000 * 0.2),
               'currency': 'KZT',
-              'transaction_id': 'WA-HOME-' + Date.now()
+              'transaction_id': 'LIVI-LEAD-HOME-' + Date.now()
             });
           }
-          if(url){ window.location=url; }
-          return false;
-        }catch(e){
-          if(url){ window.location=url; }
-          return false;
         }
+      }catch(err){}
+      if(a.getAttribute('target') !== '_blank' && !e.ctrlKey && !e.metaKey){
+        e.preventDefault();
+        setTimeout(function(){ window.location.href = href; }, 150);
       }
-      document.addEventListener('click',function(e){
-        const a = e.target.closest('a');
-        if(!a) return;
-        if(isWaLink(a)){
-          e.preventDefault();
-          reportConversion(a.href);
-        }
-      });
-    })();
+    });
   </script>
   <script>
     if ('serviceWorker' in navigator) {

@@ -3,23 +3,37 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="google-site-verification" content="qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0" />
   <title>Политика конфиденциальности | Livi Jewelry</title>
-  <meta name="description" content="Политика обработки персональных данных и условия использования сайта интернет-магазина авторских украшений Livi Jewelry.">
+  <meta name="description" content="Политика обработки персональных данных и условия защиты информации пользователей интернет-магазина авторских украшений Livi Jewelry в Казахстане.">
   <link rel="canonical" href="https://livijewelry.kz/privacy.html">
+  <meta name="robots" content="index, follow">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Google tag (GA4 + Ads) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+
+  <!-- Google tag (gtag.js): Consent Mode v2 + GA4 + Google Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YFF2TR0N36"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      'ad_storage': 'granted',
+      'analytics_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'wait_for_update': 500
+    });
+    gtag('set', 'url_passthrough', true);
+    gtag('set', 'ads_data_redaction', false);
     gtag('js', new Date());
-    gtag('config', 'G-YFF2TR0N36');
-    gtag('config', 'AW-16793974126', { allow_enhanced_conversions: true });
+    gtag('config', 'G-YFF2TR0N36', { 'linker': { 'domains': ['livijewelry.kz'] } });
+    gtag('config', 'AW-16793974126', { 'allow_enhanced_conversions': true, 'linker': { 'domains': ['livijewelry.kz'] } });
   </script>
 
   <!-- Meta Pixel Code (ID: 199604456030882) -->
@@ -63,7 +77,7 @@
     <section class="policy-card">
       <div class="policy-body">
         <h2>1. Общие положения</h2>
-        <p>Настоящая Политика конфиденциальности определяет порядок обработки и защиты персональной информации пользователей сайта <strong>livijewelry.kz</strong>. Мы с глубоким уважением относимся к конфиденциальности наших клиентов и гарантируем безопасность передаваемых данных.</p>
+        <p>Настоящая Политика конфиденциальности определяет порядок обработки и защиты персональной информации пользователей сайта <strong>livijewelry.kz</strong> в соответствии с Законом Республики Казахстан «О персональных данных и их защите». Мы с глубоким уважением относимся к конфиденциальности наших клиентов и гарантируем безопасность передаваемых данных.</p>
       </div>
     </section>
 
@@ -75,7 +89,7 @@
           <li>Имя и фамилия покупателя;</li>
           <li>Контактный номер телефона для подтверждения заказа в WhatsApp или по звонку;</li>
           <li>Город и адрес доставки для курьерской службы СДЭК;</li>
-          <li>Технические обезличенные файлы cookie для обеспечения корректной работы корзины и веб-аналитики Google.</li>
+          <li>Технические обезличенные файлы cookie для обеспечения корректной работы корзины и веб-аналитики Google Analytics 4 / Google Ads.</li>
         </ul>
       </div>
     </section>
@@ -96,7 +110,7 @@
     <section class="policy-card" style="border-bottom: none;">
       <div class="policy-body">
         <h2>4. Контакты по вопросам персональных данных</h2>
-        <p>По любым вопросам обработки ваших данных или запросу на их удаление свяжитесь с нами: <a href="mailto:viksonna94@gmail.com" style="text-decoration: underline;">viksonna94@gmail.com</a> или по телефону <a href="https://wa.me/77054510584" style="text-decoration: underline;">+7 (705) 451-05-84</a>.</p>
+        <p>По любым вопросам обработки ваших данных или запросу на их удаление свяжитесь с нами: <a href="mailto:viksonna94@gmail.com" style="text-decoration: underline;">viksonna94@gmail.com</a> или по телефону <a href="https://wa.me/77054510584" target="_blank" rel="noopener" style="text-decoration: underline;">+7 (705) 451-05-84</a>.</p>
       </div>
     </section>
 
@@ -110,6 +124,7 @@
       <div class="links">
         <a href="delivery.html">Доставка, оплата и возврат</a>
         <a href="privacy.html">Политика конфиденциальности</a>
+        <a href="terms.html">Условия использования</a>
         <a href="shop.html">Каталог</a>
       </div>
       <div class="copy">© <span id="year"></span> Livi Jewelry — Все права защищены.</div>
@@ -161,18 +176,44 @@
     window.addEventListener('pageshow', updateBadge);
     document.addEventListener('visibilitychange', () => { if(!document.hidden) updateBadge(); });
 
-    // Universal WhatsApp Conversion Tracking (GA4 generate_lead + Google Ads conversion + Meta Contact)
-    document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
-      a.addEventListener('click', function() {
-        try {
-          if (typeof gtag === 'function') {
-            gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_privacy' });
+    // Universal Contact Conversion Tracking (WhatsApp + Instagram)
+    document.addEventListener('click', function(e) {
+      const a = e.target.closest('a[href]');
+      if (!a) return;
+      const href = a.getAttribute('href') || '';
+      const isWa = href.includes('wa.me') || href.includes('whatsapp.com');
+      const isIg = href.includes('instagram.com');
+      if (!isWa && !isIg) return;
+      const method = isWa ? 'WhatsApp' : 'Instagram';
+      try {
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', {
+            currency: 'KZT',
+            value: 30000,
+            method: method,
+            page_location: window.location.href
+          });
+          gtag('event', 'contact', {
+            currency: 'KZT',
+            value: 30000,
+            method: method,
+            page_location: window.location.href
+          });
+          if (isWa) {
+            gtag('event', 'conversion', {
+              'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+              'value': 6000,
+              'currency': 'KZT',
+              'transaction_id': 'LIVI-LEAD-' + Date.now()
+            });
           }
-          if (typeof fbq === 'function') {
-            fbq('track', 'Contact');
-          }
-        } catch(e) {}
-      });
+        }
+        if (typeof fbq === 'function') fbq('track', 'Contact');
+      } catch(err) {}
+      if (a.getAttribute('target') !== '_blank' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        setTimeout(function() { window.location.href = href; }, 150);
+      }
     });
   </script>
 </body>

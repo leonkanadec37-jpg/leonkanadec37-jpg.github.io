@@ -32,14 +32,28 @@
   <meta name="theme-color" content="#141312">
   <meta name="msapplication-TileColor" content="#141312">
 
-  <!-- Google tag (GA4 + Ads) -->
+  <!-- Google tag (GA4 + Ads) with Google Consent Mode v2 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YFF2TR0N36"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      'ad_storage': 'granted',
+      'analytics_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'wait_for_update': 500
+    });
+    gtag('set', 'url_passthrough', true);
+    gtag('set', 'ads_data_redaction', false);
     gtag('js', new Date());
-    gtag('config', 'G-YFF2TR0N36');
-    gtag('config', 'AW-16793974126', { allow_enhanced_conversions: true });
+    gtag('config', 'G-YFF2TR0N36', {
+      'linker': { 'domains': ['livijewelry.kz', 'www.livijewelry.kz'], 'accept_incoming': true }
+    });
+    gtag('config', 'AW-16793974126', {
+      'allow_enhanced_conversions': true,
+      'linker': { 'domains': ['livijewelry.kz', 'www.livijewelry.kz'], 'accept_incoming': true }
+    });
   </script>
 
   <!-- Meta Pixel Code (Dual Pixel: Primary 199604456030882 + Secondary 4185620171718327) -->
@@ -79,127 +93,196 @@
 
   <!-- Structured Data: ItemList -->
   <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"ItemList",
-    "name":"Серьги из жемчуга и гарнитуры — Livi Jewelry",
-    "itemListElement":[
-      {
-        "@type":"Product",
-        "position":1,
-        "name":"Колье из жемчуга Майорка с серьгами",
-        "image":"https://livijewelry.kz/assets/kole-iz-zhemchuga-mayorka-s-sergami-35000.webp",
-        "description":"Элегантный гарнитур: колье из жемчуга Майорка и миниатюрные серьги в комплект.",
-        "sku":"prod_13",
-        "mpn":"prod_13",
-        "brand":{"@type":"Brand","name":"Livi Jewelry"},
-        "offers":{
-          "@type":"Offer",
-          "url":"https://livijewelry.kz/product/prod_13.html",
-          "price":"35000",
-          "priceCurrency":"KZT",
-          "priceValidUntil":"2027-12-31",
-          "availability":"https://schema.org/InStock",
-          "itemCondition":"https://schema.org/NewCondition",
-          "seller":{"@type":"Organization","name":"Livi Jewelry"},
-          "shippingDetails":{
-            "@type":"OfferShippingDetails",
-            "shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"KZT"},
-            "shippingDestination":{"@type":"DefinedRegion","addressCountry":"KZ"},
-            "deliveryTime":{
-              "@type":"ShippingDeliveryTime",
-              "handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":1,"unitCode":"DAY"},
-              "transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":3,"unitCode":"DAY"}
-            }
-          },
-          "hasMerchantReturnPolicy":{
-            "@type":"MerchantReturnPolicy",
-            "applicableCountry":"KZ",
-            "returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow",
-            "merchantReturnDays":14,
-            "returnMethod":"https://schema.org/ReturnByMail",
-            "returnFees":"https://schema.org/FreeReturn"
-          }
-        }
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Серьги из жемчуга и гарнитуры — Livi Jewelry",
+  "itemListElement": [
+    {
+      "@type": "Product",
+      "position": 1,
+      "name": "Комплект: Колье из жемчуга Майорка, серьги",
+      "image": "https://livijewelry.kz/assets/kole-iz-zhemchuga-mayorka-s-sergami-35000.webp",
+      "description": "В комплекте: Колье из жемчуга Майорка — 35 000 тг, Серьги — 10 000 тг. Полная стоимость комплекта — 45 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.",
+      "sku": "prod_13",
+      "mpn": "prod_13",
+      "brand": {
+        "@type": "Brand",
+        "name": "Livi Jewelry"
       },
-      {
-        "@type":"Product",
-        "position":2,
-        "name":"Колье из аметиста и розового кварца с серьгами",
-        "image":"https://livijewelry.kz/assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp",
-        "description":"Романтичное колье и серьги из натурального аметиста со стойкой фурнитурой.",
-        "sku":"prod_11",
-        "mpn":"prod_11",
-        "brand":{"@type":"Brand","name":"Livi Jewelry"},
-        "offers":{
-          "@type":"Offer",
-          "url":"https://livijewelry.kz/product/prod_11.html",
-          "price":"45000",
-          "priceCurrency":"KZT",
-          "priceValidUntil":"2027-12-31",
-          "availability":"https://schema.org/InStock",
-          "itemCondition":"https://schema.org/NewCondition",
-          "seller":{"@type":"Organization","name":"Livi Jewelry"},
-          "shippingDetails":{
-            "@type":"OfferShippingDetails",
-            "shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"KZT"},
-            "shippingDestination":{"@type":"DefinedRegion","addressCountry":"KZ"},
-            "deliveryTime":{
-              "@type":"ShippingDeliveryTime",
-              "handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":1,"unitCode":"DAY"},
-              "transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":3,"unitCode":"DAY"}
-            }
+      "offers": {
+        "@type": "Offer",
+        "url": "https://livijewelry.kz/product/prod_13.html",
+        "price": "45000.00",
+        "priceCurrency": "KZT",
+        "priceValidUntil": "2027-12-31",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "seller": {
+          "@type": "Organization",
+          "name": "Livi Jewelry"
+        },
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": "0",
+            "currency": "KZT"
           },
-          "hasMerchantReturnPolicy":{
-            "@type":"MerchantReturnPolicy",
-            "applicableCountry":"KZ",
-            "returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow",
-            "merchantReturnDays":14,
-            "returnMethod":"https://schema.org/ReturnByMail",
-            "returnFees":"https://schema.org/FreeReturn"
-          }
-        }
-      },
-      {
-        "@type":"Product",
-        "position":3,
-        "name":"Колье из авантюрина с серьгами",
-        "image":"https://livijewelry.kz/assets/kole-iz-avantyurina-s-sergami-34000.webp",
-        "description":"Мерцающий авантюрин и лаконичные серьги в едином стиле.",
-        "sku":"prod_09",
-        "mpn":"prod_09",
-        "brand":{"@type":"Brand","name":"Livi Jewelry"},
-        "offers":{
-          "@type":"Offer",
-          "url":"https://livijewelry.kz/product/prod_09.html",
-          "price":"34000",
-          "priceCurrency":"KZT",
-          "priceValidUntil":"2027-12-31",
-          "availability":"https://schema.org/InStock",
-          "itemCondition":"https://schema.org/NewCondition",
-          "seller":{"@type":"Organization","name":"Livi Jewelry"},
-          "shippingDetails":{
-            "@type":"OfferShippingDetails",
-            "shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"KZT"},
-            "shippingDestination":{"@type":"DefinedRegion","addressCountry":"KZ"},
-            "deliveryTime":{
-              "@type":"ShippingDeliveryTime",
-              "handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":1,"unitCode":"DAY"},
-              "transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":3,"unitCode":"DAY"}
-            }
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "KZ"
           },
-          "hasMerchantReturnPolicy":{
-            "@type":"MerchantReturnPolicy",
-            "applicableCountry":"KZ",
-            "returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow",
-            "merchantReturnDays":14,
-            "returnMethod":"https://schema.org/ReturnByMail",
-            "returnFees":"https://schema.org/FreeReturn"
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 1,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 3,
+              "unitCode": "DAY"
+            }
           }
+        },
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "KZ",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 14,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/ReturnShippingFees"
         }
       }
-    ]
-  }
+    },
+    {
+      "@type": "Product",
+      "position": 2,
+      "name": "Комплект: Колье из аметиста и розового кварца, серьги из аметиста",
+      "image": "https://livijewelry.kz/assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp",
+      "description": "В комплекте: Колье из аметиста и розового кварца — 45 000 тг, Серьги из аметиста — 16 000 тг. Полная стоимость комплекта — 61 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.",
+      "sku": "prod_11",
+      "mpn": "prod_11",
+      "brand": {
+        "@type": "Brand",
+        "name": "Livi Jewelry"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://livijewelry.kz/product/prod_11.html",
+        "price": "61000.00",
+        "priceCurrency": "KZT",
+        "priceValidUntil": "2027-12-31",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "seller": {
+          "@type": "Organization",
+          "name": "Livi Jewelry"
+        },
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": "0",
+            "currency": "KZT"
+          },
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "KZ"
+          },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 1,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 3,
+              "unitCode": "DAY"
+            }
+          }
+        },
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "KZ",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 14,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/ReturnShippingFees"
+        }
+      }
+    },
+    {
+      "@type": "Product",
+      "position": 3,
+      "name": "Комплект: Колье из авантюрина, серьги",
+      "image": "https://livijewelry.kz/assets/kole-iz-avantyurina-s-sergami-34000.webp",
+      "description": "В комплекте: Колье из авантюрина — 34 000 тг, Серьги — 10 000 тг. Полная стоимость комплекта — 44 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.",
+      "sku": "prod_09",
+      "mpn": "prod_09",
+      "brand": {
+        "@type": "Brand",
+        "name": "Livi Jewelry"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://livijewelry.kz/product/prod_09.html",
+        "price": "44000.00",
+        "priceCurrency": "KZT",
+        "priceValidUntil": "2027-12-31",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "seller": {
+          "@type": "Organization",
+          "name": "Livi Jewelry"
+        },
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": "0",
+            "currency": "KZT"
+          },
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "KZ"
+          },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 1,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 3,
+              "unitCode": "DAY"
+            }
+          }
+        },
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "KZ",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 14,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/ReturnShippingFees"
+        }
+      }
+    }
+  ]
+}
   </script>
 
   <!-- Structured Data: FAQPage -->
@@ -471,11 +554,11 @@
         <!-- Product 1 -->
         <article class="card" onclick="location.href='product/prod_13.html'">
           <div class="card-img-wrap">
-            <img src="assets/kole-iz-zhemchuga-mayorka-s-sergami-35000.webp" alt="Колье из жемчуга Майорка с серьгами" loading="lazy">
+            <img src="assets/kole-iz-zhemchuga-mayorka-s-sergami-35000.webp" alt="Комплект: Колье из жемчуга Майорка, серьги" loading="lazy" width="600" height="800">
           </div>
           <div class="body">
-            <h3 class="title"><a href="product/prod_13.html" class="card-title-link">Колье из жемчуга Майорка с серьгами</a></h3>
-            <div class="price">35 000 ₸</div>
+            <h3 class="title"><a href="product/prod_13.html" class="card-title-link">Комплект: Колье из жемчуга Майорка, серьги</a></h3>
+            <div class="price">45 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Колье 35 000 ₸, серьги 10 000 ₸ (доступны отдельно)</div>
           </div>
         </article>
@@ -483,11 +566,11 @@
         <!-- Product 2 -->
         <article class="card" onclick="location.href='product/prod_11.html'">
           <div class="card-img-wrap">
-            <img src="assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp" alt="Серьги и колье из аметиста и кварца" loading="lazy">
+            <img src="assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp" alt="Комплект: Колье из аметиста и розового кварца, серьги из аметиста" loading="lazy" width="600" height="800">
           </div>
           <div class="body">
-            <h3 class="title"><a href="product/prod_11.html" class="card-title-link">Серьги и колье из аметиста и кварца</a></h3>
-            <div class="price">45 000 ₸</div>
+            <h3 class="title"><a href="product/prod_11.html" class="card-title-link">Комплект: Колье из аметиста и розового кварца, серьги из аметиста</a></h3>
+            <div class="price">61 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Колье 45 000 ₸, серьги из аметиста 16 000 ₸</div>
           </div>
         </article>
@@ -495,11 +578,11 @@
         <!-- Product 3 -->
         <article class="card" onclick="location.href='product/prod_09.html'">
           <div class="card-img-wrap">
-            <img src="assets/kole-iz-avantyurina-s-sergami-34000.webp" alt="Колье из авантюрина с серьгами" loading="lazy">
+            <img src="assets/kole-iz-avantyurina-s-sergami-34000.webp" alt="Комплект: Колье из авантюрина, серьги" loading="lazy" width="600" height="800">
           </div>
           <div class="body">
-            <h3 class="title"><a href="product/prod_09.html" class="card-title-link">Колье из авантюрина с серьгами</a></h3>
-            <div class="price">34 000 ₸</div>
+            <h3 class="title"><a href="product/prod_09.html" class="card-title-link">Комплект: Колье из авантюрина, серьги</a></h3>
+            <div class="price">44 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Колье 34 000 ₸, мерцающие серьги 10 000 ₸</div>
           </div>
         </article>
@@ -507,11 +590,11 @@
         <!-- Product 4 -->
         <article class="card" onclick="location.href='product/prod_12.html'">
           <div class="card-img-wrap">
-            <img src="assets/kole-iz-zhadeita-i-tigrovogo-glaza-s-sergami-36000.webp" alt="Серьги и колье из жадеита и тигрового глаза" loading="lazy">
+            <img src="assets/kole-iz-zhadeita-i-tigrovogo-glaza-s-sergami-36000.webp" alt="Комплект: Колье из Жадеита и Тигрового глаза, серьги из тигрового глаза" loading="lazy" width="600" height="800">
           </div>
           <div class="body">
-            <h3 class="title"><a href="product/prod_12.html" class="card-title-link">Серьги из тигрового глаза и жадеита</a></h3>
-            <div class="price">36 000 ₸</div>
+            <h3 class="title"><a href="product/prod_12.html" class="card-title-link">Комплект: Колье из Жадеита и Тигрового глаза, серьги из тигрового глаза</a></h3>
+            <div class="price">52 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Колье 36 000 ₸, серьги 16 000 ₸</div>
           </div>
         </article>
@@ -519,11 +602,11 @@
         <!-- Product 5 -->
         <article class="card" onclick="location.href='product/prod_14.html'">
           <div class="card-img-wrap">
-            <img src="assets/komplekt-iz-koralla-i-yashmy-40000.webp" alt="Комплект из коралла и яшмы" loading="lazy">
+            <img src="assets/komplekt-iz-koralla-i-yashmy-40000.webp" alt="Комплект: Колье из коралла и яшмы, браслет, серьги" loading="lazy" width="600" height="800">
           </div>
           <div class="body">
-            <h3 class="title"><a href="product/prod_14.html" class="card-title-link">Комплект из коралла и яшмы</a></h3>
-            <div class="price">40 000 ₸</div>
+            <h3 class="title"><a href="product/prod_14.html" class="card-title-link">Комплект: Колье из коралла и яшмы, браслет, серьги</a></h3>
+            <div class="price">60 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Серьги 10 000 ₸, браслет 10 000 ₸, колье 40 000 ₸</div>
           </div>
         </article>
@@ -531,10 +614,10 @@
         <!-- Product 6 -->
         <article class="card" onclick="location.href='product/prod_01.html'">
           <div class="card-img-wrap">
-            <img src="assets/kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Колье из натурального жемчуга" loading="lazy">
+            <img src="assets/kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Колье из натурального жемчуга с барочной подвеской" loading="lazy" width="600" height="800">
           </div>
           <div class="body">
-            <h3 class="title"><a href="product/prod_01.html" class="card-title-link">Колье из натурального жемчуга</a></h3>
+            <h3 class="title"><a href="product/prod_01.html" class="card-title-link">Колье из натурального жемчуга с барочной подвеской</a></h3>
             <div class="price">80 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Идеальная пара к жемчужным пусетам и подвескам</div>
           </div>
@@ -626,6 +709,7 @@
       <div class="links">
         <a href="delivery.html">Доставка, оплата и возврат</a>
         <a href="privacy.html">Политика конфиденциальности</a>
+        <a href="terms.html">Условия использования (Оферта)</a>
         <a href="shop.html">Каталог</a>
         <a href="kolye-iz-zhemchuga.html">Колье</a>
         <a href="braslety-iz-zhemchuga.html">Браслеты</a>
@@ -706,32 +790,56 @@
         item_list_id: 'category_earrings',
         item_list_name: 'Серьги из жемчуга',
         items: [
-          { item_id: 'prod_13', item_name: 'Колье из жемчуга Майорка с серьгами', price: 35000, item_category: 'Necklaces', index: 1 },
-          { item_id: 'prod_11', item_name: 'Колье из аметиста и розового кварца с серьгами', price: 45000, item_category: 'Necklaces', index: 2 },
-          { item_id: 'prod_09', item_name: 'Колье из авантюрина с серьгами', price: 34000, item_category: 'Necklaces', index: 3 }
+          { item_id: 'prod_13', item_name: 'Комплект: колье из жемчуга Майорка, серьги', price: 45000, item_category: 'Sets', index: 1 },
+          { item_id: 'prod_11', item_name: 'Комплект: колье из аметиста и розового кварца, серьги из аметиста', price: 61000, item_category: 'Sets', index: 2 },
+          { item_id: 'prod_09', item_name: 'Комплект: колье из авантюрина, серьги', price: 44000, item_category: 'Sets', index: 3 }
         ]
       });
     }
 
-    // WhatsApp Conversion Tracking (Google Ads + GA4 generate_lead + Meta Pixel)
-    document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
-      a.addEventListener('click', function() {
-        try {
-          if (typeof gtag === 'function') {
-            gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_sergi', value: 35000, currency: 'KZT' });
-            gtag('event', 'generate_lead', { lead_source: 'whatsapp_sergi', value: 35000, currency: 'KZT' });
+    // Contact Conversion Tracking (WhatsApp & Instagram)
+    document.addEventListener('click', function(e) {
+      const a = e.target.closest('a[href]');
+      if (!a) return;
+      const href = a.getAttribute('href') || '';
+      const isWa = href.includes('wa.me') || href.includes('whatsapp.com');
+      const isIg = href.includes('instagram.com');
+      if (!isWa && !isIg) return;
+
+      const method = isWa ? 'WhatsApp' : 'Instagram';
+      const val = 35000;
+      try {
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', {
+            currency: 'KZT',
+            value: val,
+            method: method,
+            page_location: window.location.href,
+            item_id: ''
+          });
+          gtag('event', 'contact', {
+            currency: 'KZT',
+            value: val,
+            method: method,
+            page_location: window.location.href,
+            item_id: ''
+          });
+          if (isWa) {
             gtag('event', 'conversion', {
               'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
-              'value': Math.round(35000 * 0.2),
+              'value': Math.round(val * 0.2),
               'currency': 'KZT',
-              'transaction_id': 'WA-SERGI-' + Date.now()
+              'transaction_id': 'LIVI-LEAD-' + Date.now()
             });
           }
-          if (typeof fbq === 'function') {
-            fbq('track', 'Contact');
-          }
-        } catch(e) {}
-      });
+        }
+        if (typeof fbq === 'function') fbq('track', 'Contact');
+      } catch(err) {}
+
+      if (a.getAttribute('target') !== '_blank' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        setTimeout(function() { window.location.href = href; }, 150);
+      }
     });
   </script>
 </body>

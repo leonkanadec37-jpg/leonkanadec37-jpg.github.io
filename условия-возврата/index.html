@@ -2,12 +2,43 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="refresh" content="0; url=delivery.html" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="refresh" content="0; url=https://livijewelry.kz/delivery.html" />
   <link rel="canonical" href="https://livijewelry.kz/delivery.html" />
-  <title>Условия возврата и обмена | Livi Jewelry</title>
-  <script>window.location.replace("delivery.html");</script>
+  <meta name="google-site-verification" content="qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0" />
+  <title>Условия возврата и обмена (14 дней) | Livi Jewelry</title>
+  <!-- Google tag (GA4 + Ads) with Google Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YFF2TR0N36"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      'ad_storage': 'granted',
+      'analytics_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'wait_for_update': 500
+    });
+    gtag('set', 'url_passthrough', true);
+    gtag('set', 'ads_data_redaction', false);
+    gtag('js', new Date());
+    gtag('config', 'G-YFF2TR0N36');
+    gtag('config', 'AW-16793974126', { 'allow_enhanced_conversions': true });
+    window.location.replace("/delivery.html" + window.location.search);
+  </script>
 </head>
 <body>
-  <p>Перенаправление на страницу <a href="delivery.html">Условия возврата и доставки</a>...</p>
+  <p>Условия возврата и обмена в течение 14 дней доступны на странице <a href="/delivery.html">Доставка, оплата и возврат</a> или в <a href="https://wa.me/77054510584" target="_blank" rel="noopener">WhatsApp +7 705 451 05 84</a>.</p>
+  <script>
+    document.addEventListener('click', function(e) {
+      const a = e.target.closest('a[href]');
+      if (!a) return;
+      const href = a.getAttribute('href') || '';
+      if (href.includes('wa.me') && typeof gtag === 'function') {
+        gtag('event', 'generate_lead', { currency: 'KZT', value: 40000, method: 'WhatsApp', page_location: window.location.href });
+        gtag('event', 'contact', { currency: 'KZT', value: 40000, method: 'WhatsApp', page_location: window.location.href });
+      }
+    });
+  </script>
 </body>
 </html>

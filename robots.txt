@@ -1,4 +1,26 @@
 User-agent: *
 Allow: /
+Allow: /product/
+Allow: /assets/
+
+User-agent: Googlebot
+Allow: /
+Allow: /product/
+Allow: /assets/
+
+User-agent: Googlebot-Image
+Allow: /
+Allow: /product/
+Allow: /assets/
+
+User-agent: Storebot-Google
+Allow: /
+Allow: /product/
+Allow: /assets/
+
+User-agent: AdsBot-Google
+Allow: /
+Allow: /product/
+Allow: /assets/
 
 Sitemap: https://livijewelry.kz/sitemap.xml

@@ -32,14 +32,28 @@
   <meta name="theme-color" content="#141312">
   <meta name="msapplication-TileColor" content="#141312">
 
-  <!-- Google tag (GA4 + Ads) -->
+  <!-- Google tag (GA4 + Ads) with Google Consent Mode v2 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YFF2TR0N36"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      'ad_storage': 'granted',
+      'analytics_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'wait_for_update': 500
+    });
+    gtag('set', 'url_passthrough', true);
+    gtag('set', 'ads_data_redaction', false);
     gtag('js', new Date());
-    gtag('config', 'G-YFF2TR0N36');
-    gtag('config', 'AW-16793974126', { allow_enhanced_conversions: true });
+    gtag('config', 'G-YFF2TR0N36', {
+      'linker': { 'domains': ['livijewelry.kz', 'www.livijewelry.kz'], 'accept_incoming': true }
+    });
+    gtag('config', 'AW-16793974126', {
+      'allow_enhanced_conversions': true,
+      'linker': { 'domains': ['livijewelry.kz', 'www.livijewelry.kz'], 'accept_incoming': true }
+    });
   </script>
 
   <!-- Meta Pixel Code (Dual Pixel: Primary 199604456030882 + Secondary 4185620171718327) -->
@@ -79,127 +93,196 @@
 
   <!-- Structured Data: ItemList -->
   <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"ItemList",
-    "name":"Колье и чокеры из натурального жемчуга — Livi Jewelry",
-    "itemListElement":[
-      {
-        "@type":"Product",
-        "position":1,
-        "name":"Колье из натурального жемчуга",
-        "image":"https://livijewelry.kz/assets/kole-iz-naturalnogo-zhemchuga-80000.webp",
-        "description":"Роскошное многорядное колье из отборного натурального жемчуга с акцентной подвеской из крупной барочной жемчужины.",
-        "sku":"prod_01",
-        "mpn":"prod_01",
-        "brand":{"@type":"Brand","name":"Livi Jewelry"},
-        "offers":{
-          "@type":"Offer",
-          "url":"https://livijewelry.kz/product/prod_01.html",
-          "price":"80000",
-          "priceCurrency":"KZT",
-          "priceValidUntil":"2027-12-31",
-          "availability":"https://schema.org/InStock",
-          "itemCondition":"https://schema.org/NewCondition",
-          "seller":{"@type":"Organization","name":"Livi Jewelry"},
-          "shippingDetails":{
-            "@type":"OfferShippingDetails",
-            "shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"KZT"},
-            "shippingDestination":{"@type":"DefinedRegion","addressCountry":"KZ"},
-            "deliveryTime":{
-              "@type":"ShippingDeliveryTime",
-              "handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":1,"unitCode":"DAY"},
-              "transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":3,"unitCode":"DAY"}
-            }
-          },
-          "hasMerchantReturnPolicy":{
-            "@type":"MerchantReturnPolicy",
-            "applicableCountry":"KZ",
-            "returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow",
-            "merchantReturnDays":14,
-            "returnMethod":"https://schema.org/ReturnByMail",
-            "returnFees":"https://schema.org/FreeReturn"
-          }
-        }
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Колье и чокеры из натурального жемчуга — Livi Jewelry",
+  "itemListElement": [
+    {
+      "@type": "Product",
+      "position": 1,
+      "name": "Колье из натурального жемчуга с барочной подвеской",
+      "image": "https://livijewelry.kz/assets/kole-iz-naturalnogo-zhemchuga-80000.webp",
+      "description": "Роскошное многорядное колье из отборного натурального жемчуга с акцентной подвеской из крупной барочной жемчужины.",
+      "sku": "prod_01",
+      "mpn": "prod_01",
+      "brand": {
+        "@type": "Brand",
+        "name": "Livi Jewelry"
       },
-      {
-        "@type":"Product",
-        "position":2,
-        "name":"Колье из натурального жемчуга (Премиум)",
-        "image":"https://livijewelry.kz/assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp",
-        "description":"Многослойное колье из натурального жемчуга премиальной селекции и горного хрусталя.",
-        "sku":"prod_02",
-        "mpn":"prod_02",
-        "brand":{"@type":"Brand","name":"Livi Jewelry"},
-        "offers":{
-          "@type":"Offer",
-          "url":"https://livijewelry.kz/product/prod_02.html",
-          "price":"80000",
-          "priceCurrency":"KZT",
-          "priceValidUntil":"2027-12-31",
-          "availability":"https://schema.org/InStock",
-          "itemCondition":"https://schema.org/NewCondition",
-          "seller":{"@type":"Organization","name":"Livi Jewelry"},
-          "shippingDetails":{
-            "@type":"OfferShippingDetails",
-            "shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"KZT"},
-            "shippingDestination":{"@type":"DefinedRegion","addressCountry":"KZ"},
-            "deliveryTime":{
-              "@type":"ShippingDeliveryTime",
-              "handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":1,"unitCode":"DAY"},
-              "transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":3,"unitCode":"DAY"}
-            }
+      "offers": {
+        "@type": "Offer",
+        "url": "https://livijewelry.kz/product/prod_01.html",
+        "price": "80000.00",
+        "priceCurrency": "KZT",
+        "priceValidUntil": "2027-12-31",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "seller": {
+          "@type": "Organization",
+          "name": "Livi Jewelry"
+        },
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": "0",
+            "currency": "KZT"
           },
-          "hasMerchantReturnPolicy":{
-            "@type":"MerchantReturnPolicy",
-            "applicableCountry":"KZ",
-            "returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow",
-            "merchantReturnDays":14,
-            "returnMethod":"https://schema.org/ReturnByMail",
-            "returnFees":"https://schema.org/FreeReturn"
-          }
-        }
-      },
-      {
-        "@type":"Product",
-        "position":3,
-        "name":"Колье из жемчуга Майорка",
-        "image":"https://livijewelry.kz/assets/kole-iz-zhemchuga-mayorka-34000.webp",
-        "description":"Многослойное колье из жемчуга Майорка ручной работы с расписными элементами.",
-        "sku":"prod_03",
-        "mpn":"prod_03",
-        "brand":{"@type":"Brand","name":"Livi Jewelry"},
-        "offers":{
-          "@type":"Offer",
-          "url":"https://livijewelry.kz/product/prod_03.html",
-          "price":"34000",
-          "priceCurrency":"KZT",
-          "priceValidUntil":"2027-12-31",
-          "availability":"https://schema.org/InStock",
-          "itemCondition":"https://schema.org/NewCondition",
-          "seller":{"@type":"Organization","name":"Livi Jewelry"},
-          "shippingDetails":{
-            "@type":"OfferShippingDetails",
-            "shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"KZT"},
-            "shippingDestination":{"@type":"DefinedRegion","addressCountry":"KZ"},
-            "deliveryTime":{
-              "@type":"ShippingDeliveryTime",
-              "handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":1,"unitCode":"DAY"},
-              "transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":3,"unitCode":"DAY"}
-            }
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "KZ"
           },
-          "hasMerchantReturnPolicy":{
-            "@type":"MerchantReturnPolicy",
-            "applicableCountry":"KZ",
-            "returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow",
-            "merchantReturnDays":14,
-            "returnMethod":"https://schema.org/ReturnByMail",
-            "returnFees":"https://schema.org/FreeReturn"
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 1,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 3,
+              "unitCode": "DAY"
+            }
           }
+        },
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "KZ",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 14,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/ReturnShippingFees"
         }
       }
-    ]
-  }
+    },
+    {
+      "@type": "Product",
+      "position": 2,
+      "name": "Колье из натурального жемчуга и горного хрусталя (Премиум)",
+      "image": "https://livijewelry.kz/assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp",
+      "description": "Многослойное колье из натурального жемчуга премиальной селекции и горного хрусталя с акцентной барочной жемчужиной.",
+      "sku": "prod_02",
+      "mpn": "prod_02",
+      "brand": {
+        "@type": "Brand",
+        "name": "Livi Jewelry"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://livijewelry.kz/product/prod_02.html",
+        "price": "80000.00",
+        "priceCurrency": "KZT",
+        "priceValidUntil": "2027-12-31",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "seller": {
+          "@type": "Organization",
+          "name": "Livi Jewelry"
+        },
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": "0",
+            "currency": "KZT"
+          },
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "KZ"
+          },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 1,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 3,
+              "unitCode": "DAY"
+            }
+          }
+        },
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "KZ",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 14,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/ReturnShippingFees"
+        }
+      }
+    },
+    {
+      "@type": "Product",
+      "position": 3,
+      "name": "Колье из жемчуга Майорка",
+      "image": "https://livijewelry.kz/assets/kole-iz-zhemchuga-mayorka-34000.webp",
+      "description": "Многослойное колье из жемчуга Майорка ручной работы с расписными элементами и подвеской.",
+      "sku": "prod_03",
+      "mpn": "prod_03",
+      "brand": {
+        "@type": "Brand",
+        "name": "Livi Jewelry"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://livijewelry.kz/product/prod_03.html",
+        "price": "34000.00",
+        "priceCurrency": "KZT",
+        "priceValidUntil": "2027-12-31",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "seller": {
+          "@type": "Organization",
+          "name": "Livi Jewelry"
+        },
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": "0",
+            "currency": "KZT"
+          },
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "KZ"
+          },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 1,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 3,
+              "unitCode": "DAY"
+            }
+          }
+        },
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "KZ",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 14,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/ReturnShippingFees"
+        }
+      }
+    }
+  ]
+}
   </script>
 
   <!-- Structured Data: FAQPage -->
@@ -472,10 +555,10 @@
         <!-- Product 1 -->
         <article class="card" onclick="location.href='product/prod_01.html'">
           <div class="card-img-wrap">
-            <img src="assets/kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Колье из натурального жемчуга" loading="lazy">
+            <img src="assets/kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Колье из натурального жемчуга с барочной подвеской" loading="lazy" width="600" height="800">
           </div>
           <div class="body">
-            <h3 class="title"><a href="product/prod_01.html" class="card-title-link">Колье из натурального жемчуга</a></h3>
+            <h3 class="title"><a href="product/prod_01.html" class="card-title-link">Колье из натурального жемчуга с барочной подвеской</a></h3>
             <div class="price">80 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Натуральный речной жемчуг, барочная жемчужина</div>
           </div>
@@ -484,10 +567,10 @@
         <!-- Product 2 -->
         <article class="card" onclick="location.href='product/prod_02.html'">
           <div class="card-img-wrap">
-            <img src="assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp" alt="Колье из натурального жемчуга Премиум" loading="lazy">
+            <img src="assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp" alt="Колье из натурального жемчуга и горного хрусталя (Премиум)" loading="lazy" width="600" height="800">
           </div>
           <div class="body">
-            <h3 class="title"><a href="product/prod_02.html" class="card-title-link">Колье из натурального жемчуга (Премиум)</a></h3>
+            <h3 class="title"><a href="product/prod_02.html" class="card-title-link">Колье из натурального жемчуга и горного хрусталя (Премиум)</a></h3>
             <div class="price">80 000 ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Отборный жемчуг, горный хрусталь</div>
           </div>
@@ -496,7 +579,7 @@
         <!-- Product 3 -->
         <article class="card" onclick="location.href='product/prod_03.html'">
           <div class="card-img-wrap">
-            <img src="assets/kole-iz-zhemchuga-mayorka-34000.webp" alt="Колье из жемчуга Майорка" loading="lazy">
+            <img src="assets/kole-iz-zhemchuga-mayorka-34000.webp" alt="Колье из жемчуга Майорка" loading="lazy" width="600" height="800">
           </div>
           <div class="body">
             <h3 class="title"><a href="product/prod_03.html" class="card-title-link">Колье из жемчуга Майорка</a></h3>
@@ -508,31 +591,31 @@
         <!-- Product 4 -->
         <article class="card" onclick="location.href='product/prod_08.html'">
           <div class="card-img-wrap">
-            <img src="assets/kole-lapy-40000.webp" alt="Дизайнерское колье Лапы" loading="lazy">
+            <img src="assets/kole-lapy-40000.webp" alt="Колье «Лапы» из натурального жемчуга" loading="lazy" width="600" height="800">
           </div>
           <div class="body">
-            <h3 class="title"><a href="product/prod_08.html" class="card-title-link">Колье «Лапы»</a></h3>
+            <h3 class="title"><a href="product/prod_08.html" class="card-title-link">Колье «Лапы» из натурального жемчуга</a></h3>
             <div class="price">40 000 ₸</div>
-            <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Крупный барочный жемчуг, позолота</div>
+            <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Колье 40 000 ₸, браслет 17 000 ₸, серьги 17 000 ₸</div>
           </div>
         </article>
 
         <!-- Product 5 -->
         <article class="card" onclick="location.href='product/prod_15.html'">
           <div class="card-img-wrap">
-            <img src="assets/kole-iz-rozovogo-kvartsa-i-zhemchuga-s-sergami-40000.webp" alt="Колье из розового кварца и жемчуга" loading="lazy">
+            <img src="assets/kole-iz-rozovogo-kvartsa-i-zhemchuga-s-sergami-40000.webp" alt="Комплект: Колье из розового кварца и жемчуга, серьги" loading="lazy" width="600" height="800">
           </div>
           <div class="body">
-            <h3 class="title"><a href="product/prod_15.html" class="card-title-link">Колье из розового кварца и жемчуга</a></h3>
-            <div class="price">40 000 ₸</div>
-            <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Розовый кварц, жемчуг (серьги в комплект)</div>
+            <h3 class="title"><a href="product/prod_15.html" class="card-title-link">Комплект: Колье из розового кварца и жемчуга, серьги</a></h3>
+            <div class="price">56 000 ₸</div>
+            <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Колье 40 000 ₸, серьги 16 000 ₸ (доступны отдельно)</div>
           </div>
         </article>
 
         <!-- Product 6 -->
         <article class="card" onclick="location.href='product/prod_17.html'">
           <div class="card-img-wrap">
-            <img src="assets/ukrashenie-sotuar-iz-agata-i-granata-36000.webp" alt="Украшение-сотуар из агата и граната" loading="lazy">
+            <img src="assets/ukrashenie-sotuar-iz-agata-i-granata-36000.webp" alt="Украшение-сотуар из агата и граната" loading="lazy" width="600" height="800">
           </div>
           <div class="body">
             <h3 class="title"><a href="product/prod_17.html" class="card-title-link">Украшение-сотуар из агата и граната</a></h3>
@@ -632,6 +715,7 @@
       <div class="links">
         <a href="delivery.html">Доставка, оплата и возврат</a>
         <a href="privacy.html">Политика конфиденциальности</a>
+        <a href="terms.html">Условия использования (Оферта)</a>
         <a href="shop.html">Каталог</a>
         <a href="kolye-iz-zhemchuga.html">Колье</a>
         <a href="braslety-iz-zhemchuga.html">Браслеты</a>
@@ -712,33 +796,57 @@
         item_list_id: 'category_necklaces',
         item_list_name: 'Колье из жемчуга',
         items: [
-          { item_id: 'prod_01', item_name: 'Колье из натурального жемчуга', price: 80000, item_category: 'Necklaces', index: 1 },
-          { item_id: 'prod_02', item_name: 'Колье из натурального жемчуга (Премиум)', price: 80000, item_category: 'Necklaces', index: 2 },
+          { item_id: 'prod_01', item_name: 'Колье многорядное из натурального жемчуга с барочной подвеской', price: 80000, item_category: 'Necklaces', index: 1 },
+          { item_id: 'prod_02', item_name: 'Колье многослойное из натурального жемчуга и горного хрусталя (Премиум)', price: 80000, item_category: 'Necklaces', index: 2 },
           { item_id: 'prod_03', item_name: 'Колье из жемчуга Майорка', price: 34000, item_category: 'Necklaces', index: 3 },
-          { item_id: 'prod_08', item_name: 'Колье «Лапы»', price: 40000, item_category: 'Necklaces', index: 4 }
+          { item_id: 'prod_08', item_name: 'Комплект «Лапы»: колье, браслет и серьги с барочным жемчугом', price: 74000, item_category: 'Sets', index: 4 }
         ]
       });
     }
 
-    // WhatsApp Conversion Tracking (Google Ads + GA4 generate_lead + Meta Pixel)
-    document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
-      a.addEventListener('click', function() {
-        try {
-          if (typeof gtag === 'function') {
-            gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_kolye', value: 45000, currency: 'KZT' });
-            gtag('event', 'generate_lead', { lead_source: 'whatsapp_kolye', value: 45000, currency: 'KZT' });
+    // Contact Conversion Tracking (WhatsApp & Instagram)
+    document.addEventListener('click', function(e) {
+      const a = e.target.closest('a[href]');
+      if (!a) return;
+      const href = a.getAttribute('href') || '';
+      const isWa = href.includes('wa.me') || href.includes('whatsapp.com');
+      const isIg = href.includes('instagram.com');
+      if (!isWa && !isIg) return;
+
+      const method = isWa ? 'WhatsApp' : 'Instagram';
+      const val = 45000;
+      try {
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', {
+            currency: 'KZT',
+            value: val,
+            method: method,
+            page_location: window.location.href,
+            item_id: ''
+          });
+          gtag('event', 'contact', {
+            currency: 'KZT',
+            value: val,
+            method: method,
+            page_location: window.location.href,
+            item_id: ''
+          });
+          if (isWa) {
             gtag('event', 'conversion', {
               'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
-              'value': Math.round(45000 * 0.2),
+              'value': Math.round(val * 0.2),
               'currency': 'KZT',
-              'transaction_id': 'WA-KOLYE-' + Date.now()
+              'transaction_id': 'LIVI-LEAD-' + Date.now()
             });
           }
-          if (typeof fbq === 'function') {
-            fbq('track', 'Contact');
-          }
-        } catch(e) {}
-      });
+        }
+        if (typeof fbq === 'function') fbq('track', 'Contact');
+      } catch(err) {}
+
+      if (a.getAttribute('target') !== '_blank' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        setTimeout(function() { window.location.href = href; }, 150);
+      }
     });
   </script>
 </body>

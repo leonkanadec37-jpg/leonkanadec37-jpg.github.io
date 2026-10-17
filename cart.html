@@ -26,14 +26,23 @@
   <meta name="theme-color" content="#111111">
   <meta name="msapplication-TileColor" content="#111111">
 
-  <!-- Google tag (gtag.js): GA4 + Google Ads -->
+  <!-- Google tag (gtag.js): Consent Mode v2 + GA4 + Google Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YFF2TR0N36"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      'ad_storage': 'granted',
+      'analytics_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'wait_for_update': 500
+    });
+    gtag('set', 'url_passthrough', true);
+    gtag('set', 'ads_data_redaction', false);
     gtag('js', new Date());
-    gtag('config', 'G-YFF2TR0N36');
-    gtag('config', 'AW-16793974126', { allow_enhanced_conversions: true });
+    gtag('config', 'G-YFF2TR0N36', { 'linker': { 'domains': ['livijewelry.kz'] } });
+    gtag('config', 'AW-16793974126', { 'allow_enhanced_conversions': true, 'linker': { 'domains': ['livijewelry.kz'] } });
   </script>
 
   <!-- Meta Pixel Code (ID: 199604456030882) -->
@@ -398,9 +407,7 @@
     }
 
     function generateOrderId(){
-      const rand = Math.floor(100 + Math.random() * 900);
-      const datePart = new Date().toISOString().slice(2,10).replace(/-/g,'');
-      return `LV-${datePart}-${rand}`;
+      return `LIVI-${Date.now()}`;
     }
 
     function render(){
@@ -425,7 +432,7 @@
         const rawImg = i.img || i.image || 'assets/placeholder.jpg';
         const imgSrc = rawImg.startsWith('../') ? rawImg.slice(3) : rawImg;
         row.innerHTML = `
-          <div class="thumb"><img src="${imgSrc}" alt="" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" loading="lazy" decoding="async"></div>
+          <div class="thumb"><img src="${imgSrc}" alt="${(i.title||'Украшение Livi Jewelry').replace(/"/g, '&quot;')}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" loading="lazy" decoding="async" width="80" height="106"></div>
           <div class="item-info">
             <div class="title">${i.title||''}</div>
             <div class="muted item-price">${i.price||''}</div>
@@ -675,23 +682,25 @@
         waAltBtn.addEventListener('click', () => {
           try {
             if (typeof gtag === 'function') {
-              gtag('event', 'whatsapp_click', {
-                currency: 'KZT',
-                value: total,
-                lead_source: 'cart_whatsapp_direct',
-                items: dynamicItems
-              });
               gtag('event', 'generate_lead', {
                 currency: 'KZT',
                 value: total,
+                method: 'WhatsApp',
+                page_location: window.location.href,
                 lead_source: 'cart_whatsapp_direct',
                 items: dynamicItems
+              });
+              gtag('event', 'contact', {
+                currency: 'KZT',
+                value: total,
+                method: 'WhatsApp',
+                page_location: window.location.href
               });
               gtag('event', 'conversion', {
                 'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
                 'value': Math.round(total * 0.2),
                 'currency': 'KZT',
-                'transaction_id': 'WA-CART-' + Date.now()
+                'transaction_id': 'LIVI-LEAD-' + Date.now()
               });
             }
             if (typeof fbq === 'function') fbq('track', 'Contact');
@@ -861,36 +870,38 @@
 
     applyLang(); render(); updateBadge();
 
-    /* ===== Конверсия WhatsApp кликов (сохранена) ===== */
-    (function(){
-      function isWaLink(a){
-        if(!a || !a.href) return false;
-        const href = a.href.toLowerCase();
-        return href.includes('wa.me') || href.includes('whatsapp');
-      }
-      function reportConversion(url){
-        try{
-          if(window.fbq) fbq('track', 'Contact');
-          if(typeof gtag === 'function'){
-            gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_cart' });
-            gtag('event', 'generate_lead', { lead_source: 'whatsapp_cart' });
-          }
-          if(url){ window.location = url; }
-          return false;
-        }catch(e){
-          if(url){ window.location = url; }
-          return false;
+    /* ===== Конверсия WhatsApp и Instagram кликов (без обрыва маячков) ===== */
+    document.addEventListener('click', function(e){
+      const a = e.target.closest('a[href]');
+      if(!a || a.id === 'waAltBtn' || a.id === 'modalWaBtn') return;
+      const href = a.getAttribute('href') || '';
+      const isWa = href.includes('wa.me') || href.includes('whatsapp.com');
+      const isIg = href.includes('instagram.com');
+      if(!isWa && !isIg) return;
+      const method = isWa ? 'WhatsApp' : 'Instagram';
+      const val = calculateCartTotal() || 30000;
+      try{
+        if(window.fbq) fbq('track', 'Contact');
+        if(typeof gtag === 'function'){
+          gtag('event', 'generate_lead', {
+            currency: 'KZT',
+            value: val,
+            method: method,
+            page_location: window.location.href
+          });
+          gtag('event', 'contact', {
+            currency: 'KZT',
+            value: val,
+            method: method,
+            page_location: window.location.href
+          });
         }
+      }catch(err){}
+      if(a.getAttribute('target') !== '_blank' && !e.ctrlKey && !e.metaKey){
+        e.preventDefault();
+        setTimeout(function(){ window.location.href = href; }, 150);
       }
-      document.addEventListener('click', function(e){
-        const a = e.target.closest('a');
-        if(!a) return;
-        if(isWaLink(a) && a.id !== 'modalWaBtn'){
-          e.preventDefault();
-          reportConversion(a.href);
-        }
-      });
-    })();
+    });
     const cfy = document.getElementById('cartFootYear'); if(cfy) cfy.textContent = new Date().getFullYear();
   </script>
 
@@ -900,6 +911,7 @@
       <div class="links">
         <a href="delivery.html">Доставка, оплата и возврат</a>
         <a href="privacy.html">Политика конфиденциальности</a>
+        <a href="terms.html">Условия использования</a>
         <a href="shop.html">Каталог</a>
       </div>
       <div class="copy">© <span id="cartFootYear"></span> Livi Jewelry — Все права защищены.</div>

@@ -8,23 +8,24 @@ Fully optimized for Google Shopping, Performance Max, and Google StoreBot.
 
 import json
 import os
+import urllib.parse
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 
 BASE_URL = "https://livijewelry.kz"
 PRODUCTS_FILE = "products.json"
 FEED_FILE = "google_merchant_feed.xml"
+ALIAS_FEED_FILE = "feed.xml"
 
-# Category mapping to Google Product Taxonomy (Apparel & Accessories > Jewelry)
-# 188: Jewelry, 197: Necklaces, 191: Bracelets, 200: Jewelry Sets, 194: Earrings
+# Category mapping to Google Product Taxonomy (188: Apparel & Accessories > Jewelry)
 GOOGLE_CATEGORIES = {
-    "Necklaces": ("197", "Apparel & Accessories > Jewelry > Necklaces", "Украшения > Колье", "Колье"),
-    "Bracelets": ("191", "Apparel & Accessories > Jewelry > Bracelets", "Украшения > Браслеты", "Браслет"),
-    "Sets": ("200", "Apparel & Accessories > Jewelry > Jewelry Sets", "Украшения > Комплекты", "Комплект"),
-    "Lariats": ("197", "Apparel & Accessories > Jewelry > Necklaces", "Украшения > Сотуары", "Сотуар"),
-    "Chains": ("197", "Apparel & Accessories > Jewelry > Necklaces", "Украшения > Цепи", "Цепь"),
-    "Rings": ("200", "Apparel & Accessories > Jewelry > Rings", "Украшения > Кольца", "Кольцо"),
-    "Earrings": ("194", "Apparel & Accessories > Jewelry > Earrings", "Украшения > Серьги", "Серьги"),
+    "Necklaces": ("188", "Apparel & Accessories > Jewelry > Necklaces", "Украшения > Колье", "Колье"),
+    "Bracelets": ("188", "Apparel & Accessories > Jewelry > Bracelets", "Украшения > Браслеты", "Браслет"),
+    "Sets": ("188", "Apparel & Accessories > Jewelry > Jewelry Sets", "Украшения > Комплекты", "Комплект"),
+    "Lariats": ("188", "Apparel & Accessories > Jewelry > Necklaces", "Украшения > Сотуары", "Сотуар"),
+    "Chains": ("188", "Apparel & Accessories > Jewelry > Necklaces", "Украшения > Цепи", "Цепь"),
+    "Rings": ("188", "Apparel & Accessories > Jewelry > Rings", "Украшения > Кольца", "Кольцо"),
+    "Earrings": ("188", "Apparel & Accessories > Jewelry > Earrings", "Украшения > Серьги", "Серьги"),
 }
 
 def detect_color(title, materials):
@@ -35,8 +36,10 @@ def detect_color(title, materials):
         return "Фиолетовый"
     if "тигров" in text:
         return "Коричневый / Золотистый"
-    if "жадеит" in text:
+    if "жадеит" in text or "нефрит" in text:
         return "Зеленый"
+    if "лазурит" in text:
+        return "Синий"
     if "гранат" in text:
         return "Бордовый / Темно-красный"
     if "агат" in text:
@@ -86,26 +89,20 @@ def generate_feed():
         item = ET.SubElement(channel, "item")
         pid = str(p.get("id"))
 
-        # 1. Basic ID / SKU
+        # 1. Basic ID / SKU (exact match with JSON-LD sku on /product/prod_XX.html)
         g_id = ET.SubElement(item, "g:id")
         g_id.text = pid
 
-        # 2. Optimized Title for Google Shopping Algorithm
-        # Formula: {title} Livi Jewelry — Натуральный жемчуг ({category_ru})
-        title = p.get("title", "Украшение Livi Jewelry")
+        # 2. Exact Product Title matching <h1> and JSON-LD name on /product/prod_XX.html
+        title = p.get("title", "Украшение Livi Jewelry").strip()
         cat_key = p.get("category", "Necklaces")
         cat_info = GOOGLE_CATEGORIES.get(cat_key, ("188", "Apparel & Accessories > Jewelry", "Украшения", "Украшение"))
-        cat_ru = cat_info[3]
-
-        feed_title = f"{title} Livi Jewelry — Натуральный жемчуг ({cat_ru})"
-        if len(feed_title) > 150:
-            feed_title = feed_title[:147] + "..."
 
         g_title = ET.SubElement(item, "g:title")
-        g_title.text = feed_title
+        g_title.text = title
 
         # 3. Description
-        desc = p.get("description", title)
+        desc = p.get("description", title).strip()
         g_desc = ET.SubElement(item, "g:description")
         g_desc.text = desc
 
@@ -113,10 +110,11 @@ def generate_feed():
         g_link = ET.SubElement(item, "g:link")
         g_link.text = f"{BASE_URL}/product/{pid}.html"
 
-        # 5. Image Link
+        # 5. Properly Escaped HTTPS Image Link
         img_rel = p.get("image", "").lstrip("/")
+        img_quoted = "/".join(urllib.parse.quote(part) for part in img_rel.split("/"))
         g_img = ET.SubElement(item, "g:image_link")
-        g_img.text = f"{BASE_URL}/{img_rel}"
+        g_img.text = f"{BASE_URL}/{img_quoted}"
 
         # 6. Availability & Condition
         g_avail = ET.SubElement(item, "g:availability")
@@ -125,18 +123,18 @@ def generate_feed():
         g_cond = ET.SubElement(item, "g:condition")
         g_cond.text = "new"
 
-        # 7. Price in KZT
-        price_num = int(p.get("price", 0))
+        # 7. Price in KZT (formatted as 23000.00 KZT matching JSON-LD offers.price)
+        price_num = float(p.get("price", 0))
         g_price = ET.SubElement(item, "g:price")
-        g_price.text = f"{price_num} KZT"
+        g_price.text = f"{price_num:.2f} KZT"
 
         # 8. Brand
         g_brand = ET.SubElement(item, "g:brand")
         g_brand.text = "Livi Jewelry"
 
-        # 9. Google Categories & Product Type
+        # 9. Google Product Category (188: Apparel & Accessories > Jewelry) & Product Type
         g_cat = ET.SubElement(item, "g:google_product_category")
-        g_cat.text = cat_info[0]
+        g_cat.text = "188"
 
         g_prod_type = ET.SubElement(item, "g:product_type")
         g_prod_type.text = cat_info[2]
@@ -169,7 +167,7 @@ def generate_feed():
         else:
             g_label1.text = "Entry_Ticket"
 
-        # 13. Handmade / Custom product identifier
+        # 13. Handmade / Custom product identifier (mandatory for handmade jewelry without GTIN/MPN)
         g_identifier = ET.SubElement(item, "g:identifier_exists")
         g_identifier.text = "no"
 
@@ -181,7 +179,10 @@ def generate_feed():
     with open(FEED_FILE, "w", encoding="utf-8") as f:
         f.write(pretty_xml)
 
-    print(f"[OK] Successfully generated Google Merchant Feed: {FEED_FILE} ({len(products)} products)")
+    with open(ALIAS_FEED_FILE, "w", encoding="utf-8") as f:
+        f.write(pretty_xml)
+
+    print(f"[OK] Successfully generated Google Merchant Feed: {FEED_FILE} & {ALIAS_FEED_FILE} ({len(products)} products)")
 
 if __name__ == "__main__":
     generate_feed()

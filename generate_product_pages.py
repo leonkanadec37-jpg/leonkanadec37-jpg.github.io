@@ -7,6 +7,7 @@ Google Merchant Center, Google Ads Quality Score and organic SEO.
 """
 
 import os
+import re
 import json
 import urllib.parse
 
@@ -42,9 +43,10 @@ def generate_product_pages():
 
     for idx, p in enumerate(products):
         pid = p.get("id")
-        title = p.get("title", "Украшение Livi Jewelry")
+        title = p.get("title", "Украшение Livi Jewelry").strip()
         price = int(p.get("price", 0))
         price_fmt = f"{price:,}".replace(",", " ")
+        price_decimal = f"{price:.2f}"
         image_rel = p.get("image", "").lstrip("/")
         image_abs = f"{BASE_URL}/{image_rel}"
         cat_key = p.get("category", "Necklaces")
@@ -52,17 +54,18 @@ def generate_product_pages():
         cat_name = cat_info[0]
         cat_url = cat_info[1]
         materials = p.get("materials", [])
-        desc = p.get("description", title)
+        desc = p.get("description", title).strip()
         in_stock = p.get("inStock", True)
         canonical_url = f"{BASE_URL}/product/{pid}.html"
 
         # SEO meta content
         clean_desc = clean_for_attr(desc)
-        meta_desc = f"{clean_desc} Цена: {price_fmt} ₸. Натуральный жемчуг, ручная работа, доставка по Казахстану."
+        mat_summary = ", ".join(materials[:2]) if materials else "Натуральные материалы"
+        meta_desc = f"{clean_desc} Цена: {price_fmt} ₸. Материалы: { clean_for_attr(mat_summary) }. Ручная работа, доставка по Казахстану."
         if len(meta_desc) > 280:
             meta_desc = meta_desc[:277] + "..."
 
-        # Schema.org structured data
+        # Schema.org structured data (100% parity with Google Merchant Center feed)
         schema_product = {
             "@context": "https://schema.org",
             "@type": "Product",
@@ -79,7 +82,7 @@ def generate_product_pages():
                 "@type": "Offer",
                 "url": canonical_url,
                 "priceCurrency": "KZT",
-                "price": str(price),
+                "price": price_decimal,
                 "priceValidUntil": "2027-12-31",
                 "availability": "https://schema.org/InStock" if in_stock else "https://schema.org/OutOfStock",
                 "itemCondition": "https://schema.org/NewCondition",
@@ -188,7 +191,6 @@ def generate_product_pages():
 
         # Related products (3 other items)
         related = [other for other in products if other.get("id") != pid]
-        # Prioritize same category
         same_cat = [other for other in related if other.get("category") == cat_key]
         diff_cat = [other for other in related if other.get("category") != cat_key]
         chosen_related = (same_cat + diff_cat)[:3]
@@ -201,13 +203,13 @@ def generate_product_pages():
             r_price_fmt = f"{r_price:,}".replace(",", " ")
             r_img = r.get("image", "").lstrip("/")
             related_cards_html.append(f"""        <article class="card">
-          <a href="{r_id}.html" class="card-link" aria-label="{clean_for_attr(r_title)}">
+          <a href="/product/{r_id}.html" class="card-link" aria-label="{clean_for_attr(r_title)}">
             <div class="card-img-wrap">
-              <img src="../{r_img}" alt="{clean_for_attr(r_title)} — Livi Jewelry" loading="lazy" decoding="async">
+              <img src="../{r_img}" alt="{clean_for_attr(r_title)} — Livi Jewelry" loading="lazy" decoding="async" width="600" height="800">
             </div>
             <div class="body">
               <div class="title">{r_title}</div>
-              <div class="price">{r_price_fmt} тг</div>
+              <div class="price">{r_price_fmt} ₸</div>
             </div>
           </a>
         </article>""")
@@ -227,10 +229,11 @@ def generate_product_pages():
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="google-site-verification" content="qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0" />
 
   <!-- Primary SEO -->
-  <title>{clean_for_attr(title)} — купить в Астане и Казахстане | Livi Jewelry</title>
-  <meta name="description" content="{clean_desc} Цена: {price_fmt} ₸. Натуральный жемчуг, ручная работа, доставка по Казахстану.">
+  <title>{clean_for_attr(title)} ({pid}) — купить в Астане и Казахстане | Livi Jewelry</title>
+  <meta name="description" content="{meta_desc}">
   <link rel="canonical" href="{canonical_url}">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
@@ -243,7 +246,7 @@ def generate_product_pages():
   <meta property="og:image" content="{image_abs}">
   <meta property="og:image:secure_url" content="{image_abs}">
   <meta property="og:image:alt" content="{clean_for_attr(title)} — авторские украшения Livi Jewelry">
-  <meta property="product:price:amount" content="{price}">
+  <meta property="product:price:amount" content="{price_decimal}">
   <meta property="product:price:currency" content="KZT">
   <meta property="product:availability" content="{"in stock" if in_stock else "out of stock"}">
 
@@ -270,16 +273,30 @@ def generate_product_pages():
   <meta name="theme-color" content="#141312">
   <meta name="msapplication-TileColor" content="#141312">
 
-  <!-- Google tag (gtag.js): GA4 + Google Ads -->
+  <!-- Google tag (gtag.js): Consent Mode v2 + GA4 + Google Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YFF2TR0N36"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){{ dataLayer.push(arguments); }}
+    gtag('consent', 'default', {{
+      'ad_storage': 'granted',
+      'analytics_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'wait_for_update': 500
+    }});
+    gtag('set', 'url_passthrough', true);
+    gtag('set', 'ads_data_redaction', false);
     gtag('js', new Date());
     // GA4 Measurement
-    gtag('config', 'G-YFF2TR0N36');
+    gtag('config', 'G-YFF2TR0N36', {{
+      'linker': {{ 'domains': ['livijewelry.kz'] }}
+    }});
     // Google Ads Conversions & Dynamic Remarketing
-    gtag('config', 'AW-16793974126', {{ allow_enhanced_conversions: true }});
+    gtag('config', 'AW-16793974126', {{
+      'allow_enhanced_conversions': true,
+      'linker': {{ 'domains': ['livijewelry.kz'] }}
+    }});
 
     // Immediate E-Commerce view_item for Google Analytics & Google Ads Dynamic Remarketing
     gtag('event', 'view_item', {{
@@ -494,12 +511,13 @@ def generate_product_pages():
         <div class="foot-desc">Авторские украшения из натурального жемчуга и камней. Ручная работа с вниманием к каждой детали. Доставка по всему Казахстану.</div>
       </div>
       <div class="foot-col">
-        <div class="foot-title">Навигация</div>
+        <div class="foot-title">Навигация и правила</div>
         <div class="foot-links">
           <a href="../index.html">Главная страница</a>
           <a href="../shop.html">Каталог украшений</a>
           <a href="../delivery.html">Доставка, оплата и возврат (14 дней)</a>
           <a href="../privacy.html">Политика конфиденциальности</a>
+          <a href="../terms.html">Условия использования (Оферта)</a>
         </div>
       </div>
       <div class="foot-col">
@@ -615,7 +633,7 @@ def generate_product_pages():
     addBtn.onclick = () => {{
       const cart = readCart();
       const existingIdx = cart.findIndex(it => it.id === CURRENT_PRODUCT.id);
-      const unit = CURRENT_PRODUCT.price;
+      const unit = Number(CURRENT_PRODUCT.price) || 0;
       const priceStr = unit ? `${{unit.toLocaleString('ru-RU')}} тг` : 'Цена по запросу';
 
       if(existingIdx > -1){{
@@ -672,50 +690,110 @@ def generate_product_pages():
       }}, 100);
     }};
 
-    // WhatsApp Click Tracking (Dynamic Remarketing + Lead)
-    document.getElementById('buyWaBtn').onclick = () => {{
+    // Direct 1-Click Order via WhatsApp (Primary Conversion #1: purchase + Primary Conversion #2: generate_lead / contact)
+    document.getElementById('buyWaBtn').addEventListener('click', function() {{
       try {{
+        const totalValue = Number(CURRENT_PRODUCT.price) * currentQty;
+        const txId = 'LIVI-' + Date.now();
+        const itemsArr = [{{
+          id: CURRENT_PRODUCT.id,
+          item_id: CURRENT_PRODUCT.id,
+          item_name: CURRENT_PRODUCT.title,
+          price: Number(CURRENT_PRODUCT.price),
+          item_brand: 'Livi Jewelry',
+          item_category: CURRENT_PRODUCT.category,
+          quantity: currentQty,
+          google_business_vertical: 'retail'
+        }}];
+
         if(typeof gtag === 'function'){{
-          gtag('event', 'whatsapp_click', {{
+          gtag('event', 'begin_checkout', {{
             currency: 'KZT',
-            value: CURRENT_PRODUCT.price * currentQty,
-            lead_source: 'product_page_direct',
-            items: [{{
-              id: CURRENT_PRODUCT.id,
-              item_id: CURRENT_PRODUCT.id,
-              item_name: CURRENT_PRODUCT.title,
-              price: CURRENT_PRODUCT.price,
-              item_brand: 'Livi Jewelry',
-              item_category: CURRENT_PRODUCT.category,
-              quantity: currentQty,
-              google_business_vertical: 'retail'
-            }}]
+            value: totalValue,
+            items: itemsArr
           }});
-          gtag('event', 'generate_lead', {{
+          gtag('event', 'purchase', {{
+            transaction_id: txId,
             currency: 'KZT',
-            value: CURRENT_PRODUCT.price * currentQty,
-            lead_source: 'product_page_direct',
-            items: [{{
-              id: CURRENT_PRODUCT.id,
-              item_id: CURRENT_PRODUCT.id,
-              item_name: CURRENT_PRODUCT.title,
-              price: CURRENT_PRODUCT.price,
-              item_brand: 'Livi Jewelry',
-              item_category: CURRENT_PRODUCT.category,
-              quantity: currentQty,
-              google_business_vertical: 'retail'
-            }}]
+            value: totalValue,
+            affiliation: 'Livi Jewelry Direct Order',
+            items: itemsArr
           }});
           gtag('event', 'conversion', {{
             'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
-            'value': Math.round((CURRENT_PRODUCT.price * currentQty) * 0.2),
+            'value': totalValue,
             'currency': 'KZT',
-            'transaction_id': 'WA-' + CURRENT_PRODUCT.id + '-' + Date.now()
+            'transaction_id': txId
+          }});
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: totalValue,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            item_id: CURRENT_PRODUCT.id,
+            lead_source: 'product_page_direct',
+            items: itemsArr
+          }});
+          gtag('event', 'contact', {{
+            currency: 'KZT',
+            value: totalValue,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            item_id: CURRENT_PRODUCT.id
           }});
         }}
-        if(window.fbq) fbq('track', 'Contact');
+        if(window.fbq) {{
+          fbq('track', 'Purchase', {{ value: totalValue, currency: 'KZT', content_ids: [CURRENT_PRODUCT.id], content_type: 'product' }});
+          fbq('track', 'Contact');
+        }}
       }} catch(e){{}}
-    }};
+    }});
+
+    // Global Contact Tracking for Header, Footer, Drawer & Floating WhatsApp / Instagram Links
+    document.addEventListener('click', function(e) {{
+      const a = e.target.closest('a[href]');
+      if (!a || a.id === 'buyWaBtn') return;
+      const href = a.getAttribute('href') || '';
+      const isWa = href.includes('wa.me') || href.includes('whatsapp.com');
+      const isIg = href.includes('instagram.com');
+      if (!isWa && !isIg) return;
+
+      const method = isWa ? 'WhatsApp' : 'Instagram';
+      const val = Number(CURRENT_PRODUCT.price) * currentQty;
+      try {{
+        if (typeof gtag === 'function') {{
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: val,
+            method: method,
+            page_location: window.location.href,
+            item_id: CURRENT_PRODUCT.id
+          }});
+          gtag('event', 'contact', {{
+            currency: 'KZT',
+            value: val,
+            method: method,
+            page_location: window.location.href,
+            item_id: CURRENT_PRODUCT.id
+          }});
+          if (isWa) {{
+            gtag('event', 'conversion', {{
+              'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+              'value': Math.round(val * 0.2),
+              'currency': 'KZT',
+              'transaction_id': 'LIVI-LEAD-' + Date.now()
+            }});
+          }}
+        }}
+        if (window.fbq) fbq('track', 'Contact');
+      }} catch(err) {{}}
+
+      // If link does not open in new tab, delay 150ms so beacon flushes reliably
+      if (a.getAttribute('target') !== '_blank' && !e.ctrlKey && !e.metaKey) {{
+        e.preventDefault();
+        setTimeout(function() {{ window.location.href = href; }}, 150);
+      }}
+    }});
 
     // Mobile Drawer
     const drawer = document.getElementById('drawer');
@@ -736,8 +814,216 @@ def generate_product_pages():
             f.write(html_content)
         generated_files.append(out_path)
 
-    print(f"[OK] Successfully generated {len(generated_files)} static product pages in '{OUTPUT_DIR}/'")
+    sync_static_catalogs(products)
+    print(f"[OK] Successfully generated {len(generated_files)} static product pages in '{OUTPUT_DIR}/' and synced shop.html + index.html")
     return generated_files
+
+
+def sync_static_catalogs(products):
+    """Synchronizes shop.html JSON-LD ItemList, shop.html static #grid, and index.html static #featGrid from products.json."""
+    # 1. Update shop.html JSON-LD ItemList and pre-rendered #grid
+    if os.path.exists("shop.html"):
+        item_list = []
+        cards_html = []
+        for idx, p in enumerate(products, start=1):
+            pid = p.get("id", "")
+            title = p.get("title", "")
+            desc = p.get("description") or title
+            price_num = int(p.get("price", 0))
+            price_str = f"{price_num:.2f}"
+            price_fmt = f"{price_num:,}".replace(",", " ")
+            img_url = p.get("image", "").lstrip("/")
+            in_stock = p.get("inStock", True)
+            canonical_url = f"https://livijewelry.kz/product/{pid}.html" if pid else "https://livijewelry.kz/shop.html"
+            item_list.append({
+                "@type": "Product",
+                "position": idx,
+                "name": title,
+                "image": f"https://livijewelry.kz/{img_url}",
+                "description": desc,
+                "sku": pid or "LV-01",
+                "mpn": pid or "LV-01",
+                "brand": {
+                    "@type": "Brand",
+                    "name": "Livi Jewelry"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "url": canonical_url,
+                    "price": price_str,
+                    "priceCurrency": "KZT",
+                    "priceValidUntil": "2027-12-31",
+                    "availability": "https://schema.org/InStock" if in_stock else "https://schema.org/OutOfStock",
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "seller": {
+                        "@type": "Organization",
+                        "name": "Livi Jewelry"
+                    },
+                    "shippingDetails": {
+                        "@type": "OfferShippingDetails",
+                        "shippingRate": {
+                            "@type": "MonetaryAmount",
+                            "value": "0",
+                            "currency": "KZT"
+                        },
+                        "shippingDestination": {
+                            "@type": "DefinedRegion",
+                            "addressCountry": "KZ"
+                        },
+                        "deliveryTime": {
+                            "@type": "ShippingDeliveryTime",
+                            "handlingTime": {
+                                "@type": "QuantitativeValue",
+                                "minValue": 0,
+                                "maxValue": 1,
+                                "unitCode": "DAY"
+                            },
+                            "transitTime": {
+                                "@type": "QuantitativeValue",
+                                "minValue": 1,
+                                "maxValue": 3,
+                                "unitCode": "DAY"
+                            }
+                        }
+                    },
+                    "hasMerchantReturnPolicy": {
+                        "@type": "MerchantReturnPolicy",
+                        "applicableCountry": "KZ",
+                        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                        "merchantReturnDays": 14,
+                        "returnMethod": "https://schema.org/ReturnByMail",
+                        "returnFees": "https://schema.org/ReturnShippingFees"
+                    }
+                }
+            })
+            alt_text = clean_for_attr(f"{title} — украшения из натурального жемчуга Livi Jewelry")
+            cards_html.append(
+                f'      <article class="card" data-id="{pid}">\n'
+                f'        <div class="card-img-wrap"><img src="{img_url}" alt="{alt_text}" loading="lazy" decoding="async" width="600" height="800"></div>\n'
+                f'        <div class="body">\n'
+                f'          <div class="title"><a href="/product/{pid}.html" class="card-title-link">{title}</a></div>\n'
+                f'          <div class="price">{price_fmt} ₸</div>\n'
+                f'        </div>\n'
+                f'      </article>'
+            )
+
+        schema_obj = {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "itemListElement": item_list
+        }
+        schema_json = json.dumps(schema_obj, ensure_ascii=False, indent=2)
+        with open("shop.html", "r", encoding="utf-8") as f:
+            shop_html = f.read()
+
+        pattern_schema = r'<script type="application/ld\+json">\s*\{\s*"@context":\s*"https://schema.org",\s*"@type":\s*"ItemList".*?</script>'
+        replacement_schema = f'<script type="application/ld+json">\n{schema_json}\n</script>'
+        shop_html, _ = re.subn(pattern_schema, lambda m: replacement_schema, shop_html, flags=re.DOTALL)
+
+        grid_inner = "\n".join(cards_html)
+        pattern_grid = r'<div class="grid" id="grid">.*?</div>\s*</main>'
+        replacement_grid = f'<div class="grid" id="grid">\n{grid_inner}\n    </div>\n  </main>'
+        shop_html, _ = re.subn(pattern_grid, lambda m: replacement_grid, shop_html, flags=re.DOTALL)
+
+        with open("shop.html", "w", encoding="utf-8") as f:
+            f.write(shop_html)
+
+    # 2. Update index.html pre-rendered #featGrid
+    if os.path.exists("index.html"):
+        feat_items = [p for p in products if p.get("featured")]
+        if not feat_items:
+            feat_items = products[:6]
+        feat_cards = []
+        for p in feat_items:
+            pid = p.get("id", "")
+            title = p.get("title", "")
+            price_num = int(p.get("price", 0))
+            price_fmt = f"{price_num:,}".replace(",", " ")
+            img_url = p.get("image", "").lstrip("/")
+            alt_text = clean_for_attr(f"{title} — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца")
+            feat_cards.append(
+                f'      <article class="card" onclick="if(!event.target.closest(\'a\'))location.href=\'/product/{pid}.html\'">\n'
+                f'        <div class="card-img-wrap"><img src="{img_url}" alt="{alt_text}" loading="lazy" decoding="async" width="600" height="800"></div>\n'
+                f'        <div class="body">\n'
+                f'          <div class="title"><a href="/product/{pid}.html" class="card-title-link">{title}</a></div>\n'
+                f'          <div class="price">{price_fmt} ₸</div>\n'
+                f'        </div>\n'
+                f'      </article>'
+            )
+        feat_inner = "\n".join(feat_cards)
+        with open("index.html", "r", encoding="utf-8") as f:
+            idx_html = f.read()
+        pattern_feat = r'<div id="featGrid" class="grid" aria-live="polite">.*?</div>\s*</section>'
+        replacement_feat = f'<div id="featGrid" class="grid" aria-live="polite">\n{feat_inner}\n    </div>\n  </section>'
+        idx_html, _ = re.subn(pattern_feat, lambda m: replacement_feat, idx_html, flags=re.DOTALL)
+        with open("index.html", "w", encoding="utf-8") as f:
+            f.write(idx_html)
+
+    # 3. Synchronize Category Landing Pages (kolye-iz-zhemchuga.html, braslety-iz-zhemchuga.html, sergi-iz-zhemchuga.html)
+    prod_by_id = {p["id"]: p for p in products if p.get("id")}
+    for cat_page in ("kolye-iz-zhemchuga.html", "braslety-iz-zhemchuga.html", "sergi-iz-zhemchuga.html"):
+        if not os.path.exists(cat_page):
+            continue
+        with open(cat_page, "r", encoding="utf-8") as f:
+            chtml = f.read()
+
+        # Sync JSON-LD ItemList in category page
+        def replace_cat_itemlist(match):
+            raw_script = match.group(0)
+            m_json = re.search(r'<script type="application/ld\+json">\s*(\{.*?\})\s*</script>', raw_script, flags=re.DOTALL)
+            if not m_json:
+                return raw_script
+            try:
+                data = json.loads(m_json.group(1))
+                if data.get("@type") != "ItemList":
+                    return raw_script
+                for elem in data.get("itemListElement", []):
+                    sku = elem.get("sku")
+                    if sku in prod_by_id:
+                        p = prod_by_id[sku]
+                        elem["name"] = p["title"]
+                        elem["description"] = p.get("description") or p["title"]
+                        elem["image"] = f"https://livijewelry.kz/{p['image'].lstrip('/')}"
+                        if "offers" in elem:
+                            elem["offers"]["price"] = f"{int(p['price']):.2f}"
+                            elem["offers"]["url"] = f"https://livijewelry.kz/product/{sku}.html"
+                new_json = json.dumps(data, ensure_ascii=False, indent=2)
+                return f'  <script type="application/ld+json">\n{new_json}\n  </script>'
+            except Exception:
+                return raw_script
+
+        chtml = re.sub(
+            r'  <script type="application/ld\+json">\s*\{\s*"@context"\s*:\s*"https://schema.org"\s*,\s*"@type"\s*:\s*"ItemList".*?</script>',
+            replace_cat_itemlist,
+            chtml,
+            flags=re.DOTALL
+        )
+
+        # Sync product cards in category page
+        def replace_cat_card(match):
+            block = match.group(0)
+            m_id = re.search(r'product/(prod_\d+)\.html', block)
+            if not m_id or m_id.group(1) not in prod_by_id:
+                return block
+            pid = m_id.group(1)
+            p = prod_by_id[pid]
+            title = p["title"]
+            price_fmt = f"{int(p['price']):,}".replace(",", " ") + " ₸"
+            img_rel = p["image"].lstrip("/")
+            alt_clean = clean_for_attr(title)
+            block = re.sub(r'<img\s+[^>]*>', f'<img src="{img_rel}" alt="{alt_clean}" loading="lazy" width="600" height="800">', block)
+            block = re.sub(
+                r'<a href="product/' + re.escape(pid) + r'\.html" class="card-title-link">.*?</a>',
+                f'<a href="product/{pid}.html" class="card-title-link">{title}</a>',
+                block
+            )
+            block = re.sub(r'<div class="price">.*?</div>', f'<div class="price">{price_fmt}</div>', block)
+            return block
+
+        chtml = re.sub(r'<article class="card".*?</article>', replace_cat_card, chtml, flags=re.DOTALL)
+        with open(cat_page, "w", encoding="utf-8") as f:
+            f.write(chtml)
+
 
 if __name__ == "__main__":
     generate_product_pages()

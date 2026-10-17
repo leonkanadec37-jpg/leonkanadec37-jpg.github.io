@@ -3,9 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="google-site-verification" content="qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0" />
   <title>Доставка, оплата и возврат | Livi Jewelry — Авторские украшения</title>
   <meta name="description" content="Условия доставки по Казахстану, способы оплаты через Kaspi.kz и правила возврата украшений Livi Jewelry. 14 дней на возврат, безопасная оплата.">
   <link rel="canonical" href="https://livijewelry.kz/delivery.html">
+  <meta name="robots" content="index, follow">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -23,14 +25,23 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
 
-  <!-- Google tag (gtag.js): GA4 + Google Ads -->
+  <!-- Google tag (gtag.js): Consent Mode v2 + GA4 + Google Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YFF2TR0N36"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      'ad_storage': 'granted',
+      'analytics_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'wait_for_update': 500
+    });
+    gtag('set', 'url_passthrough', true);
+    gtag('set', 'ads_data_redaction', false);
     gtag('js', new Date());
-    gtag('config', 'G-YFF2TR0N36');
-    gtag('config', 'AW-16793974126', { allow_enhanced_conversions: true });
+    gtag('config', 'G-YFF2TR0N36', { 'linker': { 'domains': ['livijewelry.kz'] } });
+    gtag('config', 'AW-16793974126', { 'allow_enhanced_conversions': true, 'linker': { 'domains': ['livijewelry.kz'] } });
   </script>
 
   <!-- Meta Pixel Code (ID: 199604456030882) -->
@@ -182,6 +193,7 @@
       <div class="links">
         <a href="delivery.html">Доставка, оплата и возврат</a>
         <a href="privacy.html">Политика конфиденциальности</a>
+        <a href="terms.html">Условия использования</a>
         <a href="shop.html">Каталог</a>
       </div>
       <div class="copy">© <span id="year"></span> Livi Jewelry — Все права защищены.</div>
@@ -233,19 +245,44 @@
     window.addEventListener('pageshow', updateBadge);
     document.addEventListener('visibilitychange', () => { if(!document.hidden) updateBadge(); });
 
-    // Universal WhatsApp Conversion Tracking (GA4 generate_lead + Google Ads conversion + Meta Contact)
-    document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
-      a.addEventListener('click', function() {
-        try {
-          if (typeof gtag === 'function') {
-            gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_delivery' });
-            gtag('event', 'generate_lead', { lead_source: 'whatsapp_delivery' });
+    // Universal Contact Conversion Tracking (WhatsApp + Instagram)
+    document.addEventListener('click', function(e) {
+      const a = e.target.closest('a[href]');
+      if (!a) return;
+      const href = a.getAttribute('href') || '';
+      const isWa = href.includes('wa.me') || href.includes('whatsapp.com');
+      const isIg = href.includes('instagram.com');
+      if (!isWa && !isIg) return;
+      const method = isWa ? 'WhatsApp' : 'Instagram';
+      try {
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', {
+            currency: 'KZT',
+            value: 30000,
+            method: method,
+            page_location: window.location.href
+          });
+          gtag('event', 'contact', {
+            currency: 'KZT',
+            value: 30000,
+            method: method,
+            page_location: window.location.href
+          });
+          if (isWa) {
+            gtag('event', 'conversion', {
+              'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+              'value': 6000,
+              'currency': 'KZT',
+              'transaction_id': 'LIVI-LEAD-' + Date.now()
+            });
           }
-          if (typeof fbq === 'function') {
-            fbq('track', 'Contact');
-          }
-        } catch(e) {}
-      });
+        }
+        if (typeof fbq === 'function') fbq('track', 'Contact');
+      } catch(err) {}
+      if (a.getAttribute('target') !== '_blank' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        setTimeout(function() { window.location.href = href; }, 150);
+      }
     });
   </script>
 </body>

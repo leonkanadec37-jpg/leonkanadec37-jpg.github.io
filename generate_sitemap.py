@@ -44,6 +44,16 @@ STATIC_PAGES = [
     },
     {
         "loc": f"{BASE_URL}/delivery.html",
+        "priority": "0.6",
+        "changefreq": "monthly"
+    },
+    {
+        "loc": f"{BASE_URL}/privacy.html",
+        "priority": "0.5",
+        "changefreq": "monthly"
+    },
+    {
+        "loc": f"{BASE_URL}/terms.html",
         "priority": "0.5",
         "changefreq": "monthly"
     }
