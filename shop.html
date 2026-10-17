@@ -1893,14 +1893,33 @@
     function lang(){ return localStorage.getItem('lang') || 'ru'; }
     function setLang(l){ localStorage.setItem('lang', l); applyLang(); renderFilters(); renderGrid(); }
     function tr(key){ return (I18N[lang()] && I18N[lang()][key]) || (I18N['ru']&&I18N['ru'][key]) || key; }
-    function applyLang(){
-      document.title = tr('meta.title'); document.documentElement.lang = lang();
-      document.querySelectorAll('[data-i18n]').forEach(el=>{ el.textContent = tr(el.getAttribute('data-i18n')); });
-      document.getElementById('searchInput').placeholder = tr('search.placeholder');
-      [ruBtn,kkBtn,enBtn].forEach(b=>b.classList.remove('active')); (lang()==='kk'?kkBtn:lang()==='en'?enBtn:ruBtn).classList.add('active');
-    }
+    /* ===== DOM & State Initialization ===== */
+    const grid = document.getElementById('grid');
+    const filters = document.getElementById('filters');
+    const searchInput = document.getElementById('searchInput');
+    const searchClear = document.getElementById('searchClear');
+    const drawer = document.getElementById('drawer');
+    const burger = document.getElementById('burger');
+    const ruBtn = document.getElementById('ruBtn');
+    const kkBtn = document.getElementById('kkBtn');
+    const enBtn = document.getElementById('enBtn');
 
-    const CATS = ['All','Necklaces','Sets','Bracelets','Lariats','Chains'];
+    const CATS = ['All', 'Necklaces', 'Sets', 'Bracelets', 'Lariats', 'Chains'];
+    let PRODUCTS = [];
+    let activeCat = localStorage.getItem('livi_active_cat') || 'All';
+    let searchQuery = '';
+
+    function applyLang(){
+      document.title = tr('meta.title');
+      document.documentElement.lang = lang();
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        el.textContent = tr(el.getAttribute('data-i18n'));
+      });
+      if(searchInput) searchInput.placeholder = tr('search.placeholder');
+      [ruBtn, kkBtn, enBtn].forEach(b => { if(b) b.classList.remove('active'); });
+      const curBtn = lang() === 'kk' ? kkBtn : (lang() === 'en' ? enBtn : ruBtn);
+      if(curBtn) curBtn.classList.add('active');
+    }
     function readCart(){
       try{
         const raw3 = localStorage.getItem('livi_cart_v3');
@@ -2194,63 +2213,93 @@
     document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
 
     // Drawer controls
-    const drawer=document.getElementById('drawer'), burger=document.getElementById('burger');
-    const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
-    burger.onclick=()=>{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); };
-    drawer.querySelector('.drawer-back').onclick=()=>{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); };
-    ruBtn.onclick=()=>setLang('ru'); kkBtn.onclick=()=>setLang('kk'); enBtn.onclick=()=>setLang('en');
+    if(burger && drawer){
+      burger.onclick = () => { drawer.classList.add('open'); drawer.setAttribute('aria-hidden', 'false'); };
+      const drawerBack = drawer.querySelector('.drawer-back');
+      if(drawerBack) drawerBack.onclick = () => { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); };
+    }
+    if(ruBtn) ruBtn.onclick = () => setLang('ru');
+    if(kkBtn) kkBtn.onclick = () => setLang('kk');
+    if(enBtn) enBtn.onclick = () => setLang('en');
 
     // Search controls
-    searchInput.addEventListener('input', (e) => {
-      searchQuery = e.target.value;
-      searchClear.style.display = searchQuery ? 'block' : 'none';
-      renderGrid();
-    });
-    searchClear.addEventListener('click', () => {
-      searchInput.value = '';
-      searchQuery = '';
-      searchClear.style.display = 'none';
-      searchInput.focus();
-      renderGrid();
-    });
+    if(searchInput){
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        if(searchClear) searchClear.style.display = searchQuery ? 'block' : 'none';
+        renderGrid();
+      });
+    }
+    if(searchClear){
+      searchClear.addEventListener('click', () => {
+        if(searchInput){
+          searchInput.value = '';
+          searchInput.focus();
+        }
+        searchQuery = '';
+        searchClear.style.display = 'none';
+        renderGrid();
+      });
+    }
 
     // URL search param ?q=
     const urlParams = new URLSearchParams(window.location.search);
     const initialQuery = urlParams.get('q');
-    if(initialQuery){
+    if(initialQuery && searchInput){
       searchInput.value = initialQuery;
       searchQuery = initialQuery;
-      searchClear.style.display = 'block';
+      if(searchClear) searchClear.style.display = 'block';
     }
 
-    // Load products.json
-    fetch('products.json?v=' + Date.now(), {cache: 'no-cache'})
+    function renderCatalogData(data){
+      if(!Array.isArray(data)) throw new Error('Data is not array');
+      PRODUCTS = data;
+      if(activeCat !== 'All' && !PRODUCTS.some(p => p.category === activeCat)){
+        activeCat = 'All';
+        localStorage.setItem('livi_active_cat', 'All');
+      }
+      renderFilters();
+      renderGrid();
+
+      const targetItemId = urlParams.get('item');
+      if(targetItemId){
+        window.location.replace('product/' + encodeURIComponent(targetItemId) + '.html');
+      }
+    }
+
+    // Load products.json (cache-busting query + direct fallback)
+    fetch('products.json?v=' + Date.now())
       .then(res => {
-        if(!res.ok) throw new Error('Failed to load products.json');
+        if(!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
       })
-      .then(data => {
-        PRODUCTS = data;
-        if(activeCat !== 'All' && !PRODUCTS.some(p => p.category === activeCat)){
-          activeCat = 'All';
-          localStorage.setItem('livi_active_cat', 'All');
-        }
-        renderFilters();
-        renderGrid();
-
-        const targetItemId = urlParams.get('item');
-        if(targetItemId){
-          window.location.replace('product/' + encodeURIComponent(targetItemId) + '.html');
-          return;
-        }
-      })
+      .then(renderCatalogData)
       .catch(err => {
-        console.error('Error loading products:', err);
-        grid.innerHTML = '<div class="empty-state">Ошибка загрузки каталога. Пожалуйста, обновите страницу.</div>';
+        console.warn('Primary fetch failed, trying direct products.json:', err);
+        fetch('products.json')
+          .then(res => {
+            if(!res.ok) throw new Error('HTTP ' + res.status);
+            return res.json();
+          })
+          .then(renderCatalogData)
+          .catch(finalErr => {
+            console.error('Error loading products:', finalErr);
+            if(grid) {
+              grid.innerHTML = '<div class="empty-state">Ошибка загрузки каталога. Пожалуйста, обновите страницу.</div>';
+            }
+          });
       });
 
     applyLang();
     updateBadge();
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
 
     /* ===== Конверсия WhatsApp ===== */
     (function(){
