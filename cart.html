@@ -279,27 +279,30 @@
     ruBtn.onclick = () => setLang('ru'); kkBtn.onclick = () => setLang('kk'); enBtn.onclick = () => setLang('en');
 
     /* ===== Cart logic ===== */
-    const KEY = 'livi_cart_v3';
-    try { localStorage.removeItem('livi_cart_v2'); } catch(e){}
     const WA_PHONE = '77054510584';
     // Google Apps Script Webhook URL (из google_apps_script_order_backend.js)
     const ORDER_WEBHOOK_URL = '';
     let currentDeliveryType = 'pvz';
 
     function parseFirstKZT(priceStr){
-      const m = String(priceStr||'').match(/([\d\s.,]+)\s*тг/i);
-      if(!m) return 0;
-      return parseInt(m[1].replace(/[^\d]/g,''),10) || 0;
+      if (typeof priceStr === 'number' && isFinite(priceStr)) return priceStr;
+      const str = String(priceStr || '');
+      const m = str.match(/([\d\s.,]+)\s*тг/i);
+      if(m) return parseInt(m[1].replace(/[^\d]/g,''),10) || 0;
+      return parseInt(str.replace(/[^\d]/g,''),10) || 0;
     }
     function parseSumKZT(priceStr){
+      if (typeof priceStr === 'number' && isFinite(priceStr)) return priceStr;
       const rx = /([\d\s.,]+)\s*тг/ig;
       let s = 0, m;
-      while((m = rx.exec(String(priceStr||'')))!==null){
+      const str = String(priceStr || '');
+      while((m = rx.exec(str))!==null){
         s += parseInt(m[1].replace(/[^\d]/g,''),10) || 0;
       }
-      return s;
+      return s > 0 ? s : parseFirstKZT(str);
     }
     function unitPrice(item){
+      if (!item) return 0;
       if (typeof item.unit === 'number' && isFinite(item.unit) && item.unit > 0) return item.unit;
       const title = (item.title||'').toLowerCase();
       if (title.includes('комплект')) {
@@ -309,8 +312,36 @@
       return parseFirstKZT(item.price);
     }
 
-    function read(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ return []; } }
-    function write(v){ localStorage.setItem(KEY, JSON.stringify(v)); render(); updateBadge(); }
+    function read(){
+      try{
+        const raw3 = localStorage.getItem('livi_cart_v3');
+        const raw2 = localStorage.getItem('livi_cart_v2');
+        const raw1 = localStorage.getItem('livi_cart');
+        let items = [];
+        if (raw3) {
+          try { items = JSON.parse(raw3); } catch(e){}
+        }
+        if ((!items || !items.length) && raw2) {
+          try { items = JSON.parse(raw2); } catch(e){}
+        }
+        if ((!items || !items.length) && raw1) {
+          try { items = JSON.parse(raw1); } catch(e){}
+        }
+        if (!Array.isArray(items)) return [];
+        return items.filter(it => it && typeof it === 'object' && (it.id || it.title));
+      } catch(e){
+        return [];
+      }
+    }
+    function write(v){
+      try {
+        const json = JSON.stringify(v);
+        localStorage.setItem('livi_cart_v3', json);
+        localStorage.setItem('livi_cart_v2', json);
+      } catch(e){}
+      render();
+      updateBadge();
+    }
 
     function updateBadge(){
       const count = read().reduce((s,i)=>s+Number(i.qty||0),0);
@@ -323,9 +354,14 @@
         b.style.display = 'none';
       }
     }
-    window.addEventListener('storage', e => { if(!e.key || e.key === KEY) updateBadge(); });
-    window.addEventListener('pageshow', updateBadge);
-    document.addEventListener('visibilitychange', () => { if(!document.hidden) updateBadge(); });
+    window.addEventListener('storage', e => {
+      if(!e.key || e.key === 'livi_cart_v3' || e.key === 'livi_cart_v2') {
+        render();
+        updateBadge();
+      }
+    });
+    window.addEventListener('pageshow', () => { render(); updateBadge(); });
+    document.addEventListener('visibilitychange', () => { if(!document.hidden) { render(); updateBadge(); } });
 
     // Phone mask helper for +7 (7XX) XXX-XX-XX
     function formatKZPhone(value){
@@ -371,7 +407,7 @@
         const row = document.createElement('div');
         row.className = 'item';
         row.innerHTML = `
-          <div class="thumb"><img src="${i.img}" alt="" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" loading="lazy" decoding="async"></div>
+          <div class="thumb"><img src="${i.img || i.image || 'assets/placeholder.jpg'}" alt="" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" loading="lazy" decoding="async"></div>
           <div class="item-info">
             <div class="title">${i.title||''}</div>
             <div class="muted item-price">${i.price||''}</div>

@@ -676,11 +676,14 @@
     });
 
     // Cart Badge Sync
-    const LIVI_KEY = 'livi_cart_v3';
-    try { localStorage.removeItem('livi_cart_v2'); } catch(e){}
     function updateBadge() {
       try {
-        const count = JSON.parse(localStorage.getItem(LIVI_KEY) || '[]').reduce((s, i) => s + (parseInt(i.qty, 10) || 0), 0);
+        const raw3 = localStorage.getItem('livi_cart_v3');
+        const raw2 = localStorage.getItem('livi_cart_v2');
+        let items = [];
+        if (raw3) { try { items = JSON.parse(raw3); } catch(e){} }
+        if ((!items || !items.length) && raw2) { try { items = JSON.parse(raw2); } catch(e){} }
+        const count = (Array.isArray(items) ? items : []).reduce((s, i) => s + (parseInt(i.qty, 10) || 0), 0);
         const b = document.getElementById('cartBadge');
         if (b) {
           if (count > 0) {
@@ -694,7 +697,9 @@
       } catch (e) {}
     }
     updateBadge();
-    window.addEventListener('storage', updateBadge);
+    window.addEventListener('storage', e => {
+      if(!e.key || e.key === 'livi_cart_v3' || e.key === 'livi_cart_v2') updateBadge();
+    });
     window.addEventListener('pageshow', updateBadge);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) updateBadge(); });
 

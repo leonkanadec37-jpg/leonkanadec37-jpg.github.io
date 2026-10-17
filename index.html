@@ -342,9 +342,27 @@
     ruBtn.onclick=()=>setLang('ru'); kkBtn.onclick=()=>setLang('kk'); enBtn.onclick=()=>setLang('en');
 
     // Badge
-    const KEY='livi_cart_v3';
-    try { localStorage.removeItem('livi_cart_v2'); } catch(e){}
-    function readCart(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []} }
+    function readCart(){
+      try{
+        const raw3 = localStorage.getItem('livi_cart_v3');
+        const raw2 = localStorage.getItem('livi_cart_v2');
+        const raw1 = localStorage.getItem('livi_cart');
+        let items = [];
+        if (raw3) {
+          try { items = JSON.parse(raw3); } catch(e){}
+        }
+        if ((!items || !items.length) && raw2) {
+          try { items = JSON.parse(raw2); } catch(e){}
+        }
+        if ((!items || !items.length) && raw1) {
+          try { items = JSON.parse(raw1); } catch(e){}
+        }
+        if (!Array.isArray(items)) return [];
+        return items.filter(it => it && typeof it === 'object' && (it.id || it.title));
+      } catch(e){
+        return [];
+      }
+    }
     function updateBadge(){
       const count=readCart().reduce((s,i)=>s+Number(i.qty||0),0);
       const b=document.getElementById('cartBadge');
@@ -357,7 +375,9 @@
         b.style.display = 'none';
       }
     }
-    window.addEventListener('storage', e => { if(!e.key || e.key === KEY) updateBadge(); });
+    window.addEventListener('storage', e => {
+      if(!e.key || e.key === 'livi_cart_v3' || e.key === 'livi_cart_v2') updateBadge();
+    });
     window.addEventListener('pageshow', updateBadge);
     document.addEventListener('visibilitychange', () => { if(!document.hidden) updateBadge(); });
 
