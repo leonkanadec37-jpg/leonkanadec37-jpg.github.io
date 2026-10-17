@@ -523,20 +523,35 @@ def generate_product_pages():
     function readCart(){{
       try{{
         const raw3 = localStorage.getItem('livi_cart_v3');
+        if (raw3 !== null) {{
+          const items = JSON.parse(raw3);
+          if (Array.isArray(items)) {{
+            return items.filter(it => it && typeof it === 'object' && (it.id || it.title));
+          }}
+        }}
         const raw2 = localStorage.getItem('livi_cart_v2');
+        if (raw2 !== null) {{
+          const items = JSON.parse(raw2);
+          if (Array.isArray(items)) {{
+            const valid = items.filter(it => it && typeof it === 'object' && (it.id || it.title));
+            if (valid.length > 0) {{
+              localStorage.setItem('livi_cart_v3', JSON.stringify(valid));
+            }}
+            return valid;
+          }}
+        }}
         const raw1 = localStorage.getItem('livi_cart');
-        let items = [];
-        if (raw3) {{
-          try {{ items = JSON.parse(raw3); }} catch(e){{}}
+        if (raw1 !== null) {{
+          const items = JSON.parse(raw1);
+          if (Array.isArray(items)) {{
+            const valid = items.filter(it => it && typeof it === 'object' && (it.id || it.title));
+            if (valid.length > 0) {{
+              localStorage.setItem('livi_cart_v3', JSON.stringify(valid));
+            }}
+            return valid;
+          }}
         }}
-        if ((!items || !items.length) && raw2) {{
-          try {{ items = JSON.parse(raw2); }} catch(e){{}}
-        }}
-        if ((!items || !items.length) && raw1) {{
-          try {{ items = JSON.parse(raw1); }} catch(e){{}}
-        }}
-        if (!Array.isArray(items)) return [];
-        return items.filter(it => it && typeof it === 'object' && (it.id || it.title));
+        return [];
       }} catch(e){{
         return [];
       }}
@@ -546,6 +561,7 @@ def generate_product_pages():
         const json = JSON.stringify(cart);
         localStorage.setItem('livi_cart_v3', json);
         localStorage.setItem('livi_cart_v2', json);
+        localStorage.removeItem('livi_cart');
       }} catch(e){{}}
       updateBadge();
     }}
@@ -601,7 +617,7 @@ def generate_product_pages():
           id: CURRENT_PRODUCT.id,
           title: CURRENT_PRODUCT.title,
           price: priceStr,
-          img: CURRENT_PRODUCT.image,
+          img: (CURRENT_PRODUCT.image || '').replace(/^\\.\\.\\//, ''),
           qty: currentQty,
           unit: unit
         }});

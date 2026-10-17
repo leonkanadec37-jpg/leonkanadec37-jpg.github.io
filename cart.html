@@ -279,7 +279,6 @@
     ruBtn.onclick = () => setLang('ru'); kkBtn.onclick = () => setLang('kk'); enBtn.onclick = () => setLang('en');
 
     /* ===== Cart logic ===== */
-    const WA_PHONE = '77054510584';
     // Google Apps Script Webhook URL (из google_apps_script_order_backend.js)
     const ORDER_WEBHOOK_URL = '';
     let currentDeliveryType = 'pvz';
@@ -315,20 +314,35 @@
     function read(){
       try{
         const raw3 = localStorage.getItem('livi_cart_v3');
+        if (raw3 !== null) {
+          const items = JSON.parse(raw3);
+          if (Array.isArray(items)) {
+            return items.filter(it => it && typeof it === 'object' && (it.id || it.title));
+          }
+        }
         const raw2 = localStorage.getItem('livi_cart_v2');
+        if (raw2 !== null) {
+          const items = JSON.parse(raw2);
+          if (Array.isArray(items)) {
+            const valid = items.filter(it => it && typeof it === 'object' && (it.id || it.title));
+            if (valid.length > 0) {
+              localStorage.setItem('livi_cart_v3', JSON.stringify(valid));
+            }
+            return valid;
+          }
+        }
         const raw1 = localStorage.getItem('livi_cart');
-        let items = [];
-        if (raw3) {
-          try { items = JSON.parse(raw3); } catch(e){}
+        if (raw1 !== null) {
+          const items = JSON.parse(raw1);
+          if (Array.isArray(items)) {
+            const valid = items.filter(it => it && typeof it === 'object' && (it.id || it.title));
+            if (valid.length > 0) {
+              localStorage.setItem('livi_cart_v3', JSON.stringify(valid));
+            }
+            return valid;
+          }
         }
-        if ((!items || !items.length) && raw2) {
-          try { items = JSON.parse(raw2); } catch(e){}
-        }
-        if ((!items || !items.length) && raw1) {
-          try { items = JSON.parse(raw1); } catch(e){}
-        }
-        if (!Array.isArray(items)) return [];
-        return items.filter(it => it && typeof it === 'object' && (it.id || it.title));
+        return [];
       } catch(e){
         return [];
       }
@@ -338,6 +352,7 @@
         const json = JSON.stringify(v);
         localStorage.setItem('livi_cart_v3', json);
         localStorage.setItem('livi_cart_v2', json);
+        localStorage.removeItem('livi_cart');
       } catch(e){}
       render();
       updateBadge();
@@ -390,6 +405,7 @@
 
     function render(){
       const root = document.getElementById('root');
+      if(!root) return;
       const cart = read();
 
       if(cart.length === 0){
@@ -406,8 +422,10 @@
       cart.forEach((i, idx) => {
         const row = document.createElement('div');
         row.className = 'item';
+        const rawImg = i.img || i.image || 'assets/placeholder.jpg';
+        const imgSrc = rawImg.startsWith('../') ? rawImg.slice(3) : rawImg;
         row.innerHTML = `
-          <div class="thumb"><img src="${i.img || i.image || 'assets/placeholder.jpg'}" alt="" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" loading="lazy" decoding="async"></div>
+          <div class="thumb"><img src="${imgSrc}" alt="" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" loading="lazy" decoding="async"></div>
           <div class="item-info">
             <div class="title">${i.title||''}</div>
             <div class="muted item-price">${i.price||''}</div>
@@ -546,35 +564,36 @@
       const waAltBtn = document.getElementById('waAltBtn');
       const clearBtn = document.getElementById('clearBtn');
 
-      clearBtn.onclick = () => { write([]); };
+      if(clearBtn) clearBtn.onclick = () => { write([]); };
 
       // Phone formatting
-      phoneInput.addEventListener('input', (e) => {
-        const cursor = phoneInput.selectionStart;
-        phoneInput.value = formatKZPhone(phoneInput.value);
-      });
+      if(phoneInput){
+        phoneInput.addEventListener('input', (e) => {
+          phoneInput.value = formatKZPhone(phoneInput.value);
+        });
+      }
 
       // Delivery type switch
       function setDeliveryType(type){
         currentDeliveryType = type;
         if(type === 'pvz'){
-          tabPvz.classList.add('active');
-          tabDoor.classList.remove('active');
-          addrLabel.textContent = tr('checkout.label_addr_pvz');
-          addrInput.placeholder = tr('checkout.placeholder_addr_pvz');
-          addrHint.textContent = tr('checkout.hint_addr_pvz');
+          if(tabPvz) tabPvz.classList.add('active');
+          if(tabDoor) tabDoor.classList.remove('active');
+          if(addrLabel) addrLabel.textContent = tr('checkout.label_addr_pvz');
+          if(addrInput) addrInput.placeholder = tr('checkout.placeholder_addr_pvz');
+          if(addrHint) addrHint.textContent = tr('checkout.hint_addr_pvz');
         } else {
-          tabDoor.classList.add('active');
-          tabPvz.classList.remove('active');
-          addrLabel.textContent = tr('checkout.label_addr_door');
-          addrInput.placeholder = tr('checkout.placeholder_addr_door');
-          addrHint.textContent = tr('checkout.hint_addr_door');
+          if(tabDoor) tabDoor.classList.add('active');
+          if(tabPvz) tabPvz.classList.remove('active');
+          if(addrLabel) addrLabel.textContent = tr('checkout.label_addr_door');
+          if(addrInput) addrInput.placeholder = tr('checkout.placeholder_addr_door');
+          if(addrHint) addrHint.textContent = tr('checkout.hint_addr_door');
         }
         updateWaLink();
       }
 
-      tabPvz.onclick = () => setDeliveryType('pvz');
-      tabDoor.onclick = () => setDeliveryType('door');
+      if(tabPvz) tabPvz.onclick = () => setDeliveryType('pvz');
+      if(tabDoor) tabDoor.onclick = () => setDeliveryType('door');
 
       // Sync form data with WhatsApp alternate button
       function updateWaLink(){
