@@ -179,6 +179,12 @@ def main():
         pass
 
     try:
+        from sync_drive import update_shop_schema
+        update_shop_schema(products)
+    except Exception:
+        pass
+
+    try:
         from generate_feed import generate_feed
         generate_feed()
     except Exception:
@@ -192,7 +198,7 @@ def main():
 
     if args.commit or args.push:
         try:
-            subprocess.run(["git", "add", "products.json", dst_img_path, "product/", "google_merchant_feed.xml", "sitemap.xml"], check=True)
+            subprocess.run(["git", "add", "products.json", "shop.html", dst_img_path, "product/", "google_merchant_feed.xml", "sitemap.xml"], check=True)
             commit_msg = f"Добавлен товар: {args.title} ({args.price} тг)"
             subprocess.run(["git", "commit", "-m", commit_msg], check=True)
             print(f"[OK] Git commit создан: \"{commit_msg}\"")

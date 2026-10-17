@@ -206,19 +206,74 @@ def detect_materials(title, description=""):
     return list(dict.fromkeys(mats))
 
 def update_shop_schema(products):
+    """Обновляет микроразметку schema.org/ItemList в shop.html на основе products с полными данными Merchant Listings"""
     if not os.path.exists('shop.html'):
         return
     item_list = []
     for p in products:
+        pid = p.get("id", "")
+        desc = p.get("description") or p.get("title", "Украшение Livi Jewelry")
+        price = str(p.get("price", 0))
+        img_url = p.get("image", "").lstrip("/")
+        canonical_url = f"https://livijewelry.kz/product/{pid}.html" if pid else "https://livijewelry.kz/shop.html"
         item_list.append({
             "@type": "Product",
-            "name": p["title"],
-            "image": f"https://livijewelry.kz/{p['image']}",
-            "description": p.get("description", ""),
+            "name": p.get("title", ""),
+            "image": f"https://livijewelry.kz/{img_url}",
+            "description": desc,
+            "sku": pid or "LV-01",
+            "mpn": pid or "LV-01",
+            "brand": {
+                "@type": "Brand",
+                "name": "Livi Jewelry"
+            },
             "offers": {
                 "@type": "Offer",
-                "price": str(p["price"]),
-                "priceCurrency": "KZT"
+                "url": canonical_url,
+                "price": price,
+                "priceCurrency": "KZT",
+                "priceValidUntil": "2027-12-31",
+                "availability": "https://schema.org/InStock",
+                "itemCondition": "https://schema.org/NewCondition",
+                "seller": {
+                    "@type": "Organization",
+                    "name": "Livi Jewelry"
+                },
+                "shippingDetails": {
+                    "@type": "OfferShippingDetails",
+                    "shippingRate": {
+                        "@type": "MonetaryAmount",
+                        "value": "0",
+                        "currency": "KZT"
+                    },
+                    "shippingDestination": {
+                        "@type": "DefinedRegion",
+                        "addressCountry": "KZ"
+                    },
+                    "deliveryTime": {
+                        "@type": "ShippingDeliveryTime",
+                        "handlingTime": {
+                            "@type": "QuantitativeValue",
+                            "minValue": 0,
+                            "maxValue": 1,
+                            "unitCode": "DAY"
+                        },
+                        "transitTime": {
+                            "@type": "QuantitativeValue",
+                            "minValue": 1,
+                            "maxValue": 3,
+                            "unitCode": "DAY"
+                        }
+                    }
+                },
+                "hasMerchantReturnPolicy": {
+                    "@type": "MerchantReturnPolicy",
+                    "applicableCountry": "KZ",
+                    "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                    "merchantReturnDays": 14,
+                    "returnMethod": "https://schema.org/ReturnByMail",
+                    "returnFees": "https://schema.org/FreeReturn"
+                }
             }
         })
     schema_obj = {
