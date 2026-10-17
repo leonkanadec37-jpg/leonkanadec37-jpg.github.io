@@ -187,12 +187,12 @@
     <item>
       <g:id>prod_10</g:id>
       <g:title>Комплект: Колье из Агата и граната, кольцо Livi Jewelry — Натуральный жемчуг (Комплект)</g:title>
-      <g:description>В комплекте: Колье из Агата и граната — 40 000 тг, Кольцо — 12 000 тг. Полная стоимость комплекта — 52 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.</g:description>
+      <g:description>В комплекте: Колье из Агата и граната — 36 000 тг, Кольцо — 12 000 тг. Полная стоимость комплекта — 48 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.</g:description>
       <g:link>https://livijewelry.kz/product/prod_10.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/kole-iz-agata-i-granata-s-koltsom-40000.webp</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
-      <g:price>52000 KZT</g:price>
+      <g:price>48000 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:google_product_category>200</g:google_product_category>
       <g:product_type>Украшения &gt; Комплекты</g:product_type>
@@ -201,7 +201,7 @@
       <g:material>Натуральный агат / Натуральный гранат / Ювелирный сплав</g:material>
       <g:color>Бордовый / Темно-красный</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
-      <g:custom_label_1>High_Ticket</g:custom_label_1>
+      <g:custom_label_1>Mid_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
@@ -442,6 +442,126 @@
       <g:color>Серебристый / Металлик</g:color>
       <g:custom_label_0>Featured</g:custom_label_0>
       <g:custom_label_1>Mid_Ticket</g:custom_label_1>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>prod_23</g:id>
+      <g:title>Колье из граната Livi Jewelry — Натуральный жемчуг (Колье)</g:title>
+      <g:description>Колье из граната — 40 000 тг.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_23.html</g:link>
+      <g:image_link>https://livijewelry.kz/assets/kole-iz-granata-40000.webp</g:image_link>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:price>40000 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:google_product_category>197</g:google_product_category>
+      <g:product_type>Украшения &gt; Колье</g:product_type>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральный гранат / Ювелирный сплав</g:material>
+      <g:color>Бордовый / Темно-красный</g:color>
+      <g:custom_label_0>Featured</g:custom_label_0>
+      <g:custom_label_1>Mid_Ticket</g:custom_label_1>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>prod_24</g:id>
+      <g:title>Колье из жемчуга и лазурита Livi Jewelry — Натуральный жемчуг (Колье)</g:title>
+      <g:description>Колье из жемчуга и лазурита — 40 000 тг.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_24.html</g:link>
+      <g:image_link>https://livijewelry.kz/assets/kole-iz-zhemchuga-i-lazurita-40000.webp</g:image_link>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:price>40000 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:google_product_category>197</g:google_product_category>
+      <g:product_type>Украшения &gt; Колье</g:product_type>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральный жемчуг / Ювелирный сплав</g:material>
+      <g:color>Белый / Перламутровый</g:color>
+      <g:custom_label_0>Featured</g:custom_label_0>
+      <g:custom_label_1>Mid_Ticket</g:custom_label_1>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>prod_25</g:id>
+      <g:title>Граната и жемчуга Livi Jewelry — Натуральный жемчуг (Колье)</g:title>
+      <g:description>Граната и жемчуга — 40 000 тг.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_25.html</g:link>
+      <g:image_link>https://livijewelry.kz/assets/granata-i-zhemchuga-40000.webp</g:image_link>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:price>40000 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:google_product_category>197</g:google_product_category>
+      <g:product_type>Украшения &gt; Колье</g:product_type>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральный жемчуг / Натуральный гранат / Ювелирный сплав</g:material>
+      <g:color>Бордовый / Темно-красный</g:color>
+      <g:custom_label_0>Featured</g:custom_label_0>
+      <g:custom_label_1>Mid_Ticket</g:custom_label_1>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>prod_26</g:id>
+      <g:title>Комплект: Колье с бирюзой, серьги Livi Jewelry — Натуральный жемчуг (Комплект)</g:title>
+      <g:description>В комплекте: Колье с бирюзой — 35 000 тг, Серьги — 15 000 тг. Полная стоимость комплекта — 50 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_26.html</g:link>
+      <g:image_link>https://livijewelry.kz/assets/komplekt-kole-s-biryuzoy-sergi-50000.webp</g:image_link>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:price>50000 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:google_product_category>200</g:google_product_category>
+      <g:product_type>Украшения &gt; Комплекты</g:product_type>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральная бирюза / Ювелирный сплав</g:material>
+      <g:color>Бирюзовый / Голубой</g:color>
+      <g:custom_label_0>Featured</g:custom_label_0>
+      <g:custom_label_1>High_Ticket</g:custom_label_1>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>prod_27</g:id>
+      <g:title>Комплект: нефрита и гематита, серьги Livi Jewelry — Натуральный жемчуг (Комплект)</g:title>
+      <g:description>В комплекте: Нефрита и гематита — 45 000 тг, Серьги — 16 000 тг. Полная стоимость комплекта — 61 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_27.html</g:link>
+      <g:image_link>https://livijewelry.kz/assets/komplekt-nefrita-i-gematita-sergi-61000.webp</g:image_link>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:price>61000 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:google_product_category>200</g:google_product_category>
+      <g:product_type>Украшения &gt; Комплекты</g:product_type>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Гематит / Ювелирный сплав</g:material>
+      <g:color>Серебристый / Металлик</g:color>
+      <g:custom_label_0>Featured</g:custom_label_0>
+      <g:custom_label_1>High_Ticket</g:custom_label_1>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>prod_28</g:id>
+      <g:title>Комплект: Комплект из бирюзы : колье, браслет, серьги, кольцо Livi Jewelry — Натуральный жемчуг (Комплект)</g:title>
+      <g:description>В комплекте: Комплект из бирюзы : колье — 40 000 тг, Браслет — 23 000 тг, Серьги — 14 000 тг, Кольцо — 14 000 тг. Полная стоимость комплекта — 91 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_28.html</g:link>
+      <g:image_link>https://livijewelry.kz/assets/komplekt-komplekt-iz-biryuzy-kole-braslet-sergi-koltso-91000.webp</g:image_link>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:price>91000 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:google_product_category>200</g:google_product_category>
+      <g:product_type>Украшения &gt; Комплекты</g:product_type>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:material>Натуральная бирюза / Ювелирный сплав</g:material>
+      <g:color>Бирюзовый / Голубой</g:color>
+      <g:custom_label_0>Featured</g:custom_label_0>
+      <g:custom_label_1>High_Ticket</g:custom_label_1>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
   </channel>

@@ -141,14 +141,14 @@
     "id": "prod_10",
     "title": "Комплект: Колье из Агата и граната, кольцо",
     "category": "Sets",
-    "price": 52000,
+    "price": 48000,
     "image": "assets/kole-iz-agata-i-granata-s-koltsom-40000.webp",
     "materials": [
       "Натуральный агат",
       "Натуральный гранат",
       "Ювелирный сплав"
     ],
-    "description": "В комплекте: Колье из Агата и граната — 40 000 тг, Кольцо — 12 000 тг. Полная стоимость комплекта — 52 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.",
+    "description": "В комплекте: Колье из Агата и граната — 36 000 тг, Кольцо — 12 000 тг. Полная стоимость комплекта — 48 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.",
     "inStock": true,
     "featured": true,
     "drive_id": "1T_iWd8Hr-GuiPwGHMnLsqE-_EHaCQVgj"
@@ -339,5 +339,96 @@
     "inStock": true,
     "featured": true,
     "drive_id": "1bwwVBwnP5VAlZo9DLrofxbPpvSe0tZeC"
+  },
+  {
+    "id": "prod_23",
+    "title": "Колье из граната",
+    "category": "Necklaces",
+    "price": 40000,
+    "image": "assets/kole-iz-granata-40000.webp",
+    "materials": [
+      "Натуральный гранат",
+      "Ювелирный сплав"
+    ],
+    "description": "Колье из граната — 40 000 тг.",
+    "inStock": true,
+    "featured": true,
+    "drive_id": "18A8ecAJ-v23BVh1JNwTYe1GGAqSTfOJN"
+  },
+  {
+    "id": "prod_24",
+    "title": "Колье из жемчуга и лазурита",
+    "category": "Necklaces",
+    "price": 40000,
+    "image": "assets/kole-iz-zhemchuga-i-lazurita-40000.webp",
+    "materials": [
+      "Натуральный жемчуг",
+      "Ювелирный сплав"
+    ],
+    "description": "Колье из жемчуга и лазурита — 40 000 тг.",
+    "inStock": true,
+    "featured": true,
+    "drive_id": "1apTfs2aTk2Pt4zb9tkXf18i6Qi_NvYlQ"
+  },
+  {
+    "id": "prod_25",
+    "title": "Граната и жемчуга",
+    "category": "Necklaces",
+    "price": 40000,
+    "image": "assets/granata-i-zhemchuga-40000.webp",
+    "materials": [
+      "Натуральный жемчуг",
+      "Натуральный гранат",
+      "Ювелирный сплав"
+    ],
+    "description": "Граната и жемчуга — 40 000 тг.",
+    "inStock": true,
+    "featured": true,
+    "drive_id": "1CxNmtBruzVC8yRpKl800PeKjl7DaTOL3"
+  },
+  {
+    "id": "prod_26",
+    "title": "Комплект: Колье с бирюзой, серьги",
+    "category": "Sets",
+    "price": 50000,
+    "image": "assets/komplekt-kole-s-biryuzoy-sergi-50000.webp",
+    "materials": [
+      "Натуральная бирюза",
+      "Ювелирный сплав"
+    ],
+    "description": "В комплекте: Колье с бирюзой — 35 000 тг, Серьги — 15 000 тг. Полная стоимость комплекта — 50 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.",
+    "inStock": true,
+    "featured": true,
+    "drive_id": "1XWQdyfXbAwg618uvJXD1hxSwTCJEIAr1"
+  },
+  {
+    "id": "prod_27",
+    "title": "Комплект: нефрита и гематита, серьги",
+    "category": "Sets",
+    "price": 61000,
+    "image": "assets/komplekt-nefrita-i-gematita-sergi-61000.webp",
+    "materials": [
+      "Гематит",
+      "Ювелирный сплав"
+    ],
+    "description": "В комплекте: Нефрита и гематита — 45 000 тг, Серьги — 16 000 тг. Полная стоимость комплекта — 61 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.",
+    "inStock": true,
+    "featured": true,
+    "drive_id": "10I9LrZQs4ZbFhG3I7WyaTmM5vNsuUoOW"
+  },
+  {
+    "id": "prod_28",
+    "title": "Комплект: Комплект из бирюзы : колье, браслет, серьги, кольцо",
+    "category": "Sets",
+    "price": 91000,
+    "image": "assets/komplekt-komplekt-iz-biryuzy-kole-braslet-sergi-koltso-91000.webp",
+    "materials": [
+      "Натуральная бирюза",
+      "Ювелирный сплав"
+    ],
+    "description": "В комплекте: Комплект из бирюзы : колье — 40 000 тг, Браслет — 23 000 тг, Серьги — 14 000 тг, Кольцо — 14 000 тг. Полная стоимость комплекта — 91 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом.",
+    "inStock": true,
+    "featured": true,
+    "drive_id": "1LiBlhCjXe9XR2d5iBc6Y2Hfk8_gzLjD2"
   }
 ]
