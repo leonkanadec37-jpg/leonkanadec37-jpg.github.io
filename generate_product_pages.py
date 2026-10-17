@@ -347,7 +347,7 @@ def generate_product_pages():
 
       <div class="nav-actions">
         <a class="cart-link" href="../cart.html">
-          <span>Корзина</span> <span id="cartBadge" class="cart-badge">0</span>
+          <span>Корзина</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
         </a>
         <a class="quick-link ig-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener" aria-label="Instagram">
           <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
@@ -518,7 +518,8 @@ def generate_product_pages():
   <!-- Interactive Logic -->
   <script>
     const CURRENT_PRODUCT = {product_json_str};
-    const CART_KEY = 'livi_cart_v2';
+    const CART_KEY = 'livi_cart_v3';
+    try {{ localStorage.removeItem('livi_cart_v2'); }} catch(e){{}}
 
     // Cart management
     function readCart(){{
@@ -532,9 +533,17 @@ def generate_product_pages():
       const count = readCart().reduce((sum, item) => sum + Number(item.qty || 0), 0);
       const b = document.getElementById('cartBadge');
       if(!b) return;
-      b.style.display = count > 0 ? 'inline-block' : 'none';
-      if(count > 0) b.textContent = count;
+      if(count > 0){{
+        b.textContent = count;
+        b.style.display = 'inline-block';
+      }} else {{
+        b.textContent = '';
+        b.style.display = 'none';
+      }}
     }}
+    window.addEventListener('storage', e => {{ if(!e.key || e.key === CART_KEY) updateBadge(); }});
+    window.addEventListener('pageshow', updateBadge);
+    document.addEventListener('visibilitychange', () => {{ if(!document.hidden) updateBadge(); }});
 
     // Quantity Stepper
     let currentQty = 1;

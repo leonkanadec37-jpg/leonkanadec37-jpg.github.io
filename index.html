@@ -136,7 +136,7 @@
 
       <div class="nav-actions">
         <a class="cart-link" href="cart.html">
-          <span data-i18n="nav.cart">Корзина</span> <span id="cartBadge" class="cart-badge">0</span>
+          <span data-i18n="nav.cart">Корзина</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
         </a>
         <a class="quick-link ig-link" href="https://instagram.com/livi_jwl"
            target="_blank" rel="noopener" aria-label="Instagram">
@@ -342,14 +342,24 @@
     ruBtn.onclick=()=>setLang('ru'); kkBtn.onclick=()=>setLang('kk'); enBtn.onclick=()=>setLang('en');
 
     // Badge
-    const KEY='livi_cart_v2';
+    const KEY='livi_cart_v3';
+    try { localStorage.removeItem('livi_cart_v2'); } catch(e){}
     function readCart(){ try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []} }
     function updateBadge(){
       const count=readCart().reduce((s,i)=>s+Number(i.qty||0),0);
       const b=document.getElementById('cartBadge');
-      if(!b) return; b.style.display = count>0 ? 'inline-block':'none'; if(count>0) b.textContent=count;
+      if(!b) return;
+      if(count > 0){
+        b.textContent = count;
+        b.style.display = 'inline-block';
+      } else {
+        b.textContent = '';
+        b.style.display = 'none';
+      }
     }
-    window.addEventListener('storage',e=>{ if(e.key===KEY) updateBadge(); });
+    window.addEventListener('storage', e => { if(!e.key || e.key === KEY) updateBadge(); });
+    window.addEventListener('pageshow', updateBadge);
+    document.addEventListener('visibilitychange', () => { if(!document.hidden) updateBadge(); });
 
     document.getElementById('year').textContent = new Date().getFullYear();
     applyLang(); updateBadge();

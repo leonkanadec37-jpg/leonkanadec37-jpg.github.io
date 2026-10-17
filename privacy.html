@@ -48,7 +48,7 @@
       <a class="brand" href="index.html"><span>LIVI JEWELRY</span></a>
       <div class="nav-actions">
         <a class="cart-link" href="shop.html">Каталог</a>
-        <a class="cart-link" href="cart.html">Корзина <span id="cartBadge" class="cart-badge">0</span></a>
+        <a class="cart-link" href="cart.html">Корзина <span id="cartBadge" class="cart-badge" style="display:none"></span></a>
       </div>
     </div>
   </header>
@@ -131,15 +131,27 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    const KEY='livi_cart_v2';
+    const KEY='livi_cart_v3';
+    try { localStorage.removeItem('livi_cart_v2'); } catch(e){}
     function updateBadge(){
       try {
         const count = JSON.parse(localStorage.getItem(KEY)||'[]').reduce((s,i)=>s+Number(i.qty||0),0);
         const b = document.getElementById('cartBadge');
-        if(b) { b.style.display = count > 0 ? 'inline-block' : 'none'; b.textContent = count; }
+        if(b) {
+          if (count > 0) {
+            b.textContent = count;
+            b.style.display = 'inline-block';
+          } else {
+            b.textContent = '';
+            b.style.display = 'none';
+          }
+        }
       } catch(e){}
     }
     updateBadge();
+    window.addEventListener('storage', updateBadge);
+    window.addEventListener('pageshow', updateBadge);
+    document.addEventListener('visibilitychange', () => { if(!document.hidden) updateBadge(); });
 
     // Universal WhatsApp Conversion Tracking (GA4 generate_lead + Google Ads conversion + Meta Contact)
     document.querySelectorAll('a[href*="wa.me"]').forEach(a => {

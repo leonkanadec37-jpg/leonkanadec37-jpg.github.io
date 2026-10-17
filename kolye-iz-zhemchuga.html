@@ -435,7 +435,7 @@
       </a>
       <div class="nav-actions">
         <a class="cart-link" href="shop.html">Каталог</a>
-        <a class="cart-link" href="cart.html">Корзина <span id="cartBadge" class="cart-badge">0</span></a>
+        <a class="cart-link" href="cart.html">Корзина <span id="cartBadge" class="cart-badge" style="display:none"></span></a>
       </div>
     </div>
   </header>
@@ -676,20 +676,27 @@
     });
 
     // Cart Badge Sync
-    const LIVI_KEY = 'livi_cart_v2';
+    const LIVI_KEY = 'livi_cart_v3';
+    try { localStorage.removeItem('livi_cart_v2'); } catch(e){}
     function updateBadge() {
       try {
         const count = JSON.parse(localStorage.getItem(LIVI_KEY) || '[]').reduce((s, i) => s + (parseInt(i.qty, 10) || 0), 0);
         const b = document.getElementById('cartBadge');
         if (b) {
-          b.style.display = count > 0 ? 'inline-block' : 'none';
-          b.textContent = String(count);
+          if (count > 0) {
+            b.textContent = String(count);
+            b.style.display = 'inline-block';
+          } else {
+            b.textContent = '';
+            b.style.display = 'none';
+          }
         }
       } catch (e) {}
     }
     updateBadge();
     window.addEventListener('storage', updateBadge);
     window.addEventListener('pageshow', updateBadge);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) updateBadge(); });
 
     // GA4 view_item_list event
     if (typeof gtag === 'function') {
