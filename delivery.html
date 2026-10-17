@@ -239,6 +239,7 @@
         try {
           if (typeof gtag === 'function') {
             gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_delivery' });
+            gtag('event', 'generate_lead', { lead_source: 'whatsapp_delivery' });
           }
           if (typeof fbq === 'function') {
             fbq('track', 'Contact');

@@ -411,6 +411,7 @@
           if(window.fbq) fbq('track', 'Contact');
           if(typeof gtag === 'function'){
             gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_home', value: 40000, currency: 'KZT' });
+            gtag('event', 'generate_lead', { lead_source: 'whatsapp_home', value: 40000, currency: 'KZT' });
             gtag('event', 'conversion', {
               'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
               'value': Math.round(40000 * 0.2),

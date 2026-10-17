@@ -2128,6 +2128,21 @@
                 google_business_vertical: 'retail'
               }]
             });
+            gtag('event', 'generate_lead', {
+              currency: 'KZT',
+              value: priceNum * currentQty,
+              lead_source: 'shop_modal',
+              items: [{
+                id: p.id,
+                item_id: p.id,
+                item_name: p.title,
+                price: priceNum,
+                item_brand: 'Livi Jewelry',
+                item_category: p.category,
+                quantity: currentQty,
+                google_business_vertical: 'retail'
+              }]
+            });
             gtag('event', 'conversion', {
               'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
               'value': Math.round((priceNum * currentQty) * 0.2),
@@ -2315,6 +2330,7 @@
             const estPrice = (currentProduct && Number(currentProduct.price)) ? Number(currentProduct.price) : 40000;
             const pid = (currentProduct && currentProduct.id) ? currentProduct.id : 'SHOP';
             gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_shop', value: estPrice, currency: 'KZT' });
+            gtag('event', 'generate_lead', { lead_source: 'whatsapp_shop', value: estPrice, currency: 'KZT' });
             gtag('event', 'conversion', {
               'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
               'value': Math.round(estPrice * 0.2),

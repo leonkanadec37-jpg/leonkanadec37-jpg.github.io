@@ -681,6 +681,12 @@
                 lead_source: 'cart_whatsapp_direct',
                 items: dynamicItems
               });
+              gtag('event', 'generate_lead', {
+                currency: 'KZT',
+                value: total,
+                lead_source: 'cart_whatsapp_direct',
+                items: dynamicItems
+              });
               gtag('event', 'conversion', {
                 'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
                 'value': Math.round(total * 0.2),
@@ -867,6 +873,7 @@
           if(window.fbq) fbq('track', 'Contact');
           if(typeof gtag === 'function'){
             gtag('event', 'whatsapp_click', { lead_source: 'whatsapp_cart' });
+            gtag('event', 'generate_lead', { lead_source: 'whatsapp_cart' });
           }
           if(url){ window.location = url; }
           return false;
