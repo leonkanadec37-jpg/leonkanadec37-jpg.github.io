@@ -119,8 +119,18 @@ def generate_product_pages():
                     "applicableCountry": "KZ",
                     "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
                     "merchantReturnDays": 14,
-                    "returnMethod": "https://schema.org/ReturnByMail",
-                    "returnFees": "https://schema.org/FreeReturn"
+                    "returnMethod": [
+                        "https://schema.org/ReturnByMail",
+                        "https://schema.org/ReturnInStore"
+                    ],
+                    "returnFees": "https://schema.org/ReturnShippingFees",
+                    "restockingFee": {
+                        "@type": "MonetaryAmount",
+                        "value": 0,
+                        "currency": "KZT"
+                    },
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "returnPolicyUrl": f"{BASE_URL}/delivery.html"
                 }
             }
         }
