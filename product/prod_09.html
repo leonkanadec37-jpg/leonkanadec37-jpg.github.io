@@ -297,9 +297,12 @@
           <a href="/braslety-iz-zhemchuga.html">Браслеты из жемчуга</a>
           <a href="/sergi-iz-zhemchuga.html">Серьги из жемчуга</a>
           <a href="/komplekty-ukrasheniy.html">Комплекты украшений</a>
-          <a href="https://livijewelry.kz/kz/product/prod_09.html" lang="kk">Қазақша нұсқасы (KZ)</a>
           <a href="/cart.html" class="cart-link"><span>Корзина</span></a>
         </nav>
+        <div class="lang">
+          <a href="https://livijewelry.kz/product/prod_09.html" class="active">RU</a>
+          <a href="https://livijewelry.kz/kz/product/prod_09.html" lang="kk">KZ</a>
+        </div>
       </div>
       <div class="drawer-back" role="button" tabindex="0" aria-label="Закрыть меню"></div>
     </div>
@@ -364,18 +367,6 @@
               <option value="Индивидуальная коррекция длины (бесплатно)">Индивидуальная коррекция длины (бесплатно)</option>
             </select>
           </div>
-          <div class="customizer-field">
-            <label class="customizer-label" for="customHardware">Оттенок гипоаллергенной фурнитуры</label>
-            <select id="customHardware" class="customizer-select">
-              <option value="Как на фото (оригинал модели)" selected>Как на фото (оригинал модели)</option>
-              <option value="Родий (холодный серебристый блеск)">Родий (холодный серебристый блеск)</option>
-              <option value="Позолота (теплый золотистый оттенок)">Позолота (теплый золотистый оттенок)</option>
-            </select>
-          </div>
-          <label class="customizer-gift" for="customGift">
-            <input type="checkbox" id="customGift" checked>
-            <span>Фирменная подарочная упаковка <strong class="customizer-gift-free">(бесплатно — 0 ₸)</strong></span>
-          </label>
         </div>
 
         <div class="product-cta-group">
@@ -641,8 +632,6 @@
     // Динамическое обновление WhatsApp и цены при выборе комплектации (bundle_options)
     const customBundleEl = document.getElementById('customBundle');
     const customSizeEl = document.getElementById('customSize');
-    const customHardwareEl = document.getElementById('customHardware');
-    const customGiftEl = document.getElementById('customGift');
     const waBtn = document.getElementById('waOrderBtn');
     const addToCartBtn = document.getElementById('addToCartBtn');
     const priceDisplayEl = document.querySelector('.product-price-val');
@@ -665,11 +654,9 @@
 
     function buildWhatsAppHref(txId) {
       const sizeVal = customSizeEl ? customSizeEl.value : 'Стандарт';
-      const hwVal = customHardwareEl ? customHardwareEl.value : 'Как на фото';
-      const giftVal = (customGiftEl && customGiftEl.checked) ? 'Да (бесплатно 0 ₸)' : 'Стандартная';
       const bundleVal = customBundleEl ? customBundleEl.value : currentActiveTitle;
       const priceFormatted = currentActivePrice.toLocaleString('ru-RU');
-      const msg = `Здравствуйте! Хочу заказать: ${bundleVal} (Артикул: ${PRODUCT.sku}) за ${priceFormatted} ₸.\nПараметры: ${sizeVal}, фурнитура: ${hwVal}, упаковка: ${giftVal}.\nСсылка: ${PRODUCT.url}${getAttributionSummary(txId)}`;
+      const msg = `Здравствуйте! Хочу заказать: ${bundleVal} (Артикул: ${PRODUCT.sku}) за ${priceFormatted} ₸.\nПараметры: ${sizeVal}.\nСсылка: ${PRODUCT.url}${getAttributionSummary(txId)}`;
       return 'https://wa.me/77054510584?text=' + encodeURIComponent(msg);
     }
 
@@ -681,19 +668,15 @@
 
     if (customBundleEl) customBundleEl.addEventListener('change', syncBundleSelection);
     if (customSizeEl) customSizeEl.addEventListener('change', syncWhatsAppLink);
-    if (customHardwareEl) customHardwareEl.addEventListener('change', syncWhatsAppLink);
-    if (customGiftEl) customGiftEl.addEventListener('change', syncWhatsAppLink);
     syncBundleSelection();
 
     if (addToCartBtn) {
       addToCartBtn.addEventListener('click', function() {
         const sizeVal = customSizeEl ? customSizeEl.value : 'Стандарт';
-        const hwVal = customHardwareEl ? customHardwareEl.value : 'Как на фото';
-        const giftVal = (customGiftEl && customGiftEl.checked) ? 'Подарочная упаковка (0 ₸)' : '';
         const bundleVal = customBundleEl ? customBundleEl.value : currentActiveTitle;
         const items = readCart();
         const itemUniqueId = PRODUCT.id + (customBundleEl ? '-' + customBundleEl.selectedIndex : '');
-        const idx = items.findIndex(x => x.id === itemUniqueId && (x.customSize || '') === sizeVal && (x.customHardware || '') === hwVal);
+        const idx = items.findIndex(x => x.id === itemUniqueId && (x.customSize || '') === sizeVal);
         if (idx >= 0) {
           items[idx].qty = Number(items[idx].qty || 1) + 1;
         } else {
@@ -706,9 +689,7 @@
             image: PRODUCT.image,
             qty: 1,
             customBundle: customBundleEl ? customBundleEl.value : '',
-            customSize: sizeVal,
-            customHardware: hwVal,
-            customGift: giftVal
+            customSize: sizeVal
           });
         }
         writeCart(items);
@@ -724,7 +705,7 @@
                 item_id: PRODUCT.id,
                 item_name: bundleVal,
                 item_category: PRODUCT.category,
-                item_variant: `${sizeVal} | ${hwVal}`,
+                item_variant: sizeVal,
                 price: currentActivePrice,
                 quantity: 1
               }]

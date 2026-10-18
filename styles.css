@@ -159,6 +159,10 @@ header {
   color: var(--fg);
   position: relative;
   padding: 6px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
 }
 .cart-link:hover {
   color: var(--muted);
@@ -170,14 +174,22 @@ header {
   font-size: 10px;
   font-weight: 600;
   line-height: 1;
-  padding: 3px 7px;
+  padding: 0 5px;
+  min-width: 18px;
+  height: 18px;
   border-radius: 999px;
-  margin-left: 5px;
+  margin-left: 0;
+  box-sizing: border-box;
   vertical-align: middle;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.2s ease;
 }
 .cart-badge:empty {
   display: none !important;
+}
+.cart-badge:not(:empty) {
+  display: inline-flex;
 }
 .cart-badge.badge-pop {
   animation: badgePop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -255,11 +267,12 @@ header {
 }
 .lang {
   display: flex;
-  gap: 12px;
+  gap: 8px;
   margin-top: auto;
   padding-top: 20px;
 }
-.lang button {
+.lang button,
+.lang a {
   flex: 1;
   text-align: center;
   font-family: var(--font-sans);
@@ -267,9 +280,25 @@ header {
   font-weight: 500;
   letter-spacing: 0.12em;
   border: 1px solid var(--line);
-  padding: 8px 0;
+  padding: 10px 0;
+  text-decoration: none;
+  color: var(--fg);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  border-radius: 0;
+  box-sizing: border-box;
 }
-.lang button.active {
+.lang button:hover,
+.lang a:hover {
+  border-color: var(--fg);
+  color: var(--fg);
+  padding-left: 0;
+}
+.lang button.active,
+.lang a.active {
   background: var(--fg);
   color: #fff;
   border-color: var(--fg);
@@ -1234,11 +1263,21 @@ footer {
 @media (max-width: 860px) {
   .hero { grid-template-columns: 1fr; gap: 32px; padding-top: 36px; }
   .modal-card { grid-template-columns: 1fr; }
-  .nav { padding: 16px 18px; }
-  .brand { font-size: 18px; letter-spacing: 0.18em; }
+  .nav { padding: 14px 16px; }
+  .brand { font-size: 18px; letter-spacing: 0.16em; }
 }
 
 @media (max-width: 640px) {
+  .nav {
+    grid-template-columns: auto 1fr auto;
+    gap: 8px;
+    padding: 12px 14px;
+  }
+  .brand {
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    text-align: center;
+  }
   .grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 28px 16px;
@@ -1252,7 +1291,8 @@ footer {
   .tag { font-size: 11px; letter-spacing: 0.12em; }
   .wrap { padding: 36px 16px 56px; }
   .quick-link { display: none; } /* Clean, balanced luxury header on smartphones */
-  .nav-actions { gap: 12px; }
+  .nav-actions { gap: 8px; }
+  .cart-link { font-size: 11px; letter-spacing: 0.1em; }
   .form-group input,
   .form-group textarea,
   .form-group select {
@@ -2224,22 +2264,25 @@ footer {
 .header-lang-links {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 .header-lang-links a {
   padding: 3px 6px;
   border: 1px solid var(--line);
   color: var(--muted);
+  text-decoration: none;
+  line-height: 1;
+  transition: var(--transition);
 }
 .header-lang-links a.active,
 .header-lang-links a:hover {
   border-color: var(--fg);
-  color: var(--fg);
-  background: #FFFFFF;
+  color: #fff;
+  background: var(--fg);
 }
 
 /* Product Specifications Table */

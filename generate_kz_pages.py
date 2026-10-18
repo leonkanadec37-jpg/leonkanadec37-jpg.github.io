@@ -644,8 +644,8 @@ def generate_kz_index(products_kz: list) -> str:
       <a href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
       <a href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener">WhatsApp</a>
       <div class="lang">
-        <a href="/" id="ruBtn" style="text-align:center;font-family:var(--font-sans);font-size:12px;">RU</a>
-        <a href="/kz/" id="kkBtn" class="active" style="text-align:center;font-family:var(--font-sans);font-size:12px;">KZ</a>
+        <a href="/" id="ruBtn">RU</a>
+        <a href="/kz/" id="kkBtn" class="active">KZ</a>
       </div>
     </div>
   </div>
@@ -905,8 +905,8 @@ def generate_kz_shop(products_kz: list) -> str:
       <a href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
       <a href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener">WhatsApp</a>
       <div class="lang">
-        <a href="/shop.html" id="ruBtn" style="text-align:center;font-family:var(--font-sans);font-size:12px;">RU</a>
-        <a href="/kz/shop.html" id="kkBtn" class="active" style="text-align:center;font-family:var(--font-sans);font-size:12px;">KZ</a>
+        <a href="/shop.html" id="ruBtn">RU</a>
+        <a href="/kz/shop.html" id="kkBtn" class="active">KZ</a>
       </div>
     </div>
   </div>
@@ -1459,18 +1459,6 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
 {opts_html}
             </select>
           </div>
-          <div class="customizer-field">
-            <label class="customizer-label" for="customHardware">Гипоаллергенді фурнитура реңкі</label>
-            <select id="customHardware" class="customizer-select">
-              <option value="Фотодағыдай (түпнұсқа үлгі)" selected>Фотодағыдай (түпнұсқа үлгі)</option>
-              <option value="Родий (суық күміс жылтыр)">Родий (суық күміс жылтыр)</option>
-              <option value="Алтын жалату (жылы алтын реңк)">Алтын жалату (жылы алтын реңк)</option>
-            </select>
-          </div>
-          <label class="customizer-gift" for="customGift">
-            <input type="checkbox" id="customGift" checked>
-            <span>Фирмалық сыйлық қаптамасы <strong class="customizer-gift-free">(тегін — 0 ₸)</strong></span>
-          </label>
         </div>"""
 
     reviews_cards_html = "\n".join(
@@ -1624,9 +1612,12 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
           <a href="/braslety-iz-zhemchuga.html">Білезіктер</a>
           <a href="/sergi-iz-zhemchuga.html">Сырғалар</a>
           <a href="/komplekty-ukrasheniy.html">Жиынтықтар</a>
-          <a href="{ru_page_url}" lang="ru">Орысша нұсқасы (RU)</a>
           <a href="/cart.html" class="cart-link"><span>Себет</span></a>
         </nav>
+        <div class="lang">
+          <a href="{ru_page_url}" lang="ru">RU</a>
+          <a href="{page_url}" class="active" lang="kk">KZ</a>
+        </div>
       </div>
       <div class="drawer-back" role="button" tabindex="0" aria-label="Мәзірді жабу"></div>
     </div>
@@ -1927,13 +1918,9 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
     if (addBtn) {{
       addBtn.onclick = () => {{
         const sizeEl = document.getElementById('customSize');
-        const hwEl = document.getElementById('customHardware');
-        const giftEl = document.getElementById('customGift');
         const bundleOpt = bundleSelect ? bundleSelect.options[bundleSelect.selectedIndex].value : '';
 
         const selectedSize = sizeEl ? sizeEl.value : '';
-        const selectedHw = hwEl ? hwEl.value : '';
-        const giftChecked = giftEl ? giftEl.checked : true;
 
         const cart = readCart();
         const cartItemId = PRODUCT.id + (bundleSelect ? ('-' + bundleSelect.selectedIndex) : '');
@@ -1954,12 +1941,8 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
             qty: 1,
             customBundle: bundleOpt,
             customSize: selectedSize,
-            customHardware: selectedHw,
-            customGift: giftChecked ? 'Сыйлық қаптамасы (0 ₸)' : '',
             bundleOption: bundleOpt,
-            size: selectedSize,
-            hardware: selectedHw,
-            giftPackaging: giftChecked
+            size: selectedSize
           }});
         }}
         writeCart(cart);

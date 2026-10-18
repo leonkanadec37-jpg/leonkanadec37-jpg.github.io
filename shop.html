@@ -572,17 +572,15 @@
     <div class="drawer-panel" role="menu" aria-label="Меню">
       <a href="/" data-i18n="nav.home">Главная</a>
       <a href="shop.html" data-i18n="nav.shop">Каталог</a>
-      <a href="/kolye-iz-zhemchuga.html">Колье из жемчуга</a>
-      <a href="/braslety-iz-zhemchuga.html">Браслеты из жемчуга</a>
-      <a href="/sergi-iz-zhemchuga.html">Серьги из жемчуга</a>
-      <a href="/komplekty-ukrasheniy.html">Комплекты украшений</a>
-      <a href="/kz/shop.html" lang="kk">Қазақша каталог (KZ)</a>
+      <a href="/kolye-iz-zhemchuga.html" data-i18n="nav.necklaces">Колье из жемчуга</a>
+      <a href="/braslety-iz-zhemchuga.html" data-i18n="nav.bracelets">Браслеты из жемчуга</a>
+      <a href="/sergi-iz-zhemchuga.html" data-i18n="nav.earrings">Серьги из жемчуга</a>
+      <a href="/komplekty-ukrasheniy.html" data-i18n="nav.sets">Комплекты украшений</a>
       <a href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
       <a href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener">WhatsApp</a>
       <div class="lang">
-        <button id="ruBtn" class="active">RU</button>
-        <a href="/kz/shop.html" id="kkBtn" lang="kk" style="text-align:center;font-family:var(--font-sans);font-size:12px;">KZ</a>
-        <button id="enBtn">EN</button>
+        <a href="/shop.html" id="ruBtn" class="active">RU</a>
+        <a href="/kz/shop.html" id="kkBtn" lang="kk">KZ</a>
       </div>
     </div>
   </div>
@@ -855,7 +853,7 @@
     </div>
     <div id="catalogError" class="empty-state" hidden style="display:none" aria-hidden="true"></div>
 
-                        <!-- Навигационный блок: Подборки по камням и стилям -->
+                            <!-- Навигационный блок: Подборки по камням и стилям -->
     <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
       <h2 class="hub-interlink-title">Подборки украшений по натуральным камням и стилям</h2>
       <nav class="stone-chips" style="margin-bottom:0;">
@@ -925,18 +923,6 @@
               <option value="Индивидуальный размер (уточнит мастер)">Индивидуальный размер (уточнит мастер)</option>
             </select>
           </div>
-          <div class="customizer-field">
-            <label class="customizer-label" for="mCustomHardware">Оттенок гипоаллергенной фурнитуры</label>
-            <select id="mCustomHardware" class="customizer-select">
-              <option value="Как на фото (оригинал модели)" selected>Как на фото (оригинал модели)</option>
-              <option value="Родий (холодный серебристый блеск)">Родий (холодный серебристый блеск)</option>
-              <option value="Позолота (теплый золотистый оттенок)">Позолота (теплый золотистый оттенок)</option>
-            </select>
-          </div>
-          <label class="customizer-gift" for="mCustomGift">
-            <input type="checkbox" id="mCustomGift" checked>
-            <span>Фирменная подарочная упаковка <strong class="customizer-gift-free">(бесплатно — 0 ₸)</strong></span>
-          </label>
         </div>
 
         <div class="qty">
@@ -1019,6 +1005,7 @@
       ru:{
         'meta.title':'Каталог жемчужной бижутерии — купить серьги, браслеты, колье, кольца | Livi Jewelry',
         'nav.home':'Главная','nav.shop':'Каталог','nav.cart':'Корзина',
+        'nav.necklaces':'Колье из жемчуга','nav.bracelets':'Браслеты из жемчуга','nav.earrings':'Серьги из жемчуга','nav.sets':'Комплекты украшений',
         'page.title':'Украшения из жемчуга и натуральных камней — каталог: серьги, браслеты, колье, комплекты',
         'cat.All':'Все','cat.Necklaces':'Колье','cat.Sets':'Комплекты','cat.Bracelets':'Браслеты','cat.Lariats':'Сотуары','cat.Chains':'Цепи',
         'ui.add':'В корзину','ui.quickWa':'Купить в 1 клик в WhatsApp','ui.openCart':'Открыть корзину',
@@ -1027,18 +1014,11 @@
       kk:{
         'meta.title':'Інжу әшекейлері — сырға, білезік, алқа, сақина каталоги | Livi Jewelry',
         'nav.home':'Басты бет','nav.shop':'Дүкен','nav.cart':'Себет',
+        'nav.necklaces':'Інжу алқалар','nav.bracelets':'Інжу білезіктер','nav.earrings':'Інжу сырғалар','nav.sets':'Әшекейлер жиынтығы',
         'page.title':'Інжу әшекейлері — каталог: сырғалар, білезіктер, алқалар, сақиналар',
         'cat.All':'Барлығы','cat.Necklaces':'Алқалар','cat.Sets':'Комплекттер','cat.Bracelets':'Білезіктер','cat.Lariats':'Сотуарлар','cat.Chains':'Тізбектер',
         'ui.add':'Себетке қосу','ui.quickWa':'WhatsApp-та 1 рет басу арқылы сатып алу','ui.openCart':'Себетті ашу',
         'search.placeholder':'Әшекейлерді іздеу...','search.empty':'Сұранысыңыз бойынша ештеңе табылмады'
-      },
-      en:{
-        'meta.title':'Pearl jewellery catalog — buy earrings, bracelets, necklaces, rings | Livi Jewelry',
-        'nav.home':'Home','nav.shop':'Shop','nav.cart':'Cart',
-        'page.title':'Pearl jewellery — catalog: earrings, bracelets, necklaces, rings',
-        'cat.All':'All','cat.Necklaces':'Necklaces','cat.Sets':'Sets','cat.Bracelets':'Bracelets','cat.Lariats':'Lariats','cat.Chains':'Chains',
-        'ui.add':'Add to cart','ui.quickWa':'Buy in 1 Click via WhatsApp','ui.openCart':'Open cart',
-        'search.placeholder':'Search jewellery...','search.empty':'No items found matching your search'
       }
     };
     function lang(){ return localStorage.getItem('lang') || 'ru'; }
@@ -1053,7 +1033,6 @@
     const burger = document.getElementById('burger');
     const ruBtn = document.getElementById('ruBtn');
     const kkBtn = document.getElementById('kkBtn');
-    const enBtn = document.getElementById('enBtn');
 
     const CATS = ['All', 'Necklaces', 'Sets', 'Bracelets', 'Lariats', 'Chains'];
     let PRODUCTS = [];
@@ -1067,8 +1046,8 @@
         el.textContent = tr(el.getAttribute('data-i18n'));
       });
       if(searchInput) searchInput.placeholder = tr('search.placeholder');
-      [ruBtn, kkBtn, enBtn].forEach(b => { if(b) b.classList.remove('active'); });
-      const curBtn = lang() === 'kk' ? kkBtn : (lang() === 'en' ? enBtn : ruBtn);
+      [ruBtn, kkBtn].forEach(b => { if(b) b.classList.remove('active'); });
+      const curBtn = lang() === 'kk' ? kkBtn : ruBtn;
       if(curBtn) curBtn.classList.add('active');
     }
     function readCart(){
@@ -1233,13 +1212,11 @@
     }
 
     /* ===== CART ===== */
-    function addToCart(p, qty, customSize, customHardware, customGift){
+    function addToCart(p, qty, customSize){
       const q = Math.max(1, Number(qty||1));
       const cart = readCart();
       const sizeVal = customSize || 'Стандарт';
-      const hwVal = customHardware || 'Как на фото';
-      const giftVal = customGift || '';
-      const i = cart.findIndex(x => x.id === p.id && (x.customSize || '') === sizeVal && (x.customHardware || '') === hwVal);
+      const i = cart.findIndex(x => x.id === p.id && (x.customSize || '') === sizeVal);
       const unit = Number(p.price) || 0;
       const priceStr = unit ? `${unit.toLocaleString('ru-RU')} тг` : 'Цена по запросу';
       if(i > -1){
@@ -1255,9 +1232,7 @@
           img: p.image,
           qty: q,
           unit,
-          customSize: sizeVal,
-          customHardware: hwVal,
-          customGift: giftVal
+          customSize: sizeVal
         });
       }
       writeCart(cart);
@@ -1270,8 +1245,7 @@
           mPrice=document.getElementById('mPrice'), mMats=document.getElementById('mMats'), mDesc=document.getElementById('mDesc'), mQtyEl=document.getElementById('mQty');
     const mMinus=document.getElementById('mMinus'), mPlus=document.getElementById('mPlus'), mAdd=document.getElementById('mAdd'), mClose=document.getElementById('mClose');
     const mWa=document.getElementById('mWa'), mPageLink=document.getElementById('mPageLink');
-    const mCustomSize=document.getElementById('mCustomSize'), mCustomSizeLabel=document.getElementById('mCustomSizeLabel'),
-          mCustomHardware=document.getElementById('mCustomHardware'), mCustomGift=document.getElementById('mCustomGift');
+    const mCustomSize=document.getElementById('mCustomSize'), mCustomSizeLabel=document.getElementById('mCustomSizeLabel');
     let currentProduct=null;
 
     function configureModalCustomizer(p){
@@ -1304,14 +1278,11 @@
       const priceFmt = priceNum ? priceNum.toLocaleString('ru-RU') : '';
       const sku = getLiviSku(p.id);
       const sizeVal = mCustomSize ? mCustomSize.value : 'Стандарт';
-      const hwVal = mCustomHardware ? mCustomHardware.value : 'Как на фото';
-      const waText = `Здравствуйте! Хочу заказать: ${p.title} (Артикул: ${sku}) за ${priceFmt} ₸.\nПараметры: ${sizeVal}, фурнитура: ${hwVal}.\nСсылка: https://livijewelry.kz/product/${p.id}.html` + getAttributionSummary(txId);
+      const waText = `Здравствуйте! Хочу заказать: ${p.title} (Артикул: ${sku}) за ${priceFmt} ₸.\nПараметры: ${sizeVal}.\nСсылка: https://livijewelry.kz/product/${p.id}.html` + getAttributionSummary(txId);
       mWa.href = `https://wa.me/77054510584?text=` + encodeURIComponent(waText);
     }
 
     if(mCustomSize) mCustomSize.addEventListener('change', () => updateModalWaHref());
-    if(mCustomHardware) mCustomHardware.addEventListener('change', () => updateModalWaHref());
-    if(mCustomGift) mCustomGift.addEventListener('change', () => updateModalWaHref());
 
     function openModal(p){
       currentProduct=p;
@@ -1451,9 +1422,7 @@
         const qty = Number(mQtyEl.textContent) || 1;
         const priceNum = Number(currentProduct.price) || 0;
         const sizeVal = mCustomSize ? mCustomSize.value : 'Стандарт';
-        const hwVal = mCustomHardware ? mCustomHardware.value : 'Как на фото';
-        const giftVal = (mCustomGift && mCustomGift.checked) ? 'Подарочная упаковка (0 ₸)' : '';
-        addToCart(currentProduct, qty, sizeVal, hwVal, giftVal); 
+        addToCart(currentProduct, qty, sizeVal); 
         if(window.fbq){
           fbq('track', 'AddToCart', {
             content_name: currentProduct.title,
@@ -1471,7 +1440,7 @@
               id: currentProduct.id,
               item_id: currentProduct.id,
               item_name: currentProduct.title,
-              item_variant: `${sizeVal} | ${hwVal}`,
+              item_variant: sizeVal,
               price: priceNum,
               item_brand: 'Livi Jewelry',
               quantity: qty,
@@ -1499,7 +1468,6 @@
     }
     if(ruBtn) ruBtn.onclick = () => { localStorage.setItem('lang','ru'); setLang('ru'); };
     if(kkBtn) kkBtn.onclick = () => { localStorage.setItem('lang','kk'); };
-    if(enBtn) enBtn.onclick = () => setLang('en');
 
     // Search controls
     if(searchInput){
