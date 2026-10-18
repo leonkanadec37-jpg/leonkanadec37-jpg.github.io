@@ -78,6 +78,17 @@ def optimize_image(src_path, dst_path, max_w=1440, max_h=1920, quality=82):
 def format_num(n):
     return f"{n:,}".replace(',', ' ')
 
+def log_warning(msg):
+    from datetime import datetime
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    formatted = f"[{timestamp}] [WARN] {msg}\n"
+    print(f"[WARN] {msg}")
+    try:
+        with open("sync_warnings.log", "a", encoding="utf-8") as f:
+            f.write(formatted)
+    except Exception as e:
+        print(f"[ERROR] Не удалось записать в sync_warnings.log: {e}")
+
 def parse_item_info(raw_title):
     raw = raw_title.strip()
     
@@ -103,17 +114,28 @@ def parse_item_info(raw_title):
         p_match = re.search(r'(\d+[\.\s]?\d{3})\s*(?:тг|тенге|\.)?', ch, flags=re.IGNORECASE)
         if p_match:
             price_num = int(re.sub(r'\D', '', p_match.group(1)))
-            name = ch[:p_match.start()] + ch[p_match.end():]
-            name = re.sub(r'(?:тг|тенге|\.|\-|–|—)', ' ', name, flags=re.IGNORECASE).strip()
-            name = re.sub(r'^(?:и|\+)\s+', '', name, flags=re.IGNORECASE).strip()
-            if name:
-                elements.append((name, price_num))
+            if price_num > 0:
+                name = ch[:p_match.start()] + ch[p_match.end():]
+                name = re.sub(r'(?:тг|тенге|\.|\-|–|—)', ' ', name, flags=re.IGNORECASE).strip()
+                name = re.sub(r'^(?:и|\+)\s+', '', name, flags=re.IGNORECASE).strip()
+                if name:
+                    elements.append((name, price_num))
 
     if not elements:
         p_match = re.search(r'(\d+[\.\s]?\d{3})', raw)
-        price_num = int(re.sub(r'\D', '', p_match.group(1))) if p_match else 30000
+        if not p_match:
+            log_warning(f"Файл '{raw_title}' пропущен: отсутствует цена в названии или опечатка (не найдены цифры стоимости).")
+            return None
+        price_num = int(re.sub(r'\D', '', p_match.group(1)))
+        if price_num <= 0:
+            log_warning(f"Файл '{raw_title}' пропущен: невалидная цена {price_num} KZT.")
+            return None
         clean_name = re.sub(r'\s*\.?\s*\d+[\.\s]?\d*\s*(?:тг|тенге|\.)?.*$', '', raw, flags=re.IGNORECASE).strip()
         elements.append((clean_name or raw, price_num))
+
+    if not elements or any(p <= 0 for _, p in elements):
+        log_warning(f"Файл '{raw_title}' пропущен: элементы содержат некорректную цену.")
+        return None
 
     if len(elements) == 1:
         elem_name, elem_price = elements[0]
@@ -458,33 +480,69 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
         added_count += 1
         print(f"[ADD] Добавлен товар {new_id}: {title} ({price} тг) -> assets/{filename}")
 
-    # Двусторонняя синхронизация: удаление товаров, которые были удалены с Google Диска
-    deleted_count = 0
+    # Двусторонняя синхронизация: мягкая архивация (Soft Archive 14 дней) товаров, удаленных с Google Диска
+    archived_count = 0
+    purged_count = 0
+    from datetime import datetime
+
     if drive_url and len(current_drive_ids) > 0:
         remaining_products = []
+        now = datetime.now()
         for p in products:
             p_drive_id = p.get('drive_id')
             if p_drive_id and p_drive_id not in current_drive_ids:
-                print(f"[DELETE] Товар {p['id']} (\"{p.get('title')}\") удален с сайта, так как отсутствует на Google Диске.")
-                img_path = p.get('image')
-                if img_path and os.path.exists(img_path):
-                    try:
-                        os.remove(img_path)
-                    except Exception:
-                        pass
-                html_path = os.path.join("product", f"{p['id']}.html")
-                if os.path.exists(html_path):
-                    try:
-                        os.remove(html_path)
-                    except Exception:
-                        pass
-                deleted_count += 1
+                # Товар отсутствует на Google Диске
+                if not p.get('archived'):
+                    # Первый раз: переводим в Soft Archive на 14 дней
+                    p['archived'] = True
+                    p['archived_at'] = now.strftime('%Y-%m-%d')
+                    p['inStock'] = False
+                    p['featured'] = False
+                    archived_count += 1
+                    print(f"[ARCHIVE] Товар {p['id']} (\"{p.get('title')}\") переведен в статус 'Продано' (soft archive на 14 дней, out_of_stock)")
+                    remaining_products.append(p)
+                else:
+                    # Товар уже в архиве - проверяем срок 14 дней
+                    arch_date_str = p.get('archived_at')
+                    days_in_archive = 0
+                    if arch_date_str:
+                        try:
+                            arch_date = datetime.strptime(arch_date_str[:10], '%Y-%m-%d')
+                            days_in_archive = (now - arch_date).days
+                        except Exception:
+                            days_in_archive = 0
+
+                    if days_in_archive >= 14:
+                        print(f"[PURGE] Товар {p['id']} (\"{p.get('title')}\") удален окончательно (в архиве {days_in_archive} дн. >= 14).")
+                        img_path = p.get('image')
+                        if img_path and os.path.exists(img_path):
+                            try:
+                                os.remove(img_path)
+                            except Exception:
+                                pass
+                        html_path = os.path.join("product", f"{p['id']}.html")
+                        if os.path.exists(html_path):
+                            try:
+                                os.remove(html_path)
+                            except Exception:
+                                pass
+                        purged_count += 1
+                    else:
+                        remaining_products.append(p)
             else:
+                # Товар присутствует на Google Диске
+                if p.get('archived'):
+                    # Если товар снова загрузили на Диск - восстанавливаем из архива
+                    p['archived'] = False
+                    p['inStock'] = True
+                    p.pop('archived_at', None)
+                    print(f"[RESTORE] Товар {p['id']} (\"{p.get('title')}\") восстановлен из архива в активный каталог.")
+                    updated_count += 1
                 remaining_products.append(p)
         products = remaining_products
 
-    # Сохраняем products.json при наличии любых изменений (добавления, обновления или удаления)
-    if added_count > 0 or updated_count > 0 or deleted_count > 0:
+    # Сохраняем products.json при наличии любых изменений (добавления, обновления, архивации или удаления)
+    if added_count > 0 or updated_count > 0 or archived_count > 0 or purged_count > 0:
         with open(products_file, "w", encoding="utf-8") as f:
             json.dump(products, f, ensure_ascii=False, indent=2)
         update_shop_schema(products)
@@ -511,8 +569,10 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
             actions.append(f"добавлено: {added_count}")
         if updated_count > 0:
             actions.append(f"обновлено: {updated_count}")
-        if deleted_count > 0:
-            actions.append(f"удалено: {deleted_count}")
+        if archived_count > 0:
+            actions.append(f"в архиве (out_of_stock): {archived_count}")
+        if purged_count > 0:
+            actions.append(f"удалено (>14 дней): {purged_count}")
         summary_str = ", ".join(actions)
         print(f"\n[SUCCESS] Синхронизация завершена ({summary_str}). Всего товаров: {len(products)}")
 

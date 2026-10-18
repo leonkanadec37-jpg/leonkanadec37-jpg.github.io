@@ -118,7 +118,8 @@ def generate_feed():
 
         # 6. Availability & Condition
         g_avail = ET.SubElement(item, "g:availability")
-        g_avail.text = "in_stock" if p.get("inStock", True) else "out_of_stock"
+        is_in_stock = p.get("inStock", True) and not p.get("archived", False)
+        g_avail.text = "in_stock" if is_in_stock else "out_of_stock"
 
         g_cond = ET.SubElement(item, "g:condition")
         g_cond.text = "new"

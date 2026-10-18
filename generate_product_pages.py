@@ -55,7 +55,8 @@ def generate_product_pages():
         cat_url = cat_info[1]
         materials = p.get("materials", [])
         desc = p.get("description", title).strip()
-        in_stock = p.get("inStock", True)
+        is_archived = p.get("archived", False)
+        in_stock = p.get("inStock", True) and not is_archived
         canonical_url = f"{BASE_URL}/product/{pid}.html"
 
         # SEO meta content
@@ -173,26 +174,40 @@ def generate_product_pages():
         mat_pills_html = "\n".join([f'            <span class="mat-pill">{clean_for_attr(m)}</span>' for m in materials])
 
         # Stock badge
-        if in_stock:
+        if is_archived:
+            stock_badge_html = '<span class="product-stock-pill out-stock"><span class="stock-dot"></span>Продано — доступно повторение на заказ в WhatsApp</span>'
+        elif in_stock:
             stock_badge_html = '<span class="product-stock-pill in-stock"><span class="stock-dot"></span>В наличии (отправка день в день)</span>'
         else:
             stock_badge_html = '<span class="product-stock-pill out-stock"><span class="stock-dot"></span>Под заказ (изготовление 1–3 дня)</span>'
 
-        # WhatsApp prefilled URL
-        wa_text = (
-            f"Здравствуйте! Хочу оформить заказ на украшение в Livi Jewelry:\n\n"
-            f"• {title}\n"
-            f"• Стоимость: {price_fmt} тг\n"
-            f"• Код товара: {pid}\n"
-            f"• Ссылка: {canonical_url}\n\n"
-            f"Подскажите, пожалуйста, наличие и условия доставки."
-        )
+        # WhatsApp prefilled URL & CTA label
+        if is_archived:
+            wa_text = (
+                f"Здравствуйте! Интересует повторение на заказ украшения в Livi Jewelry:\n\n"
+                f"• {title}\n"
+                f"• Стоимость: {price_fmt} тг\n"
+                f"• Код товара: {pid}\n"
+                f"• Ссылка: {canonical_url}\n\n"
+                f"Подскажите, пожалуйста, возможно ли повторение на заказ и какие сроки изготовления?"
+            )
+            wa_btn_text = "Повторить на заказ в WhatsApp"
+        else:
+            wa_text = (
+                f"Здравствуйте! Хочу оформить заказ на украшение в Livi Jewelry:\n\n"
+                f"• {title}\n"
+                f"• Стоимость: {price_fmt} тг\n"
+                f"• Код товара: {pid}\n"
+                f"• Ссылка: {canonical_url}\n\n"
+                f"Подскажите, пожалуйста, наличие и условия доставки."
+            )
+            wa_btn_text = "Заказать в 1 клик через WhatsApp"
         wa_order_url = f"https://wa.me/77054510584?text={urllib.parse.quote(wa_text)}"
 
-        # Related products (3 other items)
-        related = [other for other in products if other.get("id") != pid]
-        same_cat = [other for other in related if other.get("category") == cat_key]
-        diff_cat = [other for other in related if other.get("category") != cat_key]
+        # Related products (3 other items from active in-stock products)
+        active_candidates = [other for other in products if other.get("id") != pid and not other.get("archived", False) and other.get("inStock", True)]
+        same_cat = [other for other in active_candidates if other.get("category") == cat_key]
+        diff_cat = [other for other in active_candidates if other.get("category") != cat_key]
         chosen_related = (same_cat + diff_cat)[:3]
 
         related_cards_html = []
@@ -205,7 +220,7 @@ def generate_product_pages():
             related_cards_html.append(f"""        <article class="card">
           <a href="/product/{r_id}.html" class="card-link" aria-label="{clean_for_attr(r_title)}">
             <div class="card-img-wrap">
-              <img src="../{r_img}" alt="{clean_for_attr(r_title)} — Livi Jewelry" loading="lazy" decoding="async" width="600" height="800">
+              <img src="../{r_img}" alt="{clean_for_attr(r_title)} — ручная работа Livi Jewelry ({r_price_fmt} тг)" loading="lazy" decoding="async" width="600" height="800">
             </div>
             <div class="body">
               <div class="title">{r_title}</div>
@@ -245,7 +260,7 @@ def generate_product_pages():
   <meta property="og:url" content="{canonical_url}">
   <meta property="og:image" content="{image_abs}">
   <meta property="og:image:secure_url" content="{image_abs}">
-  <meta property="og:image:alt" content="{clean_for_attr(title)} — авторские украшения Livi Jewelry">
+  <meta property="og:image:alt" content="{clean_for_attr(title)} — ручная работа Livi Jewelry ({price_fmt} тг)">
   <meta property="product:price:amount" content="{price_decimal}">
   <meta property="product:price:currency" content="KZT">
   <meta property="product:availability" content="{"in stock" if in_stock else "out of stock"}">
@@ -409,7 +424,7 @@ def generate_product_pages():
       <div class="product-detail-media">
         <div class="product-main-image-wrap">
           <img src="../{image_rel}"
-               alt="{clean_for_attr(title)} — авторские украшения Livi Jewelry"
+               alt="{clean_for_attr(title)} — ручная работа Livi Jewelry ({price_fmt} тг)"
                loading="eager"
                fetchpriority="high"
                decoding="async"
@@ -453,21 +468,21 @@ def generate_product_pages():
             </div>
           </div>
 
-          <button type="button" class="btn-add-cart-main" id="addToCartBtn">
+          {('<button type="button" class="btn-add-cart-main" id="addToCartBtn" disabled style="opacity:0.6;cursor:not-allowed;"><span id="addToCartText">Продано (только на заказ)</span></button>' if is_archived else """<button type="button" class="btn-add-cart-main" id="addToCartBtn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <path d="M16 10a4 4 0 0 1-8 0"></path>
             </svg>
             <span id="addToCartText">Добавить в корзину</span>
-          </button>
+          </button>""")}
 
           <a href="{wa_order_url}" class="btn-wa-single-order" id="buyWaBtn" target="_blank" rel="noopener">
             <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" fill="currentColor">
               <path d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
               <path d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
             </svg>
-            <span>Заказать в 1 клик через WhatsApp</span>
+            <span>{wa_btn_text}</span>
           </a>
         </div>
 
@@ -495,7 +510,7 @@ def generate_product_pages():
 
     <!-- Related Jewelry Section -->
     <section class="related-section">
-      <h2 class="related-h2">Вам также может понравиться</h2>
+      <h2 class="related-h2">Похожие украшения в наличии</h2>
       <div class="rule"></div>
       <div class="grid">
 {related_cards_str}
@@ -823,9 +838,10 @@ def sync_static_catalogs(products):
     """Synchronizes shop.html JSON-LD ItemList, shop.html static #grid, and index.html static #featGrid from products.json."""
     # 1. Update shop.html JSON-LD ItemList and pre-rendered #grid
     if os.path.exists("shop.html"):
+        active_products = [p for p in products if not p.get("archived", False)]
         item_list = []
         cards_html = []
-        for idx, p in enumerate(products, start=1):
+        for idx, p in enumerate(active_products, start=1):
             pid = p.get("id", "")
             title = p.get("title", "")
             desc = p.get("description") or title
@@ -896,7 +912,7 @@ def sync_static_catalogs(products):
                     }
                 }
             })
-            alt_text = clean_for_attr(f"{title} — украшения из натурального жемчуга Livi Jewelry")
+            alt_text = clean_for_attr(f"{title} — ручная работа Livi Jewelry ({price_fmt} тг)")
             cards_html.append(
                 f'      <article class="card" data-id="{pid}">\n'
                 f'        <div class="card-img-wrap"><img src="{img_url}" alt="{alt_text}" loading="lazy" decoding="async" width="600" height="800"></div>\n'
@@ -930,9 +946,10 @@ def sync_static_catalogs(products):
 
     # 2. Update index.html pre-rendered #featGrid
     if os.path.exists("index.html"):
-        feat_items = [p for p in products if p.get("featured")]
+        active_products = [p for p in products if not p.get("archived", False)]
+        feat_items = [p for p in active_products if p.get("featured")]
         if not feat_items:
-            feat_items = products[:6]
+            feat_items = active_products[:6]
         feat_cards = []
         for p in feat_items:
             pid = p.get("id", "")
@@ -940,7 +957,7 @@ def sync_static_catalogs(products):
             price_num = int(p.get("price", 0))
             price_fmt = f"{price_num:,}".replace(",", " ")
             img_url = p.get("image", "").lstrip("/")
-            alt_text = clean_for_attr(f"{title} — украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца")
+            alt_text = clean_for_attr(f"{title} — ручная работа Livi Jewelry ({price_fmt} тг)")
             feat_cards.append(
                 f'      <article class="card" onclick="if(!event.target.closest(\'a\'))location.href=\'/product/{pid}.html\'">\n'
                 f'        <div class="card-img-wrap"><img src="{img_url}" alt="{alt_text}" loading="lazy" decoding="async" width="600" height="800"></div>\n'
@@ -1010,7 +1027,7 @@ def sync_static_catalogs(products):
             title = p["title"]
             price_fmt = f"{int(p['price']):,}".replace(",", " ") + " ₸"
             img_rel = p["image"].lstrip("/")
-            alt_clean = clean_for_attr(title)
+            alt_clean = clean_for_attr(f"{title} — ручная работа Livi Jewelry ({price_fmt})")
             block = re.sub(r'<img\s+[^>]*>', f'<img src="{img_rel}" alt="{alt_clean}" loading="lazy" width="600" height="800">', block)
             block = re.sub(
                 r'<a href="product/' + re.escape(pid) + r'\.html" class="card-title-link">.*?</a>',
