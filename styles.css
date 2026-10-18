@@ -791,6 +791,11 @@ h1 {
   letter-spacing: 0.04em;
 }
 
+.cart-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
 .list {
   display: grid;
   gap: 16px;
@@ -799,11 +804,12 @@ h1 {
 .item {
   display: grid;
   grid-template-columns: 88px 1fr auto auto;
+  grid-template-areas: "thumb info qty del";
   gap: 20px;
   align-items: center;
   border: 1px solid var(--line);
   padding: 16px 20px;
-  background: transparent;
+  background: #FFFFFF;
 }
 .thumb {
   width: 88px;
