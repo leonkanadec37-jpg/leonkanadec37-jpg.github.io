@@ -165,8 +165,8 @@ nav.menu {
   position: relative;
   padding: 6px 0;
   display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  align-items: baseline;
+  gap: 3px;
   white-space: nowrap;
 }
 .cart-link:hover {
@@ -174,34 +174,41 @@ nav.menu {
 }
 .cart-badge {
   display: none;
-  background: var(--fg);
-  color: #fff;
-  font-size: 10px;
-  font-weight: 600;
-  line-height: 1;
-  padding: 0 5px;
-  min-width: 18px;
-  height: 18px;
-  border-radius: 999px;
-  margin-left: 0;
-  box-sizing: border-box;
-  vertical-align: middle;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease;
+  background: transparent !important;
+  color: inherit !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: 0.04em !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  min-width: 0 !important;
+  height: auto !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  vertical-align: baseline !important;
+  transition: color 0.2s ease, opacity 0.2s ease;
 }
 .cart-badge:empty {
   display: none !important;
 }
 .cart-badge:not(:empty) {
-  display: inline-flex;
+  display: inline !important;
+}
+.cart-badge:not(:empty)::before {
+  content: "(";
+}
+.cart-badge:not(:empty)::after {
+  content: ")";
 }
 .cart-badge.badge-pop {
-  animation: badgePop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: badgePop 0.35s ease;
 }
 @keyframes badgePop {
   0% { transform: scale(1); }
-  50% { transform: scale(1.45); background: var(--gold, #C5A265); }
+  50% { transform: scale(1.15); color: var(--gold, #C5A265); }
   100% { transform: scale(1); }
 }
 
