@@ -2540,14 +2540,23 @@ body:has(#successModal.open) .floating-wa,
   content: "−";
 }
 .hub-interlink-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  white-space: nowrap !important;
+  gap: 8px !important;
+  margin-top: 12px !important;
+  padding: 4px 2px 10px !important;
+  scrollbar-width: none !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+.hub-interlink-chips::-webkit-scrollbar {
+  display: none !important;
 }
 .hub-interlink-section .stone-chip,
 .hub-interlink-section .chip-link,
 .hub-interlink-chips a {
+  flex-shrink: 0 !important;
   display: inline-block;
   border: 1px solid #e5e0d8 !important;
   border-radius: 99px !important;
@@ -2564,6 +2573,36 @@ body:has(#successModal.open) .floating-wa,
   border-color: var(--fg) !important;
   background: var(--fg) !important;
   color: #FFFFFF !important;
+}
+
+/* Streamlined Hub & Landing Hero Cleanups */
+.landing-cta-row {
+  display: none !important;
+}
+.landing-eyebrow {
+  display: none !important;
+}
+.landing-hero + .wrap > h2:first-child,
+.landing-hero + .wrap > .rule:nth-child(2) {
+  display: none !important;
+}
+.category-pills {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  white-space: nowrap !important;
+  gap: 8px !important;
+  margin: 16px 0 24px !important;
+  padding-bottom: 4px !important;
+  scrollbar-width: none !important;
+  -webkit-overflow-scrolling: touch !important;
+  justify-content: flex-start !important;
+}
+.category-pills::-webkit-scrollbar {
+  display: none !important;
+}
+.category-pills .pill {
+  flex-shrink: 0 !important;
 }
 
 /* Bundle breakdown badge & About section */

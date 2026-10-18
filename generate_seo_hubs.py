@@ -444,7 +444,7 @@ def build_interlink_block_html(current_slug="", prefix=""):
         chips.append(f'        <a class="stone-chip{active_cls}" href="{prefix}/{slug}">{label}</a>')
     chips_str = "\n".join(chips)
     return f"""    <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
-      <details class="hub-interlink-accordion" open>
+      <details class="hub-interlink-accordion">
         <summary>Подборки по камням и стилям</summary>
         <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
         <div class="hub-interlink-chips">
@@ -629,6 +629,15 @@ def generate_hub_page(hub, products):
     interlink_html = build_interlink_block_html(current_slug=slug, prefix="")
     cards_grid_str = "\n".join(cards_html)
 
+    top_chips = []
+    for s, l in EXISTING_HUBS:
+        active_cls = " active" if s == slug else ""
+        top_chips.append(f'      <a class="stone-chip{active_cls}" href="/{s}">{l}</a>')
+    for h in ALL_HUBS:
+        active_cls = " active" if h["slug"] == slug else ""
+        top_chips.append(f'      <a class="stone-chip{active_cls}" href="/{h["slug"]}">{h["chip_label"]}</a>')
+    top_chips_html = "\n".join(top_chips)
+
     page_html = f"""<!doctype html>
 <html lang="ru">
 <head>
@@ -783,27 +792,20 @@ def generate_hub_page(hub, products):
     </div>
   </header>
 
-  <main>
-    <!-- Hero Editorial Header -->
-    <section class="landing-hero">
-      <span class="landing-eyebrow">{hub['eyebrow']}</span>
-      <h1 class="landing-title">{hub['h1']}</h1>
-      <p class="landing-lead">{hub['lead']}</p>
-      <div class="landing-cta-row">
-        <a class="btn" href="shop.html">Смотреть весь каталог</a>
-        <a class="btn btn-secondary" href="https://wa.me/77054510584?text=Здравствуйте!%20Помогите%20подобрать%20украшение%20из%20коллекции%20{clean_attr(hub['breadcrumb'])}." target="_blank" rel="noopener">Консультация мастера</a>
-      </div>
-    </section>
+  <main class="wrap" style="padding-top: 24px;">
+    <div class="collection-header" style="margin-bottom: 20px;">
+      <h1 style="font-family: var(--font-serif); font-size: clamp(26px, 3.5vw, 38px); font-weight: 300; line-height: 1.25; margin: 0 0 8px; color: var(--fg);">{clean_attr(hub['chip_label'])}</h1>
+      <p style="font-size: 13.5px; color: #777; line-height: 1.5; margin: 0; max-width: 720px; font-weight: 300;">{clean_attr(hub['lead'])}</p>
+    </div>
 
-    <!-- Product Showcase Grid -->
-    <section class="wrap" style="padding-top: 0;">
-      <h2 style="font-family: var(--font-serif); font-size: clamp(24px, 3.5vw, 36px); font-weight: 300; text-align: center; margin-bottom: 8px;">Изделия в наличии с ценами</h2>
-      <div class="rule"></div>
+    <!-- Навигационный блок: Подборки по камням и стилям (горизонтальная скролл-лента) -->
+    <nav class="stone-chips" aria-label="Подборки по камням и стилям" style="margin: 0 0 24px;">
+{top_chips_html}
+    </nav>
 
-      <div class="grid" id="grid">
+    <div class="grid" id="grid">
 {cards_grid_str}
-      </div>
-    </section>
+    </div>
 
     <!-- SEO Editorial Text Section -->
     <section class="wrap seo-editorial-section" style="max-width: 860px; margin: 40px auto; padding: 0 16px;">
@@ -839,7 +841,6 @@ def generate_hub_page(hub, products):
         <a href="privacy.html">Политика конфиденциальности</a>
         <a href="terms.html">Условия использования</a>
         <a href="shop.html">Каталог</a>
-        <a href="/kz/shop.html">Қазақша каталог</a>
       </div>
       <div class="copy">© 2026 Livi Jewelry. Все права защищены. Изготовлено вручную в Казахстане.</div>
     </div>
@@ -1149,6 +1150,8 @@ def standardize_hub_header_and_drawer(file_path: str, slug: str):
     <span class="floating-wa-text">Консультация мастера</span>
   </a>"""
         content = content.replace("</footer>", f"</footer>\n\n{floating_wa_html}")
+
+    content = re.sub(r'<a\s+href="[^"]*kz/shop\.html"[^>]*>Қазақша\s+каталог</a>\s*', '', content)
 
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(content)

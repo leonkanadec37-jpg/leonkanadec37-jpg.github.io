@@ -514,24 +514,38 @@
     </div>
   </header>
 
-  <main>
-    <!-- Hero Editorial Header -->
-    <section class="landing-hero">
-      <span class="landing-eyebrow">Шелковая иризация • Природные минералы</span>
-      <h1 class="landing-title">Украшения и колье из тигрового глаза и жадеита ручной работы</h1>
-      <p class="landing-lead">Авторские колье, чокеры, гарнитуры и серьги из шелковистого тигрового глаза, природного жадеита и граненого гематита. Сильный характер и благородное сияние.</p>
-      <div class="landing-cta-row">
-        <a class="btn" href="shop.html">Смотреть весь каталог</a>
-        <a class="btn btn-secondary" href="https://wa.me/77054510584?text=Здравствуйте!%20Помогите%20подобрать%20украшение%20из%20коллекции%20Тигровый глаз и Жадеит." target="_blank" rel="noopener">Консультация мастера</a>
-      </div>
-    </section>
+  <main class="wrap" style="padding-top: 24px;">
+    <div class="collection-header" style="margin-bottom: 20px;">
+      <h1 style="font-family: var(--font-serif); font-size: clamp(26px, 3.5vw, 38px); font-weight: 300; line-height: 1.25; margin: 0 0 8px; color: var(--fg);">Тигровый глаз и Жадеит</h1>
+      <p style="font-size: 13.5px; color: #777; line-height: 1.5; margin: 0; max-width: 720px; font-weight: 300;">Авторские колье, чокеры, гарнитуры и серьги из шелковистого тигрового глаза, природного жадеита и граненого гематита. Сильный характер и благородное сияние.</p>
+    </div>
 
-    <!-- Product Showcase Grid -->
-    <section class="wrap" style="padding-top: 0;">
-      <h2 style="font-family: var(--font-serif); font-size: clamp(24px, 3.5vw, 36px); font-weight: 300; text-align: center; margin-bottom: 8px;">Изделия в наличии с ценами</h2>
-      <div class="rule"></div>
+    <!-- Навигационный блок: Подборки по камням и стилям (горизонтальная скролл-лента) -->
+    <nav class="stone-chips" aria-label="Подборки по камням и стилям" style="margin: 0 0 24px;">
+      <a class="stone-chip" href="/kolye-iz-zhemchuga.html">Колье из жемчуга</a>
+      <a class="stone-chip" href="/braslety-iz-zhemchuga.html">Браслеты из жемчуга</a>
+      <a class="stone-chip" href="/sergi-iz-zhemchuga.html">Серьги из жемчуга</a>
+      <a class="stone-chip" href="/komplekty-ukrasheniy.html">Комплекты украшений</a>
+      <a class="stone-chip" href="/chokery-iz-naturalnyh-kamney.html">Чокеры из камней</a>
+      <a class="stone-chip" href="/sotuary-iz-zhemchuga.html">Сотуары</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-barochnogo-zhemchuga.html">Барочный жемчуг</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-gematita.html">Гематит</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-malahita.html">Малахит и Нефрит</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-ametista.html">Аметист и Флюорит</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-granata.html">Гранат и Агат</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-rozovogo-kvarca.html">Розовый кварц</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-biryuzy.html">Бирюза</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-gornogo-hrustalya.html">Горный хрусталь</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-lunnogo-kamnya.html">Лунный камень и Перламутр</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-zhemchuga-mayorka.html">Жемчуг Майорка</a>
+      <a class="stone-chip active" href="/ukrasheniya-iz-tigrovogo-glaza.html">Тигровый глаз и Жадеит</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-koralla-i-yashmy.html">Коралл и Яшма</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-lazurita.html">Лазурит и Авантюрин</a>
+      <a class="stone-chip" href="/tsepi-s-barochnym-zhemchugom.html">Цепи с жемчугом</a>
+      <a class="stone-chip" href="/koltsa-i-garnitury-iz-kamney.html">Кольца и Гарнитуры</a>
+    </nav>
 
-      <div class="grid" id="grid">
+    <div class="grid" id="grid">
         <article class="card" data-id="prod_12" data-name="Комплект: Колье из Жадеита и Тигрового глаза, серьги из тигрового глаза" data-price="52000" data-category="Sets" onclick="if(!event.target.closest('a'))location.href='/product/prod_12.html'">
           <div class="card-img-wrap">
             <img src="assets/kole-iz-zhadeita-i-tigrovogo-glaza-s-sergami-36000.webp" alt="Комплект: Колье из Жадеита и Тигрового глаза, серьги из тигрового глаза — ручная работа из натурального жадеита и тигрового глаза, Livi Jewelry" loading="lazy" decoding="async" width="600" height="800">
@@ -576,8 +590,7 @@
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">Натуральный жемчуг, Горный хрусталь, Ювелирный сплав</div>
           </div>
         </article>
-      </div>
-    </section>
+    </div>
 
     <!-- SEO Editorial Text Section -->
     <section class="wrap seo-editorial-section" style="max-width: 860px; margin: 40px auto; padding: 0 16px;">
@@ -604,7 +617,7 @@
     </section>
 
     <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
-      <details class="hub-interlink-accordion" open>
+      <details class="hub-interlink-accordion">
         <summary>Подборки по камням и стилям</summary>
         <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
         <div class="hub-interlink-chips">
@@ -641,7 +654,6 @@
         <a href="privacy.html">Политика конфиденциальности</a>
         <a href="terms.html">Условия использования</a>
         <a href="shop.html">Каталог</a>
-        <a href="/kz/shop.html">Қазақша каталог</a>
       </div>
       <div class="copy">© 2026 Livi Jewelry. Все права защищены. Изготовлено вручную в Казахстане.</div>
     </div>
