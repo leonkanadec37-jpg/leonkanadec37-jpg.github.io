@@ -1569,9 +1569,21 @@ footer {
    ========================================================================== */
 .policy-card {
   display: flex;
-  gap: 24px;
-  padding: 32px 0;
+  gap: 32px;
+  padding: 36px 0;
   border-bottom: 1px solid var(--line);
+  align-items: flex-start;
+}
+.policy-num {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 44px;
+  letter-spacing: 0.04em;
+  padding-top: 3px;
 }
 .policy-icon {
   font-size: 24px;
@@ -1589,34 +1601,48 @@ footer {
 }
 .policy-body h2 {
   font-family: var(--font-serif);
-  font-size: 24px;
-  font-weight: 500;
+  font-size: 25px;
+  font-weight: 400;
   color: var(--fg);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   letter-spacing: 0.02em;
 }
 .policy-body p {
   color: var(--fg-soft);
   font-size: 14.5px;
-  line-height: 1.7;
+  line-height: 1.75;
   margin-bottom: 10px;
+  font-weight: 300;
 }
 .policy-body ul {
   padding-left: 20px;
   margin-top: 10px;
   color: var(--fg-soft);
   font-size: 14px;
-  line-height: 1.7;
+  line-height: 1.75;
+  font-weight: 300;
 }
 .policy-body li {
   margin-bottom: 8px;
+}
+.policy-body strong {
+  font-weight: 500;
+  color: var(--fg);
 }
 
 @media (max-width: 640px) {
   .policy-card {
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
     padding: 24px 0;
+  }
+  .policy-num {
+    font-size: 28px;
+    padding-top: 0;
+  }
+  .policy-body h2 {
+    font-size: 21px;
+    margin-bottom: 10px;
   }
 }
 
