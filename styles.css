@@ -2242,3 +2242,100 @@ footer {
   background: #FFFFFF;
 }
 
+/* Product Specifications Table */
+.product-specs-section {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+.specs-title {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--fg);
+  margin-bottom: 18px;
+  letter-spacing: 0.02em;
+}
+.product-specs-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+.spec-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 16px;
+  padding: 10px 14px;
+  background: #FAF8F5;
+  border: 1px solid var(--line);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.spec-row dt {
+  font-weight: 500;
+  color: var(--fg);
+}
+.spec-row dd {
+  margin: 0;
+  color: var(--fg-soft);
+}
+@media (max-width: 600px) {
+  .spec-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
+/* Product FAQ Section */
+.product-faq-section {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+.faq-title {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--fg);
+  margin-bottom: 18px;
+  letter-spacing: 0.02em;
+}
+.product-faq-item {
+  border-bottom: 1px solid var(--line);
+  padding: 14px 0;
+}
+.product-faq-item summary {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--fg);
+  cursor: pointer;
+  line-height: 1.45;
+}
+.product-faq-item p {
+  font-size: 13.5px;
+  color: var(--fg-soft);
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+/* Bundle select */
+.bundle-select-field {
+  background: #F4EFEB;
+  border: 1px solid #D8CFC4;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.bundle-select-field .customizer-label {
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.earring-price-badge {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-top: 4px;
+}
+

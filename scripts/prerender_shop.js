@@ -161,7 +161,7 @@ function main() {
     `<div class="grid" id="grid">`,
     cardsHtml,
     `    </div>`,
-    `    <div id="catalogError" class="empty-state" hidden style="display:none">Ошибка загрузки каталога. Пожалуйста, обновите страницу.</div>`
+    `    <div id="catalogError" class="empty-state" hidden style="display:none" aria-hidden="true"></div>`
   ].join('\n');
 
   const gridRegex = /<div class="grid" id="grid">[\s\S]*?<\/div>\s*(?:<div id="catalogError"[^>]*>[\s\S]*?<\/div>\s*)?(?=<\/main>)/;
@@ -252,14 +252,12 @@ function main() {
   const newCatch = `.catch(finalErr => {
         console.error('Error loading products:', finalErr);
         const hasCards = grid && grid.querySelectorAll('.card, .product-card').length > 0;
-        const errEl = document.getElementById('catalogError');
-        // Show error block only if the product container is completely empty
         if (!hasCards && grid && grid.children.length === 0) {
+          const errEl = document.getElementById('catalogError');
           if (errEl) {
+            errEl.innerHTML = '<p>Не удалось загрузить каталог. Пожалуйста, обновите страницу.</p><button onclick="location.reload()" class="btn btn-outline" style="margin-top:12px;">Обновить</button>';
             errEl.hidden = false;
             errEl.style.display = 'block';
-          } else {
-            grid.innerHTML = '<div class="empty-state">Ошибка загрузки каталога. Пожалуйста, обновите страницу.</div>';
           }
         }
       });`;

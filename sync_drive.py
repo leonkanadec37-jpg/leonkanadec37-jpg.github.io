@@ -227,6 +227,171 @@ def detect_materials(title, description=""):
     mats.append('Ювелирный сплав')
     return list(dict.fromkeys(mats))
 
+def generate_default_sku(pid):
+    num_match = re.search(r'\d+', str(pid))
+    num = int(num_match.group(0)) if num_match else 1
+    return f"LIVI-{num:02d}"
+
+def generate_default_keywords(title, category, materials=None):
+    t_clean = re.sub(r'\(под заказ\)', '', title, flags=re.I).strip()
+    mats = materials or []
+    stones = [m for m in mats if not any(w in m.lower() for w in ['сплав', 'позолота', 'фурнитура'])]
+    
+    kws = [
+        f"{t_clean.lower()} купить",
+        f"{t_clean.lower()} Астана",
+        f"{t_clean.lower()} Алматы",
+        f"украшения ручной работы Казахстан",
+        f"авторские украшения из натуральных камней"
+    ]
+    if stones:
+        st_name = stones[0].lower()
+        kws.append(f"украшения из {st_name} купить Казахстан")
+    if category == 'Sets':
+        kws.append("ювелирный комплект с натуральными камнями купить")
+        kws.append("авторский гарнитур ручной работы Астана")
+    elif category == 'Bracelets':
+        kws.append("браслет из натуральных камней купить Алматы")
+    elif category == 'Chains':
+        kws.append("цепь с барочным жемчугом купить Казахстан")
+    elif category == 'Lariats':
+        kws.append("сотуар из натуральных камней ручной работы")
+    else:
+        kws.append("авторское колье с натуральным жемчугом Астана")
+
+    return list(dict.fromkeys(kws))
+
+def generate_default_specs(title, category, materials=None):
+    mats = materials or ["Натуральный жемчуг", "Ювелирный сплав"]
+    mats_str = ", ".join(mats)
+    
+    if category == 'Sets':
+        type_ru = "Ювелирный гарнитур ручной работы"
+        length_size = "Индивидуальный подбор размеров (бесплатная подгонка длины под заказ)"
+        clasp = "Надежные ювелирные карабины и гипоаллергенные замки"
+    elif category == 'Bracelets':
+        type_ru = "Многорядный браслет из натуральных камней"
+        length_size = "16–19 см (регулируемая застежка, бесплатная подгонка по обхвату запястья)"
+        clasp = "Ювелирный карабин с удлинительной цепочкой"
+    elif category == 'Chains':
+        type_ru = "Фактурная цепь с авторской подвеской"
+        length_size = "42–48 см (регулируемая удлинительная цепочка, бесплатная подгонка под заказ)"
+        clasp = "Ювелирный замок-тогл или карабин"
+    elif category == 'Lariats':
+        type_ru = "Украшение-сотуар ручной работы"
+        length_size = "80–90 см (трансформер, можно носить в 1 или 2 оборота)"
+        clasp = "Разъемный замок-карабин трансформер"
+    else:
+        type_ru = "Дизайнерское колье ручной работы"
+        length_size = "40–45 см (регулируемая удлинительная цепочка, бесплатная подгонка под заказ)"
+        clasp = "Ювелирный карабин с удлинителем"
+
+    hardware = "Гипоаллергенный ювелирный сплав со стойким покрытием (родий / позолота)"
+    packaging = "Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry"
+    stones_detail = f"Отборные природные минералы ({mats_str}), авторская селекция камней"
+
+    return {
+        "type_ru": type_ru,
+        "stones_detail": stones_detail,
+        "hardware": hardware,
+        "length_size": length_size,
+        "clasp": clasp,
+        "packaging": packaging
+    }
+
+def generate_rich_description(title, category, price, elements=None, base_desc=""):
+    note = " (под заказ)" if "под заказ" in str(title).lower() else ""
+    is_set = category == 'Sets' or (elements and len(elements) > 1)
+    
+    if is_set and elements and len(elements) > 1:
+        desc_parts = [f"{name} — {format_num(p)} тг" for name, p in elements]
+        items_str = ", ".join(desc_parts)
+        total_p = sum(p for _, p in elements)
+        desc = (
+            f"В комплекте: {items_str}. Полная стоимость комплекта — {format_num(total_p)} тг{note}. "
+            f"Каждое изделие можно приобрести по отдельности или полным сетом. "
+            f"Изысканный авторский гарнитур ручной работы из отборных натуральных камней. "
+            f"Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. "
+            f"Бесплатная индивидуальная подгонка длины мастером. Фирменная подарочная упаковка Livi Jewelry."
+        )
+    elif is_set:
+        clean_title = re.sub(r'\(под заказ\)', '', title, flags=re.I).strip()
+        desc = (
+            f"Эксклюзивный авторский гарнитур: {clean_title}. Полная стоимость — {format_num(price)} тг{note}. "
+            f"Каждое изделие сета можно приобрести по отдельности или полным комплектом. "
+            f"Украшения выполнены из отборных натуральных минералов и жемчуга с выразительным природным блеском. "
+            f"Гипоаллергенная фурнитура со стойким родированием или позолотой не вызывает раздражения. "
+            f"Бесплатная индивидуальная подгонка длины под ваши мерки. Подарочная шкатулка Livi Jewelry."
+        )
+    else:
+        clean_title = re.sub(r'\(под заказ\)', '', title, flags=re.I).strip()
+        desc = (
+            f"Авторское украшение ручной работы: {clean_title}. Выполнено из отборных натуральных минералов "
+            f"высокого качества селекции с природным сиянием и неповторимой текстурой. "
+            f"Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. "
+            f"Бесплатная индивидуальная подгонка длины мастером и быстрая бережная доставка по Казахстану. "
+            f"Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry."
+        )
+    return desc
+
+def generate_default_bundle_options(title, price, elements=None):
+    clean_title = re.sub(r'\(под заказ\)', '', title, flags=re.I).strip()
+    if elements and len(elements) > 1:
+        elem_names = [e[0] for e in elements]
+        total_p = sum(p for _, p in elements)
+        opts = [{"name": f"Полный комплект ({' + '.join(elem_names)})", "price": total_p, "is_full": True}]
+        for name, p in elements:
+            opts.append({"name": name, "price": p, "is_full": False})
+        return opts
+    
+    main_price = int(price * 0.7)
+    sec_price = price - main_price
+    return [
+        {"name": f"Полный комплект ({clean_title})", "price": price, "is_full": True},
+        {"name": "Основное украшение комплекта", "price": main_price, "is_full": False},
+        {"name": "Дополнительный элемент сета", "price": sec_price, "is_full": False}
+    ]
+
+def ensure_product_enriched_fields(p, elements=None):
+    pid = p.get('id', 'prod_01')
+    title = p.get('title', '')
+    cat = p.get('category', 'Necklaces')
+    price = int(p.get('price', 0))
+    mats = p.get('materials', [])
+    
+    if not p.get('sku') or not re.match(r'^LIVI-\d{2}$', str(p.get('sku', ''))):
+        p['sku'] = generate_default_sku(pid)
+        
+    if not p.get('seo_slug') or not re.match(r'^[a-z0-9-]+$', str(p.get('seo_slug', ''))):
+        p['seo_slug'] = slugify(title)
+        
+    if not isinstance(p.get('search_keywords'), list) or len(p.get('search_keywords', [])) < 5:
+        p['search_keywords'] = generate_default_keywords(title, cat, mats)
+        
+    specs = p.get('specs')
+    req_specs_fields = ["type_ru", "stones_detail", "hardware", "length_size", "clasp", "packaging"]
+    if not isinstance(specs, dict) or any(not specs.get(f) for f in req_specs_fields):
+        default_specs = generate_default_specs(title, cat, mats)
+        if isinstance(specs, dict):
+            for f in req_specs_fields:
+                if not specs.get(f):
+                    specs[f] = default_specs[f]
+            p['specs'] = specs
+        else:
+            p['specs'] = default_specs
+
+    is_set = cat == 'Sets' or "комплект" in title.lower() or "сет" in title.lower()
+    if is_set:
+        b_opts = p.get('bundle_options')
+        if not isinstance(b_opts, list) or len(b_opts) < 2:
+            p['bundle_options'] = generate_default_bundle_options(title, price, elements)
+
+    desc = p.get('description', '').strip()
+    if len(desc) < 180 or desc.startswith(f"{title} —"):
+        p['description'] = generate_rich_description(title, cat, price, elements=elements, base_desc=desc)
+
+    return p
+
 def update_shop_schema(products):
     """Обновляет микроразметку schema.org/ItemList и статическую сетку товаров в shop.html и index.html"""
     try:
@@ -400,7 +565,7 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
             changed = False
             is_set = len(parsed_info.get('elements', [])) > 1 or parsed_info.get('category') == 'Sets'
             
-            # Для сетов - всегда применяем полное название, категорию Sets, полную цену и развернутое описание
+            # Для сетов - всегда применяем полное название, категорию Sets, полную цену
             if is_set:
                 if matched_prod.get('title') != parsed_info['title']:
                     matched_prod['title'] = parsed_info['title']
@@ -411,8 +576,14 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
                 if matched_prod.get('category') != 'Sets':
                     matched_prod['category'] = 'Sets'
                     changed = True
-                if matched_prod.get('description') != parsed_info['description']:
-                    matched_prod['description'] = parsed_info['description']
+                # Не затираем обогащенное описание! Только если оно короткое или заглушка
+                if len(matched_prod.get('description', '')) < 180 or matched_prod.get('description', '').startswith(f"{matched_prod.get('title')} —"):
+                    matched_prod['description'] = generate_rich_description(
+                        matched_prod.get('title', parsed_info['title']),
+                        'Sets',
+                        matched_prod.get('price', parsed_info['display_price']),
+                        elements=parsed_info.get('elements', [])
+                    )
                     changed = True
                 if not matched_prod.get('materials') or matched_prod.get('materials') == ['Ювелирный сплав']:
                     matched_prod['materials'] = parsed_info['materials']
@@ -426,14 +597,22 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
                 if matched_prod.get('title', '').startswith('Коле '):
                     matched_prod['title'] = parsed_info['title']
                     changed = True
-                # Если описание было шаблоном ("— авторское украшение ручной работы...")
-                if 'авторское украшение ручной работы из натуральных камней' in matched_prod.get('description', ''):
-                    matched_prod['description'] = parsed_info['description']
+                # Если описание было шаблоном ("— авторское украшение ручной работы...") или короткое
+                if len(matched_prod.get('description', '')) < 180 or matched_prod.get('description', '').startswith(f"{matched_prod.get('title')} —") or 'авторское украшение ручной работы из натуральных камней' in matched_prod.get('description', ''):
+                    matched_prod['description'] = generate_rich_description(
+                        matched_prod.get('title', parsed_info['title']),
+                        matched_prod.get('category', parsed_info['category']),
+                        matched_prod.get('price', parsed_info['display_price']),
+                        elements=parsed_info.get('elements', [])
+                    )
                     changed = True
                 if not matched_prod.get('materials') or matched_prod.get('materials') == ['Ювелирный сплав']:
                     matched_prod['materials'] = parsed_info['materials']
                     changed = True
             
+            # Обеспечиваем целостность всех новых полей схемы (sku, seo_slug, search_keywords, specs, bundle_options)
+            ensure_product_enriched_fields(matched_prod, elements=parsed_info.get('elements', []))
+
             if changed:
                 updated_count += 1
                 print(f"[SYNC/UPDATE] Обновлен товар {matched_prod['id']}: {matched_prod['title']} ({matched_prod['price']} тг)")
@@ -463,17 +642,26 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
         optimize_image(src, dst_path)
         new_prod = {
             "id": new_id,
+            "sku": generate_default_sku(new_id),
             "title": title,
+            "seo_slug": slug,
             "category": cat,
             "price": price,
             "image": f"assets/{filename}",
             "materials": mats,
-            "description": desc,
+            "description": generate_rich_description(title, cat, price, elements=parsed_info.get('elements', []), base_desc=desc),
+            "search_keywords": generate_default_keywords(title, cat, mats),
+            "specs": generate_default_specs(title, cat, mats),
             "inStock": True,
             "featured": True
         }
+        if cat == 'Sets' or len(parsed_info.get('elements', [])) > 1:
+            new_prod['bundle_options'] = generate_default_bundle_options(title, price, elements=parsed_info.get('elements', []))
+
         if cand.get('drive_id'):
             new_prod['drive_id'] = cand['drive_id']
+
+        ensure_product_enriched_fields(new_prod, elements=parsed_info.get('elements', []))
 
         products.append(new_prod)
         existing_fps[new_id] = (cand_fp, new_prod)

@@ -351,8 +351,13 @@
     function unitPrice(item){
       if (!item) return 0;
       if (typeof item.unit === 'number' && isFinite(item.unit) && item.unit > 0) return item.unit;
+      if (item.customBundle || item.bundleOption) {
+        if (typeof item.price === 'number' && isFinite(item.price) && item.price > 0) return item.price;
+        const p = parseFirstKZT(item.price);
+        if (p > 0) return p;
+      }
       const title = (item.title||'').toLowerCase();
-      if (title.includes('комплект')) {
+      if (title.includes('комплект') && !item.customBundle && !item.bundleOption) {
         const sum = parseSumKZT(item.price);
         return sum > 0 ? sum : parseFirstKZT(item.price);
       }
@@ -361,9 +366,13 @@
 
     function formatItemCustomText(item){
       const parts = [];
-      if(item.customSize) parts.push(`Размер: ${item.customSize}`);
-      if(item.customHardware) parts.push(`Фурнитура: ${item.customHardware}`);
-      if(item.customGift) parts.push(item.customGift);
+      const bundle = item.customBundle || item.bundleOption;
+      if(bundle) parts.push(`Комплектация: ${bundle}`);
+      if(item.customSize || item.size) parts.push(`Размер: ${item.customSize || item.size}`);
+      if(item.customHardware || item.hardware) parts.push(`Фурнитура: ${item.customHardware || item.hardware}`);
+      if(item.customGift || (item.giftPackaging && typeof item.giftPackaging === 'string')) {
+        parts.push(item.customGift || item.giftPackaging);
+      }
       return parts.join(' · ');
     }
 
@@ -804,15 +813,18 @@
           totalAmount: total,
           attribution,
           items: cart.map(it => ({
-            id: it.id,
+            id: it.cartItemId || it.id,
+            productId: (it.id || '').split('-')[0],
+            sku: it.sku || '',
             title: it.title,
             price: it.price || `${unitPrice(it).toLocaleString('ru-RU')} ₸`,
             unit: unitPrice(it),
             qty: it.qty,
             img: it.img || it.image,
-            customSize: it.customSize || '',
-            customHardware: it.customHardware || '',
-            customGift: it.customGift || ''
+            customBundle: it.customBundle || it.bundleOption || '',
+            customSize: it.customSize || it.size || '',
+            customHardware: it.customHardware || it.hardware || '',
+            customGift: it.customGift || (it.giftPackaging ? 'Подарочная упаковка' : '') || ''
           }))
         };
 

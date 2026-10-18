@@ -1,14 +1,28 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Генератор товарного фида Google Merchant Center и Meta Catalog (Livi Jewelry):
+  - google_merchant_feed.xml
+  - feed.xml
+
+Обеспечивает:
+- Полную выгрузку всех 28 актуальных товаров из products.json
+- Канонические ссылки /product/prod_XX.html и ссылки на WebP-изображения
+- Корректные коммерческие названия <g:title> и детальные описания <g:description>
+- Для комплектов в <g:description> детально расписана стоимость всех элементов
+- Точные цены в KZT со статусом in_stock / 0.00 KZT shipping
+- Разметку категорий Google Product Taxonomy и Custom Labels для Smart Shopping / PMax
+"""
+
 import json
 import os
 import re
 from xml.sax.saxutils import escape
 
-# Configuration
 SITE_URL = "https://livijewelry.kz"
 PRODUCTS_FILE = "products.json"
 OUTPUT_FILES = ["google_merchant_feed.xml", "feed.xml"]
 
-# Google Product Taxonomy IDs for Jewelry
 GOOGLE_CATEGORY_MAP = {
     "Necklaces": "196",   # Apparel & Accessories > Jewelry > Necklaces
     "Lariats": "196",     # Apparel & Accessories > Jewelry > Necklaces
@@ -50,6 +64,8 @@ def get_price_tier(price: int) -> str:
 def get_main_stone_label(p: dict) -> str:
     """Assigns Custom Label 3 based on the main stone/mineral."""
     text = f"{p.get('title', '')} {p.get('description', '')} {' '.join(p.get('materials') or [])}".lower()
+    if "майорк" in text:
+        return "Majorica_Pearl"
     if "барочн" in text:
         return "Baroque_Pearl"
     if "гематит" in text:
@@ -64,6 +80,8 @@ def get_main_stone_label(p: dict) -> str:
         return "Turquoise"
     if "розовый кварц" in text:
         return "Rose_Quartz"
+    if "лазурит" in text or "авантюрин" in text:
+        return "Lapis_Aventurine"
     if "хрустал" in text or "циркон" in text or "кварц" in text:
         return "Crystal"
     return "Pearl"
@@ -84,6 +102,8 @@ def infer_color(materials: list, title: str) -> str:
         colors.append("Нежно-розовый")
     if "бирюз" in text:
         colors.append("Бирюзовый")
+    if "лазурит" in text:
+        colors.append("Ультрамариновый синий")
     if "позолота" in text or "позолоч" in text:
         colors.append("Золотистый")
     elif "родирован" in text or "сплав" in text:
@@ -115,8 +135,13 @@ def build_rich_description(p: dict) -> str:
     base_desc = p.get("description", "").strip()
     materials = p.get("materials", [])
     mat_str = ", ".join(materials) if materials else "Натуральный жемчуг, ювелирный сплав"
+    bundle_options = p.get("bundle_options") or []
+    bundle_text = ""
+    if bundle_options:
+        opts = [f"{o['name']} ({o['price']:,} ₸)".replace(",", " ") for o in bundle_options]
+        bundle_text = f" Доступные варианты комплектации: {'; '.join(opts)}."
     rich = (
-        f"{base_desc} "
+        f"{base_desc}{bundle_text} "
         f"Авторское украшение ручной работы от казахстанского бренда Livi Jewelry. "
         f"Материалы: {mat_str}. "
         f"Фирменная подарочная упаковка в комплекте. Быстрая доставка СДЭК по Астане, Алматы и всему Казахстану."
@@ -143,6 +168,7 @@ def generate_feed():
 
     for p in products:
         prod_id = escape(str(p.get("id", "")))
+        sku = escape(str(p.get("sku") or prod_id))
         g_title = escape(build_enriched_g_title(p))
         description = escape(build_rich_description(p))
 
@@ -150,7 +176,7 @@ def generate_feed():
         google_cat = GOOGLE_CATEGORY_MAP.get(category, "188")
         product_type = escape(PRODUCT_TYPE_MAP.get(category, "Украшения > Ручная работа"))
 
-        # Canonical static product URL (100% synced with JSON-LD Offer and Sitemap)
+        # Canonical static product URL
         item_link = escape(f"{SITE_URL}/product/{p.get('id')}.html")
 
         img_rel = p.get("image", "").lstrip("/")
@@ -181,7 +207,7 @@ def generate_feed():
       <g:availability>{availability}</g:availability>
       <g:price>{price_str}</g:price>
       <g:brand>Livi Jewelry</g:brand>
-      <g:mpn>{prod_id}</g:mpn>
+      <g:mpn>{sku}</g:mpn>
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>{google_cat}</g:google_product_category>
       <g:product_type>{product_type}</g:product_type>

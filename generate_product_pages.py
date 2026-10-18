@@ -8,19 +8,21 @@
 Обеспечивает:
 - Коммерческий <title> без технического шума (prod_XX):
   {title} — купить по цене {price_formatted} ₸ в Астане и Алматы | Ручная работа Livi Jewelry
-- Видимый человекопонятный артикул: Артикул: LIVI-{XX} (при сохранении sku/mpn prod_XX в JSON-LD)
-- Прямые кликабельные ссылки <a href="/ukrasheniya-iz-..."> в блоке материалов
-- Расширенную микроразметку Schema.org: ["Organization", "JewelryStore"], material, color, pattern, aggregateRating, review
-- Визуальный блок «Отзывы покупателей (5.0 ★)», 1-в-1 соответствующий JSON-LD
-- Интерактивный CRO-блок кастомизации изделия (размер/длина, фурнитура родий/позолота, подарочная упаковка 0 ₸)
-- Сквозную атрибуцию UTM/gclid/fbclid (livi_attribution) и передачу в WhatsApp и корзину
+- Видимый человекопонятный артикул: Артикул: LIVI-{XX}
+- Прямые кликабельные ссылки <a href="/ukrasheniya-iz-..."> в блоке материалов для ВСЕХ камней
+- Расширенную микроразметку Schema.org: ["Organization", "JewelryStore"], material, color, pattern, aggregateRating, review,
+  hasMerchantReturnPolicy и полный shippingDetails со shippingRate 0 KZT
+- Визуальную таблицу характеристик изделия (<dl class="product-specs-grid">)
+- Визуальный и Schema.org блок FAQPage (3 индивидуальных вопроса-ответа с названием изделия и камней)
+- Интерактивный CRO-блок кастомизации изделия (размер/длина, фурнитура, упаковка) и выбор комплектации (bundle_options)
+- Двусторонние hreflang связки с казахскими страницами /kz/product/prod_XX.html и прямой переход в переключателе языка
+- Сквозную атрибуцию UTM/gclid/fbclid (livi_attribution) и события GA4/Ads/Meta
 """
 
 import html
 import json
 import os
 import re
-from datetime import datetime
 
 SITE_URL = "https://livijewelry.kz"
 GA_ID = "G-YFF2TR0N36"
@@ -54,6 +56,56 @@ FEATURED_IDS = [
     "prod_19", "prod_20", "prod_23", "prod_24",
 ]
 
+GENITIVE_STONE_MAP = {
+    "натуральный жемчуг": "натурального жемчуга",
+    "барочный жемчуг": "барочного жемчуга",
+    "натуральный барочный жемчуг": "натурального барочного жемчуга",
+    "жемчуг майорка": "жемчуга Майорка",
+    "горный хрусталь": "горного хрусталя",
+    "керамические бусины": "керамических бусин",
+    "натуральный малахит": "натурального малахита",
+    "натуральный аметист": "натурального аметиста",
+    "натуральный авантюрин": "натурального авантюрина",
+    "натуральный агат": "натурального агата",
+    "натуральный гранат": "натурального граната",
+    "розовый кварц": "розового кварца",
+    "натуральный жадеит": "натурального жадеита",
+    "тигровый глаз": "тигрового глаза",
+    "натуральный коралл": "натурального коралла",
+    "яшма": "яшмы",
+    "натуральная бирюза": "натуральной бирюзы",
+    "натуральные камни": "натуральных камней",
+    "гематит": "гематита",
+    "натуральный флюорит": "натурального флюорита",
+    "цирконы": "цирконов",
+    "натуральный лазурит": "натурального лазурита",
+    "натуральный нефрит": "натурального нефрита",
+}
+
+ALL_21_HUBS = [
+    ("/kolye-iz-zhemchuga.html", "Колье из жемчуга"),
+    ("/braslety-iz-zhemchuga.html", "Браслеты из жемчуга"),
+    ("/sergi-iz-zhemchuga.html", "Серьги из жемчуга"),
+    ("/komplekty-ukrasheniy.html", "Комплекты украшений"),
+    ("/chokery-iz-naturalnyh-kamney.html", "Чокеры из камней"),
+    ("/sotuary-iz-zhemchuga.html", "Сотуары и галстуки"),
+    ("/ukrasheniya-iz-barochnogo-zhemchuga.html", "Барочный жемчуг"),
+    ("/ukrasheniya-iz-gematita.html", "Гематит"),
+    ("/ukrasheniya-iz-malahita.html", "Малахит и Нефрит"),
+    ("/ukrasheniya-iz-ametista.html", "Аметист и Флюорит"),
+    ("/ukrasheniya-iz-granata.html", "Гранат и Агат"),
+    ("/ukrasheniya-iz-rozovogo-kvarca.html", "Розовый кварц"),
+    ("/ukrasheniya-iz-biryuzy.html", "Бирюза"),
+    ("/ukrasheniya-iz-gornogo-hrustalya.html", "Горный хрусталь"),
+    ("/ukrasheniya-iz-lunnogo-kamnya.html", "Лунный камень и Перламутр"),
+    ("/ukrasheniya-iz-zhemchuga-mayorka.html", "Жемчуг Майорка"),
+    ("/ukrasheniya-iz-tigrovogo-glaza.html", "Тигровый глаз и Жадеит"),
+    ("/ukrasheniya-iz-koralla-i-yashmy.html", "Коралл и Яшма"),
+    ("/ukrasheniya-iz-lazurita.html", "Лазурит и Авантюрин"),
+    ("/tsepi-s-barochnym-zhemchugom.html", "Цепи с барочным жемчугом"),
+    ("/koltsa-i-garnitury-iz-kamney.html", "Кольца и Гарнитуры"),
+]
+
 REVIEWS_POOL = [
     ("Айгерим К., Астана", "2026-02-14", "Невероятно нежное украшение! Камни натуральные, с благородным живым блеском, замочек очень удобный и надежный. Доставили курьером по Астане в день заказа в красивой подарочной коробочке."),
     ("Мадина С., Алматы", "2026-02-28", "Заказывала с индивидуальной подгонкой длины и родиевой фурнитурой. Село идеально по шее! СДЭК доставил в Алматы за 2 дня, упаковка — настоящий люкс, сразу готово для подарка."),
@@ -71,14 +123,22 @@ def format_price_ru(price: int) -> str:
 def get_livi_sku(pid: str) -> str:
     m = re.search(r"(\d+)", pid)
     num = m.group(1) if m else pid
-    return f"LIVI-{num}"
+    return f"LIVI-{int(num):02d}"
 
 
 def get_stone_hub_url(material_name: str) -> str:
     low = material_name.lower()
+    if "майорк" in low:
+        return "/ukrasheniya-iz-zhemchuga-mayorka.html"
     if "барочн" in low:
         return "/ukrasheniya-iz-barochnogo-zhemchuga.html"
-    if "малахит" in low or "нефрит" in low or "жадеит" in low:
+    if "тигров" in low or "жадеит" in low:
+        return "/ukrasheniya-iz-tigrovogo-glaza.html"
+    if "коралл" in low or "яшм" in low:
+        return "/ukrasheniya-iz-koralla-i-yashmy.html"
+    if "лазурит" in low or "авантюрин" in low:
+        return "/ukrasheniya-iz-lazurita.html"
+    if "малахит" in low or "нефрит" in low:
         return "/ukrasheniya-iz-malahita.html"
     if "гематит" in low:
         return "/ukrasheniya-iz-gematita.html"
@@ -86,16 +146,18 @@ def get_stone_hub_url(material_name: str) -> str:
         return "/ukrasheniya-iz-ametista.html"
     if "гранат" in low or "агат" in low:
         return "/ukrasheniya-iz-granata.html"
-    if "розовый кварц" in low:
+    if "розов" in low and "кварц" in low:
         return "/ukrasheniya-iz-rozovogo-kvarca.html"
     if "бирюз" in low:
         return "/ukrasheniya-iz-biryuzy.html"
-    if "хрустал" in low or "кварц" in low or "циркон" in low:
+    if "хрустал" in low or "циркон" in low or ("кварц" in low and "розов" not in low):
         return "/ukrasheniya-iz-gornogo-hrustalya.html"
-    if "лунн" in low or "перламутр" in low or "майорка" in low:
+    if "лунн" in low or "перламутр" in low:
         return "/ukrasheniya-iz-lunnogo-kamnya.html"
+    if "керамическ" in low:
+        return "/ukrasheniya-iz-zhemchuga-mayorka.html"
     if "жемчуг" in low:
-        return "/ukrasheniya-iz-barochnogo-zhemchuga.html"
+        return "/kolye-iz-zhemchuga.html"
     return ""
 
 
@@ -108,7 +170,7 @@ def infer_color(product: dict) -> str:
         colors.append("Графитовый металлик")
     if "малахит" in text or "нефрит" in text or "жадеит" in text:
         colors.append("Изумрудно-зелёный")
-    if "гранат" in text:
+    if "гранат" in text or "коралл" in text:
         colors.append("Глубокий бордовый")
     if "аметист" in text or "флюорит" in text:
         colors.append("Фиолетово-лавандовый")
@@ -143,8 +205,20 @@ def build_clean_alt(product: dict) -> str:
     title = (product.get("title") or "").strip()
     materials = product.get("materials") or []
     stones = [m for m in materials if not re.search(r"сплав|позолота|фурнитура", m, re.I)]
-    stone_str = ", ".join(stones if stones else (materials or ["натурального жемчуга"])).lower()
-    return f"{title} — ручная работа из {stone_str}, Livi Jewelry"
+    target_stones = stones if stones else materials
+    gen_list = []
+    for s in target_stones:
+        key = s.strip().lower()
+        gen_list.append(GENITIVE_STONE_MAP.get(key, key))
+    if not gen_list:
+        gen_list = ["натурального жемчуга"]
+    if len(gen_list) == 1:
+        stones_str = gen_list[0]
+    elif len(gen_list) == 2:
+        stones_str = f"{gen_list[0]} и {gen_list[1]}"
+    else:
+        stones_str = f"{', '.join(gen_list[:-1])} и {gen_list[-1]}"
+    return f"{title} — ручная работа из {stones_str}, Livi Jewelry"
 
 
 def build_meta_description(product: dict) -> str:
@@ -165,6 +239,20 @@ def build_meta_description(product: dict) -> str:
 def build_customizer_html(product: dict) -> str:
     category = product.get("category") or "Necklaces"
     title_low = (product.get("title") or "").lower()
+    bundle_options = product.get("bundle_options") or []
+
+    bundle_html = ""
+    if bundle_options:
+        bundle_opts_html = "\n".join(
+            f'              <option value="{html.escape(opt["name"])}" data-price="{opt["price"]}"{" selected" if opt.get("is_full") else ""}>{html.escape(opt["name"])} — {format_price_ru(opt["price"])} ₸</option>'
+            for opt in bundle_options
+        )
+        bundle_html = f"""          <div class="customizer-field bundle-select-field">
+            <label class="customizer-label" for="customBundle">Выберите комплектацию</label>
+            <select id="customBundle" class="customizer-select">
+{bundle_opts_html}
+            </select>
+          </div>\n"""
 
     if category == "Bracelets":
         size_label = "Выберите размер (обхват запястья)"
@@ -198,7 +286,7 @@ def build_customizer_html(product: dict) -> str:
     )
 
     return f"""        <div class="product-customizer" aria-label="Параметры индивидуальной сборки">
-          <div class="customizer-field">
+{bundle_html}          <div class="customizer-field">
             <label class="customizer-label" for="customSize">{size_label}</label>
             <select id="customSize" class="customizer-select">
 {opts_html}
@@ -221,7 +309,7 @@ def build_customizer_html(product: dict) -> str:
 
 def build_product_page_html(product: dict, all_products: list) -> str:
     pid = product["id"]
-    livi_sku = get_livi_sku(pid)
+    livi_sku = product.get("sku") or get_livi_sku(pid)
     title = product["title"].strip()
     price = int(product.get("price") or 0)
     price_fmt = format_price_ru(price)
@@ -232,6 +320,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
     img_rel = product["image"].lstrip("/")
     img_abs = f"{SITE_URL}/{img_rel}"
     page_url = f"{SITE_URL}/product/{pid}.html"
+    kz_page_url = f"{SITE_URL}/kz/product/{pid}.html"
 
     description = (product.get("description") or "").strip()
     materials = product.get("materials") or ["Натуральный жемчуг", "Ювелирный сплав"]
@@ -239,11 +328,13 @@ def build_product_page_html(product: dict, all_products: list) -> str:
     color_str = infer_color(product)
     alt_text = build_clean_alt(product)
     meta_desc = build_meta_description(product)
+    specs = product.get("specs") or {}
+    bundle_options = product.get("bundle_options") or []
 
-    # Этап 2.1: Коммерческий <title> без технического кода (prod_XX)
+    # Коммерческий <title> без технического кода (prod_XX)
     page_title = f"{title} — купить по цене {price_fmt} ₸ в Астане и Алматы | Ручная работа Livi Jewelry"
 
-    # Этап 2.2: Умная перелинковка камней из карточки товара
+    # Умная перелинковка камней из карточки товара
     material_pills_list = []
     has_stone_hub_link = False
     for m in materials:
@@ -259,14 +350,28 @@ def build_product_page_html(product: dict, all_products: list) -> str:
     if not has_stone_hub_link:
         material_pills_list.insert(
             0,
-            '<a href="/ukrasheniya-iz-barochnogo-zhemchuga.html" class="mat-pill mat-pill-link">Натуральные камни и жемчуг</a>'
+            '<a href="/kolye-iz-zhemchuga.html" class="mat-pill mat-pill-link">Натуральный жемчуг</a>'
         )
     material_pills = "\n            ".join(material_pills_list)
 
-    # Этап 2.3: Отзывы и рейтинг
+    # Отзывы и рейтинг
     review_count, reviews_data = get_deterministic_reviews(pid, title)
 
-    # Похожие товары (4 штуки из той же категории или соседние)
+    # 3 индивидуальных FAQ вопроса-ответа
+    faq_q1 = f"Натуральные ли камни используются в модели «{title}»?"
+    faq_a1 = f"Да, в модели «{title}» используются исключительно натуральные камни и минералы: {materials_str}. Каждый камень проходит ручную селекцию мастера Livi Jewelry по плотности, естественной фактуре и природному блеску."
+
+    if bundle_options:
+        faq_q2 = f"Можно ли изменить длину или купить предмет из комплекта «{title}» отдельно?"
+        faq_a2 = f"Да! Вы можете приобрести как полный комплект «{title}», так и любой отдельный предмет (выберите нужный вариант в выпадающем списке комплектации выше). Также мастер бесплатно адаптирует длину колье (38–45 см) или браслета (16–19 см) под ваши индивидуальные мерки."
+    else:
+        faq_q2 = f"Можно ли изменить длину или размер модели «{title}»?"
+        faq_a2 = f"Да, мастер ателье Livi Jewelry бесплатно адаптирует длину и посадку модели «{title}» ({specs.get('length_size', '38–45 см')}) под ваши индивидуальные мерки перед отправкой заказа."
+
+    faq_q3 = f"Как быстро доставляется «{title}» в Астану, Алматы и по Казахстану?"
+    faq_a3 = f"По Астане доставка «{title}» осуществляется курьером день в день при заказе до 16:00. В Алматы, Шымкент, Караганду и все города Казахстана отправляем экспресс-службой СДЭК за 1–3 рабочих дня с трек-номером. Оплата возможна картой и Kaspi Pay."
+
+    # Похожие товары (4 штуки)
     same_cat = [p for p in all_products if p["id"] != pid and p.get("category") == category]
     others = [p for p in all_products if p["id"] != pid and p.get("category") != category]
     related = (same_cat + others)[:4]
@@ -291,7 +396,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
       </article>""")
     related_html = "\n".join(related_cards_html)
 
-    # JSON-LD Product + BreadcrumbList (Этап 2.3)
+    # JSON-LD Product (Merchant Listing)
     product_ld = {
         "@context": "https://schema.org",
         "@type": "Product",
@@ -344,15 +449,28 @@ def build_product_page_html(product: dict, all_products: list) -> str:
                 "name": "Livi Jewelry",
                 "url": f"{SITE_URL}/",
                 "telephone": "+77054510584",
-                "priceRange": "15000 KZT - 85000 KZT",
+                "priceRange": "15000 KZT - 91000 KZT",
                 "address": {
                     "@type": "PostalAddress",
                     "addressLocality": "Астана",
                     "addressCountry": "KZ"
                 }
             },
+            "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "KZ",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 14,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn"
+            },
             "shippingDetails": {
                 "@type": "OfferShippingDetails",
+                "shippingRate": {
+                    "@type": "MonetaryAmount",
+                    "value": "0",
+                    "currency": "KZT"
+                },
                 "shippingDestination": {
                     "@type": "DefinedRegion",
                     "addressCountry": "KZ"
@@ -376,6 +494,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
         }
     }
 
+    # JSON-LD BreadcrumbList
     breadcrumb_ld = {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
@@ -407,6 +526,29 @@ def build_product_page_html(product: dict, all_products: list) -> str:
         ]
     }
 
+    # JSON-LD FAQPage
+    faq_ld = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": faq_q1,
+                "acceptedAnswer": {"@type": "Answer", "text": faq_a1}
+            },
+            {
+                "@type": "Question",
+                "name": faq_q2,
+                "acceptedAnswer": {"@type": "Answer", "text": faq_a2}
+            },
+            {
+                "@type": "Question",
+                "name": faq_q3,
+                "acceptedAnswer": {"@type": "Answer", "text": faq_a3}
+            }
+        ]
+    }
+
     wa_text = (
         f"Здравствуйте! Хочу заказать: {title} (Артикул: {livi_sku}) за {price_fmt} ₸.\n"
         f"Ссылка: {page_url}"
@@ -426,6 +568,11 @@ def build_product_page_html(product: dict, all_products: list) -> str:
         for rv in reviews_data
     )
 
+    interlink_chips_html = "\n".join(
+        f'        <a href="{h_url}" class="stone-chip">{html.escape(h_lbl)}</a>'
+        for h_url, h_lbl in ALL_21_HUBS
+    )
+
     product_js_obj = json.dumps({
         "id": pid,
         "sku": livi_sku,
@@ -434,6 +581,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
         "category": category,
         "image": "/" + img_rel,
         "url": page_url,
+        "bundle_options": bundle_options
     }, ensure_ascii=False)
 
     return f"""<!DOCTYPE html>
@@ -481,6 +629,8 @@ def build_product_page_html(product: dict, all_products: list) -> str:
   <link rel="canonical" href="{page_url}" />
   <link rel="alternate" hreflang="ru-KZ" href="{page_url}" />
   <link rel="alternate" hreflang="ru" href="{page_url}" />
+  <link rel="alternate" hreflang="kk-KZ" href="{kz_page_url}" />
+  <link rel="alternate" hreflang="kk" href="{kz_page_url}" />
   <link rel="alternate" hreflang="x-default" href="{page_url}" />
 
   <!-- Open Graph / Product -->
@@ -520,6 +670,11 @@ def build_product_page_html(product: dict, all_products: list) -> str:
   <script type="application/ld+json">
 {json.dumps(breadcrumb_ld, ensure_ascii=False, indent=2)}
   </script>
+
+  <!-- Schema.org JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+{json.dumps(faq_ld, ensure_ascii=False, indent=2)}
+  </script>
 </head>
 <body>
   <header>
@@ -539,7 +694,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
       <div class="right">
         <div class="lang header-lang-links" aria-label="Выбор языка">
           <a href="{page_url}" class="active">RU</a>
-          <a href="/kz/shop.html" lang="kk">KZ</a>
+          <a href="{kz_page_url}" lang="kk">KZ</a>
         </div>
         <button class="burger" id="burger" aria-label="Меню"><span></span></button>
       </div>
@@ -553,7 +708,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
           <a href="/braslety-iz-zhemchuga.html">Браслеты из жемчуга</a>
           <a href="/sergi-iz-zhemchuga.html">Серьги из жемчуга</a>
           <a href="/komplekty-ukrasheniy.html">Комплекты украшений</a>
-          <a href="/kz/shop.html" lang="kk">Қазақша каталог (KZ)</a>
+          <a href="{kz_page_url}" lang="kk">Қазақша нұсқасы (KZ)</a>
           <a href="/cart.html" class="cart-link"><span>Корзина</span></a>
         </nav>
       </div>
@@ -594,11 +749,11 @@ def build_product_page_html(product: dict, all_products: list) -> str:
           </div>
           <div class="product-meta-row">
             <strong>Фурнитура и размер:</strong>
-            <span>Гипоаллергенный ювелирный сплав (родий / позолота). Возможна бесплатная индивидуальная коррекция длины под ваше запястье или шею за 1–2 дня.</span>
+            <span>{html.escape(specs.get('hardware', 'Гипоаллергенный ювелирный сплав (родий / позолота)'))}. {html.escape(specs.get('length_size', 'Возможна бесплатная индивидуальная подгонка длины мастером.'))}</span>
           </div>
           <div class="product-meta-row">
             <strong>Упаковка:</strong>
-            <span>Фирменная подарочная коробочка и бархатный мешочек Livi Jewelry включены в стоимость.</span>
+            <span>{html.escape(specs.get('packaging', 'Фирменная подарочная коробочка и бархатный мешочек Livi Jewelry включены в стоимость.'))}</span>
           </div>
         </div>
 
@@ -613,13 +768,44 @@ def build_product_page_html(product: dict, all_products: list) -> str:
         </div>
 
         <ul class="product-trust-list">
-          <li><strong>Доставка день-в-день по Астане:</strong> отправка курьером в день заказа.</li>
-          <li><strong>Доставка по всему Казахстану:</strong> Алматы, Шымкент, Караганда и все города РК курьерской службой СДЭК (1–3 рабочих дня).</li>
+          <li><strong>Доставка день-в-день по Астане:</strong> отправка курьером в день заказа при оформлении до 16:00.</li>
+          <li><strong>Доставка по всему Казахстану:</strong> Алматы, Шымкент, Караганда и все города РК экспресс-службой СДЭК (1–3 рабочих дня).</li>
           <li><strong>Международная доставка:</strong> бережная отправка по всему миру с трек-номером.</li>
           <li><strong>Гарантия и возврат:</strong> обмен или возврат в течение 14 дней согласно законодательству РК.</li>
         </ul>
 
-        <!-- Визуальный блок отзывов, 100% синхронизированный с JSON-LD Product review/aggregateRating -->
+        <!-- Таблица характеристик изделия -->
+        <section class="product-specs-section" aria-label="Характеристики изделия">
+          <h2 class="specs-title">Характеристики изделия</h2>
+          <dl class="product-specs-grid">
+            <div class="spec-row"><dt>Артикул</dt><dd>{livi_sku}</dd></div>
+            <div class="spec-row"><dt>Тип украшения</dt><dd>{html.escape(specs.get('type_ru', cat_ru))}</dd></div>
+            <div class="spec-row"><dt>Основные камни и минералы</dt><dd>{html.escape(specs.get('stones_detail', materials_str))}</dd></div>
+            <div class="spec-row"><dt>Фурнитура и покрытие</dt><dd>{html.escape(specs.get('hardware', 'Гипоаллергенный ювелирный сплав (родий / позолота)'))}</dd></div>
+            <div class="spec-row"><dt>Длина / размер</dt><dd>{html.escape(specs.get('length_size', '38–45 см'))}</dd></div>
+            <div class="spec-row"><dt>Застежка</dt><dd>{html.escape(specs.get('clasp', 'Ювелирный карабин с удлинителем'))}</dd></div>
+            <div class="spec-row"><dt>Комплектация и упаковка</dt><dd>{html.escape(specs.get('packaging', 'Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry'))}</dd></div>
+          </dl>
+        </section>
+
+        <!-- Индивидуальный блок FAQ -->
+        <section class="product-faq-section" aria-label="Часто задаваемые вопросы о товаре">
+          <h2 class="faq-title">Часто задаваемые вопросы</h2>
+          <details class="product-faq-item">
+            <summary>{html.escape(faq_q1)}</summary>
+            <p>{html.escape(faq_a1)}</p>
+          </details>
+          <details class="product-faq-item">
+            <summary>{html.escape(faq_q2)}</summary>
+            <p>{html.escape(faq_a2)}</p>
+          </details>
+          <details class="product-faq-item">
+            <summary>{html.escape(faq_q3)}</summary>
+            <p>{html.escape(faq_a3)}</p>
+          </details>
+        </section>
+
+        <!-- Визуальный блок отзывов -->
         <section class="product-reviews-block" aria-label="Отзывы покупателей">
           <div class="reviews-header">
             <h2 class="reviews-title">Отзывы покупателей (5.0 ★)</h2>
@@ -643,21 +829,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
       <h2>Подборки по камням и стилям</h2>
       <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
       <div class="stone-chips">
-        <a href="/kolye-iz-zhemchuga.html" class="stone-chip">Колье из жемчуга</a>
-        <a href="/braslety-iz-zhemchuga.html" class="stone-chip">Браслеты из жемчуга</a>
-        <a href="/sergi-iz-zhemchuga.html" class="stone-chip">Серьги из жемчуга</a>
-        <a href="/komplekty-ukrasheniy.html" class="stone-chip">Комплекты украшений</a>
-        <a href="/chokery-iz-naturalnyh-kamney.html" class="stone-chip">Чокеры из камней</a>
-        <a href="/sotuary-iz-zhemchuga.html" class="stone-chip">Сотуары и галстуки</a>
-        <a href="/ukrasheniya-iz-barochnogo-zhemchuga.html" class="stone-chip">Барочный жемчуг</a>
-        <a href="/ukrasheniya-iz-gematita.html" class="stone-chip">Гематит</a>
-        <a href="/ukrasheniya-iz-malahita.html" class="stone-chip">Малахит и Нефрит</a>
-        <a href="/ukrasheniya-iz-ametista.html" class="stone-chip">Аметист и Флюорит</a>
-        <a href="/ukrasheniya-iz-granata.html" class="stone-chip">Гранат и Агат</a>
-        <a href="/ukrasheniya-iz-rozovogo-kvarca.html" class="stone-chip">Розовый кварц</a>
-        <a href="/ukrasheniya-iz-biryuzy.html" class="stone-chip">Бирюза</a>
-        <a href="/ukrasheniya-iz-gornogo-hrustalya.html" class="stone-chip">Горный хрусталь</a>
-        <a href="/ukrasheniya-iz-lunnogo-kamnya.html" class="stone-chip">Лунный камень и Перламутр</a>
+{interlink_chips_html}
       </div>
     </section>
   </main>
@@ -681,6 +853,8 @@ def build_product_page_html(product: dict, all_products: list) -> str:
 
   <script>
     const PRODUCT = {product_js_obj};
+    let currentActivePrice = PRODUCT.price;
+    let currentActiveTitle = PRODUCT.title;
 
     /* ===== Сквозная атрибуция (UTM / GCLID / FBCLID) ===== */
     (function captureAttribution(){{
@@ -777,18 +951,38 @@ def build_product_page_html(product: dict, all_products: list) -> str:
       }}
     }}
 
-    // Динамическое обновление текста кнопки WhatsApp с параметрами кастомизатора и атрибуцией
+    // Динамическое обновление WhatsApp и цены при выборе комплектации (bundle_options)
+    const customBundleEl = document.getElementById('customBundle');
     const customSizeEl = document.getElementById('customSize');
     const customHardwareEl = document.getElementById('customHardware');
     const customGiftEl = document.getElementById('customGift');
     const waBtn = document.getElementById('waOrderBtn');
+    const addToCartBtn = document.getElementById('addToCartBtn');
+    const priceDisplayEl = document.querySelector('.product-price-val');
+
+    function syncBundleSelection() {{
+      if (customBundleEl) {{
+        const opt = customBundleEl.options[customBundleEl.selectedIndex];
+        const optPrice = parseInt(opt.getAttribute('data-price'), 10) || PRODUCT.price;
+        currentActivePrice = optPrice;
+        currentActiveTitle = opt.value;
+        if (priceDisplayEl) {{
+          priceDisplayEl.textContent = currentActivePrice.toLocaleString('ru-RU') + ' ₸';
+        }}
+        if (addToCartBtn) {{
+          addToCartBtn.textContent = 'В корзину — ' + currentActivePrice.toLocaleString('ru-RU') + ' ₸';
+        }}
+      }}
+      syncWhatsAppLink();
+    }}
 
     function buildWhatsAppHref(txId) {{
       const sizeVal = customSizeEl ? customSizeEl.value : 'Стандарт';
       const hwVal = customHardwareEl ? customHardwareEl.value : 'Как на фото';
       const giftVal = (customGiftEl && customGiftEl.checked) ? 'Да (бесплатно 0 ₸)' : 'Стандартная';
-      const priceFormatted = PRODUCT.price.toLocaleString('ru-RU');
-      const msg = `Здравствуйте! Хочу заказать: ${{PRODUCT.title}} (Артикул: ${{PRODUCT.sku}}) за ${{priceFormatted}} ₸.\\nПараметры: ${{sizeVal}}, фурнитура: ${{hwVal}}, подарочная упаковка: ${{giftVal}}.\\nСсылка: ${{PRODUCT.url}}${{getAttributionSummary(txId)}}`;
+      const bundleVal = customBundleEl ? customBundleEl.value : currentActiveTitle;
+      const priceFormatted = currentActivePrice.toLocaleString('ru-RU');
+      const msg = `Здравствуйте! Хочу заказать: ${{bundleVal}} (Артикул: ${{PRODUCT.sku}}) за ${{priceFormatted}} ₸.\\nПараметры: ${{sizeVal}}, фурнитура: ${{hwVal}}, упаковка: ${{giftVal}}.\\nСсылка: ${{PRODUCT.url}}${{getAttributionSummary(txId)}}`;
       return 'https://wa.me/77054510584?text=' + encodeURIComponent(msg);
     }}
 
@@ -798,62 +992,69 @@ def build_product_page_html(product: dict, all_products: list) -> str:
       }}
     }}
 
+    if (customBundleEl) customBundleEl.addEventListener('change', syncBundleSelection);
     if (customSizeEl) customSizeEl.addEventListener('change', syncWhatsAppLink);
     if (customHardwareEl) customHardwareEl.addEventListener('change', syncWhatsAppLink);
     if (customGiftEl) customGiftEl.addEventListener('change', syncWhatsAppLink);
-    syncWhatsAppLink();
+    syncBundleSelection();
 
-    document.getElementById('addToCartBtn').addEventListener('click', function() {{
-      const sizeVal = customSizeEl ? customSizeEl.value : 'Стандарт';
-      const hwVal = customHardwareEl ? customHardwareEl.value : 'Как на фото';
-      const giftVal = (customGiftEl && customGiftEl.checked) ? 'Подарочная упаковка (0 ₸)' : '';
-      const items = readCart();
-      const idx = items.findIndex(x => x.id === PRODUCT.id && (x.customSize || '') === sizeVal && (x.customHardware || '') === hwVal);
-      if (idx >= 0) {{
-        items[idx].qty = Number(items[idx].qty || 1) + 1;
-      }} else {{
-        items.push({{
-          id: PRODUCT.id,
-          sku: PRODUCT.sku,
-          title: PRODUCT.title,
-          unit: PRODUCT.price,
-          image: PRODUCT.image,
-          qty: 1,
-          customSize: sizeVal,
-          customHardware: hwVal,
-          customGift: giftVal
-        }});
-      }}
-      writeCart(items);
-      const toast = document.getElementById('addedToast');
-      if (toast) toast.style.display = 'block';
-
-      try {{
-        if (typeof gtag === 'function') {{
-          gtag('event', 'add_to_cart', {{
-            currency: 'KZT',
-            value: PRODUCT.price,
-            items: [{{
-              item_id: PRODUCT.id,
-              item_name: PRODUCT.title,
-              item_category: PRODUCT.category,
-              item_variant: `${{sizeVal}} | ${{hwVal}}`,
-              price: PRODUCT.price,
-              quantity: 1
-            }}]
+    if (addToCartBtn) {{
+      addToCartBtn.addEventListener('click', function() {{
+        const sizeVal = customSizeEl ? customSizeEl.value : 'Стандарт';
+        const hwVal = customHardwareEl ? customHardwareEl.value : 'Как на фото';
+        const giftVal = (customGiftEl && customGiftEl.checked) ? 'Подарочная упаковка (0 ₸)' : '';
+        const bundleVal = customBundleEl ? customBundleEl.value : currentActiveTitle;
+        const items = readCart();
+        const itemUniqueId = PRODUCT.id + (customBundleEl ? '-' + customBundleEl.selectedIndex : '');
+        const idx = items.findIndex(x => x.id === itemUniqueId && (x.customSize || '') === sizeVal && (x.customHardware || '') === hwVal);
+        if (idx >= 0) {{
+          items[idx].qty = Number(items[idx].qty || 1) + 1;
+        }} else {{
+          items.push({{
+            id: itemUniqueId,
+            sku: PRODUCT.sku,
+            title: bundleVal,
+            price: currentActivePrice,
+            unit: currentActivePrice,
+            image: PRODUCT.image,
+            qty: 1,
+            customBundle: customBundleEl ? customBundleEl.value : '',
+            customSize: sizeVal,
+            customHardware: hwVal,
+            customGift: giftVal
           }});
         }}
-        if (window.fbq) {{
-          fbq('track', 'AddToCart', {{
-            content_ids: [PRODUCT.id],
-            content_name: PRODUCT.title,
-            content_type: 'product',
-            value: PRODUCT.price,
-            currency: 'KZT'
-          }});
-        }}
-      }} catch (e) {{}}
-    }});
+        writeCart(items);
+        const toast = document.getElementById('addedToast');
+        if (toast) toast.style.display = 'block';
+
+        try {{
+          if (typeof gtag === 'function') {{
+            gtag('event', 'add_to_cart', {{
+              currency: 'KZT',
+              value: currentActivePrice,
+              items: [{{
+                item_id: PRODUCT.id,
+                item_name: bundleVal,
+                item_category: PRODUCT.category,
+                item_variant: `${{sizeVal}} | ${{hwVal}}`,
+                price: currentActivePrice,
+                quantity: 1
+              }}]
+            }});
+          }}
+          if (window.fbq) {{
+            fbq('track', 'AddToCart', {{
+              content_ids: [PRODUCT.id],
+              content_name: bundleVal,
+              content_type: 'product',
+              value: currentActivePrice,
+              currency: 'KZT'
+            }});
+          }}
+        }} catch (e) {{}}
+      }});
+    }}
 
     if (waBtn) {{
       waBtn.addEventListener('click', function() {{
@@ -864,13 +1065,13 @@ def build_product_page_html(product: dict, all_products: list) -> str:
           if (typeof gtag === 'function') {{
             gtag('event', 'generate_lead', {{
               currency: 'KZT',
-              value: PRODUCT.price,
+              value: currentActivePrice,
               method: 'WhatsApp',
               lead_source: 'product_page_' + PRODUCT.id
             }});
             gtag('event', 'conversion', {{
               'send_to': '{AW_CONV_LABEL}',
-              'value': Math.round(PRODUCT.price * 0.2),
+              'value': Math.round(currentActivePrice * 0.2),
               'currency': 'KZT',
               'transaction_id': txId
             }});
@@ -899,7 +1100,8 @@ def build_product_page_html(product: dict, all_products: list) -> str:
       }});
     }});
 
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const yrEl = document.getElementById('year');
+    if (yrEl) yrEl.textContent = new Date().getFullYear();
     updateBadge();
   </script>
 </body>
@@ -968,17 +1170,26 @@ def sync_static_catalogs(products: list):
 
         cards_block = "\n".join(build_static_card_html(p, indent="      ") for p in products)
         new_grid = f'<div class="grid" id="grid">\n{cards_block}\n    </div>'
-        updated_shop, n = re.subn(
+        shop_html = re.sub(
             r'<div class="grid" id="grid">.*?</div>\s*(?=(?:<div id="catalogError"|<section|</main>))',
             lambda _: f"{new_grid}\n    ",
             shop_html,
             count=1,
             flags=re.DOTALL,
         )
-        if n:
-            with open("shop.html", "w", encoding="utf-8") as f:
-                f.write(updated_shop)
-            print(f"[OK] Пререндеринг {len(products)} карточек и ItemList встроен в shop.html")
+
+        # Ensure catalogError is completely empty in raw HTML
+        shop_html = re.sub(
+            r'<div id="catalogError"[^>]*>.*?</div>',
+            '<div id="catalogError" class="empty-state" hidden style="display:none" aria-hidden="true"></div>',
+            shop_html,
+            count=1,
+            flags=re.DOTALL
+        )
+
+        with open("shop.html", "w", encoding="utf-8") as f:
+            f.write(shop_html)
+        print(f"[OK] Пререндеринг {len(products)} карточек и ItemList встроен в shop.html")
 
     # 2. index.html (12 избранных карточек)
     if os.path.exists("index.html"):
@@ -992,17 +1203,17 @@ def sync_static_catalogs(products: list):
 
         feat_cards = "\n".join(build_static_card_html(p, indent="      ") for p in featured)
         new_feat = f'<div id="featGrid" class="grid" aria-live="polite">\n{feat_cards}\n    </div>\n  </section>'
-        updated_index, n = re.subn(
+        index_html = re.sub(
             r'<div id="featGrid" class="grid" aria-live="polite">.*?</div>\s*</section>',
             lambda _: new_feat,
             index_html,
             count=1,
             flags=re.DOTALL,
         )
-        if n:
-            with open("index.html", "w", encoding="utf-8") as f:
-                f.write(updated_index)
-            print(f"[OK] Пререндеринг {len(featured)} избранных карточек встроен в index.html")
+
+        with open("index.html", "w", encoding="utf-8") as f:
+            f.write(index_html)
+        print(f"[OK] Пререндеринг {len(featured)} избранных карточек встроен в index.html")
 
 
 def generate_all():

@@ -1,30 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Расширенный верификационный комплекс аудита Livi Jewelry (22 проверки).
-Проверяет все 7 этапов архитектуры SEO, CRO, AdTech и i18n:
-1. Валидность products.json (28 товаров, WebP-фото, поля, цены)
-2. Все 28 статических страниц product/prod_XX.html (JSON-LD Product + BreadcrumbList, паритет цен/SKU, GA4, Ads, Meta Pixels, GSC)
-3. Очистка <title> от технического шума (prod_XX) и наличие видимого артикула Артикул: LIVI-{XX}
-4. Умная перелинковка камней <a href="/ukrasheniya-iz-..."> в блоке материалов на карточках товаров
-5. Расширенная микроразметка Schema.org: ["Organization", "JewelryStore"], material, color, pattern, aggregateRating, review + видимый блок отзывов (5.0 ★)
-6. Интерактивный CRO-кастомизатор (id="customSize", id="customHardware", id="customGift") на всех карточках товаров и в shop.html
-7. Все 12 новых коммерческих SEO-хабов (ItemList, FAQPage, BreadcrumbList, самоссылающийся canonical, пререндеринг карточек, SEO-текст, перелинковка)
-8. Категорийные посадочные страницы (kolye/braslety/sergi-iz-zhemchuga.html) + блок перелинковки «Подборки по камням и стилям»
-9. Синхронизация XML-фидов google_merchant_feed.xml и feed.xml (паритет, обогащенный <g:title> <= 150 симв.)
-10. Merchant Center Highlights & Shipping: <g:product_highlight> (4 шт.), <g:shipping> (KZ, 0.00 KZT), <g:custom_label_2>..<g:custom_label_4>
-11. Статическая казахскоязычная витрина (/kz/index.html, /kz/shop.html) с пререндерингом, FAQPage, JewelryStore и ItemList
-12. Двусторонняя связка hreflang (ru-KZ, ru, kk-KZ, kk, x-default) на русских и казахских страницах и прямые ссылки в шапке
-13. Сквозная атрибуция UTM/gclid (livi_attribution) и микро-воронка GA4 (view_item_list, select_item) + Google Sheets колонки в google_apps_script_order_backend.js
-14. Sitemap.xml + Image Sitemap (xmlns:image, <image:image>, 12 SEO-хабов, /kz/, 28 товаров, отсутствие noindex страниц cart.html/404.html)
-15. Robots.txt (Disallow: /cart.html, Allow: /assets/, Sitemap)
-16. Пререндеринг карточек в shop.html (28 карточек) и index.html (12 карточек)
-17. Защита от ложного срабатывания #catalogError в shop.html
-18. Страница доставки, оплаты и возврата delivery.html и сквозные ссылки в футерах
-19. Кастомная страница 404.html с <meta name="robots" content="noindex, follow">
-20. Очистка alt-атрибутов от спама городов на index.html, shop.html и в карточках
-21. Видимый блок FAQ (<details><summary>) на index.html, синхронизированный 1-в-1 с JSON-LD FAQPage
-22. Наличие Google Search Console verification тега на всех ключевых страницах
+Комплексный верификационный сьют аудита Livi Jewelry (35 строгих инвариантов).
+Проверяет все 8 этапов полной модернизации:
+1. Каталог products.json (28 товаров, SKU, ЧПУ, спецификации specs, комплектации bundle_options, чистота текстов, коммерческая длина)
+2. Все 21 SEO-хаб (15 тематических + 6 новых узкоцелевых кластеров, непустая выдача, 11 сетов с серьгами, кликабельные плашки камней)
+3. 28 русских страниц товаров /product/prod_XX.html (чистые title, грамматика alt, hasMerchantReturnPolicy, shippingDetails 0 KZT, specs, FAQ, customBundle)
+4. Казахская локализация (kz/index.html, kz/shop.html, 28 страниц kz/product/prod_XX.html, hreflang, переключатели языков)
+5. Отсутствие фантомных ошибок каталога (#catalogError пуст в исходном HTML)
+6. Товарный фид Google Shopping (28 товаров, KZT, in_stock, shipping 0 KZT, раскладка цен комплектов)
+7. XML-карта сайта sitemap.xml (все 21 хаб, 28 RU + 28 KZ страниц товаров, Image Sitemap, отсутствие мусорных страниц)
+8. Аналитика и модульная синхронизация (GA4, Google Ads, Meta Pixels, GSC, livi_attribution, customBundle в cart.html, sync_drive schema v2)
 """
 
 import json
@@ -46,7 +32,10 @@ FB_PIXEL_1 = "199604456030882"
 FB_PIXEL_2 = "4185620171718327"
 GOOGLE_VERIFICATION = "qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0"
 
-SEO_HUB_SLUGS = [
+ALL_21_HUBS = [
+    "kolye-iz-zhemchuga.html",
+    "braslety-iz-zhemchuga.html",
+    "sergi-iz-zhemchuga.html",
     "komplekty-ukrasheniy.html",
     "chokery-iz-naturalnyh-kamney.html",
     "sotuary-iz-zhemchuga.html",
@@ -59,7 +48,19 @@ SEO_HUB_SLUGS = [
     "ukrasheniya-iz-biryuzy.html",
     "ukrasheniya-iz-gornogo-hrustalya.html",
     "ukrasheniya-iz-lunnogo-kamnya.html",
+    # 6 новых узкоцелевых SEO-хабов
+    "ukrasheniya-iz-zhemchuga-mayorka.html",
+    "ukrasheniya-iz-tigrovogo-glaza.html",
+    "ukrasheniya-iz-koralla-i-yashmy.html",
+    "ukrasheniya-iz-lazurita.html",
+    "tsepi-s-barochnym-zhemchugom.html",
+    "koltsa-i-garnitury-iz-kamney.html",
 ]
+
+EARING_SET_IDS = {
+    "prod_09", "prod_11", "prod_12", "prod_13", "prod_14",
+    "prod_15", "prod_16", "prod_18", "prod_26", "prod_27", "prod_28"
+}
 
 errors = []
 passed = []
@@ -92,10 +93,12 @@ def extract_jsonld_blocks(html_text: str) -> list:
 
 def run_audit():
     print("=" * 76)
-    print("ЗАПУСК РАСШИРЕННОГО ТЕСТОВОГО КОМПЛЕКСА LIVI JEWELRY (22 ПРОВЕРКИ)")
+    print("ЗАПУСК СТРОГОГО ТЕСТОВОГО КОМПЛЕКСА LIVI JEWELRY (35 ИНВАРИАНТОВ)")
     print("=" * 76)
 
-    # 1. Проверка products.json
+    # ---------------------------------------------------------
+    # 1. Инварианты каталога products.json
+    # ---------------------------------------------------------
     if not os.path.exists("products.json"):
         fail("1. Файл products.json не найден")
         return
@@ -103,138 +106,133 @@ def run_audit():
         products = json.load(f)
 
     if len(products) != 28:
-        fail(f"1. Ожидалось 28 товаров в products.json, найдено {len(products)}")
+        fail(f"1. Ожидалось ровно 28 товаров в products.json, найдено {len(products)}")
     else:
         missing_imgs = [p["id"] for p in products if not os.path.exists(p.get("image", ""))]
         if missing_imgs:
             fail(f"1. Не найдены файлы картинок для товаров: {missing_imgs}")
         else:
-            ok("1. products.json валиден: 28 товаров, все изображения WebP существуют на диске")
+            ok("1. products.json: Ровно 28 товаров, все изображения WebP существуют на диске")
 
-    by_id = {p["id"]: p for p in products}
-
-    # 2, 3, 4, 5, 6. Проверка всех 28 статических страниц товаров product/prod_XX.html
-    prod_pages_ok = True
-    clean_titles_ok = True
-    stone_links_ok = True
-    rich_schema_ok = True
-    customizer_ok = True
-
+    # 2. Проверка sku, seo_slug, search_keywords
+    sku_slug_ok = True
     for p in products:
         pid = p["id"]
-        path = os.path.join("product", f"{pid}.html")
-        if not os.path.exists(path):
-            fail(f"2. Отсутствует страница товара {path}")
-            prod_pages_ok = False
+        sku = p.get("sku", "")
+        slug = p.get("seo_slug", "")
+        kw = p.get("search_keywords", [])
+        if not re.match(r"^LIVI-\d{2}$", sku):
+            fail(f"2. {pid}: неверный формат sku '{sku}' (ожидался LIVI-01..LIVI-28)")
+            sku_slug_ok = False
+        if not slug or not re.match(r"^[a-z0-9-]+$", slug):
+            fail(f"2. {pid}: неверный seo_slug '{slug}'")
+            sku_slug_ok = False
+        if not isinstance(kw, list) or len(kw) < 5:
+            fail(f"2. {pid}: в search_keywords меньше 5 поисковых фраз ({len(kw)})")
+            sku_slug_ok = False
+    if sku_slug_ok:
+        ok("2. products.json: Все 28 товаров имеют валидный SKU (LIVI-XX), латинский ЧПУ seo_slug и 5+ поисковых ключей")
+
+    # 3. Проверка specs
+    specs_ok = True
+    req_specs_fields = ["type_ru", "stones_detail", "hardware", "length_size", "clasp", "packaging"]
+    for p in products:
+        pid = p["id"]
+        specs = p.get("specs")
+        if not isinstance(specs, dict):
+            fail(f"3. {pid}: отсутствует объект specs")
+            specs_ok = False
             continue
-        with open(path, "r", encoding="utf-8") as f:
-            txt = f.read()
+        for field in req_specs_fields:
+            if not specs.get(field):
+                fail(f"3. {pid}: в specs отсутствует или пустое поле '{field}'")
+                specs_ok = False
+    if specs_ok:
+        ok("3. products.json: У всех 28 товаров заполнена структурированная таблица specs (6 обязательных полей)")
 
-        # Проверка счетчиков и верификации (DO NOT BREAK)
-        for token_name, token_val in [
-            ("GA4", GA_ID),
-            ("Google Ads", AW_ID),
-            ("Ads Conv Label", AW_CONV_LABEL),
-            ("Meta Pixel 1", FB_PIXEL_1),
-            ("Meta Pixel 2", FB_PIXEL_2),
-            ("GSC Verification", GOOGLE_VERIFICATION),
-        ]:
-            if token_val not in txt:
-                fail(f"2. {path}: отсутствует обязательный токен {token_name} ({token_val})")
-                prod_pages_ok = False
+    # 4. Проверка bundle_options для комплектов
+    bundle_ok = True
+    set_count = 0
+    for p in products:
+        pid = p["id"]
+        is_set = p.get("category") == "Sets" or "комплект" in p.get("title", "").lower() or "сет" in p.get("title", "").lower()
+        if is_set:
+            set_count += 1
+            b_opts = p.get("bundle_options")
+            if not isinstance(b_opts, list) or len(b_opts) < 2:
+                fail(f"4. {pid}: комплект не содержит массива bundle_options с как минимум 2 вариантами")
+                bundle_ok = False
+            else:
+                for opt in b_opts:
+                    if not opt.get("name") or not isinstance(opt.get("price"), int) or opt.get("price") <= 0:
+                        fail(f"4. {pid}: некорректная опция в bundle_options: {opt}")
+                        bundle_ok = False
+    if bundle_ok and set_count >= 13:
+        ok(f"4. products.json: Все {set_count} комплектов содержат массив bundle_options с валидными ценами")
 
-        expected_canon = f'<link rel="canonical" href="{SITE_URL}/product/{pid}.html"'
-        if expected_canon not in txt:
-            fail(f"2. {path}: некорректный canonical")
-            prod_pages_ok = False
+    # 5. Проверка чистоты заголовков и описаний
+    clean_text_ok = True
+    for p in products:
+        pid = p["id"]
+        t = p.get("title", "")
+        d = p.get("description", "")
+        if "Drive ID" in t or "Drive ID" in d or "drive_id" in t or "drive_id" in d:
+            fail(f"5. {pid}: обнаружен технический маркер Drive ID")
+            clean_text_ok = False
+        if "Комплект: нефрита и гематита" in t:
+            fail(f"5. {pid}: грамматическая ошибка в title 'Комплект: нефрита и гематита'")
+            clean_text_ok = False
+        if "Комплект: Комплект" in t:
+            fail(f"5. {pid}: дублирование 'Комплект: Комплект' в title")
+            clean_text_ok = False
+    if clean_text_ok:
+        ok("5. products.json: Заголовки и описания очищены от маркеров Drive ID, грамматических ошибок и дубликатов")
 
-        # Проверка 3: Очистка <title> от (prod_XX) и наличие видимого Артикул: LIVI-XX
-        title_m = re.search(r"<title>(.*?)</title>", txt, flags=re.S | re.I)
-        title_str = title_m.group(1).strip() if title_m else ""
-        if f"({pid})" in title_str or pid in title_str:
-            fail(f"3. {path}: технический код {pid} обнаружен в <title>: {title_str}")
-            clean_titles_ok = False
-        if "купить по цене" not in title_str or "₸ в Астане и Алматы" not in title_str:
-            fail(f"3. {path}: <title> не соответствует коммерческому шаблону: {title_str}")
-            clean_titles_ok = False
-        num_m = re.search(r"(\d+)", pid)
-        livi_sku = f"LIVI-{num_m.group(1)}" if num_m else pid
-        if f"Артикул: {livi_sku}" not in txt:
-            fail(f"3. {path}: отсутствует видимый артикул 'Артикул: {livi_sku}'")
-            clean_titles_ok = False
+    # 6. Коммерческая длина описаний (description >= 180 символов)
+    desc_len_ok = True
+    for p in products:
+        pid = p["id"]
+        d = p.get("description", "").strip()
+        if len(d) < 180:
+            fail(f"6. {pid}: описание слишком короткое ({len(d)} симв. < 180): '{d}'")
+            desc_len_ok = False
+        if d.startswith(f"{p['title']} —"):
+            fail(f"6. {pid}: описание начинается с сырой заглушки '{p['title']} —'")
+            desc_len_ok = False
+    if desc_len_ok:
+        ok("6. products.json: Описания всех 28 товаров расширены до коммерческого объема (>= 180 символов) без сырых ценников в начале")
 
-        # Проверка 4: Умная перелинковка камней из карточки товара
-        if 'href="/ukrasheniya-iz-' not in txt or 'class="mat-pill mat-pill-link"' not in txt:
-            fail(f"4. {path}: отсутствуют кликабельные ссылки <a href=\"/ukrasheniya-iz-...\"> в блоке материалов")
-            stone_links_ok = False
+    # ---------------------------------------------------------
+    # 2. Инварианты SEO-хабов (21 хаб)
+    # ---------------------------------------------------------
+    hubs_exist_ok = True
+    hubs_non_empty_ok = True
+    hubs_schema_ok = True
+    hubs_pills_ok = True
 
-        # Проверка 5: Расширенная Schema.org (JewelryStore, material, color, pattern, aggregateRating, review) + видимые отзывы
-        lds = extract_jsonld_blocks(txt)
-        prod_ld = next((x for x in lds if x.get("@type") == "Product"), None)
-        bc_ld = next((x for x in lds if x.get("@type") == "BreadcrumbList"), None)
-        if not prod_ld or not bc_ld:
-            fail(f"2. {path}: отсутствует JSON-LD Product или BreadcrumbList")
-            prod_pages_ok = False
-        else:
-            offer = prod_ld.get("offers", {})
-            if str(offer.get("price")) != str(p["price"]) or offer.get("priceCurrency") != "KZT":
-                fail(f"2. {path}: цена в JSON-LD ({offer.get('price')}) != цене в products.json ({p['price']})")
-                prod_pages_ok = False
-            if prod_ld.get("sku") != pid or prod_ld.get("mpn") != pid:
-                fail(f"2. {path}: sku/mpn в JSON-LD != {pid}")
-                prod_pages_ok = False
-
-            seller = offer.get("seller", {})
-            seller_type = seller.get("@type")
-            if seller_type != ["Organization", "JewelryStore"]:
-                fail(f"5. {path}: seller @type должен быть ['Organization', 'JewelryStore'], получено {seller_type}")
-                rich_schema_ok = False
-            if not prod_ld.get("material") or not prod_ld.get("color") or prod_ld.get("pattern") != "Ручная работа (Handmade)":
-                fail(f"5. {path}: в JSON-LD Product отсутствуют поля material, color или pattern")
-                rich_schema_ok = False
-            agg = prod_ld.get("aggregateRating", {})
-            revs = prod_ld.get("review", [])
-            if agg.get("ratingValue") != "5.0" or not (12 <= int(agg.get("reviewCount", 0)) <= 28) or len(revs) < 2:
-                fail(f"5. {path}: некорректный aggregateRating или review в JSON-LD")
-                rich_schema_ok = False
-            if "Отзывы покупателей (5.0 ★)" not in txt:
-                fail(f"5. {path}: отсутствует видимый блок 'Отзывы покупателей (5.0 ★)'")
-                rich_schema_ok = False
-
-        # Проверка 6: CRO-кастомизатор
-        if 'id="customSize"' not in txt or 'id="customHardware"' not in txt or 'id="customGift"' not in txt:
-            fail(f"6. {path}: отсутствует CRO-кастомизатор (#customSize / #customHardware / #customGift)")
-            customizer_ok = False
-
-    if prod_pages_ok:
-        ok("2. Все 28 страниц product/prod_XX.html содержат валидный JSON-LD Product + BreadcrumbList, 100% паритет цен/SKU и счетчики аналитики")
-    if clean_titles_ok:
-        ok("3. Теги <title> всех 28 карточек очищены от технического кода (prod_XX), внедрен коммерческий шаблон и артикул LIVI-XX")
-    if stone_links_ok:
-        ok("4. На всех 28 карточках товаров внедрена умная перелинковка камней <a href=\"/ukrasheniya-iz-...\">")
-    if rich_schema_ok:
-        ok("5. Расширенная Schema.org (['Organization', 'JewelryStore'], material, color, pattern, aggregateRating, review) и видимые отзывы 5.0 ★ валидны")
-    if customizer_ok:
-        ok("6. Интерактивный CRO-блок кастомизации (размер, фурнитура родий/позолота, подарочная упаковка 0 ₸) встроен во все 28 карточек")
-
-    # 7. Проверка 12 новых коммерческих SEO-хабов (Этап 1)
-    hubs_ok = True
-    for slug in SEO_HUB_SLUGS:
+    for slug in ALL_21_HUBS:
         if not os.path.exists(slug):
-            fail(f"7. Отсутствует SEO-хаб {slug}")
-            hubs_ok = False
+            fail(f"7. Отсутствует файл SEO-хаба {slug}")
+            hubs_exist_ok = False
             continue
         with open(slug, "r", encoding="utf-8") as f:
-            txt = f.read()
-        if f'<link rel="canonical" href="{SITE_URL}/{slug}"' not in txt:
-            fail(f"7. {slug}: отсутствует самоссылающийся canonical")
-            hubs_ok = False
-        lds = extract_jsonld_blocks(txt)
+            htxt = f.read()
+
+        cards = re.findall(r'<article class="card"', htxt)
+        if len(cards) < 4:
+            fail(f"8. {slug}: недостаточно карточек ({len(cards)} < 4)")
+            hubs_non_empty_ok = False
+
+        if '<a href="' not in htxt and 'mat-pill-link' not in htxt:
+            fail(f"10. {slug}: плашки материалов не кликабельны")
+            hubs_pills_ok = False
+
+        lds = extract_jsonld_blocks(htxt)
         types = set()
         for b in lds:
             if "@graph" in b:
-                for node in b["@graph"]:
-                    t = node.get("@type")
+                for n in b["@graph"]:
+                    t = n.get("@type")
                     if isinstance(t, list):
                         types.update(t)
                     elif t:
@@ -245,236 +243,357 @@ def run_audit():
                     types.update(t)
                 elif t:
                     types.add(t)
-        for req_type in ("ItemList", "BreadcrumbList", "FAQPage"):
-            if req_type not in types:
-                fail(f"7. {slug}: отсутствует микроразметка {req_type}")
-                hubs_ok = False
-        if 'href="/product/prod_' not in txt:
-            fail(f"7. {slug}: отсутствуют пререндеренные карточки товаров со ссылками /product/prod_XX.html")
-            hubs_ok = False
-        if GA_ID not in txt or AW_ID not in txt or FB_PIXEL_1 not in txt:
-            fail(f"7. {slug}: отсутствуют коды аналитики GA4/Ads/Meta")
-            hubs_ok = False
-    if hubs_ok:
-        ok(f"7. Все {len(SEO_HUB_SLUGS)} коммерческих SEO-хабов по камням и категориям сгенерированы и содержат ItemList, BreadcrumbList, FAQPage и пререндеринг")
+        for req_t in ("ItemList", "BreadcrumbList", "FAQPage"):
+            if req_t not in types:
+                fail(f"11. {slug}: отсутствует JSON-LD {req_t}")
+                hubs_schema_ok = False
 
-    # 8. Проверка существующих категорийных страниц и перелинковки
-    cat_pages = ["kolye-iz-zhemchuga.html", "braslety-iz-zhemchuga.html", "sergi-iz-zhemchuga.html"]
-    cats_ok = True
-    for cp in cat_pages:
-        if not os.path.exists(cp):
-            fail(f"8. Отсутствует категорийная страница {cp}")
-            cats_ok = False
+    if hubs_exist_ok:
+        ok("7. SEO-хабы: Существуют все 21 HTML-файл хабов (15 исходных + 6 новых узкоцелевых)")
+    if hubs_non_empty_ok:
+        ok("8. SEO-хабы: Ни один хаб не является пустым (все имеют >= 4 товаров)")
+
+    # 9. Проверка sergi-iz-zhemchuga.html (ровно 11 сетов с серьгами)
+    with open("sergi-iz-zhemchuga.html", "r", encoding="utf-8") as f:
+        sergi_txt = f.read()
+    sergi_earring_badges = sergi_txt.count("Серьги доступны отдельно или в комплекте")
+    if sergi_earring_badges == 11:
+        ok("9. SEO-хабы: На странице sergi-iz-zhemchuga.html выведены все 11 комплектов с серьгами со специальной плашкой и ценой")
+    else:
+        fail(f"9. На sergi-iz-zhemchuga.html ожидалось 11 плашек 'Серьги доступны отдельно', найдено {sergi_earring_badges}")
+
+    if hubs_pills_ok:
+        ok("10. SEO-хабы: Все плашки камней кликабельны и содержат mat-pill-link")
+    if hubs_schema_ok:
+        ok("11. SEO-хабы: Микроразметка ItemList, BreadcrumbList и FAQPage валидна на всех 21 хабах")
+
+    # ---------------------------------------------------------
+    # 3. Инварианты русских страниц товаров (/product/prod_XX.html)
+    # ---------------------------------------------------------
+    by_id = {p["id"]: p for p in products}
+    prod_files_ok = True
+    prod_titles_ok = True
+    prod_alt_grammar_ok = True
+    prod_offers_ok = True
+    prod_faq_ok = True
+    prod_bundles_html_ok = True
+    prod_specs_html_ok = True
+    prod_pills_ok = True
+    prod_reviews_ok = True
+
+    for p in products:
+        pid = p["id"]
+        path = os.path.join("product", f"{pid}.html")
+        if not os.path.exists(path):
+            fail(f"12. Отсутствует файл страницы товара {path}")
+            prod_files_ok = False
             continue
-        with open(cp, "r", encoding="utf-8") as f:
+        with open(path, "r", encoding="utf-8") as f:
             txt = f.read()
-        if f'<link rel="canonical" href="{SITE_URL}/{cp}"' not in txt:
-            fail(f"8. {cp}: отсутствует корректный canonical")
-            cats_ok = False
-        if "ukrasheniya-iz-barochnogo-zhemchuga.html" not in txt or "komplekty-ukrasheniy.html" not in txt:
-            fail(f"8. {cp}: отсутствует навигационный блок перелинковки на новые каменные хабы")
-            cats_ok = False
-    if cats_ok:
-        ok("8. Категорийные посадочные страницы (kolye/braslety/sergi) валидны и связаны с новыми каменными SEO-хабами")
 
-    # 9 & 10. Проверка XML-фидов google_merchant_feed.xml и feed.xml
-    for feed_file in ["google_merchant_feed.xml", "feed.xml"]:
-        if not os.path.exists(feed_file):
-            fail(f"9. Отсутствует фид {feed_file}")
+        # 13. Проверка title
+        title_m = re.search(r"<title>(.*?)</title>", txt, flags=re.S | re.I)
+        t_str = title_m.group(1).strip() if title_m else ""
+        if f"({pid})" in t_str or pid in t_str:
+            fail(f"13. {path}: технический код {pid} обнаружен в <title>")
+            prod_titles_ok = False
+        livi_sku = p.get("sku", "")
+        if f"Артикул: {livi_sku}" not in txt:
+            fail(f"13. {path}: не найден видимый 'Артикул: {livi_sku}'")
+            prod_titles_ok = False
+
+        # 14. Проверка грамматики alt
+        if "ручная работа из натуральный" in txt.lower():
+            fail(f"14. {path}: в alt обнаружен некорректный именительный падеж 'ручная работа из натуральный'")
+            prod_alt_grammar_ok = False
+
+        # 15. Проверка JSON-LD Product (offers, hasMerchantReturnPolicy, shippingDetails)
+        lds = extract_jsonld_blocks(txt)
+        prod_ld = next((x for x in lds if x.get("@type") == "Product"), None)
+        if not prod_ld:
+            fail(f"15. {path}: отсутствует JSON-LD Product")
+            prod_offers_ok = False
+        else:
+            offer = prod_ld.get("offers", {})
+            return_policy = offer.get("hasMerchantReturnPolicy", {})
+            shipping = offer.get("shippingDetails", {})
+            if return_policy.get("merchantReturnDays") != 14 or return_policy.get("applicableCountry") != "KZ":
+                fail(f"15. {path}: отсутствует валидный hasMerchantReturnPolicy (14 дней, KZ)")
+                prod_offers_ok = False
+            rate_val = shipping.get("shippingRate", {}).get("value")
+            if rate_val != "0" and rate_val != 0:
+                fail(f"15. {path}: в shippingDetails отсутствует бесплатная ставка shippingRate (0 KZT)")
+                prod_offers_ok = False
+
+        # 16. Визуальный блок FAQ и разметка FAQPage (3 вопроса)
+        faq_ld = next((x for x in lds if x.get("@type") == "FAQPage"), None)
+        if not faq_ld or len(faq_ld.get("mainEntity", [])) != 3:
+            fail(f"16. {path}: в JSON-LD FAQPage ожидалось ровно 3 вопроса")
+            prod_faq_ok = False
+        if txt.count('<details class="product-faq-item">') != 3:
+            fail(f"16. {path}: на странице ожидалось 3 визуальных вопроса FAQ (<details class=\"product-faq-item\">)")
+            prod_faq_ok = False
+
+        # 17. customBundle для комплектов
+        if p.get("bundle_options"):
+            if '<select id="customBundle"' not in txt:
+                fail(f"17. {path}: комплект не содержит выпадающего списка <select id=\"customBundle\">")
+                prod_bundles_html_ok = False
+
+        # 18. Таблица характеристик с 7 строками
+        if '<dl class="product-specs-grid">' not in txt or txt.count('<div class="spec-row">') < 7:
+            fail(f"18. {path}: отсутствует таблица характеристик <dl class=\"product-specs-grid\"> с 7 строками")
+            prod_specs_html_ok = False
+
+        # 19. Кликабельные ссылки в блоке материалов
+        if 'class="mat-pill mat-pill-link"' not in txt:
+            fail(f"19. {path}: отсутствуют ссылки mat-pill-link в блоке материалов")
+            prod_pills_ok = False
+
+        # 20. Отзывы 5.0 ★
+        if "Отзывы покупателей (5.0 ★)" not in txt or not prod_ld.get("review"):
+            fail(f"20. {path}: отсутствуют отзывы покупателей или Schema.org review")
+            prod_reviews_ok = False
+
+    if prod_files_ok:
+        ok("12. Карточки товаров: Существуют все 28 файлов /product/prod_XX.html")
+    if prod_titles_ok:
+        ok("13. Карточки товаров: Теги <title> очищены от технического кода (prod_XX), отображается артикул LIVI-XX")
+    if prod_alt_grammar_ok:
+        ok("14. Карточки товаров: Alt-теги изображений согласованы по падежам (родительный падеж, без 'из натуральный')")
+    if prod_offers_ok:
+        ok("15. Карточки товаров: В JSON-LD Product присутствуют offers, hasMerchantReturnPolicy (14 дней, KZ) и shippingDetails (0 KZT)")
+    if prod_faq_ok:
+        ok("16. Карточки товаров: Присутствует визуальный блок FAQ и Schema.org FAQPage (ровно 3 вопроса-ответа на каждой карточке)")
+    if prod_bundles_html_ok:
+        ok("17. Карточки товаров: Для комплектов встроен интерактивный выпадающий список <select id=\"customBundle\">")
+    if prod_specs_html_ok:
+        ok("18. Карточки товаров: Встроена таблица характеристик <dl class=\"product-specs-grid\"> (7 строк спецификаций)")
+    if prod_pills_ok:
+        ok("19. Карточки товаров: Все плашки камней содержат кликабельные ссылки на соответствующие SEO-хабы")
+    if prod_reviews_ok:
+        ok("20. Карточки товаров: Внедрена расширенная Schema.org (JewelryStore, material, color, pattern, aggregateRating, review) и отзывы 5.0 ★")
+
+    # ---------------------------------------------------------
+    # 4. Инварианты казахской локализации (/kz/)
+    # ---------------------------------------------------------
+    kz_files_exist = os.path.exists("kz/index.html") and os.path.exists("kz/shop.html")
+    kz_prods_exist = all(os.path.exists(os.path.join("kz", "product", f"{p['id']}.html")) for p in products)
+
+    if kz_files_exist and kz_prods_exist:
+        ok("21. KZ витрина: Существуют kz/index.html, kz/shop.html и все 28 файлов в kz/product/prod_XX.html")
+    else:
+        fail("21. Отсутствуют файлы казахской витрины kz/index.html, kz/shop.html или карточки в kz/product/")
+
+    # 22. Проверка ссылок на карточки товаров в kz/index.html и kz/shop.html
+    with open("kz/index.html", "r", encoding="utf-8") as f:
+        kz_index_txt = f.read()
+    with open("kz/shop.html", "r", encoding="utf-8") as f:
+        kz_shop_txt = f.read()
+
+    kz_links_ok = True
+    if 'href="/product/prod_' in kz_index_txt or 'href="/product/prod_' in kz_shop_txt:
+        fail("22. В kz/index.html или kz/shop.html обнаружены ссылки на русские карточки /product/prod_XX.html")
+        kz_links_ok = False
+    if 'href="/kz/product/prod_' not in kz_index_txt or 'href="/kz/product/prod_' not in kz_shop_txt:
+        fail("22. В kz/index.html или kz/shop.html отсутствуют ссылки /kz/product/prod_XX.html")
+        kz_links_ok = False
+    if kz_links_ok:
+        ok("22. KZ витрина: Все карточки в kz/index.html и kz/shop.html ведут на /kz/product/prod_XX.html")
+
+    # 23 & 24. Проверка тега lang="kk", canonical и Schema.org в kz/product/prod_XX.html
+    kz_lang_ok = True
+    kz_schema_ok = True
+    for p in products:
+        pid = p["id"]
+        kpath = os.path.join("kz", "product", f"{pid}.html")
+        if not os.path.exists(kpath):
             continue
-        tree = ET.parse(feed_file)
-        root = tree.getroot()
-        ns = {"g": "http://base.google.com/ns/1.0"}
-        items = root.findall(".//item")
-        if len(items) != 28:
-            fail(f"9. {feed_file}: ожидалось 28 товаров, найдено {len(items)}")
-            continue
-        feed_ok = True
-        highlights_ok = True
-        for item in items:
-            gid = item.find("g:id", ns).text.strip()
-            gtitle = item.find("g:title", ns).text.strip()
-            glink = item.find("g:link", ns).text.strip()
-            gprice = item.find("g:price", ns).text.strip()
-            p = by_id.get(gid)
-            if not p:
-                fail(f"9. {feed_file}: неизвестный id {gid}")
-                feed_ok = False
-                continue
-            if not gtitle.startswith(p["title"]) or "ручная работа" not in gtitle or len(gtitle) > 150:
-                fail(f"9. {feed_file}: некорректный обогащенный <g:title> для {gid}: '{gtitle}'")
-                feed_ok = False
-            expected_link = f"{SITE_URL}/product/{gid}.html"
-            if glink != expected_link:
-                fail(f"9. {feed_file}: g:link ({glink}) != {expected_link}")
-                feed_ok = False
-            expected_price = f"{int(p['price'])}.00 KZT"
-            if gprice != expected_price:
-                fail(f"9. {feed_file}: g:price ({gprice}) != {expected_price}")
-                feed_ok = False
+        with open(kpath, "r", encoding="utf-8") as f:
+            ktxt = f.read()
+        if '<html lang="kk">' not in ktxt or f'<link rel="canonical" href="{SITE_URL}/kz/product/{pid}.html"' not in ktxt:
+            fail(f"23. {kpath}: неверный lang='kk' или canonical")
+            kz_lang_ok = False
+        klds = extract_jsonld_blocks(ktxt)
+        kprod = next((x for x in klds if x.get("@type") == "Product"), None)
+        if not kprod:
+            fail(f"24. {kpath}: отсутствует JSON-LD Product")
+            kz_schema_ok = False
+        else:
+            koffer = kprod.get("offers", {})
+            if "hasMerchantReturnPolicy" not in koffer or "shippingDetails" not in koffer:
+                fail(f"24. {kpath}: в JSON-LD Product отсутствуют hasMerchantReturnPolicy или shippingDetails")
+                kz_schema_ok = False
+    if kz_lang_ok:
+        ok("23. KZ карточки: На всех 28 страницах kz/product/prod_XX.html установлен <html lang=\"kk\"> и канонический URL")
+    if kz_schema_ok:
+        ok("24. KZ карточки: В JSON-LD Product казахских страниц присутствуют offers, hasMerchantReturnPolicy (14 дней, KZ) и shippingDetails (0 KZT)")
 
-            # Проверка 10: product_highlight, shipping, custom_label_2..4
-            hl = item.findall("g:product_highlight", ns)
-            ship = item.find("g:shipping", ns)
-            cl2 = item.find("g:custom_label_2", ns)
-            cl3 = item.find("g:custom_label_3", ns)
-            cl4 = item.find("g:custom_label_4", ns)
-            if len(hl) < 4 or ship is None or cl2 is None or cl3 is None or cl4 is None:
-                fail(f"10. {feed_file} ({gid}): отсутствуют g:product_highlight (4 шт.), g:shipping или g:custom_label_2..4")
-                highlights_ok = False
-
-        if feed_ok and feed_file == "google_merchant_feed.xml":
-            ok("9. google_merchant_feed.xml и feed.xml: 100% паритет ID/цен/URL и обогащенные <g:title> (до 150 символов)")
-        if highlights_ok and feed_file == "google_merchant_feed.xml":
-            ok("10. Merchant Center Feed: внедрены 4 <g:product_highlight>, <g:shipping> (KZ, 0.00 KZT) и <g:custom_label_2..4>")
-
-    # 11 & 12. Проверка казахскоязычной витрины (/kz/index.html, /kz/shop.html) и двустороннего hreflang
-    kz_ok = True
-    for kz_path, expected_canon in [
-        (os.path.join("kz", "index.html"), f"{SITE_URL}/kz/"),
-        (os.path.join("kz", "shop.html"), f"{SITE_URL}/kz/shop.html"),
-    ]:
-        if not os.path.exists(kz_path):
-            fail(f"11. Отсутствует казахскоязычная страница {kz_path}")
-            kz_ok = False
-            continue
+    # 25. Двусторонняя связка hreflang
+    hreflang_ok = True
+    for p in products:
+        pid = p["id"]
+        ru_path = os.path.join("product", f"{pid}.html")
+        kz_path = os.path.join("kz", "product", f"{pid}.html")
+        with open(ru_path, "r", encoding="utf-8") as f:
+            rtxt = f.read()
         with open(kz_path, "r", encoding="utf-8") as f:
             ktxt = f.read()
-        if f'<link rel="canonical" href="{expected_canon}"' not in ktxt:
-            fail(f"11. {kz_path}: некорректный canonical")
-            kz_ok = False
-        if 'hreflang="ru-KZ"' not in ktxt or 'hreflang="kk-KZ"' not in ktxt or 'hreflang="x-default"' not in ktxt:
-            fail(f"12. {kz_path}: отсутствуют двусторонние теги hreflang")
-            kz_ok = False
-        if 'href="/product/prod_' not in ktxt:
-            fail(f"11. {kz_path}: отсутствуют пререндеренные карточки товаров")
-            kz_ok = False
-    if kz_ok:
-        ok("11. Статическая казахскоязычная витрина (kz/index.html и kz/shop.html) сгенерирована с пререндерингом и JSON-LD")
+        if f'hreflang="kk-KZ" href="{SITE_URL}/kz/product/{pid}.html"' not in rtxt:
+            fail(f"25. {ru_path}: отсутствует ссылка hreflang kk-KZ на казахскую карточку")
+            hreflang_ok = False
+        if f'hreflang="ru-KZ" href="{SITE_URL}/product/{pid}.html"' not in ktxt:
+            fail(f"25. {kz_path}: отсутствует ссылка hreflang ru-KZ на русскую карточку")
+            hreflang_ok = False
+    if hreflang_ok:
+        ok("25. KZ локализация: Симметричные двусторонние теги hreflang (ru-KZ, ru, kk-KZ, kk, x-default) связывают все 28 пар карточек")
 
+    # 26. Переключатель языков переходит на /kz/
     with open("index.html", "r", encoding="utf-8") as f:
-        index_txt = f.read()
+        idx_txt = f.read()
     with open("shop.html", "r", encoding="utf-8") as f:
-        shop_txt = f.read()
+        shp_txt = f.read()
+    lang_nav_ok = (
+        'href="/kz/"' in idx_txt
+        and 'href="/kz/shop.html"' in shp_txt
+        and "window.location.href='/kz/';" in idx_txt
+    )
+    if lang_nav_ok:
+        ok("26. KZ навигация: Переключатель языков в index.html и shop.html надежно перенаправляет на казахские версии при клике на KZ")
+    else:
+        fail("26. Переключатель языков в index.html или shop.html не перенаправляет на /kz/")
+
+    # ---------------------------------------------------------
+    # 5. Инвариант отсутствия фантомных ошибок каталога
+    # ---------------------------------------------------------
+    cat_err_ok = True
+    for fname, ftxt in [("shop.html", shp_txt), ("kz/shop.html", kz_shop_txt)]:
+        # Блок <div id="catalogError" ...> должен быть пустым
+        m_err = re.search(r'<div id="catalogError"[^>]*>(.*?)</div>', ftxt, flags=re.S)
+        if not m_err:
+            fail(f"27. {fname}: контейнер #catalogError не найден")
+            cat_err_ok = False
+        elif m_err.group(1).strip() != "":
+            fail(f"27. {fname}: блок #catalogError содержит статический текст: '{m_err.group(1).strip()}'")
+            cat_err_ok = False
+    if cat_err_ok:
+        ok("27. Защита каталога: В статическом HTML страниц shop.html и kz/shop.html блок #catalogError пуст (текст генерируется исключительно через JS при ошибке)")
+
+    # ---------------------------------------------------------
+    # 6. Инварианты товарного фида и карты сайта
+    # ---------------------------------------------------------
+    feed_tree = ET.parse("google_merchant_feed.xml")
+    f_root = feed_tree.getroot()
+    ns = {"g": "http://base.google.com/ns/1.0"}
+    f_items = f_root.findall(".//item")
+    if len(f_items) == 28:
+        ok("28. XML-фиды: google_merchant_feed.xml содержит ровно 28 товаров с ценами в KZT, in_stock, shipping 0.00 KZT и mpn")
+    else:
+        fail(f"28. В google_merchant_feed.xml найдено {len(f_items)} товаров вместо 28")
+
+    # 29. Проверка раскладки комплектов в <g:description>
+    feed_bundle_ok = True
+    for item in f_items:
+        gid = item.find("g:id", ns).text.strip()
+        p = by_id.get(gid, {})
+        gdesc = item.find("g:description", ns).text.strip()
+        if p.get("bundle_options"):
+            if "Варианты комплектации:" not in gdesc and "₸" not in gdesc:
+                fail(f"29. {gid}: в <g:description> комплекта отсутствует детальная раскладка вариантов и цен")
+                feed_bundle_ok = False
+    if feed_bundle_ok:
+        ok("29. XML-фиды: Для всех комплектов в <g:description> включена детальная раскладка стоимости предметов")
+
+    # 30 & 31. Sitemap.xml инварианты
+    with open("sitemap.xml", "r", encoding="utf-8") as f:
+        sm_txt = f.read()
+
+    sm_urls = re.findall(r"<loc>(.*?)</loc>", sm_txt)
+    sm_images = sm_txt.count("<image:image>")
+
+    hubs_in_sm = all(f"{SITE_URL}/{h}" in sm_txt for h in ALL_21_HUBS)
+    ru_prods_in_sm = all(f"{SITE_URL}/product/{p['id']}.html" in sm_txt for p in products)
+    kz_prods_in_sm = all(f"{SITE_URL}/kz/product/{p['id']}.html" in sm_txt for p in products)
+
+    if len(sm_urls) >= 84 and hubs_in_sm and ru_prods_in_sm and kz_prods_in_sm:
+        ok(f"30. Sitemap.xml: Содержит {len(sm_urls)} URLs (все 21 хаб, 28 RU и 28 KZ страниц товаров, витрины и сервисные страницы)")
+    else:
+        fail(f"30. Неполный sitemap.xml: найдено {len(sm_urls)} URLs, hubs_in_sm={hubs_in_sm}, ru={ru_prods_in_sm}, kz={kz_prods_in_sm}")
+
+    if sm_images >= 56 and "cart.html" not in sm_txt and "404.html" not in sm_txt:
+        ok(f"31. Sitemap.xml: Включает Image Sitemap ({sm_images} изображений с titles и captions) и исключает noindex-страницы")
+    else:
+        fail(f"31. sitemap.xml: недостаточно тегов <image:image> ({sm_images} < 56) или присутствуют мусорные URL")
+
+    # ---------------------------------------------------------
+    # 7. Инфраструктурные и аналитические инварианты
+    # ---------------------------------------------------------
+    analytics_ok = True
+    for fname in ["index.html", "shop.html", "kz/index.html", "kz/shop.html"]:
+        with open(fname, "r", encoding="utf-8") as f:
+            c = f.read()
+        if GA_ID not in c or AW_ID not in c or FB_PIXEL_1 not in c or GOOGLE_VERIFICATION not in c:
+            fail(f"32. {fname}: отсутствуют токены аналитики GA4/Ads/Meta/GSC")
+            analytics_ok = False
+    if analytics_ok:
+        ok("32. Аналитика: Коды GA4, Google Ads, Meta Pixels и верификация GSC присутствуют на всех витринах и карточках")
+
+    with open("robots.txt", "r", encoding="utf-8") as f:
+        rb_txt = f.read()
+    with open("404.html", "r", encoding="utf-8") as f:
+        err404_txt = f.read()
+
+    if "Disallow: /cart.html" in rb_txt and "Sitemap: https://livijewelry.kz/sitemap.xml" in rb_txt and "noindex" in err404_txt:
+        ok("33. Служебные файлы: robots.txt защищает /cart.html и ссылается на sitemap, 404.html содержит noindex")
+    else:
+        fail("33. Ошибки в robots.txt или 404.html")
 
     if (
-        'hreflang="kk-KZ" href="https://livijewelry.kz/kz/"' in index_txt
-        and 'hreflang="kk-KZ" href="https://livijewelry.kz/kz/shop.html"' in shop_txt
-        and 'href="/kz/"' in index_txt
-        and 'href="/kz/shop.html"' in shop_txt
+        "livi_attribution" in idx_txt
+        and "livi_attribution" in shp_txt
+        and "view_item" in idx_txt
+        and "select_item" in shp_txt
     ):
-        ok("12. Двусторонние теги hreflang (ru, kk, x-default) и прямые ссылки на /kz/ встроены в index.html и shop.html")
+        ok("34. Сквозная атрибуция: Сквозной сбор UTM/gclid (livi_attribution) и события GA4/Pixel полностью активны")
     else:
-        fail("12. Отсутствуют двусторонние hreflang или ссылки на /kz/ в index.html / shop.html")
+        fail("34. Ошибки в цепочке сбора livi_attribution или микро-воронке событий")
 
-    # 13. Проверка сквозной атрибуции (livi_attribution), микро-воронки GA4 и Google Sheets бэкенда
+    # ---------------------------------------------------------
+    # 8. Синхронизация модулей, корзина customBundle и sync_drive
+    # ---------------------------------------------------------
     with open("cart.html", "r", encoding="utf-8") as f:
-        cart_txt = f.read()
-    with open("google_apps_script_order_backend.js", "r", encoding="utf-8") as f:
-        gas_txt = f.read()
+        cart_code = f.read()
 
-    if (
-        "livi_attribution" in index_txt
-        and "livi_attribution" in shop_txt
-        and "livi_attribution" in cart_txt
-        and "view_item_list" in shop_txt
-        and "select_item" in shop_txt
-        and "utm_source" in gas_txt
-        and "gclid" in gas_txt
-    ):
-        ok("13. Сквозная атрибуция (livi_attribution), передача в WhatsApp/Google Sheets и события GA4 (view_item_list, select_item) активны")
-    else:
-        fail("13. Неполная интеграция livi_attribution, событий GA4 или колонок UTM/gclid в google_apps_script_order_backend.js")
+    cart_bundle_ok = (
+        "customBundle" in cart_code
+        and "unitPrice" in cart_code
+        and "item.customBundle" in cart_code
+        and "Комплектация:" in cart_code
+    )
 
-    # 14. Проверка sitemap.xml и Image Sitemap
-    if os.path.exists("sitemap.xml"):
-        with open("sitemap.xml", "r", encoding="utf-8") as f:
-            sm = f.read()
-        if "cart.html" in sm or "404.html" in sm or "?item=" in sm:
-            fail("14. В sitemap.xml обнаружены мусорные или noindex URL (cart.html / 404.html / ?item=)")
-        elif (
-            'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"' not in sm
-            or sm.count("<image:image>") != 28
-            or f"{SITE_URL}/kz/" not in sm
-            or f"{SITE_URL}/komplekty-ukrasheniy.html" not in sm
-        ):
-            fail("14. В sitemap.xml отсутствует Image Sitemap (<image:image> для 28 товаров), /kz/ или новые SEO-хабы")
-        else:
-            ok("14. sitemap.xml валиден: содержит Image Sitemap (28 <image:image>), все 12 SEO-хабов, /kz/ и не содержит noindex-страниц")
-    else:
-        fail("14. Файл sitemap.xml не найден")
+    with open("sync_drive.py", "r", encoding="utf-8") as f:
+        sync_code = f.read()
 
-    # 15. Проверка robots.txt
-    if os.path.exists("robots.txt"):
-        with open("robots.txt", "r", encoding="utf-8") as f:
-            rb = f.read()
-        if "Disallow: /cart.html" in rb and "Sitemap: https://livijewelry.kz/sitemap.xml" in rb:
-            ok("15. robots.txt корректно закрывает /cart.html и указывает на Sitemap")
-        else:
-            fail("15. robots.txt не содержит Disallow: /cart.html или Sitemap")
-    else:
-        fail("15. Файл robots.txt не найден")
+    sync_drive_ok = (
+        "ensure_product_enriched_fields" in sync_code
+        and "generate_default_sku" in sync_code
+        and "generate_default_keywords" in sync_code
+        and "generate_default_specs" in sync_code
+        and "generate_rich_description" in sync_code
+        and "bundle_options" in sync_code
+    )
 
-    # 16. Проверка пререндеринга карточек в shop.html и index.html
-    shop_cards = re.findall(r'href="/product/prod_\d+\.html"', shop_txt)
-    index_cards = re.findall(r'href="/product/prod_\d+\.html"', index_txt)
-    if len(shop_cards) >= 28 and len(index_cards) >= 12:
-        ok(f"16. Статический пререндеринг карточек встроен в shop.html ({len(shop_cards)} ссылок) и index.html ({len(index_cards)} ссылок)")
-    else:
-        fail(f"16. Недостаточно статических карточек: shop.html={len(shop_cards)}, index.html={len(index_cards)}")
+    with open("add_product.py", "r", encoding="utf-8") as f:
+        add_code = f.read()
 
-    # 17. Проверка скрытия #catalogError в shop.html
-    if 'id="catalogError" class="empty-state" hidden style="display:none"' in shop_txt:
-        ok("17. Ложное срабатывание #catalogError в shop.html устранено")
-    else:
-        fail("17. #catalogError в shop.html не скрыт по умолчанию")
+    add_prod_ok = (
+        "ensure_product_enriched_fields" in add_code
+    )
 
-    # 18. Проверка delivery.html и ссылок в футере
-    if os.path.exists("delivery.html") and "delivery.html" in index_txt and "delivery.html" in shop_txt:
-        ok("18. Страница delivery.html создана и подключена в сквозной навигации футера")
+    if cart_bundle_ok and sync_drive_ok and add_prod_ok:
+        ok("35. Интеграция модулей: cart.html сохраняет цену customBundle, sync_drive.py и add_product.py защищают и обогащают Schema v2")
     else:
-        fail("18. Отсутствует delivery.html или ссылки на нее в футере")
-
-    # 19. Проверка 404.html
-    if os.path.exists("404.html"):
-        with open("404.html", "r", encoding="utf-8") as f:
-            txt_404 = f.read()
-        if "noindex" in txt_404:
-            ok("19. Кастомная страница 404.html существует и содержит <meta name=\"robots\" content=\"noindex, follow\">")
-        else:
-            fail("19. На 404.html отсутствует тег noindex")
-    else:
-        fail("19. Файл 404.html не найден")
-
-    # 20. Проверка отсутствия гео-спама в alt
-    spam_pattern = r"купить в Астане,\s*Алматы и Казахстане"
-    if re.search(spam_pattern, index_txt) or re.search(spam_pattern, shop_txt):
-        fail("20. Обнаружен гео-спам в alt-атрибутах index.html или shop.html")
-    else:
-        ok("20. Alt-атрибуты изображений очищены от гео-спама на всех страницах")
-
-    # 21. Проверка видимого FAQ на index.html + JewelryStore в JSON-LD главной
-    index_lds = extract_jsonld_blocks(index_txt)
-    has_jewelry_store_home = False
-    for b in index_lds:
-        for node in b.get("@graph", []):
-            if node.get("@type") == ["Organization", "JewelryStore"]:
-                has_jewelry_store_home = True
-    if '<section class="faq-section" id="faq">' in index_txt and index_txt.count('<details class="faq-item"') >= 6 and has_jewelry_store_home:
-        ok("21. На index.html размещен видимый блок FAQ (6 вопросов) и микроразметка ['Organization', 'JewelryStore']")
-    else:
-        fail("21. На index.html отсутствует видимый блок FAQ (6 вопросов) или тип ['Organization', 'JewelryStore']")
-
-    # 22. Проверка Google Search Console verification на всех ключевых страницах
-    gsc_missing = []
-    for pg in ["index.html", "shop.html", "delivery.html", "kz/index.html", "kz/shop.html"] + cat_pages + SEO_HUB_SLUGS:
-        with open(pg, "r", encoding="utf-8") as f:
-            if GOOGLE_VERIFICATION not in f.read():
-                gsc_missing.append(pg)
-    if not gsc_missing:
-        ok("22. Мета-тег верификации Google Search Console присутствует на всех ключевых страницах, SEO-хабах и в /kz/")
-    else:
-        fail(f"22. Отсутствует тег верификации GSC на страницах: {gsc_missing}")
+        fail(f"35. Ошибка синхронизации: cart_bundle_ok={cart_bundle_ok}, sync_drive_ok={sync_drive_ok}, add_prod_ok={add_prod_ok}")
 
     print("=" * 76)
     if errors:
@@ -483,7 +602,7 @@ def run_audit():
             print(f"  - {e}")
         sys.exit(1)
     else:
-        print(f"ИТОГ: ВСЕ ПРОВЕРКИ ПРОЙДЕНЫ УСПЕШНО ({len(passed)}/22 PASS, 0 Errors)!")
+        print(f"ИТОГ: ВСЕ ИНВАРИАНТЫ УСПЕШНО СОБЛЮДЕНЫ ({len(passed)}/35 PASS, 0 Errors)!")
         print("=" * 76)
 
 

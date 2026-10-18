@@ -150,19 +150,37 @@ def main():
     else:
         materials_list = ["Натуральный жемчуг", "Ювелирный сплав"]
 
-    desc = args.description or f"{args.title} — украшение ручной работы из натуральных материалов."
+    from sync_drive import (
+        generate_default_sku,
+        generate_default_keywords,
+        generate_default_specs,
+        generate_rich_description,
+        generate_default_bundle_options,
+        ensure_product_enriched_fields
+    )
+
+    desc = generate_rich_description(args.title, args.category, args.price, base_desc=args.description)
 
     new_product = {
         "id": new_id,
+        "sku": generate_default_sku(new_id),
         "title": args.title,
+        "seo_slug": slug,
         "category": args.category,
         "price": args.price,
         "image": f"assets/{img_filename}",
         "materials": materials_list,
         "description": desc,
+        "search_keywords": generate_default_keywords(args.title, args.category, materials_list),
+        "specs": generate_default_specs(args.title, args.category, materials_list),
         "inStock": not args.out_of_stock,
         "featured": bool(args.featured)
     }
+
+    if args.category == 'Sets' or "комплект" in args.title.lower() or "сет" in args.title.lower():
+        new_product['bundle_options'] = generate_default_bundle_options(args.title, args.price)
+
+    ensure_product_enriched_fields(new_product)
 
     products.append(new_product)
 
