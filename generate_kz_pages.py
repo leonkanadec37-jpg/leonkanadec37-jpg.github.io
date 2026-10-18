@@ -561,6 +561,11 @@ def generate_kz_index(products_kz: list) -> str:
         for i, (q, a) in enumerate(faq_items)
     )
 
+    drawer_hub_links_kz = "\n".join(
+        f'            <a href="{h_url}">{html.escape(h_lbl)}</a>'
+        for h_url, h_lbl in ALL_21_HUBS
+    )
+
     return f"""<!doctype html>
 <html lang="kk">
 <head>
@@ -633,16 +638,22 @@ def generate_kz_index(products_kz: list) -> str:
 </head>
 <body>
   <div id="drawer" class="drawer" aria-hidden="true">
-    <div class="drawer-back"></div>
+    <div class="drawer-back" role="button" tabindex="0" aria-label="Мәзірді жабу"></div>
     <div class="drawer-panel" role="menu" aria-label="Мәзір">
       <a href="/kz/">Басты бет</a>
       <a href="/kz/shop.html">Каталог</a>
-      <a href="/kolye-iz-zhemchuga.html">Інжу алқалар</a>
-      <a href="/braslety-iz-zhemchuga.html">Білезіктер</a>
-      <a href="/sergi-iz-zhemchuga.html">Сырғалар</a>
+      <details class="drawer-accordion">
+        <summary>Коллекциялар және тастар</summary>
+        <div class="drawer-subnav">
+{drawer_hub_links_kz}
+        </div>
+      </details>
       <a href="/komplekty-ukrasheniy.html">Жиынтықтар</a>
-      <a href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener">WhatsApp</a>
+      <a href="/delivery.html">Жеткізу және төлем</a>
+      <div class="drawer-socials">
+        <a class="drawer-soc-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
+        <a class="drawer-soc-link" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener">WhatsApp</a>
+      </div>
       <div class="lang">
         <a href="/" id="ruBtn">RU</a>
         <a href="/kz/" id="kkBtn" class="active">KZ</a>
@@ -653,7 +664,7 @@ def generate_kz_index(products_kz: list) -> str:
   <header>
     <div class="nav">
       <button id="burger" class="hamburger" aria-label="Мәзір"><span></span></button>
-      <a class="brand" href="/kz/">
+      <a class="brand" href="/kz/" aria-label="Livi Jewelry">
         <span>LIVI JEWELRY</span>
       </a>
       <div class="nav-actions">
@@ -661,11 +672,19 @@ def generate_kz_index(products_kz: list) -> str:
           <a href="/" lang="ru">RU</a>
           <a href="/kz/" class="active" lang="kk">KZ</a>
         </div>
-        <a class="cart-link" href="/cart.html">
+        <a class="cart-link" href="/cart.html" aria-label="Себет">
           <span>Себет</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
         </a>
-        <a class="quick-link wa-link" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener">
-          <span class="ql-text">WhatsApp</span>
+        <a class="quick-link ig-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A4.5 4.5 0 1 0 16.5 12 4.505 4.505 0 0 0 12 7.5zm6.5-.75a1.25 1.25 0 1 0 1.25 1.25A1.25 1.25 0 0 0 18.5 6.75Zm-6.5 2A3.25 3.25 0 1 1 8.75 12 3.254 3.254 0 0 1 12 8.75Z"/>
+          </svg>
+        </a>
+        <a class="quick-link wa-link" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" fill="currentColor">
+            <path d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+            <path d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+          </svg>
         </a>
       </div>
     </div>
@@ -726,6 +745,15 @@ def generate_kz_index(products_kz: list) -> str:
     </div>
   </footer>
 
+  <!-- Floating WhatsApp Widget -->
+  <a class="floating-wa" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener" aria-label="WhatsApp арқылы кеңес алу">
+    <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+      <path fill="currentColor" d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+      <path fill="currentColor" d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+    </svg>
+    <span class="floating-wa-text">Шебер кеңесі</span>
+  </a>
+
   <script>
     (function captureAttribution(){{
       try {{
@@ -748,8 +776,8 @@ def generate_kz_index(products_kz: list) -> str:
 
     const drawer = document.getElementById('drawer'), burger = document.getElementById('burger');
     if(burger && drawer){{
-      burger.onclick = () => {{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); }};
-      drawer.querySelector('.drawer-back').onclick = () => {{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); }};
+      burger.onclick = () => {{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); document.body.classList.add('drawer-open'); }};
+      drawer.querySelector('.drawer-back').onclick = () => {{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); document.body.classList.remove('drawer-open'); }};
     }}
 
     function updateBadge(){{
@@ -821,6 +849,14 @@ def generate_kz_shop(products_kz: list) -> str:
     }
 
     products_kz_json = json.dumps(products_kz, ensure_ascii=False)
+    drawer_hub_links_kz = "\n".join(
+        f'            <a href="{h_url}">{html.escape(h_lbl)}</a>'
+        for h_url, h_lbl in ALL_21_HUBS
+    )
+    interlink_chips_kz = "\n".join(
+        f'        <a href="{h_url}" class="stone-chip">{html.escape(h_lbl)}</a>'
+        for h_url, h_lbl in ALL_21_HUBS
+    )
 
     return f"""<!doctype html>
 <html lang="kk">
@@ -893,17 +929,24 @@ def generate_kz_shop(products_kz: list) -> str:
   </script>
 </head>
 <body>
+  <!-- Drawer -->
   <div id="drawer" class="drawer" aria-hidden="true">
-    <div class="drawer-back"></div>
+    <div class="drawer-back" role="button" tabindex="0" aria-label="Мәзірді жабу"></div>
     <div class="drawer-panel" role="menu" aria-label="Мәзір">
       <a href="/kz/">Басты бет</a>
-      <a href="/kz/shop.html">Каталог (Дүкен)</a>
-      <a href="/kolye-iz-zhemchuga.html">Інжу алқалар</a>
-      <a href="/braslety-iz-zhemchuga.html">Білезіктер</a>
-      <a href="/sergi-iz-zhemchuga.html">Сырғалар</a>
+      <a href="/kz/shop.html">Каталог</a>
+      <details class="drawer-accordion">
+        <summary>Коллекциялар және тастар</summary>
+        <div class="drawer-subnav">
+{drawer_hub_links_kz}
+        </div>
+      </details>
       <a href="/komplekty-ukrasheniy.html">Жиынтықтар</a>
-      <a href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener">WhatsApp</a>
+      <a href="/delivery.html">Жеткізу және төлем</a>
+      <div class="drawer-socials">
+        <a class="drawer-soc-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
+        <a class="drawer-soc-link" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener">WhatsApp</a>
+      </div>
       <div class="lang">
         <a href="/shop.html" id="ruBtn">RU</a>
         <a href="/kz/shop.html" id="kkBtn" class="active">KZ</a>
@@ -914,7 +957,7 @@ def generate_kz_shop(products_kz: list) -> str:
   <header>
     <div class="nav">
       <button id="burger" class="hamburger" aria-label="Мәзір"><span></span></button>
-      <a class="brand" href="/kz/">
+      <a class="brand" href="/kz/" aria-label="Livi Jewelry">
         <span>LIVI JEWELRY</span>
       </a>
       <div class="nav-actions">
@@ -922,18 +965,27 @@ def generate_kz_shop(products_kz: list) -> str:
           <a href="/shop.html" lang="ru">RU</a>
           <a href="/kz/shop.html" class="active" lang="kk">KZ</a>
         </div>
-        <a class="cart-link" href="/cart.html">
+        <a class="cart-link" href="/cart.html" aria-label="Себет">
           <span>Себет</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
         </a>
-        <a class="quick-link wa-link" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener">
-          <span class="ql-text">WhatsApp</span>
+        <a class="quick-link ig-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A4.5 4.5 0 1 0 16.5 12 4.505 4.505 0 0 0 12 7.5zm6.5-.75a1.25 1.25 0 1 0 1.25 1.25A1.25 1.25 0 0 0 18.5 6.75Zm-6.5 2A3.25 3.25 0 1 1 8.75 12 3.254 3.254 0 0 1 12 8.75Z"/>
+          </svg>
+        </a>
+        <a class="quick-link wa-link" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" fill="currentColor">
+            <path d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+            <path d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+          </svg>
         </a>
       </div>
     </div>
   </header>
 
   <main class="wrap">
-    <h1>Інжу және табиғи тастардан жасалған әшекейлер каталогы: алқалар, білезіктер, сырғалар, жиынтықтар</h1>
+    <h1 style="margin-bottom:6px;">Әшекейлер каталогы</h1>
+    <p class="catalog-subtitle" style="font-size: 13px; color: #777; line-height: 1.4; margin: 0 0 16px;">Інжу және табиғи тастардан жасалған әшекейлер каталогы: алқалар, білезіктер, сырғалар, жиынтықтар</p>
 
     <nav class="stone-chips" aria-label="Тастар мен санаттар бойынша топтамалар" style="margin: 18px 0 22px;">
       <a href="/kolye-iz-zhemchuga.html" class="stone-chip">Інжу алқалар</a>
@@ -964,6 +1016,16 @@ def generate_kz_shop(products_kz: list) -> str:
 {all_cards_html}
     </div>
     <div id="catalogError" class="empty-state" hidden style="display:none" aria-hidden="true"></div>
+
+    <section class="hub-interlink-section" aria-label="Тастар мен стильдер бойынша топтамалар">
+      <details class="hub-interlink-accordion" open>
+        <summary>Тастар мен стильдер бойынша топтамалар</summary>
+        <p class="hub-interlink-sub">Livi Jewelry табиғи минералдары мен бұйымдар форматтарының тақырыптық топтамаларына өтіңіз</p>
+        <div class="hub-interlink-chips">
+{interlink_chips_kz}
+        </div>
+      </details>
+    </section>
   </main>
 
   <footer id="contact">
@@ -982,6 +1044,15 @@ def generate_kz_shop(products_kz: list) -> str:
       </div>
     </div>
   </footer>
+
+  <!-- Floating WhatsApp Widget -->
+  <a class="floating-wa" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener" aria-label="WhatsApp арқылы кеңес алу">
+    <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+      <path fill="currentColor" d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+      <path fill="currentColor" d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+    </svg>
+    <span class="floating-wa-text">Шебер кеңесі</span>
+  </a>
 
   <script>
     const PRODUCTS_KZ = {products_kz_json};
@@ -1007,8 +1078,8 @@ def generate_kz_shop(products_kz: list) -> str:
 
     const drawer = document.getElementById('drawer'), burger = document.getElementById('burger');
     if(burger && drawer){{
-      burger.onclick = () => {{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); }};
-      drawer.querySelector('.drawer-back').onclick = () => {{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); }};
+      burger.onclick = () => {{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); document.body.classList.add('drawer-open'); }};
+      drawer.querySelector('.drawer-back').onclick = () => {{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); document.body.classList.remove('drawer-open'); }};
     }}
 
     function updateBadge(){{
@@ -1477,6 +1548,26 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
         for h_url, h_lbl in ALL_21_HUBS
     )
 
+    drawer_hub_links_kz = "\n".join(
+        f'            <a href="{h_url}">{html.escape(h_lbl)}</a>'
+        for h_url, h_lbl in ALL_21_HUBS
+    )
+
+    bundle_badge_html = ""
+    if bundle_options:
+        opts_summary = " • ".join(
+            f"{opt['name']} — {format_price_kz(opt['price'])} ₸"
+            for opt in bundle_options
+            if not opt.get("is_full")
+        )
+        if opts_summary:
+            bundle_badge_html = f'<div class="bundle-breakdown-badge">Жиынтықта: {html.escape(opts_summary)} (бөлек сатып алуға болады)</div>\n'
+
+    about_text_kz = description
+    m_split = re.search(r'(?:сатып алуға болады|болады)\.\s*(.*)', description, flags=re.S | re.I)
+    if m_split and len(m_split.group(1).strip()) >= 30:
+        about_text_kz = m_split.group(1).strip()
+
     product_js_obj = json.dumps({
         "id": pid,
         "sku": livi_sku,
@@ -1581,45 +1672,59 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
   </script>
 </head>
 <body>
-  <header>
-    <div class="nav">
-      <a class="brand" href="/kz/">
-        <img class="brand-logo" src="/assets/logo.png" alt="Livi Jewelry — зергерлік әшекейлер логотипі" width="52" height="52" decoding="async" />
-        <span class="brand-title">Livi Jewelry</span>
-      </a>
-      <nav class="menu">
-        <a href="/kz/">Басты бет</a>
-        <a href="/kz/shop.html">Каталог</a>
-        <a href="/kolye-iz-zhemchuga.html">Інжу алқалар</a>
-        <a href="/braslety-iz-zhemchuga.html">Білезіктер</a>
-        <a href="/sergi-iz-zhemchuga.html">Сырғалар</a>
-        <a href="/cart.html" class="cart-link"><span>Себет</span><span id="cartBadge" class="badge"></span></a>
-      </nav>
-      <div class="right">
-        <div class="lang header-lang-links" aria-label="Тілді таңдау">
-          <a href="{ru_page_url}" lang="ru">RU</a>
-          <a href="{page_url}" class="active" lang="kk">KZ</a>
+  <!-- Drawer -->
+  <div id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-back" role="button" tabindex="0" aria-label="Мәзірді жабу"></div>
+    <div class="drawer-panel" role="menu" aria-label="Мәзір">
+      <a href="/kz/">Басты бет</a>
+      <a href="/kz/shop.html">Каталог</a>
+      <details class="drawer-accordion">
+        <summary>Коллекциялар және тастар</summary>
+        <div class="drawer-subnav">
+{drawer_hub_links_kz}
         </div>
-        <button class="burger" id="burger" aria-label="Мәзір"><span></span></button>
+      </details>
+      <a href="/komplekty-ukrasheniy.html">Жиынтықтар</a>
+      <a href="/delivery.html">Жеткізу және төлем</a>
+      <div class="drawer-socials">
+        <a class="drawer-soc-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
+        <a class="drawer-soc-link" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <div class="lang">
+        <a href="{ru_page_url}" lang="ru">RU</a>
+        <a href="{page_url}" class="active" lang="kk">KZ</a>
       </div>
     </div>
-    <div class="drawer" id="drawer" aria-hidden="true">
-      <div class="drawer-panel">
-        <nav class="drawer-nav">
-          <a href="/kz/">Басты бет</a>
-          <a href="/kz/shop.html">Каталог</a>
-          <a href="/kolye-iz-zhemchuga.html">Інжу алқалар</a>
-          <a href="/braslety-iz-zhemchuga.html">Білезіктер</a>
-          <a href="/sergi-iz-zhemchuga.html">Сырғалар</a>
-          <a href="/komplekty-ukrasheniy.html">Жиынтықтар</a>
-          <a href="/cart.html" class="cart-link"><span>Себет</span></a>
-        </nav>
-        <div class="lang">
+  </div>
+
+  <header>
+    <div class="nav">
+      <button id="burger" class="hamburger" aria-label="Мәзір"><span></span></button>
+
+      <a class="brand" href="/kz/" aria-label="Livi Jewelry">
+        <span>LIVI JEWELRY</span>
+      </a>
+
+      <div class="nav-actions">
+        <div class="header-lang-links" aria-label="Тілді таңдау">
           <a href="{ru_page_url}" lang="ru">RU</a>
           <a href="{page_url}" class="active" lang="kk">KZ</a>
         </div>
+        <a class="cart-link" href="/cart.html" aria-label="Себет">
+          <span>Себет</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
+        </a>
+        <a class="quick-link ig-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A4.5 4.5 0 1 0 16.5 12 4.505 4.505 0 0 0 12 7.5zm6.5-.75a1.25 1.25 0 1 0 1.25 1.25A1.25 1.25 0 0 0 18.5 6.75Zm-6.5 2A3.25 3.25 0 1 1 8.75 12 3.254 3.254 0 0 1 12 8.75Z"/>
+          </svg>
+        </a>
+        <a class="quick-link wa-link" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" fill="currentColor">
+            <path d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+            <path d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+          </svg>
+        </a>
       </div>
-      <div class="drawer-back" role="button" tabindex="0" aria-label="Мәзірді жабу"></div>
     </div>
   </header>
 
@@ -1645,49 +1750,36 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
         <h1 class="product-h1">{html.escape(title)}</h1>
         <div class="product-price-val">{price_fmt} ₸</div>
 
-        <p class="product-desc-text">{html.escape(description)}</p>
-
-        <div class="product-meta-box">
-          <div class="product-meta-row">
-            <strong>Материалдар мен тастар:</strong>
-            <div class="mat-pills">
-            {material_pills}
-            </div>
-          </div>
-          <div class="product-meta-row">
-            <strong>Фурнитура мен өлшемі:</strong>
-            <span>{html.escape(hardware_kz)}. {html.escape(length_kz)}</span>
-          </div>
-          <div class="product-meta-row">
-            <strong>Қаптамасы:</strong>
-            <span>{html.escape(packaging_kz)}</span>
-          </div>
-        </div>
-
+        {bundle_badge_html}
 {customizer_html}
 
         <div class="product-cta-group">
           <button type="button" class="btn primary" id="addToCartBtn">Себетке қосу — {price_fmt} ₸</button>
-          <a class="btn outline" id="waOrderBtn" href="{wa_href}" target="_blank" rel="noopener">WhatsApp арқылы 1 басумен тапсырыс беру</a>
+          <a class="btn outline" id="waOrderBtn" href="{wa_href}" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 32 32" aria-hidden="true" fill="currentColor">
+              <path d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+              <path d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+            </svg>
+            <span>WhatsApp арқылы 1 басумен тапсырыс беру</span>
+          </a>
         </div>
         <div id="addedToast" class="added-toast" role="status" aria-live="polite" style="display:none;">
           ✓ Әшекей себетке қосылды! <a href="/cart.html" style="text-decoration:underline;font-weight:600;margin-left:6px;">Себетке өту →</a>
         </div>
 
-        <ul class="product-trust-list">
-          <li><strong>Астана бойынша сол күні жедел жеткізу:</strong> сағат 16:00-ге дейін рәсімделген тапсырыстарды сол күні курьермен жібереміз.</li>
-          <li><strong>Қазақстанның барлық өңірлеріне жеткізу:</strong> Алматы, Шымкент, Қарағанды және барлық қалаларға СДЭК экспресс-қызметімен (1–3 жұмыс күні).</li>
-          <li><strong>Халықаралық жеткізу:</strong> бүкіл әлем бойынша трек-нөмірімен ұқыпты жөнелту.</li>
-          <li><strong>Кепілдік және қайтару:</strong> ҚР заңнамасына сәйкес 14 күн ішінде айырбастау немесе қайтару.</li>
-        </ul>
+        <!-- Блок «Бұйым туралы» -->
+        <section class="product-about-block" aria-label="Бұйым туралы">
+          <h2 class="product-about-title">Бұйым туралы</h2>
+          <p class="product-about-text">{html.escape(about_text_kz)}</p>
+        </section>
 
         <!-- Таблица характеристик изделия -->
         <section class="product-specs-section" aria-label="Бұйым сипаттамалары">
-          <h2 class="specs-title">Бұйым сипаттамалары</h2>
+          <h2 class="specs-title">Бұйым сипаттамалары және сервис</h2>
           <dl class="product-specs-grid">
             <div class="spec-row"><dt>Артикул</dt><dd>{livi_sku}</dd></div>
             <div class="spec-row"><dt>Бұйым түрі</dt><dd>{html.escape(type_kz)}</dd></div>
-            <div class="spec-row"><dt>Негізгі тастар мен минералдар</dt><dd>{html.escape(stones_detail_kz)}</dd></div>
+            <div class="spec-row"><dt>Негізгі тастар мен минералдар</dt><dd><div class="mat-pills" style="margin-top:2px;">{material_pills}</div></dd></div>
             <div class="spec-row"><dt>Фурнитура және жабыны</dt><dd>{html.escape(hardware_kz)}</dd></div>
             <div class="spec-row"><dt>Ұзындығы / өлшемі</dt><dd>{html.escape(length_kz)}</dd></div>
             <div class="spec-row"><dt>Құлып түрі</dt><dd>{html.escape(clasp_kz)}</dd></div>
@@ -1695,33 +1787,12 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
           </dl>
         </section>
 
-        <!-- Индивидуальный блок FAQ -->
-        <section class="product-faq-section" aria-label="Тауар бойынша жиі қойылатын сұрақтар">
-          <h2 class="faq-title">Жиі қойылатын сұрақтар</h2>
-          <details class="product-faq-item">
-            <summary>{html.escape(faq_q1)}</summary>
-            <p>{html.escape(faq_a1)}</p>
-          </details>
-          <details class="product-faq-item">
-            <summary>{html.escape(faq_q2)}</summary>
-            <p>{html.escape(faq_a2)}</p>
-          </details>
-          <details class="product-faq-item">
-            <summary>{html.escape(faq_q3)}</summary>
-            <p>{html.escape(faq_a3)}</p>
-          </details>
-        </section>
-
-        <!-- Визуальный блок отзывов -->
-        <section class="product-reviews-block" aria-label="Сатып алушылардың пікірлері">
-          <div class="reviews-header">
-            <h2 class="reviews-title">Сатып алушылардың пікірлері (5.0 ★)</h2>
-            <span class="reviews-rating-badge">5.0 ★ · {review_count} бағалау</span>
-          </div>
-          <div class="reviews-grid">
-{reviews_cards_html}
-          </div>
-        </section>
+        <ul class="product-trust-list">
+          <li><strong>Астана бойынша сол күні жедел жеткізу:</strong> сағат 16:00-ге дейін рәсімделген тапсырыстарды сол күні курьермен жібереміз.</li>
+          <li><strong>Қазақстанның барлық өңірлеріне жеткізу:</strong> Алматы, Шымкент, Қарағанды және барлық қалаларға СДЭК экспресс-қызметімен (1–3 жұмыс күні).</li>
+          <li><strong>Халықаралық жеткізу:</strong> бүкіл әлем бойынша трек-нөмірімен ұқыпты жөнелту.</li>
+          <li><strong>Кепілдік және қайтару:</strong> ҚР заңнамасына сәйкес 14 күн ішінде айырбастау немесе қайтару.</li>
+        </ul>
       </div>
     </div>
 
@@ -1733,11 +1804,13 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
     </section>
 
     <section class="hub-interlink-section" aria-label="Тастар мен стильдер бойынша топтамалар">
-      <h2>Тастар мен стильдер бойынша топтамалар</h2>
-      <p class="hub-interlink-sub">Livi Jewelry табиғи минералдары мен бұйымдар форматтарының тақырыптық топтамаларына өтіңіз</p>
-      <div class="stone-chips">
+      <details class="hub-interlink-accordion" open>
+        <summary>Тастар мен стильдер бойынша топтамалар</summary>
+        <p class="hub-interlink-sub">Livi Jewelry табиғи минералдары мен бұйымдар форматтарының тақырыптық топтамаларына өтіңіз</p>
+        <div class="hub-interlink-chips">
 {interlink_chips_html}
-      </div>
+        </div>
+      </details>
     </section>
   </main>
 
@@ -1757,6 +1830,15 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
       </div>
     </div>
   </footer>
+
+  <!-- Floating WhatsApp Widget -->
+  <a class="floating-wa" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener" aria-label="WhatsApp арқылы кеңес алу">
+    <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+      <path fill="currentColor" d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+      <path fill="currentColor" d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+    </svg>
+    <span class="floating-wa-text">Шебер кеңесі</span>
+  </a>
 
   <script>
     const PRODUCT = {product_js_obj};
@@ -1825,7 +1907,10 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
     const drawer = document.getElementById('drawer');
     const burger = document.getElementById('burger');
     if (burger && drawer) {{
-      burger.onclick = () => {{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden', 'false'); }};
+      burger.onclick = () => {{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden', 'false'); document.body.classList.add('drawer-open'); }};
+      const back = drawer.querySelector('.drawer-back');
+      if (back) back.onclick = () => {{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); document.body.classList.remove('drawer-open'); }};
+    }}
       const back = drawer.querySelector('.drawer-back');
       if (back) back.onclick = () => {{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); }};
     }}

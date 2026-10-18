@@ -183,8 +183,38 @@
     <div class="drawer-panel" role="menu" aria-label="Меню">
       <a href="/" data-i18n="nav.home">Главная</a>
       <a href="shop.html" data-i18n="nav.shop">Каталог</a>
-      <a href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener">WhatsApp</a>
+      <details class="drawer-accordion">
+        <summary>Коллекции и камни</summary>
+        <div class="drawer-subnav">
+          <a href="/kolye-iz-zhemchuga.html">Колье из жемчуга</a>
+          <a href="/braslety-iz-zhemchuga.html">Браслеты из жемчуга</a>
+          <a href="/sergi-iz-zhemchuga.html">Серьги из жемчуга</a>
+          <a href="/komplekty-ukrasheniy.html">Комплекты украшений</a>
+          <a href="/chokery-iz-naturalnyh-kamney.html">Чокеры из камней</a>
+          <a href="/sotuary-iz-zhemchuga.html">Сотуары</a>
+          <a href="/ukrasheniya-iz-barochnogo-zhemchuga.html">Барочный жемчуг</a>
+          <a href="/ukrasheniya-iz-gematita.html">Гематит</a>
+          <a href="/ukrasheniya-iz-malahita.html">Малахит</a>
+          <a href="/ukrasheniya-iz-ametista.html">Аметист</a>
+          <a href="/ukrasheniya-iz-granata.html">Гранат</a>
+          <a href="/ukrasheniya-iz-rozovogo-kvarca.html">Розовый кварц</a>
+          <a href="/ukrasheniya-iz-biryuzy.html">Бирюза</a>
+          <a href="/ukrasheniya-iz-gornogo-hrustalya.html">Горный хрусталь</a>
+          <a href="/ukrasheniya-iz-lunnogo-kamnya.html">Лунный камень</a>
+          <a href="/ukrasheniya-iz-zhemchuga-mayorka.html">Жемчуг Майорка</a>
+          <a href="/ukrasheniya-iz-tigrovogo-glaza.html">Тигровый глаз</a>
+          <a href="/ukrasheniya-iz-koralla-i-yashmy.html">Коралл и Яшма</a>
+          <a href="/ukrasheniya-iz-lazurita.html">Лазурит</a>
+          <a href="/tsepi-s-barochnym-zhemchugom.html">Цепи с жемчугом</a>
+          <a href="/koltsa-i-garnitury-iz-kamney.html">Кольца и гарнитуры</a>
+        </div>
+      </details>
+      <a href="/komplekty-ukrasheniy.html">Комплекты украшений</a>
+      <a href="/delivery.html">Доставка и оплата</a>
+      <div class="drawer-socials">
+        <a class="drawer-soc-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
+        <a class="drawer-soc-link" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener">WhatsApp</a>
+      </div>
       <div class="lang">
         <a href="/" id="ruBtn" class="active" onclick="localStorage.setItem('lang','ru')">RU</a><a href="/kz/" id="kkBtn" onclick="localStorage.setItem('lang','kk')">KZ</a>
       </div>
@@ -472,25 +502,32 @@
 
   <!-- Блок перелинковки: Подборки по камням и стилям -->
   <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
-    <h2>Подборки по камням и стилям</h2>
-    <p class="hub-interlink-sub">Авторские украшения Livi Jewelry из натуральных минералов и культивированного жемчуга с доставкой по Астане и Казахстану</p>
-    <div class="stone-chips">
-      <a href="/kolye-iz-zhemchuga.html" class="stone-chip">Колье из жемчуга</a>
-      <a href="/braslety-iz-zhemchuga.html" class="stone-chip">Браслеты из жемчуга</a>
-      <a href="/sergi-iz-zhemchuga.html" class="stone-chip">Серьги из жемчуга</a>
-      <a href="/komplekty-ukrasheniy.html" class="stone-chip">Комплекты украшений</a>
-      <a href="/chokery-iz-naturalnyh-kamney.html" class="stone-chip">Чокеры из камней</a>
-      <a href="/sotuary-iz-zhemchuga.html" class="stone-chip">Сотуары и галстуки</a>
-      <a href="/ukrasheniya-iz-barochnogo-zhemchuga.html" class="stone-chip">Барочный жемчуг</a>
-      <a href="/ukrasheniya-iz-gematita.html" class="stone-chip">Гематит</a>
-      <a href="/ukrasheniya-iz-malahita.html" class="stone-chip">Малахит и Нефрит</a>
-      <a href="/ukrasheniya-iz-ametista.html" class="stone-chip">Аметист и Флюорит</a>
-      <a href="/ukrasheniya-iz-granata.html" class="stone-chip">Гранат и Агат</a>
-      <a href="/ukrasheniya-iz-rozovogo-kvarca.html" class="stone-chip">Розовый кварц</a>
-      <a href="/ukrasheniya-iz-biryuzy.html" class="stone-chip">Бирюза</a>
-      <a href="/ukrasheniya-iz-gornogo-hrustalya.html" class="stone-chip">Горный хрусталь</a>
-      <a href="/ukrasheniya-iz-lunnogo-kamnya.html" class="stone-chip">Лунный камень и Перламутр</a>
-    </div>
+    <details class="hub-interlink-accordion" open>
+      <summary class="hub-interlink-summary">Подборки по камням и стилям</summary>
+      <div class="stone-chips">
+        <a href="/kolye-iz-zhemchuga.html" class="stone-chip">Колье из жемчуга</a>
+        <a href="/braslety-iz-zhemchuga.html" class="stone-chip">Браслеты из жемчуга</a>
+        <a href="/sergi-iz-zhemchuga.html" class="stone-chip">Серьги из жемчуга</a>
+        <a href="/komplekty-ukrasheniy.html" class="stone-chip">Комплекты украшений</a>
+        <a href="/chokery-iz-naturalnyh-kamney.html" class="stone-chip">Чокеры из камней</a>
+        <a href="/sotuary-iz-zhemchuga.html" class="stone-chip">Сотуары</a>
+        <a href="/ukrasheniya-iz-barochnogo-zhemchuga.html" class="stone-chip">Барочный жемчуг</a>
+        <a href="/ukrasheniya-iz-gematita.html" class="stone-chip">Гематит</a>
+        <a href="/ukrasheniya-iz-malahita.html" class="stone-chip">Малахит</a>
+        <a href="/ukrasheniya-iz-ametista.html" class="stone-chip">Аметист</a>
+        <a href="/ukrasheniya-iz-granata.html" class="stone-chip">Гранат</a>
+        <a href="/ukrasheniya-iz-rozovogo-kvarca.html" class="stone-chip">Розовый кварц</a>
+        <a href="/ukrasheniya-iz-biryuzy.html" class="stone-chip">Бирюза</a>
+        <a href="/ukrasheniya-iz-gornogo-hrustalya.html" class="stone-chip">Горный хрусталь</a>
+        <a href="/ukrasheniya-iz-lunnogo-kamnya.html" class="stone-chip">Лунный камень</a>
+        <a href="/ukrasheniya-iz-zhemchuga-mayorka.html" class="stone-chip">Жемчуг Майорка</a>
+        <a href="/ukrasheniya-iz-tigrovogo-glaza.html" class="stone-chip">Тигровый глаз</a>
+        <a href="/ukrasheniya-iz-koralla-i-yashmy.html" class="stone-chip">Коралл и Яшма</a>
+        <a href="/ukrasheniya-iz-lazurita.html" class="stone-chip">Лазурит</a>
+        <a href="/tsepi-s-barochnym-zhemchugom.html" class="stone-chip">Цепи с жемчугом</a>
+        <a href="/koltsa-i-garnitury-iz-kamney.html" class="stone-chip">Кольца и гарнитуры</a>
+      </div>
+    </details>
   </section>
 
   <footer id="contact">
@@ -734,8 +771,8 @@
     // Drawer
     const drawer=document.getElementById('drawer'), burger=document.getElementById('burger');
     const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn');
-    burger.onclick=()=>{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); };
-    drawer.querySelector('.drawer-back').onclick=()=>{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); };
+    burger.onclick=()=>{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); document.body.classList.add('drawer-open'); };
+    drawer.querySelector('.drawer-back').onclick=()=>{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); document.body.classList.remove('drawer-open'); };
     if(ruBtn) ruBtn.onclick=()=>{ localStorage.setItem('lang','ru'); setLang('ru'); };
     if(kkBtn) kkBtn.onclick=()=>{ localStorage.setItem('lang','kk'); window.location.href='/kz/'; };
 

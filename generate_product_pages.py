@@ -561,6 +561,27 @@ def build_product_page_html(product: dict, all_products: list) -> str:
         for h_url, h_lbl in ALL_21_HUBS
     )
 
+    drawer_hub_links = "\n".join(
+        f'            <a href="{h_url}">{html.escape(h_lbl)}</a>'
+        for h_url, h_lbl in ALL_21_HUBS
+    )
+
+    bundle_badge_html = ""
+    if bundle_options:
+        opts_summary = " • ".join(
+            f"{opt['name']} — {format_price_ru(opt['price'])} ₸"
+            for opt in bundle_options
+            if not opt.get("is_full")
+        )
+        if opts_summary:
+            bundle_badge_html = f'<div class="bundle-breakdown-badge">В комплекте: {html.escape(opts_summary)} (можно приобрести отдельно)</div>\n'
+
+    # Воздушный абзац описания (без сырых ценников комплекта в начале)
+    about_text = description
+    m_split = re.search(r'(?:сетом|отдельно)\.\s*(.*)', description, flags=re.S | re.I)
+    if m_split and len(m_split.group(1).strip()) >= 40:
+        about_text = m_split.group(1).strip()
+
     product_js_obj = json.dumps({
         "id": pid,
         "sku": livi_sku,
@@ -665,45 +686,59 @@ def build_product_page_html(product: dict, all_products: list) -> str:
   </script>
 </head>
 <body>
-  <header>
-    <div class="nav">
-      <a class="brand" href="/index.html">
-        <img class="brand-logo" src="/assets/logo.png" alt="Livi Jewelry — логотип мастерской украшений из натурального жемчуга" width="52" height="52" decoding="async" />
-        <span class="brand-title">Livi Jewelry</span>
-      </a>
-      <nav class="menu">
-        <a href="/index.html">Главная</a>
-        <a href="/shop.html">Каталог</a>
-        <a href="/kolye-iz-zhemchuga.html">Колье</a>
-        <a href="/braslety-iz-zhemchuga.html">Браслеты</a>
-        <a href="/sergi-iz-zhemchuga.html">Серьги</a>
-        <a href="/cart.html" class="cart-link"><span>Корзина</span><span id="cartBadge" class="badge"></span></a>
-      </nav>
-      <div class="right">
-        <div class="lang header-lang-links" aria-label="Выбор языка">
-          <a href="{page_url}" class="active">RU</a>
-          <a href="{kz_page_url}" lang="kk">KZ</a>
+  <!-- Drawer -->
+  <div id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-back" role="button" tabindex="0" aria-label="Закрыть меню"></div>
+    <div class="drawer-panel" role="menu" aria-label="Меню">
+      <a href="/index.html">Главная</a>
+      <a href="/shop.html">Каталог</a>
+      <details class="drawer-accordion">
+        <summary>Коллекции и камни</summary>
+        <div class="drawer-subnav">
+{drawer_hub_links}
         </div>
-        <button class="burger" id="burger" aria-label="Меню"><span></span></button>
+      </details>
+      <a href="/komplekty-ukrasheniy.html">Комплекты украшений</a>
+      <a href="/delivery.html">Доставка и оплата</a>
+      <div class="drawer-socials">
+        <a class="drawer-soc-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
+        <a class="drawer-soc-link" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <div class="lang">
+        <a href="{page_url}" class="active">RU</a>
+        <a href="{kz_page_url}" lang="kk">KZ</a>
       </div>
     </div>
-    <div class="drawer" id="drawer" aria-hidden="true">
-      <div class="drawer-panel">
-        <nav class="drawer-nav">
-          <a href="/index.html">Главная</a>
-          <a href="/shop.html">Каталог</a>
-          <a href="/kolye-iz-zhemchuga.html">Колье из жемчуга</a>
-          <a href="/braslety-iz-zhemchuga.html">Браслеты из жемчуга</a>
-          <a href="/sergi-iz-zhemchuga.html">Серьги из жемчуга</a>
-          <a href="/komplekty-ukrasheniy.html">Комплекты украшений</a>
-          <a href="/cart.html" class="cart-link"><span>Корзина</span></a>
-        </nav>
-        <div class="lang">
+  </div>
+
+  <header>
+    <div class="nav">
+      <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
+
+      <a class="brand" href="/index.html" aria-label="Livi Jewelry">
+        <span>LIVI JEWELRY</span>
+      </a>
+
+      <div class="nav-actions">
+        <div class="header-lang-links" aria-label="Выбор языка">
           <a href="{page_url}" class="active">RU</a>
           <a href="{kz_page_url}" lang="kk">KZ</a>
         </div>
+        <a class="cart-link" href="/cart.html" aria-label="Корзина">
+          <span>Корзина</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
+        </a>
+        <a class="quick-link ig-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A4.5 4.5 0 1 0 16.5 12 4.505 4.505 0 0 0 12 7.5zm6.5-.75a1.25 1.25 0 1 0 1.25 1.25A1.25 1.25 0 0 0 18.5 6.75Zm-6.5 2A3.25 3.25 0 1 1 8.75 12 3.254 3.254 0 0 1 12 8.75Z"/>
+          </svg>
+        </a>
+        <a class="quick-link wa-link" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" fill="currentColor">
+            <path d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+            <path d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+          </svg>
+        </a>
       </div>
-      <div class="drawer-back" role="button" tabindex="0" aria-label="Закрыть меню"></div>
     </div>
   </header>
 
@@ -729,34 +764,42 @@ def build_product_page_html(product: dict, all_products: list) -> str:
         <h1 class="product-h1">{html.escape(title)}</h1>
         <div class="product-price-val">{price_fmt} ₸</div>
 
-        <p class="product-desc-text">{html.escape(description)}</p>
-
-        <div class="product-meta-box">
-          <div class="product-meta-row">
-            <strong>Материалы и камни:</strong>
-            <div class="mat-pills">
-            {material_pills}
-            </div>
-          </div>
-          <div class="product-meta-row">
-            <strong>Фурнитура и размер:</strong>
-            <span>{html.escape(specs.get('hardware', 'Гипоаллергенный ювелирный сплав (родий / позолота)'))}. {html.escape(specs.get('length_size', 'Возможна бесплатная индивидуальная подгонка длины мастером.'))}</span>
-          </div>
-          <div class="product-meta-row">
-            <strong>Упаковка:</strong>
-            <span>{html.escape(specs.get('packaging', 'Фирменная подарочная коробочка и бархатный мешочек Livi Jewelry включены в стоимость.'))}</span>
-          </div>
-        </div>
-
+        {bundle_badge_html}
 {customizer_html}
 
         <div class="product-cta-group">
           <button type="button" class="btn primary" id="addToCartBtn">В корзину — {price_fmt} ₸</button>
-          <a class="btn outline" id="waOrderBtn" href="{wa_href}" target="_blank" rel="noopener">Заказать в 1 клик в WhatsApp</a>
+          <a class="btn outline" id="waOrderBtn" href="{wa_href}" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 32 32" aria-hidden="true" fill="currentColor">
+              <path d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+              <path d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+            </svg>
+            <span>Заказать в 1 клик в WhatsApp</span>
+          </a>
         </div>
         <div id="addedToast" class="added-toast" role="status" aria-live="polite" style="display:none;">
           ✓ Украшение добавлено в корзину! <a href="/cart.html" style="text-decoration:underline;font-weight:600;margin-left:6px;">Перейти к оформлению →</a>
         </div>
+
+        <!-- Блок «Об украшении» -->
+        <section class="product-about-block" aria-label="Об украшении">
+          <h2 class="product-about-title">Об украшении</h2>
+          <p class="product-about-text">{html.escape(about_text)}</p>
+        </section>
+
+        <!-- Структурированный блок «Характеристики и сервис» -->
+        <section class="product-specs-section" aria-label="Характеристики изделия">
+          <h2 class="specs-title">Характеристики и сервис</h2>
+          <dl class="product-specs-grid">
+            <div class="spec-row"><dt>Артикул</dt><dd>{livi_sku}</dd></div>
+            <div class="spec-row"><dt>Тип украшения</dt><dd>{html.escape(specs.get('type_ru', cat_ru))}</dd></div>
+            <div class="spec-row"><dt>Основные камни и минералы</dt><dd><div class="mat-pills" style="margin-top:2px;">{material_pills}</div></dd></div>
+            <div class="spec-row"><dt>Фурнитура и покрытие</dt><dd>{html.escape(specs.get('hardware', 'Гипоаллергенный ювелирный сплав (родий / позолота)'))}</dd></div>
+            <div class="spec-row"><dt>Размер и посадка</dt><dd>{html.escape(specs.get('length_size', '38–45 см (бесплатная подгонка длины под ваши мерки)'))}</dd></div>
+            <div class="spec-row"><dt>Застежка</dt><dd>{html.escape(specs.get('clasp', 'Ювелирный карабин с удлинителем'))}</dd></div>
+            <div class="spec-row"><dt>Комплектация и упаковка</dt><dd>{html.escape(specs.get('packaging', 'Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry'))}</dd></div>
+          </dl>
+        </section>
 
         <ul class="product-trust-list">
           <li><strong>Доставка день-в-день по Астане:</strong> отправка курьером в день заказа при оформлении до 16:00.</li>
@@ -764,48 +807,6 @@ def build_product_page_html(product: dict, all_products: list) -> str:
           <li><strong>Международная доставка:</strong> бережная отправка по всему миру с трек-номером.</li>
           <li><strong>Гарантия и возврат:</strong> обмен или возврат в течение 14 дней согласно законодательству РК.</li>
         </ul>
-
-        <!-- Таблица характеристик изделия -->
-        <section class="product-specs-section" aria-label="Характеристики изделия">
-          <h2 class="specs-title">Характеристики изделия</h2>
-          <dl class="product-specs-grid">
-            <div class="spec-row"><dt>Артикул</dt><dd>{livi_sku}</dd></div>
-            <div class="spec-row"><dt>Тип украшения</dt><dd>{html.escape(specs.get('type_ru', cat_ru))}</dd></div>
-            <div class="spec-row"><dt>Основные камни и минералы</dt><dd>{html.escape(specs.get('stones_detail', materials_str))}</dd></div>
-            <div class="spec-row"><dt>Фурнитура и покрытие</dt><dd>{html.escape(specs.get('hardware', 'Гипоаллергенный ювелирный сплав (родий / позолота)'))}</dd></div>
-            <div class="spec-row"><dt>Длина / размер</dt><dd>{html.escape(specs.get('length_size', '38–45 см'))}</dd></div>
-            <div class="spec-row"><dt>Застежка</dt><dd>{html.escape(specs.get('clasp', 'Ювелирный карабин с удлинителем'))}</dd></div>
-            <div class="spec-row"><dt>Комплектация и упаковка</dt><dd>{html.escape(specs.get('packaging', 'Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry'))}</dd></div>
-          </dl>
-        </section>
-
-        <!-- Индивидуальный блок FAQ -->
-        <section class="product-faq-section" aria-label="Часто задаваемые вопросы о товаре">
-          <h2 class="faq-title">Часто задаваемые вопросы</h2>
-          <details class="product-faq-item">
-            <summary>{html.escape(faq_q1)}</summary>
-            <p>{html.escape(faq_a1)}</p>
-          </details>
-          <details class="product-faq-item">
-            <summary>{html.escape(faq_q2)}</summary>
-            <p>{html.escape(faq_a2)}</p>
-          </details>
-          <details class="product-faq-item">
-            <summary>{html.escape(faq_q3)}</summary>
-            <p>{html.escape(faq_a3)}</p>
-          </details>
-        </section>
-
-        <!-- Визуальный блок отзывов -->
-        <section class="product-reviews-block" aria-label="Отзывы покупателей">
-          <div class="reviews-header">
-            <h2 class="reviews-title">Отзывы покупателей (5.0 ★)</h2>
-            <span class="reviews-rating-badge">5.0 ★ · {review_count} оценок</span>
-          </div>
-          <div class="reviews-grid">
-{reviews_cards_html}
-          </div>
-        </section>
       </div>
     </div>
 
@@ -817,11 +818,13 @@ def build_product_page_html(product: dict, all_products: list) -> str:
     </section>
 
     <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
-      <h2>Подборки по камням и стилям</h2>
-      <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
-      <div class="stone-chips">
+      <details class="hub-interlink-accordion" open>
+        <summary>Подборки по камням и стилям</summary>
+        <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
+        <div class="hub-interlink-chips">
 {interlink_chips_html}
-      </div>
+        </div>
+      </details>
     </section>
   </main>
 
@@ -841,6 +844,15 @@ def build_product_page_html(product: dict, all_products: list) -> str:
       </div>
     </div>
   </footer>
+
+  <!-- Floating WhatsApp Widget -->
+  <a class="floating-wa" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20получить%20консультацию%20по%20украшениям%20Livi%20Jewelry." target="_blank" rel="noopener" aria-label="Консультация мастера в WhatsApp">
+    <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+      <path fill="currentColor" d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+      <path fill="currentColor" d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+    </svg>
+    <span class="floating-wa-text">Консультация мастера</span>
+  </a>
 
   <script>
     const PRODUCT = {product_js_obj};
@@ -909,9 +921,9 @@ def build_product_page_html(product: dict, all_products: list) -> str:
     const drawer = document.getElementById('drawer');
     const burger = document.getElementById('burger');
     if (burger && drawer) {{
-      burger.onclick = () => {{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden', 'false'); }};
+      burger.onclick = () => {{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden', 'false'); document.body.classList.add('drawer-open'); }};
       const back = drawer.querySelector('.drawer-back');
-      if (back) back.onclick = () => {{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); }};
+      if (back) back.onclick = () => {{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); document.body.classList.remove('drawer-open'); }};
     }}
 
     function readCart() {{

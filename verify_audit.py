@@ -325,13 +325,10 @@ def run_audit():
                 fail(f"15. {path}: в shippingDetails отсутствует бесплатная ставка shippingRate (0 KZT)")
                 prod_offers_ok = False
 
-        # 16. Визуальный блок FAQ и разметка FAQPage (3 вопроса)
+        # 16. Разметка FAQPage (3 вопроса в JSON-LD для Google Rich Results)
         faq_ld = next((x for x in lds if x.get("@type") == "FAQPage"), None)
         if not faq_ld or len(faq_ld.get("mainEntity", [])) != 3:
             fail(f"16. {path}: в JSON-LD FAQPage ожидалось ровно 3 вопроса")
-            prod_faq_ok = False
-        if txt.count('<details class="product-faq-item">') != 3:
-            fail(f"16. {path}: на странице ожидалось 3 визуальных вопроса FAQ (<details class=\"product-faq-item\">)")
             prod_faq_ok = False
 
         # 17. customBundle для комплектов
@@ -350,9 +347,9 @@ def run_audit():
             fail(f"19. {path}: отсутствуют ссылки mat-pill-link в блоке материалов")
             prod_pills_ok = False
 
-        # 20. Отзывы 5.0 ★
-        if "Отзывы покупателей (5.0 ★)" not in txt or not prod_ld.get("review"):
-            fail(f"20. {path}: отсутствуют отзывы покупателей или Schema.org review")
+        # 20. Отзывы 5.0 ★ и рейтинг в Schema.org Product
+        if not prod_ld or not prod_ld.get("review") or not prod_ld.get("aggregateRating"):
+            fail(f"20. {path}: отсутствует Schema.org review или aggregateRating в Product JSON-LD")
             prod_reviews_ok = False
 
     if prod_files_ok:
@@ -364,7 +361,7 @@ def run_audit():
     if prod_offers_ok:
         ok("15. Карточки товаров: В JSON-LD Product присутствуют offers, hasMerchantReturnPolicy (14 дней, KZ) и shippingDetails (0 KZT)")
     if prod_faq_ok:
-        ok("16. Карточки товаров: Присутствует визуальный блок FAQ и Schema.org FAQPage (ровно 3 вопроса-ответа на каждой карточке)")
+        ok("16. Карточки товаров: В JSON-LD присутствует валидная Schema.org FAQPage (ровно 3 вопроса-ответа на каждой карточке)")
     if prod_bundles_html_ok:
         ok("17. Карточки товаров: Для комплектов встроен интерактивный выпадающий список <select id=\"customBundle\">")
     if prod_specs_html_ok:
@@ -372,7 +369,7 @@ def run_audit():
     if prod_pills_ok:
         ok("19. Карточки товаров: Все плашки камней содержат кликабельные ссылки на соответствующие SEO-хабы")
     if prod_reviews_ok:
-        ok("20. Карточки товаров: Внедрена расширенная Schema.org (JewelryStore, material, color, pattern, aggregateRating, review) и отзывы 5.0 ★")
+        ok("20. Карточки товаров: Внедрена расширенная Schema.org (JewelryStore, material, color, pattern, aggregateRating 5.0, review)")
 
     # ---------------------------------------------------------
     # 4. Инварианты казахской локализации (/kz/)

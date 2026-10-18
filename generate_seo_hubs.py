@@ -436,19 +436,21 @@ def build_interlink_block_html(current_slug="", prefix=""):
     chips = []
     for slug, label in EXISTING_HUBS:
         active_cls = " active" if slug == current_slug else ""
-        chips.append(f'      <a class="chip-link{active_cls}" href="{prefix}/{slug}">{label}</a>')
+        chips.append(f'        <a class="stone-chip{active_cls}" href="{prefix}/{slug}">{label}</a>')
     for h in ALL_HUBS:
         slug = h["slug"]
         label = h["chip_label"]
         active_cls = " active" if slug == current_slug else ""
-        chips.append(f'      <a class="chip-link{active_cls}" href="{prefix}/{slug}">{label}</a>')
+        chips.append(f'        <a class="stone-chip{active_cls}" href="{prefix}/{slug}">{label}</a>')
     chips_str = "\n".join(chips)
-    return f"""    <!-- Навигационный блок: Подборки по камням и стилям -->
-    <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
-      <h2 class="hub-interlink-title">Подборки украшений по натуральным камням и стилям</h2>
-      <nav class="stone-chips" style="margin-bottom:0;">
+    return f"""    <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
+      <details class="hub-interlink-accordion" open>
+        <summary>Подборки по камням и стилям</summary>
+        <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
+        <div class="hub-interlink-chips">
 {chips_str}
-      </nav>
+        </div>
+      </details>
     </section>"""
 
 
@@ -619,6 +621,11 @@ def generate_hub_page(hub, products):
         ],
     }
 
+    drawer_hub_links = "\n".join(
+        f'            <a href="/{s}">{clean_attr(l)}</a>'
+        for s, l in EXISTING_HUBS + [(h["slug"], h["chip_label"]) for h in ALL_HUBS]
+    )
+
     interlink_html = build_interlink_block_html(current_slug=slug, prefix="")
     cards_grid_str = "\n".join(cards_html)
 
@@ -720,15 +727,58 @@ def generate_hub_page(hub, products):
   </script>
 </head>
 <body>
-  <!-- Header -->
+  <!-- Drawer -->
+  <div id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-back" role="button" tabindex="0" aria-label="Закрыть меню"></div>
+    <div class="drawer-panel" role="menu" aria-label="Меню">
+      <a href="/index.html">Главная</a>
+      <a href="/shop.html">Каталог</a>
+      <details class="drawer-accordion">
+        <summary>Коллекции и камни</summary>
+        <div class="drawer-subnav">
+{drawer_hub_links}
+        </div>
+      </details>
+      <a href="/komplekty-ukrasheniy.html">Комплекты украшений</a>
+      <a href="/delivery.html">Доставка и оплата</a>
+      <div class="drawer-socials">
+        <a class="drawer-soc-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
+        <a class="drawer-soc-link" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <div class="lang">
+        <a href="/{slug}" class="active">RU</a>
+        <a href="/kz/shop.html" lang="kk">KZ</a>
+      </div>
+    </div>
+  </div>
+
   <header>
     <div class="nav">
-      <a class="brand" href="/" aria-label="Livi Jewelry">
+      <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
+
+      <a class="brand" href="/index.html" aria-label="Livi Jewelry">
         <span>LIVI JEWELRY</span>
       </a>
+
       <div class="nav-actions">
-        <a class="cart-link" href="shop.html">Каталог</a>
-        <a class="cart-link" href="cart.html">Корзина <span id="cartBadge" class="cart-badge" style="display:none"></span></a>
+        <div class="header-lang-links" aria-label="Выбор языка">
+          <a href="/{slug}" class="active">RU</a>
+          <a href="/kz/shop.html" lang="kk">KZ</a>
+        </div>
+        <a class="cart-link" href="/cart.html" aria-label="Корзина">
+          <span>Корзина</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
+        </a>
+        <a class="quick-link ig-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A4.5 4.5 0 1 0 16.5 12 4.505 4.505 0 0 0 12 7.5zm6.5-.75a1.25 1.25 0 1 0 1.25 1.25A1.25 1.25 0 0 0 18.5 6.75Zm-6.5 2A3.25 3.25 0 1 1 8.75 12 3.254 3.254 0 0 1 12 8.75Z"/>
+          </svg>
+        </a>
+        <a class="quick-link wa-link" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" fill="currentColor">
+            <path d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+            <path d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+          </svg>
+        </a>
       </div>
     </div>
   </header>
@@ -795,6 +845,15 @@ def generate_hub_page(hub, products):
     </div>
   </footer>
 
+  <!-- Floating WhatsApp Widget -->
+  <a class="floating-wa" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20получить%20консультацию%20по%20коллекции%20{clean_attr(hub['breadcrumb'])}." target="_blank" rel="noopener" aria-label="Консультация мастера в WhatsApp">
+    <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+      <path fill="currentColor" d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+      <path fill="currentColor" d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+    </svg>
+    <span class="floating-wa-text">Консультация мастера</span>
+  </a>
+
   <script>
     // Attribution Tracker & select_item
     (function() {{
@@ -813,6 +872,29 @@ def generate_hub_page(hub, products):
         if (updated) localStorage.setItem('livi_attribution', JSON.stringify(existing));
       }} catch(e){{}}
     }})();
+
+    // Drawer
+    const drawer = document.getElementById('drawer');
+    const burger = document.getElementById('burger');
+    if (burger && drawer) {{
+      burger.onclick = () => {{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden', 'false'); document.body.classList.add('drawer-open'); }};
+      const back = drawer.querySelector('.drawer-back');
+      if (back) back.onclick = () => {{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); document.body.classList.remove('drawer-open'); }};
+    }}
+
+    function updateBadge() {{
+      try {{
+        const raw = localStorage.getItem('livi_cart_v3') || localStorage.getItem('livi_cart_v2') || '[]';
+        const items = JSON.parse(raw);
+        const count = Array.isArray(items) ? items.reduce((s, i) => s + Number(i.qty || 0), 0) : 0;
+        const b = document.getElementById('cartBadge');
+        if (b) {{
+          b.textContent = count > 0 ? count : '';
+          b.style.display = count > 0 ? 'inline-block' : 'none';
+        }}
+      }} catch (e) {{}}
+    }}
+    updateBadge();
 
     document.querySelectorAll('.grid .card').forEach((card, idx) => {{
       card.addEventListener('click', function() {{
@@ -982,8 +1064,101 @@ def update_sergi_page(products: list):
     print(f"[OK] sergi-iz-zhemchuga.html обновлена ({len(earring_prods)} комплектов с серьгами)")
 
 
+def standardize_hub_header_and_drawer(file_path: str, slug: str):
+    if not os.path.exists(file_path):
+        return
+    with open(file_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    drawer_hub_links = "\n".join(
+        f'            <a href="/{s}">{clean_attr(l)}</a>'
+        for s, l in EXISTING_HUBS + [(h["slug"], h["chip_label"]) for h in ALL_HUBS]
+    )
+
+    new_drawer_and_header = f"""  <!-- Drawer -->
+  <div id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-back" role="button" tabindex="0" aria-label="Закрыть меню"></div>
+    <div class="drawer-panel" role="menu" aria-label="Меню">
+      <a href="/index.html">Главная</a>
+      <a href="/shop.html">Каталог</a>
+      <details class="drawer-accordion">
+        <summary>Коллекции и камни</summary>
+        <div class="drawer-subnav">
+{drawer_hub_links}
+        </div>
+      </details>
+      <a href="/komplekty-ukrasheniy.html">Комплекты украшений</a>
+      <a href="/delivery.html">Доставка и оплата</a>
+      <div class="drawer-socials">
+        <a class="drawer-soc-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
+        <a class="drawer-soc-link" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <div class="lang">
+        <a href="/{slug}" class="active">RU</a>
+        <a href="/kz/shop.html" lang="kk">KZ</a>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <div class="nav">
+      <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
+
+      <a class="brand" href="/index.html" aria-label="Livi Jewelry">
+        <span>LIVI JEWELRY</span>
+      </a>
+
+      <div class="nav-actions">
+        <div class="header-lang-links" aria-label="Выбор языка">
+          <a href="/{slug}" class="active">RU</a>
+          <a href="/kz/shop.html" lang="kk">KZ</a>
+        </div>
+        <a class="cart-link" href="/cart.html" aria-label="Корзина">
+          <span>Корзина</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
+        </a>
+        <a class="quick-link ig-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A4.5 4.5 0 1 0 16.5 12 4.505 4.505 0 0 0 12 7.5zm6.5-.75a1.25 1.25 0 1 0 1.25 1.25A1.25 1.25 0 0 0 18.5 6.75Zm-6.5 2A3.25 3.25 0 1 1 8.75 12 3.254 3.254 0 0 1 12 8.75Z"/>
+          </svg>
+        </a>
+        <a class="quick-link wa-link" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" fill="currentColor">
+            <path d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+            <path d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>"""
+
+    content = re.sub(
+        r'<!--\s*Drawer\s*-->.*?<!--\s*Header\s*-->\s*<header>.*?</header>',
+        new_drawer_and_header,
+        content,
+        count=1,
+        flags=re.DOTALL
+    )
+
+    if 'class="floating-wa"' not in content:
+        floating_wa_html = f"""  <!-- Floating WhatsApp Widget -->
+  <a class="floating-wa" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20получить%20консультацию%20по%20украшениям%20Livi%20Jewelry." target="_blank" rel="noopener" aria-label="Консультация мастера в WhatsApp">
+    <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+      <path fill="currentColor" d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+      <path fill="currentColor" d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+    </svg>
+    <span class="floating-wa-text">Консультация мастера</span>
+  </a>"""
+        content = content.replace("</footer>", f"</footer>\n\n{floating_wa_html}")
+
+    with open(file_path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+
 def update_existing_pages_interlinking():
     """Updates category pages, shop.html, and index.html with all 21 SEO hub links."""
+    for s, _ in EXISTING_HUBS:
+        standardize_hub_header_and_drawer(s, s)
+
     all_pages = [s for s, _ in EXISTING_HUBS] + ["shop.html"]
     for page in all_pages:
         if not os.path.exists(page):

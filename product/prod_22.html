@@ -266,45 +266,79 @@
   </script>
 </head>
 <body>
-  <header>
-    <div class="nav">
-      <a class="brand" href="/index.html">
-        <img class="brand-logo" src="/assets/logo.png" alt="Livi Jewelry — логотип мастерской украшений из натурального жемчуга" width="52" height="52" decoding="async" />
-        <span class="brand-title">Livi Jewelry</span>
-      </a>
-      <nav class="menu">
-        <a href="/index.html">Главная</a>
-        <a href="/shop.html">Каталог</a>
-        <a href="/kolye-iz-zhemchuga.html">Колье</a>
-        <a href="/braslety-iz-zhemchuga.html">Браслеты</a>
-        <a href="/sergi-iz-zhemchuga.html">Серьги</a>
-        <a href="/cart.html" class="cart-link"><span>Корзина</span><span id="cartBadge" class="badge"></span></a>
-      </nav>
-      <div class="right">
-        <div class="lang header-lang-links" aria-label="Выбор языка">
-          <a href="https://livijewelry.kz/product/prod_22.html" class="active">RU</a>
-          <a href="https://livijewelry.kz/kz/product/prod_22.html" lang="kk">KZ</a>
+  <!-- Drawer -->
+  <div id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-back" role="button" tabindex="0" aria-label="Закрыть меню"></div>
+    <div class="drawer-panel" role="menu" aria-label="Меню">
+      <a href="/index.html">Главная</a>
+      <a href="/shop.html">Каталог</a>
+      <details class="drawer-accordion">
+        <summary>Коллекции и камни</summary>
+        <div class="drawer-subnav">
+            <a href="/kolye-iz-zhemchuga.html">Колье из жемчуга</a>
+            <a href="/braslety-iz-zhemchuga.html">Браслеты из жемчуга</a>
+            <a href="/sergi-iz-zhemchuga.html">Серьги из жемчуга</a>
+            <a href="/komplekty-ukrasheniy.html">Комплекты украшений</a>
+            <a href="/chokery-iz-naturalnyh-kamney.html">Чокеры из камней</a>
+            <a href="/sotuary-iz-zhemchuga.html">Сотуары и галстуки</a>
+            <a href="/ukrasheniya-iz-barochnogo-zhemchuga.html">Барочный жемчуг</a>
+            <a href="/ukrasheniya-iz-gematita.html">Гематит</a>
+            <a href="/ukrasheniya-iz-malahita.html">Малахит и Нефрит</a>
+            <a href="/ukrasheniya-iz-ametista.html">Аметист и Флюорит</a>
+            <a href="/ukrasheniya-iz-granata.html">Гранат и Агат</a>
+            <a href="/ukrasheniya-iz-rozovogo-kvarca.html">Розовый кварц</a>
+            <a href="/ukrasheniya-iz-biryuzy.html">Бирюза</a>
+            <a href="/ukrasheniya-iz-gornogo-hrustalya.html">Горный хрусталь</a>
+            <a href="/ukrasheniya-iz-lunnogo-kamnya.html">Лунный камень и Перламутр</a>
+            <a href="/ukrasheniya-iz-zhemchuga-mayorka.html">Жемчуг Майорка</a>
+            <a href="/ukrasheniya-iz-tigrovogo-glaza.html">Тигровый глаз и Жадеит</a>
+            <a href="/ukrasheniya-iz-koralla-i-yashmy.html">Коралл и Яшма</a>
+            <a href="/ukrasheniya-iz-lazurita.html">Лазурит и Авантюрин</a>
+            <a href="/tsepi-s-barochnym-zhemchugom.html">Цепи с барочным жемчугом</a>
+            <a href="/koltsa-i-garnitury-iz-kamney.html">Кольца и Гарнитуры</a>
         </div>
-        <button class="burger" id="burger" aria-label="Меню"><span></span></button>
+      </details>
+      <a href="/komplekty-ukrasheniy.html">Комплекты украшений</a>
+      <a href="/delivery.html">Доставка и оплата</a>
+      <div class="drawer-socials">
+        <a class="drawer-soc-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
+        <a class="drawer-soc-link" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <div class="lang">
+        <a href="https://livijewelry.kz/product/prod_22.html" class="active">RU</a>
+        <a href="https://livijewelry.kz/kz/product/prod_22.html" lang="kk">KZ</a>
       </div>
     </div>
-    <div class="drawer" id="drawer" aria-hidden="true">
-      <div class="drawer-panel">
-        <nav class="drawer-nav">
-          <a href="/index.html">Главная</a>
-          <a href="/shop.html">Каталог</a>
-          <a href="/kolye-iz-zhemchuga.html">Колье из жемчуга</a>
-          <a href="/braslety-iz-zhemchuga.html">Браслеты из жемчуга</a>
-          <a href="/sergi-iz-zhemchuga.html">Серьги из жемчуга</a>
-          <a href="/komplekty-ukrasheniy.html">Комплекты украшений</a>
-          <a href="/cart.html" class="cart-link"><span>Корзина</span></a>
-        </nav>
-        <div class="lang">
+  </div>
+
+  <header>
+    <div class="nav">
+      <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
+
+      <a class="brand" href="/index.html" aria-label="Livi Jewelry">
+        <span>LIVI JEWELRY</span>
+      </a>
+
+      <div class="nav-actions">
+        <div class="header-lang-links" aria-label="Выбор языка">
           <a href="https://livijewelry.kz/product/prod_22.html" class="active">RU</a>
           <a href="https://livijewelry.kz/kz/product/prod_22.html" lang="kk">KZ</a>
         </div>
+        <a class="cart-link" href="/cart.html" aria-label="Корзина">
+          <span>Корзина</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
+        </a>
+        <a class="quick-link ig-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A4.5 4.5 0 1 0 16.5 12 4.505 4.505 0 0 0 12 7.5zm6.5-.75a1.25 1.25 0 1 0 1.25 1.25A1.25 1.25 0 0 0 18.5 6.75Zm-6.5 2A3.25 3.25 0 1 1 8.75 12 3.254 3.254 0 0 1 12 8.75Z"/>
+          </svg>
+        </a>
+        <a class="quick-link wa-link" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" fill="currentColor">
+            <path d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+            <path d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+          </svg>
+        </a>
       </div>
-      <div class="drawer-back" role="button" tabindex="0" aria-label="Закрыть меню"></div>
     </div>
   </header>
 
@@ -330,26 +364,7 @@
         <h1 class="product-h1">Колье «Гранж» с натуральным жемчугом</h1>
         <div class="product-price-val">45 000 ₸</div>
 
-        <p class="product-desc-text">Акцентное дизайнерское колье «Гранж» ручной работы с фактурной звеньевой цепью и натуральным барочным жемчугом в современном дерзком стиле. Контраст массивных металлических звеньев и нежного перламутра жемчужин формирует смелый ультрамодный силуэт. Идеально дополнит оверсайз жакеты, кожаные куртки, футболки и минималистичные платья. Стойкое покрытие фурнитуры защищено от истирания. Бесплатная подгонка длины под ваши мерки.</p>
-
-        <div class="product-meta-box">
-          <div class="product-meta-row">
-            <strong>Материалы и камни:</strong>
-            <div class="mat-pills">
-            <a href="/kolye-iz-zhemchuga.html" class="mat-pill mat-pill-link" title="Смотреть все украшения: Натуральный жемчуг">Натуральный жемчуг</a>
-            <span class="mat-pill">Ювелирный сплав</span>
-            </div>
-          </div>
-          <div class="product-meta-row">
-            <strong>Фурнитура и размер:</strong>
-            <span>Фактурная массивная цепь из гипоаллергенного ювелирного сплава со стойким покрытием. 42–48 см (регулируемая удлинительная цепочка, бесплатная подгонка под заказ)</span>
-          </div>
-          <div class="product-meta-row">
-            <strong>Упаковка:</strong>
-            <span>Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry</span>
-          </div>
-        </div>
-
+        
         <div class="product-customizer" aria-label="Параметры индивидуальной сборки">
           <div class="customizer-field">
             <label class="customizer-label" for="customSize">Выберите длину / размер</label>
@@ -365,11 +380,38 @@
 
         <div class="product-cta-group">
           <button type="button" class="btn primary" id="addToCartBtn">В корзину — 45 000 ₸</button>
-          <a class="btn outline" id="waOrderBtn" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20заказать:%20Колье%20«Гранж»%20с%20натуральным%20жемчугом%20(Артикул:%20LIVI-22)%20за%2045%20000%20₸.%0AСсылка:%20https://livijewelry.kz/product/prod_22.html" target="_blank" rel="noopener">Заказать в 1 клик в WhatsApp</a>
+          <a class="btn outline" id="waOrderBtn" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20заказать:%20Колье%20«Гранж»%20с%20натуральным%20жемчугом%20(Артикул:%20LIVI-22)%20за%2045%20000%20₸.%0AСсылка:%20https://livijewelry.kz/product/prod_22.html" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 32 32" aria-hidden="true" fill="currentColor">
+              <path d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+              <path d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+            </svg>
+            <span>Заказать в 1 клик в WhatsApp</span>
+          </a>
         </div>
         <div id="addedToast" class="added-toast" role="status" aria-live="polite" style="display:none;">
           ✓ Украшение добавлено в корзину! <a href="/cart.html" style="text-decoration:underline;font-weight:600;margin-left:6px;">Перейти к оформлению →</a>
         </div>
+
+        <!-- Блок «Об украшении» -->
+        <section class="product-about-block" aria-label="Об украшении">
+          <h2 class="product-about-title">Об украшении</h2>
+          <p class="product-about-text">Акцентное дизайнерское колье «Гранж» ручной работы с фактурной звеньевой цепью и натуральным барочным жемчугом в современном дерзком стиле. Контраст массивных металлических звеньев и нежного перламутра жемчужин формирует смелый ультрамодный силуэт. Идеально дополнит оверсайз жакеты, кожаные куртки, футболки и минималистичные платья. Стойкое покрытие фурнитуры защищено от истирания. Бесплатная подгонка длины под ваши мерки.</p>
+        </section>
+
+        <!-- Структурированный блок «Характеристики и сервис» -->
+        <section class="product-specs-section" aria-label="Характеристики изделия">
+          <h2 class="specs-title">Характеристики и сервис</h2>
+          <dl class="product-specs-grid">
+            <div class="spec-row"><dt>Артикул</dt><dd>LIVI-22</dd></div>
+            <div class="spec-row"><dt>Тип украшения</dt><dd>Дизайнерское колье в стиле гранж</dd></div>
+            <div class="spec-row"><dt>Основные камни и минералы</dt><dd><div class="mat-pills" style="margin-top:2px;"><a href="/kolye-iz-zhemchuga.html" class="mat-pill mat-pill-link" title="Смотреть все украшения: Натуральный жемчуг">Натуральный жемчуг</a>
+            <span class="mat-pill">Ювелирный сплав</span></div></dd></div>
+            <div class="spec-row"><dt>Фурнитура и покрытие</dt><dd>Фактурная массивная цепь из гипоаллергенного ювелирного сплава со стойким покрытием</dd></div>
+            <div class="spec-row"><dt>Размер и посадка</dt><dd>42–48 см (регулируемая удлинительная цепочка, бесплатная подгонка под заказ)</dd></div>
+            <div class="spec-row"><dt>Застежка</dt><dd>Акцентный замок-карабин ювелирного класса</dd></div>
+            <div class="spec-row"><dt>Комплектация и упаковка</dt><dd>Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry</dd></div>
+          </dl>
+        </section>
 
         <ul class="product-trust-list">
           <li><strong>Доставка день-в-день по Астане:</strong> отправка курьером в день заказа при оформлении до 16:00.</li>
@@ -377,61 +419,6 @@
           <li><strong>Международная доставка:</strong> бережная отправка по всему миру с трек-номером.</li>
           <li><strong>Гарантия и возврат:</strong> обмен или возврат в течение 14 дней согласно законодательству РК.</li>
         </ul>
-
-        <!-- Таблица характеристик изделия -->
-        <section class="product-specs-section" aria-label="Характеристики изделия">
-          <h2 class="specs-title">Характеристики изделия</h2>
-          <dl class="product-specs-grid">
-            <div class="spec-row"><dt>Артикул</dt><dd>LIVI-22</dd></div>
-            <div class="spec-row"><dt>Тип украшения</dt><dd>Дизайнерское колье в стиле гранж</dd></div>
-            <div class="spec-row"><dt>Основные камни и минералы</dt><dd>Крупный натуральный культивированный барочный жемчуг с радужным отливом</dd></div>
-            <div class="spec-row"><dt>Фурнитура и покрытие</dt><dd>Фактурная массивная цепь из гипоаллергенного ювелирного сплава со стойким покрытием</dd></div>
-            <div class="spec-row"><dt>Длина / размер</dt><dd>42–48 см (регулируемая удлинительная цепочка, бесплатная подгонка под заказ)</dd></div>
-            <div class="spec-row"><dt>Застежка</dt><dd>Акцентный замок-карабин ювелирного класса</dd></div>
-            <div class="spec-row"><dt>Комплектация и упаковка</dt><dd>Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry</dd></div>
-          </dl>
-        </section>
-
-        <!-- Индивидуальный блок FAQ -->
-        <section class="product-faq-section" aria-label="Часто задаваемые вопросы о товаре">
-          <h2 class="faq-title">Часто задаваемые вопросы</h2>
-          <details class="product-faq-item">
-            <summary>Натуральные ли камни используются в модели «Колье «Гранж» с натуральным жемчугом»?</summary>
-            <p>Да, в модели «Колье «Гранж» с натуральным жемчугом» используются исключительно натуральные камни и минералы: Натуральный жемчуг, Ювелирный сплав. Каждый камень проходит ручную селекцию мастера Livi Jewelry по плотности, естественной фактуре и природному блеску.</p>
-          </details>
-          <details class="product-faq-item">
-            <summary>Можно ли изменить длину или размер модели «Колье «Гранж» с натуральным жемчугом»?</summary>
-            <p>Да, мастер ателье Livi Jewelry бесплатно адаптирует длину и посадку модели «Колье «Гранж» с натуральным жемчугом» (42–48 см (регулируемая удлинительная цепочка, бесплатная подгонка под заказ)) под ваши индивидуальные мерки перед отправкой заказа.</p>
-          </details>
-          <details class="product-faq-item">
-            <summary>Как быстро доставляется «Колье «Гранж» с натуральным жемчугом» в Астану, Алматы и по Казахстану?</summary>
-            <p>По Астане доставка «Колье «Гранж» с натуральным жемчугом» осуществляется курьером день в день при заказе до 16:00. В Алматы, Шымкент, Караганду и все города Казахстана отправляем экспресс-службой СДЭК за 1–3 рабочих дня с трек-номером. Оплата возможна картой и Kaspi Pay.</p>
-          </details>
-        </section>
-
-        <!-- Визуальный блок отзывов -->
-        <section class="product-reviews-block" aria-label="Отзывы покупателей">
-          <div class="reviews-header">
-            <h2 class="reviews-title">Отзывы покупателей (5.0 ★)</h2>
-            <span class="reviews-rating-badge">5.0 ★ · 20 оценок</span>
-          </div>
-          <div class="reviews-grid">
-          <div class="review-card">
-            <div class="review-card-top">
-              <span class="review-author">Алия М., Караганда</span>
-              <span class="review-stars" aria-label="Оценка 5 из 5">★★★★★ 5.0</span>
-            </div>
-            <p class="review-body">Очень тонкая, аккуратная ручная сборка. Камни приятно тяжелые и прохладные на ощупь. Отдельное спасибо за фирменный бархатный мешочек и подарочную упаковку без доплат. Модель «Колье «Гранж» с натуральным жемчугом» превзошла все ожидания.</p>
-          </div>
-          <div class="review-card">
-            <div class="review-card-top">
-              <span class="review-author">Айгерим К., Астана</span>
-              <span class="review-stars" aria-label="Оценка 5 из 5">★★★★★ 5.0</span>
-            </div>
-            <p class="review-body">Невероятно нежное украшение! Камни натуральные, с благородным живым блеском, замочек очень удобный и надежный. Доставили курьером по Астане в день заказа в красивой подарочной коробочке.</p>
-          </div>
-          </div>
-        </section>
       </div>
     </div>
 
@@ -478,9 +465,10 @@
     </section>
 
     <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
-      <h2>Подборки по камням и стилям</h2>
-      <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
-      <div class="stone-chips">
+      <details class="hub-interlink-accordion" open>
+        <summary>Подборки по камням и стилям</summary>
+        <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
+        <div class="hub-interlink-chips">
         <a href="/kolye-iz-zhemchuga.html" class="stone-chip">Колье из жемчуга</a>
         <a href="/braslety-iz-zhemchuga.html" class="stone-chip">Браслеты из жемчуга</a>
         <a href="/sergi-iz-zhemchuga.html" class="stone-chip">Серьги из жемчуга</a>
@@ -502,7 +490,8 @@
         <a href="/ukrasheniya-iz-lazurita.html" class="stone-chip">Лазурит и Авантюрин</a>
         <a href="/tsepi-s-barochnym-zhemchugom.html" class="stone-chip">Цепи с барочным жемчугом</a>
         <a href="/koltsa-i-garnitury-iz-kamney.html" class="stone-chip">Кольца и Гарнитуры</a>
-      </div>
+        </div>
+      </details>
     </section>
   </main>
 
@@ -522,6 +511,15 @@
       </div>
     </div>
   </footer>
+
+  <!-- Floating WhatsApp Widget -->
+  <a class="floating-wa" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20получить%20консультацию%20по%20украшениям%20Livi%20Jewelry." target="_blank" rel="noopener" aria-label="Консультация мастера в WhatsApp">
+    <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+      <path fill="currentColor" d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+      <path fill="currentColor" d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+    </svg>
+    <span class="floating-wa-text">Консультация мастера</span>
+  </a>
 
   <script>
     const PRODUCT = {"id": "prod_22", "sku": "LIVI-22", "title": "Колье «Гранж» с натуральным жемчугом", "price": 45000, "category": "Necklaces", "image": "/assets/kole-granzh-45000.webp", "url": "https://livijewelry.kz/product/prod_22.html", "bundle_options": []};
@@ -590,9 +588,9 @@
     const drawer = document.getElementById('drawer');
     const burger = document.getElementById('burger');
     if (burger && drawer) {
-      burger.onclick = () => { drawer.classList.add('open'); drawer.setAttribute('aria-hidden', 'false'); };
+      burger.onclick = () => { drawer.classList.add('open'); drawer.setAttribute('aria-hidden', 'false'); document.body.classList.add('drawer-open'); };
       const back = drawer.querySelector('.drawer-back');
-      if (back) back.onclick = () => { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); };
+      if (back) back.onclick = () => { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); document.body.classList.remove('drawer-open'); };
     }
 
     function readCart() {
