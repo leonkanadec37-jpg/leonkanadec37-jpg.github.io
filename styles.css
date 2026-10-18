@@ -1095,18 +1095,22 @@ h1 {
   margin-bottom: 20px;
 }
 .del-tab {
-  padding: 13px 12px;
+  padding: 14px 16px;
   border: 1px solid var(--line);
   background: transparent;
   text-align: center;
   cursor: pointer;
   font-size: 13px;
+  font-weight: 400;
   letter-spacing: 0.04em;
   transition: var(--transition);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  color: var(--fg);
+}
+.del-tab:hover {
+  border-color: var(--fg);
 }
 .del-tab.active {
   background: var(--fg);
@@ -1117,21 +1121,37 @@ h1 {
 /* Payment Notice (Kaspi) */
 .payment-notice {
   display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  background: #F4F1EA;
-  border: 1px solid #E4DFD5;
-  padding: 18px 20px;
+  background: #FAF8F5;
+  border: 1px solid #ECE7DE;
+  border-left: 2px solid var(--gold);
+  padding: 18px 22px;
   margin: 24px 0;
 }
-.payment-notice .icon { font-size: 22px; line-height: 1; }
-.payment-notice .content { font-size: 13px; line-height: 1.6; }
+.payment-notice .content {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--fg-soft);
+  width: 100%;
+}
 .payment-notice strong {
   display: block;
-  font-size: 13px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  color: var(--fg);
+  font-weight: 500;
+}
+.payment-notice .pay-sum {
+  white-space: nowrap;
+}
+.payment-notice .pay-sum strong {
+  display: inline;
+  font-size: 14px;
+  color: var(--fg);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 /* Checkout Submit Button */

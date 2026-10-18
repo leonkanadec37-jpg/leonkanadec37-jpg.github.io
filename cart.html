@@ -204,7 +204,7 @@
         const src = attr.utm_source || (attr.gclid ? 'Google Ads' : (attr.fbclid ? 'Meta Ads' : 'Direct/Organic'));
         const term = attr.utm_term || attr.utm_campaign || '—';
         const code = attr.gclid ? attr.gclid.substring(0, 12) : (txId || ('LIVI-' + String(Date.now()).slice(-4)));
-        return `\n📊 Источник: ${src} | Запрос: ${term} | Код: ${code}`;
+        return `\n• Источник: ${src} | Запрос: ${term} | Код: ${code}`;
       } catch(e){
         return '';
       }
@@ -232,8 +232,8 @@
         'checkout.label_phone': 'Номер телефона (для Kaspi) *',
         'checkout.hint_phone': 'На этот номер в приложении Kaspi.kz поступит счёт от ИП Livi Jewelry',
         'checkout.label_city': 'Город доставки *',
-        'checkout.del_pvz': '📦 До пункта выдачи (ПВЗ)',
-        'checkout.del_door': '🚪 Курьером до двери',
+        'checkout.del_pvz': 'Пункт выдачи СДЭК',
+        'checkout.del_door': 'Курьером до двери',
         'checkout.label_addr_pvz': 'Адрес отделения СДЭК *',
         'checkout.placeholder_addr_pvz': 'Например: ул. Достык, 12 или номер ПВЗ',
         'checkout.hint_addr_pvz': 'Укажите удобный ПВЗ или ближайший ориентир, мы поможем выбрать',
@@ -254,7 +254,7 @@
         'modal.step3_h': 'Отправка через СДЭК',
         'modal.step3_t': 'После оплаты мы бережно упакуем украшение, передадим в СДЭК и пришлём трек-номер прямо в этот диалог WhatsApp.',
         'modal.close_btn': 'Вернуться в каталог',
-        'modal.wa_btn': '👉 Перейти в WhatsApp и отправить заказ'
+        'modal.wa_btn': 'Перейти в WhatsApp и отправить заказ'
       },
       kk: {
         'meta.title': 'Livi Jewelry — Себет',
@@ -273,8 +273,8 @@
         'checkout.label_phone': 'Телефон нөмірі (Kaspi үшін) *',
         'checkout.hint_phone': 'Осы нөмірге Kaspi.kz қосымшасында шот жіберіледі',
         'checkout.label_city': 'Жеткізу қаласы *',
-        'checkout.del_pvz': '📦 Бөлімшеге дейін (ПВЗ)',
-        'checkout.del_door': '🚪 Есікке дейін курьермен',
+        'checkout.del_pvz': 'СДЭК беру пункті (ПВЗ)',
+        'checkout.del_door': 'Есікке дейін курьермен',
         'checkout.label_addr_pvz': 'CDEK бөлімшесінің мекенжайы *',
         'checkout.placeholder_addr_pvz': 'Мысалы: Достық к-сі, 12 немесе ПВЗ нөмірі',
         'checkout.hint_addr_pvz': 'Ыңғайлы бөлімше мекенжайын көрсетіңіз',
@@ -295,7 +295,7 @@
         'modal.step3_h': 'CDEK арқылы жеткізу',
         'modal.step3_t': 'Төлемнен кейін әшекей CDEK-ке тапсырылып, трек-код осы чатқа жіберіледі.',
         'modal.close_btn': 'Дүкенге оралу',
-        'modal.wa_btn': '👉 WhatsApp-ты ашып, тапсырысты жіберу'
+        'modal.wa_btn': 'WhatsApp-ты ашып, тапсырысты жіберу'
       },
       en: {
         'meta.title': 'Livi Jewelry — Cart',
@@ -314,8 +314,8 @@
         'checkout.label_phone': 'Phone number (for Kaspi) *',
         'checkout.hint_phone': 'Remote invoice will be issued to this number in Kaspi.kz app',
         'checkout.label_city': 'Delivery city *',
-        'checkout.del_pvz': '📦 Pickup Point (PVZ)',
-        'checkout.del_door': '🚪 Courier to Door',
+        'checkout.del_pvz': 'CDEK Pickup Point (PVZ)',
+        'checkout.del_door': 'Courier to Door',
         'checkout.label_addr_pvz': 'CDEK Pickup point address *',
         'checkout.placeholder_addr_pvz': 'E.g., Dostyk ave. 12 or PVZ code',
         'checkout.hint_addr_pvz': 'Specify convenient pickup point address',
@@ -336,7 +336,7 @@
         'modal.step3_h': 'CDEK Delivery',
         'modal.step3_t': 'Once paid, we will pack your jewelry, dispatch via CDEK, and send the tracking number to this chat.',
         'modal.close_btn': 'Back to catalog',
-        'modal.wa_btn': '👉 Open WhatsApp and Send Order'
+        'modal.wa_btn': 'Open WhatsApp and Send Order'
       }
     };
 
@@ -597,10 +597,10 @@
 
           <div class="del-tabs">
             <div class="del-tab active" id="tabPvz" data-type="pvz">
-              <span>📦</span> <span data-i18n="checkout.del_pvz">${tr('checkout.del_pvz')}</span>
+              <span data-i18n="checkout.del_pvz">${tr('checkout.del_pvz')}</span>
             </div>
             <div class="del-tab" id="tabDoor" data-type="door">
-              <span>🚪</span> <span data-i18n="checkout.del_door">${tr('checkout.del_door')}</span>
+              <span data-i18n="checkout.del_door">${tr('checkout.del_door')}</span>
             </div>
           </div>
 
@@ -616,12 +616,11 @@
           </div>
 
           <div class="payment-notice">
-            <div class="icon">💳</div>
             <div class="content">
               <strong data-i18n="checkout.pay_badge_title">${tr('checkout.pay_badge_title')}</strong>
               <div>
                 <span data-i18n="checkout.pay_badge_desc">${tr('checkout.pay_badge_desc')}</span>
-                <strong>${total.toLocaleString('ru-RU')} тг</strong>.
+                <span class="pay-sum"><strong>${total.toLocaleString('ru-RU')}&nbsp;₸</strong></span>
               </div>
             </div>
           </div>
@@ -710,10 +709,10 @@
           const cText = formatItemCustomText(i);
           return `• ${i.title} — ${pDisp} × ${i.qty}${cText ? ' (' + cText + ')' : ''}`;
         }).join('\n');
-        text += `\n\n💰 Итого: ${total.toLocaleString('ru-RU')} тг`;
+        text += `\n\nИтого к оплате: ${total.toLocaleString('ru-RU')} ₸`;
 
         if(name || phone || city || addr){
-          text += `\n\n🚚 Данные доставки СДЭК:\n`;
+          text += `\n\nДанные доставки СДЭК:\n`;
           if(name) text += `• Получатель: ${name}\n`;
           if(phone) text += `• Телефон Kaspi: ${phone}\n`;
           if(city) text += `• Город: ${city}\n`;
@@ -924,24 +923,24 @@
                       lang()==='kk' ? 'Сәлем! Livi Jewelry-ге тапсырыс бергім келеді:\n\n' :
                       'Здравствуйте! Хочу оформить заказ в Livi Jewelry:\n\n');
 
-        waText += `🛍 *Заказ № ${orderId}*\n`;
+        waText += `*Заказ № ${orderId}*\n`;
         waText += `━━━━━━━━━━━━━━━━━━━━━\n`;
-        waText += `💎 *Состав заказа:*\n`;
+        waText += `*Состав заказа:*\n`;
         waText += cart.map(i => {
           const pDisp = i.price || `${unitPrice(i).toLocaleString('ru-RU')} ₸`;
           const cText = formatItemCustomText(i);
           return `• ${i.title} — ${pDisp} × ${i.qty}${cText ? '\n  Параметры: ' + cText : ''}`;
         }).join('\n');
-        waText += `\n\n💰 *Итого к оплате:* *${total.toLocaleString('ru-RU')} тг*\n`;
+        waText += `\n\n*Итого к оплате:* *${total.toLocaleString('ru-RU')} ₸*\n`;
         waText += `━━━━━━━━━━━━━━━━━━━━━\n`;
-        waText += `🚚 *Данные доставки СДЭК:*\n`;
+        waText += `*Данные доставки СДЭК:*\n`;
         waText += `• Получатель: ${name}\n`;
         waText += `• Телефон Kaspi: ${phone}\n`;
         waText += `• Город: ${city}\n`;
         waText += `• Способ доставки: ${currentDeliveryType === 'pvz' ? 'Пункт выдачи (ПВЗ СДЭК)' : 'Курьером до двери'}\n`;
         waText += `• Адрес: ${address}\n`;
         if (comment) waText += `• Комментарий: ${comment}\n`;
-        waText += `\n💳 *Оплата:* Удаленный счёт Kaspi Pay («ИП Livi Jewelry»)`;
+        waText += `\n*Оплата:* Удаленный счёт Kaspi Pay («ИП Livi Jewelry»)`;
         waText += getAttributionSummary(orderId);
 
         const waUrl = `https://wa.me/${WA_PHONE}?text=` + encodeURIComponent(waText);
