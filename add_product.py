@@ -198,7 +198,7 @@ def main():
 
     if args.commit or args.push:
         try:
-            subprocess.run(["git", "add", "products.json", "shop.html", dst_img_path, "product/", "google_merchant_feed.xml", "sitemap.xml"], check=True)
+            subprocess.run(["git", "add", "-A", products_file, "shop.html", "index.html", "feed.xml", "google_merchant_feed.xml", "sitemap.xml", "assets/", "product/", "kolye-iz-zhemchuga.html", "braslety-iz-zhemchuga.html", "sergi-iz-zhemchuga.html"], check=True)
             commit_msg = f"Добавлен товар: {args.title} ({args.price} тг)"
             subprocess.run(["git", "commit", "-m", commit_msg], check=True)
             print(f"[OK] Git commit создан: \"{commit_msg}\"")
