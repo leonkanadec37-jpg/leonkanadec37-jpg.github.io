@@ -103,7 +103,7 @@ ALL_21_HUBS = [
     ("/ukrasheniya-iz-koralla-i-yashmy.html", "Коралл и Яшма"),
     ("/ukrasheniya-iz-lazurita.html", "Лазурит и Авантюрин"),
     ("/tsepi-s-barochnym-zhemchugom.html", "Цепи с барочным жемчугом"),
-    ("/koltsa-i-garnitury-iz-kamney.html", "Кольца и Гарнитуры"),
+    ("/koltsa-i-garnitury-iz-kamney.html", "Кольца и сеты"),
 ]
 
 REVIEWS_POOL = [

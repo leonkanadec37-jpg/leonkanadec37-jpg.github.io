@@ -168,7 +168,7 @@ def parse_item_info(raw_title):
         elem_names_lower = [e[0].lower() for e in elements]
         if 'булавка' in elem_names_lower[0]:
             parts = [e[0].lower() for e in elements]
-            title = f"Гарнитур: {', '.join(parts)}" + note
+            title = f"Комплект: {', '.join(parts)}" + note
         elif any('клубничк' in n for n in elem_names_lower):
             title = "Сет колье: «Клубнички» и розовый кварц с жемчугом" + note
         elif any('колье' in n for n in elem_names_lower):
@@ -249,7 +249,7 @@ def generate_default_keywords(title, category, materials=None):
         kws.append(f"украшения из {st_name} купить Казахстан")
     if category == 'Sets':
         kws.append("ювелирный комплект с натуральными камнями купить")
-        kws.append("авторский гарнитур ручной работы Астана")
+        kws.append("авторский комплект украшений ручной работы Астана")
     elif category == 'Bracelets':
         kws.append("браслет из натуральных камней купить Алматы")
     elif category == 'Chains':
@@ -266,7 +266,7 @@ def generate_default_specs(title, category, materials=None):
     mats_str = ", ".join(mats)
     
     if category == 'Sets':
-        type_ru = "Ювелирный гарнитур ручной работы"
+        type_ru = "Комплект украшений ручной работы"
         length_size = "Индивидуальный подбор размеров (бесплатная подгонка длины под заказ)"
         clasp = "Надежные ювелирные карабины и гипоаллергенные замки"
     elif category == 'Bracelets':
@@ -310,14 +310,14 @@ def generate_rich_description(title, category, price, elements=None, base_desc="
         desc = (
             f"В комплекте: {items_str}. Полная стоимость комплекта — {format_num(total_p)} тг{note}. "
             f"Каждое изделие можно приобрести по отдельности или полным сетом. "
-            f"Изысканный авторский гарнитур ручной работы из отборных натуральных камней. "
+            f"Изысканный авторский комплект ручной работы из отборных натуральных камней. "
             f"Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. "
             f"Бесплатная индивидуальная подгонка длины мастером. Фирменная подарочная упаковка Livi Jewelry."
         )
     elif is_set:
         clean_title = re.sub(r'\(под заказ\)', '', title, flags=re.I).strip()
         desc = (
-            f"Эксклюзивный авторский гарнитур: {clean_title}. Полная стоимость — {format_num(price)} тг{note}. "
+            f"Эксклюзивный авторский сет: {clean_title}. Полная стоимость — {format_num(price)} тг{note}. "
             f"Каждое изделие сета можно приобрести по отдельности или полным комплектом. "
             f"Украшения выполнены из отборных натуральных минералов и жемчуга с выразительным природным блеском. "
             f"Гипоаллергенная фурнитура со стойким родированием или позолотой не вызывает раздражения. "

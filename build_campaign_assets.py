@@ -104,22 +104,22 @@ ad_groups_data = [
             ("комплект украшений из жемчуга", "Exact", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
             ("набор украшений ручной работы", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
             ("набор украшений ручной работы", "Exact", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
-            ("ювелирный гарнитур алматы", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
-            ("ювелирный гарнитур алматы", "Exact", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
-            ("гарнитур из натуральных камней", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
-            ("гарнитур из натуральных камней", "Exact", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("ювелирный комплект алматы", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("ювелирный комплект алматы", "Exact", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("комплект из натуральных камней", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("комплект из натуральных камней", "Exact", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
             ("комплект колье и серьги из жемчуга", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
             ("набор украшений с натуральными камнями", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
             ("комплект украшений алматы купить", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
             ("комплект украшений алматы купить", "Exact", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
-            ("гарнитур из жемчуга астана", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("комплект из жемчуга астана", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
             ("сет украшений ручной работы", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
             ("комплект колье и браслет", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
             ("комплект из коралла и яшмы", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
             ("комплект из бирюзы купить", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html")
         ],
         "headlines": [
-            "Комплекты украшений", "Сеты из жемчуга и камней", "Ювелирные гарнитуры",
+            "Комплекты украшений", "Сеты из жемчуга и камней", "Ювелирные комплекты",
             "Livi Jewelry — Сеты", "Колье + Серьги + Браслет", "100% натуральные камни",
             "Доставка СДЭК по РК", "Подарочная упаковка 0 ₸", "Счёт в Kaspi Pay",
             "В наличии в Астане", "Подбор сета под образ", "Примерка в WhatsApp",
@@ -127,7 +127,7 @@ ad_groups_data = [
         ],
         "descriptions": [
             "Авторские комплекты из жемчуга и минералов. Скидка на полный сет. Доставка СДЭК.",
-            "Роскошные ювелирные гарнитуры ручной работы. Подарочная упаковка включена в заказ.",
+            "Роскошные ювелирные комплекты ручной работы. Подарочная упаковка включена в заказ.",
             "Экспресс-доставка СДЭК по Астане и всему Казахстану. Удобная оплата через Kaspi Pay.",
             "Консультация мастера и видео посадки комплекта в WhatsApp. Подбор размера под вас."
         ]
@@ -298,7 +298,7 @@ ad_groups_data = [
             ("колье из аметиста купить", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-ametista.html"),
             ("колье из аметиста купить", "Exact", "https://livijewelry.kz/ukrasheniya-iz-ametista.html"),
             ("браслет из аметиста астана", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-ametista.html"),
-            ("гарнитур из аметиста", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-ametista.html"),
+            ("комплект из аметиста", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-ametista.html"),
             ("бусы из натурального аметиста", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-ametista.html"),
             ("серьги с аметистом ручной работы", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-ametista.html"),
             ("колье из аметиста и розового кварца", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-ametista.html")
@@ -663,7 +663,7 @@ ad_groups_data = [
             ("браслет из яшмы алматы", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-koralla-i-yashmy.html"),
             ("украшения из красного коралла", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-koralla-i-yashmy.html"),
             ("колье из яшмы астана", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-koralla-i-yashmy.html"),
-            ("гарнитур из коралла казахстан", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-koralla-i-yashmy.html"),
+            ("комплект из коралла казахстан", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-koralla-i-yashmy.html"),
             ("сет из коралла и жемчуга", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-koralla-i-yashmy.html")
         ],
         "headlines": [
@@ -741,33 +741,33 @@ ad_groups_data = [
         ]
     },
 
-    # 22. Кольца и гарнитуры из камней -> https://livijewelry.kz/koltsa-i-garnitury-iz-kamney.html
+    # 22. Кольца и комплекты из камней -> https://livijewelry.kz/koltsa-i-garnitury-iz-kamney.html
     {
-        "name": "Кольца и гарнитуры из камней",
+        "name": "Кольца и комплекты из камней",
         "url": "https://livijewelry.kz/koltsa-i-garnitury-iz-kamney.html",
         "keywords": [
             ("кольца с натуральными камнями", "Phrase", "https://livijewelry.kz/koltsa-i-garnitury-iz-kamney.html"),
             ("кольца с натуральными камнями", "Exact", "https://livijewelry.kz/koltsa-i-garnitury-iz-kamney.html"),
             ("кольцо с жемчугом купить алматы", "Phrase", "https://livijewelry.kz/koltsa-i-garnitury-iz-kamney.html"),
             ("кольцо с жемчугом купить алматы", "Exact", "https://livijewelry.kz/koltsa-i-garnitury-iz-kamney.html"),
-            ("гарнитур кольцо и серьги жемчуг", "Phrase", "https://livijewelry.kz/koltsa-i-garnitury-iz-kamney.html"),
+            ("комплект кольцо и серьги жемчуг", "Phrase", "https://livijewelry.kz/koltsa-i-garnitury-iz-kamney.html"),
             ("авторские кольца из камней астана", "Phrase", "https://livijewelry.kz/koltsa-i-garnitury-iz-kamney.html"),
             ("кольцо с барочным жемчугом казахстан", "Phrase", "https://livijewelry.kz/koltsa-i-garnitury-iz-kamney.html"),
-            ("ювелирный гарнитур с кольцом", "Phrase", "https://livijewelry.kz/koltsa-i-garnitury-iz-kamney.html"),
+            ("ювелирный комплект с кольцом", "Phrase", "https://livijewelry.kz/koltsa-i-garnitury-iz-kamney.html"),
             ("широкое кольцо с натуральным камнем", "Phrase", "https://livijewelry.kz/koltsa-i-garnitury-iz-kamney.html")
         ],
         "headlines": [
-            "Кольца с натуральными камнями", "Кольцо с жемчугом Алматы", "Гарнитуры кольцо + серьги",
+            "Кольца с натуральными камнями", "Кольцо с жемчугом Алматы", "Комплекты кольцо + серьги",
             "Livi Jewelry — Кольца", "Барочный жемчуг и камни", "Регулируемый размер кольца",
             "Доставка СДЭК по РК", "Подарочный футляр 0 ₸", "Счёт в Kaspi Pay",
-            "Полный гарнитур со скидкой", "В наличии в Астане", "Видео колец в WhatsApp",
+            "Полный комплект со скидкой", "В наличии в Астане", "Видео колец в WhatsApp",
             "Удобная посадка на палец", "Бутик колец Livi", "Каталог колец 2026"
         ],
         "descriptions": [
-            "Авторские кольца и полные гарнитуры с барочным жемчугом и натуральными самоцветами.",
+            "Авторские кольца и полные комплекты с барочным жемчугом и натуральными самоцветами.",
             "Удобные безразмерные основы или точная подгонка. Стойкое родирование и позолота.",
             "Быстрая доставка СДЭК до двери по Казахстану. Фирменная подарочная упаковка к заказу.",
-            "Свяжитесь с нами в WhatsApp: пришлем видео примерки кольца и гарнитура на руке."
+            "Свяжитесь с нами в WhatsApp: пришлем видео примерки кольца и комплекта на руке."
         ]
     }
 ]
@@ -792,8 +792,8 @@ def map_product_to_ad_group(p):
     if "цеп" in full_text and ("бароч" in full_text or "жемчуг" in full_text):
         return "Цепи с барочным жемчугом"
     if category == "Rings" or "кольц" in full_text:
-        return "Кольца и гарнитуры из камней"
-    if category == "Sets" or "комплект" in full_text or "гарнитур" in full_text:
+        return "Кольца и комплекты из камней"
+    if category == "Sets" or "комплект" in full_text or "комплект" in full_text:
         return "Комплекты украшений"
     if "чокер" in full_text:
         return "Чокеры из камней"
