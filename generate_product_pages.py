@@ -787,26 +787,34 @@ def build_product_page_html(product: dict, all_products: list) -> str:
           <p class="product-about-text">{html.escape(about_text)}</p>
         </section>
 
-        <!-- Структурированный блок «Характеристики и сервис» -->
-        <section class="product-specs-section" aria-label="Характеристики изделия">
-          <h2 class="specs-title">Характеристики и сервис</h2>
-          <dl class="product-specs-grid">
-            <div class="spec-row"><dt>Артикул</dt><dd>{livi_sku}</dd></div>
-            <div class="spec-row"><dt>Тип украшения</dt><dd>{html.escape(specs.get('type_ru', cat_ru))}</dd></div>
-            <div class="spec-row"><dt>Основные камни и минералы</dt><dd><div class="mat-pills" style="margin-top:2px;">{material_pills}</div></dd></div>
-            <div class="spec-row"><dt>Фурнитура и покрытие</dt><dd>{html.escape(specs.get('hardware', 'Гипоаллергенный ювелирный сплав (родий / позолота)'))}</dd></div>
-            <div class="spec-row"><dt>Размер и посадка</dt><dd>{html.escape(specs.get('length_size', '38–45 см (бесплатная подгонка длины под ваши мерки)'))}</dd></div>
-            <div class="spec-row"><dt>Застежка</dt><dd>{html.escape(specs.get('clasp', 'Ювелирный карабин с удлинителем'))}</dd></div>
-            <div class="spec-row"><dt>Комплектация и упаковка</dt><dd>{html.escape(specs.get('packaging', 'Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry'))}</dd></div>
-          </dl>
-        </section>
+        <div class="product-accordions-group">
+          <details class="product-accordion">
+            <summary>Характеристики и материалы</summary>
+            <div class="product-accordion-content">
+              <dl class="product-specs-grid">
+                <div class="spec-row"><dt>Артикул</dt><dd>{livi_sku}</dd></div>
+                <div class="spec-row"><dt>Тип украшения</dt><dd>{html.escape(specs.get('type_ru', cat_ru))}</dd></div>
+                <div class="spec-row"><dt>Основные камни и минералы</dt><dd><div class="mat-pills" style="margin-top:2px;">{material_pills}</div></dd></div>
+                <div class="spec-row"><dt>Фурнитура и покрытие</dt><dd>{html.escape(specs.get('hardware', 'Гипоаллергенный ювелирный сплав (родий / позолота)'))}</dd></div>
+                <div class="spec-row"><dt>Размер и посадка</dt><dd>{html.escape(specs.get('length_size', '38–45 см (бесплатная подгонка длины под ваши мерки)'))}</dd></div>
+                <div class="spec-row"><dt>Застежка</dt><dd>{html.escape(specs.get('clasp', 'Ювелирный карабин с удлинителем'))}</dd></div>
+                <div class="spec-row"><dt>Комплектация и упаковка</dt><dd>{html.escape(specs.get('packaging', 'Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry'))}</dd></div>
+              </dl>
+            </div>
+          </details>
 
-        <ul class="product-trust-list">
-          <li><strong>Доставка день-в-день по Астане:</strong> отправка курьером в день заказа при оформлении до 16:00.</li>
-          <li><strong>Доставка по всему Казахстану:</strong> Алматы, Шымкент, Караганда и все города РК экспресс-службой СДЭК (1–3 рабочих дня).</li>
-          <li><strong>Международная доставка:</strong> бережная отправка по всему миру с трек-номером.</li>
-          <li><strong>Гарантия и возврат:</strong> обмен или возврат в течение 14 дней согласно законодательству РК.</li>
-        </ul>
+          <details class="product-accordion">
+            <summary>Доставка и гарантия</summary>
+            <div class="product-accordion-content">
+              <ul class="product-trust-list">
+                <li><strong>Доставка день-в-день по Астане:</strong> отправка курьером в день заказа при оформлении до 16:00.</li>
+                <li><strong>Доставка по всему Казахстану:</strong> Алматы, Шымкент, Караганда и все города РК экспресс-службой СДЭК (1–3 рабочих дня).</li>
+                <li><strong>Международная доставка:</strong> бережная отправка по всему миру с трек-номером.</li>
+                <li><strong>Гарантия и возврат:</strong> обмен или возврат в течение 14 дней согласно законодательству РК.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
       </div>
     </div>
 

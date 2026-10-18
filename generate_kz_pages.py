@@ -1773,26 +1773,34 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
           <p class="product-about-text">{html.escape(about_text_kz)}</p>
         </section>
 
-        <!-- Таблица характеристик изделия -->
-        <section class="product-specs-section" aria-label="Бұйым сипаттамалары">
-          <h2 class="specs-title">Бұйым сипаттамалары және сервис</h2>
-          <dl class="product-specs-grid">
-            <div class="spec-row"><dt>Артикул</dt><dd>{livi_sku}</dd></div>
-            <div class="spec-row"><dt>Бұйым түрі</dt><dd>{html.escape(type_kz)}</dd></div>
-            <div class="spec-row"><dt>Негізгі тастар мен минералдар</dt><dd><div class="mat-pills" style="margin-top:2px;">{material_pills}</div></dd></div>
-            <div class="spec-row"><dt>Фурнитура және жабыны</dt><dd>{html.escape(hardware_kz)}</dd></div>
-            <div class="spec-row"><dt>Ұзындығы / өлшемі</dt><dd>{html.escape(length_kz)}</dd></div>
-            <div class="spec-row"><dt>Құлып түрі</dt><dd>{html.escape(clasp_kz)}</dd></div>
-            <div class="spec-row"><dt>Жинақталуы және қаптамасы</dt><dd>{html.escape(packaging_kz)}</dd></div>
-          </dl>
-        </section>
+        <div class="product-accordions-group">
+          <details class="product-accordion">
+            <summary>Сипаттамалары мен материалдары</summary>
+            <div class="product-accordion-content">
+              <dl class="product-specs-grid">
+                <div class="spec-row"><dt>Артикул</dt><dd>{livi_sku}</dd></div>
+                <div class="spec-row"><dt>Бұйым түрі</dt><dd>{html.escape(type_kz)}</dd></div>
+                <div class="spec-row"><dt>Негізгі тастар мен минералдар</dt><dd><div class="mat-pills" style="margin-top:2px;">{material_pills}</div></dd></div>
+                <div class="spec-row"><dt>Фурнитура және жабыны</dt><dd>{html.escape(hardware_kz)}</dd></div>
+                <div class="spec-row"><dt>Ұзындығы / өлшемі</dt><dd>{html.escape(length_kz)}</dd></div>
+                <div class="spec-row"><dt>Құлып түрі</dt><dd>{html.escape(clasp_kz)}</dd></div>
+                <div class="spec-row"><dt>Жинақталуы және қаптамасы</dt><dd>{html.escape(packaging_kz)}</dd></div>
+              </dl>
+            </div>
+          </details>
 
-        <ul class="product-trust-list">
-          <li><strong>Астана бойынша сол күні жедел жеткізу:</strong> сағат 16:00-ге дейін рәсімделген тапсырыстарды сол күні курьермен жібереміз.</li>
-          <li><strong>Қазақстанның барлық өңірлеріне жеткізу:</strong> Алматы, Шымкент, Қарағанды және барлық қалаларға СДЭК экспресс-қызметімен (1–3 жұмыс күні).</li>
-          <li><strong>Халықаралық жеткізу:</strong> бүкіл әлем бойынша трек-нөмірімен ұқыпты жөнелту.</li>
-          <li><strong>Кепілдік және қайтару:</strong> ҚР заңнамасына сәйкес 14 күн ішінде айырбастау немесе қайтару.</li>
-        </ul>
+          <details class="product-accordion">
+            <summary>Жеткізу және кепілдік</summary>
+            <div class="product-accordion-content">
+              <ul class="product-trust-list">
+                <li><strong>Астана бойынша сол күні жедел жеткізу:</strong> сағат 16:00-ге дейін рәсімделген тапсырыстарды сол күні курьермен жібереміз.</li>
+                <li><strong>Қазақстанның барлық өңірлеріне жеткізу:</strong> Алматы, Шымкент, Қарағанды және барлық қалаларға СДЭК экспресс-қызметімен (1–3 жұмыс күні).</li>
+                <li><strong>Халықаралық жеткізу:</strong> бүкіл әлем бойынша трек-нөмірімен ұқыпты жөнелту.</li>
+                <li><strong>Кепілдік және қайтару:</strong> ҚР заңнамасына сәйкес 14 күн ішінде айырбастау немесе қайтару.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
       </div>
     </div>
 
