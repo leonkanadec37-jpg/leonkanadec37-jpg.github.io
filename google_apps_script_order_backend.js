@@ -74,7 +74,14 @@ function recordOrderToSheet(order) {
       'Сумма (тг)',
       'Статус оплаты',
       'Трек-номер СДЭК',
-      'Комментарий'
+      'Комментарий',
+      'utm_source',
+      'utm_medium',
+      'utm_campaign',
+      'utm_term',
+      'gclid',
+      'landing_page',
+      'referrer'
     ];
     sheet.appendRow(headers);
     sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold').setBackground('#f3f3f3');
@@ -82,10 +89,14 @@ function recordOrderToSheet(order) {
   }
 
   const itemsStr = (order.items || [])
-    .map(it => `${it.title} (${it.qty} шт. × ${it.price})`)
+    .map(it => {
+      const customInfo = [it.customSize, it.customHardware, it.customGift].filter(Boolean).join(', ');
+      return `${it.title} (${it.qty} шт. × ${it.price}${customInfo ? ' | ' + customInfo : ''})`;
+    })
     .join('\n');
 
   const formattedDate = Utilities.formatDate(new Date(), 'Asia/Almaty', 'dd.MM.yyyy HH:mm');
+  const attr = order.attribution || {};
 
   const row = [
     formattedDate,
@@ -99,7 +110,14 @@ function recordOrderToSheet(order) {
     order.totalAmount || 0,
     '⏳ Ожидает счёт Kaspi',
     '', // Трек-номер СДЭК (заполняется вручную при отправке)
-    order.comment || ''
+    order.comment || '',
+    attr.utm_source || '',
+    attr.utm_medium || '',
+    attr.utm_campaign || '',
+    attr.utm_term || '',
+    attr.gclid || '',
+    attr.landing_page || '',
+    attr.referrer || ''
   ];
 
   sheet.appendRow(row);
@@ -114,10 +132,15 @@ function sendTelegramNotification(order) {
   }
 
   const itemsList = (order.items || [])
-    .map(it => `• *${escapeMarkdown(it.title)}*\n  ${it.qty} шт. × ${it.unit ? it.unit.toLocaleString('ru-RU') : it.price} ₸`)
+    .map(it => {
+      const customInfo = [it.customSize, it.customHardware, it.customGift].filter(Boolean).join(', ');
+      const customLine = customInfo ? `\n  _Параметры: ${escapeMarkdown(customInfo)}_` : '';
+      return `• *${escapeMarkdown(it.title)}*\n  ${it.qty} шт. × ${it.unit ? it.unit.toLocaleString('ru-RU') : it.price} ₸${customLine}`;
+    })
     .join('\n');
 
   const cleanPhone = (order.phone || '').replace(/[^\d]/g, '');
+  const attr = order.attribution || {};
 
   let text = `🛍 *НОВЫЙ ЗАКАЗ НА САЙТЕ!* \`${escapeMarkdown(order.orderId)}\`\n`;
   text += `━━━━━━━━━━━━━━━━━━━━━\n`;
@@ -133,6 +156,9 @@ function sendTelegramNotification(order) {
   text += `• *Адрес:* ${escapeMarkdown(order.address)}\n`;
   if (order.comment) {
     text += `• *Комментарий:* _${escapeMarkdown(order.comment)}_\n`;
+  }
+  if (attr.utm_source || attr.gclid || attr.utm_term) {
+    text += `📊 *Источник:* ${escapeMarkdown(attr.utm_source || (attr.gclid ? 'Google Ads' : 'Direct'))} | Запрос: ${escapeMarkdown(attr.utm_term || '—')} | GCLID: \`${escapeMarkdown((attr.gclid || '').substring(0, 12))}\`\n`;
   }
   text += `━━━━━━━━━━━━━━━━━━━━━\n`;
   text += `💳 *Действие:* Откройте Kaspi Pay ➔ Удаленная оплата ➔ Выставьте счет на *${(order.totalAmount || 0).toLocaleString('ru-RU')} ₸*`;

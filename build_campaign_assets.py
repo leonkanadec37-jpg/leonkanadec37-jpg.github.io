@@ -2,10 +2,10 @@ import csv
 import json
 
 # ==============================================================================
-# LIVI JEWELRY - CAMPAIGN ASSETS GENERATOR v2.0
+# LIVI JEWELRY - CAMPAIGN ASSETS GENERATOR v3.0
 # Generates:
 #  1. master_negative_keywords_kz.csv (250+ targeted negatives)
-#  2. 1_google_ads_keywords.csv (Keywords with product-level Final URLs)
+#  2. 1_google_ads_keywords.csv (Keywords with product-level and SEO-hub Final URLs)
 #  3. google_ads_campaign_import.csv (Ready for Google Ads Editor / Bulk Upload)
 #  4. import_all_negative_keywords.js (Google Ads Script to attach negative list)
 # ==============================================================================
@@ -90,33 +90,396 @@ with open("master_negative_keywords_kz.csv", "w", encoding="utf-8", newline="") 
 print(f"[OK] master_negative_keywords_kz.csv: {len(negatives)} negative keywords")
 
 # ==============================================================================
-# 2. КЛЮЧЕВЫЕ СЛОВА С ТОЧЕЧНОЙ ПРИВЯЗКОЙ К СТАТИЧЕСКИМ СТРАНИЦАМ ТОВАРОВ v2.0
+# 2. КЛЮЧЕВЫЕ СЛОВА С ТОЧЕЧНОЙ ПРИВЯЗКОЙ К НОВЫМ SEO-ХАБАМ v3.0
 # ==============================================================================
 CAMPAIGN_NAME = "Livi Jewelry - Поиск Казахстан"
 
 ad_groups_data = [
+    # 1. Комплекты украшений -> https://livijewelry.kz/komplekty-ukrasheniy.html
     {
-        "name": "Колье и чокеры из жемчуга",
+        "name": "Комплекты украшений",
+        "url": "https://livijewelry.kz/komplekty-ukrasheniy.html",
+        "keywords": [
+            ("комплект украшений из жемчуга", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("комплект украшений из жемчуга", "Exact", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("набор украшений ручной работы", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("набор украшений ручной работы", "Exact", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("ювелирный гарнитур алматы", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("ювелирный гарнитур алматы", "Exact", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("гарнитур из натуральных камней", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("гарнитур из натуральных камней", "Exact", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("комплект колье и серьги из жемчуга", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("набор украшений с натуральными камнями", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("комплект украшений алматы купить", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("комплект украшений алматы купить", "Exact", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("гарнитур из жемчуга астана", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("сет украшений ручной работы", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("комплект колье и браслет", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("комплект из коралла и яшмы", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html"),
+            ("комплект из бирюзы купить", "Phrase", "https://livijewelry.kz/komplekty-ukrasheniy.html")
+        ],
+        "headlines": [
+            "Комплекты украшений", "Сеты из жемчуга и камней", "Ювелирные гарнитуры",
+            "Livi Jewelry — Сеты", "Колье + Серьги + Браслет", "100% натуральные камни",
+            "Доставка СДЭК по РК", "Подарочная упаковка 0 ₸", "Счёт в Kaspi Pay",
+            "В наличии в Астане", "Подбор сета под образ", "Примерка в WhatsApp",
+            "Готовый женский образ", "Бутик сетов Livi", "Каталог сетов 2026"
+        ],
+        "descriptions": [
+            "Авторские комплекты из жемчуга и минералов. Скидка на полный сет. Доставка СДЭК.",
+            "Роскошные ювелирные гарнитуры ручной работы. Подарочная упаковка включена в заказ.",
+            "Экспресс-доставка СДЭК по Астане и всему Казахстану. Удобная оплата через Kaspi Pay.",
+            "Консультация мастера и видео посадки комплекта в WhatsApp. Подбор размера под вас."
+        ]
+    },
+
+    # 2. Чокеры -> https://livijewelry.kz/chokery-iz-naturalnyh-kamney.html
+    {
+        "name": "Чокеры из камней",
+        "url": "https://livijewelry.kz/chokery-iz-naturalnyh-kamney.html",
+        "keywords": [
+            ("чокер из натуральных камней", "Phrase", "https://livijewelry.kz/chokery-iz-naturalnyh-kamney.html"),
+            ("чокер из натуральных камней", "Exact", "https://livijewelry.kz/chokery-iz-naturalnyh-kamney.html"),
+            ("чокер из жемчуга алматы", "Phrase", "https://livijewelry.kz/chokery-iz-naturalnyh-kamney.html"),
+            ("чокер из жемчуга алматы", "Exact", "https://livijewelry.kz/chokery-iz-naturalnyh-kamney.html"),
+            ("чокер из жемчуга астана", "Phrase", "https://livijewelry.kz/chokery-iz-naturalnyh-kamney.html"),
+            ("чокер из жемчуга купить", "Phrase", "https://livijewelry.kz/chokery-iz-naturalnyh-kamney.html"),
+            ("чокер из жемчуга купить", "Exact", "https://livijewelry.kz/chokery-iz-naturalnyh-kamney.html"),
+            ("чокер на шею из камней", "Phrase", "https://livijewelry.kz/chokery-iz-naturalnyh-kamney.html"),
+            ("авторский чокер ручной работы", "Phrase", "https://livijewelry.kz/chokery-iz-naturalnyh-kamney.html"),
+            ("короткое колье чокер", "Phrase", "https://livijewelry.kz/chokery-iz-naturalnyh-kamney.html"),
+            ("чокер из барочного жемчуга", "Phrase", "https://livijewelry.kz/chokery-iz-naturalnyh-kamney.html"),
+            ("жемчужный чокер казахстан", "Phrase", "https://livijewelry.kz/chokery-iz-naturalnyh-kamney.html")
+        ],
+        "headlines": [
+            "Чокеры из камней и жемчуга", "Чокер из жемчуга Алматы", "Чокеры ручной работы",
+            "Livi Jewelry — Чокеры", "Идеальная посадка по шее", "Натуральный жемчуг и камни",
+            "Доставка СДЭК по РК", "Подарочная упаковка 0 ₸", "Счёт в Kaspi Pay",
+            "Размеры: 38 см и 40 см", "В наличии в Астане", "Видео чокеров в WhatsApp",
+            "Трендовые чокеры 2026", "Бутик Livi Jewelry", "Каталог чокеров"
+        ],
+        "descriptions": [
+            "Стильные чокеры из натурального жемчуга и камней. Идеальная посадка по вашей шее.",
+            "Быстрая доставка курьером СДЭК по Астане, Алматы и Казахстану. Оплата в Kaspi Pay.",
+            "Фирменная подарочная упаковка к каждому чокеру. Гипоаллергенный родий и позолота.",
+            "Напишите в WhatsApp: поможем подобрать точную длину чокера и пришлем живое видео."
+        ]
+    },
+
+    # 3. Сотуары -> https://livijewelry.kz/sotuary-iz-zhemchuga.html
+    {
+        "name": "Сотуары и галстуки",
+        "url": "https://livijewelry.kz/sotuary-iz-zhemchuga.html",
+        "keywords": [
+            ("сотуар из жемчуга купить", "Phrase", "https://livijewelry.kz/sotuary-iz-zhemchuga.html"),
+            ("сотуар из жемчуга купить", "Exact", "https://livijewelry.kz/sotuary-iz-zhemchuga.html"),
+            ("длинное колье сотуар", "Phrase", "https://livijewelry.kz/sotuary-iz-zhemchuga.html"),
+            ("колье галстук из жемчуга", "Phrase", "https://livijewelry.kz/sotuary-iz-zhemchuga.html"),
+            ("колье галстук из жемчуга", "Exact", "https://livijewelry.kz/sotuary-iz-zhemchuga.html"),
+            ("сотуар из натуральных камней", "Phrase", "https://livijewelry.kz/sotuary-iz-zhemchuga.html"),
+            ("сотуар из камней алматы", "Phrase", "https://livijewelry.kz/sotuary-iz-zhemchuga.html"),
+            ("колье трансформер сотуар", "Phrase", "https://livijewelry.kz/sotuary-iz-zhemchuga.html"),
+            ("украшение сотуар купить казахстан", "Phrase", "https://livijewelry.kz/sotuary-iz-zhemchuga.html"),
+            ("украшение сотуар из агата", "Phrase", "https://livijewelry.kz/sotuary-iz-zhemchuga.html")
+        ],
+        "headlines": [
+            "Сотуары из жемчуга", "Колье-галстуки ручной сборки", "Длинные колье сотуары",
+            "Livi Jewelry — Сотуары", "Жемчуг и натуральные камни", "Элегантное колье-галстук",
+            "Доставка СДЭК по РК", "Подарочный футляр 0 ₸", "Счёт в Kaspi Pay",
+            "Украшение для выреза и спины", "В наличии в Астане", "Видео сотуаров в WhatsApp",
+            "Авторский дизайн Livi", "Эксклюзивные сотуары", "Каталог сотуаров 2026"
+        ],
+        "descriptions": [
+            "Роскошные сотуары и колье-галстуки из натурального жемчуга и агата. Ручная работа.",
+            "Элегантная длина визуально вытягивает силуэт. Идеально под вечерний или деловой образ.",
+            "Быстрая доставка СДЭК до двери по Казахстану. Фирменная упаковка в подарок.",
+            "Консультация мастера и живое видео изделий в WhatsApp. Оплата удаленно в Kaspi."
+        ]
+    },
+
+    # 4. Барочный жемчуг -> https://livijewelry.kz/ukrasheniya-iz-barochnogo-zhemchuga.html
+    {
+        "name": "Барочный жемчуг",
+        "url": "https://livijewelry.kz/ukrasheniya-iz-barochnogo-zhemchuga.html",
+        "keywords": [
+            ("украшения из барочного жемчуга", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-barochnogo-zhemchuga.html"),
+            ("украшения из барочного жемчуга", "Exact", "https://livijewelry.kz/ukrasheniya-iz-barochnogo-zhemchuga.html"),
+            ("барочный жемчуг купить алматы", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-barochnogo-zhemchuga.html"),
+            ("барочный жемчуг колье", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-barochnogo-zhemchuga.html"),
+            ("барочный жемчуг колье", "Exact", "https://livijewelry.kz/ukrasheniya-iz-barochnogo-zhemchuga.html"),
+            ("колье с барочным жемчугом", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-barochnogo-zhemchuga.html"),
+            ("браслет с барочным жемчугом", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-barochnogo-zhemchuga.html"),
+            ("серьги с барочным жемчугом", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-barochnogo-zhemchuga.html"),
+            ("барочный жемчуг украшения казахстан", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-barochnogo-zhemchuga.html"),
+            ("крупный барочный жемчуг", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-barochnogo-zhemchuga.html")
+        ],
+        "headlines": [
+            "Барочный жемчуг — Колье", "Украшения из барочного жемчуга", "Отборный барочный жемчуг",
+            "Livi Jewelry — Жемчуг", "Неповторимая форма жемчужин", "100% натуральный жемчуг",
+            "Доставка СДЭК по РК", "Подарочная коробка 0 ₸", "Счёт в Kaspi Pay",
+            "Колье, браслеты, серьги", "В наличии в Астане", "Видео перелива в WhatsApp",
+            "Эксклюзив ручной работы", "Премиум коллекция жемчуга", "Каталог жемчуга 2026"
+        ],
+        "descriptions": [
+            "Авторские украшения с крупным барочным жемчугом отборной селекции. Ручная работа.",
+            "Каждая барочная жемчужина уникальна по форме и сиянию. Стойкая гипоаллергенная фурнитура.",
+            "Экспресс-доставка СДЭК по Астане, Алматы и всему Казахстану. Оплата через Kaspi Pay.",
+            "Напишите в WhatsApp: снимем видео конкретного колье перед заказом и поможем с выбором."
+        ]
+    },
+
+    # 5. Гематит -> https://livijewelry.kz/ukrasheniya-iz-gematita.html
+    {
+        "name": "Украшения из гематита",
+        "url": "https://livijewelry.kz/ukrasheniya-iz-gematita.html",
+        "keywords": [
+            ("украшения из гематита купить", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-gematita.html"),
+            ("украшения из гематита купить", "Exact", "https://livijewelry.kz/ukrasheniya-iz-gematita.html"),
+            ("колье из гематита", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-gematita.html"),
+            ("колье из гематита", "Exact", "https://livijewelry.kz/ukrasheniya-iz-gematita.html"),
+            ("браслет из гематита алматы", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-gematita.html"),
+            ("бусы из гематита купить", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-gematita.html"),
+            ("колье из тигрового глаза и гематита", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-gematita.html"),
+            ("чокер из гематита", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-gematita.html"),
+            ("натуральный гематит украшения", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-gematita.html")
+        ],
+        "headlines": [
+            "Украшения из гематита", "Колье из гематита Алматы", "Браслеты из гематита",
+            "Livi Jewelry — Гематит", "Графитовый зеркальный блеск", "Натуральный камень гематит",
+            "Доставка СДЭК по РК", "Подарочный футляр 0 ₸", "Счёт в Kaspi Pay",
+            "Гематит + Тигровый глаз", "В наличии в Астане", "Видео украшений в WhatsApp",
+            "Стильная геометрия камня", "Бутик Livi Jewelry", "Каталог гематита 2026"
+        ],
+        "descriptions": [
+            "Стильные украшения из натурального гематита с зеркальным металлическим блеском.",
+            "Колье и браслеты ручной сборки. Сочетания с тигровым глазом и нефритом.",
+            "Быстрая доставка СДЭК по Казахстану. Фирменная подарочная упаковка включена.",
+            "Заказ и консультация мастера в WhatsApp. Быстрый счет в приложении Kaspi Pay."
+        ]
+    },
+
+    # 6. Малахит -> https://livijewelry.kz/ukrasheniya-iz-malahita.html
+    {
+        "name": "Украшения из малахита",
+        "url": "https://livijewelry.kz/ukrasheniya-iz-malahita.html",
+        "keywords": [
+            ("украшения из малахита алматы", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-malahita.html"),
+            ("украшения из малахита алматы", "Exact", "https://livijewelry.kz/ukrasheniya-iz-malahita.html"),
+            ("браслет из малахита алматы", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-malahita.html"),
+            ("браслет из малахита алматы", "Exact", "https://livijewelry.kz/ukrasheniya-iz-malahita.html"),
+            ("браслет из натурального малахита", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-malahita.html"),
+            ("колье из малахита купить", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-malahita.html"),
+            ("бусы из малахита астана", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-malahita.html"),
+            ("натуральный малахит украшения", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-malahita.html"),
+            ("украшения с малахитом казахстан", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-malahita.html")
+        ],
+        "headlines": [
+            "Украшения из малахита", "Браслет из малахита Алматы", "Натуральный малахит купить",
+            "Livi Jewelry — Малахит", "Изумрудный узор малахита", "100% природный малахит",
+            "Доставка СДЭК по РК", "Подарочная упаковка 0 ₸", "Счёт в Kaspi Pay",
+            "Малахит ручной сборки", "В наличии в Астане", "Видео минерала в WhatsApp",
+            "Глубокий изумрудный цвет", "Бутик камней Livi", "Каталог малахита 2026"
+        ],
+        "descriptions": [
+            "Авторские браслеты и колье из натурального малахита с неповторимым шелковым узором.",
+            "Отборные природные камни ручной сборки. Гипоаллергенная родированная фурнитура.",
+            "Экспресс-доставка СДЭК по Астане, Алматы и всему Казахстану. Оплата в Kaspi Pay.",
+            "Напишите в WhatsApp: пришлем макро-видео перелива малахита и подберем размер."
+        ]
+    },
+
+    # 7. Аметист -> https://livijewelry.kz/ukrasheniya-iz-ametista.html
+    {
+        "name": "Украшения из аметиста",
+        "url": "https://livijewelry.kz/ukrasheniya-iz-ametista.html",
+        "keywords": [
+            ("украшения из аметиста алматы", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-ametista.html"),
+            ("украшения из аметиста алматы", "Exact", "https://livijewelry.kz/ukrasheniya-iz-ametista.html"),
+            ("колье из аметиста купить", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-ametista.html"),
+            ("колье из аметиста купить", "Exact", "https://livijewelry.kz/ukrasheniya-iz-ametista.html"),
+            ("браслет из аметиста астана", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-ametista.html"),
+            ("гарнитур из аметиста", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-ametista.html"),
+            ("бусы из натурального аметиста", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-ametista.html"),
+            ("серьги с аметистом ручной работы", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-ametista.html"),
+            ("колье из аметиста и розового кварца", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-ametista.html")
+        ],
+        "headlines": [
+            "Украшения из аметиста", "Колье из аметиста Алматы", "Аметист ручной работы",
+            "Livi Jewelry — Аметист", "Благородный фиолетовый цвет", "100% природный аметист",
+            "Доставка СДЭК по РК", "Подарочный футляр 0 ₸", "Счёт в Kaspi Pay",
+            "Аметист + Розовый кварц", "В наличии в Астане", "Видео аметиста в WhatsApp",
+            "Нежный лавандовый блеск", "Бутик аметиста Livi", "Каталог аметиста 2026"
+        ],
+        "descriptions": [
+            "Изысканные колье, браслеты и сеты из природного аметиста. Глубокий лавандовый оттенок.",
+            "Ручная сборка в ателье Livi Jewelry. Премиальная подарочная упаковка включена.",
+            "Быстрая доставка курьером СДЭК до двери по Казахстану. Оплата в приложении Kaspi.",
+            "Свяжитесь с мастером в WhatsApp: снимем видео украшения при дневном свете."
+        ]
+    },
+
+    # 8. Гранат -> https://livijewelry.kz/ukrasheniya-iz-granata.html
+    {
+        "name": "Украшения из граната",
+        "url": "https://livijewelry.kz/ukrasheniya-iz-granata.html",
+        "keywords": [
+            ("украшения из граната алматы", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-granata.html"),
+            ("украшения из граната алматы", "Exact", "https://livijewelry.kz/ukrasheniya-iz-granata.html"),
+            ("колье из граната купить", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-granata.html"),
+            ("колье из натурального граната", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-granata.html"),
+            ("колье из натурального граната", "Exact", "https://livijewelry.kz/ukrasheniya-iz-granata.html"),
+            ("бусы из граната астана", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-granata.html"),
+            ("браслет из граната купить", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-granata.html"),
+            ("колье из граната и жемчуга", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-granata.html"),
+            ("натуральный гранат украшения", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-granata.html")
+        ],
+        "headlines": [
+            "Украшения из граната", "Колье из граната купить", "Натуральный гранат Алматы",
+            "Livi Jewelry — Гранат", "Глубокий винный оттенок", "100% природный гранат",
+            "Доставка СДЭК по РК", "Подарочная упаковка 0 ₸", "Счёт в Kaspi Pay",
+            "Гранат + Натуральный жемчуг", "В наличии в Астане", "Видео граната в WhatsApp",
+            "Изысканный бардовый блеск", "Бутик граната Livi", "Каталог граната 2026"
+        ],
+        "descriptions": [
+            "Роскошные колье и браслеты из граненого природного граната. Благородный винный цвет.",
+            "Ручная сборка мастера. Сочетания граната с белым жемчугом и черным агатом.",
+            "Экспресс-доставка СДЭК до двери по всему Казахстану. Фирменная коробка в подарок.",
+            "Консультация мастера и живое видео изделий в WhatsApp. Оплата через Kaspi Pay."
+        ]
+    },
+
+    # 9. Розовый кварц -> https://livijewelry.kz/ukrasheniya-iz-rozovogo-kvarca.html
+    {
+        "name": "Украшения из розового кварца",
+        "url": "https://livijewelry.kz/ukrasheniya-iz-rozovogo-kvarca.html",
+        "keywords": [
+            ("украшения из розового кварца алматы", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-rozovogo-kvarca.html"),
+            ("украшения из розового кварца алматы", "Exact", "https://livijewelry.kz/ukrasheniya-iz-rozovogo-kvarca.html"),
+            ("колье из розового кварца", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-rozovogo-kvarca.html"),
+            ("чокер из розового кварца", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-rozovogo-kvarca.html"),
+            ("браслет из розового кварца", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-rozovogo-kvarca.html"),
+            ("бусы из розового кварца купить", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-rozovogo-kvarca.html"),
+            ("сет колье с розовым кварцем", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-rozovogo-kvarca.html"),
+            ("розовый кварц украшения казахстан", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-rozovogo-kvarca.html")
+        ],
+        "headlines": [
+            "Розовый кварц — Украшения", "Колье из розового кварца", "Розовый кварц в Алматы",
+            "Livi Jewelry — Кварц", "Нежнейший пастельный оттенок", "100% природный кварц",
+            "Доставка СДЭК по РК", "Подарочный футляр 0 ₸", "Счёт в Kaspi Pay",
+            "Розовый кварц + Жемчуг", "В наличии в Астане", "Видео перелива в WhatsApp",
+            "Символ нежности и любви", "Бутик кварца Livi", "Каталог кварца 2026"
+        ],
+        "descriptions": [
+            "Нежные авторские колье, чокеры и сеты из природного розового кварца и жемчуга.",
+            "Ручная работа. Камни отборной чистоты и мягкого пастельного свечения. Стойкий родий.",
+            "Быстрая доставка курьером СДЭК по Астане, Алматы и Казахстану. Оплата в Kaspi Pay.",
+            "Напишите нам в WhatsApp: снимем видео посадки украшения и поможем с выбором."
+        ]
+    },
+
+    # 10. Бирюза -> https://livijewelry.kz/ukrasheniya-iz-biryuzy.html
+    {
+        "name": "Украшения из бирюзы",
+        "url": "https://livijewelry.kz/ukrasheniya-iz-biryuzy.html",
+        "keywords": [
+            ("украшения из натуральной бирюзы", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-biryuzy.html"),
+            ("украшения из натуральной бирюзы", "Exact", "https://livijewelry.kz/ukrasheniya-iz-biryuzy.html"),
+            ("браслет из бирюзы алматы", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-biryuzy.html"),
+            ("комплект из бирюзы купить", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-biryuzy.html"),
+            ("комплект из бирюзы купить", "Exact", "https://livijewelry.kz/ukrasheniya-iz-biryuzy.html"),
+            ("колье из бирюзы астана", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-biryuzy.html"),
+            ("бусы из бирюзы натуральной", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-biryuzy.html"),
+            ("натуральная бирюза украшения казахстан", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-biryuzy.html"),
+            ("серьги с бирюзой купить", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-biryuzy.html")
+        ],
+        "headlines": [
+            "Украшения из бирюзы", "Комплект из бирюзы Алматы", "Натуральная бирюза купить",
+            "Livi Jewelry — Бирюза", "Яркий лазурный цвет", "100% природная бирюза",
+            "Доставка СДЭК по РК", "Подарочная упаковка 0 ₸", "Счёт в Kaspi Pay",
+            "Колье, браслет, серьги", "В наличии в Астане", "Видео бирюзы в WhatsApp",
+            "Восточная эстетика камня", "Бутик бирюзы Livi", "Каталог бирюзы 2026"
+        ],
+        "descriptions": [
+            "Эффектные колье, браслеты и полные комплекты из природной бирюзы ручной работы.",
+            "Насыщенный небесно-голубой цвет. Надежная гипоаллергенная фурнитура с позолотой.",
+            "Экспресс-доставка СДЭК по Астане, Алматы и всему Казахстану. Оплата в Kaspi Pay.",
+            "Напишите мастеру в WhatsApp: пришлем видео сета из бирюзы и уточним параметры."
+        ]
+    },
+
+    # 11. Горный хрусталь -> https://livijewelry.kz/ukrasheniya-iz-gornogo-hrustalya.html
+    {
+        "name": "Украшения из хрусталя",
+        "url": "https://livijewelry.kz/ukrasheniya-iz-gornogo-hrustalya.html",
+        "keywords": [
+            ("украшения из горного хрусталя", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-gornogo-hrustalya.html"),
+            ("украшения из горного хрусталя", "Exact", "https://livijewelry.kz/ukrasheniya-iz-gornogo-hrustalya.html"),
+            ("колье из горного хрусталя", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-gornogo-hrustalya.html"),
+            ("бусы из горного хрусталя алматы", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-gornogo-hrustalya.html"),
+            ("колье из жемчуга и горного хрусталя", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-gornogo-hrustalya.html"),
+            ("колье из жемчуга и горного хрусталя", "Exact", "https://livijewelry.kz/ukrasheniya-iz-gornogo-hrustalya.html"),
+            ("чокер из горного хрусталя", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-gornogo-hrustalya.html"),
+            ("браслет из горного хрусталя", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-gornogo-hrustalya.html"),
+            ("натуральный горный хрусталь", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-gornogo-hrustalya.html")
+        ],
+        "headlines": [
+            "Горный хрусталь — Колье", "Украшения из хрусталя", "Горный хрусталь в Алматы",
+            "Livi Jewelry — Хрусталь", "Кристальная прозрачность", "Природный горный хрусталь",
+            "Доставка СДЭК по РК", "Подарочный футляр 0 ₸", "Счёт в Kaspi Pay",
+            "Хрусталь + Барочный жемчуг", "В наличии в Астане", "Видео сверкания в WhatsApp",
+            "Алмазный блеск граней", "Бутик хрусталя Livi", "Каталог хрусталя 2026"
+        ],
+        "descriptions": [
+            "Сверкающие колье и браслеты из граненого природного горного хрусталя и жемчуга.",
+            "Идеальная игра граней на свету. Премиальная селекция минералов и ручная сборка.",
+            "Быстрая доставка курьером СДЭК до двери по Казахстану. Оплата в приложении Kaspi.",
+            "Свяжитесь с мастером в WhatsApp: покажем сверкание хрусталя на живом видео."
+        ]
+    },
+
+    # 12. Лунный камень и перламутр -> https://livijewelry.kz/ukrasheniya-iz-lunnogo-kamnya.html
+    {
+        "name": "Лунный камень и перламутр",
+        "url": "https://livijewelry.kz/ukrasheniya-iz-lunnogo-kamnya.html",
+        "keywords": [
+            ("украшения из лунного камня", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-lunnogo-kamnya.html"),
+            ("украшения из лунного камня", "Exact", "https://livijewelry.kz/ukrasheniya-iz-lunnogo-kamnya.html"),
+            ("колье из лунного камня", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-lunnogo-kamnya.html"),
+            ("чокер из лунного камня", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-lunnogo-kamnya.html"),
+            ("бусы из лунного камня алматы", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-lunnogo-kamnya.html"),
+            ("украшения из перламутра купить", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-lunnogo-kamnya.html"),
+            ("колье из перламутра астана", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-lunnogo-kamnya.html"),
+            ("колье из жемчуга майорка", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-lunnogo-kamnya.html"),
+            ("украшения с лунным камнем казахстан", "Phrase", "https://livijewelry.kz/ukrasheniya-iz-lunnogo-kamnya.html")
+        ],
+        "headlines": [
+            "Лунный камень — Украшения", "Украшения из лунного камня", "Колье из перламутра",
+            "Livi Jewelry — Перламутр", "Мягкое шелковое сияние", "100% природный минерал",
+            "Доставка СДЭК по РК", "Подарочная упаковка 0 ₸", "Счёт в Kaspi Pay",
+            "Лунный камень + Майорка", "В наличии в Астане", "Видео сияния в WhatsApp",
+            "Загадочный перелив камня", "Бутик перламутра Livi", "Каталог камней 2026"
+        ],
+        "descriptions": [
+            "Утонченные украшения из натурального лунного камня, жемчуга Майорка и перламутра.",
+            "Таинственное внутреннее свечение минерала. Ручная работа мастера ателье Livi.",
+            "Экспресс-доставка СДЭК по Астане, Алматы и всему Казахстану. Оплата в Kaspi Pay.",
+            "Напишите в WhatsApp: покажем мягкое свечение лунного камня на видео и поможем с заказом."
+        ]
+    },
+
+    # 13. Колье из жемчуга (основная категория) -> https://livijewelry.kz/kolye-iz-zhemchuga.html
+    {
+        "name": "Колье из жемчуга",
         "url": "https://livijewelry.kz/kolye-iz-zhemchuga.html",
         "keywords": [
-            ("колье из натурального жемчуга", "Phrase", "https://livijewelry.kz/product/prod_01.html"),
-            ("колье из натурального жемчуга", "Exact", "https://livijewelry.kz/product/prod_01.html"),
+            ("колье из натурального жемчуга", "Phrase", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
+            ("колье из натурального жемчуга", "Exact", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
             ("купить колье из жемчуга", "Phrase", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
-            ("чокер из жемчуга алматы", "Phrase", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
-            ("чокер из жемчуга алматы", "Exact", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
-            ("чокер из жемчуга астана", "Phrase", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
-            ("барочный жемчуг колье", "Phrase", "https://livijewelry.kz/product/prod_01.html"),
-            ("барочный жемчуг колье", "Exact", "https://livijewelry.kz/product/prod_01.html"),
-            ("колье из барочного жемчуга алматы", "Phrase", "https://livijewelry.kz/product/prod_01.html"),
-            ("многорядное колье из жемчуга", "Phrase", "https://livijewelry.kz/product/prod_02.html"),
-            ("колье из жемчуга майорка", "Phrase", "https://livijewelry.kz/product/prod_03.html"),
-            ("колье из жемчуга майорка", "Exact", "https://livijewelry.kz/product/prod_03.html"),
             ("купить жемчужное колье", "Exact", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
-            ("жемчужный чокер купить казахстан", "Phrase", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
             ("бусы из натурального жемчуга алматы", "Phrase", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
             ("авторское колье из жемчуга", "Phrase", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
-            ("колье лапы купить", "Phrase", "https://livijewelry.kz/product/prod_08.html"),
-            ("колье гранж купить", "Phrase", "https://livijewelry.kz/product/prod_22.html")
+            ("многорядное колье из жемчуга", "Phrase", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
+            ("жемчужные бусы астана купить", "Phrase", "https://livijewelry.kz/kolye-iz-zhemchuga.html")
         ],
         "headlines": [
             "Колье из натурального жемчуга", "Livi Jewelry — Ручная работа", "Жемчуг премиальной селекции",
@@ -132,45 +495,38 @@ ad_groups_data = [
             "Консультация мастера и видео изделий в WhatsApp. Подберём идеальный размер под вас."
         ]
     },
+
+    # 14. Браслеты из жемчуга и камней -> https://livijewelry.kz/braslety-iz-zhemchuga.html
     {
-        "name": "Браслеты и минералы",
+        "name": "Браслеты из жемчуга",
         "url": "https://livijewelry.kz/braslety-iz-zhemchuga.html",
         "keywords": [
-            ("браслет из малахита алматы", "Phrase", "https://livijewelry.kz/product/prod_06.html"),
-            ("браслет из малахита алматы", "Exact", "https://livijewelry.kz/product/prod_06.html"),
-            ("браслет из натурального малахита", "Phrase", "https://livijewelry.kz/product/prod_06.html"),
             ("браслет из натуральных камней купить", "Phrase", "https://livijewelry.kz/braslety-iz-zhemchuga.html"),
             ("браслет из натуральных камней купить", "Exact", "https://livijewelry.kz/braslety-iz-zhemchuga.html"),
-            ("украшения из натуральной бирюзы", "Phrase", "https://livijewelry.kz/product/prod_16.html"),
-            ("украшения из натуральной бирюзы", "Exact", "https://livijewelry.kz/product/prod_16.html"),
-            ("браслет из бирюзы алматы", "Phrase", "https://livijewelry.kz/product/prod_16.html"),
             ("браслет из жемчуга алматы", "Phrase", "https://livijewelry.kz/braslety-iz-zhemchuga.html"),
             ("браслет из жемчуга алматы", "Exact", "https://livijewelry.kz/braslety-iz-zhemchuga.html"),
-            ("украшения из аметиста алматы", "Phrase", "https://livijewelry.kz/product/prod_07.html"),
-            ("украшения из розового кварца алматы", "Phrase", "https://livijewelry.kz/product/prod_15.html"),
-            ("украшения из натурального агата", "Phrase", "https://livijewelry.kz/product/prod_10.html"),
-            ("колье из авантюрина купить", "Phrase", "https://livijewelry.kz/product/prod_09.html"),
-            ("колье из коралла купить", "Phrase", "https://livijewelry.kz/product/prod_14.html"),
-            ("украшения из граната алматы", "Phrase", "https://livijewelry.kz/product/prod_10.html"),
-            ("украшение сотуар из агата", "Phrase", "https://livijewelry.kz/product/prod_17.html"),
+            ("браслет из натурального жемчуга", "Phrase", "https://livijewelry.kz/braslety-iz-zhemchuga.html"),
+            ("браслет из барочного жемчуга", "Phrase", "https://livijewelry.kz/braslety-iz-zhemchuga.html"),
             ("браслет из натуральных минералов казахстан", "Phrase", "https://livijewelry.kz/braslety-iz-zhemchuga.html")
         ],
         "headlines": [
-            "Браслеты из камней и жемчуга", "Браслет из малахита Алматы", "Украшения из бирюзы и агата",
-            "Livi Jewelry — Ручная сборка", "100% натуральные минералы", "Доставка СДЭК по Казахстану",
+            "Браслеты из жемчуга и камней", "Браслет из жемчуга Алматы", "Украшения на запястье",
+            "Livi Jewelry — Браслеты", "100% натуральные минералы", "Доставка СДЭК по Казахстану",
             "Браслеты ручной работы", "Удаленный счёт Kaspi Pay", "Подарочная шкатулка к заказу",
             "В наличии с быстрой доставкой", "Подбор размера на запястье", "Заказ и примерка в WhatsApp",
             "Видео перелива минералов в чат", "Бутик украшений Livi", "Каталог браслетов 2026"
         ],
         "descriptions": [
-            "Браслеты ручной работы из натурального малахита, бирюзы и жемчуга. Отборные камни.",
+            "Браслеты ручной работы из натурального жемчуга и природных минералов. Отборные камни.",
             "Экспресс-доставка СДЭК до двери или в ПВЗ. Удобная оплата через счёт Kaspi Pay.",
-            "Изысканные браслеты с натуральными минералами. Подарочная шкатулка к каждому заказу.",
+            "Изысканные браслеты с натуральными камнями. Подарочная шкатулка к каждому заказу.",
             "Свяжитесь с мастером в WhatsApp: пришлем видео перелива камней и поможем с выбором."
         ]
     },
+
+    # 15. Серьги из жемчуга и камней -> https://livijewelry.kz/sergi-iz-zhemchuga.html
     {
-        "name": "Серьги из жемчуга и камней",
+        "name": "Серьги из жемчуга",
         "url": "https://livijewelry.kz/sergi-iz-zhemchuga.html",
         "keywords": [
             ("серьги из жемчуга алматы", "Phrase", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
@@ -181,15 +537,11 @@ ad_groups_data = [
             ("серьги с барочным жемчугом", "Exact", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
             ("серьги ручной работы алматы", "Phrase", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
             ("серьги из жемчуга астана", "Phrase", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
-            ("серьги из жемчуга астана", "Exact", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
             ("длинные серьги с жемчугом", "Phrase", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
-            ("серьги с натуральными камнями купить", "Phrase", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
-            ("серьги пусеты из жемчуга алматы", "Phrase", "https://livijewelry.kz/sergi-iz-zhemchuga.html"),
-            ("серьги из аметиста купить", "Phrase", "https://livijewelry.kz/product/prod_11.html"),
-            ("серьги из тигрового глаза купить", "Phrase", "https://livijewelry.kz/product/prod_12.html")
+            ("серьги с натуральными камнями купить", "Phrase", "https://livijewelry.kz/sergi-iz-zhemchuga.html")
         ],
         "headlines": [
-            "Серьги из жемчуга в Алматы", "Серьги с барочным жемчугом", "Livi Jewelry — Авторские серьги",
+            "Серьги из жемчуга в Алматы", "Серьги с барочным жемчугом", "Livi Jewelry — Серьги",
             "Натуральный отборный жемчуг", "Гипоаллергенная фурнитура", "Стойкая позолота и родий",
             "Доставка СДЭК по Казахстану", "Подарочная коробка в комплекте", "Счёт в приложении Kaspi Pay",
             "Серьги ручной сборки мастера", "Подбор комплекта к колье", "Видео сережек перед покупкой",
@@ -202,65 +554,31 @@ ad_groups_data = [
             "Напишите нам в WhatsApp: снимем видео посадки сережек и покажем перелив жемчуга."
         ]
     },
-    {
-        "name": "Комплекты и ювелирные сеты",
-        "url": "https://livijewelry.kz/shop.html",
-        "keywords": [
-            ("комплект украшений из жемчуга", "Phrase", "https://livijewelry.kz/product/prod_04.html"),
-            ("комплект украшений из жемчуга", "Exact", "https://livijewelry.kz/product/prod_04.html"),
-            ("набор украшений ручной работы", "Phrase", "https://livijewelry.kz/shop.html"),
-            ("набор украшений ручной работы", "Exact", "https://livijewelry.kz/shop.html"),
-            ("ювелирный гарнитур алматы", "Phrase", "https://livijewelry.kz/product/prod_07.html"),
-            ("ювелирный гарнитур алматы", "Exact", "https://livijewelry.kz/product/prod_07.html"),
-            ("гарнитур из натуральных камней", "Phrase", "https://livijewelry.kz/shop.html"),
-            ("гарнитур из натуральных камней", "Exact", "https://livijewelry.kz/shop.html"),
-            ("комплект колье и серьги из жемчуга", "Phrase", "https://livijewelry.kz/product/prod_13.html"),
-            ("набор украшений с натуральными камнями", "Phrase", "https://livijewelry.kz/shop.html"),
-            ("комплект украшений алматы купить", "Phrase", "https://livijewelry.kz/shop.html"),
-            ("комплект украшений алматы купить", "Exact", "https://livijewelry.kz/shop.html"),
-            ("гарнитур из жемчуга астана", "Phrase", "https://livijewelry.kz/product/prod_04.html"),
-            ("сет украшений ручной работы", "Phrase", "https://livijewelry.kz/product/prod_21.html"),
-            ("комплект колье и браслет", "Phrase", "https://livijewelry.kz/product/prod_04.html"),
-            ("комплект из коралла и яшмы", "Phrase", "https://livijewelry.kz/product/prod_14.html"),
-            ("комплект из бирюзы купить", "Phrase", "https://livijewelry.kz/product/prod_16.html")
-        ],
-        "headlines": [
-            "Комплекты украшений ручной работы", "Ювелирные гарнитуры Алматы", "Сеты из жемчуга и камней",
-            "Livi Jewelry — Сеты мастера", "Колье + Серьги + Браслет", "100% натуральные камни",
-            "Доставка СДЭК по Казахстану", "Фирменная подарочная упаковка", "Счёт в Kaspi Pay за минуту",
-            "В наличии с быстрой доставкой", "Подбор украшений под ваш образ", "Заказ и видео в WhatsApp",
-            "Идеальный готовый образ", "Бутик авторских гарнитуров", "Каталог сетов 2026"
-        ],
-        "descriptions": [
-            "Роскошные гарнитуры из жемчуга, агата, аметиста и коралла. Ручная сборка мастера.",
-            "Каждое изделие сета можно приобрести отдельно или полным комплектом со скидкой.",
-            "Премиальная подарочная шкатулка к каждому сету. Экспресс-доставка СДЭК по Казахстану.",
-            "Напишите в WhatsApp: покажем посадку всего комплекта на видео и подберем размер."
-        ]
-    },
+
+    # 16. Подарки и авторские украшения -> https://livijewelry.kz/shop.html
     {
         "name": "Подарки и авторские украшения",
         "url": "https://livijewelry.kz/shop.html",
         "keywords": [
             ("подарок девушке украшения алматы", "Phrase", "https://livijewelry.kz/shop.html"),
             ("подарок девушке украшения алматы", "Exact", "https://livijewelry.kz/shop.html"),
-            ("подарок жене на день рождения украшения", "Phrase", "https://livijewelry.kz/product/prod_02.html"),
-            ("подарок маме украшения алматы", "Phrase", "https://livijewelry.kz/product/prod_01.html"),
+            ("подарок жене на день рождения украшения", "Phrase", "https://livijewelry.kz/shop.html"),
+            ("подарок маме украшения алматы", "Phrase", "https://livijewelry.kz/shop.html"),
             ("авторские украшения ручной работы", "Phrase", "https://livijewelry.kz/shop.html"),
             ("авторские украшения ручной работы", "Exact", "https://livijewelry.kz/shop.html"),
             ("ювелирная бижутерия алматы", "Phrase", "https://livijewelry.kz/shop.html"),
             ("дизайнерские украшения ручной работы казахстан", "Phrase", "https://livijewelry.kz/shop.html"),
             ("украшения ручной работы астана", "Phrase", "https://livijewelry.kz/shop.html"),
             ("украшения ручной работы астана", "Exact", "https://livijewelry.kz/shop.html"),
-            ("украшения на кыз узату алматы", "Phrase", "https://livijewelry.kz/product/prod_01.html"),
+            ("украшения на кыз узату алматы", "Phrase", "https://livijewelry.kz/shop.html"),
             ("украшения невесты из жемчуга", "Phrase", "https://livijewelry.kz/kolye-iz-zhemchuga.html"),
             ("авторская бижутерия купить алматы", "Exact", "https://livijewelry.kz/shop.html"),
-            ("подарок женщине ювелирные украшения", "Phrase", "https://livijewelry.kz/product/prod_02.html")
+            ("подарок женщине ювелирные украшения", "Phrase", "https://livijewelry.kz/shop.html")
         ],
         "headlines": [
             "Подарок девушке — Украшения", "Авторские украшения Livi", "Ювелирная бижутерия Алматы",
             "Идеальный подарок со вкусом", "Натуральный жемчуг и камни", "Доставка СДЭК по Казахстану",
-            "Подарочная упаковка в комплекте", "Счёт в приложении Kaspi.kz", "В наличии с быстрой доставкой",
+            "Фирменная упаковка в подарок", "Счёт в приложении Kaspi.kz", "В наличии с быстрой доставкой",
             "Подарок на день рождения", "Индивидуальная подгонка", "Заказ и видео в WhatsApp",
             "Эксклюзив ручной работы", "Бутик Livi Jewelry", "Каталог подарков 2026"
         ],
@@ -272,6 +590,15 @@ ad_groups_data = [
         ]
     }
 ]
+
+# Валидация длины заголовков (<= 30) и описаний (<= 90) для Google Ads
+for group in ad_groups_data:
+    for h in group["headlines"]:
+        if len(h) > 30:
+            raise ValueError(f"Headline too long ({len(h)} > 30) in {group['name']}: '{h}'")
+    for d in group["descriptions"]:
+        if len(d) > 90:
+            raise ValueError(f"Description too long ({len(d)} > 90) in {group['name']}: '{d}'")
 
 # Write 1_google_ads_keywords.csv
 all_kws_count = 0
@@ -328,7 +655,7 @@ with open("google_ads_campaign_import.csv", "w", encoding="utf-8", newline="") a
     writer.writerow(headers)
     writer.writerows(rows)
 
-print(f"[OK] google_ads_campaign_import.csv: {len(rows)} rows generated successfully")
+print(f"[OK] google_ads_campaign_import.csv: {len(rows)} rows generated successfully across {len(ad_groups_data)} ad groups")
 
 # Write import_all_negative_keywords.js
 js_content = f"""/**

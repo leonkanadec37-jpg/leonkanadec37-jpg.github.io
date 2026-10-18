@@ -547,8 +547,12 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
             json.dump(products, f, ensure_ascii=False, indent=2)
         update_shop_schema(products)
         try:
-            from generate_product_pages import generate_product_pages
-            generate_product_pages()
+            from generate_product_pages import generate_all
+            generate_all()
+            from generate_seo_hubs import generate_seo_hubs
+            generate_seo_hubs()
+            from generate_kz_pages import generate_kz_pages
+            generate_kz_pages()
         except Exception as e:
             print(f"[WARN] Ошибка генерации статических страниц товаров: {e}")
 

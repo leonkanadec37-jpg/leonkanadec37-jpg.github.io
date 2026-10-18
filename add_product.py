@@ -173,8 +173,20 @@ def main():
     print(f"     Категория: {args.category} | Цена: {args.price} тг | Фото: assets/{img_filename}")
 
     try:
-        from generate_product_pages import generate_product_pages
-        generate_product_pages()
+        from generate_product_pages import generate_all
+        generate_all()
+    except Exception:
+        pass
+
+    try:
+        from generate_seo_hubs import generate_seo_hubs
+        generate_seo_hubs()
+    except Exception:
+        pass
+
+    try:
+        from generate_kz_pages import generate_kz_pages
+        generate_kz_pages()
     except Exception:
         pass
 
@@ -198,7 +210,7 @@ def main():
 
     if args.commit or args.push:
         try:
-            subprocess.run(["git", "add", "-A", products_file, "shop.html", "index.html", "feed.xml", "google_merchant_feed.xml", "sitemap.xml", "assets/", "product/", "kolye-iz-zhemchuga.html", "braslety-iz-zhemchuga.html", "sergi-iz-zhemchuga.html"], check=True)
+            subprocess.run(["git", "add", "-A"], check=True)
             commit_msg = f"Добавлен товар: {args.title} ({args.price} тг)"
             subprocess.run(["git", "commit", "-m", commit_msg], check=True)
             print(f"[OK] Git commit создан: \"{commit_msg}\"")

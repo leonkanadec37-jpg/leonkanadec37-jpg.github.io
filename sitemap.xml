@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://livijewelry.kz/</loc>
     <lastmod>2026-10-18</lastmod>
@@ -16,19 +16,103 @@
     <loc>https://livijewelry.kz/kolye-iz-zhemchuga.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://livijewelry.kz/braslety-iz-zhemchuga.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://livijewelry.kz/sergi-iz-zhemchuga.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://livijewelry.kz/komplekty-ukrasheniy.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://livijewelry.kz/chokery-iz-naturalnyh-kamney.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://livijewelry.kz/sotuary-iz-zhemchuga.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://livijewelry.kz/ukrasheniya-iz-barochnogo-zhemchuga.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://livijewelry.kz/ukrasheniya-iz-gematita.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://livijewelry.kz/ukrasheniya-iz-malahita.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://livijewelry.kz/ukrasheniya-iz-ametista.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://livijewelry.kz/ukrasheniya-iz-granata.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://livijewelry.kz/ukrasheniya-iz-rozovogo-kvarca.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://livijewelry.kz/ukrasheniya-iz-biryuzy.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://livijewelry.kz/ukrasheniya-iz-gornogo-hrustalya.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://livijewelry.kz/ukrasheniya-iz-lunnogo-kamnya.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://livijewelry.kz/kz/</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://livijewelry.kz/kz/shop.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://livijewelry.kz/delivery.html</loc>
@@ -39,181 +123,321 @@
   <url>
     <loc>https://livijewelry.kz/privacy.html</loc>
     <lastmod>2026-10-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
   <url>
     <loc>https://livijewelry.kz/terms.html</loc>
     <lastmod>2026-10-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_01.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/kole-iz-naturalnogo-zhemchuga-80000.webp</image:loc>
+      <image:title>Колье из натурального жемчуга с барочной подвеской — ручная работа Livi Jewelry</image:title>
+      <image:caption>Колье из натурального жемчуга с барочной подвеской. Роскошное многорядное колье из отборного натурального жемчуга с акцентной подвеской из крупной барочной жемчужины. Материалы: Натуральный жемчуг, Барочный жемчуг, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_02.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp</image:loc>
+      <image:title>Колье из натурального жемчуга и горного хрусталя (Премиум) — ручная работа Livi Jewelry</image:title>
+      <image:caption>Колье из натурального жемчуга и горного хрусталя (Премиум). Многослойное колье из натурального жемчуга премиальной селекции и горного хрусталя с акцентной барочной жемчужиной. Материалы: Натуральный жемчуг, Горный хрусталь, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_03.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/kole-iz-zhemchuga-mayorka-34000.webp</image:loc>
+      <image:title>Колье из жемчуга Майорка — ручная работа Livi Jewelry</image:title>
+      <image:caption>Колье из жемчуга Майорка. Многослойное колье из жемчуга Майорка ручной работы с расписными элементами и подвеской. Материалы: Жемчуг Майорка, Керамические бусины, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_04.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/komplekt-tsep-braslet-40000.webp</image:loc>
+      <image:title>Комплект: позолоченная цепь и браслет с барочным жемчугом — ручная работа Livi Jewelry</image:title>
+      <image:caption>Комплект: позолоченная цепь и браслет с барочным жемчугом. В комплекте: Позолоченная цепь с подвеской из барочной жемчужины — 25 000 тг, Браслет — 15 000 тг. Полная стоимость комплекта — 40 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Материалы: Позолота, Натуральный барочный жемчуг. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_05.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/tsep-rodirovannaya-braslet-40000.webp</image:loc>
+      <image:title>Цепь родированная и браслет с барочным жемчугом — ручная работа Livi Jewelry</image:title>
+      <image:caption>Цепь родированная и браслет с барочным жемчугом. Гарнитур из родированной цепи с барочной жемчужиной и браслета в едином звеньевом стиле со стойким покрытием. В комплекте: Цепь — 25 000 тг, Браслет — 15 000 тг. Полная стоимость — 40 000 тг. Материалы: Родированная фурнитура, Натуральный барочный жемчуг. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_06.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/braslet-iz-malakhita-25000.webp</image:loc>
+      <image:title>Браслет из малахита — ручная работа Livi Jewelry</image:title>
+      <image:caption>Браслет из малахита. Изысканный многорядный браслет из отборного натурального малахита глубокого изумрудного оттенка с золотистыми бусинами-акцентами и регулируемой застежкой. Материалы: Натуральный малахит, Ювелирный сплав, Позолота. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_07.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/garnitur-iz-ametista-i-zhemchuga-40000.webp</image:loc>
+      <image:title>Гарнитур: булавка из аметиста и жемчуга, браслет, кольцо — ручная работа Livi Jewelry</image:title>
+      <image:caption>Гарнитур: булавка из аметиста и жемчуга, браслет, кольцо. В комплекте: Булавка из аметиста и жемчуга — 40 000 тг, Браслет — 20 000 тг, Кольцо — 14 000 тг. Полная стоимость комплекта — 74 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Материалы: Натуральный аметист, Натуральный жемчуг, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_08.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/kole-lapy-40000.webp</image:loc>
+      <image:title>Колье «Лапы» из натурального жемчуга — ручная работа Livi Jewelry</image:title>
+      <image:caption>Колье «Лапы» из натурального жемчуга. Дизайнерское колье «Лапы» с акцентными позолоченными элементами и крупными жемчужинами в дерзком современном стиле. Материалы: Натуральный жемчуг, Ювелирный сплав, Позолота. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_09.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/kole-iz-avantyurina-s-sergami-34000.webp</image:loc>
+      <image:title>Комплект: Колье из авантюрина, серьги — ручная работа Livi Jewelry</image:title>
+      <image:caption>Комплект: Колье из авантюрина, серьги. В комплекте: Колье из авантюрина — 34 000 тг, Серьги — 10 000 тг. Полная стоимость комплекта — 44 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Материалы: Натуральный авантюрин, Ювелирный сплав, Позолота. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_10.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/kole-iz-agata-i-granata-s-koltsom-40000.webp</image:loc>
+      <image:title>Комплект: Колье из Агата и граната, кольцо — ручная работа Livi Jewelry</image:title>
+      <image:caption>Комплект: Колье из Агата и граната, кольцо. В комплекте: Колье из Агата и граната — 36 000 тг, Кольцо — 12 000 тг. Полная стоимость комплекта — 48 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Материалы: Натуральный агат, Натуральный гранат, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_11.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp</image:loc>
+      <image:title>Комплект: Колье из аметиста и розового кварца, серьги из аметиста — ручная работа Livi Jewelry</image:title>
+      <image:caption>Комплект: Колье из аметиста и розового кварца, серьги из аметиста. В комплекте: Колье из аметиста и розового кварца — 45 000 тг, Серьги из аметиста — 16 000 тг. Полная стоимость комплекта — 61 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Материалы: Натуральный аметист, Розовый кварц, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_12.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/kole-iz-zhadeita-i-tigrovogo-glaza-s-sergami-36000.webp</image:loc>
+      <image:title>Комплект: Колье из Жадеита и Тигрового глаза, серьги из тигрового глаза — ручная работа Livi Jewelry</image:title>
+      <image:caption>Комплект: Колье из Жадеита и Тигрового глаза, серьги из тигрового глаза. В комплекте: Колье из Жадеита и Тигрового глаза — 36 000 тг, Серьги из Тигрового глаза — 16 000 тг. Полная стоимость комплекта — 52 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Материалы: Натуральный жадеит, Тигровый глаз, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_13.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/kole-iz-zhemchuga-mayorka-s-sergami-35000.webp</image:loc>
+      <image:title>Комплект: Колье из жемчуга Майорка, серьги — ручная работа Livi Jewelry</image:title>
+      <image:caption>Комплект: Колье из жемчуга Майорка, серьги. В комплекте: Колье из жемчуга Майорка — 35 000 тг, Серьги — 10 000 тг. Полная стоимость комплекта — 45 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Материалы: Жемчуг Майорка, Ювелирный сплав, Позолота. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_14.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/komplekt-iz-koralla-i-yashmy-40000.webp</image:loc>
+      <image:title>Комплект: Колье из коралла и яшмы, браслет, серьги — ручная работа Livi Jewelry</image:title>
+      <image:caption>Комплект: Колье из коралла и яшмы, браслет, серьги. В комплекте: Колье из коралла и яшмы — 40 000 тг, Браслет — 10 000 тг, Серьги — 10 000 тг. Полная стоимость комплекта — 60 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Материалы: Натуральный коралл, Яшма, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_15.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/kole-iz-rozovogo-kvartsa-i-zhemchuga-s-sergami-40000.webp</image:loc>
+      <image:title>Комплект: Колье из розового кварца и жемчуга, серьги — ручная работа Livi Jewelry</image:title>
+      <image:caption>Комплект: Колье из розового кварца и жемчуга, серьги. В комплекте: Колье из розового кварца и жемчуга — 40 000 тг, Серьги — 16 000 тг. Полная стоимость комплекта — 56 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Материалы: Розовый кварц, Натуральный жемчуг, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_16.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/komplekt-iz-naturalnoy-biryuzy-50000.webp</image:loc>
+      <image:title>Комплект из натуральной бирюзы — ручная работа Livi Jewelry</image:title>
+      <image:caption>Комплект из натуральной бирюзы. Комплект из натуральной бирюзы — 50 000 тг. Материалы: Натуральная бирюза, Ювелирный сплав, Позолота. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_17.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/ukrashenie-sotuar-iz-agata-i-granata-36000.webp</image:loc>
+      <image:title>Украшение-сотуар из агата и граната — ручная работа Livi Jewelry</image:title>
+      <image:caption>Украшение-сотуар из агата и граната. Длинное акцентное украшение-сотуар ручной работы из натурального агата и граната с изящной кистью. Материалы: Натуральный агат, Натуральный гранат, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_18.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/bulavka-30000.webp</image:loc>
+      <image:title>Гарнитур: булавка, браслет, серьги, кольцо (под заказ) — ручная работа Livi Jewelry</image:title>
+      <image:caption>Гарнитур: булавка, браслет, серьги, кольцо (под заказ). В комплекте: Булавка — 30 000 тг, Браслет — 16 000 тг, Серьги — 14 000 тг, Кольцо — 14 000 тг. Полная стоимость комплекта — 74 000 тг (под заказ). Каждое изделие можно приобрести по отдельности или полным сетом. Материалы: Натуральный жемчуг, Натуральные камни, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_19.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/kole-iz-tigrovogo-glaza-i-gematita-50000.webp</image:loc>
+      <image:title>Колье из тигрового глаза и гематита — ручная работа Livi Jewelry</image:title>
+      <image:caption>Колье из тигрового глаза и гематита. Авторское колье ручной работы из натурального тигрового глаза и граненого гематита с глубоким шелковистым отливом. Стоимость — 50 000 тг. Материалы: Тигровый глаз, Гематит, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_20.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/kole-iz-flyuorita-i-tsirkonov-35000.webp</image:loc>
+      <image:title>Колье из флюорита и цирконов — ручная работа Livi Jewelry</image:title>
+      <image:caption>Колье из флюорита и цирконов. Утонченное авторское колье ручной работы из натурального полупрозрачного флюорита с сияющими вставками из цирконов. Стоимость — 35 000 тг. Материалы: Натуральный флюорит, Цирконы, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_21.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/kole-s-klubnichkami-34000.webp</image:loc>
+      <image:title>Сет колье: «Клубнички» и розовый кварц с жемчугом — ручная работа Livi Jewelry</image:title>
+      <image:caption>Сет колье: «Клубнички» и розовый кварц с жемчугом. В комплекте: Колье с клубничками — 34 000 тг, Колье из розового кварца и жемчуга — 40 000 тг. Полная стоимость комплекта — 74 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Материалы: Натуральный жемчуг, Розовый кварц, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_22.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/kole-granzh-45000.webp</image:loc>
+      <image:title>Колье «Гранж» с натуральным жемчугом — ручная работа Livi Jewelry</image:title>
+      <image:caption>Колье «Гранж» с натуральным жемчугом. Акцентное дизайнерское колье «Гранж» ручной работы с фактурной цепью и натуральным жемчугом в современном стиле. Стоимость — 45 000 тг. Материалы: Натуральный жемчуг, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_23.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/kole-iz-granata-40000.webp</image:loc>
+      <image:title>Колье из натурального граната — ручная работа Livi Jewelry</image:title>
+      <image:caption>Колье из натурального граната. Элегантное авторское колье ручной работы из граненого натурального граната насыщенного винного оттенка. Стоимость — 40 000 тг. Материалы: Натуральный гранат, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_24.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/kole-iz-zhemchuga-i-lazurita-40000.webp</image:loc>
+      <image:title>Колье из жемчуга и лазурита — ручная работа Livi Jewelry</image:title>
+      <image:caption>Колье из жемчуга и лазурита. Изысканное колье ручной работы из натурального перламутрового жемчуга и благородного синего лазурита. Стоимость — 40 000 тг. Материалы: Натуральный жемчуг, Натуральный лазурит, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_25.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/granata-i-zhemchuga-40000.webp</image:loc>
+      <image:title>Колье из граната и жемчуга — ручная работа Livi Jewelry</image:title>
+      <image:caption>Колье из граната и жемчуга. Авторское колье ручной работы из натурального граната и отборного жемчуга с выразительным контрастом оттенков. Стоимость — 40 000 тг. Материалы: Натуральный жемчуг, Натуральный гранат, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_26.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/komplekt-kole-s-biryuzoy-sergi-50000.webp</image:loc>
+      <image:title>Комплект: Колье с бирюзой, серьги — ручная работа Livi Jewelry</image:title>
+      <image:caption>Комплект: Колье с бирюзой, серьги. В комплекте: Колье с бирюзой — 35 000 тг, Серьги — 15 000 тг. Полная стоимость комплекта — 50 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Материалы: Натуральная бирюза, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_27.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/komplekt-nefrita-i-gematita-sergi-61000.webp</image:loc>
+      <image:title>Комплект: нефрита и гематита, серьги — ручная работа Livi Jewelry</image:title>
+      <image:caption>Комплект: нефрита и гематита, серьги. В комплекте: Нефрита и гематита — 45 000 тг, Серьги — 16 000 тг. Полная стоимость комплекта — 61 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Материалы: Натуральный нефрит, Гематит, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://livijewelry.kz/product/prod_28.html</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://livijewelry.kz/assets/komplekt-komplekt-iz-biryuzy-kole-braslet-sergi-koltso-91000.webp</image:loc>
+      <image:title>Комплект: Комплект из бирюзы : колье, браслет, серьги, кольцо — ручная работа Livi Jewelry</image:title>
+      <image:caption>Комплект: Комплект из бирюзы : колье, браслет, серьги, кольцо. В комплекте: Комплект из бирюзы : колье — 40 000 тг, Браслет — 23 000 тг, Серьги — 14 000 тг, Кольцо — 14 000 тг. Полная стоимость комплекта — 91 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Материалы: Натуральная бирюза, Ювелирный сплав. Купить в Астане и Алматы с доставкой по Казахстану.</image:caption>
+    </image:image>
   </url>
 </urlset>

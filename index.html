@@ -6,15 +6,19 @@
 
   <!-- SEO: title + description + canonical -->
   <title data-i18n="meta.title">Купить украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца | Livi Jewelry</title>
-  <meta name="description" content="Купить украшения из жемчуга и натуральных камней: бижутерия — серьги, браслеты, колье, кольца. В наличии и на заказ. Livi Jewelry, доставка по Казахстану.">
+  <meta name="description" content="Купить украшения из жемчуга и натуральных камней: серьги, браслеты, колье, сотуары и кольца ручной работы. Доставка день-в-день по Астане, по всему Казахстану и миру — Livi Jewelry.">
   <link rel="canonical" href="https://livijewelry.kz/">
+  <link rel="alternate" hreflang="ru-KZ" href="https://livijewelry.kz/" />
+  <link rel="alternate" hreflang="ru" href="https://livijewelry.kz/">
+  <link rel="alternate" hreflang="kk-KZ" href="https://livijewelry.kz/kz/" />
+  <link rel="alternate" hreflang="kk" href="https://livijewelry.kz/kz/">
+  <link rel="alternate" hreflang="x-default" href="https://livijewelry.kz/">
   <meta name="google-site-verification" content="qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0" />
 
-
-<!-- Open Graph / Twitter -->
+  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Украшения из жемчуга и натуральных камней — Livi Jewelry">
-  <meta property="og:description" content="Бижутерия: серьги, браслеты, колье, кольца. В наличии и на заказ.">
+  <meta property="og:description" content="Авторские серьги, браслеты, колье, сотуары и кольца ручной работы. Доставка день-в-день по Астане, по Казахстану и всему миру.">
   <meta property="og:url" content="https://livijewelry.kz/">
   <meta property="og:image" content="https://livijewelry.kz/assets/hero-kole-iz-naturalnogo-zhemchuga-80000.webp">
   <meta name="twitter:card" content="summary_large_image">
@@ -77,18 +81,24 @@
   /></noscript>
   <!-- End Meta Pixel Code -->
 
-
-
-  <!-- Structured Data: Organization + WebSite (SearchAction) -->
+  <!-- Structured Data: Organization / JewelryStore + WebSite (SearchAction) -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@graph":[
       {
-        "@type":"Organization",
+        "@type":["Organization", "JewelryStore"],
         "name":"Livi Jewelry",
         "url":"https://livijewelry.kz/",
         "logo":"https://livijewelry.kz/icon-512.png",
+        "image":"https://livijewelry.kz/assets/hero-kole-iz-naturalnogo-zhemchuga-80000.webp",
+        "telephone":"+77054510584",
+        "priceRange":"15000 KZT - 85000 KZT",
+        "address":{
+          "@type":"PostalAddress",
+          "addressLocality":"Астана",
+          "addressCountry":"KZ"
+        },
         "sameAs":[
           "https://instagram.com/livi_jwl",
           "https://wa.me/77054510584"
@@ -108,15 +118,60 @@
   }
   </script>
 
-  <!-- Structured Data: FAQPage -->
-  <script type="application/ld+json">
+  <!-- Structured Data: FAQPage (1-to-1 sync with visible <details><summary> FAQ section) -->
+  <script type="application/ld+json" id="faqJsonLd">
   {
-    "@context":"https://schema.org",
-    "@type":"FAQPage",
-    "mainEntity":[
-      {"@type":"Question","name":"Это натуральный жемчуг?","acceptedAnswer":{"@type":"Answer","text":"Да, используем натуральный жемчуг; характеристики указаны в карточках."}},
-      {"@type":"Question","name":"Можно на заказ?","acceptedAnswer":{"@type":"Answer","text":"Изготовим серьги, браслеты, колье и кольца по вашим параметрам."}},
-      {"@type":"Question","name":"Доставка по Казахстану?","acceptedAnswer":{"@type":"Answer","text":"Да, отправляем по всем регионам; сроки и стоимость видны при оформлении."}}
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Как осуществляется доставка по Астане, Казахстану и всему миру?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "По Астане действует быстрая курьерская доставка день-в-день (отправка в день заказа). По всему Казахстану (Алматы и все города РК) заказы доставляются курьерской службой СДЭК за 1–3 рабочих дня до двери или пункта выдачи. Также доступна международная доставка по всему миру (Worldwide shipping) с трек-номером отслеживания."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Используете ли вы натуральный жемчуг и гипоаллергенную фурнитуру?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Да, мы работаем с отборным натуральным культивированным и барочным жемчугом, а также природными камнями (малахит, розовый кварц, аметист, гранат, горный хрусталь, гематит, бирюза, агат). Вся фурнитура выполнена из гипоаллергенного ювелирного сплава со стойким родиевым покрытием или позолотой."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Можно ли заказать украшение по индивидуальному размеру?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Да, каждое колье, чокер, браслет, сотуар или кольцо мы можем изготовить или скорректировать точно под ваш индивидуальный размер, желаемую длину и оттенок фурнитуры (родий или позолота) в течение 1–3 дней."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "В какой упаковке приходят украшения — подойдёт ли для подарка?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Каждое украшение Livi Jewelry бережно упаковывается в фирменную подарочную коробочку или бархатный мешочек с защитой для транспортировки. Заказ полностью готов к вручению в качестве подарка без доплат."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Как правильно ухаживать за украшениями из натурального жемчуга и камней?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Надевайте жемчужные украшения после нанесения парфюма и косметики, избегайте контакта с агрессивной бытовой химией и храните изделия в фирменном мягком мешочке или шкатулке отдельно от твёрдых металлических предметов."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Какие условия обмена и возврата в течение 14 дней?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "В соответствии с законодательством Республики Казахстан вы можете оформить обмен или возврат украшения надлежащего качества в течение 14 календарных дней с момента получения, если изделие не было в употреблении и сохранены его товарный вид и фирменная упаковка."
+        }
+      }
     ]
   }
   </script>
@@ -126,8 +181,9 @@
   <div id="drawer" class="drawer" aria-hidden="true">
     <div class="drawer-back"></div>
     <div class="drawer-panel" role="menu" aria-label="Меню">
-      <a href="index.html" data-i18n="nav.home">Главная</a>
+      <a href="/" data-i18n="nav.home">Главная</a>
       <a href="shop.html" data-i18n="nav.shop">Каталог</a>
+      <a href="/kz/" hreflang="kk">Қазақша нұсқасы (KZ)</a>
       <a href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
       <a href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20украшение%20Livi%20Jewelry." target="_blank" rel="noopener">WhatsApp</a>
       <div class="lang">
@@ -140,11 +196,15 @@
     <div class="nav">
       <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
 
-      <a class="brand" href="index.html" aria-label="Livi Jewelry">
+      <a class="brand" href="/" aria-label="Livi Jewelry">
         <span>LIVI JEWELRY</span>
       </a>
 
       <div class="nav-actions">
+        <div class="header-lang-links">
+          <a href="/" class="active" hreflang="ru" onclick="localStorage.setItem('lang','ru')">RU</a>
+          <a href="/kz/" hreflang="kk" onclick="localStorage.setItem('lang','kk')">KZ</a>
+        </div>
         <a class="cart-link" href="cart.html">
           <span data-i18n="nav.cart">Корзина</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
         </a>
@@ -169,214 +229,151 @@
   <section class="hero">
     <div>
       <h1 data-i18n="hero.title">Купить украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца</h1>
-      <p data-i18n="hero.text">Ручная работа, аккуратная упаковка и внимание к деталям. В наличии и на заказ, доставка по Казахстану.</p>
+      <p data-i18n="hero.text">Ручная работа, гипоаллергенная фурнитура (родий/позолота) и фирменная подарочная упаковка. Доставка день-в-день по Астане, быстрая отправка по всему Казахстану и международная доставка по всему миру.</p>
       <a class="btn" href="shop.html" data-i18n="hero.cta">Перейти в каталог</a>
     </div>
     <div class="hero-visual">
-      <img src="assets/hero-kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Украшения из жемчуга и натуральных камней — Livi Jewelry" fetchpriority="high" decoding="async" width="800" height="1067">
+      <img src="assets/hero-kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Многорядное колье из натурального и барочного жемчуга ручной работы, Livi Jewelry" fetchpriority="high" decoding="async" width="800" height="1067">
     </div>
   </section>
 
   <section class="section">
     <h2 data-i18n="feat.title">Избранные товары</h2>
     <div class="rule"></div>
+
+    <!-- Подборки по камням и стилям (прямые индексируемые ссылки на SEO-хабы) -->
+    <nav class="stone-chips" aria-label="Подборки по камням и стилям">
+      <a class="chip-link" href="/ukrasheniya-iz-barochnogo-zhemchuga.html" data-i18n="chip.baroque">Барочный жемчуг</a>
+      <a class="chip-link" href="/ukrasheniya-iz-malahita.html" data-i18n="chip.malachite">Малахит</a>
+      <a class="chip-link" href="/ukrasheniya-iz-rozovogo-kvarca.html" data-i18n="chip.rosequartz">Розовый кварц</a>
+      <a class="chip-link" href="/ukrasheniya-iz-gematita.html" data-i18n="chip.hematite">Гематит</a>
+      <a class="chip-link" href="/ukrasheniya-iz-granata.html" data-i18n="chip.garnet">Гранат</a>
+      <a class="chip-link" href="/ukrasheniya-iz-ametista.html" data-i18n="chip.amethyst">Аметист</a>
+      <a class="chip-link" href="/ukrasheniya-iz-gornogo-hrustalya.html" data-i18n="chip.crystal">Горный хрусталь</a>
+      <a class="chip-link" href="/ukrasheniya-iz-biryuzy.html" data-i18n="chip.turquoise">Бирюза</a>
+      <a class="chip-link" href="/ukrasheniya-iz-lunnogo-kamnya.html">Лунный камень и перламутр</a>
+      <a class="chip-link" href="/kolye-iz-zhemchuga.html" data-i18n="chip.necklaces">Колье из жемчуга</a>
+      <a class="chip-link" href="/chokery-iz-naturalnyh-kamney.html">Чокеры из камней</a>
+      <a class="chip-link" href="/sotuary-iz-zhemchuga.html" data-i18n="chip.lariats">Сотуары</a>
+      <a class="chip-link" href="/braslety-iz-zhemchuga.html" data-i18n="chip.bracelets">Браслеты</a>
+      <a class="chip-link" href="/sergi-iz-zhemchuga.html" data-i18n="chip.earrings">Серьги</a>
+      <a class="chip-link" href="/komplekty-ukrasheniy.html" data-i18n="chip.sets">Комплекты украшений</a>
+    </nav>
+
+    <!-- Витрина из 12 избранных карточек с разными камнями -->
     <div id="featGrid" class="grid" aria-live="polite">
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_01.html'">
-        <div class="card-img-wrap"><img src="assets/kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Колье из натурального жемчуга с барочной подвеской — ручная работа Livi Jewelry (80 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
+      <article class="card" data-id="prod_01">
+        <div class="card-img-wrap"><img src="assets/kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Колье из натурального жемчуга с барочной подвеской — ручная работа из натуральный жемчуг, барочный жемчуг, Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
         <div class="body">
-          <div class="title"><a href="/product/prod_01.html" class="card-title-link">Колье из натурального жемчуга с барочной подвеской</a></div>
+          <div class="title"><a href="/product/prod_01.html" class="card-title-link" data-id="prod_01" data-title="Колье из натурального жемчуга с барочной подвеской" data-price="80000" data-category="Necklaces">Колье из натурального жемчуга с барочной подвеской</a></div>
           <div class="price">80 000 ₸</div>
         </div>
       </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_02.html'">
-        <div class="card-img-wrap"><img src="assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp" alt="Колье из натурального жемчуга и горного хрусталя (Премиум) — ручная работа Livi Jewelry (80 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
+      <article class="card" data-id="prod_02">
+        <div class="card-img-wrap"><img src="assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp" alt="Колье из натурального жемчуга и горного хрусталя (Премиум) — ручная работа из натуральный жемчуг, горный хрусталь, Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
         <div class="body">
-          <div class="title"><a href="/product/prod_02.html" class="card-title-link">Колье из натурального жемчуга и горного хрусталя (Премиум)</a></div>
+          <div class="title"><a href="/product/prod_02.html" class="card-title-link" data-id="prod_02" data-title="Колье из натурального жемчуга и горного хрусталя (Премиум)" data-price="80000" data-category="Necklaces">Колье из натурального жемчуга и горного хрусталя (Премиум)</a></div>
           <div class="price">80 000 ₸</div>
         </div>
       </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_03.html'">
-        <div class="card-img-wrap"><img src="assets/kole-iz-zhemchuga-mayorka-34000.webp" alt="Колье из жемчуга Майорка — ручная работа Livi Jewelry (34 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
+      <article class="card" data-id="prod_06">
+        <div class="card-img-wrap"><img src="assets/braslet-iz-malakhita-25000.webp" alt="Браслет из малахита — ручная работа из натуральный малахит, Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
         <div class="body">
-          <div class="title"><a href="/product/prod_03.html" class="card-title-link">Колье из жемчуга Майорка</a></div>
-          <div class="price">34 000 ₸</div>
-        </div>
-      </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_04.html'">
-        <div class="card-img-wrap"><img src="assets/komplekt-tsep-braslet-40000.webp" alt="Комплект: позолоченная цепь и браслет с барочным жемчугом — ручная работа Livi Jewelry (40 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
-        <div class="body">
-          <div class="title"><a href="/product/prod_04.html" class="card-title-link">Комплект: позолоченная цепь и браслет с барочным жемчугом</a></div>
-          <div class="price">40 000 ₸</div>
-        </div>
-      </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_05.html'">
-        <div class="card-img-wrap"><img src="assets/tsep-rodirovannaya-braslet-40000.webp" alt="Цепь родированная и браслет с барочным жемчугом — ручная работа Livi Jewelry (40 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
-        <div class="body">
-          <div class="title"><a href="/product/prod_05.html" class="card-title-link">Цепь родированная и браслет с барочным жемчугом</a></div>
-          <div class="price">40 000 ₸</div>
-        </div>
-      </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_06.html'">
-        <div class="card-img-wrap"><img src="assets/braslet-iz-malakhita-25000.webp" alt="Браслет из малахита — ручная работа Livi Jewelry (25 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
-        <div class="body">
-          <div class="title"><a href="/product/prod_06.html" class="card-title-link">Браслет из малахита</a></div>
+          <div class="title"><a href="/product/prod_06.html" class="card-title-link" data-id="prod_06" data-title="Браслет из малахита" data-price="25000" data-category="Bracelets">Браслет из малахита</a></div>
           <div class="price">25 000 ₸</div>
         </div>
       </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_07.html'">
-        <div class="card-img-wrap"><img src="assets/garnitur-iz-ametista-i-zhemchuga-40000.webp" alt="Гарнитур: булавка из аметиста и жемчуга, браслет, кольцо — ручная работа Livi Jewelry (74 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
+      <article class="card" data-id="prod_07">
+        <div class="card-img-wrap"><img src="assets/garnitur-iz-ametista-i-zhemchuga-40000.webp" alt="Гарнитур: булавка из аметиста и жемчуга, браслет, кольцо — ручная работа из натуральный аметист, натуральный жемчуг, Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
         <div class="body">
-          <div class="title"><a href="/product/prod_07.html" class="card-title-link">Гарнитур: булавка из аметиста и жемчуга, браслет, кольцо</a></div>
+          <div class="title"><a href="/product/prod_07.html" class="card-title-link" data-id="prod_07" data-title="Гарнитур: булавка из аметиста и жемчуга, браслет, кольцо" data-price="74000" data-category="Sets">Гарнитур: булавка из аметиста и жемчуга, браслет, кольцо</a></div>
           <div class="price">74 000 ₸</div>
         </div>
       </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_08.html'">
-        <div class="card-img-wrap"><img src="assets/kole-lapy-40000.webp" alt="Колье «Лапы» из натурального жемчуга — ручная работа Livi Jewelry (40 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
+      <article class="card" data-id="prod_10">
+        <div class="card-img-wrap"><img src="assets/kole-iz-agata-i-granata-s-koltsom-40000.webp" alt="Комплект: Колье из Агата и граната, кольцо — ручная работа из натуральный агат, натуральный гранат, Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
         <div class="body">
-          <div class="title"><a href="/product/prod_08.html" class="card-title-link">Колье «Лапы» из натурального жемчуга</a></div>
-          <div class="price">40 000 ₸</div>
-        </div>
-      </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_09.html'">
-        <div class="card-img-wrap"><img src="assets/kole-iz-avantyurina-s-sergami-34000.webp" alt="Комплект: Колье из авантюрина, серьги — ручная работа Livi Jewelry (44 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
-        <div class="body">
-          <div class="title"><a href="/product/prod_09.html" class="card-title-link">Комплект: Колье из авантюрина, серьги</a></div>
-          <div class="price">44 000 ₸</div>
-        </div>
-      </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_10.html'">
-        <div class="card-img-wrap"><img src="assets/kole-iz-agata-i-granata-s-koltsom-40000.webp" alt="Комплект: Колье из Агата и граната, кольцо — ручная работа Livi Jewelry (48 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
-        <div class="body">
-          <div class="title"><a href="/product/prod_10.html" class="card-title-link">Комплект: Колье из Агата и граната, кольцо</a></div>
+          <div class="title"><a href="/product/prod_10.html" class="card-title-link" data-id="prod_10" data-title="Комплект: Колье из Агата и граната, кольцо" data-price="48000" data-category="Sets">Комплект: Колье из Агата и граната, кольцо</a></div>
           <div class="price">48 000 ₸</div>
         </div>
       </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_11.html'">
-        <div class="card-img-wrap"><img src="assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp" alt="Комплект: Колье из аметиста и розового кварца, серьги из аметиста — ручная работа Livi Jewelry (61 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
+      <article class="card" data-id="prod_11">
+        <div class="card-img-wrap"><img src="assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp" alt="Комплект: Колье из аметиста и розового кварца, серьги из аметиста — ручная работа из натуральный аметист, розовый кварц, Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
         <div class="body">
-          <div class="title"><a href="/product/prod_11.html" class="card-title-link">Комплект: Колье из аметиста и розового кварца, серьги из аметиста</a></div>
+          <div class="title"><a href="/product/prod_11.html" class="card-title-link" data-id="prod_11" data-title="Комплект: Колье из аметиста и розового кварца, серьги из аметиста" data-price="61000" data-category="Sets">Комплект: Колье из аметиста и розового кварца, серьги из аметиста</a></div>
           <div class="price">61 000 ₸</div>
         </div>
       </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_12.html'">
-        <div class="card-img-wrap"><img src="assets/kole-iz-zhadeita-i-tigrovogo-glaza-s-sergami-36000.webp" alt="Комплект: Колье из Жадеита и Тигрового глаза, серьги из тигрового глаза — ручная работа Livi Jewelry (52 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
+      <article class="card" data-id="prod_16">
+        <div class="card-img-wrap"><img src="assets/komplekt-iz-naturalnoy-biryuzy-50000.webp" alt="Комплект из натуральной бирюзы — ручная работа из натуральная бирюза, Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
         <div class="body">
-          <div class="title"><a href="/product/prod_12.html" class="card-title-link">Комплект: Колье из Жадеита и Тигрового глаза, серьги из тигрового глаза</a></div>
-          <div class="price">52 000 ₸</div>
-        </div>
-      </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_13.html'">
-        <div class="card-img-wrap"><img src="assets/kole-iz-zhemchuga-mayorka-s-sergami-35000.webp" alt="Комплект: Колье из жемчуга Майорка, серьги — ручная работа Livi Jewelry (45 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
-        <div class="body">
-          <div class="title"><a href="/product/prod_13.html" class="card-title-link">Комплект: Колье из жемчуга Майорка, серьги</a></div>
-          <div class="price">45 000 ₸</div>
-        </div>
-      </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_14.html'">
-        <div class="card-img-wrap"><img src="assets/komplekt-iz-koralla-i-yashmy-40000.webp" alt="Комплект: Колье из коралла и яшмы, браслет, серьги — ручная работа Livi Jewelry (60 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
-        <div class="body">
-          <div class="title"><a href="/product/prod_14.html" class="card-title-link">Комплект: Колье из коралла и яшмы, браслет, серьги</a></div>
-          <div class="price">60 000 ₸</div>
-        </div>
-      </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_15.html'">
-        <div class="card-img-wrap"><img src="assets/kole-iz-rozovogo-kvartsa-i-zhemchuga-s-sergami-40000.webp" alt="Комплект: Колье из розового кварца и жемчуга, серьги — ручная работа Livi Jewelry (56 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
-        <div class="body">
-          <div class="title"><a href="/product/prod_15.html" class="card-title-link">Комплект: Колье из розового кварца и жемчуга, серьги</a></div>
-          <div class="price">56 000 ₸</div>
-        </div>
-      </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_16.html'">
-        <div class="card-img-wrap"><img src="assets/komplekt-iz-naturalnoy-biryuzy-50000.webp" alt="Комплект из натуральной бирюзы — ручная работа Livi Jewelry (50 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
-        <div class="body">
-          <div class="title"><a href="/product/prod_16.html" class="card-title-link">Комплект из натуральной бирюзы</a></div>
+          <div class="title"><a href="/product/prod_16.html" class="card-title-link" data-id="prod_16" data-title="Комплект из натуральной бирюзы" data-price="50000" data-category="Sets">Комплект из натуральной бирюзы</a></div>
           <div class="price">50 000 ₸</div>
         </div>
       </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_17.html'">
-        <div class="card-img-wrap"><img src="assets/ukrashenie-sotuar-iz-agata-i-granata-36000.webp" alt="Украшение-сотуар из агата и граната — ручная работа Livi Jewelry (36 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
+      <article class="card" data-id="prod_17">
+        <div class="card-img-wrap"><img src="assets/ukrashenie-sotuar-iz-agata-i-granata-36000.webp" alt="Украшение-сотуар из агата и граната — ручная работа из натуральный агат, натуральный гранат, Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
         <div class="body">
-          <div class="title"><a href="/product/prod_17.html" class="card-title-link">Украшение-сотуар из агата и граната</a></div>
+          <div class="title"><a href="/product/prod_17.html" class="card-title-link" data-id="prod_17" data-title="Украшение-сотуар из агата и граната" data-price="36000" data-category="Lariats">Украшение-сотуар из агата и граната</a></div>
           <div class="price">36 000 ₸</div>
         </div>
       </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_18.html'">
-        <div class="card-img-wrap"><img src="assets/bulavka-30000.webp" alt="Гарнитур: булавка, браслет, серьги, кольцо (под заказ) — ручная работа Livi Jewelry (74 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
+      <article class="card" data-id="prod_19">
+        <div class="card-img-wrap"><img src="assets/kole-iz-tigrovogo-glaza-i-gematita-50000.webp" alt="Колье из тигрового глаза и гематита — ручная работа из тигровый глаз, гематит, Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
         <div class="body">
-          <div class="title"><a href="/product/prod_18.html" class="card-title-link">Гарнитур: булавка, браслет, серьги, кольцо (под заказ)</a></div>
-          <div class="price">74 000 ₸</div>
-        </div>
-      </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_19.html'">
-        <div class="card-img-wrap"><img src="assets/kole-iz-tigrovogo-glaza-i-gematita-50000.webp" alt="Колье из тигрового глаза и гематита — ручная работа Livi Jewelry (50 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
-        <div class="body">
-          <div class="title"><a href="/product/prod_19.html" class="card-title-link">Колье из тигрового глаза и гематита</a></div>
+          <div class="title"><a href="/product/prod_19.html" class="card-title-link" data-id="prod_19" data-title="Колье из тигрового глаза и гематита" data-price="50000" data-category="Necklaces">Колье из тигрового глаза и гематита</a></div>
           <div class="price">50 000 ₸</div>
         </div>
       </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_20.html'">
-        <div class="card-img-wrap"><img src="assets/kole-iz-flyuorita-i-tsirkonov-35000.webp" alt="Колье из флюорита и цирконов — ручная работа Livi Jewelry (35 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
+      <article class="card" data-id="prod_20">
+        <div class="card-img-wrap"><img src="assets/kole-iz-flyuorita-i-tsirkonov-35000.webp" alt="Колье из флюорита и цирконов — ручная работа из натуральный флюорит, цирконы, Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
         <div class="body">
-          <div class="title"><a href="/product/prod_20.html" class="card-title-link">Колье из флюорита и цирконов</a></div>
+          <div class="title"><a href="/product/prod_20.html" class="card-title-link" data-id="prod_20" data-title="Колье из флюорита и цирконов" data-price="35000" data-category="Necklaces">Колье из флюорита и цирконов</a></div>
           <div class="price">35 000 ₸</div>
         </div>
       </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_21.html'">
-        <div class="card-img-wrap"><img src="assets/kole-s-klubnichkami-34000.webp" alt="Сет колье: «Клубнички» и розовый кварц с жемчугом — ручная работа Livi Jewelry (74 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
+      <article class="card" data-id="prod_23">
+        <div class="card-img-wrap"><img src="assets/kole-iz-granata-40000.webp" alt="Колье из натурального граната — ручная работа из натуральный гранат, Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
         <div class="body">
-          <div class="title"><a href="/product/prod_21.html" class="card-title-link">Сет колье: «Клубнички» и розовый кварц с жемчугом</a></div>
-          <div class="price">74 000 ₸</div>
-        </div>
-      </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_22.html'">
-        <div class="card-img-wrap"><img src="assets/kole-granzh-45000.webp" alt="Колье «Гранж» с натуральным жемчугом — ручная работа Livi Jewelry (45 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
-        <div class="body">
-          <div class="title"><a href="/product/prod_22.html" class="card-title-link">Колье «Гранж» с натуральным жемчугом</a></div>
-          <div class="price">45 000 ₸</div>
-        </div>
-      </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_23.html'">
-        <div class="card-img-wrap"><img src="assets/kole-iz-granata-40000.webp" alt="Колье из натурального граната — ручная работа Livi Jewelry (40 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
-        <div class="body">
-          <div class="title"><a href="/product/prod_23.html" class="card-title-link">Колье из натурального граната</a></div>
+          <div class="title"><a href="/product/prod_23.html" class="card-title-link" data-id="prod_23" data-title="Колье из натурального граната" data-price="40000" data-category="Necklaces">Колье из натурального граната</a></div>
           <div class="price">40 000 ₸</div>
         </div>
       </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_24.html'">
-        <div class="card-img-wrap"><img src="assets/kole-iz-zhemchuga-i-lazurita-40000.webp" alt="Колье из жемчуга и лазурита — ручная работа Livi Jewelry (40 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
+      <article class="card" data-id="prod_24">
+        <div class="card-img-wrap"><img src="assets/kole-iz-zhemchuga-i-lazurita-40000.webp" alt="Колье из жемчуга и лазурита — ручная работа из натуральный жемчуг, натуральный лазурит, Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
         <div class="body">
-          <div class="title"><a href="/product/prod_24.html" class="card-title-link">Колье из жемчуга и лазурита</a></div>
+          <div class="title"><a href="/product/prod_24.html" class="card-title-link" data-id="prod_24" data-title="Колье из жемчуга и лазурита" data-price="40000" data-category="Necklaces">Колье из жемчуга и лазурита</a></div>
           <div class="price">40 000 ₸</div>
         </div>
       </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_25.html'">
-        <div class="card-img-wrap"><img src="assets/granata-i-zhemchuga-40000.webp" alt="Колье из граната и жемчуга — ручная работа Livi Jewelry (40 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
-        <div class="body">
-          <div class="title"><a href="/product/prod_25.html" class="card-title-link">Колье из граната и жемчуга</a></div>
-          <div class="price">40 000 ₸</div>
-        </div>
-      </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_26.html'">
-        <div class="card-img-wrap"><img src="assets/komplekt-kole-s-biryuzoy-sergi-50000.webp" alt="Комплект: Колье с бирюзой, серьги — ручная работа Livi Jewelry (50 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
-        <div class="body">
-          <div class="title"><a href="/product/prod_26.html" class="card-title-link">Комплект: Колье с бирюзой, серьги</a></div>
-          <div class="price">50 000 ₸</div>
-        </div>
-      </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_27.html'">
-        <div class="card-img-wrap"><img src="assets/komplekt-nefrita-i-gematita-sergi-61000.webp" alt="Комплект: нефрита и гематита, серьги — ручная работа Livi Jewelry (61 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
-        <div class="body">
-          <div class="title"><a href="/product/prod_27.html" class="card-title-link">Комплект: нефрита и гематита, серьги</a></div>
-          <div class="price">61 000 ₸</div>
-        </div>
-      </article>
-      <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/prod_28.html'">
-        <div class="card-img-wrap"><img src="assets/komplekt-komplekt-iz-biryuzy-kole-braslet-sergi-koltso-91000.webp" alt="Комплект: Комплект из бирюзы : колье, браслет, серьги, кольцо — ручная работа Livi Jewelry (91 000 тг)" loading="lazy" decoding="async" width="600" height="800"></div>
-        <div class="body">
-          <div class="title"><a href="/product/prod_28.html" class="card-title-link">Комплект: Комплект из бирюзы : колье, браслет, серьги, кольцо</a></div>
-          <div class="price">91 000 ₸</div>
-        </div>
-      </article>
+    </div>
+  </section>
+
+  <!-- География доставки и 4 карточки преимуществ -->
+  <section class="section" id="delivery-benefits">
+    <h2 data-i18n="ben.heading">География доставки и сервис Livi Jewelry</h2>
+    <div class="rule"></div>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon" aria-hidden="true">⚡</div>
+        <h3 class="benefit-title" data-i18n="ben.1.title">Доставка день-в-день по Астане</h3>
+        <p class="benefit-desc" data-i18n="ben.1.desc">Быстрая курьерская отправка в день заказа по всем районам Астаны — получите украшение к важному событию уже сегодня.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon" aria-hidden="true">🇰🇿</div>
+        <h3 class="benefit-title" data-i18n="ben.2.title">Доставка по всему Казахстану</h3>
+        <p class="benefit-desc" data-i18n="ben.2.desc">Отправляем заказы в Алматы, Шымкент, Караганду, Атырау и все города РК курьерской службой СДЭК за 1–3 рабочих дня.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon" aria-hidden="true">🌍</div>
+        <h3 class="benefit-title" data-i18n="ben.3.title">Международная доставка по всему миру</h3>
+        <p class="benefit-desc" data-i18n="ben.3.desc">Worldwide shipping — бережно доставляем авторские украшения Livi Jewelry в любую страну мира с надёжным трек-номером.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon" aria-hidden="true">🎁</div>
+        <h3 class="benefit-title" data-i18n="ben.4.title">Люкс-упаковка, родий/позолота и размер на заказ</h3>
+        <p class="benefit-desc" data-i18n="ben.4.desc">Фирменная подарочная упаковка, гипоаллергенная фурнитура со стойким покрытием (родий или позолота) и индивидуальный размер под ваш запястье или шею.</p>
+      </div>
     </div>
   </section>
 
@@ -437,8 +434,63 @@
       <h2 data-i18n="about.title">О нас</h2>
       <div class="rule"></div>
       <p data-i18n="about.text">
-        Livi Jewelry — мастерская бижутерии из натурального жемчуга и камней. Мы создаём серьги, браслеты, колье и кольца в наличии и на заказ — под ваш размер, оттенок фурнитуры и стиль. Фото соответствуют изделиям, бережная упаковка, отправка по Казахстану.
+        Livi Jewelry — мастерская бижутерии из натурального жемчуга и камней. Мы создаём серьги, браслеты, колье, сотуары и кольца в наличии и на заказ — под ваш индивидуальный размер, оттенок гипоаллергенной фурнитуры (родий или позолота) и стиль. Доставка день-в-день по Астане, быстрая отправка по всему Казахстану (Алматы и все города РК) и международная доставка по всему миру (Worldwide shipping) в фирменной подарочной упаковке.
       </p>
+    </div>
+  </section>
+
+  <!-- Видимый FAQ (<details><summary>), синхронизированный 1-в-1 с JSON-LD FAQPage -->
+  <section class="faq-section" id="faq">
+    <h2 data-i18n="faq.heading">Частые вопросы (FAQ)</h2>
+    <div class="rule"></div>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary data-i18n="faq.q1">Как осуществляется доставка по Астане, Казахстану и всему миру?</summary>
+        <div class="faq-answer" data-i18n="faq.a1">По Астане действует быстрая курьерская доставка день-в-день (отправка в день заказа). По всему Казахстану (Алматы и все города РК) заказы доставляются курьерской службой СДЭК за 1–3 рабочих дня до двери или пункта выдачи. Также доступна международная доставка по всему миру (Worldwide shipping) с трек-номером отслеживания.</div>
+      </details>
+      <details class="faq-item">
+        <summary data-i18n="faq.q2">Используете ли вы натуральный жемчуг и гипоаллергенную фурнитуру?</summary>
+        <div class="faq-answer" data-i18n="faq.a2">Да, мы работаем с отборным натуральным культивированным и барочным жемчугом, а также природными камнями (малахит, розовый кварц, аметист, гранат, горный хрусталь, гематит, бирюза, агат). Вся фурнитура выполнена из гипоаллергенного ювелирного сплава со стойким родиевым покрытием или позолотой.</div>
+      </details>
+      <details class="faq-item">
+        <summary data-i18n="faq.q3">Можно ли заказать украшение по индивидуальному размеру?</summary>
+        <div class="faq-answer" data-i18n="faq.a3">Да, каждое колье, чокер, браслет, сотуар или кольцо мы можем изготовить или скорректировать точно под ваш индивидуальный размер, желаемую длину и оттенок фурнитуры (родий или позолота) в течение 1–3 дней.</div>
+      </details>
+      <details class="faq-item">
+        <summary data-i18n="faq.q4">В какой упаковке приходят украшения — подойдёт ли для подарка?</summary>
+        <div class="faq-answer" data-i18n="faq.a4">Каждое украшение Livi Jewelry бережно упаковывается в фирменную подарочную коробочку или бархатный мешочек с защитой для транспортировки. Заказ полностью готов к вручению в качестве подарка без доплат.</div>
+      </details>
+      <details class="faq-item">
+        <summary data-i18n="faq.q5">Как правильно ухаживать за украшениями из натурального жемчуга и камней?</summary>
+        <div class="faq-answer" data-i18n="faq.a5">Надевайте жемчужные украшения после нанесения парфюма и косметики, избегайте контакта с агрессивной бытовой химией и храните изделия в фирменном мягком мешочке или шкатулке отдельно от твёрдых металлических предметов.</div>
+      </details>
+      <details class="faq-item">
+        <summary data-i18n="faq.q6">Какие условия обмена и возврата в течение 14 дней?</summary>
+        <div class="faq-answer" data-i18n="faq.a6">В соответствии с законодательством Республики Казахстан вы можете оформить обмен или возврат украшения надлежащего качества в течение 14 календарных дней с момента получения, если изделие не было в употреблении и сохранены его товарный вид и фирменная упаковка.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Блок перелинковки: Подборки по камням и стилям -->
+  <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
+    <h2>Подборки по камням и стилям</h2>
+    <p class="hub-interlink-sub">Авторские украшения Livi Jewelry из натуральных минералов и культивированного жемчуга с доставкой по Астане и Казахстану</p>
+    <div class="stone-chips">
+      <a href="/kolye-iz-zhemchuga.html" class="stone-chip">Колье из жемчуга</a>
+      <a href="/braslety-iz-zhemchuga.html" class="stone-chip">Браслеты из жемчуга</a>
+      <a href="/sergi-iz-zhemchuga.html" class="stone-chip">Серьги из жемчуга</a>
+      <a href="/komplekty-ukrasheniy.html" class="stone-chip">Комплекты украшений</a>
+      <a href="/chokery-iz-naturalnyh-kamney.html" class="stone-chip">Чокеры из камней</a>
+      <a href="/sotuary-iz-zhemchuga.html" class="stone-chip">Сотуары и галстуки</a>
+      <a href="/ukrasheniya-iz-barochnogo-zhemchuga.html" class="stone-chip">Барочный жемчуг</a>
+      <a href="/ukrasheniya-iz-gematita.html" class="stone-chip">Гематит</a>
+      <a href="/ukrasheniya-iz-malahita.html" class="stone-chip">Малахит и Нефрит</a>
+      <a href="/ukrasheniya-iz-ametista.html" class="stone-chip">Аметист и Флюорит</a>
+      <a href="/ukrasheniya-iz-granata.html" class="stone-chip">Гранат и Агат</a>
+      <a href="/ukrasheniya-iz-rozovogo-kvarca.html" class="stone-chip">Розовый кварц</a>
+      <a href="/ukrasheniya-iz-biryuzy.html" class="stone-chip">Бирюза</a>
+      <a href="/ukrasheniya-iz-gornogo-hrustalya.html" class="stone-chip">Горный хрусталь</a>
+      <a href="/ukrasheniya-iz-lunnogo-kamnya.html" class="stone-chip">Лунный камень и Перламутр</a>
     </div>
   </section>
 
@@ -449,6 +501,7 @@
         <a href="privacy.html" data-i18n="foot.privacy">Политика конфиденциальности</a>
         <a href="terms.html" data-i18n="foot.terms">Условия использования</a>
         <a href="shop.html">Каталог</a>
+        <a href="/kz/">Қазақша нұсқа</a>
       </div>
       <div class="copy">© <span id="year"></span> Livi Jewelry — <span data-i18n="foot.rights">Все права защищены.</span></div>
       <div class="links">
@@ -459,76 +512,223 @@
   </footer>
 
   <script>
-    /* ===== i18n ===== */
+    /* ===== Сквозная атрибуция (UTM / GCLID / FBCLID) ===== */
+    (function captureAttribution(){
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const existing = JSON.parse(localStorage.getItem('livi_attribution') || '{}');
+        const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid','yclid'];
+        let hasNew = false;
+        keys.forEach(k => {
+          const val = params.get(k);
+          if(val) { existing[k] = val; hasNew = true; }
+        });
+        if(!existing.landing_page) existing.landing_page = window.location.pathname + window.location.search;
+        if(!existing.referrer && document.referrer) existing.referrer = document.referrer;
+        if(!existing.first_visit) existing.first_visit = new Date().toISOString();
+        if(hasNew || !localStorage.getItem('livi_attribution')) {
+          localStorage.setItem('livi_attribution', JSON.stringify(existing));
+        }
+      } catch(e){}
+    })();
+
+    function getAttributionSummary(txId){
+      try {
+        const attr = JSON.parse(localStorage.getItem('livi_attribution') || '{}');
+        const src = attr.utm_source || (attr.gclid ? 'Google Ads' : (attr.fbclid ? 'Meta Ads' : 'Direct/Organic'));
+        const term = attr.utm_term || attr.utm_campaign || '—';
+        const code = attr.gclid ? attr.gclid.substring(0, 12) : (txId || ('LIVI-' + String(Date.now()).slice(-4)));
+        return `\n📊 Источник: ${src} | Запрос: ${term} | Код: ${code}`;
+      } catch(e){
+        return '';
+      }
+    }
+
+    /* ===== i18n (RU / KZ / EN) ===== */
     const I18N={
       ru:{
         'meta.title':'Купить украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца | Livi Jewelry',
         'nav.home':'Главная','nav.shop':'Каталог','nav.cart':'Корзина',
         'hero.title':'Купить украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца',
-        'hero.text':'Ручная работа, аккуратная упаковка и внимание к деталям. В наличии и на заказ, доставка по Казахстану.',
+        'hero.text':'Ручная работа, гипоаллергенная фурнитура (родий/позолота) и фирменная подарочная упаковка. Доставка день-в-день по Астане, быстрая отправка по всему Казахстану и международная доставка по всему миру.',
         'hero.cta':'Перейти в каталог',
         'feat.title':'Избранные товары',
+        'chip.baroque':'Барочный жемчуг','chip.malachite':'Малахит','chip.rosequartz':'Розовый кварц',
+        'chip.hematite':'Гематит','chip.garnet':'Гранат','chip.amethyst':'Аметист',
+        'chip.crystal':'Горный хрусталь','chip.turquoise':'Бирюза','chip.tigereye':'Тигровый глаз',
+        'chip.agate':'Агат','chip.lapis':'Лазурит','chip.fluorite':'Флюорит',
+        'chip.necklaces':'Колье','chip.lariats':'Сотуары','chip.bracelets':'Браслеты','chip.earrings':'Серьги','chip.sets':'Комплекты',
+        'ben.heading':'География доставки и сервис Livi Jewelry',
+        'ben.1.title':'Доставка день-в-день по Астане',
+        'ben.1.desc':'Быстрая курьерская отправка в день заказа по всем районам Астаны — получите украшение к важному событию уже сегодня.',
+        'ben.2.title':'Доставка по всему Казахстану',
+        'ben.2.desc':'Отправляем заказы в Алматы, Шымкент, Караганду, Атырау и все города РК курьерской службой СДЭК за 1–3 рабочих дня.',
+        'ben.3.title':'Международная доставка по всему миру',
+        'ben.3.desc':'Worldwide shipping — бережно доставляем авторские украшения Livi Jewelry в любую страну мира с надёжным трек-номером.',
+        'ben.4.title':'Люкс-упаковка, родий/позолота и размер на заказ',
+        'ben.4.desc':'Фирменная подарочная упаковка, гипоаллергенная фурнитура со стойким покрытием (родий или позолота) и индивидуальный размер под ваш запястье или шею.',
         'about.title':'О нас',
-        'about.text':'Livi Jewelry — мастерская бижутерии из натурального жемчуга и камней. Мы создаём серьги, браслеты, колье и кольца в наличии и на заказ — под ваш размер, оттенок фурнитуры и стиль. Фото соответствуют изделиям, бережная упаковка, отправка по Казахстану.',
-        'foot.privacy':'Политика конфиденциальности','foot.terms':'Условия использования','foot.delivery':'Доставка и возврат','foot.rights':'Все права защищены.'
+        'about.text':'Livi Jewelry — мастерская бижутерии из натурального жемчуга и камней. Мы создаём серьги, браслеты, колье, сотуары и кольца в наличии и на заказ — под ваш индивидуальный размер, оттенок гипоаллергенной фурнитуры (родий или позолота) и стиль. Доставка день-в-день по Астане, быстрая отправка по всему Казахстану (Алматы и все города РК) и международная доставка по всему миру (Worldwide shipping) в фирменной подарочной упаковке.',
+        'faq.heading':'Частые вопросы (FAQ)',
+        'faq.q1':'Как осуществляется доставка по Астане, Казахстану и всему миру?',
+        'faq.a1':'По Астане действует быстрая курьерская доставка день-в-день (отправка в день заказа). По всему Казахстану (Алматы и все города РК) заказы доставляются курьерской службой СДЭК за 1–3 рабочих дня до двери или пункта выдачи. Также доступна международная доставка по всему миру (Worldwide shipping) с трек-номером отслеживания.',
+        'faq.q2':'Используете ли вы натуральный жемчуг и гипоаллергенную фурнитуру?',
+        'faq.a2':'Да, мы работаем с отборным натуральным культивированным и барочным жемчугом, а также природными камнями (малахит, розовый кварц, аметист, гранат, горный хрусталь, гематит, бирюза, агат). Вся фурнитура выполнена из гипоаллергенного ювелирного сплава со стойким родиевым покрытием или позолотой.',
+        'faq.q3':'Можно ли заказать украшение по индивидуальному размеру?',
+        'faq.a3':'Да, каждое колье, чокер, браслет, сотуар или кольцо мы можем изготовить или скорректировать точно под ваш индивидуальный размер, желаемую длину и оттенок фурнитуры (родий или позолота) в течение 1–3 дней.',
+        'faq.q4':'В какой упаковке приходят украшения — подойдёт ли для подарка?',
+        'faq.a4':'Каждое украшение Livi Jewelry бережно упаковывается в фирменную подарочную коробочку или бархатный мешочек с защитой для транспортировки. Заказ полностью готов к вручению в качестве подарка без доплат.',
+        'faq.q5':'Как правильно ухаживать за украшениями из натурального жемчуга и камней?',
+        'faq.a5':'Надевайте жемчужные украшения после нанесения парфюма и косметики, избегайте контакта с агрессивной бытовой химией и храните изделия в фирменном мягком мешочке или шкатулке отдельно от твёрдых металлических предметов.',
+        'faq.q6':'Какие условия обмена и возврата в течение 14 дней?',
+        'faq.a6':'В соответствии с законодательством Республики Казахстан вы можете оформить обмен или возврат украшения надлежащего качества в течение 14 календарных дней с момента получения, если изделие не было в употреблении и сохранены его товарный вид и фирменная упаковка.',
+        'foot.privacy':'Политика конфиденциальности','foot.terms':'Условия использования','foot.delivery':'Доставка, оплата и возврат','foot.rights':'Все права защищены.'
       },
       kk:{
         'meta.title':'Інжу мен табиғи тастардан әшекейлер — сырғалар, білезіктер, алқалар, сақиналар | Livi Jewelry',
         'nav.home':'Басты бет','nav.shop':'Дүкен','nav.cart':'Себет',
         'hero.title':'Інжу мен табиғи тастардан әшекейлер: сырғалар, білезіктер, алқалар, сақиналар',
-        'hero.text':'Қолмен жасалған, ұқыпты қаптама. Дайын және тапсырыспен, Қазақстан бойынша жеткізу.',
+        'hero.text':'Қолмен жасалған, гипоаллергенді фурнитура (родий/алтын жалату) және фирмалық сыйлық қаптамасы. Астана бойынша сол күні жеткізу, Қазақстанның барлық қалаларына және бүкіл әлем бойынша жеткізу.',
         'hero.cta':'Дүкенге өту',
         'feat.title':'Таңдамалы тауарлар',
+        'chip.baroque':'Барокко інжуі','chip.malachite':'Малахит','chip.rosequartz':'Қызғылт кварц',
+        'chip.hematite':'Гематит','chip.garnet':'Анар тас','chip.amethyst':'Аметист',
+        'chip.crystal':'Тау хрусталі','chip.turquoise':'Фируза','chip.tigereye':'Жолбарыс көзі',
+        'chip.agate':'Агат','chip.lapis':'Лазурит','chip.fluorite':'Флюорит',
+        'chip.necklaces':'Алқалар','chip.lariats':'Сотуарлар','chip.bracelets':'Білезіктер','chip.earrings':'Сырғалар','chip.sets':'Комплекттер',
+        'ben.heading':'Жеткізу географиясы және Livi Jewelry сервисі',
+        'ben.1.title':'Астана бойынша сол күні жеткізу',
+        'ben.1.desc':'Тапсырыс берген күні Астананың барлық аудандарына жедел курьерлік жөнелту — маңызды сәтке әшекейді бүгін алыңыз.',
+        'ben.2.title':'Бүкіл Қазақстан бойынша жеткізу',
+        'ben.2.desc':'Алматы, Шымкент, Қарағанды, Атырау және ҚР барлық қалаларына СДЭК курьерлік қызметімен 1–3 жұмыс күнінде жеткіземіз.',
+        'ben.3.title':'Бүкіл әлем бойынша халықаралық жеткізу',
+        'ben.3.desc':'Worldwide shipping — Livi Jewelry авторлық әшекейлерін трек-нөмірмен әлемнің кез келген еліне ұқыпты жеткіземіз.',
+        'ben.4.title':'Сыйлық қаптамасы, родий/алтын жалату және жеке өлшем',
+        'ben.4.desc':'Фирмалық сыйлық қаптамасы, төзімді жабыны бар гипоаллергенді фурнитура (родий немесе алтын жалату) және сіздің жеке өлшеміңізге сай жасау.',
         'about.title':'Біз туралы',
-        'about.text':'Livi Jewelry — табиғи інжу мен тастардан жасалған бижутерия шеберханасы. Біз сырға, білезік, алқа және сақиналарды дайын әрі тапсырыспен жасаймыз. Қазақстан бойынша жібереміз.',
-        'foot.privacy':'Құпиялылық саясаты','foot.terms':'Пайдалану шарттары','foot.delivery':'Жеткізу және қайтару','foot.rights':'Барлық құқықтар қорғалған.'
+        'about.text':'Livi Jewelry — табиғи інжу мен тастардан жасалған бижутерия шеберханасы. Біз сырға, білезік, алқа, сотуар және сақиналарды дайын әрі тапсырыспен — сіздің өлшеміңіз бен фурнитура реңкіне (родий/алтын жалату) сай жасаймыз. Астана бойынша сол күні жеткізу, бүкіл Қазақстанға (Алматы және ҚР барлық қалалары) және әлем бойынша (Worldwide shipping) фирмалық сыйлық қаптамасында жібереміз.',
+        'faq.heading':'Жиі қойылатын сұрақтар (FAQ)',
+        'faq.q1':'Астана, Қазақстан және әлем бойынша жеткізу қалай жүзеге асырылады?',
+        'faq.a1':'Астана бойынша тапсырыс берілген күні жедел курьерлік жеткізу (сол күні жеткізу) жұмыс істейді. Бүкіл Қазақстан бойынша (Алматы және ҚР барлық қалалары) тапсырыстар СДЭК курьерлік қызметімен есікке дейін немесе беру пунктіне 1–3 жұмыс күнінде жеткізіледі. Сондай-ақ трек-нөмірмен бүкіл әлем бойынша халықаралық жеткізу (Worldwide shipping) қолжетімді.',
+        'faq.q2':'Табиғи інжу мен гипоаллергенді фурнитура қолданасыздар ма?',
+        'faq.a2':'Иә, біз таңдаулы табиғи және барокко інжуімен, сондай-ақ табиғи тастармен (малахит, қызғылт кварц, аметист, анар, тау хрусталі, гематит, фируза, агат) жұмыс істейміз. Барлық фурнитура төзімді родий немесе алтын жалатылған гипоаллергенді зергерлік қорытпадан жасалған.',
+        'faq.q3':'Әшекейді жеке өлшем бойынша тапсырыспен жасатуға бола ма?',
+        'faq.a3':'Иә, әрбір алқа, чокер, білезік, сотуар немесе сақинаны 1–3 күн ішінде сіздің жеке өлшеміңізге, қалаған ұзындығыңызға және фурнитура реңкіне (родий немесе алтын жалату) дәлме-дәл келтіріп жасай аламыз.',
+        'faq.q4':'Әшекейлер қандай қаптамада келеді — сыйлыққа жарай ма?',
+        'faq.a4':'Әрбір Livi Jewelry әшекейі фирмалық сыйлық қорапшасына немесе барқыт дорбашаға ұқыпты салынады. Тапсырыс қосымша төлемсіз сыйлық ретінде табыстауға толық дайын.',
+        'faq.q5':'Табиғи інжу мен тастардан жасалған әшекейлерге қалай күтім жасау керек?',
+        'faq.a5':'Інжу әшекейлерді парфюм мен косметика қолданғаннан кейін тағыңыз, тұрмыстық химиямен жанасудан сақтаңыз және бұйымдарды қатты металл заттардан бөлек фирмалық жұмсақ дорбашада немесе қобдишада сақтаңыз.',
+        'faq.q6':'14 күн ішінде айырбастау және қайтару шарттары қандай?',
+        'faq.a6':'Қазақстан Республикасының заңнамасына сәйкес, егер бұйым пайдаланылмаған болса және оның тауарлық түрі мен фирмалық қаптамасы сақталса, алған сәттен бастап күнтізбелік 14 күн ішінде тиісті сападағы әшекейді айырбастауға немесе қайтаруға болады.',
+        'foot.privacy':'Құпиялылық саясаты','foot.terms':'Пайдалану шарттары','foot.delivery':'Жеткізу, төлем және қайтару','foot.rights':'Барлық құқықтар қорғалған.'
       },
       en:{
         'meta.title':'Buy pearl & natural stone jewellery — earrings, bracelets, necklaces, rings | Livi Jewelry',
         'nav.home':'Home','nav.shop':'Shop','nav.cart':'Cart',
         'hero.title':'Pearl & natural stone jewellery — earrings, bracelets, necklaces, rings',
-        'hero.text':'Handmade, carefully packed. In stock & made to order, shipping across Kazakhstan.',
+        'hero.text':'Handmade, hypoallergenic hardware (rhodium/gold-plated) and signature gift packaging. Same-day courier delivery in Astana, fast shipping across Kazakhstan and worldwide shipping.',
         'hero.cta':'Shop Now',
         'feat.title':'Featured Products',
+        'chip.baroque':'Baroque Pearl','chip.malachite':'Malachite','chip.rosequartz':'Rose Quartz',
+        'chip.hematite':'Hematite','chip.garnet':'Garnet','chip.amethyst':'Amethyst',
+        'chip.crystal':'Rock Crystal','chip.turquoise':'Turquoise','chip.tigereye':'Tiger Eye',
+        'chip.agate':'Agate','chip.lapis':'Lapis Lazuli','chip.fluorite':'Fluorite',
+        'chip.necklaces':'Necklaces','chip.lariats':'Lariats','chip.bracelets':'Bracelets','chip.earrings':'Earrings','chip.sets':'Sets',
+        'ben.heading':'Delivery Geography & Livi Jewelry Service',
+        'ben.1.title':'Same-Day Delivery in Astana',
+        'ben.1.desc':'Fast courier dispatch on the day of your order across all districts of Astana — receive your jewellery for a special occasion today.',
+        'ben.2.title':'Delivery Across Kazakhstan',
+        'ben.2.desc':'We ship to Almaty, Shymkent, Karaganda, Atyrau and all cities of Kazakhstan via CDEK courier within 1–3 business days.',
+        'ben.3.title':'Worldwide International Shipping',
+        'ben.3.desc':'Worldwide shipping — we carefully deliver handmade Livi Jewelry pieces to any country in the world with full tracking.',
+        'ben.4.title':'Gift Packaging, Rhodium/Gold & Custom Sizing',
+        'ben.4.desc':'Signature gift packaging, hypoallergenic hardware (rhodium or gold-plated) and custom sizing tailored to your wrist or neckline.',
         'about.title':'About Us',
-        'about.text':'Livi Jewelry crafts jewellery from natural pearls and stones. We make earrings, bracelets, necklaces and rings — in stock and made to order. Shipped across Kazakhstan.',
-        'foot.privacy':'Privacy Policy','foot.terms':'Terms and Conditions','foot.delivery':'Delivery & Returns','foot.rights':'All Rights Reserved.'
+        'about.text':'Livi Jewelry is an artisan studio crafting jewellery from natural pearls and gemstones. We create earrings, bracelets, necklaces, lariats and rings in stock and made to order — tailored to your custom size, hypoallergenic hardware finish (rhodium or gold-plated) and style. Same-day delivery in Astana, fast shipping across Kazakhstan (Almaty and all cities) and worldwide shipping in signature gift packaging.',
+        'faq.heading':'Frequently Asked Questions (FAQ)',
+        'faq.q1':'How does delivery work in Astana, across Kazakhstan, and worldwide?',
+        'faq.a1':'In Astana we offer fast same-day courier delivery (dispatched on the day of order). Across Kazakhstan (Almaty and all cities) orders are delivered via CDEK courier in 1–3 business days to your door or pickup point. International worldwide shipping with tracking is also available.',
+        'faq.q2':'Do you use natural pearls and hypoallergenic hardware?',
+        'faq.a2':'Yes, we work with selected natural cultured and baroque pearls as well as natural gemstones (malachite, rose quartz, amethyst, garnet, rock crystal, hematite, turquoise, agate). All hardware is made of hypoallergenic jewellery alloy with durable rhodium or gold plating.',
+        'faq.q3':'Can I order jewellery in a custom size?',
+        'faq.a3':'Yes, every necklace, choker, bracelet, lariat or ring can be crafted or adjusted to your exact individual measurements, desired length, and hardware finish (rhodium or gold-plated) within 1–3 days.',
+        'faq.q4':'What packaging do the pieces come in — is it suitable as a gift?',
+        'faq.a4':'Every Livi Jewelry piece is carefully packed in a signature gift box or velvet pouch with protective wrapping. Your order arrives completely ready for gifting at no extra cost.',
+        'faq.q5':'How should I care for natural pearl and gemstone jewellery?',
+        'faq.a5':'Put on pearl jewellery after applying perfume and cosmetics, avoid contact with harsh household chemicals, and store your pieces in the signature soft pouch or jewellery box separately from hard metal objects.',
+        'faq.q6':'What is your 14-day return and exchange policy?',
+        'faq.a6':'In accordance with the laws of the Republic of Kazakhstan, you can exchange or return unworn jewellery in its original condition and signature packaging within 14 calendar days of receipt.',
+        'foot.privacy':'Privacy Policy','foot.terms':'Terms and Conditions','foot.delivery':'Delivery, Payment & Returns','foot.rights':'All Rights Reserved.'
       }
     };
+
+    const FEATURED_IDS = [
+      'prod_01', 'prod_02', 'prod_06', 'prod_07',
+      'prod_10', 'prod_11', 'prod_16', 'prod_17',
+      'prod_19', 'prod_20', 'prod_23', 'prod_24'
+    ];
+
     function lang(){ return localStorage.getItem('lang') || 'ru'; }
     function setLang(l){ localStorage.setItem('lang',l); applyLang(); }
     function applyLang(){
-      const L=I18N[lang()];
+      const L=I18N[lang()] || I18N.ru;
       document.title = L['meta.title'] || document.title;
       document.documentElement.lang = lang();
       document.querySelectorAll('[data-i18n]').forEach(el=>{
         const k=el.getAttribute('data-i18n'); if(L[k]) el.textContent=L[k];
       });
+      [document.getElementById('ruBtn'), document.getElementById('kkBtn'), document.getElementById('enBtn')].forEach(b => {
+        if(b) b.classList.remove('active');
+      });
+      const curBtn = lang() === 'kk' ? document.getElementById('kkBtn') : (lang() === 'en' ? document.getElementById('enBtn') : document.getElementById('ruBtn'));
+      if(curBtn) curBtn.classList.add('active');
     }
 
-    // Featured: динамически загружаем из products.json
+    function buildCleanAlt(p){
+      const title = (p.title || '').trim();
+      const mats = Array.isArray(p.materials) ? p.materials.filter(m => !/сплав|позолота|фурнитура/i.test(m)) : [];
+      const stones = (mats.length ? mats : (p.materials || ['натурального жемчуга'])).join(', ').toLowerCase();
+      return `${title} — ручная работа из ${stones}, Livi Jewelry`;
+    }
+
+    // Featured: отображаем витрину из 12 избранных товаров с разными камнями
     function renderFeat(items){
       const grid=document.getElementById('featGrid');
+      if(!grid || !Array.isArray(items) || !items.length) return;
       grid.innerHTML = '';
       items.forEach(p=>{
-        const altBase = 'украшения из жемчуга и натуральных камней — бижутерия: серьги, браслеты, колье, кольца';
+        const altText = buildCleanAlt(p);
         const priceNum = Number(p.price) || 0;
         const priceStr = priceNum ? `${priceNum.toLocaleString('ru-RU')} ₸` : 'Цена по запросу';
         const c=document.createElement('article'); c.className='card';
         const targetUrl = p.id ? `/product/${encodeURIComponent(p.id)}.html` : 'shop.html';
-        c.innerHTML=`<div class="card-img-wrap"><img src="${p.image}" alt="${p.title} — ${altBase}" loading="lazy" decoding="async" width="600" height="800"></div><div class="body"><div class="title"><a href="${targetUrl}" class="card-title-link">${p.title}</a></div><div class="price">${priceStr}</div></div>`;
+        c.innerHTML=`<div class="card-img-wrap"><img src="${p.image}" alt="${altText}" loading="lazy" decoding="async" width="600" height="800"></div><div class="body"><div class="title"><a href="${targetUrl}" class="card-title-link" data-id="${p.id || ''}" data-title="${(p.title || '').replace(/"/g, '&quot;')}" data-price="${priceNum}" data-category="${p.category || ''}">${p.title}</a></div><div class="price">${priceStr}</div></div>`;
         c.onclick=(e)=>{
+          if(typeof gtag === 'function') {
+            gtag('event', 'select_item', {
+              item_list_name: 'Featured Home',
+              items: [{ item_id: p.id, item_name: p.title, item_category: p.category, price: priceNum, quantity: 1 }]
+            });
+          }
           if(!e.target.closest('a')) location.href = targetUrl;
         };
         grid.appendChild(c);
       });
+      if(typeof gtag === 'function'){
+        gtag('event', 'view_item_list', {
+          item_list_name: 'Featured Home',
+          items: items.map((p, idx) => ({ item_id: p.id, item_name: p.title, item_category: p.category, price: Number(p.price) || 0, index: idx + 1 }))
+        });
+      }
     }
 
     fetch('products.json')
       .then(r => r.ok ? r.json() : Promise.reject())
       .then(data => {
-        const feat = data.filter(p => p.featured);
-        renderFeat(feat.length ? feat : data.slice(0, 6));
+        const byId = {};
+        data.forEach(p => { if(p.id) byId[p.id] = p; });
+        const picked = FEATURED_IDS.map(id => byId[id]).filter(Boolean);
+        renderFeat(picked.length >= 8 ? picked : data.slice(0, 12));
       })
       .catch(()=>{});
 
@@ -537,7 +737,8 @@
     const ruBtn=document.getElementById('ruBtn'), kkBtn=document.getElementById('kkBtn'), enBtn=document.getElementById('enBtn');
     burger.onclick=()=>{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); };
     drawer.querySelector('.drawer-back').onclick=()=>{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); };
-    ruBtn.onclick=()=>setLang('ru'); kkBtn.onclick=()=>setLang('kk'); enBtn.onclick=()=>setLang('en');
+    if(ruBtn) ruBtn.onclick=()=>setLang('ru');
+    if(enBtn) enBtn.onclick=()=>setLang('en');
 
     // Badge
     function readCart(){
@@ -601,7 +802,7 @@
     document.addEventListener('click',function(e){
       const a = e.target.closest('a[href]');
       if(!a) return;
-      const href = a.getAttribute('href') || '';
+      let href = a.getAttribute('href') || '';
       if(href.includes('cart.html')){
         const cart = readCart();
         if(cart.length > 0 && typeof gtag === 'function'){
@@ -618,6 +819,11 @@
       const isIg = href.includes('instagram.com');
       if(!isWa && !isIg) return;
       const method = isWa ? 'WhatsApp' : 'Instagram';
+      const txId = 'LIVI-LEAD-HOME-' + Date.now();
+      if(isWa && href.includes('text=') && !href.includes('%F0%9F%93%8A')) {
+        href = href + encodeURIComponent(getAttributionSummary(txId));
+        a.setAttribute('href', href);
+      }
       try{
         if(window.fbq) fbq('track', 'Contact');
         if(typeof gtag === 'function'){
@@ -639,7 +845,7 @@
               'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
               'value': Math.round(40000 * 0.2),
               'currency': 'KZT',
-              'transaction_id': 'LIVI-LEAD-HOME-' + Date.now()
+              'transaction_id': txId
             });
           }
         }

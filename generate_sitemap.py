@@ -1,123 +1,90 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Generate comprehensive sitemap.xml for Livi Jewelry (https://livijewelry.kz)
-Includes main landing pages, category SEO landing pages, and all static product pages.
-"""
-
-import json
 import os
+import json
 from datetime import datetime
-import xml.etree.ElementTree as ET
-from xml.dom import minidom
+from xml.sax.saxutils import escape
 
-BASE_URL = "https://livijewelry.kz"
-PRODUCTS_FILE = "products.json"
-SITEMAP_FILE = "sitemap.xml"
+SITE_URL = "https://livijewelry.kz"
 
-# Static site sections with priority and change frequency
 STATIC_PAGES = [
-    {
-        "loc": f"{BASE_URL}/",
-        "priority": "1.0",
-        "changefreq": "daily"
-    },
-    {
-        "loc": f"{BASE_URL}/shop.html",
-        "priority": "0.9",
-        "changefreq": "daily"
-    },
-    {
-        "loc": f"{BASE_URL}/kolye-iz-zhemchuga.html",
-        "priority": "0.8",
-        "changefreq": "weekly"
-    },
-    {
-        "loc": f"{BASE_URL}/braslety-iz-zhemchuga.html",
-        "priority": "0.8",
-        "changefreq": "weekly"
-    },
-    {
-        "loc": f"{BASE_URL}/sergi-iz-zhemchuga.html",
-        "priority": "0.8",
-        "changefreq": "weekly"
-    },
-    {
-        "loc": f"{BASE_URL}/delivery.html",
-        "priority": "0.6",
-        "changefreq": "monthly"
-    },
-    {
-        "loc": f"{BASE_URL}/privacy.html",
-        "priority": "0.5",
-        "changefreq": "monthly"
-    },
-    {
-        "loc": f"{BASE_URL}/terms.html",
-        "priority": "0.5",
-        "changefreq": "monthly"
-    }
+    ("", "1.0", "daily"),
+    ("shop.html", "0.9", "daily"),
+    ("kolye-iz-zhemchuga.html", "0.85", "weekly"),
+    ("braslety-iz-zhemchuga.html", "0.85", "weekly"),
+    ("sergi-iz-zhemchuga.html", "0.85", "weekly"),
+    # 12 коммерческих SEO-хабов (Этап 1)
+    ("komplekty-ukrasheniy.html", "0.85", "weekly"),
+    ("chokery-iz-naturalnyh-kamney.html", "0.85", "weekly"),
+    ("sotuary-iz-zhemchuga.html", "0.85", "weekly"),
+    ("ukrasheniya-iz-barochnogo-zhemchuga.html", "0.85", "weekly"),
+    ("ukrasheniya-iz-gematita.html", "0.85", "weekly"),
+    ("ukrasheniya-iz-malahita.html", "0.85", "weekly"),
+    ("ukrasheniya-iz-ametista.html", "0.85", "weekly"),
+    ("ukrasheniya-iz-granata.html", "0.85", "weekly"),
+    ("ukrasheniya-iz-rozovogo-kvarca.html", "0.85", "weekly"),
+    ("ukrasheniya-iz-biryuzy.html", "0.85", "weekly"),
+    ("ukrasheniya-iz-gornogo-hrustalya.html", "0.85", "weekly"),
+    ("ukrasheniya-iz-lunnogo-kamnya.html", "0.85", "weekly"),
+    # Статическая казахскоязычная витрина (Этап 5)
+    ("kz/", "0.85", "weekly"),
+    ("kz/shop.html", "0.85", "weekly"),
+    # Сервисные и информационные страницы
+    ("delivery.html", "0.6", "monthly"),
+    ("privacy.html", "0.3", "yearly"),
+    ("terms.html", "0.3", "yearly"),
 ]
+
 
 def generate_sitemap():
     today = datetime.now().strftime("%Y-%m-%d")
 
-    urlset = ET.Element("urlset", {
-        "xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9"
-    })
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
+    ]
 
-    total_urls = 0
+    for page, prio, freq in STATIC_PAGES:
+        url = f"{SITE_URL}/{page}" if page else f"{SITE_URL}/"
+        lines.append("  <url>")
+        lines.append(f"    <loc>{url}</loc>")
+        lines.append(f"    <lastmod>{today}</lastmod>")
+        lines.append(f"    <changefreq>{freq}</changefreq>")
+        lines.append(f"    <priority>{prio}</priority>")
+        lines.append("  </url>")
 
-    # 1. Main and Category pages
-    for p in STATIC_PAGES:
-        url_el = ET.SubElement(urlset, "url")
-        loc_el = ET.SubElement(url_el, "loc")
-        loc_el.text = p["loc"]
-
-        lastmod_el = ET.SubElement(url_el, "lastmod")
-        lastmod_el.text = today
-
-        changefreq_el = ET.SubElement(url_el, "changefreq")
-        changefreq_el.text = p["changefreq"]
-
-        prio_el = ET.SubElement(url_el, "priority")
-        prio_el.text = p["priority"]
-        total_urls += 1
-
-    # 2. Product Pages from products.json
-    if os.path.exists(PRODUCTS_FILE):
-        with open(PRODUCTS_FILE, "r", encoding="utf-8") as f:
+    # Все карточки товаров: чистые статические URL /product/prod_XX.html + <image:image>
+    if os.path.exists("products.json"):
+        with open("products.json", "r", encoding="utf-8") as f:
             products = json.load(f)
-
-        for prod in products:
-            pid = prod.get("id")
-            if not pid:
+        for p in products:
+            if not p.get("inStock", True):
                 continue
+            pid = p["id"]
+            url = f"{SITE_URL}/product/{pid}.html"
+            img_rel = p.get("image", "").lstrip("/")
+            img_loc = escape(f"{SITE_URL}/{img_rel}")
+            title = escape(f"{p.get('title', '').strip()} — ручная работа Livi Jewelry")
+            materials = ", ".join(p.get("materials") or ["натуральный жемчуг"])
+            caption = escape(
+                f"{p.get('title', '').strip()}. {p.get('description', '').strip()} Материалы: {materials}. Купить в Астане и Алматы с доставкой по Казахстану."
+            )
+            lines.append("  <url>")
+            lines.append(f"    <loc>{url}</loc>")
+            lines.append(f"    <lastmod>{today}</lastmod>")
+            lines.append("    <changefreq>weekly</changefreq>")
+            lines.append("    <priority>0.8</priority>")
+            lines.append("    <image:image>")
+            lines.append(f"      <image:loc>{img_loc}</image:loc>")
+            lines.append(f"      <image:title>{title}</image:title>")
+            lines.append(f"      <image:caption>{caption}</image:caption>")
+            lines.append("    </image:image>")
+            lines.append("  </url>")
 
-            url_el = ET.SubElement(urlset, "url")
-            loc_el = ET.SubElement(url_el, "loc")
-            loc_el.text = f"{BASE_URL}/product/{pid}.html"
+    lines.append("</urlset>")
 
-            lastmod_el = ET.SubElement(url_el, "lastmod")
-            lastmod_el.text = today
+    with open("sitemap.xml", "w", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
+    print(f"[OK] Sitemap обновлен ({len(STATIC_PAGES)} статических страниц/хабов + товары с <image:image>)")
 
-            changefreq_el = ET.SubElement(url_el, "changefreq")
-            changefreq_el.text = "weekly"
-
-            prio_el = ET.SubElement(url_el, "priority")
-            prio_el.text = "0.8"
-            total_urls += 1
-
-    # Format pretty XML
-    xml_str = ET.tostring(urlset, encoding="utf-8")
-    parsed = minidom.parseString(xml_str)
-    pretty_xml = parsed.toprettyxml(indent="  ", encoding="utf-8").decode("utf-8")
-
-    with open(SITEMAP_FILE, "w", encoding="utf-8") as f:
-        f.write(pretty_xml)
-
-    print(f"[OK] Successfully generated sitemap: {SITEMAP_FILE} ({total_urls} URLs)")
-    return total_urls
 
 if __name__ == "__main__":
     generate_sitemap()

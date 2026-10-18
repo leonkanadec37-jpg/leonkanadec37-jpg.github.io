@@ -701,6 +701,28 @@
         </div>
       </div>
     </section>
+  
+    <!-- Навигационный блок: Подборки по камням и стилям -->
+    <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
+      <h2 class="hub-interlink-title">Подборки украшений по натуральным камням и стилям</h2>
+      <nav class="stone-chips" style="margin-bottom:0;">
+      <a class="chip-link" href="/kolye-iz-zhemchuga.html">Колье из жемчуга</a>
+      <a class="chip-link" href="/braslety-iz-zhemchuga.html">Браслеты из жемчуга</a>
+      <a class="chip-link active" href="/sergi-iz-zhemchuga.html">Серьги из жемчуга</a>
+      <a class="chip-link" href="/komplekty-ukrasheniy.html">Комплекты украшений</a>
+      <a class="chip-link" href="/chokery-iz-naturalnyh-kamney.html">Чокеры из камней</a>
+      <a class="chip-link" href="/sotuary-iz-zhemchuga.html">Сотуары</a>
+      <a class="chip-link" href="/ukrasheniya-iz-barochnogo-zhemchuga.html">Барочный жемчуг</a>
+      <a class="chip-link" href="/ukrasheniya-iz-gematita.html">Гематит</a>
+      <a class="chip-link" href="/ukrasheniya-iz-malahita.html">Малахит</a>
+      <a class="chip-link" href="/ukrasheniya-iz-ametista.html">Аметист</a>
+      <a class="chip-link" href="/ukrasheniya-iz-granata.html">Гранат</a>
+      <a class="chip-link" href="/ukrasheniya-iz-rozovogo-kvarca.html">Розовый кварц</a>
+      <a class="chip-link" href="/ukrasheniya-iz-biryuzy.html">Бирюза</a>
+      <a class="chip-link" href="/ukrasheniya-iz-gornogo-hrustalya.html">Горный хрусталь</a>
+      <a class="chip-link" href="/ukrasheniya-iz-lunnogo-kamnya.html">Лунный камень и перламутр</a>
+      </nav>
+    </section>
   </main>
 
   <!-- Footer -->
@@ -796,6 +818,39 @@
         ]
       });
     }
+
+    
+    // Attribution Tracker & select_item
+    (function() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const keys = ['gclid', 'gbraid', 'wbraid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+        let existing = {};
+        try { existing = JSON.parse(localStorage.getItem('livi_attribution') || '{}') || {}; } catch(e){}
+        let updated = false;
+        keys.forEach(k => { const v = params.get(k); if (v) { existing[k] = v; updated = true; } });
+        if (!existing.landing_page) {
+          existing.landing_page = window.location.pathname + window.location.search;
+          existing.referrer = document.referrer || 'direct';
+          updated = true;
+        }
+        if (updated) localStorage.setItem('livi_attribution', JSON.stringify(existing));
+      } catch(e){}
+    })();
+    document.querySelectorAll('.grid .card').forEach((card, idx) => {
+      card.addEventListener('click', function() {
+        if (typeof gtag === 'function') {
+          const titleEl = card.querySelector('.card-title-link');
+          const href = titleEl ? titleEl.getAttribute('href') || '' : '';
+          const m = href.match(/(prod_\d+)/);
+          gtag('event', 'select_item', {
+            item_list_id: 'category_hub',
+            item_list_name: document.title,
+            items: [{ item_id: m ? m[1] : 'prod_01', item_name: titleEl ? titleEl.textContent.trim() : '', index: idx + 1 }]
+          });
+        }
+      });
+    });
 
     // Contact Conversion Tracking (WhatsApp & Instagram)
     document.addEventListener('click', function(e) {
