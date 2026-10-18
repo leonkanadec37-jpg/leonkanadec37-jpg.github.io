@@ -1018,7 +1018,7 @@ def generate_kz_shop(products_kz: list) -> str:
     <div id="catalogError" class="empty-state" hidden style="display:none" aria-hidden="true"></div>
 
     <section class="hub-interlink-section" aria-label="Тастар мен стильдер бойынша топтамалар">
-      <details class="hub-interlink-accordion" open>
+      <details class="hub-interlink-accordion">
         <summary>Тастар мен стильдер бойынша топтамалар</summary>
         <p class="hub-interlink-sub">Livi Jewelry табиғи минералдары мен бұйымдар форматтарының тақырыптық топтамаларына өтіңіз</p>
         <div class="hub-interlink-chips">
@@ -1804,7 +1804,7 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
     </section>
 
     <section class="hub-interlink-section" aria-label="Тастар мен стильдер бойынша топтамалар">
-      <details class="hub-interlink-accordion" open>
+      <details class="hub-interlink-accordion">
         <summary>Тастар мен стильдер бойынша топтамалар</summary>
         <p class="hub-interlink-sub">Livi Jewelry табиғи минералдары мен бұйымдар форматтарының тақырыптық топтамаларына өтіңіз</p>
         <div class="hub-interlink-chips">

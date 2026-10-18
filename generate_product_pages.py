@@ -818,7 +818,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
     </section>
 
     <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
-      <details class="hub-interlink-accordion" open>
+      <details class="hub-interlink-accordion">
         <summary>Подборки по камням и стилям</summary>
         <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
         <div class="hub-interlink-chips">

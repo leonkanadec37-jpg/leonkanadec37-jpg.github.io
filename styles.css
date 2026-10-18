@@ -1756,66 +1756,72 @@ body:has(#successModal.open) .floating-wa,
 /* ==========================================================================
    Product Detail Page (Haute Joaillerie Single Product View)
    ========================================================================== */
+.product-page,
 .product-page-wrap {
   max-width: var(--max);
   margin: 0 auto;
-  padding: 32px 24px 80px;
+  padding: 24px 20px 80px;
 }
 
 .breadcrumbs {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  letter-spacing: 0.05em;
+  gap: 6px;
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
   color: var(--muted);
-  margin-bottom: 32px;
+  margin-bottom: 24px;
+  line-height: 1.5;
 }
 .breadcrumbs a {
   color: var(--muted);
+  text-decoration: none;
   transition: color 0.2s;
 }
 .breadcrumbs a:hover {
   color: var(--fg);
 }
 .breadcrumbs .sep {
-  opacity: 0.5;
+  opacity: 0.35;
   font-size: 10px;
 }
-.breadcrumbs .current {
-  color: var(--fg);
-  font-weight: 500;
+.breadcrumbs .current,
+.breadcrumbs span[aria-current="page"] {
+  color: var(--fg-soft);
+  font-weight: 400;
 }
 
 .product-detail-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 64px;
+  gap: 56px;
   align-items: start;
 }
 
+.product-gallery,
 .product-detail-media {
   position: sticky;
   top: 90px;
-}
-.product-main-image-wrap {
-  position: relative;
   width: 100%;
   aspect-ratio: 3/4;
   overflow: hidden;
-  background: #F3EFE9;
+  background: #FAF8F5;
+  border: 1px solid var(--line-light);
   border-radius: 0;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+  box-shadow: 0 4px 24px rgba(20, 19, 18, 0.03);
 }
+.product-gallery img,
 .product-main-image-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
   transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+.product-gallery:hover img,
 .product-main-image-wrap:hover img {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 .product-badge-overlay {
   position: absolute;
@@ -1831,42 +1837,49 @@ body:has(#successModal.open) .floating-wa,
   font-weight: 500;
 }
 
+.product-info-col,
 .product-detail-info {
   display: flex;
   flex-direction: column;
 }
+.product-sku-badge,
 .product-cat-tag {
   font-size: 11px;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.16em;
   color: var(--muted);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 .product-h1 {
   font-family: var(--font-serif);
-  font-size: clamp(28px, 3.4vw, 42px);
+  font-size: clamp(24px, 3.2vw, 36px);
   font-weight: 400;
   line-height: 1.25;
   letter-spacing: 0.02em;
   color: var(--fg);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   text-align: left;
 }
 .product-price-box {
   display: flex;
   align-items: baseline;
   gap: 16px;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--line);
+  margin-bottom: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line-light);
 }
 .product-price-val {
-  font-size: 26px;
-  font-weight: 600;
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 2.6vw, 28px);
+  font-weight: 400;
   letter-spacing: 0.02em;
   color: var(--fg);
-  font-family: var(--font-sans);
+  margin: 4px 0 16px;
+  line-height: 1.2;
 }
 .product-stock-pill {
   display: inline-flex;
@@ -2022,24 +2035,25 @@ body:has(#successModal.open) .floating-wa,
   display: grid;
   gap: 12px;
   list-style: none;
-  padding: 20px 0 0;
+  padding: 24px 0 0;
   margin: 28px 0 0;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--line-light);
 }
 .product-trust-list li {
   font-size: 13px;
   line-height: 1.55;
   color: var(--fg-soft);
   position: relative;
-  padding-left: 20px;
+  padding-left: 18px;
 }
 .product-trust-list li::before {
-  content: "•";
+  content: "—";
   position: absolute;
-  left: 4px;
+  left: 0;
+  top: 0;
   color: var(--gold, #C5A265);
-  font-size: 16px;
-  line-height: 1;
+  font-size: 13px;
+  line-height: 1.55;
 }
 .product-trust-list strong {
   color: var(--fg);
@@ -2076,13 +2090,15 @@ body:has(#successModal.open) .floating-wa,
 @media (max-width: 860px) {
   .product-detail-grid {
     grid-template-columns: 1fr;
-    gap: 36px;
+    gap: 28px;
   }
+  .product-gallery,
   .product-detail-media {
     position: static;
   }
+  .product-page,
   .product-page-wrap {
-    padding: 20px 16px 60px;
+    padding: 16px 16px 60px;
   }
 }
 
@@ -2339,16 +2355,19 @@ body:has(#successModal.open) .floating-wa,
 /* ==========================================================================
    CRO Customizer (Size / Length / Hardware / Gift Packaging) & Reviews
    ========================================================================== */
-.mat-pill-link {
+.mat-pill-link,
+.mat-pill {
   display: inline-block;
-  background: #F2EFEA;
+  background: #FFFFFF;
   color: var(--fg);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  padding: 5px 12px;
-  border: 1px solid var(--line);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  padding: 4px 12px;
+  border: 1px solid #E5E0D8;
+  border-radius: 99px;
   text-decoration: none;
   transition: var(--transition);
+  line-height: 1.4;
 }
 .mat-pill-link:hover {
   background: var(--fg);
@@ -2357,9 +2376,9 @@ body:has(#successModal.open) .floating-wa,
 }
 
 .product-customizer {
-  background: #FFFFFF;
-  border: 1px solid var(--line);
-  padding: 20px;
+  background: transparent;
+  border: none;
+  padding: 0;
   margin-bottom: 24px;
   display: flex;
   flex-direction: column;
@@ -2372,26 +2391,35 @@ body:has(#successModal.open) .floating-wa,
 }
 .customizer-label {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--fg-soft);
+  letter-spacing: 0.14em;
+  color: var(--muted);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 .customizer-select {
   width: 100%;
-  padding: 11px 14px;
+  padding: 12px 14px;
   border: 1px solid var(--line);
-  background: #FAF9F6;
+  background: #FFFFFF;
   color: var(--fg);
   font-family: var(--font-sans);
   font-size: 13.5px;
+  font-weight: 400;
   border-radius: 0;
   outline: none;
   cursor: pointer;
   transition: border-color 0.25s;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%23848079' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px 8px;
+  padding-right: 36px;
 }
 .customizer-select:focus {
   border-color: var(--fg);
@@ -2607,33 +2635,35 @@ body:has(#successModal.open) .floating-wa,
 
 /* Bundle breakdown badge & About section */
 .bundle-breakdown-badge {
-  display: inline-block;
-  background: #F4EFEB;
-  border: 1px solid #D8CFC4;
-  color: var(--fg);
-  font-size: 12.5px;
-  font-weight: 500;
-  padding: 7px 14px;
-  margin-bottom: 16px;
-  line-height: 1.45;
-  border-radius: 4px;
+  display: block;
+  background: transparent !important;
+  border: none !important;
+  border-left: 2px solid var(--gold) !important;
+  color: var(--fg-soft) !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  padding: 6px 0 6px 14px !important;
+  margin-bottom: 20px !important;
+  line-height: 1.6 !important;
+  border-radius: 0 !important;
 }
 
 .product-about-block {
-  margin: 24px 0 16px;
-  padding-top: 20px;
-  border-top: 1px solid var(--line);
+  margin: 28px 0 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line-light);
 }
 .product-about-title {
   font-family: var(--font-serif);
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 400;
+  letter-spacing: 0.02em;
   color: var(--fg);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 .product-about-text {
-  font-size: 14.5px;
-  line-height: 1.65;
+  font-size: 14px;
+  line-height: 1.75;
   color: var(--fg-soft);
   font-weight: 300;
 }
@@ -2671,45 +2701,50 @@ body:has(#successModal.open) .floating-wa,
 .product-specs-section {
   margin-top: 36px;
   padding-top: 28px;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--line-light);
 }
 .specs-title {
   font-family: var(--font-serif);
   font-size: 22px;
   font-weight: 400;
   color: var(--fg);
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   letter-spacing: 0.02em;
 }
 .product-specs-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
+  gap: 0;
   margin: 0;
   padding: 0;
+  border-top: 1px solid var(--line-light);
 }
 .spec-row {
   display: grid;
   grid-template-columns: 180px 1fr;
   gap: 16px;
-  padding: 10px 14px;
-  background: #FAF8F5;
-  border: 1px solid var(--line);
+  padding: 12px 0;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid var(--line-light) !important;
   font-size: 13.5px;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 .spec-row dt {
-  font-weight: 500;
-  color: var(--fg);
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.02em;
 }
 .spec-row dd {
   margin: 0;
-  color: var(--fg-soft);
+  color: var(--fg);
+  font-weight: 400;
 }
 @media (max-width: 600px) {
   .spec-row {
     grid-template-columns: 1fr;
     gap: 4px;
+    padding: 10px 0;
   }
 }
 
@@ -2747,14 +2782,14 @@ body:has(#successModal.open) .floating-wa,
 
 /* Bundle select */
 .bundle-select-field {
-  background: #F4EFEB;
-  border: 1px solid #D8CFC4;
-  padding: 14px 16px;
-  margin-bottom: 16px;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin-bottom: 0 !important;
 }
 .bundle-select-field .customizer-label {
-  font-weight: 600;
-  color: var(--fg);
+  font-weight: 500 !important;
+  color: var(--muted) !important;
 }
 
 .earring-price-badge {
@@ -2762,16 +2797,6 @@ body:has(#successModal.open) .floating-wa,
   font-weight: 600;
   color: var(--gold);
   margin-top: 4px;
-}
-
-/* Product SKU Badge */
-.product-sku-badge {
-  font-size: 11.5px;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--muted);
-  font-weight: 500;
-  margin-bottom: 10px;
 }
 
 /* Product CTA Group & Buttons */
