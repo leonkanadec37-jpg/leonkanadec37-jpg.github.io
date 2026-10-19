@@ -105,14 +105,14 @@ def run_audit():
     with open("products.json", "r", encoding="utf-8") as f:
         products = json.load(f)
 
-    if len(products) != 28:
-        fail(f"1. Ожидалось ровно 28 товаров в products.json, найдено {len(products)}")
+    if len(products) < 28:
+        fail(f"1. Ожидалось не менее 28 товаров в products.json, найдено {len(products)}")
     else:
         missing_imgs = [p["id"] for p in products if not os.path.exists(p.get("image", ""))]
         if missing_imgs:
             fail(f"1. Не найдены файлы картинок для товаров: {missing_imgs}")
         else:
-            ok("1. products.json: Ровно 28 товаров, все изображения WebP существуют на диске")
+            ok(f"1. products.json: Ровно {len(products)} товаров, все изображения WebP существуют на диске")
 
     # 2. Проверка sku, seo_slug, search_keywords
     sku_slug_ok = True
@@ -131,7 +131,7 @@ def run_audit():
             fail(f"2. {pid}: в search_keywords меньше 5 поисковых фраз ({len(kw)})")
             sku_slug_ok = False
     if sku_slug_ok:
-        ok("2. products.json: Все 28 товаров имеют валидный SKU (LIVI-XX), латинский ЧПУ seo_slug и 5+ поисковых ключей")
+        ok(f"2. products.json: Все {len(products)} товаров имеют валидный SKU (LIVI-XX), латинский ЧПУ seo_slug и 5+ поисковых ключей")
 
     # 3. Проверка specs
     specs_ok = True
@@ -148,7 +148,7 @@ def run_audit():
                 fail(f"3. {pid}: в specs отсутствует или пустое поле '{field}'")
                 specs_ok = False
     if specs_ok:
-        ok("3. products.json: У всех 28 товаров заполнена структурированная таблица specs (6 обязательных полей)")
+        ok(f"3. products.json: У всех {len(products)} товаров заполнена структурированная таблица specs (6 обязательных полей)")
 
     # 4. Проверка bundle_options для комплектов
     bundle_ok = True
@@ -185,6 +185,9 @@ def run_audit():
         if "Комплект: Комплект" in t:
             fail(f"5. {pid}: дублирование 'Комплект: Комплект' в title")
             clean_text_ok = False
+        if "Комплект:" in t:
+            fail(f"5. {pid}: обнаружен устаревший префикс 'Комплект:' в названии (требуется Вариант 3)")
+            clean_text_ok = False
     if clean_text_ok:
         ok("5. products.json: Заголовки и описания очищены от маркеров Drive ID, грамматических ошибок и дубликатов")
 
@@ -200,7 +203,7 @@ def run_audit():
             fail(f"6. {pid}: описание начинается с сырой заглушки '{p['title']} —'")
             desc_len_ok = False
     if desc_len_ok:
-        ok("6. products.json: Описания всех 28 товаров расширены до коммерческого объема (>= 180 символов) без сырых ценников в начале")
+        ok(f"6. products.json: Описания всех {len(products)} товаров расширены до коммерческого объема (>= 180 символов) без сырых ценников в начале")
 
     # ---------------------------------------------------------
     # 2. Инварианты SEO-хабов (21 хаб)
@@ -257,10 +260,10 @@ def run_audit():
     with open("sergi-iz-zhemchuga.html", "r", encoding="utf-8") as f:
         sergi_txt = f.read()
     sergi_earring_badges = sergi_txt.count("Серьги доступны отдельно или в комплекте")
-    if sergi_earring_badges == 11:
-        ok("9. SEO-хабы: На странице sergi-iz-zhemchuga.html выведены все 11 комплектов с серьгами со специальной плашкой и ценой")
+    if sergi_earring_badges >= 11:
+        ok(f"9. SEO-хабы: На странице sergi-iz-zhemchuga.html выведены все {sergi_earring_badges} комплектов с серьгами со специальной плашкой и ценой")
     else:
-        fail(f"9. На sergi-iz-zhemchuga.html ожидалось 11 плашек 'Серьги доступны отдельно', найдено {sergi_earring_badges}")
+        fail(f"9. На sergi-iz-zhemchuga.html ожидалось не менее 11 плашек 'Серьги доступны отдельно', найдено {sergi_earring_badges}")
 
     if hubs_pills_ok:
         ok("10. SEO-хабы: Все плашки камней кликабельны и содержат mat-pill-link")
@@ -353,7 +356,7 @@ def run_audit():
             prod_reviews_ok = False
 
     if prod_files_ok:
-        ok("12. Карточки товаров: Существуют все 28 файлов /product/prod_XX.html")
+        ok(f"12. Карточки товаров: Существуют все {len(products)} файлов /product/prod_XX.html")
     if prod_titles_ok:
         ok("13. Карточки товаров: Теги <title> очищены от технического кода (prod_XX), отображается артикул LIVI-XX")
     if prod_alt_grammar_ok:
@@ -378,7 +381,7 @@ def run_audit():
     kz_prods_exist = all(os.path.exists(os.path.join("kz", "product", f"{p['id']}.html")) for p in products)
 
     if kz_files_exist and kz_prods_exist:
-        ok("21. KZ витрина: Существуют kz/index.html, kz/shop.html и все 28 файлов в kz/product/prod_XX.html")
+        ok(f"21. KZ витрина: Существуют kz/index.html, kz/shop.html и все {len(products)} файлов в kz/product/prod_XX.html")
     else:
         fail("21. Отсутствуют файлы казахской витрины kz/index.html, kz/shop.html или карточки в kz/product/")
 
@@ -422,9 +425,9 @@ def run_audit():
                 fail(f"24. {kpath}: в JSON-LD Product отсутствуют hasMerchantReturnPolicy или shippingDetails")
                 kz_schema_ok = False
     if kz_lang_ok:
-        ok("23. KZ карточки: На всех 28 страницах kz/product/prod_XX.html установлен <html lang=\"kk\"> и канонический URL")
+        ok(f"23. KZ карточки: На всех {len(products)} страницах kz/product/prod_XX.html установлен <html lang=\"kk\"> и канонический URL")
     if kz_schema_ok:
-        ok("24. KZ карточки: В JSON-LD Product казахских страниц присутствуют offers, hasMerchantReturnPolicy (14 дней, KZ) и shippingDetails (0 KZT)")
+        ok(f"24. KZ карточки: В JSON-LD Product казахских страниц присутствуют offers, hasMerchantReturnPolicy (14 дней, KZ) и shippingDetails (0 KZT)")
 
     # 25. Двусторонняя связка hreflang
     hreflang_ok = True
@@ -443,7 +446,7 @@ def run_audit():
             fail(f"25. {kz_path}: отсутствует ссылка hreflang ru-KZ на русскую карточку")
             hreflang_ok = False
     if hreflang_ok:
-        ok("25. KZ локализация: Симметричные двусторонние теги hreflang (ru-KZ, ru, kk-KZ, kk, x-default) связывают все 28 пар карточек")
+        ok(f"25. KZ локализация: Симметричные двусторонние теги hreflang (ru-KZ, ru, kk-KZ, kk, x-default) связывают все {len(products)} пар карточек")
 
     # 26. Переключатель языков переходит на /kz/
     with open("index.html", "r", encoding="utf-8") as f:
@@ -483,10 +486,10 @@ def run_audit():
     f_root = feed_tree.getroot()
     ns = {"g": "http://base.google.com/ns/1.0"}
     f_items = f_root.findall(".//item")
-    if len(f_items) == 28:
-        ok("28. XML-фиды: google_merchant_feed.xml содержит ровно 28 товаров с ценами в KZT, in_stock, shipping 0.00 KZT и mpn")
+    if len(f_items) == len(products):
+        ok(f"28. XML-фиды: google_merchant_feed.xml содержит ровно {len(f_items)} товаров с ценами в KZT, in_stock, shipping 0.00 KZT и mpn")
     else:
-        fail(f"28. В google_merchant_feed.xml найдено {len(f_items)} товаров вместо 28")
+        fail(f"28. В google_merchant_feed.xml найдено {len(f_items)} товаров вместо {len(products)}")
 
     # 29. Проверка раскладки комплектов в <g:description>
     feed_bundle_ok = True

@@ -165,22 +165,42 @@ def parse_item_info(raw_title):
         total_price = sum(p for _, p in elements)
         category = 'Sets'
         
+        # Очищаем названия отдельных элементов от повторов "комплект...", "сет..."
+        cleaned_elements = []
+        for name, p in elements:
+            # Убираем "Комплект из натуральных камней Колье" -> "Колье из натуральных камней"
+            n_clean = re.sub(
+                r'^(?:комплект|сет|гарнитур)\s+из\s+(.*?)\s+(колье|браслет|серьги|кольцо|булавка|цепь|сотуар|чокер)',
+                r'\2 из \1',
+                name,
+                flags=re.IGNORECASE
+            )
+            # Убираем префикс "Комплект: ..." или "Комплект ..."
+            n_clean = re.sub(r'^(?:комплект|сет|гарнитур)\s*:\s*', '', n_clean, flags=re.IGNORECASE)
+            n_clean = re.sub(r'^(?:комплект|сет|гарнитур)\s+', '', n_clean, flags=re.IGNORECASE)
+            n_clean = re.sub(r'\s+', ' ', n_clean).strip(' .')
+            n_clean = n_clean[0].upper() + n_clean[1:] if n_clean else name
+            cleaned_elements.append((n_clean, p))
+        elements = cleaned_elements
+
+        # Формируем естественное название без приставки "Комплект:" (Вариант 3)
         elem_names_lower = [e[0].lower() for e in elements]
-        if 'булавка' in elem_names_lower[0]:
-            parts = [e[0].lower() for e in elements]
-            title = f"Комплект: {', '.join(parts)}" + note
-        elif any('клубничк' in n for n in elem_names_lower):
-            title = "Сет колье: «Клубнички» и розовый кварц с жемчугом" + note
-        elif any('колье' in n for n in elem_names_lower):
-            base = [n[0] for n in elements if 'колье' in n[0].lower()][0]
-            other = [e[0].lower() for e in elements if 'колье' not in e[0].lower()]
-            if other:
-                title = f"Комплект: {base}, {', '.join(other)}" + note
-            else:
-                title = f"Сет: {', '.join(e[0] for e in elements)}" + note
+        if any('клубничк' in n for n in elem_names_lower):
+            title = "Колье «Клубнички» и розовый кварц с жемчугом" + note
+        elif len(elements) == 2:
+            first = elements[0][0]
+            second = elements[1][0][0].lower() + elements[1][0][1:] if elements[1][0] else ""
+            title = f"{first} и {second}" + note
+        elif len(elements) > 2:
+            first = elements[0][0]
+            rest = [e[0][0].lower() + e[0][1:] if e[0] else "" for e in elements[1:]]
+            title = f"{first}, {', '.join(rest)}" + note
         else:
-            title = f"Комплект: {', '.join(e[0] for e in elements)}" + note
+            title = elements[0][0] + note
             
+        # Защита от любых остаточных тавтологий "Комплект: Комплект", "Комплект:"
+        title = re.sub(r'^(?:комплект|сет|гарнитур)\s*:\s*(?:комплект|сет|гарнитур)?\s*', '', title, flags=re.IGNORECASE)
+        title = re.sub(r'^(?:комплект|сет|гарнитур)\s*:\s*', '', title, flags=re.IGNORECASE)
         title = title[0].upper() + title[1:]
         title = re.sub(r'\s+', ' ', title).strip(' .')
         
@@ -234,6 +254,8 @@ def generate_default_sku(pid):
 
 def generate_default_keywords(title, category, materials=None):
     t_clean = re.sub(r'\(под заказ\)', '', title, flags=re.I).strip()
+    t_clean = re.sub(r'^(?:комплект|сет|гарнитур)\s*:\s*(?:комплект|сет|гарнитур)?\s*', '', t_clean, flags=re.I).strip()
+    t_clean = re.sub(r'^(?:комплект|сет|гарнитур)\s*:\s*', '', t_clean, flags=re.I).strip()
     mats = materials or []
     stones = [m for m in mats if not any(w in m.lower() for w in ['сплав', 'позолота', 'фурнитура'])]
     
@@ -336,6 +358,8 @@ def generate_rich_description(title, category, price, elements=None, base_desc="
 
 def generate_default_bundle_options(title, price, elements=None):
     clean_title = re.sub(r'\(под заказ\)', '', title, flags=re.I).strip()
+    clean_title = re.sub(r'^(?:комплект|сет|гарнитур)\s*:\s*(?:комплект|сет|гарнитур)?\s*', '', clean_title, flags=re.I).strip()
+    clean_title = re.sub(r'^(?:комплект|сет|гарнитур)\s*:\s*', '', clean_title, flags=re.I).strip()
     if elements and len(elements) > 1:
         elem_names = [e[0] for e in elements]
         total_p = sum(p for _, p in elements)
