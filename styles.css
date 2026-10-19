@@ -733,6 +733,7 @@ h1 {
 }
 
 .card .card-img-wrap {
+  display: block;
   width: 100%;
   aspect-ratio: 3/4;
   overflow: hidden;

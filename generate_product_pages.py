@@ -1125,7 +1125,7 @@ def build_static_card_html(product: dict, indent: str = "    ") -> str:
     cat = html.escape(product.get("category") or "")
     return (
         f'{indent}<article class="card" data-id="{pid}">\n'
-        f'{indent}  <div class="card-img-wrap"><img src="{img}" alt="{alt}" loading="lazy" decoding="async" width="600" height="800"></div>\n'
+        f'{indent}  <a href="/product/{pid}.html" class="card-img-wrap"><img src="{img}" alt="{alt}" loading="lazy" decoding="async" width="600" height="800"></a>\n'
         f'{indent}  <div class="body">\n'
         f'{indent}    <div class="title"><a href="/product/{pid}.html" class="card-title-link" data-id="{pid}" data-title="{title}" data-price="{price_num}" data-category="{cat}">{title}</a></div>\n'
         f'{indent}    <div class="price">{price} ₸</div>\n'
