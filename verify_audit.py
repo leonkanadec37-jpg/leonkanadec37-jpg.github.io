@@ -543,10 +543,19 @@ def run_audit():
     with open("404.html", "r", encoding="utf-8") as f:
         err404_txt = f.read()
 
-    if "Disallow: /cart.html" in rb_txt and "Sitemap: https://livijewelry.kz/sitemap.xml" in rb_txt and "noindex" in err404_txt:
-        ok("33. Служебные файлы: robots.txt защищает /cart.html и ссылается на sitemap, 404.html содержит noindex")
+    with open("cart.html", "r", encoding="utf-8") as f:
+        cart_head_txt = f.read()
+
+    robots_ok = (
+        "Disallow: /cart.html" not in rb_txt
+        and "Sitemap: https://livijewelry.kz/sitemap.xml" in rb_txt
+        and "noindex" in err404_txt
+        and 'content="noindex' in cart_head_txt
+    )
+    if robots_ok:
+        ok("33. Служебные файлы: robots.txt открыт для проверки чекаута Google Shopping, cart.html и 404.html защищены noindex")
     else:
-        fail("33. Ошибки в robots.txt или 404.html")
+        fail("33. Ошибки в robots.txt, cart.html или 404.html")
 
     if (
         "livi_attribution" in idx_txt

@@ -492,7 +492,7 @@
   <div id="drawer" class="drawer" aria-hidden="true">
     <div class="drawer-back" role="button" tabindex="0" aria-label="Закрыть меню"></div>
     <div class="drawer-panel" role="menu" aria-label="Меню">
-      <a href="/index.html">Главная</a>
+      <a href="/">Главная</a>
       <a href="/shop.html">Каталог</a>
       <details class="drawer-accordion">
         <summary>Коллекции и камни</summary>
@@ -537,7 +537,7 @@
     <div class="nav">
       <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
 
-      <a class="brand" href="/index.html" aria-label="Livi Jewelry">
+      <a class="brand" href="/" aria-label="Livi Jewelry">
         <span>LIVI JEWELRY</span>
       </a>
 
@@ -744,7 +744,7 @@
       </div>
     </section>
   
-                                                                                                    <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
+                                                                                                            <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
       <details class="hub-interlink-accordion">
         <summary>Подборки по камням и стилям</summary>
         <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
@@ -929,14 +929,6 @@
             page_location: window.location.href,
             item_id: ''
           });
-          if (isWa) {
-            gtag('event', 'conversion', {
-              'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
-              'value': Math.round(val * 0.2),
-              'currency': 'KZT',
-              'transaction_id': 'LIVI-LEAD-' + Date.now()
-            });
-          }
         }
         if (typeof fbq === 'function') fbq('track', 'Contact');
       } catch(err) {}

@@ -3,14 +3,12 @@ Allow: /
 Allow: /kz/
 Allow: /product/
 Allow: /assets/
-Disallow: /cart.html
 
 User-agent: Googlebot
 Allow: /
 Allow: /kz/
 Allow: /product/
 Allow: /assets/
-Disallow: /cart.html
 
 User-agent: Googlebot-Image
 Allow: /

@@ -740,7 +740,7 @@ def generate_hub_page(hub, products):
   <div id="drawer" class="drawer" aria-hidden="true">
     <div class="drawer-back" role="button" tabindex="0" aria-label="Закрыть меню"></div>
     <div class="drawer-panel" role="menu" aria-label="Меню">
-      <a href="/index.html">Главная</a>
+      <a href="/">Главная</a>
       <a href="/shop.html">Каталог</a>
       <details class="drawer-accordion">
         <summary>Коллекции и камни</summary>
@@ -765,7 +765,7 @@ def generate_hub_page(hub, products):
     <div class="nav">
       <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
 
-      <a class="brand" href="/index.html" aria-label="Livi Jewelry">
+      <a class="brand" href="/" aria-label="Livi Jewelry">
         <span>LIVI JEWELRY</span>
       </a>
 
@@ -1080,7 +1080,7 @@ def standardize_hub_header_and_drawer(file_path: str, slug: str):
   <div id="drawer" class="drawer" aria-hidden="true">
     <div class="drawer-back" role="button" tabindex="0" aria-label="Закрыть меню"></div>
     <div class="drawer-panel" role="menu" aria-label="Меню">
-      <a href="/index.html">Главная</a>
+      <a href="/">Главная</a>
       <a href="/shop.html">Каталог</a>
       <details class="drawer-accordion">
         <summary>Коллекции и камни</summary>
@@ -1105,7 +1105,7 @@ def standardize_hub_header_and_drawer(file_path: str, slug: str):
     <div class="nav">
       <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
 
-      <a class="brand" href="/index.html" aria-label="Livi Jewelry">
+      <a class="brand" href="/" aria-label="Livi Jewelry">
         <span>LIVI JEWELRY</span>
       </a>
 

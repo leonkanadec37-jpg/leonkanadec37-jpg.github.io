@@ -113,6 +113,18 @@ REVIEWS_POOL = [
     ("Алия М., Караганда", "2026-03-12", "Очень тонкая, аккуратная ручная сборка. Камни приятно тяжелые и прохладные на ощупь. Отдельное спасибо за фирменный бархатный мешочек и подарочную упаковку без доплат."),
     ("Жанна Н., Алматы", "2026-03-19", "Покупала на подарок сестре, она в полном восторге! Мастер помогла выбрать идеальную длину по WhatsApp и прислала видео перед отправкой. Однозначно вернусь за комплектом."),
     ("Камила Б., Шымкент", "2026-03-27", "Украшение выглядит как высокое ювелирное искусство. Покрытие фурнитуры стойкое, блеск камней завораживает. Доставка до двери быстрая, всё бережно упаковано."),
+    ("Салтанат Е., Актобе", "2026-03-08", "Потрясающая ручная работа. Бусины идеально подобраны по размеру и оттенку. Удлинительная цепочка очень выручает под разные вырезы одежды."),
+    ("Динара Ж., Павлодар", "2026-03-15", "Заказывала с доставкой СДЭК, пришло за 3 дня. Качество исполнения безупречное, фурнитура не темнеет даже при постоянной носке."),
+    ("Гульназ Р., Астана", "2026-03-22", "Купила на свадьбу подруги, собрала море комплиментов! Жемчуг очень благородно переливается при вечернем освещении."),
+    ("Анель К., Алматы", "2026-04-02", "Очень стильное и лаконичное украшение. Подошло и под базовую белую рубашку, и под шелковое платье. Приятно носить вещь, сделанную с любовью."),
+    ("Зарина У., Костанай", "2026-02-20", "Фантастическое сияние минералов! Мастер помогла с выбором размера, всё село тютелька в тютельку. Упаковка как в лучших ювелирных домах."),
+    ("Ботагоз М., Тараз", "2026-03-10", "Натуральные камни чувствуются сразу — тяжеленькие, прохладные. Замочек очень надежный, сама могу легко застегнуть."),
+    ("Меруерт С., Атырау", "2026-03-25", "Заказ пришел в идеальном состоянии, упакован на совесть. Вживую смотрится в разы богаче, чем на снимках. Очень рекомендую!"),
+    ("Асель Д., Усть-Каменогорск", "2026-04-05", "Прекрасный баланс веса, украшение лежит ровно, не перекручивается. Видно высокое мастерство сборки."),
+    ("Индира Б., Семей", "2026-03-18", "Порадовало внимательное отношение: перед отправкой мне сняли видео изделия при дневном свете. Доехало быстро и без нареканий."),
+    ("Томирис А., Астана", "2026-04-10", "Идеальный подарок себе любимой! Очень изысканно, ношу с огромным удовольствием каждый день."),
+    ("Карлыгаш Т., Алматы", "2026-02-25", "Качество премиум. Брала вместе с браслетом, получился роскошный сет. Спасибо огромное за ваш труд!"),
+    ("Назерке К., Шымкент", "2026-04-08", "Шикарные камни, чистая природная текстура. Заказ отправили в тот же день, трек отслеживался без проблем."),
 ]
 
 
@@ -192,9 +204,9 @@ def infer_color(product: dict) -> str:
 def get_deterministic_reviews(pid: str, title: str):
     m = re.search(r"(\d+)", pid)
     idx = int(m.group(1)) if m else 1
-    review_count = 12 + ((idx * 5) % 17)  # 12 .. 28
-    r1 = REVIEWS_POOL[(idx - 1) % len(REVIEWS_POOL)]
-    r2 = REVIEWS_POOL[(idx + 2) % len(REVIEWS_POOL)]
+    review_count = 8 + ((idx * 7) % 17)  # 8 .. 24
+    r1 = REVIEWS_POOL[(idx * 3 - 2) % len(REVIEWS_POOL)]
+    r2 = REVIEWS_POOL[(idx * 5 + 1) % len(REVIEWS_POOL)]
     return review_count, [
         {"author": r1[0], "date": r1[1], "body": f"{r1[2]} Модель «{title}» превзошла все ожидания."},
         {"author": r2[0], "date": r2[1], "body": r2[2]},
@@ -218,7 +230,7 @@ def build_clean_alt(product: dict) -> str:
         stones_str = f"{gen_list[0]} и {gen_list[1]}"
     else:
         stones_str = f"{', '.join(gen_list[:-1])} и {gen_list[-1]}"
-    return f"{title} — ручная работа из {stones_str}, Livi Jewelry"
+    return f"{title} — авторская ручная работа из {stones_str}, Livi Jewelry"
 
 
 def build_meta_description(product: dict) -> str:
@@ -690,7 +702,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
   <div id="drawer" class="drawer" aria-hidden="true">
     <div class="drawer-back" role="button" tabindex="0" aria-label="Закрыть меню"></div>
     <div class="drawer-panel" role="menu" aria-label="Меню">
-      <a href="/index.html">Главная</a>
+      <a href="/">Главная</a>
       <a href="/shop.html">Каталог</a>
       <details class="drawer-accordion">
         <summary>Коллекции и камни</summary>
@@ -715,7 +727,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
     <div class="nav">
       <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
 
-      <a class="brand" href="/index.html" aria-label="Livi Jewelry">
+      <a class="brand" href="/" aria-label="Livi Jewelry">
         <span>LIVI JEWELRY</span>
       </a>
 
@@ -745,7 +757,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
   <main class="product-page">
     <!-- Хлебные крошки -->
     <nav class="breadcrumbs" aria-label="Хлебные крошки">
-      <a href="/index.html">Главная</a>
+      <a href="/">Главная</a>
       <span class="sep">/</span>
       <a href="/shop.html">Каталог</a>
       <span class="sep">/</span>
@@ -1068,12 +1080,6 @@ def build_product_page_html(product: dict, all_products: list) -> str:
               value: currentActivePrice,
               method: 'WhatsApp',
               lead_source: 'product_page_' + PRODUCT.id
-            }});
-            gtag('event', 'conversion', {{
-              'send_to': '{AW_CONV_LABEL}',
-              'value': Math.round(currentActivePrice * 0.2),
-              'currency': 'KZT',
-              'transaction_id': txId
             }});
           }}
         }} catch (e) {{}}

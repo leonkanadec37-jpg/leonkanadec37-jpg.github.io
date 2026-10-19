@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title data-i18n="meta.title">Livi Jewelry — Корзина</title>
 
-  <!-- SEO: закрыть корзину от индексации и зафиксировать канонический URL -->
-  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <!-- SEO: закрыть корзину от поисковой выдачи, но разрешить Storebot-Google сканировать чекаут -->
+  <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="https://livijewelry.kz/cart.html">
 
   <!-- Fonts -->
@@ -110,7 +110,7 @@
   <header>
     <div class="nav">
       <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
-      <a class="brand" href="index.html">
+      <a class="brand" href="/">
         <span>LIVI JEWELRY</span>
       </a>
       <div class="nav-actions">
@@ -791,12 +791,6 @@
                 value: total,
                 method: 'WhatsApp',
                 page_location: window.location.href
-              });
-              gtag('event', 'conversion', {
-                'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
-                'value': Math.round(total * 0.2),
-                'currency': 'KZT',
-                'transaction_id': 'LIVI-LEAD-' + Date.now()
               });
             }
             if (typeof fbq === 'function') fbq('track', 'Contact');

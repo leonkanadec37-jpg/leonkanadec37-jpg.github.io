@@ -207,7 +207,6 @@ def generate_feed():
       <g:availability>{availability}</g:availability>
       <g:price>{price_str}</g:price>
       <g:brand>Livi Jewelry</g:brand>
-      <g:mpn>{sku}</g:mpn>
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>{google_cat}</g:google_product_category>
       <g:product_type>{product_type}</g:product_type>
