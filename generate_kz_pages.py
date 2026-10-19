@@ -1935,9 +1935,6 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
       const back = drawer.querySelector('.drawer-back');
       if (back) back.onclick = () => {{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); document.body.classList.remove('drawer-open'); }};
     }}
-      const back = drawer.querySelector('.drawer-back');
-      if (back) back.onclick = () => {{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); }};
-    }}
 
     function readCart() {{
       try {{
