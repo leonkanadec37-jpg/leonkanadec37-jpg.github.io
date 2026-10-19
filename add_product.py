@@ -12,7 +12,7 @@ Livi Jewelry - Скрипт мгновенного добавления/выгр
       [--featured] \
       [--commit]
 
-Категории: Necklaces, Sets, Bracelets, Lariats, Chains
+Категории: Necklaces, Earrings, Sets, Bracelets, Lariats, Chains
 """
 
 import os
@@ -83,7 +83,7 @@ def main():
     parser = argparse.ArgumentParser(description="Добавление товара в каталог Livi Jewelry")
     parser.add_argument("--image", required=True, help="Путь к исходной фотографии (jpg, png, webp)")
     parser.add_argument("--title", required=True, help="Название товара")
-    parser.add_argument("--category", required=True, choices=["Necklaces", "Sets", "Bracelets", "Lariats", "Chains"], help="Категория")
+    parser.add_argument("--category", required=True, choices=["Necklaces", "Earrings", "Sets", "Bracelets", "Lariats", "Chains"], help="Категория")
     parser.add_argument("--price", type=int, required=True, help="Цена в тенге (число)")
     parser.add_argument("--materials", default="", help="Материалы через запятую")
     parser.add_argument("--description", default="", help="Описание товара")
@@ -177,7 +177,7 @@ def main():
         "featured": bool(args.featured)
     }
 
-    if args.category == 'Sets' or "комплект" in args.title.lower() or "сет" in args.title.lower():
+    if args.category == 'Sets' or "комплект" in args.title.lower() or bool(re.search(r'\bсет\b', args.title, re.I)):
         new_product['bundle_options'] = generate_default_bundle_options(args.title, args.price)
 
     ensure_product_enriched_fields(new_product)

@@ -155,7 +155,7 @@ def run_audit():
     set_count = 0
     for p in products:
         pid = p["id"]
-        is_set = p.get("category") == "Sets" or "комплект" in p.get("title", "").lower() or "сет" in p.get("title", "").lower()
+        is_set = p.get("category") == "Sets" or "комплект" in p.get("title", "").lower() or bool(re.search(r'\bсет\b', p.get("title", "").lower()))
         if is_set:
             set_count += 1
             b_opts = p.get("bundle_options")

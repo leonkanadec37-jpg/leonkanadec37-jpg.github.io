@@ -157,6 +157,8 @@ def parse_item_info(raw_title):
             category = 'Lariats'
         elif 'цепь' in t_low:
             category = 'Chains'
+        elif 'серьг' in t_low or 'пусет' in t_low:
+            category = 'Earrings'
         else:
             category = 'Necklaces'
             
@@ -278,6 +280,10 @@ def generate_default_keywords(title, category, materials=None):
         kws.append("цепь с барочным жемчугом купить Казахстан")
     elif category == 'Lariats':
         kws.append("сотуар из натуральных камней ручной работы")
+    elif category == 'Earrings':
+        kws.append("серьги ручной работы купить Казахстан")
+        kws.append("дизайнерские серьги из натуральных камней")
+        kws.append("серьги ручной работы Астана Алматы")
     else:
         kws.append("авторское колье с натуральным жемчугом Астана")
 
@@ -303,6 +309,15 @@ def generate_default_specs(title, category, materials=None):
         type_ru = "Украшение-сотуар ручной работы"
         length_size = "80–90 см (трансформер, можно носить в 1 или 2 оборота)"
         clasp = "Разъемный замок-карабин трансформер"
+    elif category == 'Earrings':
+        if 'пусет' in str(title).lower():
+            type_ru = "Серьги-пусеты ручной работы"
+            length_size = "Миниатюрный размер (аккуратная посадка на мочке уха)"
+            clasp = "Гипоаллергенные пусеты-заглушки (надежная фиксация)"
+        else:
+            type_ru = "Дизайнерские серьги ручной работы"
+            length_size = "Комфортная длина 2.5–4.5 см (легкая удобная посадка на мочке уха)"
+            clasp = "Гипоаллергенный ювелирный замок / швензы со стойким покрытием"
     else:
         type_ru = "Дизайнерское колье ручной работы"
         length_size = "40–45 см (регулируемая удлинительная цепочка, бесплатная подгонка под заказ)"
@@ -344,6 +359,15 @@ def generate_rich_description(title, category, price, elements=None, base_desc="
             f"Украшения выполнены из отборных натуральных минералов и жемчуга с выразительным природным блеском. "
             f"Гипоаллергенная фурнитура со стойким родированием или позолотой не вызывает раздражения. "
             f"Бесплатная индивидуальная подгонка длины под ваши мерки. Подарочная шкатулка Livi Jewelry."
+        )
+    elif category == 'Earrings':
+        clean_title = re.sub(r'\(под заказ\)', '', title, flags=re.I).strip()
+        desc = (
+            f"Дизайнерские серьги ручной работы: {clean_title}. Выполнены из отборных натуральных минералов "
+            f"высокого качества селекции с природным сиянием и неповторимой текстурой. "
+            f"Гипоаллергенные ювелирные швензы со стойким защитным покрытием не темнеют и комфортны для чувствительной кожи. "
+            f"Комфортный легкий вес для ежедневной носки и быстрая бережная доставка по Казахстану. "
+            f"Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry."
         )
     else:
         clean_title = re.sub(r'\(под заказ\)', '', title, flags=re.I).strip()
@@ -404,7 +428,7 @@ def ensure_product_enriched_fields(p, elements=None):
         else:
             p['specs'] = default_specs
 
-    is_set = cat == 'Sets' or "комплект" in title.lower() or "сет" in title.lower()
+    is_set = cat == 'Sets' or "комплект" in title.lower() or bool(re.search(r'\bсет\b', title, re.I))
     if is_set:
         b_opts = p.get('bundle_options')
         if not isinstance(b_opts, list) or len(b_opts) < 2:

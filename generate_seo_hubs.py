@@ -951,10 +951,10 @@ def update_sergi_page(products: list):
         mats_str = clean_attr(", ".join(p.get("materials", [])))
 
         # Find separate earrings price from bundle_options or description
-        earring_price = 10000
+        earring_price = int(p.get("price") or 10000)
         for opt in p.get("bundle_options", []):
             if "серьг" in opt.get("name", "").lower():
-                earring_price = opt.get("price", 10000)
+                earring_price = opt.get("price", earring_price)
                 break
         earring_price_fmt = f"{earring_price:,}".replace(",", " ")
 
