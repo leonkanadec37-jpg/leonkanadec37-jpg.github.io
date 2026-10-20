@@ -51,6 +51,13 @@ SERVICE_PAGES = [
 ]
 
 
+def get_file_lastmod(filepath, default_date=None):
+    if os.path.exists(filepath):
+        mtime = os.path.getmtime(filepath)
+        return datetime.fromtimestamp(mtime).strftime("%Y-%m-%d")
+    return default_date or datetime.now().strftime("%Y-%m-%d")
+
+
 def generate_sitemap():
     today = datetime.now().strftime("%Y-%m-%d")
 
@@ -64,7 +71,7 @@ def generate_sitemap():
     # 1. Главные страницы (RU + KZ)
     lines.append("  <url>")
     lines.append(f"    <loc>{SITE_URL}/</loc>")
-    lines.append(f"    <lastmod>{today}</lastmod>")
+    lines.append(f"    <lastmod>{get_file_lastmod('index.html', today)}</lastmod>")
     lines.append("    <changefreq>daily</changefreq>")
     lines.append("    <priority>1.0</priority>")
     lines.append(f'    <xhtml:link rel="alternate" hreflang="ru-KZ" href="{SITE_URL}/" />')
@@ -76,7 +83,7 @@ def generate_sitemap():
 
     lines.append("  <url>")
     lines.append(f"    <loc>{SITE_URL}/kz/</loc>")
-    lines.append(f"    <lastmod>{today}</lastmod>")
+    lines.append(f"    <lastmod>{get_file_lastmod('kz/index.html', today)}</lastmod>")
     lines.append("    <changefreq>daily</changefreq>")
     lines.append("    <priority>0.9</priority>")
     lines.append(f'    <xhtml:link rel="alternate" hreflang="ru-KZ" href="{SITE_URL}/" />')
@@ -89,7 +96,7 @@ def generate_sitemap():
     # 2. Каталоги (RU + KZ)
     lines.append("  <url>")
     lines.append(f"    <loc>{SITE_URL}/shop.html</loc>")
-    lines.append(f"    <lastmod>{today}</lastmod>")
+    lines.append(f"    <lastmod>{get_file_lastmod('shop.html', today)}</lastmod>")
     lines.append("    <changefreq>daily</changefreq>")
     lines.append("    <priority>0.9</priority>")
     lines.append(f'    <xhtml:link rel="alternate" hreflang="ru-KZ" href="{SITE_URL}/shop.html" />')
@@ -101,7 +108,7 @@ def generate_sitemap():
 
     lines.append("  <url>")
     lines.append(f"    <loc>{SITE_URL}/kz/shop.html</loc>")
-    lines.append(f"    <lastmod>{today}</lastmod>")
+    lines.append(f"    <lastmod>{get_file_lastmod('kz/shop.html', today)}</lastmod>")
     lines.append("    <changefreq>daily</changefreq>")
     lines.append("    <priority>0.85</priority>")
     lines.append(f'    <xhtml:link rel="alternate" hreflang="ru-KZ" href="{SITE_URL}/shop.html" />')
@@ -116,7 +123,7 @@ def generate_sitemap():
         url = f"{SITE_URL}/{page}"
         lines.append("  <url>")
         lines.append(f"    <loc>{url}</loc>")
-        lines.append(f"    <lastmod>{today}</lastmod>")
+        lines.append(f"    <lastmod>{get_file_lastmod(page, today)}</lastmod>")
         lines.append(f"    <changefreq>{freq}</changefreq>")
         lines.append(f"    <priority>{prio}</priority>")
         lines.append("  </url>")
@@ -126,7 +133,7 @@ def generate_sitemap():
         url = f"{SITE_URL}/{page}"
         lines.append("  <url>")
         lines.append(f"    <loc>{url}</loc>")
-        lines.append(f"    <lastmod>{today}</lastmod>")
+        lines.append(f"    <lastmod>{get_file_lastmod(page, today)}</lastmod>")
         lines.append(f"    <changefreq>{freq}</changefreq>")
         lines.append(f"    <priority>{prio}</priority>")
         lines.append("  </url>")
@@ -140,6 +147,8 @@ def generate_sitemap():
             if not p.get("inStock", True):
                 continue
             pid = p["id"]
+            ru_file = f"product/{pid}.html"
+            kz_file = f"kz/product/{pid}.html"
             ru_url = f"{SITE_URL}/product/{pid}.html"
             kz_url = f"{SITE_URL}/kz/product/{pid}.html"
 
@@ -155,7 +164,7 @@ def generate_sitemap():
             # Русская карточка товара
             lines.append("  <url>")
             lines.append(f"    <loc>{ru_url}</loc>")
-            lines.append(f"    <lastmod>{today}</lastmod>")
+            lines.append(f"    <lastmod>{get_file_lastmod(ru_file, today)}</lastmod>")
             lines.append("    <changefreq>weekly</changefreq>")
             lines.append("    <priority>0.8</priority>")
             lines.append(f'    <xhtml:link rel="alternate" hreflang="ru-KZ" href="{ru_url}" />')
@@ -177,7 +186,7 @@ def generate_sitemap():
             )
             lines.append("  <url>")
             lines.append(f"    <loc>{kz_url}</loc>")
-            lines.append(f"    <lastmod>{today}</lastmod>")
+            lines.append(f"    <lastmod>{get_file_lastmod(kz_file, today)}</lastmod>")
             lines.append("    <changefreq>weekly</changefreq>")
             lines.append("    <priority>0.8</priority>")
             lines.append(f'    <xhtml:link rel="alternate" hreflang="ru-KZ" href="{ru_url}" />')
