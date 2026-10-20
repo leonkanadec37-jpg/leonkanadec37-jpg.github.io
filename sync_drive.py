@@ -169,7 +169,8 @@ def parse_item_info(raw_title):
         
         # Очищаем названия отдельных элементов от повторов "комплект...", "сет..."
         cleaned_elements = []
-        for name, p in elements:
+        item_words = ('колье', 'браслет', 'серьги', 'пусет', 'кольцо', 'булавк', 'цепь', 'сотуар', 'чокер', 'ожерель', 'бусы', 'кулон', 'подвеск')
+        for idx, (name, p) in enumerate(elements):
             # Убираем "Комплект из натуральных камней Колье" -> "Колье из натуральных камней"
             n_clean = re.sub(
                 r'^(?:комплект|сет|гарнитур)\s+из\s+(.*?)\s+(колье|браслет|серьги|кольцо|булавка|цепь|сотуар|чокер)',
@@ -180,7 +181,12 @@ def parse_item_info(raw_title):
             # Убираем префикс "Комплект: ..." или "Комплект ..."
             n_clean = re.sub(r'^(?:комплект|сет|гарнитур)\s*:\s*', '', n_clean, flags=re.IGNORECASE)
             n_clean = re.sub(r'^(?:комплект|сет|гарнитур)\s+', '', n_clean, flags=re.IGNORECASE)
-            n_clean = re.sub(r'\s+', ' ', n_clean).strip(' .')
+            n_clean = re.sub(r'\s+', ' ', n_clean).strip(' .:,;-')
+            if idx == 0 and n_clean and not any(w in n_clean.lower() for w in item_words):
+                if n_clean.lower().startswith('из '):
+                    n_clean = 'Колье ' + n_clean[0].lower() + n_clean[1:]
+                else:
+                    n_clean = 'Колье из ' + n_clean[0].lower() + n_clean[1:]
             n_clean = n_clean[0].upper() + n_clean[1:] if n_clean else name
             cleaned_elements.append((n_clean, p))
         elements = cleaned_elements
@@ -192,7 +198,10 @@ def parse_item_info(raw_title):
         elif len(elements) == 2:
             first = elements[0][0]
             second = elements[1][0][0].lower() + elements[1][0][1:] if elements[1][0] else ""
-            title = f"{first} и {second}" + note
+            if ' и ' in first.lower():
+                title = f"{first}, {second}" + note
+            else:
+                title = f"{first} и {second}" + note
         elif len(elements) > 2:
             first = elements[0][0]
             rest = [e[0][0].lower() + e[0][1:] if e[0] else "" for e in elements[1:]]
@@ -204,12 +213,12 @@ def parse_item_info(raw_title):
         title = re.sub(r'^(?:комплект|сет|гарнитур)\s*:\s*(?:комплект|сет|гарнитур)?\s*', '', title, flags=re.IGNORECASE)
         title = re.sub(r'^(?:комплект|сет|гарнитур)\s*:\s*', '', title, flags=re.IGNORECASE)
         title = title[0].upper() + title[1:]
-        title = re.sub(r'\s+', ' ', title).strip(' .')
+        title = re.sub(r'\s+', ' ', title).strip(' .:,;-')
         
         desc_parts = []
         for name, p in elements:
             n_clean = name[0].upper() + name[1:] if name else ""
-            n_clean = re.sub(r'\s+', ' ', n_clean).strip(' .')
+            n_clean = re.sub(r'\s+', ' ', n_clean).strip(' .:,;-')
             desc_parts.append(f"{n_clean} — {format_num(p)} тг")
         
         items_str = ", ".join(desc_parts)
@@ -613,11 +622,16 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
             changed = False
             is_set = len(parsed_info.get('elements', [])) > 1 or parsed_info.get('category') == 'Sets'
             
-            # Для сетов - всегда применяем полное название, категорию Sets, полную цену
+            # Для сетов - сохраняем отредактированное чистое название, применяем категорию Sets и полную цену
             if is_set:
-                if matched_prod.get('title') != parsed_info['title']:
-                    matched_prod['title'] = parsed_info['title']
-                    changed = True
+                curr_title = matched_prod.get('title', '').strip()
+                if (not curr_title
+                    or curr_title.lower().startswith(('комплект', 'сет', 'гарнитур', 'нефрита '))
+                    or ' :,' in curr_title
+                    or curr_title.lower().count(' и ') >= 2):
+                    if curr_title != parsed_info['title']:
+                        matched_prod['title'] = parsed_info['title']
+                        changed = True
                 if matched_prod.get('price') != parsed_info['display_price']:
                     matched_prod['price'] = parsed_info['display_price']
                     changed = True

@@ -511,12 +511,13 @@ def run_audit():
     sm_urls = re.findall(r"<loc>(.*?)</loc>", sm_txt)
     sm_images = sm_txt.count("<image:image>")
 
+    active_prods = [p for p in products if p.get("inStock", True)]
     hubs_in_sm = all(f"{SITE_URL}/{h}" in sm_txt for h in ALL_21_HUBS)
-    ru_prods_in_sm = all(f"{SITE_URL}/product/{p['id']}.html" in sm_txt for p in products)
-    kz_prods_in_sm = all(f"{SITE_URL}/kz/product/{p['id']}.html" in sm_txt for p in products)
+    ru_prods_in_sm = all(f"{SITE_URL}/product/{p['id']}.html" in sm_txt for p in active_prods)
+    kz_prods_in_sm = all(f"{SITE_URL}/kz/product/{p['id']}.html" in sm_txt for p in active_prods)
 
     if len(sm_urls) >= 84 and hubs_in_sm and ru_prods_in_sm and kz_prods_in_sm:
-        ok(f"30. Sitemap.xml: Содержит {len(sm_urls)} URLs (все 21 хаб, 28 RU и 28 KZ страниц товаров, витрины и сервисные страницы)")
+        ok(f"30. Sitemap.xml: Содержит {len(sm_urls)} URLs (все 21 хаб, {len(active_prods)} RU и {len(active_prods)} KZ активных страниц товаров, витрины и сервисные страницы)")
     else:
         fail(f"30. Неполный sitemap.xml: найдено {len(sm_urls)} URLs, hubs_in_sm={hubs_in_sm}, ru={ru_prods_in_sm}, kz={kz_prods_in_sm}")
 

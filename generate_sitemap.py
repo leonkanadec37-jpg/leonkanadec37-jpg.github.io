@@ -197,8 +197,9 @@ def generate_sitemap():
     with open("sitemap.xml", "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
 
-    total_urls = 2 + 2 + len(SEO_HUBS) + len(SERVICE_PAGES) + (len(products) * 2 if os.path.exists("products.json") else 0)
-    print(f"[OK] Sitemap обновлен: {total_urls} URLs (21 хаб, 4 витрины/каталога, 4 сервисных, 28 RU + 28 KZ товаров)")
+    active_count = sum(1 for p in products if p.get("inStock", True)) if os.path.exists("products.json") else 0
+    total_urls = 2 + 2 + len(SEO_HUBS) + len(SERVICE_PAGES) + (active_count * 2)
+    print(f"[OK] Sitemap обновлен: {total_urls} URLs (21 хаб, 4 витрины/каталога, 3 сервисных, {active_count} RU + {active_count} KZ активных товаров)")
 
 
 if __name__ == "__main__":
