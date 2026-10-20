@@ -818,7 +818,7 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
 
         if auto_commit or auto_push:
             try:
-                subprocess.run(["git", "add", "-A", products_file, "shop.html", "index.html", "feed.xml", "google_merchant_feed.xml", "sitemap.xml", "assets/", "product/", "kolye-iz-zhemchuga.html", "braslety-iz-zhemchuga.html", "sergi-iz-zhemchuga.html"], check=True)
+                subprocess.run(["git", "add", "-A", products_file, "shop.html", "index.html", "feed.xml", "google_merchant_feed.xml", "sitemap.xml", "assets/", "product/", "kz/", "*.html"], check=True)
                 msg = f"Автосинхронизация каталога: {summary_str}"
                 subprocess.run(["git", "commit", "-m", msg], check=True)
                 print(f"[OK] Git commit: {msg}")
