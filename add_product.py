@@ -226,6 +226,12 @@ def main():
     except Exception:
         pass
 
+    try:
+        from generate_pinterest_assets import generate_pinterest_assets
+        generate_pinterest_assets()
+    except Exception:
+        pass
+
     if args.commit or args.push:
         try:
             subprocess.run(["git", "add", "-A"], check=True)
