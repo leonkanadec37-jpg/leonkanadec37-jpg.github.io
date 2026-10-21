@@ -603,19 +603,6 @@
       <g:google_product_category>196</g:google_product_category>
     </item>
     <item>
-      <g:id>prod_49</g:id>
-      <g:title>Чокеры из граната и жемчуга</g:title>
-      <g:description>Авторское украшение ручной работы: Чокеры из граната и жемчуга. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Бесплатная индивидуальная подгонка длины мастером и быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.</g:description>
-      <g:link>https://livijewelry.kz/product/prod_49.html</g:link>
-      <g:image_link>https://livijewelry.kz/assets/chokery-iz-granata-i-zhemchuga-20000.webp</g:image_link>
-      <g:price>20000.00 KZT</g:price>
-      <g:availability>in stock</g:availability>
-      <g:condition>new</g:condition>
-      <g:brand>Livi Jewelry</g:brand>
-      <g:product_type>Колье и чокеры из натурального жемчуга</g:product_type>
-      <g:google_product_category>196</g:google_product_category>
-    </item>
-    <item>
       <g:id>prod_50</g:id>
       <g:title>Колье из тигрового глаза и браслет</g:title>
       <g:description>В комплекте: Колье из тигрового глаза — 20 000 тг, Браслет — 12 000 тг. Полная стоимость комплекта — 32 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Бесплатная индивидуальная подгонка длины мастером. Фирменная подарочная упаковка Livi Jewelry.</g:description>
@@ -639,6 +626,32 @@
       <g:condition>new</g:condition>
       <g:brand>Livi Jewelry</g:brand>
       <g:product_type>Сотуары и длинные украшения</g:product_type>
+      <g:google_product_category>196</g:google_product_category>
+    </item>
+    <item>
+      <g:id>prod_52</g:id>
+      <g:title>Гематита и жемчуга Майорка</g:title>
+      <g:description>Авторское украшение ручной работы: Гематита и жемчуга Майорка. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Бесплатная индивидуальная подгонка длины мастером и быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_52.html</g:link>
+      <g:image_link>https://livijewelry.kz/assets/gematita-i-zhemchuga-mayorka-40000.webp</g:image_link>
+      <g:price>40000.00 KZT</g:price>
+      <g:availability>in stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:product_type>Колье и чокеры из натурального жемчуга</g:product_type>
+      <g:google_product_category>196</g:google_product_category>
+    </item>
+    <item>
+      <g:id>prod_53</g:id>
+      <g:title>Колье из гематита и цирконов, браслет</g:title>
+      <g:description>В комплекте: Колье из гематита и цирконов — 36 000 тг, Браслет — 15 000 тг. Полная стоимость комплекта — 51 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Бесплатная индивидуальная подгонка длины мастером. Фирменная подарочная упаковка Livi Jewelry.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_53.html</g:link>
+      <g:image_link>https://livijewelry.kz/assets/kole-iz-gematita-i-tsirkonov-braslet-51000.webp</g:image_link>
+      <g:price>51000.00 KZT</g:price>
+      <g:availability>in stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:product_type>Комплекты украшений ручной работы</g:product_type>
       <g:google_product_category>196</g:google_product_category>
     </item>
   </channel>
