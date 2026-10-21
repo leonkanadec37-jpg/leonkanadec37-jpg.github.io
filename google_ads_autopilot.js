@@ -55,36 +55,54 @@ var CONFIG = {
 };
 
 // ------------------------------------------------------------------------------
-// ЗАЩИТНЫЙ WHITELIST НАТУРАЛЬНЫХ КАМНЕЙ И ИЗДЕЛИЙ (КАТЕГОРИЧЕСКИ НЕ БЛОКИРОВАТЬ)
+// 1. БРЕНДЫ-КОНКУРЕНТЫ (БЕЗУСЛОВНЫЙ БАН В ПЕРВУЮ ОЧЕРЕДЬ)
 // ------------------------------------------------------------------------------
-var SAFE_ROOTS = [
-  /жемчуг/i, /барочн/i, /нефрит/i, /аметист/i, /малахит/i, /агат/i, /гранат/i, /кварц/i, /бирюз/i,
-  /гематит/i, /хрустал/i, /лунн.*камен/i, /тигров.*глаз/i, /лазурит/i, /коралл/i, /яшм/i, /сердолик/i,
-  /амазонит/i, /турмалин/i, /цитрин/i, /авантюрин/i, /флюорит/i, /жадеит/i, /перламутр/i, /оникс/i,
-  /шпинел/i, /топаз/i, /аквамарин/i, /берилл/i, /лабрадор/i, /чароит/i, /хризопраз/i, /змеевик/i,
-  /опал/i, /янтарь/i, /рубин/i, /сапфир/i, /изумруд/i, /колье/i, /чокер/i, /браслет/i, /серьг/i,
-  /сотуар/i, /кольц/i, /бус/i, /гарнитур/i, /комплект.*украшен/i, /бижутери/i, /ювелирн/i, /livi/i
+var COMPETITOR_BRANDS = [
+  /swarovski/i, /сваровск/i, /тиффани/i, /tiffany/i, /картье/i, /cartier/i,
+  /messika/i, /мессика/i, /apm/i, /monaco/i, /апм/i, /монако/i,
+  /aroush/i, /larosh/i, /laroush/i, /ляруш/i, /merhat/i, /мерхат/i,
+  /tallys/i, /таллис/i, /sansi/i, /санси/i, /люченте/i, /luchente/i, /lucente/i,
+  /казахювелир/i, /kazakhyuvelir/i, /пандор/i, /pandora/i, /соколов/i, /sokolov/i,
+  /санлайт/i, /sunlight/i, /ван клиф/i, /van cleef/i, /балауса/i, /balausa/i,
+  /sakina/i, /сакина/i, /mone\b/i
 ];
 
 // ------------------------------------------------------------------------------
-// СТОП-ПАТТЕРНЫ ЧИСТОГО МУСОРА (БЛОКИРОВКА ТОЛЬКО ПРИ ОТСУТСТВИИ КАМНЕЙ В ЗАПРОСЕ)
+// 2. ЗАЩИТНЫЙ WHITELIST НАТУРАЛЬНЫХ КАМНЕЙ И ЖЕМЧУГА (КАТЕГОРИЧЕСКИ НЕ БЛОКИРОВАТЬ)
+// Очищен от общих слов (серьги, кольцо, браслет) и драгметаллов (изумруд, рубин, сапфир)
+// ------------------------------------------------------------------------------
+var SAFE_ROOTS = [
+  /жемчуг/i, /барочн/i, /нефрит/i, /жадеит/i, /джедаит/i, /аметист/i, /малахит/i, /агат/i,
+  /гранат/i, /кварц/i, /бирюз/i, /гематит/i, /хрустал/i, /лунн.*камен/i, /лунн/i,
+  /тигров.*глаз/i, /тигров/i, /лазурит/i, /коралл/i, /яшм/i, /сердолик/i, /амазонит/i,
+  /турмалин/i, /цитрин/i, /авантюрин/i, /флюорит/i, /перламутр/i, /оникс/i, /шпинел/i,
+  /топаз/i, /аквамарин/i, /берилл/i, /лабрадор/i, /чароит/i, /хризопраз/i, /змеевик/i,
+  /опал/i, /янтарь/i, /сотуар/i, /чокер/i, /натуральн.*камн/i, /livi/i
+];
+
+// ------------------------------------------------------------------------------
+// 3. СТОП-ПАТТЕРНЫ МУСОРА, ДЕШЕВОГО ОПТА, НЕЦЕЛЕВЫХ МЕТАЛЛОВ И УСЛУГ
 // ------------------------------------------------------------------------------
 var JUNK_PATTERNS = [
-  // 1. Рукоделие и DIY
+  // Рукоделие, DIY, детали и фурнитура
   /своими руками/i, /как сделать/i, /как сплести/i, /схем/i, /мастер класс/i, /мк\b/i,
   /бисероплетени/i, /плетени/i, /вязани/i, /фурнитур/i, /застежк/i, /швенз/i, /штифт/i,
   /пины\b/i, /леск/i, /проволок/i, /эпоксидн/i, /полимерн.*глин/i, /вышивк/i, /станок/i,
+  /с буквой/i,
 
-  // 2. Нецелевые чужие материалы
+  // Нецелевые чужие материалы
   /шерст/i, /валян/i, /муассанит/i, /дерев/i, /пластик/i, /акрил/i, /силикон/i, /xuping/i,
   /медицинск.*золот/i,
 
-  // 3. Халява, скупка, дешевый опт, б/у
+  // Халява, ломбарды, скупка, дешевый опт, б/у
   /бесплатн/i, /даром/i, /ломбард/i, /скупк/i, /сдать.*золото/i, /проба 585/i, /золото 585/i,
   /слит.*золот/i, /алиэкспресс/i, /aliexpress/i, /temu/i, /shein/i, /таобао/i, /секонд/i,
   /конфискат/i, /б[\s/]?у\b/i,
 
-  // 4. Нецелевые услуги и инфо-запросы
+  // Нецелевые металлы и масс-маркет (блокируются ТОЛЬКО если нет камня из SAFE_ROOTS)
+  /золот/i, /серебр/i, /магазин золота/i, /бриллиант/i, /изумруд/i, /рубин/i, /сапфир/i,
+
+  // Нецелевые услуги, инфо-запросы и гео
   /ремонт/i, /пайк/i, /чистк.*золот/i, /ультразвуков/i, /ваканси/i, /резюме/i, /работа/i,
   /зарплат/i, /реферат/i, /сонник/i, /гороскоп/i, /знак.*зодиак/i, /магическ/i,
   /лечебн.*свойств/i, /приворот/i, /заговор/i, /скачать/i, /обои.*телефон/i,
@@ -92,12 +110,13 @@ var JUNK_PATTERNS = [
 ];
 
 /**
- * Проверка запроса на наличие корней минералов и изделий из WhiteList
+ * Проверка запроса на наличие корней натуральных минералов и жемчуга
  */
 function isSafeTerm(term) {
   if (!term) return false;
+  var lower = term.toLowerCase().trim();
   for (var i = 0; i < SAFE_ROOTS.length; i++) {
-    if (SAFE_ROOTS[i].test(term)) {
+    if (SAFE_ROOTS[i].test(lower)) {
       return true;
     }
   }
@@ -105,16 +124,48 @@ function isSafeTerm(term) {
 }
 
 /**
- * Проверка совпадения со стоп-паттернами мусора
+ * Комплексная оценка поискового запроса:
+ * 1. Бренд конкурента -> безусловный мусор (БАН)
+ * 2. Камень + серебро/золото фурнитура -> ЗАЩИТА (НЕ БЛОКИРОВАТЬ)
+ * 3. Стоп-паттерн мусора (без нашего камня) -> мусор (БАН)
+ * 4. Наш камень/жемчуг -> ЗАЩИТА
  */
-function matchJunkPattern(term) {
-  if (!term) return null;
-  for (var i = 0; i < JUNK_PATTERNS.length; i++) {
-    if (JUNK_PATTERNS[i].test(term)) {
-      return JUNK_PATTERNS[i];
+function evaluateSearchTerm(term) {
+  var lower = (term || "").toLowerCase().trim();
+  if (!lower) return { isJunk: false, isSafe: false, reason: "Пустой запрос" };
+
+  // 1. Бренд конкурента -> МГНОВЕННЫЙ БАН
+  for (var b = 0; b < COMPETITOR_BRANDS.length; b++) {
+    if (COMPETITOR_BRANDS[b].test(lower)) {
+      return { isJunk: true, isSafe: false, reason: "Бренд-конкурент (" + COMPETITOR_BRANDS[b] + ")" };
     }
   }
-  return null;
+
+  // 2. Проверка наличия нашего натурального минерала / жемчуга
+  var hasSafeStone = isSafeTerm(lower);
+
+  // 3. Проверка на стоп-паттерны
+  for (var j = 0; j < JUNK_PATTERNS.length; j++) {
+    if (JUNK_PATTERNS[j].test(lower)) {
+      // Исключение: если есть наш камень/жемчуг И это просто указание металла замка/фурнитуры (серебро/золото)
+      var isMetalFittings = (/золот/i.test(lower) || /серебр/i.test(lower)) &&
+                            !/ломбард/i.test(lower) && !/скупк/i.test(lower) && !/проба 585/i.test(lower);
+
+      if (hasSafeStone && isMetalFittings) {
+        return { isJunk: false, isSafe: true, reason: "Камень + фурнитура серебро/золото" };
+      }
+
+      // В остальных случаях (камня нет, либо это чистый мусор DIY/ломбард/алмазы) -> БАН
+      return { isJunk: true, isSafe: false, reason: "Стоп-паттерн (" + JUNK_PATTERNS[j] + ")" };
+    }
+  }
+
+  // 4. Обычный запрос без мусора
+  return {
+    isJunk: false,
+    isSafe: hasSafeStone,
+    reason: hasSafeStone ? "Натуральный камень / жемчуг" : "Общий запрос"
+  };
 }
 
 function main() {
@@ -215,8 +266,10 @@ function attachNegativeListToAllCampaigns(negativeList) {
 
 /**
  * Поиск нецелевых запросов за 7 дней.
- * СТРОГОЕ ПРАВИЛО: если запрос содержит корень натурального камня или украшения из WhiteList —
- * авто-минусация КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНА!
+ * СТРОГОЕ ПРАВИЛО:
+ * 1. Бренды-конкуренты блокируются всегда.
+ * 2. Натуральные камни и жемчуг (включая с серебром/позолотой) КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО блокировать.
+ * 3. Чистый мусор блокируется во фразовом соответствии '"' + term + '"'.
  */
 function mineJunkSearchTerms(negativeList, actionLogs) {
   var addedCount = 0;
@@ -239,14 +292,8 @@ function mineJunkSearchTerms(negativeList, actionLogs) {
       var term = (row.searchTermView.searchTerm || "").trim().toLowerCase();
       if (!term || term.length < 2) continue;
 
-      // 1. ЗАЩИТА: Запрос содержит натуральный камень или украшение из WhiteList -> НЕ ТРОГАЕМ
-      if (isSafeTerm(term)) {
-        continue;
-      }
-
-      // 2. Запрос НЕ содержит камней и совпадает с чистым мусорным паттерном -> минусуем фразовым соответствием
-      var matchedJunk = matchJunkPattern(term);
-      if (matchedJunk) {
+      var evalRes = evaluateSearchTerm(term);
+      if (evalRes.isJunk) {
         var phraseNeg = '"' + term + '"';
         if (!existingNegs[phraseNeg.toLowerCase()] && !existingNegs[term]) {
           try {
@@ -255,7 +302,7 @@ function mineJunkSearchTerms(negativeList, actionLogs) {
             }
             existingNegs[phraseNeg.toLowerCase()] = true;
             addedCount++;
-            var logMsg = "[Auto-Negated] Заблокирован чистый мусор (фразовое): " + phraseNeg + " [паттерн " + matchedJunk + "]";
+            var logMsg = "[Auto-Negated] Заблокирован нецелевой запрос: " + phraseNeg + " [" + evalRes.reason + "]";
             actionLogs.push(logMsg);
             Logger.log("  🚫 " + logMsg);
           } catch (negErr) {}
@@ -454,7 +501,8 @@ function getYesterdayDetailedPerformance(currency, warningsList) {
       var ctr = r.metrics.ctr ? (r.metrics.ctr * 100) : (imps > 0 ? (clicks / imps) * 100 : 0);
       var cpc = clicks > 0 ? (cost / clicks) : 0;
       var campName = (r.campaign && r.campaign.name) ? r.campaign.name : "Поиск/Shopping";
-      var safe = isSafeTerm(term);
+      
+      var evalRes = evaluateSearchTerm(term);
 
       // Все запросы с кликами
       if (clicks > 0) {
@@ -465,7 +513,9 @@ function getYesterdayDetailedPerformance(currency, warningsList) {
           cpc: cpc,
           cost: cost,
           convs: convs,
-          isSafe: safe
+          isSafe: evalRes.isSafe,
+          isJunk: evalRes.isJunk,
+          reason: evalRes.reason
         });
       }
 
@@ -476,12 +526,15 @@ function getYesterdayDetailedPerformance(currency, warningsList) {
           campaign: campName,
           clicks: clicks,
           cost: cost,
-          isSafe: safe
+          isSafe: evalRes.isSafe,
+          isJunk: evalRes.isJunk,
+          reason: evalRes.reason
         });
       }
 
-      // Кандидаты в точное соответствие (Конверсии > 0 или CTR >= 10%)
-      if (clicks >= 1 && (convs > 0 || ctr >= 10.0)) {
+      // Кандидаты в точное соответствие:
+      // Строго НЕ мусор (!evalRes.isJunk) И (есть конверсии ИЛИ (это наш камень/жемчуг И кликов >= 2 И CTR >= 10%))
+      if (!evalRes.isJunk && (convs > 0 || (evalRes.isSafe && clicks >= 2 && ctr >= 10.0))) {
         exactCandidates.push({
           term: term,
           campaign: campName,
@@ -516,12 +569,12 @@ function sendAutopilotEmailReport(accountName, customerId, currency, perf, actio
   var isAlert = warningsList.length > 0;
   var dateStr = Utilities.formatDate(new Date(), "Asia/Almaty", "dd.MM.yyyy");
   var subject = (isAlert ? "⚠️ Внимание: " : "💎 Livi Jewelry: ") +
-                "Утренний отчет Google Ads за вчера (" + dateStr + ") — " +
+                "Утренний отчет Google Ads v3.1 за вчера (" + dateStr + ") — " +
                 perf.totalClicks + " кликов, " + perf.totalCost.toFixed(2) + " " + currency;
 
   var lines = [];
   lines.push("══════════════════════════════════════════════════════════════════");
-  lines.push("   LIVI JEWELRY — УТРЕННИЙ БОЕВОЙ ОТЧЕТ GOOGLE ADS AUTOPILOT     ");
+  lines.push("   LIVI JEWELRY — УТРЕННИЙ БОЕВОЙ ОТЧЕТ AUTOPILOT v3.1           ");
   lines.push("══════════════════════════════════════════════════════════════════");
   lines.push("Аккаунт: " + accountName + " (ID: " + customerId + ")");
   lines.push("Дата формирования: " + Utilities.formatDate(new Date(), "Asia/Almaty", "dd.MM.yyyy HH:mm") + " (Астана)");
@@ -581,8 +634,8 @@ function sendAutopilotEmailReport(accountName, customerId, currency, perf, actio
   if (perf.clickedQueries.length > 0) {
     for (var q = 0; q < perf.clickedQueries.length; q++) {
       var item = perf.clickedQueries[q];
-      var safeTag = item.isSafe ? " [💎 Камень/Изделие]" : "";
-      lines.push("  " + (q + 1) + ". «" + item.term + "»" + safeTag +
+      var mark = item.isSafe ? " [💎 Наш камень/изделие]" : (item.isJunk ? " [🚫 Мусор/Бренд]" : " [🔍 Общий запрос]");
+      lines.push("  " + (q + 1) + ". «" + item.term + "»" + mark +
                  " — " + item.clicks + " кл. | CPC " + item.cpc.toFixed(2) + " " + currency +
                  " | Расход: " + item.cost.toFixed(2) + " " + currency +
                  " | Конв: " + item.convs + " (" + item.campaign + ")");
@@ -592,14 +645,21 @@ function sendAutopilotEmailReport(accountName, customerId, currency, perf, actio
   }
   lines.push("");
 
-  // 5. Запросы с расходом без конверсий (на ручную проверку владельцем)
+  // 5. Запросы с расходом без конверсий
   lines.push("⚠️ ЗАПРОСЫ С РАСХОДОМ БЕЗ КОНВЕРСИЙ (НА РУЧНУЮ ПРОВЕРКУ):");
-  lines.push("   (Скрипт НЕ блокирует их автоматически, решение принимает владелец)");
+  lines.push("   (Скрипт защищает наши камни и выводит запросы на контроль)");
   if (perf.spendWithoutConvQueries.length > 0) {
     for (var sw = 0; sw < perf.spendWithoutConvQueries.length; sw++) {
       var swItem = perf.spendWithoutConvQueries[sw];
-      var protectTag = swItem.isSafe ? " [🛡️ В WhiteList натуральных камней — блокировка запрещена]" : "";
-      lines.push("  • «" + swItem.term + "»" + protectTag +
+      var statusTag = "";
+      if (swItem.isSafe) {
+        statusTag = " [🛡️ В WhiteList натуральных камней — защита от блокировки]";
+      } else if (swItem.isJunk) {
+        statusTag = " [🚫 Мусор/Бренд — авто-блокировка в 7-дневном цикле: " + swItem.reason + "]";
+      } else {
+        statusTag = " [🔍 Общий ювелирный запрос — решение владельца]";
+      }
+      lines.push("  • «" + swItem.term + "»" + statusTag +
                  ": расход " + swItem.cost.toFixed(2) + " " + currency +
                  ", кликов: " + swItem.clicks + " (" + swItem.campaign + ")");
     }
@@ -609,7 +669,7 @@ function sendAutopilotEmailReport(accountName, customerId, currency, perf, actio
   lines.push("");
 
   // 6. Кандидаты в точное соответствие
-  lines.push("🏆 КАНДИДАТЫ В ТОЧНОЕ СООТВЕТСТВИЕ (Conversions > 0 или CTR >= 10%):");
+  lines.push("🏆 КАНДИДАТЫ В ТОЧНОЕ СООТВЕТСТВИЕ (Conversions > 0 или CTR >= 10% при >= 2 кликах):");
   if (perf.exactCandidates.length > 0) {
     for (var ex = 0; ex < perf.exactCandidates.length; ex++) {
       var exItem = perf.exactCandidates[ex];
