@@ -146,12 +146,12 @@ function main() {
   Logger.log("\n[3/5] Оптимизация ставок CPC ключевых слов...");
   var bidStats = optimizeKeywordBids(actionLogs);
 
-  // 4. Тихий аудит целевых посадочных страниц (404)
-  Logger.log("\n[4/5] Тихий аудит доступности целевых страниц (без авто-паузы)...");
-  var brokenLandingPages = auditLandingPages404();
-  if (brokenLandingPages.length > 0) {
-    for (var b = 0; b < brokenLandingPages.length; b++) {
-      warningsList.push("Целевая страница недоступна: " + brokenLandingPages[b] + " (кампании НЕ остановлены)");
+  // 4. Проверка корректности целевых посадочных страниц
+  Logger.log("\n[4/5] Проверка корректности целевых страниц объявлений...");
+  var landingPageAlerts = auditLandingPages();
+  if (landingPageAlerts.length > 0) {
+    for (var b = 0; b < landingPageAlerts.length; b++) {
+      warningsList.push(landingPageAlerts[b]);
     }
   }
 
@@ -329,10 +329,10 @@ function optimizeKeywordBids(actionLogs) {
 }
 
 /**
- * Тихий аудит доступности целевых URL (404/500) без авто-паузы кампаний
+ * Проверка корректности целевых URL объявлений (без внешних HTTP-запросов, безопасно для Google)
  */
-function auditLandingPages404() {
-  var broken = [];
+function auditLandingPages() {
+  var alerts = [];
   var checked = {};
   try {
     var adIter = AdsApp.ads()
@@ -342,22 +342,20 @@ function auditLandingPages404() {
 
     while (adIter.hasNext()) {
       var ad = adIter.next();
-      var finalUrl = ad.urls().getFinalUrl();
+      var finalUrl = ad.urls().getFinalUrl() || "";
       if (finalUrl && !checked[finalUrl]) {
         checked[finalUrl] = true;
-        try {
-          var resp = UrlFetchApp.fetch(finalUrl, { muteHttpExceptions: true, followRedirects: true });
-          var code = resp.getResponseCode();
-          if (code === 404 || code >= 500) {
-            broken.push(finalUrl + " (HTTP " + code + ")");
-          }
-        } catch (fetchErr) {}
+        if (finalUrl.indexOf("http://") === 0) {
+          alerts.push("Объявление использует небезопасный HTTP: " + finalUrl);
+        } else if (finalUrl.indexOf("livijewelry.kz") === -1) {
+          alerts.push("Объявление ведет на сторонний домен: " + finalUrl);
+        }
       }
     }
   } catch (e) {
-    Logger.log("  ℹ️ Аудит целевых страниц: " + e.message);
+    Logger.log("  ℹ️ Проверка целевых страниц: " + e.message);
   }
-  return broken;
+  return alerts;
 }
 
 /**
