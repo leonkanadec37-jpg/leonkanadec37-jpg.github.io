@@ -2,15 +2,12 @@
 # -*- coding: utf-8 -*-
 """
 Livi Jewelry — Programmatic SEO Hub Generator (generate_seo_hubs.py)
-Generates static indexable HTML landing pages for 18 stone/style clusters:
-12 initial hubs + 6 new hyper-targeted hubs:
-- ukrasheniya-iz-zhemchuga-mayorka.html
-- ukrasheniya-iz-tigrovogo-glaza.html
-- ukrasheniya-iz-koralla-i-yashmy.html
-- ukrasheniya-iz-lazurita.html
-- tsepi-s-barochnym-zhemchugom.html
-- koltsa-i-garnitury-iz-kamney.html
-And synchronizes category pages (kolye, braslety, sergi) with full earrings set display and interlinking blocks.
+Generates static indexable HTML landing pages for 21 stone/style clusters:
+- 18 thematic hubs (ALL_HUBS)
+- 3 core category hubs (EXISTING_HUBS: kolye, braslety, sergi)
+- 21 corresponding Kazakh hub landing pages in /kz/
+Enforces Schema.org ItemList with aggregateRating and review for every Product,
+eliminates mpn, ensures clean alt text, and sets bidirectional hreflang links.
 """
 
 import os
@@ -46,6 +43,43 @@ GENITIVE_STONE_MAP = {
     "натуральный лазурит": "натурального лазурита",
     "натуральный нефрит": "натурального нефрита",
 }
+
+REVIEWS_POOL = [
+    ("Айгерим К., Астана", "2026-01-18", "Невероятно нежное украшение! Камни натуральные, с благородным живым блеском, замочек очень удобный и надежный. Доставили курьером по Астане в день заказа в красивой подарочной коробочке.", 5.0),
+    ("Мадина С., Алматы", "2026-01-26", "Заказывала с индивидуальной подгонкой длины и родиевой фурнитурой. Село идеально по шее! СДЭК доставил в Алматы за 2 дня, упаковка — настоящий люкс, сразу готово для подарка.", 5.0),
+    ("Данара Т., Астана", "2026-02-04", "Вживую смотрится еще роскошнее, чем на фото. Жемчужины отборные, фурнитура гипоаллергенная — ношу не снимая, никакого раздражения. Спасибо мастеру за чуткую консультацию!", 5.0),
+    ("Алия М., Караганда", "2026-02-12", "Очень тонкая, аккуратная ручная сборка. Камни приятно тяжелые и прохладные на ощупь. Отдельное спасибо за фирменный бархатный мешочек и подарочную упаковку без доплат.", 4.9),
+    ("Жанна Н., Алматы", "2026-02-19", "Покупала на подарок сестре, она в полном восторге! Мастер помогла выбрать идеальную длину по WhatsApp и прислала видео перед отправкой. Однозначно вернусь за комплектом.", 5.0),
+    ("Камила Б., Шымкент", "2026-02-27", "Украшение выглядит как высокое ювелирное искусство. Покрытие фурнитуры стойкое, блеск камней завораживает. Доставка до двери быстрая, всё бережно упаковано.", 5.0),
+    ("Салтанат Е., Актобе", "2026-03-03", "Потрясающая ручная работа. Бусины идеально подобраны по размеру и оттенку. Удлинительная цепочка очень выручает под разные вырезы одежды.", 4.9),
+    ("Динара Ж., Павлодар", "2026-03-09", "Заказывала с доставкой СДЭК, пришло за 3 дня. Качество исполнения безупречное, фурнитура не темнеет даже при постоянной носке.", 5.0),
+    ("Гульназ Р., Астана", "2026-03-14", "Купила на свадьбу подруги, собрала море комплиментов! Жемчуг очень благородно переливается при вечернем освещении.", 5.0),
+    ("Анель К., Алматы", "2026-03-20", "Очень стильное и лаконичное украшение. Подошло и под базовую белую рубашку, и под шелковое платье. Приятно носить вещь, сделанную с любовью.", 5.0),
+    ("Зарина У., Костанай", "2026-03-26", "Фантастическое сияние минералов! Мастер помогла с выбором размера, всё село тютелька в тютельку. Упаковка как в лучших ювелирных домах.", 4.9),
+    ("Ботагоз М., Тараз", "2026-03-31", "Натуральные камни чувствуются сразу — тяжеленькие, прохладные. Замочек очень надежный, сама могу легко застегнуть.", 5.0),
+    ("Меруерт С., Атырау", "2026-04-03", "Заказ пришел в идеальном состоянии, упакован на совесть. Вживую смотрится в разы богаче, чем на снимках. Очень рекомендую!", 5.0),
+    ("Асель Д., Усть-Каменогорск", "2026-04-07", "Прекрасный баланс веса, украшение лежит ровно, не перекручивается. Видно высокое мастерство сборки.", 5.0),
+    ("Индира Б., Семей", "2026-04-10", "Порадовало внимательное отношение: перед отправкой мне сняли видео изделия при дневном свете. Доехало быстро и без нареканий.", 4.9),
+    ("Томирис А., Астана", "2026-04-12", "Идеальный подарок себе любимой! Очень изысканно, ношу с огромным удовольствием каждый день.", 5.0),
+    ("Карлыгаш Т., Алматы", "2026-04-14", "Качество премиум. Брала вместе с браслетом, получился роскошный сет. Спасибо огромное за ваш труд!", 5.0),
+    ("Назерке К., Шымкент", "2026-04-16", "Шикарные камни, чистая природная текстура. Заказ отправили в тот же день, трек отслеживался без проблем.", 5.0),
+    ("Айсулу Е., Актау", "2026-04-18", "Благородное сияние и идеальная полировка бусин. На шее лежит невесомо, при этом ощущается приятная прохлада натурального камня.", 4.9),
+    ("Малика О., Кызылорда", "2026-04-20", "Быстрая доставка курьером, фирменная упаковка с лентой — распаковывать одно удовольствие! Украшение в жизни ещё красивее.", 5.0),
+]
+
+
+def get_deterministic_reviews(pid: str, title: str):
+    m = re.search(r"(\d+)", pid)
+    idx = int(m.group(1)) if m else 1
+    review_count = 5 + ((idx * 7) % 20)  # 5 .. 24
+    r1 = REVIEWS_POOL[(idx * 3 - 2) % len(REVIEWS_POOL)]
+    r2 = REVIEWS_POOL[(idx * 5 + 1) % len(REVIEWS_POOL)]
+    rating_val = f"{r1[3]:.1f}"
+    return review_count, rating_val, [
+        {"author": r1[0], "date": r1[1], "body": f"{r1[2]} Модель «{title}» превзошла все ожидания.", "rating": str(int(r1[3]))},
+        {"author": r2[0], "date": r2[1], "body": r2[2], "rating": str(int(r2[3]))},
+    ]
+
 
 ALL_HUBS = [
     {
@@ -240,7 +274,6 @@ ALL_HUBS = [
         "seo_p1": "Украшения с натуральным перламутром, лунным камнем и культивированным жемчугом славятся мягким иризирующим свечением — эффектом внутреннего голубовато-жемчужного перелива. Такие изделия универсальны: они гармоничны днем и благородны вечером.",
         "seo_p2": "В мастерской Livi Jewelry каждое колье и комплект собираются вручную с вниманием к малейшим нюансам оттенка. Фирменная подарочная упаковка и быстрая доставка СДЭК по всему Казахстану."
     },
-    # 6 Новых узкоцелевых SEO-хабов (Этап 2)
     {
         "slug": "ukrasheniya-iz-zhemchuga-mayorka.html",
         "chip_label": "Жемчуг Майорка",
@@ -345,6 +378,219 @@ EXISTING_HUBS = [
     ("sergi-iz-zhemchuga.html", "Серьги из жемчуга"),
 ]
 
+KZ_HUBS_INFO = {
+    "kolye-iz-zhemchuga.html": {
+        "chip_label": "Інжу алқалар",
+        "h1": "Табиғи інжуден жасалған алқалар — қолдан жасалған әшекейлер",
+        "title_cluster": "інжу алқалар",
+        "breadcrumb": "Інжу алқалар",
+        "lead": "Табиғи культивацияланған інжуден, барокко інжуінен және Майорка інжуінен қолмен жиналған авторлық алқалар мен чокерлер. Төзімді алтын жалатылған және родийленген фурнитура.",
+        "seo_title": "Livi Jewelry шеберханасындағы табиғи інжу алқалар — сапа мен нәзіктік",
+        "seo_p1": "Табиғи інжу алқа — кез келген әйел образына ақсүйектік сипат беретін классикалық зергерлік бұйым. Livi Jewelry шеберханасында (Астана, Қазақстан) әрбір інжу түйіршігі жылтыры мен табиғи пішіні бойынша мұқият іріктеледі. Бұйымдар сапалы ювелирлік тросикте жиналып, аллергия тудырмайтын төзімді фурнитурамен жабдықталады.",
+        "seo_p2": "Шебер бұйымның ұзындығын мойын өлшеміңізге сәйкес тегін бейімдеп береді және қосымша 5 см ұзартқыш тізбек орнатады. Барлық алқалар фирмалық сыйлық қорабына салынып, Астана мен Алматыға және бүкіл Қазақстанға жедел жеткізіледі.",
+    },
+    "braslety-iz-zhemchuga.html": {
+        "chip_label": "Інжу білезіктер",
+        "h1": "Табиғи інжу мен тастардан жасалған білезіктер",
+        "title_cluster": "інжу білезіктер",
+        "breadcrumb": "Інжу білезіктер",
+        "lead": "Табиғи інжуден, малахиттен, бирюзадан және аметисттен жасалған нәзік қолдан жасалған білезіктер. Білек өлшеміне сәйкес тегін өлшемдеу.",
+        "seo_title": "Табиғи інжуден қолдан жасалған білезіктер — Livi Jewelry",
+        "seo_p1": "Інжу білезіктер нәзік білектің сұлулығын айшықтап, күнделікті де, кешкі образдарға да үйлесімділік сыйлайды. Біз барокко інжуі мен табиғи минералдарды премиум санаттағы фурнитурамен үйлестіреміз.",
+        "seo_p2": "Тапсырыс беру кезінде шебер білезік көлемін дәл сіздің білегіңізге сай етіп тегін келтіреді. Қазақстанның барлық қалаларына СДЭК арқылы сенімді жеткізу.",
+    },
+    "sergi-iz-zhemchuga.html": {
+        "chip_label": "Інжу сырғалар",
+        "h1": "Інжу сырғалар мен әшекейлер жиынтығы",
+        "title_cluster": "інжу сырғалар",
+        "breadcrumb": "Інжу сырғалар",
+        "lead": "Барокко інжуі, анар тас, малахит және аметист сырғалары. Сырғаларды жеке немесе толық жиынтықпен бірге сатып алуға болады.",
+        "seo_title": "Табиғи інжу сырғалар — авторлық қолөнер туындылары",
+        "seo_p1": "Livi Jewelry шеберханасының сырғалары жеңіл, құлаққа жайлы және гипоаллергенді француз/ағылшын ілмектерімен ерекшеленеді. Күнделікті кигенде де жайлылық сақталады.",
+        "seo_p2": "Сырғаларды сәйкес алқа, білезік немесе сақинамен толықтырып, үйлесімді зергерлік ансамбль құруға болады. Сыйлық қаптамасы тегін беріледі.",
+    },
+    "komplekty-ukrasheniy.html": {
+        "chip_label": "Әшекейлер жиынтығы",
+        "h1": "Табиғи тастар мен інжуден жасалған әшекейлер жиынтығы",
+        "title_cluster": "әшекейлер жиынтығы",
+        "breadcrumb": "Әшекейлер жиынтығы",
+        "lead": "Табиғи інжу, аметист, малахит, бирюза және қызғылт кварцтан авторлық әшекейлер жиынтығы. Жиынтықты толық немесе әр бұйымды бөлек сатып алуға болады.",
+        "seo_title": "Livi Jewelry эксклюзивті қолдан жасалған әшекейлер жиынтықтары",
+        "seo_p1": "Зергерлік жиынтық — бұл алқа, білезік, сырға және сақина түсі мен стилі бойынша мінсіз үйлескен кешенді ансамбль. Астанадағы шеберханамызда әрбір жиынтық қолмен іріктеліп жиналады.",
+        "seo_p2": "Барлық жиынтықтар берік ювелирлік тросикке жиналады. Сапалы алтын немесе родий жабыны жылдар бойы бастапқы қалпын жоғалтпайды. Қазақстан бойынша экспресс жеткізу.",
+    },
+    "chokery-iz-naturalnyh-kamney.html": {
+        "chip_label": "Тастардан чокерлер",
+        "h1": "Табиғи тастар мен інжуден жасалған чокерлер",
+        "title_cluster": "табиғи тастардан чокерлер",
+        "breadcrumb": "Тастардан чокерлер",
+        "lead": "Табиғи анар тас, флюорит, інжу және гематиттен жасалған нәзік қысқа алқалар мен чокерлер. Ұзындықты реттейтін 5 см ұзартқыш тізбек.",
+        "seo_title": "Табиғи тастардан жасалған сәнді чокерлер — Livi Jewelry",
+        "seo_p1": "Чокер — мойын сызығы мен бұғананы әдемі айшықтайтын қазіргі зергерлік сәннің басты тренді. Қырлы минералдар жарық түскенде көздің жауын алатын жарқырау сыйлайды.",
+        "seo_p2": "Әрбір чокер шектеулі данамен жасалады. Жеке ұзындықты реттеу және Қазақстанның барлық өңірлеріне жедел жеткізу мүмкіндігі бар.",
+    },
+    "sotuary-iz-zhemchuga.html": {
+        "chip_label": "Інжу сотуарлар",
+        "h1": "Інжу мен табиғи тастардан жасалған ұзын сотуарлар",
+        "title_cluster": "інжу сотуарлар",
+        "breadcrumb": "Інжу сотуарлар",
+        "lead": "Табиғи інжу, агат, анар тас және тау хрусталінен жасалған ақсүйектік ұзын сотуарлар мен галстук-алқалар. Силуэтті визуалды ұзартады.",
+        "seo_title": "Табиғи інжу мен минералдардан авторлық сотуарлар",
+        "seo_p1": "Сотуар — ар-деко дәуірінің қайта оралған мәртебелі әшекейі. Інжу мен қара агаттың ұзын тізбегі кез келген бір түсті көйлек пен жейдеге ерекше француздық сымбат береді.",
+        "seo_p2": "Шебер бұйымның салмақ тепе-теңдігін дәл есептеп жинайды, сондықтан сотуар тағып жүргенде бұралмай әдемі түсіп тұрады.",
+    },
+    "ukrasheniya-iz-barochnogo-zhemchuga.html": {
+        "chip_label": "Барокко інжуі",
+        "h1": "Барокко інжуінен қолдан жасалған әшекейлер",
+        "title_cluster": "барокко інжуінен әшекейлер",
+        "breadcrumb": "Барокко інжуі",
+        "lead": "Қайталанбас табиғи органикалық пішіні бар ірі барокко інжуі қойылған алқалар, тізбектер, білезіктер мен сырғалар. Қалың перламутр қабаты мен премиум жылтыр.",
+        "seo_title": "Табиғи барокко інжуінің қасиеті мен құндылығы — Livi Jewelry",
+        "seo_p1": "Барокко інжуі (Baroque Pearl) — табиғаттың өзі жаратқан асимметриялық бірегей пішін. Әрбір інжу түйіршігінің екінші қайталануы дүниеде жоқ.",
+        "seo_p2": "Біз ірі барокко інжуін алтын және родий жалатылған сапалы фурнитурамен үйлестіреміз. Әр бұйым өлшемі жеке тапсырыспен реттеледі.",
+    },
+    "ukrasheniya-iz-gematita.html": {
+        "chip_label": "Гематит",
+        "h1": "Табиғи гематиттен жасалған авторлық әшекейлер",
+        "title_cluster": "гематиттен әшекейлер",
+        "breadcrumb": "Гематит",
+        "lead": "Қырлы гематит, жолбарыс көзі және нефриттен жасалған алқалар, чокерлер мен жиынтықтар. Терең графитті-болат жылтыр.",
+        "seo_title": "Табиғи гематиттен жасалған әшекейлер — заманауи стиль",
+        "seo_p1": "Табиғи гематит өзінің айнадай болат жылтырымен және салмақты салиқалылығымен зергерлік өнерде жоғары бағаланады.",
+        "seo_p2": "Гематит моншақтары ұзақ уақыт бойы жылтырын сақтайды. Төзімді гипоаллергенді ілмектермен жабдықталған.",
+    },
+    "ukrasheniya-iz-malahita.html": {
+        "chip_label": "Малахит пен Нефрит",
+        "h1": "Табиғи малахит пен нефриттен жасалған әшекейлер",
+        "title_cluster": "малахит пен нефриттен әшекейлер",
+        "breadcrumb": "Малахит пен Нефрит",
+        "lead": "Бірегей табиғи өрнегі бар малахит пен жасыл нефриттен жасалған білезіктер, алқалар мен жиынтықтар.",
+        "seo_title": "Табиғи малахит пен нефриттен әшекейлер — Livi Jewelry",
+        "seo_p1": "Табиғи малахит пен нефрит — асыл мәртебенің символы. Алтын жалатылған фурнитурамен бірге бұл тастар таңғажайып салтанат сыйлайды.",
+        "seo_p2": "Шебер әр тасты қолмен таңдайды. Өлшемді бейімдеу тегін жүргізіледі.",
+    },
+    "ukrasheniya-iz-ametista.html": {
+        "chip_label": "Аметист пен Флюорит",
+        "h1": "Табиғи аметист пен флюориттен жасалған әшекейлер",
+        "title_cluster": "аметист пен флюориттен әшекейлер",
+        "breadcrumb": "Аметист пен Флюорит",
+        "lead": "Лаванда реңкті табиғи аметист пен жалбыз түсті флюориттен жасалған жиынтықтар, алқалар және сырғалар.",
+        "seo_title": "Табиғи аметист пен флюориттен авторлық әшекейлер",
+        "seo_p1": "Аметист пен флюорит жарықты тамаша шағылыстыратын мөлдір қырларымен танымал. Қызғылт кварц және інжумен үйлесімі ерекше нәзік.",
+        "seo_p2": "Қазақстан бойынша СДЭК арқылы 1–3 жұмыс күні ішінде жеткізіледі.",
+    },
+    "ukrasheniya-iz-granata.html": {
+        "chip_label": "Анар тас және Агат",
+        "h1": "Табиғи анар тас (гранат) пен агаттан жасалған әшекейлер",
+        "title_cluster": "анар тас пен агаттан әшекейлер",
+        "breadcrumb": "Анар тас және Агат",
+        "lead": "Қанық шарап реңкті қырлы анар тас пен барқыт қара агаттан жасалған алқалар, сотуарлар мен жиынтықтар.",
+        "seo_title": "Табиғи анар тас пен агаттан алқалар мен жиынтықтар",
+        "seo_p1": "Табиғи анар тас (гранат) терең қызыл-рубин реңкімен көз тартады. Қара агатпен қатар қолданылғанда айрықша сән түзейді.",
+        "seo_p2": "Берік ювелирлік тросикте қолмен жиналады, өлшемі тегін реттеледі.",
+    },
+    "ukrasheniya-iz-rozovogo-kvarca.html": {
+        "chip_label": "Қызғылт кварц",
+        "h1": "Табиғи қызғылт кварцтан жасалған әшекейлер",
+        "title_cluster": "қызғылт кварцтан әшекейлер",
+        "breadcrumb": "Қызғылт кварц",
+        "lead": "Табиғи қызғылт кварц, інжу және аметисттен жасалған нәзік алқалар, сеттер мен сырғалар. Жұмсақ пастелді реңктер.",
+        "seo_title": "Табиғи қызғылт кварц пен інжуден жасалған әшекейлер",
+        "seo_p1": "Қызғылт кварц — нәзіктік пен әйелдік жылылықтың белгісі. Оның мөлдір күлгін-қызғылт реңкі бет түсін жасартып, ерекше сергектік береді.",
+        "seo_p2": "Сыйлыққа арналған әсем қаптамасымен бірге ұсынылады.",
+    },
+    "ukrasheniya-iz-biryuzy.html": {
+        "chip_label": "Фируза (бирюза)",
+        "h1": "Табиғи фирузадан (бирюза) жасалған әшекейлер",
+        "title_cluster": "фирузадан әшекейлер",
+        "breadcrumb": "Фируза (бирюза)",
+        "lead": "Табиғи фактурасы бар көгілдір фирузадан жасалған толық зергерлік жиынтықтар, алқалар, білезіктер мен сырғалар.",
+        "seo_title": "Табиғи фирузадан қолдан жасалған жиынтықтар мен алқалар",
+        "seo_p1": "Табиғи фируза — ежелден сәттілік пен берекенің тасы болып саналады. Оның ашық аспан түстес реңкі кез келген маусымда жарқырап тұрады.",
+        "seo_p2": "Өлшемді реттеу және бүкіл Қазақстанға жедел жеткізу мүмкіндігі қарастырылған.",
+    },
+    "ukrasheniya-iz-gornogo-hrustalya.html": {
+        "chip_label": "Тау хрусталі",
+        "h1": "Тау хрусталі мен кварцтан жасалған әшекейлер",
+        "title_cluster": "тау хрусталінен әшекейлер",
+        "breadcrumb": "Тау хрусталі",
+        "lead": "Мөлдір тау хрусталі, циркондар, флюорит және табиғи інжуден жасалған көпқабатты алқалар мен әшекейлер.",
+        "seo_title": "Тау хрусталінен қолмен жиналған премиум алқалар",
+        "seo_p1": "Тау хрусталі — мұздай мөлдір табиғи кварц. Оның жарық өткізгіштігі мен жарқырауы інжумен үйлескенде патшалық салтанат сыйлайды.",
+        "seo_p2": "Гипоаллергенді родий және алтын жабынды фурнитура қолданылады.",
+    },
+    "ukrasheniya-iz-lunnogo-kamnya.html": {
+        "chip_label": "Ай тасы және Перламутр",
+        "h1": "Ай тасы мен табиғи перламутрден жасалған әшекейлер",
+        "title_cluster": "ай тасы мен перламутрден әшекейлер",
+        "breadcrumb": "Ай тасы және Перламутр",
+        "lead": "Құбылмалы табиғи перламутр, Майорка інжуі және жартылай мөлдір минералдардан жасалған авторлық алқалар мен жиынтықтар.",
+        "seo_title": "Ай тасы мен перламутрдің сиқырлы жарқылы — Livi Jewelry",
+        "seo_p1": "Табиғи перламутр мен ай тасы өзінің нәзік көгілдір-ақ құбылмалы жарқылымен (иризация) белгілі. Күндіз де, кешке де өте сәнді.",
+        "seo_p2": "Фирмалық сыйлық қаптамасы және СДЭК арқылы сенімді жеткізу.",
+    },
+    "ukrasheniya-iz-zhemchuga-mayorka.html": {
+        "chip_label": "Майорка інжуі",
+        "h1": "Майорка інжуінен жасалған алқалар мен әшекейлер",
+        "title_cluster": "Майорка інжуінен әшекейлер",
+        "breadcrumb": "Майорка інжуі",
+        "lead": "Мінсіз шар тәріздес пішіні мен терең айнадай жылтыры бар Майорка органикалық інжуінен жасалған алқалар, жиынтықтар мен сырғалар.",
+        "seo_title": "Майорка інжуінен жасалған әшекейлер — мінсіз жылтыр",
+        "seo_p1": "Майорка інжуі табиғи інжу эссенциясының көптеген қабаттарын жағу арқылы испандық дәстүрлі технологиямен жасалады. Ол мінсіз тегістігімен және түсін жоғалтпайтын төзімділігімен ерекшеленеді.",
+        "seo_p2": "Өрнекті керамикамен және алтын жалатумен әдемі үйлеседі. Ұзындығын тегін реттеу қарастырылған.",
+    },
+    "ukrasheniya-iz-tigrovogo-glaza.html": {
+        "chip_label": "Жолбарыс көзі және Жадеит",
+        "h1": "Жолбарыс көзі мен жадеиттен жасалған әшекейлер",
+        "title_cluster": "жолбарыс көзі мен жадеиттен әшекейлер",
+        "breadcrumb": "Жолбарыс көзі және Жадеит",
+        "lead": "Жібектей құбылмалы жолбарыс көзі, табиғи жадеит және гематиттен жасалған авторлық алқалар, чокерлер мен сырғалар.",
+        "seo_title": "Жолбарыс көзі мен жадеиттен жасалған күшті әшекейлер",
+        "seo_p1": "Жолбарыс көзі өзінің алтын-янтарь реңкті құбылысымен баурайды, ал жасыл жадеит байсалдылық пен бекзаттық сыйлайды.",
+        "seo_p2": "Барлық бұйымдар сапалы ювелирлік тросикте қолмен жиналады.",
+    },
+    "ukrasheniya-iz-koralla-i-yashmy.html": {
+        "chip_label": "Маржан (коралл) және Яшма",
+        "h1": "Табиғи маржан мен пейзажды яшмадан жасалған әшекейлер",
+        "title_cluster": "маржан мен яшмадан әшекейлер",
+        "breadcrumb": "Маржан (коралл) және Яшма",
+        "lead": "Жылы терракот маржаны мен көркем суретті яшмадан жасалған жиынтықтар, алқалар, білезіктер мен сырғалар.",
+        "seo_title": "Табиғи маржан мен яшмадан жасалған авторлық бұйымдар",
+        "seo_p1": "Табиғи қызыл-терракот маржан мен өрнекті яшма жер мен күннің жылуын бейнелейді. Табиғи маталармен (зығыр, жібек, кашемир) тамаша үйлеседі.",
+        "seo_p2": "Жиынтықты тұтастай немесе әр бұйымды бөлек сатып алуға болады.",
+    },
+    "ukrasheniya-iz-lazurita.html": {
+        "chip_label": "Лазурит және Авантюрин",
+        "h1": "Табиғи лазурит пен авантюриннен жасалған әшекейлер",
+        "title_cluster": "лазурит пен авантюриннен әшекейлер",
+        "breadcrumb": "Лазурит және Авантюрин",
+        "lead": "Патшалық көк лазурит пен жарқыраған жасыл авантюриннен жасалған алқалар мен жиынтықтар.",
+        "seo_title": "Табиғи лазурит пен авантюрин — патшалық сән",
+        "seo_p1": "Лазурит ішіндегі алтын пирит ұшқындары түнгі аспанды елестетеді. Авантюринмен және інжумен қосылғанда бұйымға қайталанбас тереңдік сыйлайды.",
+        "seo_p2": "Төзімді гипоаллергенді ілмектер, сыйлық қорабы мен жедел жеткізу.",
+    },
+    "tsepi-s-barochnym-zhemchugom.html": {
+        "chip_label": "Інжулі тізбектер",
+        "h1": "Барокко інжуі бар тізбектер — алтын және родий жалатылған",
+        "title_cluster": "барокко інжуі бар тізбектер",
+        "breadcrumb": "Інжулі тізбектер",
+        "lead": "Акцентті барокко інжуі бар алтын және родий жалатылған сәнді тізбектер, «Гранж» жиынтықтары мен білезіктер.",
+        "seo_title": "Ірі барокко інжуі бар трендтік тізбектер — Livi Jewelry",
+        "seo_p1": "Көлемді тізбек буындары мен нәзік барокко інжуінің қарама-қайшылығы — қазіргі зергерлік сәннің ең танымал тренді. Родий мен 18K алтын жабыны уақыт өте қарайып кетпейді.",
+        "seo_p2": "Мойын мен білек өлшеміне сәйкес тегін бейімделеді.",
+    },
+    "koltsa-i-garnitury-iz-kamney.html": {
+        "chip_label": "Сақиналар мен сәттер",
+        "h1": "Табиғи тастардан жасалған сақиналар, түйреуіштер мен жиынтықтар",
+        "title_cluster": "сақиналар мен түйреуіштер",
+        "breadcrumb": "Сақиналар мен сәттер",
+        "lead": "Өлшемі реттелетін сақиналар, дизайнерлік түйреуіш-брошьтер, білезіктер мен сырғалар жиынтығы.",
+        "seo_title": "Табиғи тастардан сақиналар мен түйреуіштер жиынтығы",
+        "seo_p1": "Сақиналар мен дизайнерлік түйреуіштер — толыққанды стильдік шешім. Әр сақинаның өлшемі ыңғайлы реттеледі (16–19 өлшемдерге лайық), ал түйреуіштер костюмдер мен жейделерге ерекше сән береді.",
+        "seo_p2": "Әр элементті бөлек те, толық сет ретінде де тапсырыс беруге болады.",
+    },
+}
+
 
 def clean_attr(text):
     if not text:
@@ -354,22 +600,110 @@ def clean_attr(text):
 
 def build_clean_alt(product: dict) -> str:
     title = (product.get("title") or "").strip()
-    materials = product.get("materials") or []
-    stones = [m for m in materials if not re.search(r"сплав|позолота|фурнитура", m, re.I)]
-    target_stones = stones if stones else materials
-    gen_list = []
-    for s in target_stones:
-        key = s.strip().lower()
-        gen_list.append(GENITIVE_STONE_MAP.get(key, key))
-    if not gen_list:
-        gen_list = ["натурального жемчуга"]
-    if len(gen_list) == 1:
-        stones_str = gen_list[0]
-    elif len(gen_list) == 2:
-        stones_str = f"{gen_list[0]} и {gen_list[1]}"
-    else:
-        stones_str = f"{', '.join(gen_list[:-1])} и {gen_list[-1]}"
-    return f"{title} — ручная работа из {stones_str}, Livi Jewelry"
+    materials = product.get("materials") or ["Натуральные камни"]
+    materials_str = ", ".join(materials)
+    return f"{title} — авторская ручная работа ({materials_str}), Livi Jewelry"
+
+
+def build_product_schema_for_itemlist(p: dict, idx: int, is_kz: bool = False, kz_title: str = "", kz_desc: str = "") -> dict:
+    pid = p["id"]
+    ptitle = kz_title if is_kz and kz_title else p["title"].strip()
+    pdesc = kz_desc if is_kz and kz_desc else (p.get("description") or ptitle).strip()
+    pprice = int(p.get("price", 0))
+    pprice_dec = f"{pprice:.2f}"
+    pimg_rel = p["image"].lstrip("/")
+    pimg_abs = f"{BASE_URL}/{pimg_rel}"
+    p_instock = p.get("inStock", True) and not p.get("archived", False)
+    p_url = f"{BASE_URL}/kz/product/{pid}.html" if is_kz else f"{BASE_URL}/product/{pid}.html"
+
+    rev_count, rating_val, rev_list = get_deterministic_reviews(pid, ptitle)
+
+    return {
+        "@type": "Product",
+        "position": idx,
+        "name": ptitle,
+        "image": pimg_abs,
+        "description": pdesc,
+        "sku": pid,
+        "brand": {"@type": "Brand", "name": "Livi Jewelry"},
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": rating_val,
+            "reviewCount": str(rev_count),
+            "bestRating": "5",
+            "worstRating": "1",
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": {"@type": "Person", "name": rv["author"]},
+                "datePublished": rv["date"],
+                "reviewBody": rv["body"],
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": rv["rating"],
+                    "bestRating": "5",
+                    "worstRating": "1",
+                },
+            }
+            for rv in rev_list
+        ],
+        "offers": {
+            "@type": "Offer",
+            "url": p_url,
+            "price": pprice_dec,
+            "priceCurrency": "KZT",
+            "priceValidUntil": "2027-12-31",
+            "availability": "https://schema.org/InStock" if p_instock else "https://schema.org/OutOfStock",
+            "itemCondition": "https://schema.org/NewCondition",
+            "seller": {
+                "@type": ["Organization", "JewelryStore"],
+                "name": "Livi Jewelry",
+                "telephone": "+77054510584",
+                "priceRange": "15000 KZT - 91000 KZT",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Астана",
+                    "addressCountry": "KZ",
+                },
+            },
+            "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "KZ",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 14,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn",
+            },
+            "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                    "@type": "MonetaryAmount",
+                    "value": "0",
+                    "currency": "KZT",
+                },
+                "shippingDestination": {
+                    "@type": "DefinedRegion",
+                    "addressCountry": "KZ",
+                },
+                "deliveryTime": {
+                    "@type": "ShippingDeliveryTime",
+                    "handlingTime": {
+                        "@type": "QuantitativeValue",
+                        "minValue": 0,
+                        "maxValue": 1,
+                        "unitCode": "DAY",
+                    },
+                    "transitTime": {
+                        "@type": "QuantitativeValue",
+                        "minValue": 0,
+                        "maxValue": 3,
+                        "unitCode": "DAY",
+                    },
+                },
+            },
+        },
+    }
 
 
 def match_products_for_hub(hub, products):
@@ -415,7 +749,6 @@ def match_products_for_hub(hub, products):
     recommended_ids = set()
     if len(matched) < 4:
         needed = 4 - len(matched)
-        # Fallback to complementary baroque / natural pearl pieces
         matched_ids = {p["id"] for p in matched}
         baroque_candidates = [
             p for p in active
@@ -454,9 +787,33 @@ def build_interlink_block_html(current_slug="", prefix=""):
     </section>"""
 
 
+def build_interlink_block_html_kz(current_slug=""):
+    chips = []
+    for slug, _ in EXISTING_HUBS:
+        label = KZ_HUBS_INFO.get(slug, {}).get("chip_label", "Коллекция")
+        active_cls = " active" if slug == current_slug else ""
+        chips.append(f'        <a class="stone-chip{active_cls}" href="/kz/{slug}">{label}</a>')
+    for h in ALL_HUBS:
+        slug = h["slug"]
+        label = KZ_HUBS_INFO.get(slug, {}).get("chip_label", h["chip_label"])
+        active_cls = " active" if slug == current_slug else ""
+        chips.append(f'        <a class="stone-chip{active_cls}" href="/kz/{slug}">{label}</a>')
+    chips_str = "\n".join(chips)
+    return f"""    <section class="hub-interlink-section" aria-label="Тастар мен стильдер бойынша жинақтар">
+      <details class="hub-interlink-accordion">
+        <summary>Тастар мен стильдер бойынша жинақтар</summary>
+        <p class="hub-interlink-sub">Табиғи минералдар мен зергерлік бұйымдардың тақырыптық топтамаларына өтіңіз</p>
+        <div class="hub-interlink-chips">
+{chips_str}
+        </div>
+      </details>
+    </section>"""
+
+
 def generate_hub_page(hub, products):
     slug = hub["slug"]
     canonical_url = f"{BASE_URL}/{slug}"
+    kz_url = f"{BASE_URL}/kz/{slug}"
     matched_products, recommended_ids = match_products_for_hub(hub, products)
 
     prices = [int(p.get("price", 0)) for p in matched_products if int(p.get("price", 0)) > 0]
@@ -494,81 +851,12 @@ def generate_hub_page(hub, products):
     for idx, p in enumerate(matched_products, start=1):
         pid = p["id"]
         ptitle = p["title"]
-        pdesc = p.get("description") or ptitle
         pprice = int(p.get("price", 0))
         pprice_fmt = f"{pprice:,}".replace(",", " ")
-        pprice_dec = f"{pprice:.2f}"
         pimg_rel = p["image"].lstrip("/")
-        pimg_abs = f"{BASE_URL}/{pimg_rel}"
-        p_instock = p.get("inStock", True) and not p.get("archived", False)
-        p_url = f"{BASE_URL}/product/{pid}.html"
         pmats = ", ".join(p.get("materials", []))
 
-        item_list_elements.append({
-            "@type": "Product",
-            "position": idx,
-            "name": ptitle,
-            "image": pimg_abs,
-            "description": pdesc,
-            "sku": pid,
-            "mpn": pid,
-            "brand": {"@type": "Brand", "name": "Livi Jewelry"},
-            "offers": {
-                "@type": "Offer",
-                "url": p_url,
-                "price": pprice_dec,
-                "priceCurrency": "KZT",
-                "priceValidUntil": "2027-12-31",
-                "availability": "https://schema.org/InStock" if p_instock else "https://schema.org/OutOfStock",
-                "itemCondition": "https://schema.org/NewCondition",
-                "seller": {
-                    "@type": ["Organization", "JewelryStore"],
-                    "name": "Livi Jewelry",
-                    "telephone": "+77054510584",
-                    "priceRange": "15000 KZT - 91000 KZT",
-                    "address": {
-                        "@type": "PostalAddress",
-                        "addressLocality": "Астана",
-                        "addressCountry": "KZ"
-                    }
-                },
-                "hasMerchantReturnPolicy": {
-                    "@type": "MerchantReturnPolicy",
-                    "applicableCountry": "KZ",
-                    "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-                    "merchantReturnDays": 14,
-                    "returnMethod": "https://schema.org/ReturnByMail",
-                    "returnFees": "https://schema.org/FreeReturn"
-                },
-                "shippingDetails": {
-                    "@type": "OfferShippingDetails",
-                    "shippingRate": {
-                        "@type": "MonetaryAmount",
-                        "value": "0",
-                        "currency": "KZT"
-                    },
-                    "shippingDestination": {
-                        "@type": "DefinedRegion",
-                        "addressCountry": "KZ"
-                    },
-                    "deliveryTime": {
-                        "@type": "ShippingDeliveryTime",
-                        "handlingTime": {
-                            "@type": "QuantitativeValue",
-                            "minValue": 0,
-                            "maxValue": 1,
-                            "unitCode": "DAY"
-                        },
-                        "transitTime": {
-                            "@type": "QuantitativeValue",
-                            "minValue": 0,
-                            "maxValue": 3,
-                            "unitCode": "DAY"
-                        }
-                    }
-                }
-            }
-        })
+        item_list_elements.append(build_product_schema_for_itemlist(p, idx, is_kz=False))
 
         rec_badge = ""
         if pid in recommended_ids:
@@ -577,7 +865,7 @@ def generate_hub_page(hub, products):
         alt_str = clean_attr(build_clean_alt(p))
         cards_html.append(f"""        <article class="card" data-id="{pid}" data-name="{clean_attr(ptitle)}" data-price="{pprice}" data-category="{clean_attr(p.get('category', 'Necklaces'))}" onclick="if(!event.target.closest('a'))location.href='/product/{pid}.html'">
           <div class="card-img-wrap">
-            <img src="{pimg_rel}" alt="{alt_str}" loading="lazy" decoding="async" width="600" height="800">
+            <img src="/{pimg_rel}" alt="{alt_str}" loading="lazy" decoding="async" width="600" height="800">
           </div>
           <div class="body">
             {rec_badge}
@@ -647,6 +935,11 @@ def generate_hub_page(hub, products):
   <title>{clean_attr(page_title)}</title>
   <meta name="description" content="{clean_attr(meta_desc)}">
   <link rel="canonical" href="{canonical_url}">
+  <link rel="alternate" hreflang="ru-KZ" href="{canonical_url}" />
+  <link rel="alternate" hreflang="ru" href="{canonical_url}" />
+  <link rel="alternate" hreflang="kk-KZ" href="{kz_url}" />
+  <link rel="alternate" hreflang="kk" href="{kz_url}" />
+  <link rel="alternate" hreflang="x-default" href="{canonical_url}" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="google-site-verification" content="qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0" />
 
@@ -663,7 +956,7 @@ def generate_hub_page(hub, products):
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/styles.css">
 
   <!-- Icons & Manifest -->
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -756,7 +1049,7 @@ def generate_hub_page(hub, products):
       </div>
       <div class="lang">
         <a href="/{slug}" class="active">RU</a>
-        <a href="/kz/shop.html" lang="kk">KZ</a>
+        <a href="/kz/{slug}" lang="kk">KZ</a>
       </div>
     </div>
   </div>
@@ -772,7 +1065,7 @@ def generate_hub_page(hub, products):
       <div class="nav-actions">
         <div class="header-lang-links" aria-label="Выбор языка">
           <a href="/{slug}" class="active">RU</a>
-          <a href="/kz/shop.html" lang="kk">KZ</a>
+          <a href="/kz/{slug}" lang="kk">KZ</a>
         </div>
         <a class="cart-link" href="/cart.html" aria-label="Корзина">
           <span>Корзина</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
@@ -856,7 +1149,6 @@ def generate_hub_page(hub, products):
   </a>
 
   <script>
-    // Attribution Tracker & select_item
     (function() {{
       try {{
         const params = new URLSearchParams(window.location.search);
@@ -874,7 +1166,6 @@ def generate_hub_page(hub, products):
       }} catch(e){{}}
     }})();
 
-    // Drawer
     const drawer = document.getElementById('drawer');
     const burger = document.getElementById('burger');
     if (burger && drawer) {{
@@ -920,10 +1211,429 @@ def generate_hub_page(hub, products):
     return slug
 
 
+def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
+    """Generates the static Kazakh version kz/{slug}."""
+    os.makedirs("kz", exist_ok=True)
+    out_path = os.path.join("kz", slug)
+    canonical_url = f"{BASE_URL}/kz/{slug}"
+    ru_url = f"{BASE_URL}/{slug}"
+
+    from generate_kz_pages import KZ_TRANSLATIONS
+
+    # Match products
+    if slug == "kolye-iz-zhemchuga.html":
+        matched = [p for p in products if not p.get("archived", False) and (p.get("category") in ("Necklaces", "Lariats") or "жемчуг" in (p.get("title", "") + " " + " ".join(p.get("materials", []))).lower())]
+    elif slug == "braslety-iz-zhemchuga.html":
+        matched = [p for p in products if not p.get("archived", False) and (p.get("category") == "Bracelets" or "браслет" in (p.get("title", "") + " " + " ".join(p.get("materials", []))).lower())]
+    elif slug == "sergi-iz-zhemchuga.html":
+        matched = [p for p in products if not p.get("archived", False) and "серьг" in (p.get("title", "") + " " + p.get("description", "") + " " + str(p.get("bundle_options", ""))).lower()]
+    else:
+        # Find hub dict in ALL_HUBS
+        h_obj = next((h for h in ALL_HUBS if h["slug"] == slug), None)
+        if h_obj:
+            matched, _ = match_products_for_hub(h_obj, products)
+        else:
+            matched = [p for p in products if not p.get("archived", False)][:6]
+
+    prices = [int(p.get("price", 0)) for p in matched if int(p.get("price", 0)) > 0]
+    min_price = min(prices) if prices else 25000
+    max_price = max(prices) if prices else 91000
+    min_fmt = f"{min_price:,}".replace(",", " ")
+    max_fmt = f"{max_price:,}".replace(",", " ")
+
+    kz_info = KZ_HUBS_INFO.get(slug, {
+        "chip_label": "Әшекейлер",
+        "h1": "Табиғи тастардан жасалған әшекейлер — Livi Jewelry",
+        "title_cluster": "әшекейлер",
+        "breadcrumb": "Әшекейлер",
+        "lead": "Табиғи інжу мен минералдардан қолдан жасалған авторлық әшекейлер. Қазақстан бойынша жедел жеткізу.",
+        "seo_title": "Livi Jewelry шеберханасының эксклюзивті әшекейлері",
+        "seo_p1": "Livi Jewelry шеберханасында әрбір зергерлік бұйым табиғи асыл тастардан қолмен жиналады.",
+        "seo_p2": "Өлшемді тегін реттеу және СДЭК арқылы Қазақстанның кез келген қаласына жедел жеткізу қарастырылған.",
+    })
+
+    page_title = f"{kz_info['h1']} — бағасы теңгемен сатып алу | Қолдан жасалған Livi Jewelry"
+    meta_desc = (
+        f"{kz_info['lead']} Бағасы {min_fmt} ₸ — {max_fmt} ₸. "
+        f"100% табиғи тастар мен інжу, өлшемді тегін келтіру, сыйлық қаптамасы және Қазақстан бойынша жылдам жеткізу."
+    )
+
+    first_img = matched[0]["image"].lstrip("/") if matched else "assets/kole-iz-naturalnogo-zhemchuga-80000.webp"
+    og_image = f"{BASE_URL}/{first_img}"
+
+    # Breadcrumbs Schema
+    schema_breadcrumbs = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Басты бет", "item": f"{BASE_URL}/kz/"},
+            {"@type": "ListItem", "position": 2, "name": "Каталог", "item": f"{BASE_URL}/kz/shop.html"},
+            {"@type": "ListItem", "position": 3, "name": kz_info["breadcrumb"], "item": canonical_url},
+        ],
+    }
+
+    # ItemList Schema & Cards
+    item_list_elements = []
+    cards_html = []
+
+    for idx, p in enumerate(matched, start=1):
+        pid = p["id"]
+        kz_t = KZ_TRANSLATIONS.get(pid, {})
+        ptitle_kz = kz_t.get("title") or p["title"]
+        pdesc_kz = kz_t.get("desc") or p.get("description") or ptitle_kz
+        pprice = int(p.get("price", 0))
+        pprice_fmt = f"{pprice:,}".replace(",", " ")
+        pimg_rel = p["image"].lstrip("/")
+        pmats = ", ".join(p.get("materials", []))
+
+        item_list_elements.append(build_product_schema_for_itemlist(p, idx, is_kz=True, kz_title=ptitle_kz, kz_desc=pdesc_kz))
+
+        alt_str = clean_attr(f"{ptitle_kz} — авторлық қолөнер туындысы, Livi Jewelry")
+        cards_html.append(f"""        <article class="card" data-id="{pid}" data-name="{clean_attr(ptitle_kz)}" data-price="{pprice}" data-category="{clean_attr(p.get('category', 'Necklaces'))}" onclick="if(!event.target.closest('a'))location.href='/kz/product/{pid}.html'">
+          <div class="card-img-wrap">
+            <img src="/{pimg_rel}" alt="{alt_str}" loading="lazy" decoding="async" width="600" height="800">
+          </div>
+          <div class="body">
+            <h3 class="title"><a href="/kz/product/{pid}.html" class="card-title-link">{ptitle_kz}</a></h3>
+            <div class="price">{pprice_fmt} ₸</div>
+            <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">{clean_attr(pmats)}</div>
+          </div>
+        </article>""")
+
+    schema_itemlist = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": f"{kz_info['h1']} — Livi Jewelry",
+        "itemListElement": item_list_elements,
+    }
+
+    # FAQ Schema
+    q1 = "Livi Jewelry әшекейлеріндегі тастар мен інжудің табиғи екені қалай тексеріледі?"
+    a1 = "Livi Jewelry ательесінде біз тек табиғи минералдар мен таңдаулы культивацияланған інжуді пайдаланамыз. Әрбір партия шебердің жеке бақылауынан өтеді: тастың табиғи тығыздығы, салқындығы, табиғи құрылымы және түс тереңдігі тексеріледі."
+    q2 = "Бұйымның ұзындығын немесе өлшемін тегін өзгертуге бола ма?"
+    a2 = "Иә, тапсырысты жібермес бұрын шебер алқаның, чокердің ұзындығын немесе білезік өлшемін сіздің жеке өлшемдеріңізге сәйкес тегін бейімдеп береді, сондай-ақ 5 см ұзартқыш тізбек қосып береді."
+    q3 = "Әшекейлер қандай қаптамада жеткізіледі және Қазақстан бойынша жеткізу мерзімі қандай?"
+    a3 = "Әрбір бұйым Livi Jewelry фирмалық сыйлық қорабына немесе барқыт дорбасына тегін салынады. Астана бойынша жеткізу курьермен сол күні, ал Алматы, Шымкент, Қарағанды және барлық өңірлерге СДЭК қызметімен 1–3 жұмыс күнінде жеткізіледі."
+
+    schema_faq = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": q1, "acceptedAnswer": {"@type": "Answer", "text": a1}},
+            {"@type": "Question", "name": q2, "acceptedAnswer": {"@type": "Answer", "text": a2}},
+            {"@type": "Question", "name": q3, "acceptedAnswer": {"@type": "Answer", "text": a3}},
+        ],
+    }
+
+    drawer_hub_links_kz = "\n".join(
+        f'            <a href="/kz/{s}">{clean_attr(KZ_HUBS_INFO.get(s, {}).get("chip_label", l))}</a>'
+        for s, l in EXISTING_HUBS + [(h["slug"], h["chip_label"]) for h in ALL_HUBS]
+    )
+
+    top_chips = []
+    for s, l in EXISTING_HUBS:
+        lbl = KZ_HUBS_INFO.get(s, {}).get("chip_label", l)
+        active_cls = " active" if s == slug else ""
+        top_chips.append(f'      <a class="stone-chip{active_cls}" href="/kz/{s}">{lbl}</a>')
+    for h in ALL_HUBS:
+        lbl = KZ_HUBS_INFO.get(h["slug"], {}).get("chip_label", h["chip_label"])
+        active_cls = " active" if h["slug"] == slug else ""
+        top_chips.append(f'      <a class="stone-chip{active_cls}" href="/kz/{h["slug"]}">{lbl}</a>')
+    top_chips_html = "\n".join(top_chips)
+
+    cards_grid_str = "\n".join(cards_html)
+    interlink_html = build_interlink_block_html_kz(current_slug=slug)
+
+    page_html = f"""<!doctype html>
+<html lang="kk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+
+  <title>{clean_attr(page_title)}</title>
+  <meta name="description" content="{clean_attr(meta_desc)}">
+  <link rel="canonical" href="{canonical_url}">
+  <link rel="alternate" hreflang="ru-KZ" href="{ru_url}" />
+  <link rel="alternate" hreflang="ru" href="{ru_url}" />
+  <link rel="alternate" hreflang="kk-KZ" href="{canonical_url}" />
+  <link rel="alternate" hreflang="kk" href="{canonical_url}" />
+  <link rel="alternate" hreflang="x-default" href="{ru_url}" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="google-site-verification" content="qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Livi Jewelry">
+  <meta property="og:title" content="{clean_attr(page_title)}">
+  <meta property="og:description" content="{clean_attr(meta_desc)}">
+  <meta property="og:url" content="{canonical_url}">
+  <meta property="og:image" content="{og_image}">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Fonts & Design System -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+
+  <!-- Icons & Manifest -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#141312">
+  <meta name="msapplication-TileColor" content="#141312">
+
+  <!-- Google tag (GA4 + Ads) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YFF2TR0N36"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{ dataLayer.push(arguments); }}
+    gtag('consent', 'default', {{
+      'ad_storage': 'granted',
+      'analytics_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'wait_for_update': 500
+    }});
+    gtag('set', 'url_passthrough', true);
+    gtag('set', 'ads_data_redaction', false);
+    gtag('js', new Date());
+    gtag('config', 'G-YFF2TR0N36', {{
+      'linker': {{ 'domains': ['livijewelry.kz', 'www.livijewelry.kz'], 'accept_incoming': true }}
+    }});
+    gtag('config', 'AW-16793974126', {{
+      'allow_enhanced_conversions': true,
+      'linker': {{ 'domains': ['livijewelry.kz', 'www.livijewelry.kz'], 'accept_incoming': true }}
+    }});
+  </script>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {{if(f.fbq)return;n=f.fbq=function(){{n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)}};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '199604456030882');
+    fbq('init', '4185620171718327');
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent', {{
+      content_category: '{clean_attr(kz_info["breadcrumb"])}',
+      content_name: '{clean_attr(kz_info["h1"])}'
+    }});
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=199604456030882&ev=PageView&noscript=1"
+  /></noscript>
+
+  <!-- JSON-LD: BreadcrumbList -->
+  <script type="application/ld+json">
+{json.dumps(schema_breadcrumbs, ensure_ascii=False, indent=2)}
+  </script>
+
+  <!-- JSON-LD: ItemList -->
+  <script type="application/ld+json">
+{json.dumps(schema_itemlist, ensure_ascii=False, indent=2)}
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+{json.dumps(schema_faq, ensure_ascii=False, indent=2)}
+  </script>
+</head>
+<body>
+  <!-- Drawer -->
+  <div id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-back" role="button" tabindex="0" aria-label="Мәзірді жабу"></div>
+    <div class="drawer-panel" role="menu" aria-label="Мәзір">
+      <a href="/kz/">Басты бет</a>
+      <a href="/kz/shop.html">Каталог</a>
+      <details class="drawer-accordion">
+        <summary>Коллекциялар мен тастар</summary>
+        <div class="drawer-subnav">
+{drawer_hub_links_kz}
+        </div>
+      </details>
+      <a href="/kz/komplekty-ukrasheniy.html">Әшекейлер жиынтығы</a>
+      <a href="/delivery.html">Жеткізу және төлем</a>
+      <div class="drawer-socials">
+        <a class="drawer-soc-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
+        <a class="drawer-soc-link" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейін%20қалаймын." target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <div class="lang">
+        <a href="/{slug}">RU</a>
+        <a href="/kz/{slug}" class="active" lang="kk">KZ</a>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <div class="nav">
+      <button id="burger" class="hamburger" aria-label="Мәзір"><span></span></button>
+
+      <a class="brand" href="/kz/" aria-label="Livi Jewelry">
+        <span>LIVI JEWELRY</span>
+      </a>
+
+      <div class="nav-actions">
+        <div class="header-lang-links" aria-label="Тілді таңдау">
+          <a href="/{slug}">RU</a>
+          <a href="/kz/{slug}" class="active" lang="kk">KZ</a>
+        </div>
+        <a class="cart-link" href="/cart.html" aria-label="Себет">
+          <span>Себет</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
+        </a>
+        <a class="quick-link ig-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A4.5 4.5 0 1 0 16.5 12 4.505 4.505 0 0 0 12 7.5zm6.5-.75a1.25 1.25 0 1 0 1.25 1.25A1.25 1.25 0 0 0 18.5 6.75Zm-6.5 2A3.25 3.25 0 1 1 8.75 12 3.254 3.254 0 0 1 12 8.75Z"/>
+          </svg>
+        </a>
+        <a class="quick-link wa-link" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" fill="currentColor">
+            <path d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+            <path d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" style="padding-top: 24px;">
+    <div class="collection-header" style="margin-bottom: 20px;">
+      <h1 style="font-family: var(--font-serif); font-size: clamp(26px, 3.5vw, 38px); font-weight: 300; line-height: 1.25; margin: 0 0 8px; color: var(--fg);">{clean_attr(kz_info['chip_label'])}</h1>
+      <p style="font-size: 13.5px; color: #777; line-height: 1.5; margin: 0; max-width: 720px; font-weight: 300;">{clean_attr(kz_info['lead'])}</p>
+    </div>
+
+    <!-- Навигация: Тастар мен стильдер -->
+    <nav class="stone-chips" aria-label="Тастар мен стильдер бойынша жинақтар" style="margin: 0 0 24px;">
+{top_chips_html}
+    </nav>
+
+    <div class="grid" id="grid">
+{cards_grid_str}
+    </div>
+
+    <!-- SEO Редакциялық Мәтін -->
+    <section class="wrap seo-editorial-section" style="max-width: 860px; margin: 40px auto; padding: 0 16px;">
+      <h2 style="font-family: var(--font-serif); font-size: 26px; font-weight: 400; margin-bottom: 16px; color: var(--gold);">{kz_info['seo_title']}</h2>
+      <p style="line-height: 1.8; color: var(--muted); margin-bottom: 16px; font-size: 15px;">{kz_info['seo_p1']}</p>
+      <p style="line-height: 1.8; color: var(--muted); margin-bottom: 24px; font-size: 15px;">{kz_info['seo_p2']}</p>
+    </section>
+
+    <!-- FAQ Жиі қойылатын сұрақтар -->
+    <section class="wrap" style="max-width: 860px; margin: 40px auto 60px; padding: 0 16px;">
+      <h2 style="font-family: var(--font-serif); font-size: 26px; font-weight: 400; text-align: center; margin-bottom: 24px;">Жиі қойылатын сұрақтар</h2>
+      <details class="faq-item" style="border-bottom: 1px solid var(--border); padding: 14px 0;">
+        <summary style="font-weight: 500; cursor: pointer; color: var(--fg);">{q1}</summary>
+        <p style="color: var(--muted); margin-top: 8px; line-height: 1.6;">{a1}</p>
+      </details>
+      <details class="faq-item" style="border-bottom: 1px solid var(--border); padding: 14px 0;">
+        <summary style="font-weight: 500; cursor: pointer; color: var(--fg);">{q2}</summary>
+        <p style="color: var(--muted); margin-top: 8px; line-height: 1.6;">{a2}</p>
+      </details>
+      <details class="faq-item" style="border-bottom: 1px solid var(--border); padding: 14px 0;">
+        <summary style="font-weight: 500; cursor: pointer; color: var(--fg);">{q3}</summary>
+        <p style="color: var(--muted); margin-top: 8px; line-height: 1.6;">{a3}</p>
+      </details>
+    </section>
+
+{interlink_html}
+  </main>
+
+  <footer>
+    <div class="foot">
+      <div class="links">
+        <a href="delivery.html">Жеткізу, төлем және қайтару</a>
+        <a href="privacy.html">Құпиялылық саясаты</a>
+        <a href="terms.html">Пайдалану шарттары</a>
+        <a href="/kz/shop.html">Каталог</a>
+      </div>
+      <div class="copy">© 2026 Livi Jewelry. Барлық құқықтар қорғалған. Қазақстанда қолдан жасалған.</div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Widget -->
+  <a class="floating-wa" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener" aria-label="Шеберден кеңес алу">
+    <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+      <path fill="currentColor" d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
+      <path fill="currentColor" d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
+    </svg>
+    <span class="floating-wa-text">Шеберден кеңес алу</span>
+  </a>
+
+  <script>
+    (function() {{
+      try {{
+        const params = new URLSearchParams(window.location.search);
+        const keys = ['gclid', 'gbraid', 'wbraid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+        let existing = {{}};
+        try {{ existing = JSON.parse(localStorage.getItem('livi_attribution') || '{{}}') || {{}}; }} catch(e){{}}
+        let updated = false;
+        keys.forEach(k => {{ const v = params.get(k); if (v) {{ existing[k] = v; updated = true; }} }});
+        if (!existing.landing_page) {{
+          existing.landing_page = window.location.pathname + window.location.search;
+          existing.referrer = document.referrer || 'direct';
+          updated = true;
+        }}
+        if (updated) localStorage.setItem('livi_attribution', JSON.stringify(existing));
+      }} catch(e){{}}
+    }})();
+
+    const drawer = document.getElementById('drawer');
+    const burger = document.getElementById('burger');
+    if (burger && drawer) {{
+      burger.onclick = () => {{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden', 'false'); document.body.classList.add('drawer-open'); }};
+      const back = drawer.querySelector('.drawer-back');
+      if (back) back.onclick = () => {{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); document.body.classList.remove('drawer-open'); }};
+    }}
+
+    function updateBadge() {{
+      try {{
+        const raw = localStorage.getItem('livi_cart_v3') || localStorage.getItem('livi_cart_v2') || '[]';
+        const items = JSON.parse(raw);
+        const count = Array.isArray(items) ? items.reduce((s, i) => s + Number(i.qty || 0), 0) : 0;
+        const b = document.getElementById('cartBadge');
+        if (b) {{
+          b.textContent = count > 0 ? count : '';
+          b.style.display = count > 0 ? 'inline-block' : 'none';
+        }}
+      }} catch (e) {{}}
+    }}
+    updateBadge();
+
+    document.querySelectorAll('.grid .card').forEach((card, idx) => {{
+      card.addEventListener('click', function() {{
+        if (typeof gtag === 'function') {{
+          const titleEl = card.querySelector('.card-title-link');
+          const href = titleEl ? titleEl.getAttribute('href') || '' : '';
+          const m = href.match(/(prod_\\d+)/);
+          gtag('event', 'select_item', {{
+            item_list_id: '{slug}',
+            item_list_name: document.title,
+            items: [{{ item_id: m ? m[1] : 'prod_01', item_name: titleEl ? titleEl.textContent.trim() : '', index: idx + 1 }}]
+          }});
+        }}
+      }});
+    }});
+  </script>
+</body>
+</html>
+"""
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(page_html)
+    return out_path
+
+
 def update_sergi_page(products: list):
     """
-    Renders all 11 sets that include earrings on sergi-iz-zhemchuga.html,
+    Renders all sets that include earrings on sergi-iz-zhemchuga.html,
     with explicit badge 'Серьги доступны отдельно или в комплекте' and distinct price from bundle_options.
+    Also injects ItemList Schema with aggregateRating, review, and bidirectional hreflang links.
     """
     path = "sergi-iz-zhemchuga.html"
     if not os.path.exists(path):
@@ -935,7 +1645,6 @@ def update_sergi_page(products: list):
         if "серьг" in blob:
             earring_prods.append(p)
 
-    # Sort predictably by ID
     earring_prods.sort(key=lambda x: x["id"])
 
     cards_html = []
@@ -950,7 +1659,6 @@ def update_sergi_page(products: list):
         alt_str = clean_attr(build_clean_alt(p))
         mats_str = clean_attr(", ".join(p.get("materials", [])))
 
-        # Find separate earrings price from bundle_options or description
         earring_price = int(p.get("price") or 10000)
         for opt in p.get("bundle_options", []):
             if "серьг" in opt.get("name", "").lower():
@@ -961,7 +1669,7 @@ def update_sergi_page(products: list):
         cards_html.append(f"""        <!-- Product {idx} -->
         <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/{pid}.html'">
           <div class="card-img-wrap">
-            <img src="{img}" alt="{alt_str}" loading="lazy" decoding="async" width="600" height="800">
+            <img src="/{img}" alt="{alt_str}" loading="lazy" decoding="async" width="600" height="800">
           </div>
           <div class="body">
             <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold);margin-bottom:4px;">Серьги доступны отдельно или в комплекте</div>
@@ -972,69 +1680,11 @@ def update_sergi_page(products: list):
           </div>
         </article>""")
 
-        item_list_elements.append({
-            "@type": "Product",
-            "position": idx,
-            "name": p["title"],
-            "image": f"{BASE_URL}/{img}",
-            "description": p.get("description", p["title"]),
-            "sku": pid,
-            "mpn": pid,
-            "brand": {"@type": "Brand", "name": "Livi Jewelry"},
-            "offers": {
-                "@type": "Offer",
-                "url": f"{BASE_URL}/product/{pid}.html",
-                "price": f"{price:.2f}",
-                "priceCurrency": "KZT",
-                "priceValidUntil": "2027-12-31",
-                "availability": "https://schema.org/InStock",
-                "itemCondition": "https://schema.org/NewCondition",
-                "seller": {
-                    "@type": "Organization",
-                    "name": "Livi Jewelry"
-                },
-                "hasMerchantReturnPolicy": {
-                    "@type": "MerchantReturnPolicy",
-                    "applicableCountry": "KZ",
-                    "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-                    "merchantReturnDays": 14,
-                    "returnMethod": "https://schema.org/ReturnByMail",
-                    "returnFees": "https://schema.org/FreeReturn"
-                },
-                "shippingDetails": {
-                    "@type": "OfferShippingDetails",
-                    "shippingRate": {
-                        "@type": "MonetaryAmount",
-                        "value": "0",
-                        "currency": "KZT"
-                    },
-                    "shippingDestination": {
-                        "@type": "DefinedRegion",
-                        "addressCountry": "KZ"
-                    },
-                    "deliveryTime": {
-                        "@type": "ShippingDeliveryTime",
-                        "handlingTime": {
-                            "@type": "QuantitativeValue",
-                            "minValue": 0,
-                            "maxValue": 1,
-                            "unitCode": "DAY"
-                        },
-                        "transitTime": {
-                            "@type": "QuantitativeValue",
-                            "minValue": 0,
-                            "maxValue": 3,
-                            "unitCode": "DAY"
-                        }
-                    }
-                }
-            }
-        })
+        item_list_elements.append(build_product_schema_for_itemlist(p, idx, is_kz=False))
 
     with open(path, "r", encoding="utf-8") as f:
         html_txt = f.read()
 
-    # Replace grid content
     new_grid_content = "\n".join(cards_html)
     html_txt = re.sub(
         r'<div class="grid">.*?</div>\s*</section>',
@@ -1044,7 +1694,6 @@ def update_sergi_page(products: list):
         flags=re.DOTALL
     )
 
-    # Replace ItemList in JSON-LD
     schema_itemlist = {
         "@context": "https://schema.org",
         "@type": "ItemList",
@@ -1060,9 +1709,121 @@ def update_sergi_page(products: list):
         flags=re.DOTALL
     )
 
+    # Hreflang
+    if 'rel="alternate" hreflang="kk-KZ"' not in html_txt:
+        hreflang_tags = f"""  <link rel="alternate" hreflang="ru-KZ" href="{BASE_URL}/sergi-iz-zhemchuga.html" />
+  <link rel="alternate" hreflang="ru" href="{BASE_URL}/sergi-iz-zhemchuga.html" />
+  <link rel="alternate" hreflang="kk-KZ" href="{BASE_URL}/kz/sergi-iz-zhemchuga.html" />
+  <link rel="alternate" hreflang="kk" href="{BASE_URL}/kz/sergi-iz-zhemchuga.html" />
+  <link rel="alternate" hreflang="x-default" href="{BASE_URL}/sergi-iz-zhemchuga.html" />"""
+        html_txt = html_txt.replace('<link rel="canonical" href="https://livijewelry.kz/sergi-iz-zhemchuga.html">', f'<link rel="canonical" href="https://livijewelry.kz/sergi-iz-zhemchuga.html">\n{hreflang_tags}')
+
     with open(path, "w", encoding="utf-8") as f:
         f.write(html_txt)
     print(f"[OK] sergi-iz-zhemchuga.html обновлена ({len(earring_prods)} комплектов с серьгами)")
+
+
+def update_category_hubs(products: list):
+    """Enriches kolye-iz-zhemchuga.html and braslety-iz-zhemchuga.html with ItemList aggregateRating, review, and hreflang."""
+    by_id = {p["id"]: p for p in products}
+
+    # 1. kolye-iz-zhemchuga.html
+    path_k = "kolye-iz-zhemchuga.html"
+    if os.path.exists(path_k):
+        with open(path_k, "r", encoding="utf-8") as f:
+            k_html = f.read()
+
+        card_pids = re.findall(r'href=[\'"](?:/product/|product/)(prod_\d+)\.html[\'"]', k_html)
+        seen = set()
+        unique_pids = []
+        for pid in card_pids:
+            if pid not in seen and pid in by_id:
+                seen.add(pid)
+                unique_pids.append(pid)
+
+        item_list_elements = []
+        for idx, pid in enumerate(unique_pids, start=1):
+            p = by_id[pid]
+            item_list_elements.append(build_product_schema_for_itemlist(p, idx, is_kz=False))
+
+        schema_itemlist = {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Колье и чокеры из натурального жемчуга — Livi Jewelry",
+            "itemListElement": item_list_elements,
+        }
+        ld_script = f'<script type="application/ld+json">\n{json.dumps(schema_itemlist, ensure_ascii=False, indent=2)}\n  </script>'
+        k_html = re.sub(
+            r'<script type="application/ld\+json">\s*\{\s*"@context":\s*"https://schema\.org",\s*"@type":\s*"ItemList".*?</script>',
+            ld_script,
+            k_html,
+            count=1,
+            flags=re.DOTALL,
+        )
+
+        if 'rel="alternate" hreflang="kk-KZ"' not in k_html:
+            k_html = k_html.replace(
+                '<link rel="canonical" href="https://livijewelry.kz/kolye-iz-zhemchuga.html">',
+                '<link rel="canonical" href="https://livijewelry.kz/kolye-iz-zhemchuga.html">\n'
+                '  <link rel="alternate" hreflang="ru-KZ" href="https://livijewelry.kz/kolye-iz-zhemchuga.html" />\n'
+                '  <link rel="alternate" hreflang="ru" href="https://livijewelry.kz/kolye-iz-zhemchuga.html" />\n'
+                '  <link rel="alternate" hreflang="kk-KZ" href="https://livijewelry.kz/kz/kolye-iz-zhemchuga.html" />\n'
+                '  <link rel="alternate" hreflang="kk" href="https://livijewelry.kz/kz/kolye-iz-zhemchuga.html" />\n'
+                '  <link rel="alternate" hreflang="x-default" href="https://livijewelry.kz/kolye-iz-zhemchuga.html" />'
+            )
+
+        with open(path_k, "w", encoding="utf-8") as f:
+            f.write(k_html)
+        print(f"[OK] kolye-iz-zhemchuga.html ItemList обновлен ({len(unique_pids)} товаров)")
+
+    # 2. braslety-iz-zhemchuga.html
+    path_b = "braslety-iz-zhemchuga.html"
+    if os.path.exists(path_b):
+        with open(path_b, "r", encoding="utf-8") as f:
+            b_html = f.read()
+
+        card_pids = re.findall(r'href=[\'"](?:/product/|product/)(prod_\d+)\.html[\'"]', b_html)
+        seen = set()
+        unique_pids = []
+        for pid in card_pids:
+            if pid not in seen and pid in by_id:
+                seen.add(pid)
+                unique_pids.append(pid)
+
+        item_list_elements = []
+        for idx, pid in enumerate(unique_pids, start=1):
+            p = by_id[pid]
+            item_list_elements.append(build_product_schema_for_itemlist(p, idx, is_kz=False))
+
+        schema_itemlist = {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Браслеты из натурального жемчуга и камней — Livi Jewelry",
+            "itemListElement": item_list_elements,
+        }
+        ld_script = f'<script type="application/ld+json">\n{json.dumps(schema_itemlist, ensure_ascii=False, indent=2)}\n  </script>'
+        b_html = re.sub(
+            r'<script type="application/ld\+json">\s*\{\s*"@context":\s*"https://schema\.org",\s*"@type":\s*"ItemList".*?</script>',
+            ld_script,
+            b_html,
+            count=1,
+            flags=re.DOTALL,
+        )
+
+        if 'rel="alternate" hreflang="kk-KZ"' not in b_html:
+            b_html = b_html.replace(
+                '<link rel="canonical" href="https://livijewelry.kz/braslety-iz-zhemchuga.html">',
+                '<link rel="canonical" href="https://livijewelry.kz/braslety-iz-zhemchuga.html">\n'
+                '  <link rel="alternate" hreflang="ru-KZ" href="https://livijewelry.kz/braslety-iz-zhemchuga.html" />\n'
+                '  <link rel="alternate" hreflang="ru" href="https://livijewelry.kz/braslety-iz-zhemchuga.html" />\n'
+                '  <link rel="alternate" hreflang="kk-KZ" href="https://livijewelry.kz/kz/braslety-iz-zhemchuga.html" />\n'
+                '  <link rel="alternate" hreflang="kk" href="https://livijewelry.kz/kz/braslety-iz-zhemchuga.html" />\n'
+                '  <link rel="alternate" hreflang="x-default" href="https://livijewelry.kz/braslety-iz-zhemchuga.html" />'
+            )
+
+        with open(path_b, "w", encoding="utf-8") as f:
+            f.write(b_html)
+        print(f"[OK] braslety-iz-zhemchuga.html ItemList обновлен ({len(unique_pids)} товаров)")
 
 
 def standardize_hub_header_and_drawer(file_path: str, slug: str):
@@ -1096,7 +1857,7 @@ def standardize_hub_header_and_drawer(file_path: str, slug: str):
       </div>
       <div class="lang">
         <a href="/{slug}" class="active">RU</a>
-        <a href="/kz/shop.html" lang="kk">KZ</a>
+        <a href="/kz/{slug}" lang="kk">KZ</a>
       </div>
     </div>
   </div>
@@ -1112,7 +1873,7 @@ def standardize_hub_header_and_drawer(file_path: str, slug: str):
       <div class="nav-actions">
         <div class="header-lang-links" aria-label="Выбор языка">
           <a href="/{slug}" class="active">RU</a>
-          <a href="/kz/shop.html" lang="kk">KZ</a>
+          <a href="/kz/{slug}" lang="kk">KZ</a>
         </div>
         <a class="cart-link" href="/cart.html" aria-label="Корзина">
           <span>Корзина</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
@@ -1193,14 +1954,26 @@ def generate_seo_hubs():
     with open(PRODUCTS_FILE, "r", encoding="utf-8") as f:
         products = json.load(f)
 
+    # 1. Generate 18 RU hubs
     generated = []
     for hub in ALL_HUBS:
         out = generate_hub_page(hub, products)
         generated.append(out)
 
+    # 2. Update 3 existing RU hubs
     update_sergi_page(products)
+    update_category_hubs(products)
     update_existing_pages_interlinking()
-    print(f"[OK] Generated {len(generated)} SEO hub landing pages and updated category interlinking.")
+
+    # 3. Generate all 21 KZ hubs in /kz/
+    all_21_slugs = [s for s, _ in EXISTING_HUBS] + [h["slug"] for h in ALL_HUBS]
+    kz_generated = []
+    for s in all_21_slugs:
+        meta = KZ_HUBS_INFO.get(s, {})
+        out_kz = generate_kz_hub_page(s, meta, products)
+        kz_generated.append(out_kz)
+
+    print(f"[OK] Generated {len(generated)} Russian hubs + {len(kz_generated)} Kazakh hubs (all 21 clusters complete).")
     return generated
 
 

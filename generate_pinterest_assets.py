@@ -30,6 +30,9 @@ BOARD_MAP = {
 HASHTAGS_BASE = "#украшенияручнойработы #авторскиеукрашения #натуральныйжемчуг #барочныйжемчуг #натуральныекамни #чокер #колье #браслет #бижутерияказахстан #подарокдевушке #астана #алматы"
 
 
+PINTEREST_UTM = "?utm_source=pinterest&utm_medium=social&utm_campaign=product_pins"
+
+
 def clean_text(s: str) -> str:
     if not s:
         return ""
@@ -60,7 +63,7 @@ def generate_pinterest_assets():
         
         img_rel = p.get("image", "").lstrip("/")
         image_url = f"{SITE_URL}/{img_rel}"
-        product_url = f"{SITE_URL}/product/{pid}.html"
+        product_url = f"{SITE_URL}/product/{pid}.html{PINTEREST_UTM}"
 
         desc_raw = clean_text(p.get("description", ""))
         materials = ", ".join(p.get("materials") or ["натуральный жемчуг"])
@@ -109,7 +112,7 @@ def generate_pinterest_assets():
         price = p.get("price", 0)
         img_rel = p.get("image", "").lstrip("/")
         image_url = f"{SITE_URL}/{img_rel}"
-        product_url = f"{SITE_URL}/product/{pid}.html"
+        product_url = f"{SITE_URL}/product/{pid}.html{PINTEREST_UTM}"
         category = p.get("category", "Necklaces")
         board_type = BOARD_MAP.get(category, "Украшения")
 
@@ -117,7 +120,7 @@ def generate_pinterest_assets():
         xml_lines.append(f"      <g:id>{pid}</g:id>")
         xml_lines.append(f"      <g:title>{title}</g:title>")
         xml_lines.append(f"      <g:description>{desc}</g:description>")
-        xml_lines.append(f"      <g:link>{product_url}</g:link>")
+        xml_lines.append(f"      <g:link>{escape(product_url)}</g:link>")
         xml_lines.append(f"      <g:image_link>{image_url}</g:image_link>")
         xml_lines.append(f"      <g:price>{price}.00 KZT</g:price>")
         xml_lines.append("      <g:availability>in stock</g:availability>")

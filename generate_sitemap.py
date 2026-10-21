@@ -118,14 +118,36 @@ def generate_sitemap():
     lines.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{SITE_URL}/shop.html" />')
     lines.append("  </url>")
 
-    # 3. Все 21 SEO-хаб
+    # 3. Все 21 SEO-хаб (RU + KZ со связкой hreflang)
     for page, prio, freq in SEO_HUBS:
-        url = f"{SITE_URL}/{page}"
+        ru_url = f"{SITE_URL}/{page}"
+        kz_url = f"{SITE_URL}/kz/{page}"
+        kz_file = f"kz/{page}"
+
+        # RU Hub
         lines.append("  <url>")
-        lines.append(f"    <loc>{url}</loc>")
+        lines.append(f"    <loc>{ru_url}</loc>")
         lines.append(f"    <lastmod>{get_file_lastmod(page, today)}</lastmod>")
         lines.append(f"    <changefreq>{freq}</changefreq>")
         lines.append(f"    <priority>{prio}</priority>")
+        lines.append(f'    <xhtml:link rel="alternate" hreflang="ru-KZ" href="{ru_url}" />')
+        lines.append(f'    <xhtml:link rel="alternate" hreflang="ru" href="{ru_url}" />')
+        lines.append(f'    <xhtml:link rel="alternate" hreflang="kk-KZ" href="{kz_url}" />')
+        lines.append(f'    <xhtml:link rel="alternate" hreflang="kk" href="{kz_url}" />')
+        lines.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{ru_url}" />')
+        lines.append("  </url>")
+
+        # KZ Hub
+        lines.append("  <url>")
+        lines.append(f"    <loc>{kz_url}</loc>")
+        lines.append(f"    <lastmod>{get_file_lastmod(kz_file, today)}</lastmod>")
+        lines.append(f"    <changefreq>{freq}</changefreq>")
+        lines.append(f"    <priority>0.8</priority>")
+        lines.append(f'    <xhtml:link rel="alternate" hreflang="ru-KZ" href="{ru_url}" />')
+        lines.append(f'    <xhtml:link rel="alternate" hreflang="ru" href="{ru_url}" />')
+        lines.append(f'    <xhtml:link rel="alternate" hreflang="kk-KZ" href="{kz_url}" />')
+        lines.append(f'    <xhtml:link rel="alternate" hreflang="kk" href="{kz_url}" />')
+        lines.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{ru_url}" />')
         lines.append("  </url>")
 
     # 4. Сервисные страницы
@@ -207,8 +229,8 @@ def generate_sitemap():
         f.write("\n".join(lines) + "\n")
 
     active_count = sum(1 for p in products if p.get("inStock", True)) if os.path.exists("products.json") else 0
-    total_urls = 2 + 2 + len(SEO_HUBS) + len(SERVICE_PAGES) + (active_count * 2)
-    print(f"[OK] Sitemap обновлен: {total_urls} URLs (21 хаб, 4 витрины/каталога, 3 сервисных, {active_count} RU + {active_count} KZ активных товаров)")
+    total_urls = 2 + 2 + (len(SEO_HUBS) * 2) + len(SERVICE_PAGES) + (active_count * 2)
+    print(f"[OK] Sitemap обновлен: {total_urls} URLs (21 RU + 21 KZ хабов, 4 витрины/каталога, 3 сервисных, {active_count} RU + {active_count} KZ активных товаров)")
 
 
 if __name__ == "__main__":

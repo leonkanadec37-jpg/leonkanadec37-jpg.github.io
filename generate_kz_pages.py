@@ -45,36 +45,36 @@ CATEGORY_NAMES_KZ = {
 }
 
 CATEGORY_HUB_LINKS = {
-    "Necklaces": ("/kolye-iz-zhemchuga.html", "Інжу алқалар"),
-    "Lariats": ("/sotuary-iz-zhemchuga.html", "Сотуарлар"),
-    "Chains": ("/chokery-iz-naturalnyh-kamney.html", "Чокерлер мен тізбектер"),
-    "Bracelets": ("/braslety-iz-zhemchuga.html", "Білезіктер"),
-    "Earrings": ("/sergi-iz-zhemchuga.html", "Сырғалар"),
-    "Sets": ("/komplekty-ukrasheniy.html", "Жиынтықтар"),
+    "Necklaces": ("/kz/kolye-iz-zhemchuga.html", "Інжу алқалар"),
+    "Lariats": ("/kz/sotuary-iz-zhemchuga.html", "Сотуарлар"),
+    "Chains": ("/kz/chokery-iz-naturalnyh-kamney.html", "Чокерлер мен тізбектер"),
+    "Bracelets": ("/kz/braslety-iz-zhemchuga.html", "Білезіктер"),
+    "Earrings": ("/kz/sergi-iz-zhemchuga.html", "Сырғалар"),
+    "Sets": ("/kz/komplekty-ukrasheniy.html", "Жиынтықтар"),
 }
 
 ALL_21_HUBS = [
-    ("/kolye-iz-zhemchuga.html", "Інжу алқалар"),
-    ("/braslety-iz-zhemchuga.html", "Інжу білезіктер"),
-    ("/sergi-iz-zhemchuga.html", "Інжу сырғалар"),
-    ("/komplekty-ukrasheniy.html", "Әшекейлер жиынтығы"),
-    ("/chokery-iz-naturalnyh-kamney.html", "Табиғи тастардан чокерлер"),
-    ("/sotuary-iz-zhemchuga.html", "Інжу сотуарлар"),
-    ("/ukrasheniya-iz-barochnogo-zhemchuga.html", "Барокко інжуі"),
-    ("/ukrasheniya-iz-gematita.html", "Гематит"),
-    ("/ukrasheniya-iz-malahita.html", "Малахит және Нефрит"),
-    ("/ukrasheniya-iz-ametista.html", "Аметист және Флюорит"),
-    ("/ukrasheniya-iz-granata.html", "Анар тас (гранат) және Агат"),
-    ("/ukrasheniya-iz-rozovogo-kvarca.html", "Қызғылт кварц"),
-    ("/ukrasheniya-iz-biryuzy.html", "Фируза (бирюза)"),
-    ("/ukrasheniya-iz-gornogo-hrustalya.html", "Тау хрусталі"),
-    ("/ukrasheniya-iz-lunnogo-kamnya.html", "Ай тасы және Перламутр"),
-    ("/ukrasheniya-iz-zhemchuga-mayorka.html", "Майорка інжуі"),
-    ("/ukrasheniya-iz-tigrovogo-glaza.html", "Жолбарыс көзі және Жадеит"),
-    ("/ukrasheniya-iz-koralla-i-yashmy.html", "Маржан (коралл) және Яшма"),
-    ("/ukrasheniya-iz-lazurita.html", "Лазурит және Авантюрин"),
-    ("/tsepi-s-barochnym-zhemchugom.html", "Барокко інжуі бар тізбектер"),
-    ("/koltsa-i-garnitury-iz-kamney.html", "Сақиналар мен жиынтықтар"),
+    ("/kz/kolye-iz-zhemchuga.html", "Інжу алқалар"),
+    ("/kz/braslety-iz-zhemchuga.html", "Інжу білезіктер"),
+    ("/kz/sergi-iz-zhemchuga.html", "Інжу сырғалар"),
+    ("/kz/komplekty-ukrasheniy.html", "Әшекейлер жиынтығы"),
+    ("/kz/chokery-iz-naturalnyh-kamney.html", "Табиғи тастардан чокерлер"),
+    ("/kz/sotuary-iz-zhemchuga.html", "Інжу сотуарлар"),
+    ("/kz/ukrasheniya-iz-barochnogo-zhemchuga.html", "Барокко інжуі"),
+    ("/kz/ukrasheniya-iz-gematita.html", "Гематит"),
+    ("/kz/ukrasheniya-iz-malahita.html", "Малахит және Нефрит"),
+    ("/kz/ukrasheniya-iz-ametista.html", "Аметист және Флюорит"),
+    ("/kz/ukrasheniya-iz-granata.html", "Анар тас (гранат) және Агат"),
+    ("/kz/ukrasheniya-iz-rozovogo-kvarca.html", "Қызғылт кварц"),
+    ("/kz/ukrasheniya-iz-biryuzy.html", "Фируза (бирюза)"),
+    ("/kz/ukrasheniya-iz-gornogo-hrustalya.html", "Тау хрусталі"),
+    ("/kz/ukrasheniya-iz-lunnogo-kamnya.html", "Ай тасы және Перламутр"),
+    ("/kz/ukrasheniya-iz-zhemchuga-mayorka.html", "Майорка інжуі"),
+    ("/kz/ukrasheniya-iz-tigrovogo-glaza.html", "Жолбарыс көзі және Жадеит"),
+    ("/kz/ukrasheniya-iz-koralla-i-yashmy.html", "Маржан (коралл) және Яшма"),
+    ("/kz/ukrasheniya-iz-lazurita.html", "Лазурит және Авантюрин"),
+    ("/kz/tsepi-s-barochnym-zhemchugom.html", "Барокко інжуі бар тізбектер"),
+    ("/kz/koltsa-i-garnitury-iz-kamney.html", "Сақиналар мен жиынтықтар"),
 ]
 
 KZ_TRANSLATIONS = {
@@ -405,35 +405,35 @@ def get_livi_sku(pid: str) -> str:
 def get_stone_hub_url(material_name_ru: str) -> str:
     low = material_name_ru.lower()
     if "майорк" in low:
-        return "/ukrasheniya-iz-zhemchuga-mayorka.html"
+        return "/kz/ukrasheniya-iz-zhemchuga-mayorka.html"
     if "барочн" in low:
-        return "/ukrasheniya-iz-barochnogo-zhemchuga.html"
+        return "/kz/ukrasheniya-iz-barochnogo-zhemchuga.html"
     if "тигров" in low or "жадеит" in low:
-        return "/ukrasheniya-iz-tigrovogo-glaza.html"
+        return "/kz/ukrasheniya-iz-tigrovogo-glaza.html"
     if "коралл" in low or "яшм" in low:
-        return "/ukrasheniya-iz-koralla-i-yashmy.html"
+        return "/kz/ukrasheniya-iz-koralla-i-yashmy.html"
     if "лазурит" in low or "авантюрин" in low:
-        return "/ukrasheniya-iz-lazurita.html"
+        return "/kz/ukrasheniya-iz-lazurita.html"
     if "малахит" in low or "нефрит" in low:
-        return "/ukrasheniya-iz-malahita.html"
+        return "/kz/ukrasheniya-iz-malahita.html"
     if "гематит" in low:
-        return "/ukrasheniya-iz-gematita.html"
+        return "/kz/ukrasheniya-iz-gematita.html"
     if "аметист" in low or "флюорит" in low:
-        return "/ukrasheniya-iz-ametista.html"
+        return "/kz/ukrasheniya-iz-ametista.html"
     if "гранат" in low or "агат" in low:
-        return "/ukrasheniya-iz-granata.html"
+        return "/kz/ukrasheniya-iz-granata.html"
     if "розов" in low and "кварц" in low:
-        return "/ukrasheniya-iz-rozovogo-kvarca.html"
+        return "/kz/ukrasheniya-iz-rozovogo-kvarca.html"
     if "бирюз" in low:
-        return "/ukrasheniya-iz-biryuzy.html"
+        return "/kz/ukrasheniya-iz-biryuzy.html"
     if "хрустал" in low or "циркон" in low or ("кварц" in low and "розов" not in low):
-        return "/ukrasheniya-iz-gornogo-hrustalya.html"
+        return "/kz/ukrasheniya-iz-gornogo-hrustalya.html"
     if "лунн" in low or "перламутр" in low:
-        return "/ukrasheniya-iz-lunnogo-kamnya.html"
+        return "/kz/ukrasheniya-iz-lunnogo-kamnya.html"
     if "керамическ" in low:
-        return "/ukrasheniya-iz-zhemchuga-mayorka.html"
+        return "/kz/ukrasheniya-iz-zhemchuga-mayorka.html"
     if "жемчуг" in low:
-        return "/kolye-iz-zhemchuga.html"
+        return "/kz/kolye-iz-zhemchuga.html"
     return ""
 
 

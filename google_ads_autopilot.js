@@ -1,152 +1,125 @@
 /**
  * ==============================================================================
- * LIVI JEWELRY — GOOGLE ADS AUTOPILOT v2.0 (ПОЛНЫЙ БОЕВОЙ АВТОПИЛОТ)
+ * LIVI JEWELRY — GOOGLE ADS AUTOPILOT v3.0 (ЗАЩИТА КАМНЕЙ + УТРЕННИЙ ДАЙДЖЕСТ)
  * ==============================================================================
  * 
  * ЧТО ДЕЛАЕТ ЭТОТ СКРИПТ АВТОМАТИЧЕСКИ КАЖДОЕ УТРО:
- * 1. [Auto-Sync Negatives] Поддерживает мастер-список из 250+ минус-слов и привязывает
- *    его ко всем активным поисковым и торговым кампаниям (Shopping).
- * 2. [Search Query Mining] Сканирует отчет поисковых запросов (Search Terms) за 7 дней.
- *    Автоматически находит мусорные запросы (дешево, алиэкспресс, своими руками, фурнитура,
- *    ремонт, ломбард, золото 585 и т.д.) или запросы без конверсий с перерасходом,
- *    и мгновенно добавляет их в минус-слова.
- * 3. [Smart Bidding & Top Position] Управляет ставками CPC на основе новой гибридной ценности
- *    конверсий (Корзина = 100% ценности, Клик WhatsApp = 20% ценности):
- *    - Повышает ставку (+10%) конвертящим ключам, если они теряют Top-of-page показы.
- *    - Снижает ставку (-5%) ключам, уже удерживающим Топ с высоким CTR (минимизирует цену клика).
- *    - Снижает ставку (-20%) или ставит на паузу ключи, сливающие бюджет без конверсий.
- * 4. [Budget & Bleed Guard] Контролирует общий дневной расход (защита от скликивания).
- * 5. [Email Digest] Отправляет красивый детальный отчет о действиях и расходах на почту.
+ * 1. [WhiteList Stone Guard] Внедрен строгий защитный список корней натуральных
+ *    минералов и украшений (SAFE_ROOTS). Любой запрос, содержащий камень или тип
+ *    изделия из WhiteList, КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО блокировать (даже при расходе
+ *    без конверсий). Такие фразы выводятся исключительно в email на ручной контроль.
+ * 2. [Auto-Negation Pure Junk] Находит мусорные запросы за 7 дней ТОЛЬКО по
+ *    строгим стоп-паттернам (JUNK_PATTERNS: DIY, чужие материалы, ломбарды, скупка,
+ *    дешевый опт, ремонт) и добавляет их во фразовом соответствии '"' + term + '"'.
+ * 3. [No Spend-Based Auto-Block] Полностью отключена авто-блокировка по сумме расхода ($1.50)
+ *    или кликам — скрипт больше не блокирует целевые фразы за расход.
+ * 4. [Detailed Morning Digest] Формирует утренний отчет на viksonna94@gmail.com:
+ *    - Раздельная статистика за вчера по Поиску (Search) и Shopping (Покупки).
+ *    - Блок «🔍 Все поисковые запросы с кликами за вчера».
+ *    - Блок «⚠️ Запросы с расходом без конверсий (на ручную проверку)».
+ *    - Блок «🏆 Кандидаты в точное соответствие (Conversions > 0 или CTR >= 10%)».
+ *    - Тихий аудит 404 ошибок целевых страниц (предупреждение без остановки кампаний).
+ * 5. [Smart CPC Management] Корректирует ставки CPC ключевых слов для удержания топа.
  *
  * РАСПИСАНИЕ: Запускается автоматически каждый день в 07:00 или 08:00 утра.
  * ==============================================================================
  */
 
 var CONFIG = {
-  // Почта для утренних отчетов и срочных алертов:
+  // Email владельца для утреннего дайджеста и предупреждений:
   ALERT_EMAIL: "viksonna94@gmail.com",
-  
-  // Лимит дневного расхода аккаунта (в валюте аккаунта, например USD или эквивалент KZT):
+
+  // Лимит дневного расхода аккаунта для предупреждения (валюта аккаунта, например USD или эквивалент KZT):
   DAILY_BUDGET_CAP: 10.0,
-  
-  // Максимальный потолок ставки CPC (защита от переплат на аукционе):
+
+  // Максимальный потолок ставки CPC (защита от переплат):
   MAX_CPC_CAP: 0.35,
-  
+
   // Минимальный пол ставки CPC:
   MIN_CPC_FLOOR: 0.05,
-  
-  // Порог расхода ключа/запроса без единой конверсии для применения штрафа:
-  WASTE_SPEND_THRESHOLD: 1.50,
-  
-  // Порог кликов без конверсий:
-  WASTE_CLICKS_THRESHOLD: 8,
-  
-  // Целевая доля показов вверху страницы (Top Impression Share):
-  TARGET_TOP_SHARE: 0.85,
-  
+
   // Шаг повышения ставки для конвертящих фраз:
   CONVERSION_BID_BOOST: 0.10, // +10%
-  
-  // Шаг снижения ставки для экономии при доминировании в топе:
+
+  // Шаг экономии для фраз с высоким CTR в топе:
   SAVER_BID_DISCOUNT: 0.05,   // -5%
-  
-  // Название мастер-списка минус-слов:
+
+  // Название мастер-списка минус-слов в аккаунде:
   NEGATIVE_LIST_NAME: "Livi Jewelry - Мастер Минус-слова",
-  
-  // Применять ли изменения на боевом аккаунте (true = боевой режим, false = симуляция/dry-run):
+
+  // Применять ли изменения на боевом аккаунте (true = боевой режим, false = dry-run):
   APPLY_CHANGES: true,
-  
+
   // Всегда отправлять утреннюю сводку:
   SEND_DAILY_SUMMARY: true
 };
 
-// Базовый мастер-список стоп-слов Livi Jewelry (250+ фильтров)
-var MASTER_NEGATIVES = [
-  // 1. DIY, Рукоделие, Хобби
-  "своими руками", "как сделать", "как сплести", "как собрать", "схема", "схемы", 
-  "мастер класс", "мк", "бисероплетение", "бисер", "плетение", "вязание", 
-  "бусины поштучно", "бусины оптом", "бусины для рукоделия", "фурнитура", 
-  "застежка для колье", "карабин ювелирный", "швензы", "штифты", "пины", 
-  "леска для бус", "ювелирная проволока", "тросик", "инструменты для бижутерии", 
-  "круглогубцы", "плоскогубцы", "эпоксидная смола", "полимерная глина", "бейлы", 
-  "концевики", "каллоты", "кримпы", "разделители бусин", "шапочки для бусин", 
-  "силиконовая нить", "спандекс", "паракорд", "макраме", "вышивка", "пайетки", 
-  "стеклярус", "мулине", "пряжа", "кабошон", "заготовки для колец", "основы для броши", 
-  "форма для смолы", "молд", "станок для бисероплетения", "сборка на дому",
-
-  // 2. Дешевые маркетплейсы, секонд-хенд, халява, опт
-  "дешево", "недорого", "самый дешевый", "бесплатно", "даром", "отдам даром", 
-  "в дар", "подарок бесплатно", "садовод", "тяк москва", "алиэкспресс", "aliexpress", 
-  "temu", "тему", "shein", "шейн", "таобао", "taobao", "1688", "оптом", "опт", 
-  "крупный опт", "дропшиппинг", "барахолка", "барахолка бу", "секонд хенд", "бу", 
-  "б у", "б/у", "авито", "olx", "olx бу", "satu kz", "конфискат", "таможенный конфискат", 
-  "китайский ширпотреб", "ликвидация магазина", "фикс прайс", "fix price",
-
-  // 3. Металлы не нашего профиля, ломбарды, скупка
-  "золото 585", "золото 750", "белое золото", "червонное золото", "ломбард", 
-  "скупка", "скупка золота", "лом золота", "сдать золото", "грамм золота", 
-  "цена за грамм", "курс золота", "проба 585", "проба 925", "клеймо", "слитки", 
-  "слиток золота", "инвестиционные монеты", "платина", "палладий", "титан", 
-  "медицинская сталь", "нержавеющая сталь", "вольфрам", "серебро 925 ломбард", 
-  "залог золота", "займ под залог",
-
-  // 4. Дешевые ненатуральные материалы
-  "пластик", "пластиковые", "дерево", "деревянные", "стекло", "стеклянные", 
-  "акрил", "акриловые", "силикон", "силиконовые", "эпоксидка", "смола", 
-  "янтарь лечебный", "янтарные бусы от щитовидки", "фианит", "фианиты оптом", 
-  "искусственный жемчуг дешевый", "пластиковый жемчуг",
-
-  // 5. Неподходящие типы изделий
-  "пирсинг", "пирсинг пупка", "септум", "микродермал", "тоннели в уши", "плаги", 
-  "обручальные кольца", "помолвочное кольцо", "мужская печатка", "печатка мужская", 
-  "мужская цепь золото", "цепочка бисмарк", "панцирное плетение", "крестик золотой", 
-  "крестик серебряный", "нательный крест", "ладанка", "иконка", "полумесяц кулон", 
-  "мусульманские кулоны", "аят аль курси", "четки", "четки перекидные", "тасбих", 
-  "часы", "наручные часы", "смарт часы", "apple watch", "ремешок для часов", 
-  "запонки", "зажим для галстука", "детские украшения", "набор для девочки", 
-  "игрушечная бижутерия",
-
-  // 6. Ремонт, уход, чистка, экспертиза
-  "ремонт", "ремонт бижутерии", "ювелирная мастерская", "реставрация", "пайка", 
-  "лазерная пайка", "перетяжка бус", "перевязать бусы", "замена замка", 
-  "уменьшить кольцо", "увеличить кольцо", "ультразвуковая чистка", "чистка золота", 
-  "как почистить жемчуг", "как отбелить жемчуг", "как отличить натуральный жемчуг", 
-  "тест на подлинность", "экспертиза камней", "геммолог", "оценка ювелирных",
-
-  // 7. Конкуренты и масс-маркет сети
-  "пандора", "pandora", "шармы пандора", "санлайт", "sunlight", "соколов", 
-  "sokolov", "адамас", "585 золотой", "tiffany", "тиффани", "картье", "cartier", 
-  "гвоздь картье", "van cleef", "ван клиф", "клевер ван клиф", "chopard", 
-  "шопард", "булгари", "bulgari", "swarovski", "сваровски", "tous", "тоус мишка", 
-  "казахювелир", "алтын", "эпл даймонд",
-
-  // 8. Информационные, эзотерика, вакансии
-  "гороскоп", "знак зодиака", "магия камней", "магические свойства", 
-  "лечебные свойства", "заговор", "приворот", "чакры", "амулет от сглаза", 
-  "реферат", "курсовая", "википедия", "доклад", "презентация", 
-  "фото высокого разрешения", "картинки", "обои на телефон", "раскраска", 
-  "скачать", "видео", "youtube", "тикток", "книга", "курсы", "обучение", 
-  "работа", "вакансии", "резюме", "зарплата", "продавец консультант вакансии"
+// ------------------------------------------------------------------------------
+// ЗАЩИТНЫЙ WHITELIST НАТУРАЛЬНЫХ КАМНЕЙ И ИЗДЕЛИЙ (КАТЕГОРИЧЕСКИ НЕ БЛОКИРОВАТЬ)
+// ------------------------------------------------------------------------------
+var SAFE_ROOTS = [
+  /жемчуг/i, /барочн/i, /нефрит/i, /аметист/i, /малахит/i, /агат/i, /гранат/i, /кварц/i, /бирюз/i,
+  /гематит/i, /хрустал/i, /лунн.*камен/i, /тигров.*глаз/i, /лазурит/i, /коралл/i, /яшм/i, /сердолик/i,
+  /амазонит/i, /турмалин/i, /цитрин/i, /авантюрин/i, /флюорит/i, /жадеит/i, /перламутр/i, /оникс/i,
+  /шпинел/i, /топаз/i, /аквамарин/i, /берилл/i, /лабрадор/i, /чароит/i, /хризопраз/i, /змеевик/i,
+  /опал/i, /янтарь/i, /рубин/i, /сапфир/i, /изумруд/i, /колье/i, /чокер/i, /браслет/i, /серьг/i,
+  /сотуар/i, /кольц/i, /бус/i, /гарнитур/i, /комплект.*украшен/i, /бижутери/i, /ювелирн/i, /livi/i
 ];
 
-// Паттерны немедленной блокировки в реальных поисковых запросах
+// ------------------------------------------------------------------------------
+// СТОП-ПАТТЕРНЫ ЧИСТОГО МУСОРА (БЛОКИРОВКА ТОЛЬКО ПРИ ОТСУТСТВИИ КАМНЕЙ В ЗАПРОСЕ)
+// ------------------------------------------------------------------------------
 var JUNK_PATTERNS = [
-  /дешев/i, /недорог/i, /бесплатн/i, /даром/i, /алиэкспресс/i, /aliexpress/i,
-  /temu/i, /тему/i, /shein/i, /шейн/i, /таобао/i, /taobao/i, /1688/i,
-  /своими руками/i, /как сделать/i, /как сплести/i, /схем/i, /мастер класс/i,
-  /фурнитур/i, /бусин/i, /бисер/i, /проволок/i, /швенз/i, /застежк/i, /пины/i,
-  /оптом/i, /опт\b/i, /барахолк/i, /б[\s/]?у\b/i, /секонд/i, /olx/i, /авито/i,
-  /золот/i, /ломбард/i, /скупк/i, /проба 585/i, /проба 925/i, /слит/i,
-  /ремонт/i, /мастерск/i, /чистк/i, /перетяжк/i, /пайк/i,
-  /пандор/i, /pandora/i, /санлайт/i, /sunlight/i, /соколов/i, /sokolov/i,
-  /картье/i, /cartier/i, /тиффани/i, /tiffany/i, /ван клиф/i, /van cleef/i,
-  /сваровски/i, /swarovski/i, /тоус/i, /часы/i, /пирсинг/i, /обручальн/i,
-  /ваканси/i, /резюме/i, /работа/i, /скачать/i, /видео/i, /ютуб/i
+  // 1. Рукоделие и DIY
+  /своими руками/i, /как сделать/i, /как сплести/i, /схем/i, /мастер класс/i, /мк\b/i,
+  /бисероплетени/i, /плетени/i, /вязани/i, /фурнитур/i, /застежк/i, /швенз/i, /штифт/i,
+  /пины\b/i, /леск/i, /проволок/i, /эпоксидн/i, /полимерн.*глин/i, /вышивк/i, /станок/i,
+
+  // 2. Нецелевые чужие материалы
+  /шерст/i, /валян/i, /муассанит/i, /дерев/i, /пластик/i, /акрил/i, /силикон/i, /xuping/i,
+  /медицинск.*золот/i,
+
+  // 3. Халява, скупка, дешевый опт, б/у
+  /бесплатн/i, /даром/i, /ломбард/i, /скупк/i, /сдать.*золото/i, /проба 585/i, /золото 585/i,
+  /слит.*золот/i, /алиэкспресс/i, /aliexpress/i, /temu/i, /shein/i, /таобао/i, /секонд/i,
+  /конфискат/i, /б[\s/]?у\b/i,
+
+  // 4. Нецелевые услуги и инфо-запросы
+  /ремонт/i, /пайк/i, /чистк.*золот/i, /ультразвуков/i, /ваканси/i, /резюме/i, /работа/i,
+  /зарплат/i, /реферат/i, /сонник/i, /гороскоп/i, /знак.*зодиак/i, /магическ/i,
+  /лечебн.*свойств/i, /приворот/i, /заговор/i, /скачать/i, /обои.*телефон/i,
+  /milan/i, /милан/i, /греци/i
 ];
+
+/**
+ * Проверка запроса на наличие корней минералов и изделий из WhiteList
+ */
+function isSafeTerm(term) {
+  if (!term) return false;
+  for (var i = 0; i < SAFE_ROOTS.length; i++) {
+    if (SAFE_ROOTS[i].test(term)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Проверка совпадения со стоп-паттернами мусора
+ */
+function matchJunkPattern(term) {
+  if (!term) return null;
+  for (var i = 0; i < JUNK_PATTERNS.length; i++) {
+    if (JUNK_PATTERNS[i].test(term)) {
+      return JUNK_PATTERNS[i];
+    }
+  }
+  return null;
+}
 
 function main() {
   Logger.log("==================================================================");
-  Logger.log("   💎 LIVI JEWELRY AUTOPILOT v2.0: ЗАПУСК ОПТИМИЗАЦИИ РЕКЛАМЫ    ");
+  Logger.log("   💎 LIVI JEWELRY AUTOPILOT v3.0: ЗАПУСК ОПТИМИЗАЦИИ РЕКЛАМЫ    ");
   Logger.log("==================================================================");
 
   var account = AdsApp.currentAccount();
@@ -157,87 +130,62 @@ function main() {
   var actionLogs = [];
   var warningsList = [];
 
-  // ------------------------------------------------------------------
-  // 1. СИНХРОНИЗАЦИЯ МАСТЕР-СПИСКА МИНУС-СЛОВ (250+ СЛОВ)
-  // ------------------------------------------------------------------
-  Logger.log("\n[1/4] Синхронизация мастер-списка минус-слов...");
+  // 1. Подключение существующего мастер-списка минус-слов ко всем кампаниям
+  Logger.log("\n[1/5] Проверка и привязка мастер-списка минус-слов...");
   var negativeList = getOrCreateNegativeList(CONFIG.NEGATIVE_LIST_NAME);
   var attachedCampaignsCount = attachNegativeListToAllCampaigns(negativeList);
-  actionLogs.push("Мастер-список минус-слов прикреплен к " + attachedCampaignsCount + " кампаниям.");
+  if (attachedCampaignsCount > 0) {
+    actionLogs.push("Мастер-список минус-слов прикреплен к " + attachedCampaignsCount + " кампаниям.");
+  }
 
-  // ------------------------------------------------------------------
-  // 2. АВТО-ЧИСТКА МУСОРНЫХ ЗАПРОСОВ (SEARCH TERM MINING)
-  // ------------------------------------------------------------------
-  Logger.log("\n[2/4] Анализ реальных поисковых запросов за 7 дней...");
+  // 2. Авто-чистка реальных мусорных запросов за 7 дней с защитой WhiteList
+  Logger.log("\n[2/5] Анализ поисковых запросов за 7 дней (строгий WhiteList камней)...");
   var negatedTermsCount = mineJunkSearchTerms(negativeList, actionLogs);
 
-  // ------------------------------------------------------------------
-  // 3. УМНОЕ УПРАВЛЕНИЕ СТАВКАМИ CPC (ТОП ВЫДАЧИ + КОНВЕРСИИ)
-  // ------------------------------------------------------------------
-  Logger.log("\n[3/4] Оптимизация ставок CPC ключевых слов (удержание топа и экономия)...");
+  // 3. Управление ставками CPC ключевых слов
+  Logger.log("\n[3/5] Оптимизация ставок CPC ключевых слов...");
   var bidStats = optimizeKeywordBids(actionLogs);
 
-  // ------------------------------------------------------------------
-  // 4. СБОР СТАТИСТИКИ ЗА ВЧЕРА И КОНТРОЛЬ ДНЕВНОГО РАСХОДА
-  // ------------------------------------------------------------------
-  Logger.log("\n[4/4] Сбор показателей за вчера и аудит лимита бюджета...");
-  var perfSummary = getYesterdayPerformance(currency, warningsList);
+  // 4. Тихий аудит целевых посадочных страниц (404)
+  Logger.log("\n[4/5] Тихий аудит доступности целевых страниц (без авто-паузы)...");
+  var brokenLandingPages = auditLandingPages404();
+  if (brokenLandingPages.length > 0) {
+    for (var b = 0; b < brokenLandingPages.length; b++) {
+      warningsList.push("Целевая страница недоступна: " + brokenLandingPages[b] + " (кампании НЕ остановлены)");
+    }
+  }
 
-  // ------------------------------------------------------------------
-  // 5. ОТПРАВКА ДЕТАЛЬНОГО EMAIL-ОТЧЕТА
-  // ------------------------------------------------------------------
+  // 5. Детальный сбор статистики за вчера (Поиск + Shopping + Запросы)
+  Logger.log("\n[5/5] Формирование детального утреннего отчета за вчера...");
+  var perfSummary = getYesterdayDetailedPerformance(currency, warningsList);
+
+  // 6. Отправка подробного утреннего email-отчета
   if (CONFIG.SEND_DAILY_SUMMARY || warningsList.length > 0) {
     sendAutopilotEmailReport(accountName, customerId, currency, perfSummary, actionLogs, warningsList);
   }
 
   Logger.log("\n==================================================================");
-  Logger.log("   АВТОПИЛОТ v2.0: Оптимизация успешно завершена!               ");
+  Logger.log("   АВТОПИЛОТ v3.0: Выполнение успешно завершено!                 ");
   Logger.log("==================================================================");
 }
 
 /**
- * Поиск или создание мастер-списка минус-слов и первичное наполнение
+ * Получение или создание списка минус-слов без перезаписи существующей базы 800+ слов
  */
 function getOrCreateNegativeList(listName) {
   var listIter = AdsApp.negativeKeywordLists().withCondition("Name = '" + listName + "'").get();
-  var negativeList;
   if (listIter.hasNext()) {
-    negativeList = listIter.next();
-    Logger.log("  ✓ Список найден: " + listName);
-  } else {
-    var builder = AdsApp.newNegativeKeywordListBuilder().withName(listName).build();
-    negativeList = builder.getResult();
-    Logger.log("  ✓ Создан новый мастер-список: " + listName);
+    var existingList = listIter.next();
+    Logger.log("  ✓ Список минус-слов найден в аккаунте: " + listName);
+    return existingList;
   }
-
-  // Быстрое пополнение мастер-словами, если список был новым
-  var existingNegs = {};
-  var negIter = negativeList.getNegativeKeywords();
-  while (negIter.hasNext()) {
-    existingNegs[negIter.next().getText().toLowerCase()] = true;
-  }
-
-  var added = 0;
-  for (var i = 0; i < MASTER_NEGATIVES.length; i++) {
-    var word = MASTER_NEGATIVES[i].toLowerCase();
-    if (!existingNegs[word]) {
-      try {
-        if (CONFIG.APPLY_CHANGES) {
-          negativeList.addNegativeKeyword(word);
-        }
-        existingNegs[word] = true;
-        added++;
-      } catch (e) {}
-    }
-  }
-  if (added > 0) {
-    Logger.log("  ✓ Добавлено новых базовых минус-слов: " + added);
-  }
-  return negativeList;
+  var builder = AdsApp.newNegativeKeywordListBuilder().withName(listName).build();
+  Logger.log("  ✓ Создан список минус-слов: " + listName);
+  return builder.getResult();
 }
 
 /**
- * Привязка мастер-списка ко всем активным кампаниям
+ * Привязка списка ко всем активным поисковым и торговым кампаниям
  */
 function attachNegativeListToAllCampaigns(negativeList) {
   var count = 0;
@@ -251,14 +199,36 @@ function attachNegativeListToAllCampaigns(negativeList) {
       count++;
     } catch (e) {}
   }
+
+  var shopIter = AdsApp.shoppingCampaigns().get();
+  while (shopIter.hasNext()) {
+    var sCamp = shopIter.next();
+    try {
+      if (CONFIG.APPLY_CHANGES) {
+        sCamp.addNegativeKeywordList(negativeList);
+      }
+      count++;
+    } catch (e) {}
+  }
   return count;
 }
 
 /**
- * Сканирование реальных поисковых запросов за 7 дней и авто-минусация
+ * Поиск нецелевых запросов за 7 дней.
+ * СТРОГОЕ ПРАВИЛО: если запрос содержит корень натурального камня или украшения из WhiteList —
+ * авто-минусация КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНА!
  */
 function mineJunkSearchTerms(negativeList, actionLogs) {
   var addedCount = 0;
+  var existingNegs = {};
+
+  try {
+    var negIter = negativeList.getNegativeKeywords();
+    while (negIter.hasNext()) {
+      existingNegs[negIter.next().getText().toLowerCase()] = true;
+    }
+  } catch (err) {}
+
   try {
     var query = "SELECT search_term_view.search_term, metrics.cost_micros, metrics.clicks, metrics.conversions " +
                 "FROM search_term_view WHERE segments.date DURING LAST_7_DAYS";
@@ -267,55 +237,44 @@ function mineJunkSearchTerms(negativeList, actionLogs) {
     while (rows.hasNext()) {
       var row = rows.next();
       var term = (row.searchTermView.searchTerm || "").trim().toLowerCase();
-      var cost = (row.metrics.costMicros || 0) / 1000000;
-      var clicks = row.metrics.clicks || 0;
-      var convs = row.metrics.conversions || 0;
-
       if (!term || term.length < 2) continue;
 
-      var isJunk = false;
-      var reason = "";
+      // 1. ЗАЩИТА: Запрос содержит натуральный камень или украшение из WhiteList -> НЕ ТРОГАЕМ
+      if (isSafeTerm(term)) {
+        continue;
+      }
 
-      // 1. Проверка по паттернам нецелевого трафика
-      for (var i = 0; i < JUNK_PATTERNS.length; i++) {
-        if (JUNK_PATTERNS[i].test(term)) {
-          isJunk = true;
-          reason = "совпадение со стоп-паттерном (" + JUNK_PATTERNS[i] + ")";
-          break;
+      // 2. Запрос НЕ содержит камней и совпадает с чистым мусорным паттерном -> минусуем фразовым соответствием
+      var matchedJunk = matchJunkPattern(term);
+      if (matchedJunk) {
+        var phraseNeg = '"' + term + '"';
+        if (!existingNegs[phraseNeg.toLowerCase()] && !existingNegs[term]) {
+          try {
+            if (CONFIG.APPLY_CHANGES) {
+              negativeList.addNegativeKeyword(phraseNeg);
+            }
+            existingNegs[phraseNeg.toLowerCase()] = true;
+            addedCount++;
+            var logMsg = "[Auto-Negated] Заблокирован чистый мусор (фразовое): " + phraseNeg + " [паттерн " + matchedJunk + "]";
+            actionLogs.push(logMsg);
+            Logger.log("  🚫 " + logMsg);
+          } catch (negErr) {}
         }
-      }
-
-      // 2. Проверка по сливу бюджета без конверсий
-      if (!isJunk && cost >= CONFIG.WASTE_SPEND_THRESHOLD && convs === 0) {
-        isJunk = true;
-        reason = "расход $" + cost.toFixed(2) + " без единой конверсии";
-      }
-
-      if (isJunk) {
-        try {
-          if (CONFIG.APPLY_CHANGES) {
-            negativeList.addNegativeKeyword(term);
-          }
-          addedCount++;
-          var logMsg = "[Auto-Negated] Заблокирован запрос: \"" + term + "\" (" + reason + ")";
-          actionLogs.push(logMsg);
-          Logger.log("  🚫 " + logMsg);
-        } catch (err) {}
       }
     }
   } catch (e) {
-    Logger.log("  ℹ️ Отчет поисковых запросов: " + e.message);
+    Logger.log("  ℹ️ Запрос отчета поисковых фраз: " + e.message);
   }
-  Logger.log("  • Всего авто-заблокировано нецелевых запросов: " + addedCount);
+
+  Logger.log("  • Всего авто-заблокировано мусорных запросов во фразовом соответствии: " + addedCount);
   return addedCount;
 }
 
 /**
- * Умная оптимизация ставок CPC для ключевых слов
+ * Оптимизация ставок CPC ключевых слов
  */
 function optimizeKeywordBids(actionLogs) {
-  var stats = { boosted: 0, saved: 0, paused: 0 };
-
+  var stats = { boosted: 0, saved: 0 };
   try {
     var kwIter = AdsApp.keywords()
       .withCondition("Status = ENABLED")
@@ -328,12 +287,11 @@ function optimizeKeywordBids(actionLogs) {
       var kwStats = kw.getStatsFor("LAST_14_DAYS");
 
       var clicks = kwStats.getClicks();
-      var cost = kwStats.getCost();
       var convs = kwStats.getConversions();
       var ctr = kwStats.getCtr() * 100;
       var currentCpc = kw.bidding().getCpc() || 0.15;
 
-      // 1. Ключи с конверсиями (Корзина или WhatsApp) -> удерживаем в Топ-1/Топ-2
+      // Конвертящие фразы -> повышаем ставку (+10%) для удержания топа
       if (convs > 0) {
         if (currentCpc < CONFIG.MAX_CPC_CAP) {
           var newBoostedCpc = Math.min(CONFIG.MAX_CPC_CAP, Number((currentCpc * (1 + CONFIG.CONVERSION_BID_BOOST)).toFixed(2)));
@@ -342,14 +300,14 @@ function optimizeKeywordBids(actionLogs) {
               kw.bidding().setCpc(newBoostedCpc);
             }
             stats.boosted++;
-            var boostMsg = "[Bid Boost] Ключ \"" + kw.getText() + "\" (" + convs + " конв.): CPC " + currentCpc + " ➔ " + newBoostedCpc + " для удержания топа.";
+            var boostMsg = "[Bid Boost] Ключ \"" + kw.getText() + "\" (" + convs + " конв.): CPC " + currentCpc + " ➔ " + newBoostedCpc;
             actionLogs.push(boostMsg);
             Logger.log("  🚀 " + boostMsg);
           }
         }
       }
-      // 2. Ключи-лидеры с высоким CTR (>5%) -> плавно снижаем CPC для минимизации цены клика
-      else if (clicks >= 10 && ctr >= 5.0 && convs >= 0) {
+      // Фразы с высоким CTR (>8%) и достаточным объемом -> плавно снижаем ставку для экономии
+      else if (clicks >= 12 && ctr >= 8.0) {
         if (currentCpc > CONFIG.MIN_CPC_FLOOR) {
           var newDiscountCpc = Math.max(CONFIG.MIN_CPC_FLOOR, Number((currentCpc * (1 - CONFIG.SAVER_BID_DISCOUNT)).toFixed(2)));
           if (newDiscountCpc < currentCpc) {
@@ -357,33 +315,9 @@ function optimizeKeywordBids(actionLogs) {
               kw.bidding().setCpc(newDiscountCpc);
             }
             stats.saved++;
-            var saveMsg = "[Bid Saver] Ключ \"" + kw.getText() + "\" (CTR " + ctr.toFixed(1) + "%): CPC " + currentCpc + " ➔ " + newDiscountCpc + " (минимизация цены клика).";
+            var saveMsg = "[Bid Saver] Ключ \"" + kw.getText() + "\" (CTR " + ctr.toFixed(1) + "%): CPC " + currentCpc + " ➔ " + newDiscountCpc;
             actionLogs.push(saveMsg);
             Logger.log("  💰 " + saveMsg);
-          }
-        }
-      }
-      // 3. Ключи-сливатели бюджета (Cost > WASTE_SPEND_THRESHOLD при 0 конверсий)
-      else if (cost >= CONFIG.WASTE_SPEND_THRESHOLD && convs === 0 && clicks >= CONFIG.WASTE_CLICKS_THRESHOLD) {
-        if (cost >= CONFIG.WASTE_SPEND_THRESHOLD * 2) {
-          // Пауза ключа при сильном сливе
-          if (CONFIG.APPLY_CHANGES) {
-            kw.pause();
-          }
-          stats.paused++;
-          var pauseMsg = "[Bleed Guard: PAUSE] Ключ \"" + kw.getText() + "\" потратил $" + cost.toFixed(2) + " без конверсий ➔ поставлен на паузу.";
-          actionLogs.push(pauseMsg);
-          Logger.log("  ⏸️ " + pauseMsg);
-        } else {
-          // Снижение ставки на 20%
-          var penalCpc = Math.max(CONFIG.MIN_CPC_FLOOR, Number((currentCpc * 0.8).toFixed(2)));
-          if (penalCpc < currentCpc) {
-            if (CONFIG.APPLY_CHANGES) {
-              kw.bidding().setCpc(penalCpc);
-            }
-            var penalMsg = "[Bleed Guard: -20%] Ключ \"" + kw.getText() + "\" потратил $" + cost.toFixed(2) + " без конверсий ➔ CPC снижен до " + penalCpc;
-            actionLogs.push(penalMsg);
-            Logger.log("  📉 " + penalMsg);
           }
         }
       }
@@ -391,133 +325,316 @@ function optimizeKeywordBids(actionLogs) {
   } catch (e) {
     Logger.log("  ℹ️ Оптимизация ставок: " + e.message);
   }
-
-  Logger.log("  • Итоги управления ставками: " + stats.boosted + " повышено, " + stats.saved + " снижено для экономии, " + stats.paused + " на паузе.");
   return stats;
 }
 
 /**
- * Сводка за вчерашний день
+ * Тихий аудит доступности целевых URL (404/500) без авто-паузы кампаний
  */
-function getYesterdayPerformance(currency, warningsList) {
-  var totalCost = 0;
-  var totalClicks = 0;
-  var totalImps = 0;
-  var totalConvs = 0;
-  var campaignsData = [];
+function auditLandingPages404() {
+  var broken = [];
+  var checked = {};
+  try {
+    var adIter = AdsApp.ads()
+      .withCondition("Status = ENABLED")
+      .withCondition("CampaignStatus = ENABLED")
+      .get();
 
-  // Shopping Campaigns
+    while (adIter.hasNext()) {
+      var ad = adIter.next();
+      var finalUrl = ad.urls().getFinalUrl();
+      if (finalUrl && !checked[finalUrl]) {
+        checked[finalUrl] = true;
+        try {
+          var resp = UrlFetchApp.fetch(finalUrl, { muteHttpExceptions: true, followRedirects: true });
+          var code = resp.getResponseCode();
+          if (code === 404 || code >= 500) {
+            broken.push(finalUrl + " (HTTP " + code + ")");
+          }
+        } catch (fetchErr) {}
+      }
+    }
+  } catch (e) {
+    Logger.log("  ℹ️ Аудит целевых страниц: " + e.message);
+  }
+  return broken;
+}
+
+/**
+ * Сбор детальной статистики за вчерашний день раздельно по Поиску и Shopping
+ */
+function getYesterdayDetailedPerformance(currency, warningsList) {
+  var searchTotals = { imps: 0, clicks: 0, cost: 0, convs: 0, campaigns: [] };
+  var shoppingTotals = { imps: 0, clicks: 0, cost: 0, convs: 0, campaigns: [] };
+
+  // 1. Поисковые кампании (AdsApp.campaigns())
+  var searchIter = AdsApp.campaigns().get();
+  while (searchIter.hasNext()) {
+    var camp = searchIter.next();
+    var stats = camp.getStatsFor("YESTERDAY");
+    var cost = stats.getCost();
+    var clicks = stats.getClicks();
+    var imps = stats.getImpressions();
+    var convs = stats.getConversions();
+    var ctr = imps > 0 ? (clicks / imps) * 100 : 0;
+    var avgCpc = clicks > 0 ? (cost / clicks) : 0;
+
+    searchTotals.imps += imps;
+    searchTotals.clicks += clicks;
+    searchTotals.cost += cost;
+    searchTotals.convs += convs;
+
+    searchTotals.campaigns.push({
+      name: camp.getName(),
+      status: camp.isEnabled() ? "АКТИВНА" : "ПАУЗА",
+      imps: imps,
+      clicks: clicks,
+      ctr: ctr,
+      avgCpc: avgCpc,
+      cost: cost,
+      convs: convs
+    });
+
+    if (cost > CONFIG.DAILY_BUDGET_CAP) {
+      warningsList.push("Поисковая кампания «" + camp.getName() + "» потратила " + cost.toFixed(2) + " " + currency + " (выше лимита " + CONFIG.DAILY_BUDGET_CAP + ")");
+    }
+  }
+
+  // 2. Shopping кампании (AdsApp.shoppingCampaigns())
   var shopIter = AdsApp.shoppingCampaigns().get();
   while (shopIter.hasNext()) {
     var sCamp = shopIter.next();
     var sStats = sCamp.getStatsFor("YESTERDAY");
-    var cost = sStats.getCost();
-    totalCost += cost;
-    totalClicks += sStats.getClicks();
-    totalImps += sStats.getImpressions();
-    totalConvs += sStats.getConversions();
-    campaignsData.push({
+    var sCost = sStats.getCost();
+    var sClicks = sStats.getClicks();
+    var sImps = sStats.getImpressions();
+    var sConvs = sStats.getConversions();
+    var sCtr = sImps > 0 ? (sClicks / sImps) * 100 : 0;
+    var sAvgCpc = sClicks > 0 ? (sCost / sClicks) : 0;
+
+    shoppingTotals.imps += sImps;
+    shoppingTotals.clicks += sClicks;
+    shoppingTotals.cost += sCost;
+    shoppingTotals.convs += sConvs;
+
+    shoppingTotals.campaigns.push({
       name: sCamp.getName(),
-      type: "Shopping",
       status: sCamp.isEnabled() ? "АКТИВНА" : "ПАУЗА",
-      clicks: sStats.getClicks(),
-      cost: cost,
-      conv: sStats.getConversions()
+      imps: sImps,
+      clicks: sClicks,
+      ctr: sCtr,
+      avgCpc: sAvgCpc,
+      cost: sCost,
+      convs: sConvs
     });
 
-    if (cost > CONFIG.DAILY_BUDGET_CAP) {
-      warningsList.push("Торговая кампания " + sCamp.getName() + " потратила " + cost.toFixed(2) + " " + currency + " (выше лимита " + CONFIG.DAILY_BUDGET_CAP + ")");
+    if (sCost > CONFIG.DAILY_BUDGET_CAP) {
+      warningsList.push("Торговая кампания «" + sCamp.getName() + "» потратила " + sCost.toFixed(2) + " " + currency + " (выше лимита " + CONFIG.DAILY_BUDGET_CAP + ")");
     }
   }
 
-  // Search Campaigns
-  var searchIter = AdsApp.campaigns().withCondition("AdvertisingChannelType = SEARCH").get();
-  while (searchIter.hasNext()) {
-    var camp = searchIter.next();
-    var stats = camp.getStatsFor("YESTERDAY");
-    var cCost = stats.getCost();
-    totalCost += cCost;
-    totalClicks += stats.getClicks();
-    totalImps += stats.getImpressions();
-    totalConvs += stats.getConversions();
-    campaignsData.push({
-      name: camp.getName(),
-      type: "Search",
-      status: camp.isEnabled() ? "АКТИВНА" : "ПАУЗА",
-      clicks: stats.getClicks(),
-      cost: cCost,
-      conv: stats.getConversions()
-    });
+  // 3. Анализ всех реальных поисковых запросов за вчера
+  var clickedQueries = [];
+  var spendWithoutConvQueries = [];
+  var exactCandidates = [];
 
-    if (cCost > CONFIG.DAILY_BUDGET_CAP) {
-      warningsList.push("Поисковая кампания " + camp.getName() + " потратила " + cCost.toFixed(2) + " " + currency + " (выше лимита " + CONFIG.DAILY_BUDGET_CAP + ")");
+  try {
+    var qQuery = "SELECT search_term_view.search_term, campaign.name, metrics.clicks, metrics.impressions, " +
+                 "metrics.cost_micros, metrics.conversions, metrics.ctr " +
+                 "FROM search_term_view WHERE segments.date DURING YESTERDAY";
+    var rows = AdsApp.search(qQuery);
+
+    while (rows.hasNext()) {
+      var r = rows.next();
+      var term = (r.searchTermView.search_term || r.searchTermView.searchTerm || "").trim();
+      if (!term) continue;
+
+      var clicks = r.metrics.clicks || 0;
+      var imps = r.metrics.impressions || 0;
+      var cost = (r.metrics.cost_micros || r.metrics.costMicros || 0) / 1000000;
+      var convs = r.metrics.conversions || 0;
+      var ctr = r.metrics.ctr ? (r.metrics.ctr * 100) : (imps > 0 ? (clicks / imps) * 100 : 0);
+      var cpc = clicks > 0 ? (cost / clicks) : 0;
+      var campName = (r.campaign && r.campaign.name) ? r.campaign.name : "Поиск/Shopping";
+      var safe = isSafeTerm(term);
+
+      // Все запросы с кликами
+      if (clicks > 0) {
+        clickedQueries.push({
+          term: term,
+          campaign: campName,
+          clicks: clicks,
+          cpc: cpc,
+          cost: cost,
+          convs: convs,
+          isSafe: safe
+        });
+      }
+
+      // Запросы с расходом без конверсий (ТОЛЬКО НА РУЧНУЮ ПРОВЕРКУ, БЕЗ БЛОКИРОВКИ)
+      if (cost > 0 && convs === 0) {
+        spendWithoutConvQueries.push({
+          term: term,
+          campaign: campName,
+          clicks: clicks,
+          cost: cost,
+          isSafe: safe
+        });
+      }
+
+      // Кандидаты в точное соответствие (Конверсии > 0 или CTR >= 10%)
+      if (clicks >= 1 && (convs > 0 || ctr >= 10.0)) {
+        exactCandidates.push({
+          term: term,
+          campaign: campName,
+          clicks: clicks,
+          ctr: ctr,
+          cost: cost,
+          convs: convs
+        });
+      }
     }
+  } catch (err) {
+    Logger.log("  ℹ️ Анализ поисковых запросов за вчера: " + err.message);
   }
 
   return {
-    cost: totalCost,
-    clicks: totalClicks,
-    imps: totalImps,
-    convs: totalConvs,
-    campaigns: campaignsData
+    search: searchTotals,
+    shopping: shoppingTotals,
+    totalCost: searchTotals.cost + shoppingTotals.cost,
+    totalClicks: searchTotals.clicks + shoppingTotals.clicks,
+    totalImps: searchTotals.imps + shoppingTotals.imps,
+    totalConvs: searchTotals.convs + shoppingTotals.convs,
+    clickedQueries: clickedQueries,
+    spendWithoutConvQueries: spendWithoutConvQueries,
+    exactCandidates: exactCandidates
   };
 }
 
 /**
- * Отправка структурированного отчета на Email
+ * Отправка подробного структурированного отчета на Email
  */
 function sendAutopilotEmailReport(accountName, customerId, currency, perf, actionLogs, warningsList) {
   var isAlert = warningsList.length > 0;
-  var subject = (isAlert ? "⚠️ Внимание: " : "💎 Livi Jewelry: ") + 
-                "Отчет Google Рекламы за " + Utilities.formatDate(new Date(), "Asia/Almaty", "dd.MM.yyyy") +
-                " (" + perf.clicks + " переходов, " + perf.cost.toFixed(2) + " " + currency + ")";
+  var dateStr = Utilities.formatDate(new Date(), "Asia/Almaty", "dd.MM.yyyy");
+  var subject = (isAlert ? "⚠️ Внимание: " : "💎 Livi Jewelry: ") +
+                "Утренний отчет Google Ads за вчера (" + dateStr + ") — " +
+                perf.totalClicks + " кликов, " + perf.totalCost.toFixed(2) + " " + currency;
 
   var lines = [];
-  lines.push("══════════════════════════════════════════════════════════");
-  lines.push("   LIVI JEWELRY — ЕЖЕДНЕВНЫЙ ОТЧЕТ АВТОПИЛОТА v2.0       ");
-  lines.push("══════════════════════════════════════════════════════════");
+  lines.push("══════════════════════════════════════════════════════════════════");
+  lines.push("   LIVI JEWELRY — УТРЕННИЙ БОЕВОЙ ОТЧЕТ GOOGLE ADS AUTOPILOT     ");
+  lines.push("══════════════════════════════════════════════════════════════════");
   lines.push("Аккаунт: " + accountName + " (ID: " + customerId + ")");
-  lines.push("Дата запуска: " + Utilities.formatDate(new Date(), "Asia/Almaty", "dd.MM.yyyy HH:mm") + " (Астана)");
-  lines.push("Режим работы: " + (CONFIG.APPLY_CHANGES ? "БОЕВОЙ (изменения применены)" : "СИМУЛЯЦИЯ (dry-run)") + "\n");
+  lines.push("Дата формирования: " + Utilities.formatDate(new Date(), "Asia/Almaty", "dd.MM.yyyy HH:mm") + " (Астана)");
+  lines.push("Режим работы: " + (CONFIG.APPLY_CHANGES ? "БОЕВОЙ" : "СИМУЛЯЦИЯ (dry-run)") + "\n");
 
   if (warningsList.length > 0) {
-    lines.push("⚠️ ВНИМАНИЕ (ТРЕБУЕТСЯ ПРОВЕРКА):");
+    lines.push("⚠️ ВНИМАНИЕ / АЛЕРТЫ:");
     for (var w = 0; w < warningsList.length; w++) {
       lines.push("  • " + warningsList[w]);
     }
-    lines.push("──────────────────────────────────────────────────────────\n");
+    lines.push("──────────────────────────────────────────────────────────────────\n");
   }
 
-  lines.push("📊 ПОКАЗАТЕЛИ ЗА ВЧЕРА:");
-  lines.push("  • Всего показов: " + perf.imps);
-  lines.push("  • Переходов на сайт: " + perf.clicks);
-  lines.push("  • Расход бюджета: " + perf.cost.toFixed(2) + " " + currency);
-  lines.push("  • Конверсий (WhatsApp 20% + Корзина 100%): " + perf.convs);
-  if (perf.clicks > 0) {
-    lines.push("  • Средняя цена клика (CPC): " + (perf.cost / perf.clicks).toFixed(2) + " " + currency);
+  // 1. Общие показатели за вчера
+  lines.push("📊 ОБЩИЕ ПОКАЗАТЕЛИ ЗА ВЧЕРА:");
+  lines.push("  • Всего показов: " + perf.totalImps);
+  lines.push("  • Всего кликов: " + perf.totalClicks);
+  lines.push("  • Общий расход: " + perf.totalCost.toFixed(2) + " " + currency);
+  lines.push("  • Конверсий: " + perf.totalConvs);
+  var overallCtr = perf.totalImps > 0 ? (perf.totalClicks / perf.totalImps) * 100 : 0;
+  var overallCpc = perf.totalClicks > 0 ? (perf.totalCost / perf.totalClicks) : 0;
+  lines.push("  • Общий CTR: " + overallCtr.toFixed(2) + "%");
+  lines.push("  • Средний CPC: " + overallCpc.toFixed(2) + " " + currency + "\n");
+
+  // 2. Поисковые кампании (Search)
+  lines.push("🔍 1. ПОИСКОВЫЕ КАМПАНИИ (SEARCH):");
+  var sCtr = perf.search.imps > 0 ? (perf.search.clicks / perf.search.imps) * 100 : 0;
+  var sCpc = perf.search.clicks > 0 ? (perf.search.cost / perf.search.clicks) : 0;
+  lines.push("  Сводка: " + perf.search.imps + " показов | " + perf.search.clicks + " кликов | CTR " +
+             sCtr.toFixed(2) + "% | CPC " + sCpc.toFixed(2) + " " + currency + " | Расход: " +
+             perf.search.cost.toFixed(2) + " " + currency + " | Конверсий: " + perf.search.convs);
+  for (var sc = 0; sc < perf.search.campaigns.length; sc++) {
+    var c = perf.search.campaigns[sc];
+    lines.push("    • " + c.name + " [" + c.status + "]: " + c.clicks + " кл., CTR " +
+               c.ctr.toFixed(1) + "%, CPC " + c.avgCpc.toFixed(2) + " " + currency +
+               ", расход " + c.cost.toFixed(2) + " " + currency + ", конв.: " + c.convs);
   }
   lines.push("");
 
-  if (perf.campaigns.length > 0) {
-    lines.push("📋 КАМПАНИИ:");
-    for (var c = 0; c < perf.campaigns.length; c++) {
-      var cp = perf.campaigns[c];
-      lines.push("  • [" + cp.type + "] " + cp.name + " (" + cp.status + "): " + 
-                 cp.clicks + " кликов, " + cp.cost.toFixed(2) + " " + currency + ", " + cp.conv + " конв.");
-    }
-    lines.push("");
+  // 3. Торговые кампании (Shopping)
+  lines.push("🛍️ 2. ТОРГОВЫЕ КАМПАНИИ (SHOPPING):");
+  var shCtr = perf.shopping.imps > 0 ? (perf.shopping.clicks / perf.shopping.imps) * 100 : 0;
+  var shCpc = perf.shopping.clicks > 0 ? (perf.shopping.cost / perf.shopping.clicks) : 0;
+  lines.push("  Сводка: " + perf.shopping.imps + " показов | " + perf.shopping.clicks + " кликов | CTR " +
+             shCtr.toFixed(2) + "% | CPC " + shCpc.toFixed(2) + " " + currency + " | Расход: " +
+             perf.shopping.cost.toFixed(2) + " " + currency + " | Конверсий: " + perf.shopping.convs);
+  for (var shc = 0; shc < perf.shopping.campaigns.length; shc++) {
+    var scamp = perf.shopping.campaigns[shc];
+    lines.push("    • " + scamp.name + " [" + scamp.status + "]: " + scamp.clicks + " кл., CTR " +
+               scamp.ctr.toFixed(1) + "%, CPC " + scamp.avgCpc.toFixed(2) + " " + currency +
+               ", расход " + scamp.cost.toFixed(2) + " " + currency + ", конв.: " + scamp.convs);
   }
+  lines.push("");
 
-  lines.push("🤖 АВТОМАТИЧЕСКИЕ ДЕЙСТВИЯ АВТОПИЛОТА:");
+  // 4. Все поисковые запросы с кликами за вчера
+  lines.push("🔍 ВСЕ ПОИСКОВЫЕ ЗАПРОСЫ С КЛИКАМИ ЗА ВЧЕРА (" + perf.clickedQueries.length + "):");
+  if (perf.clickedQueries.length > 0) {
+    for (var q = 0; q < perf.clickedQueries.length; q++) {
+      var item = perf.clickedQueries[q];
+      var safeTag = item.isSafe ? " [💎 Камень/Изделие]" : "";
+      lines.push("  " + (q + 1) + ". «" + item.term + "»" + safeTag +
+                 " — " + item.clicks + " кл. | CPC " + item.cpc.toFixed(2) + " " + currency +
+                 " | Расход: " + item.cost.toFixed(2) + " " + currency +
+                 " | Конв: " + item.convs + " (" + item.campaign + ")");
+    }
+  } else {
+    lines.push("  • Вчера кликов по поисковым фразам не зарегистрировано.");
+  }
+  lines.push("");
+
+  // 5. Запросы с расходом без конверсий (на ручную проверку владельцем)
+  lines.push("⚠️ ЗАПРОСЫ С РАСХОДОМ БЕЗ КОНВЕРСИЙ (НА РУЧНУЮ ПРОВЕРКУ):");
+  lines.push("   (Скрипт НЕ блокирует их автоматически, решение принимает владелец)");
+  if (perf.spendWithoutConvQueries.length > 0) {
+    for (var sw = 0; sw < perf.spendWithoutConvQueries.length; sw++) {
+      var swItem = perf.spendWithoutConvQueries[sw];
+      var protectTag = swItem.isSafe ? " [🛡️ В WhiteList натуральных камней — блокировка запрещена]" : "";
+      lines.push("  • «" + swItem.term + "»" + protectTag +
+                 ": расход " + swItem.cost.toFixed(2) + " " + currency +
+                 ", кликов: " + swItem.clicks + " (" + swItem.campaign + ")");
+    }
+  } else {
+    lines.push("  ✓ Все запросы с расходом либо сконвертировались, либо расход равен нулю.");
+  }
+  lines.push("");
+
+  // 6. Кандидаты в точное соответствие
+  lines.push("🏆 КАНДИДАТЫ В ТОЧНОЕ СООТВЕТСТВИЕ (Conversions > 0 или CTR >= 10%):");
+  if (perf.exactCandidates.length > 0) {
+    for (var ex = 0; ex < perf.exactCandidates.length; ex++) {
+      var exItem = perf.exactCandidates[ex];
+      lines.push("  • «" + exItem.term + "» — CTR " + exItem.ctr.toFixed(1) + "% | " +
+                 exItem.clicks + " кл. | Конверсий: " + exItem.convs + " (" + exItem.campaign + ")");
+    }
+  } else {
+    lines.push("  • Новых кандидатов с высоким CTR или конверсиями за вчера не обнаружено.");
+  }
+  lines.push("");
+
+  // 7. Действия автопилота
+  lines.push("🤖 АВТОМАТИЧЕСКИЕ ДЕЙСТВИЯ АВТОПИЛОТА ЗА СЕГОДНЯ:");
   if (actionLogs.length > 0) {
     for (var a = 0; a < actionLogs.length; a++) {
       lines.push("  " + (a + 1) + ". " + actionLogs[a]);
     }
   } else {
-    lines.push("  ✓ Все ставки в оптимальном диапазоне, новых мусорных запросов за сутки не обнаружено.");
+    lines.push("  ✓ Мусорных запросов вне WhiteList не обнаружено, ставки ключевых слов стабильны.");
   }
-  lines.push("\n══════════════════════════════════════════════════════════");
-  lines.push("Мастерская Livi Jewelry • livijewelry.kz");
+
+  lines.push("\n══════════════════════════════════════════════════════════════════");
+  lines.push("Мастерская авторских украшений Livi Jewelry • livijewelry.kz");
 
   var emailBody = lines.join("\n");
   try {
