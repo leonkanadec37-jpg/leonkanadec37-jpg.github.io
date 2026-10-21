@@ -863,19 +863,12 @@ for group in ad_groups_data:
             raise ValueError(f"Description too long ({len(d)} > 90) in {group['name']}: '{d}'")
 
 # Write 1_google_ads_keywords.csv
-all_kws_count = 0
-with open("1_google_ads_keywords.csv", "w", encoding="utf-8", newline="") as f:
-    writer = csv.writer(f)
-    writer.writerow(["Campaign", "Ad Group", "Keyword", "Criterion Type", "Final URL"])
-    for group in ad_groups_data:
-        for item in group["keywords"]:
-            kw = item[0]
-            c_type = item[1]
-            final_url = item[2] if len(item) > 2 else group["url"]
-            writer.writerow([CAMPAIGN_NAME, group["name"], kw, c_type, final_url])
-            all_kws_count += 1
-
-print(f"[OK] 1_google_ads_keywords.csv: {all_kws_count} keywords across {len(ad_groups_data)} ad groups")
+try:
+    import generate_ads_keywords_csv
+    generate_ads_keywords_csv.main()
+    print("[OK] 1_google_ads_keywords.csv: synced via generate_ads_keywords_csv.py")
+except Exception as e:
+    print(f"[WARN] Failed to run generate_ads_keywords_csv: {e}")
 
 # Write google_ads_campaign_import.csv
 headers = [
