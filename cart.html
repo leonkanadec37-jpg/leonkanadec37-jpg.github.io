@@ -758,7 +758,11 @@
       // Meta Pixel InitiateCheckout
       if(window.fbq && cart.length > 0 && !window._fbqInitiateSent){
         window._fbqInitiateSent = true;
+        const prodIds = cart.map(i => i.id).filter(Boolean);
         fbq('track', 'InitiateCheckout', {
+          content_ids: prodIds,
+          contents: cart.map(i => ({ id: i.id, quantity: Number(i.qty || 1), item_price: Number(i.price || 0) })),
+          content_type: 'product',
           value: total,
           currency: 'KZT',
           num_items: cart.reduce((s,i)=>s+Number(i.qty||0),0)
@@ -874,7 +878,10 @@
         // 2. Отправка конверсии в Meta Pixel, Google Ads (Enhanced) и GA4
         try {
           if(window.fbq){
+            const prodIds = cart.map(i => i.id).filter(Boolean);
             fbq('track', 'Purchase', {
+              content_ids: prodIds,
+              contents: cart.map(i => ({ id: i.id, quantity: Number(i.qty || 1), item_price: Number(i.price || 0) })),
               value: total,
               currency: 'KZT',
               content_type: 'product',

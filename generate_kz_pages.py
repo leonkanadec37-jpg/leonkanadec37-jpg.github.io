@@ -27,6 +27,7 @@ AW_ID = "AW-16793974126"
 AW_CONV_LABEL = "AW-16793974126/MuJ_CObHup8bEO7q_sc-"
 FB_PIXEL_1 = "199604456030882"
 GOOGLE_VERIFICATION = "qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0"
+FB_DOMAIN_VERIFICATION = "lrr1e3sbmseisnpm2nclqko8w1rfcw"
 
 FEATURED_IDS = [
     "prod_01", "prod_02", "prod_06", "prod_07",
@@ -596,6 +597,7 @@ def generate_kz_index(products_kz: list) -> str:
   <link rel="alternate" hreflang="kk" href="{SITE_URL}/kz/">
   <link rel="alternate" hreflang="x-default" href="{SITE_URL}/">
   <meta name="google-site-verification" content="{GOOGLE_VERIFICATION}" />
+  <meta name="facebook-domain-verification" content="{FB_DOMAIN_VERIFICATION}" />
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="kk_KZ">
@@ -887,6 +889,7 @@ def generate_kz_shop(products_kz: list) -> str:
   <link rel="alternate" hreflang="kk" href="{SITE_URL}/kz/shop.html" />
   <link rel="alternate" hreflang="x-default" href="{SITE_URL}/shop.html" />
   <meta name="google-site-verification" content="{GOOGLE_VERIFICATION}" />
+  <meta name="facebook-domain-verification" content="{FB_DOMAIN_VERIFICATION}" />
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="kk_KZ">
