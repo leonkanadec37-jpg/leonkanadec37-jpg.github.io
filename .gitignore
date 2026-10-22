@@ -4,3 +4,7 @@ __pycache__/
 .DS_Store
 Thumbs.db
 .github/
+*.csv
+big_report_terms.json
+detailed_5955_audit.txt
+unknowns_breakdown.txt
