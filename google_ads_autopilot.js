@@ -1,27 +1,25 @@
 /**
  * ==============================================================================
- * LIVI JEWELRY — GOOGLE ADS AUTOPILOT v3.0 (ЗАЩИТА КАМНЕЙ + УТРЕННИЙ ДАЙДЖЕСТ)
+ * LIVI JEWELRY — GOOGLE ADS AUTOPILOT v3.2 PRO (МАКСИМАЛЬНАЯ ЗАЩИТА БЮДЖЕТА)
  * ==============================================================================
  * 
  * ЧТО ДЕЛАЕТ ЭТОТ СКРИПТ АВТОМАТИЧЕСКИ КАЖДОЕ УТРО:
- * 1. [WhiteList Stone Guard] Внедрен строгий защитный список корней натуральных
- *    минералов и украшений (SAFE_ROOTS). Любой запрос, содержащий камень или тип
- *    изделия из WhiteList, КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО блокировать (даже при расходе
- *    без конверсий). Такие фразы выводятся исключительно в email на ручной контроль.
- * 2. [Auto-Negation Pure Junk] Находит мусорные запросы за 7 дней ТОЛЬКО по
- *    строгим стоп-паттернам (JUNK_PATTERNS: DIY, чужие материалы, ломбарды, скупка,
- *    дешевый опт, ремонт) и добавляет их во фразовом соответствии '"' + term + '"'.
- * 3. [No Spend-Based Auto-Block] Полностью отключена авто-блокировка по сумме расхода ($1.50)
- *    или кликам — скрипт больше не блокирует целевые фразы за расход.
- * 4. [Detailed Morning Digest] Формирует утренний отчет на viksonna94@gmail.com:
- *    - Раздельная статистика за вчера по Поиску (Search) и Shopping (Покупки).
- *    - Блок «🔍 Все поисковые запросы с кликами за вчера».
- *    - Блок «⚠️ Запросы с расходом без конверсий (на ручную проверку)».
- *    - Блок «🏆 Кандидаты в точное соответствие (Conversions > 0 или CTR >= 10%)».
- *    - Тихий аудит 404 ошибок целевых страниц (предупреждение без остановки кампаний).
- * 5. [Smart CPC Management] Корректирует ставки CPC ключевых слов для удержания топа.
+ * 1. [Pre-Emptive Brand Shield] Превентивно добавляет чистые корни брендов-конкурентов
+ *    (merhat, tallys, aroush, messika, апм, монако, сваровский, пандора и др.)
+ *    в мастер-список минус-слов, чтобы блокировать запросы ДО первого клика.
+ * 2. [Full Stone WhiteList] Защищает ВСЕ природные минералы и жемчуг (SAFE_ROOTS),
+ *    включая топаз, аквамарин, берилл, янтарь, опал и новинки из мастерской жены.
+ * 3. [Smart Metal Filter] Разрешает запросы с позолотой и серебряными замками/фурнитурой
+ *    для наших камней, но беспощадно блокирует искателей заводского золота 585 пробы,
+ *    колец и ломбардов.
+ * 4. [TikTok & Encyclopedia Shield] Отсекает информационный мусор по камням (фото,
+ *    картинки, как отличить, кому подходит, значение, свойства, «жемчуг мело» из TikTok).
+ * 5. [Safe CPC Bidding] Корректирует ставки CPC для ручных групп и безопасно работает
+ *    в связке со стратегией «Максимальное количество кликов».
+ * 6. [Morning Executive Digest] Каждое утро в 07:00–08:00 шлет полный подробный отчет
+ *    по Поиску и Shopping на viksonna94@gmail.com.
  *
- * РАСПИСАНИЕ: Запускается автоматически каждый день в 07:00 или 08:00 утра.
+ * РАСПИСАНИЕ В GOOGLE ADS: Ежедневно в 07:00 или 08:00 утра (Asia/Almaty).
  * ==============================================================================
  */
 
@@ -29,7 +27,7 @@ var CONFIG = {
   // Email владельца для утреннего дайджеста и предупреждений:
   ALERT_EMAIL: "viksonna94@gmail.com",
 
-  // Лимит дневного расхода аккаунта для предупреждения (валюта аккаунта USD, бюджет $4.14):
+  // Лимит дневного расхода аккаунта для предупреждения (валюта USD, бюджет $4.14):
   DAILY_BUDGET_CAP: 6.0,
 
   // Максимальный потолок ставки CPC (защита от переплат, лимит кампании $0.20):
@@ -44,7 +42,7 @@ var CONFIG = {
   // Шаг экономии для фраз с высоким CTR в топе:
   SAVER_BID_DISCOUNT: 0.05,   // -5%
 
-  // Название мастер-списка минус-слов в аккаунде:
+  // Название мастер-списка минус-слов в аккаунте:
   NEGATIVE_LIST_NAME: "Livi Jewelry - Мастер Минус-слова",
 
   // Применять ли изменения на боевом аккаунте (true = боевой режим, false = dry-run):
@@ -53,6 +51,26 @@ var CONFIG = {
   // Всегда отправлять утреннюю сводку:
   SEND_DAILY_SUMMARY: true
 };
+
+// ------------------------------------------------------------------------------
+// 0. БАЗОВЫЕ КОРНИ ДЛЯ ПРЕВЕНТИВНОЙ БЛОКИРОВКИ ДО ПЕРВОГО КЛИКА (ФРАЗОВОЕ СООТВЕТСТВИЕ)
+// ------------------------------------------------------------------------------
+var SEED_ROOT_NEGATIVES = [
+  // Бренды-конкуренты (блокируют "брэнд алматы", "брэнд кольцо", "брэнд серьги" превентивно):
+  "swarovski", "сваровски", "сваровский", "тиффани", "tiffany", "картье", "cartier",
+  "messika", "мессика", "apm", "monaco", "апм", "монако", "aroush", "larosh",
+  "laroush", "ляруш", "merhat", "мерхат", "tallys", "таллис", "sansi", "санси",
+  "люченте", "luchente", "lucente", "казахювелир", "kazakhyuvelir", "пандора",
+  "pandora", "соколов", "sokolov", "санлайт", "sunlight", "ван клиф", "van cleef",
+  "балауса", "balausa", "sakina", "сакина", "mone", "chopard", "шопард", "булгари",
+  "bvlgari", "tous", "тоус", "адамас", "adamas", "мюз", "miuz",
+
+  // Нецелевые материалы, подделки и TikTok-хайпы:
+  "муассанит", "xuping", "ксьюпинг", "медицинское золото", "жемчуг мело", "melo melo",
+  "с буквой", "бусы из шерсти", "ломбард", "скупка", "своими руками", "бисероплетение",
+  "алиэкспресс", "aliexpress", "temu", "тему", "shein", "шейн", "таобао", "taobao",
+  "секонд хенд", "барахолка", "конфискат", "оптом", "авито", "olx"
+];
 
 // ------------------------------------------------------------------------------
 // 1. БРЕНДЫ-КОНКУРЕНТЫ (БЕЗУСЛОВНЫЙ БАН В ПЕРВУЮ ОЧЕРЕДЬ)
@@ -64,53 +82,73 @@ var COMPETITOR_BRANDS = [
   /tallys/i, /таллис/i, /sansi/i, /санси/i, /люченте/i, /luchente/i, /lucente/i,
   /казахювелир/i, /kazakhyuvelir/i, /пандор/i, /pandora/i, /соколов/i, /sokolov/i,
   /санлайт/i, /sunlight/i, /ван клиф/i, /van cleef/i, /балауса/i, /balausa/i,
-  /sakina/i, /сакина/i, /mone\b/i
+  /sakina/i, /сакина/i, /mone\b/i, /chopard/i, /шопард/i, /bvlgari/i, /булгари/i,
+  /tous\b/i, /тоус/i, /адамас/i, /adamas/i, /miuz/i, /мюз/i
 ];
 
 // ------------------------------------------------------------------------------
-// 2. ЗАЩИТНЫЙ WHITELIST НАТУРАЛЬНЫХ КАМНЕЙ И ЖЕМЧУГА (КАТЕГОРИЧЕСКИ НЕ БЛОКИРОВАТЬ)
-// Очищен от общих слов (серьги, кольцо, браслет) и драгметаллов (изумруд, рубин, сапфир)
+// 2. ЗАЩИТНЫЙ WHITELIST ВСЕХ НАТУРАЛЬНЫХ КАМНЕЙ И ИЗДЕЛИЙ МАСТЕРСКОЙ
+// Включает как текущий каталог, так и минералы в работе у мастера (КАТЕГОРИЧЕСКИ НЕ БЛОКИРОВАТЬ)
 // ------------------------------------------------------------------------------
 var SAFE_ROOTS = [
-  /жемчуг/i, /барочн/i, /нефрит/i, /жадеит/i, /джедаит/i, /аметист/i, /малахит/i, /агат/i,
-  /гранат/i, /кварц/i, /бирюз/i, /гематит/i, /хрустал/i, /лунн.*камен/i, /лунн/i,
-  /тигров.*глаз/i, /тигров/i, /лазурит/i, /коралл/i, /яшм/i, /сердолик/i, /амазонит/i,
-  /турмалин/i, /цитрин/i, /авантюрин/i, /флюорит/i, /перламутр/i, /оникс/i, /шпинел/i,
-  /топаз/i, /аквамарин/i, /берилл/i, /лабрадор/i, /чароит/i, /хризопраз/i, /змеевик/i,
-  /опал/i, /янтарь/i, /сотуар/i, /чокер/i, /натуральн.*камн/i, /livi/i
+  // Жемчуг:
+  /жемчуг/i, /барочн/i, /майорк/i,
+
+  // Нефрит и жадеит:
+  /нефрит/i, /жадеит/i, /джедаит/i,
+
+  // Классические минералы каталога:
+  /аметист/i, /малахит/i, /агат/i, /гранат/i, /кварц/i, /бирюз/i, /гематит/i, /хрустал/i,
+  /лунн.*камен/i, /лунн/i, /тигров.*глаз/i, /тигров/i, /лазурит/i, /коралл/i, /яшм/i,
+  /сердолик/i, /амазонит/i, /турмалин/i, /цитрин/i, /авантюрин/i, /флюорит/i, /перламутр/i,
+  /оникс/i, /шпинел/i, /лабрадор/i, /чароит/i, /хризопраз/i, /змеевик/i,
+
+  // Расширенный список минералов мастерской (топаз, аквамарин, янтарь и др.):
+  /топаз/i, /аквамарин/i, /берилл/i, /опал/i, /янтарь/i, /родонит/i, /пирит/i, /содалит/i,
+  /морганит/i, /родохрозит/i,
+
+  // Типы авторских изделий и бренд:
+  /сотуар/i, /чокер/i, /натуральн.*камн/i, /авторск.*украшен/i, /livi/i
 ];
 
 // ------------------------------------------------------------------------------
-// 3. СТОП-ПАТТЕРНЫ МУСОРА, ДЕШЕВОГО ОПТА, НЕЦЕЛЕВЫХ МЕТАЛЛОВ И УСЛУГ
+// 3. СТОП-ПАТТЕРНЫ МУСОРА, ДЕШЕВОГО ОПТА, ЧУЖИХ МЕТАЛЛОВ, ИНФО-ЗАПРОСОВ И КОЛЕЦ
 // ------------------------------------------------------------------------------
 var JUNK_PATTERNS = [
-  // Рукоделие, DIY, детали и фурнитура
-  /своими руками/i, /как сделать/i, /как сплести/i, /схем/i, /мастер класс/i, /мк\b/i,
-  /бисероплетени/i, /плетени/i, /вязани/i, /фурнитур/i, /застежк/i, /швенз/i, /штифт/i,
-  /пины\b/i, /леск/i, /проволок/i, /эпоксидн/i, /полимерн.*глин/i, /вышивк/i, /станок/i,
-  /с буквой/i,
+  // Рукоделие, DIY, детали и фурнитура для сборки
+  /своими руками/i, /как сделать/i, /как сплести/i, /как собрать/i, /схем/i,
+  /мастер класс/i, /мк\b/i, /бисероплетени/i, /бисер/i, /плетени/i, /вязани/i,
+  /фурнитур/i, /застежк/i, /швенз/i, /штифт/i, /пины\b/i, /леск/i, /проволок/i,
+  /тросик/i, /эпоксидн/i, /полимерн.*глин/i, /вышивк/i, /станок/i, /с буквой/i,
 
-  // Нецелевые чужие материалы
-  /шерст/i, /валян/i, /муассанит/i, /дерев/i, /пластик/i, /акрил/i, /силикон/i, /xuping/i,
-  /медицинск.*золот/i,
+  // Нецелевые чужие материалы и музейные редкости
+  /шерст/i, /валян/i, /муассанит/i, /фианит/i, /дерев/i, /пластик/i, /акрил/i,
+  /силикон/i, /xuping/i, /ксьюпинг/i, /медицинск.*золот/i, /мело\b/i, /melo\b/i,
 
-  // Халява, ломбарды, скупка, дешевый опт, б/у
-  /бесплатн/i, /даром/i, /ломбард/i, /скупк/i, /сдать.*золото/i, /проба 585/i, /золото 585/i,
-  /слит.*золот/i, /алиэкспресс/i, /aliexpress/i, /temu/i, /shein/i, /таобао/i, /секонд/i,
-  /конфискат/i, /б[\s/]?у\b/i,
+  // Халява, ломбарды, скупка, дешевый опт, б/у, маркетплейсы
+  /дешев/i, /недорог/i, /бесплатн/i, /даром/i, /ломбард/i, /скупк/i, /залог/i,
+  /сдать/i, /проба/i, /585/i, /750/i, /слит/i, /грамм/i, /алиэкспресс/i,
+  /aliexpress/i, /temu/i, /тему/i, /shein/i, /шейн/i, /таобао/i, /taobao/i,
+  /секонд/i, /барахолк/i, /конфискат/i, /б[\s/]?у\b/i, /оптом/i, /опт\b/i,
+  /olx/i, /олх/i, /авито/i,
 
-  // Нецелевые металлы и масс-маркет (блокируются ТОЛЬКО если нет камня из SAFE_ROOTS)
-  /золот/i, /серебр/i, /магазин золота/i, /бриллиант/i, /изумруд/i, /рубин/i, /сапфир/i,
+  // Заводское золото, кольца и драгкамни 1-й категории (позолота разрешена отдельно)
+  /(^|\s)золот/i, /серебр/i, /платин/i, /бриллиант/i, /изумруд/i, /рубин/i, /сапфир/i,
+  /кольц/i, /колечк/i, /перстен/i, /печатка/i, /обручальн/i, /помолвочн/i,
 
-  // Нецелевые услуги, инфо-запросы и гео
-  /ремонт/i, /пайк/i, /чистк.*золот/i, /ультразвуков/i, /ваканси/i, /резюме/i, /работа/i,
-  /зарплат/i, /реферат/i, /сонник/i, /гороскоп/i, /знак.*зодиак/i, /магическ/i,
-  /лечебн.*свойств/i, /приворот/i, /заговор/i, /скачать/i, /обои.*телефон/i,
-  /milan/i, /милан/i, /греци/i
+  // Информационные запросы, эзотерика, уход, ремонт и чужое гео
+  /ремонт/i, /пайк/i, /перетяжк/i, /чистк/i, /как почистить/i, /ультразвуков/i,
+  /как отличить/i, /как проверить/i, /подделк/i, /кому подходит/i, /свойств/i,
+  /значени/i, /гороскоп/i, /знак.*зодиак/i, /магическ/i, /лечебн/i, /литотерапи/i,
+  /талисман/i, /оберег/i, /амулет/i, /приворот/i, /заговор/i, /сонник/i, /к чему снится/i,
+  /что это/i, /википеди/i, /месторожден/i, /твердость/i, /формула/i, /фото\b/i,
+  /картинк/i, /обои/i, /скачать/i, /видео/i, /реферат/i, /ваканси/i, /резюме/i,
+  /работа/i, /зарплат/i, /мужск/i, /для мужчин/i, /пирсинг/i, /крестик/i,
+  /четки/i, /тасбих/i, /часы/i, /milan/i, /милан/i, /греци/i
 ];
 
 /**
- * Проверка запроса на наличие корней натуральных минералов и жемчуга
+ * Проверка запроса на наличие корней натуральных минералов и изделий
  */
 function isSafeTerm(term) {
   if (!term) return false;
@@ -125,10 +163,12 @@ function isSafeTerm(term) {
 
 /**
  * Комплексная оценка поискового запроса:
- * 1. Бренд конкурента -> безусловный мусор (БАН)
- * 2. Камень + серебро/золото фурнитура -> ЗАЩИТА (НЕ БЛОКИРОВАТЬ)
- * 3. Стоп-паттерн мусора (без нашего камня) -> мусор (БАН)
- * 4. Наш камень/жемчуг -> ЗАЩИТА
+ * 1. Бренд конкурента -> безусловный мгновенный БАН
+ * 2. Проверка стоп-паттернов:
+ *    - Позолота + наш камень -> ЗАЩИТА (позолоченные замки/фурнитура разрешены)
+ *    - Серебряный замок/фурнитура + наш камень -> ЗАЩИТА (серебряные элементы разрешены, кроме колец и лома)
+ *    - Чистое золото, кольца, ломбард, DIY, инфо-запросы -> БАН
+ * 3. Наш камень/изделие -> ЗАЩИТА
  */
 function evaluateSearchTerm(term) {
   var lower = (term || "").toLowerCase().trim();
@@ -141,36 +181,43 @@ function evaluateSearchTerm(term) {
     }
   }
 
-  // 2. Проверка наличия нашего натурального минерала / жемчуга
   var hasSafeStone = isSafeTerm(lower);
 
-  // 3. Проверка на стоп-паттерны
+  // 2. Проверка на стоп-паттерны с тонкими исключениями для фурнитуры
   for (var j = 0; j < JUNK_PATTERNS.length; j++) {
     if (JUNK_PATTERNS[j].test(lower)) {
-      // Исключение: если есть наш камень/жемчуг И это просто указание металла замка/фурнитуры (серебро/золото)
-      var isMetalFittings = (/золот/i.test(lower) || /серебр/i.test(lower)) &&
-                            !/ломбард/i.test(lower) && !/скупк/i.test(lower) && !/проба 585/i.test(lower);
-
-      if (hasSafeStone && isMetalFittings) {
-        return { isJunk: false, isSafe: true, reason: "Камень + фурнитура серебро/золото" };
+      // Исключение А: Позолота + наш камень (разрешаем позолоченные колье/чокеры, отсекая чистое золото)
+      var isGoldPlated = /позолот/i.test(lower) && !/(^|\s)золот/i.test(lower);
+      if (hasSafeStone && isGoldPlated && String(JUNK_PATTERNS[j]).indexOf("золот") !== -1) {
+        continue;
       }
 
-      // В остальных случаях (камня нет, либо это чистый мусор DIY/ломбард/алмазы) -> БАН
+      // Исключение Б: Серебряный замок/фурнитура/элементы + наш камень (кроме колец, 925 пробы и ломбардов)
+      var isSilverFittings = /серебр/i.test(lower) && !/кольц/i.test(lower) && !/проба/i.test(lower) && !/ломбард/i.test(lower);
+      if (hasSafeStone && isSilverFittings && String(JUNK_PATTERNS[j]).indexOf("серебр") !== -1) {
+        continue;
+      }
+
+      // В остальных случаях (камня нет, либо это кольцо/заводское золото/ломбард/инфо-мусор) -> БАН
       return { isJunk: true, isSafe: false, reason: "Стоп-паттерн (" + JUNK_PATTERNS[j] + ")" };
     }
   }
 
-  // 4. Обычный запрос без мусора
+  // 3. Запрос вида "[минерал] камень" без коммерческого намерения (например: "аметист камень")
+  if (/^[а-яёa-z]+\s+камень$/i.test(lower)) {
+    return { isJunk: true, isSafe: false, reason: "Инфо-запрос о минерале (X камень)" };
+  }
+
   return {
     isJunk: false,
     isSafe: hasSafeStone,
-    reason: hasSafeStone ? "Натуральный камень / жемчуг" : "Общий запрос"
+    reason: hasSafeStone ? "Целевой камень / изделие мастерской" : "Общий целевой запрос"
   };
 }
 
 function main() {
   Logger.log("==================================================================");
-  Logger.log("   💎 LIVI JEWELRY AUTOPILOT v3.0: ЗАПУСК ОПТИМИЗАЦИИ РЕКЛАМЫ    ");
+  Logger.log("   💎 LIVI JEWELRY AUTOPILOT v3.2 PRO: ЗАПУСК ОПТИМИЗАЦИИ        ");
   Logger.log("==================================================================");
 
   var account = AdsApp.currentAccount();
@@ -181,29 +228,27 @@ function main() {
   var actionLogs = [];
   var warningsList = [];
 
-  // 1. Подключение существующего мастер-списка минус-слов ко всем кампаниям
-  Logger.log("\n[1/5] Проверка и привязка мастер-списка минус-слов...");
-  var negativeList = getOrCreateNegativeList(CONFIG.NEGATIVE_LIST_NAME);
+  // 1. Привязка мастер-списка и превентивная загрузка базовых корней брендов
+  Logger.log("\n[1/5] Проверка мастер-списка и превентивных стоп-корней...");
+  var negativeList = getOrCreateNegativeList(CONFIG.NEGATIVE_LIST_NAME, actionLogs);
   var attachedCampaignsCount = attachNegativeListToAllCampaigns(negativeList);
   if (attachedCampaignsCount > 0) {
-    actionLogs.push("Мастер-список минус-слов прикреплен к " + attachedCampaignsCount + " кампаниям.");
+    actionLogs.push("Мастер-список минус-слов активен на " + attachedCampaignsCount + " кампаниях.");
   }
 
   // 2. Авто-чистка реальных мусорных запросов за 7 дней с защитой WhiteList
-  Logger.log("\n[2/5] Анализ поисковых запросов за 7 дней (строгий WhiteList камней)...");
-  var negatedTermsCount = mineJunkSearchTerms(negativeList, actionLogs);
+  Logger.log("\n[2/5] Анализ поисковых запросов за 7 дней...");
+  mineJunkSearchTerms(negativeList, actionLogs);
 
   // 3. Управление ставками CPC ключевых слов
   Logger.log("\n[3/5] Оптимизация ставок CPC ключевых слов...");
-  var bidStats = optimizeKeywordBids(actionLogs);
+  optimizeKeywordBids(actionLogs);
 
   // 4. Проверка корректности целевых посадочных страниц
   Logger.log("\n[4/5] Проверка корректности целевых страниц объявлений...");
   var landingPageAlerts = auditLandingPages();
-  if (landingPageAlerts.length > 0) {
-    for (var b = 0; b < landingPageAlerts.length; b++) {
-      warningsList.push(landingPageAlerts[b]);
-    }
+  for (var b = 0; b < landingPageAlerts.length; b++) {
+    warningsList.push(landingPageAlerts[b]);
   }
 
   // 5. Детальный сбор статистики за вчера (Поиск + Shopping + Запросы)
@@ -216,23 +261,54 @@ function main() {
   }
 
   Logger.log("\n==================================================================");
-  Logger.log("   АВТОПИЛОТ v3.0: Выполнение успешно завершено!                 ");
+  Logger.log("   АВТОПИЛОТ v3.2 PRO: Выполнение успешно завершено!             ");
   Logger.log("==================================================================");
 }
 
 /**
- * Получение или создание списка минус-слов без перезаписи существующей базы 800+ слов
+ * Получение списка минус-слов и превентивное наполнение корнями брендов/мусора
  */
-function getOrCreateNegativeList(listName) {
+function getOrCreateNegativeList(listName, actionLogs) {
   var listIter = AdsApp.negativeKeywordLists().withCondition("Name = '" + listName + "'").get();
+  var negList;
   if (listIter.hasNext()) {
-    var existingList = listIter.next();
+    negList = listIter.next();
     Logger.log("  ✓ Список минус-слов найден в аккаунте: " + listName);
-    return existingList;
+  } else {
+    var builder = AdsApp.newNegativeKeywordListBuilder().withName(listName).build();
+    negList = builder.getResult();
+    Logger.log("  ✓ Создан новый список минус-слов: " + listName);
   }
-  var builder = AdsApp.newNegativeKeywordListBuilder().withName(listName).build();
-  Logger.log("  ✓ Создан список минус-слов: " + listName);
-  return builder.getResult();
+
+  // Считываем уже добавленные минус-слова, чтобы избежать повторов
+  var existing = {};
+  try {
+    var it = negList.getNegativeKeywords();
+    while (it.hasNext()) {
+      existing[it.next().getText().toLowerCase().replace(/^"|"$/g, "")] = true;
+    }
+  } catch (e) {}
+
+  // Превентивно загружаем корневые слова брендов и стоп-паттернов
+  var seeded = 0;
+  for (var i = 0; i < SEED_ROOT_NEGATIVES.length; i++) {
+    var rootWord = SEED_ROOT_NEGATIVES[i].toLowerCase();
+    if (!existing[rootWord]) {
+      try {
+        if (CONFIG.APPLY_CHANGES) {
+          negList.addNegativeKeyword('"' + rootWord + '"');
+        }
+        existing[rootWord] = true;
+        seeded++;
+      } catch (err) {}
+    }
+  }
+  if (seeded > 0) {
+    var seedMsg = "Превентивно добавлено " + seeded + " базовых корней минус-слов (бренды конкурентов и стоп-корни).";
+    actionLogs.push(seedMsg);
+    Logger.log("  🛡️ " + seedMsg);
+  }
+  return negList;
 }
 
 /**
@@ -265,11 +341,7 @@ function attachNegativeListToAllCampaigns(negativeList) {
 }
 
 /**
- * Поиск нецелевых запросов за 7 дней.
- * СТРОГОЕ ПРАВИЛО:
- * 1. Бренды-конкуренты блокируются всегда.
- * 2. Натуральные камни и жемчуг (включая с серебром/позолотой) КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО блокировать.
- * 3. Чистый мусор блокируется во фразовом соответствии '"' + term + '"'.
+ * Анализ поисковых запросов за 7 дней и авто-минусация чистого мусора
  */
 function mineJunkSearchTerms(negativeList, actionLogs) {
   var addedCount = 0;
@@ -289,7 +361,7 @@ function mineJunkSearchTerms(negativeList, actionLogs) {
 
     while (rows.hasNext()) {
       var row = rows.next();
-      var term = (row.searchTermView.searchTerm || "").trim().toLowerCase();
+      var term = (row.searchTermView.search_term || row.searchTermView.searchTerm || "").trim().toLowerCase();
       if (!term || term.length < 2) continue;
 
       var evalRes = evaluateSearchTerm(term);
@@ -313,12 +385,11 @@ function mineJunkSearchTerms(negativeList, actionLogs) {
     Logger.log("  ℹ️ Запрос отчета поисковых фраз: " + e.message);
   }
 
-  Logger.log("  • Всего авто-заблокировано мусорных запросов во фразовом соответствии: " + addedCount);
   return addedCount;
 }
 
 /**
- * Оптимизация ставок CPC ключевых слов
+ * Корректировка ставок CPC ключевых слов (безопасно для Smart Bidding / Maximize Clicks)
  */
 function optimizeKeywordBids(actionLogs) {
   var stats = { boosted: 0, saved: 0 };
@@ -338,7 +409,6 @@ function optimizeKeywordBids(actionLogs) {
       var ctr = kwStats.getCtr() * 100;
       var currentCpc = kw.bidding().getCpc() || 0.15;
 
-      // Конвертящие фразы -> повышаем ставку (+10%) для удержания топа
       if (convs > 0) {
         if (currentCpc < CONFIG.MAX_CPC_CAP) {
           var newBoostedCpc = Math.min(CONFIG.MAX_CPC_CAP, Number((currentCpc * (1 + CONFIG.CONVERSION_BID_BOOST)).toFixed(2)));
@@ -349,20 +419,17 @@ function optimizeKeywordBids(actionLogs) {
                 kw.bidding().setCpc(newBoostedCpc);
                 applied = true;
               } catch (bidErr) {
-                // Стратегия назначения ставок (Максимум кликов) управляет ценой за клик автоматически
+                // Если стратегия автоматическая («Максимум кликов»), ручная ставка не поддерживается
               }
             }
             if (applied || !CONFIG.APPLY_CHANGES) {
               stats.boosted++;
               var boostMsg = "[Bid Boost] Ключ \"" + kw.getText() + "\" (" + convs + " конв.): CPC " + currentCpc + " ➔ " + newBoostedCpc;
               actionLogs.push(boostMsg);
-              Logger.log("  🚀 " + boostMsg);
             }
           }
         }
-      }
-      // Фразы с высоким CTR (>8%) и достаточным объемом -> плавно снижаем ставку для экономии
-      else if (clicks >= 12 && ctr >= 8.0) {
+      } else if (clicks >= 12 && ctr >= 8.0) {
         if (currentCpc > CONFIG.MIN_CPC_FLOOR) {
           var newDiscountCpc = Math.max(CONFIG.MIN_CPC_FLOOR, Number((currentCpc * (1 - CONFIG.SAVER_BID_DISCOUNT)).toFixed(2)));
           if (newDiscountCpc < currentCpc) {
@@ -371,28 +438,23 @@ function optimizeKeywordBids(actionLogs) {
               try {
                 kw.bidding().setCpc(newDiscountCpc);
                 appliedSave = true;
-              } catch (bidErr) {
-                // Стратегия назначения ставок (Максимум кликов) управляет ценой за клик автоматически
-              }
+              } catch (bidErr) {}
             }
             if (appliedSave || !CONFIG.APPLY_CHANGES) {
               stats.saved++;
               var saveMsg = "[Bid Saver] Ключ \"" + kw.getText() + "\" (CTR " + ctr.toFixed(1) + "%): CPC " + currentCpc + " ➔ " + newDiscountCpc;
               actionLogs.push(saveMsg);
-              Logger.log("  💰 " + saveMsg);
             }
           }
         }
       }
     }
-  } catch (e) {
-    Logger.log("  ℹ️ Оптимизация ставок: " + e.message);
-  }
+  } catch (e) {}
   return stats;
 }
 
 /**
- * Проверка корректности целевых URL объявлений (без внешних HTTP-запросов, безопасно для Google)
+ * Проверка конечных URL объявлений
  */
 function auditLandingPages() {
   var alerts = [];
@@ -415,20 +477,17 @@ function auditLandingPages() {
         }
       }
     }
-  } catch (e) {
-    Logger.log("  ℹ️ Проверка целевых страниц: " + e.message);
-  }
+  } catch (e) {}
   return alerts;
 }
 
 /**
- * Сбор детальной статистики за вчерашний день раздельно по Поиску и Shopping
+ * Сбор вчерашней статистики по Поиску, Shopping и запросам
  */
 function getYesterdayDetailedPerformance(currency, warningsList) {
   var searchTotals = { imps: 0, clicks: 0, cost: 0, convs: 0, campaigns: [] };
   var shoppingTotals = { imps: 0, clicks: 0, cost: 0, convs: 0, campaigns: [] };
 
-  // 1. Поисковые кампании (AdsApp.campaigns())
   var searchIter = AdsApp.campaigns().get();
   while (searchIter.hasNext()) {
     var camp = searchIter.next();
@@ -461,7 +520,6 @@ function getYesterdayDetailedPerformance(currency, warningsList) {
     }
   }
 
-  // 2. Shopping кампании (AdsApp.shoppingCampaigns())
   var shopIter = AdsApp.shoppingCampaigns().get();
   while (shopIter.hasNext()) {
     var sCamp = shopIter.next();
@@ -494,7 +552,6 @@ function getYesterdayDetailedPerformance(currency, warningsList) {
     }
   }
 
-  // 3. Анализ всех реальных поисковых запросов за вчера
   var clickedQueries = [];
   var spendWithoutConvQueries = [];
   var exactCandidates = [];
@@ -520,7 +577,6 @@ function getYesterdayDetailedPerformance(currency, warningsList) {
       
       var evalRes = evaluateSearchTerm(term);
 
-      // Все запросы с кликами
       if (clicks > 0) {
         clickedQueries.push({
           term: term,
@@ -535,7 +591,6 @@ function getYesterdayDetailedPerformance(currency, warningsList) {
         });
       }
 
-      // Запросы с расходом без конверсий (ТОЛЬКО НА РУЧНУЮ ПРОВЕРКУ, БЕЗ БЛОКИРОВКИ)
       if (cost > 0 && convs === 0) {
         spendWithoutConvQueries.push({
           term: term,
@@ -548,8 +603,6 @@ function getYesterdayDetailedPerformance(currency, warningsList) {
         });
       }
 
-      // Кандидаты в точное соответствие:
-      // Строго НЕ мусор (!evalRes.isJunk) И (есть конверсии ИЛИ (это наш камень/жемчуг И кликов >= 2 И CTR >= 10%))
       if (!evalRes.isJunk && (convs > 0 || (evalRes.isSafe && clicks >= 2 && ctr >= 10.0))) {
         exactCandidates.push({
           term: term,
@@ -561,9 +614,7 @@ function getYesterdayDetailedPerformance(currency, warningsList) {
         });
       }
     }
-  } catch (err) {
-    Logger.log("  ℹ️ Анализ поисковых запросов за вчера: " + err.message);
-  }
+  } catch (err) {}
 
   return {
     search: searchTotals,
@@ -579,18 +630,18 @@ function getYesterdayDetailedPerformance(currency, warningsList) {
 }
 
 /**
- * Отправка подробного структурированного отчета на Email
+ * Отправка подробного утреннего email-отчета
  */
 function sendAutopilotEmailReport(accountName, customerId, currency, perf, actionLogs, warningsList) {
   var isAlert = warningsList.length > 0;
   var dateStr = Utilities.formatDate(new Date(), "Asia/Almaty", "dd.MM.yyyy");
   var subject = (isAlert ? "⚠️ Внимание: " : "💎 Livi Jewelry: ") +
-                "Утренний отчет Google Ads v3.1 за вчера (" + dateStr + ") — " +
+                "Утренний отчет Google Ads v3.2 PRO за вчера (" + dateStr + ") — " +
                 perf.totalClicks + " кликов, " + perf.totalCost.toFixed(2) + " " + currency;
 
   var lines = [];
   lines.push("══════════════════════════════════════════════════════════════════");
-  lines.push("   LIVI JEWELRY — УТРЕННИЙ БОЕВОЙ ОТЧЕТ AUTOPILOT v3.1           ");
+  lines.push("   LIVI JEWELRY — УТРЕННИЙ БОЕВОЙ ОТЧЕТ AUTOPILOT v3.2 PRO       ");
   lines.push("══════════════════════════════════════════════════════════════════");
   lines.push("Аккаунт: " + accountName + " (ID: " + customerId + ")");
   lines.push("Дата формирования: " + Utilities.formatDate(new Date(), "Asia/Almaty", "dd.MM.yyyy HH:mm") + " (Астана)");
@@ -604,7 +655,6 @@ function sendAutopilotEmailReport(accountName, customerId, currency, perf, actio
     lines.push("──────────────────────────────────────────────────────────────────\n");
   }
 
-  // 1. Общие показатели за вчера
   lines.push("📊 ОБЩИЕ ПОКАЗАТЕЛИ ЗА ВЧЕРА:");
   lines.push("  • Всего показов: " + perf.totalImps);
   lines.push("  • Всего кликов: " + perf.totalClicks);
@@ -615,7 +665,6 @@ function sendAutopilotEmailReport(accountName, customerId, currency, perf, actio
   lines.push("  • Общий CTR: " + overallCtr.toFixed(2) + "%");
   lines.push("  • Средний CPC: " + overallCpc.toFixed(2) + " " + currency + "\n");
 
-  // 2. Поисковые кампании (Search)
   lines.push("🔍 1. ПОИСКОВЫЕ КАМПАНИИ (SEARCH):");
   var sCtr = perf.search.imps > 0 ? (perf.search.clicks / perf.search.imps) * 100 : 0;
   var sCpc = perf.search.clicks > 0 ? (perf.search.cost / perf.search.clicks) : 0;
@@ -630,7 +679,6 @@ function sendAutopilotEmailReport(accountName, customerId, currency, perf, actio
   }
   lines.push("");
 
-  // 3. Торговые кампании (Shopping)
   lines.push("🛍️ 2. ТОРГОВЫЕ КАМПАНИИ (SHOPPING):");
   var shCtr = perf.shopping.imps > 0 ? (perf.shopping.clicks / perf.shopping.imps) * 100 : 0;
   var shCpc = perf.shopping.clicks > 0 ? (perf.shopping.cost / perf.shopping.clicks) : 0;
@@ -645,7 +693,6 @@ function sendAutopilotEmailReport(accountName, customerId, currency, perf, actio
   }
   lines.push("");
 
-  // 4. Все поисковые запросы с кликами за вчера
   lines.push("🔍 ВСЕ ПОИСКОВЫЕ ЗАПРОСЫ С КЛИКАМИ ЗА ВЧЕРА (" + perf.clickedQueries.length + "):");
   if (perf.clickedQueries.length > 0) {
     for (var q = 0; q < perf.clickedQueries.length; q++) {
@@ -661,20 +708,13 @@ function sendAutopilotEmailReport(accountName, customerId, currency, perf, actio
   }
   lines.push("");
 
-  // 5. Запросы с расходом без конверсий
   lines.push("⚠️ ЗАПРОСЫ С РАСХОДОМ БЕЗ КОНВЕРСИЙ (НА РУЧНУЮ ПРОВЕРКУ):");
-  lines.push("   (Скрипт защищает наши камни и выводит запросы на контроль)");
   if (perf.spendWithoutConvQueries.length > 0) {
     for (var sw = 0; sw < perf.spendWithoutConvQueries.length; sw++) {
       var swItem = perf.spendWithoutConvQueries[sw];
-      var statusTag = "";
-      if (swItem.isSafe) {
-        statusTag = " [🛡️ В WhiteList натуральных камней — защита от блокировки]";
-      } else if (swItem.isJunk) {
-        statusTag = " [🚫 Мусор/Бренд — авто-блокировка в 7-дневном цикле: " + swItem.reason + "]";
-      } else {
-        statusTag = " [🔍 Общий ювелирный запрос — решение владельца]";
-      }
+      var statusTag = swItem.isSafe
+        ? " [🛡️ В WhiteList натуральных камней — защита от блокировки]"
+        : (swItem.isJunk ? " [🚫 Заблокировано автопилотом: " + swItem.reason + "]" : " [🔍 Общий запрос — на решение владельца]");
       lines.push("  • «" + swItem.term + "»" + statusTag +
                  ": расход " + swItem.cost.toFixed(2) + " " + currency +
                  ", кликов: " + swItem.clicks + " (" + swItem.campaign + ")");
@@ -684,7 +724,6 @@ function sendAutopilotEmailReport(accountName, customerId, currency, perf, actio
   }
   lines.push("");
 
-  // 6. Кандидаты в точное соответствие
   lines.push("🏆 КАНДИДАТЫ В ТОЧНОЕ СООТВЕТСТВИЕ (Conversions > 0 или CTR >= 10% при >= 2 кликах):");
   if (perf.exactCandidates.length > 0) {
     for (var ex = 0; ex < perf.exactCandidates.length; ex++) {
@@ -697,7 +736,6 @@ function sendAutopilotEmailReport(accountName, customerId, currency, perf, actio
   }
   lines.push("");
 
-  // 7. Действия автопилота
   lines.push("🤖 АВТОМАТИЧЕСКИЕ ДЕЙСТВИЯ АВТОПИЛОТА ЗА СЕГОДНЯ:");
   if (actionLogs.length > 0) {
     for (var a = 0; a < actionLogs.length; a++) {
