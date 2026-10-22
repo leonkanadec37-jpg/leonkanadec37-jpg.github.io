@@ -29,6 +29,7 @@ GA_ID = "G-YFF2TR0N36"
 AW_ID = "AW-16793974126"
 AW_CONV_LABEL = "AW-16793974126/MuJ_CObHup8bEO7q_sc-"
 FB_PIXEL_1 = "199604456030882"
+FB_PIXEL_2 = "4185620171718327"
 GOOGLE_VERIFICATION = "qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0"
 
 CATEGORY_NAMES_RU = {
@@ -645,10 +646,12 @@ def build_product_page_html(product: dict, all_products: list) -> str:
   'https://connect.facebook.net/en_US/fbevents.js');
 
   fbq('init', '{FB_PIXEL_1}');
+  fbq('init', '{FB_PIXEL_2}');
   fbq('track', 'PageView');
   </script>
   <noscript>
     <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1"/>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_2}&ev=PageView&noscript=1"/>
   </noscript>
   <!-- End Meta Pixel Code -->
 

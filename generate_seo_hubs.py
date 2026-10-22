@@ -1002,6 +1002,7 @@ def generate_hub_page(hub, products):
     s.parentNode.insertBefore(t,s)}}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '199604456030882');
+    fbq('init', '4185620171718327');
     fbq('track', 'PageView');
     fbq('track', 'ViewContent', {{
       content_category: '{clean_attr(hub["breadcrumb"])}',
@@ -1010,6 +1011,8 @@ def generate_hub_page(hub, products):
   </script>
   <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=199604456030882&ev=PageView&noscript=1"
+  /><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=4185620171718327&ev=PageView&noscript=1"
   /></noscript>
 
   <!-- JSON-LD: BreadcrumbList -->
@@ -1419,6 +1422,7 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
     s.parentNode.insertBefore(t,s)}}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '199604456030882');
+    fbq('init', '4185620171718327');
     fbq('track', 'PageView');
     fbq('track', 'ViewContent', {{
       content_category: '{clean_attr(kz_info["breadcrumb"])}',
@@ -1427,6 +1431,8 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
   </script>
   <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=199604456030882&ev=PageView&noscript=1"
+  /><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=4185620171718327&ev=PageView&noscript=1"
   /></noscript>
 
   <!-- JSON-LD: BreadcrumbList -->
