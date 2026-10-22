@@ -29,11 +29,11 @@ var CONFIG = {
   // Email владельца для утреннего дайджеста и предупреждений:
   ALERT_EMAIL: "viksonna94@gmail.com",
 
-  // Лимит дневного расхода аккаунта для предупреждения (валюта аккаунта, например USD или эквивалент KZT):
-  DAILY_BUDGET_CAP: 10.0,
+  // Лимит дневного расхода аккаунта для предупреждения (валюта аккаунта USD, бюджет $4.14):
+  DAILY_BUDGET_CAP: 6.0,
 
-  // Максимальный потолок ставки CPC (защита от переплат):
-  MAX_CPC_CAP: 0.35,
+  // Максимальный потолок ставки CPC (защита от переплат, лимит кампании $0.20):
+  MAX_CPC_CAP: 0.20,
 
   // Минимальный пол ставки CPC:
   MIN_CPC_FLOOR: 0.05,
@@ -343,13 +343,21 @@ function optimizeKeywordBids(actionLogs) {
         if (currentCpc < CONFIG.MAX_CPC_CAP) {
           var newBoostedCpc = Math.min(CONFIG.MAX_CPC_CAP, Number((currentCpc * (1 + CONFIG.CONVERSION_BID_BOOST)).toFixed(2)));
           if (newBoostedCpc > currentCpc) {
+            var applied = false;
             if (CONFIG.APPLY_CHANGES) {
-              kw.bidding().setCpc(newBoostedCpc);
+              try {
+                kw.bidding().setCpc(newBoostedCpc);
+                applied = true;
+              } catch (bidErr) {
+                // Стратегия назначения ставок (Максимум кликов) управляет ценой за клик автоматически
+              }
             }
-            stats.boosted++;
-            var boostMsg = "[Bid Boost] Ключ \"" + kw.getText() + "\" (" + convs + " конв.): CPC " + currentCpc + " ➔ " + newBoostedCpc;
-            actionLogs.push(boostMsg);
-            Logger.log("  🚀 " + boostMsg);
+            if (applied || !CONFIG.APPLY_CHANGES) {
+              stats.boosted++;
+              var boostMsg = "[Bid Boost] Ключ \"" + kw.getText() + "\" (" + convs + " конв.): CPC " + currentCpc + " ➔ " + newBoostedCpc;
+              actionLogs.push(boostMsg);
+              Logger.log("  🚀 " + boostMsg);
+            }
           }
         }
       }
@@ -358,13 +366,21 @@ function optimizeKeywordBids(actionLogs) {
         if (currentCpc > CONFIG.MIN_CPC_FLOOR) {
           var newDiscountCpc = Math.max(CONFIG.MIN_CPC_FLOOR, Number((currentCpc * (1 - CONFIG.SAVER_BID_DISCOUNT)).toFixed(2)));
           if (newDiscountCpc < currentCpc) {
+            var appliedSave = false;
             if (CONFIG.APPLY_CHANGES) {
-              kw.bidding().setCpc(newDiscountCpc);
+              try {
+                kw.bidding().setCpc(newDiscountCpc);
+                appliedSave = true;
+              } catch (bidErr) {
+                // Стратегия назначения ставок (Максимум кликов) управляет ценой за клик автоматически
+              }
             }
-            stats.saved++;
-            var saveMsg = "[Bid Saver] Ключ \"" + kw.getText() + "\" (CTR " + ctr.toFixed(1) + "%): CPC " + currentCpc + " ➔ " + newDiscountCpc;
-            actionLogs.push(saveMsg);
-            Logger.log("  💰 " + saveMsg);
+            if (appliedSave || !CONFIG.APPLY_CHANGES) {
+              stats.saved++;
+              var saveMsg = "[Bid Saver] Ключ \"" + kw.getText() + "\" (CTR " + ctr.toFixed(1) + "%): CPC " + currentCpc + " ➔ " + newDiscountCpc;
+              actionLogs.push(saveMsg);
+              Logger.log("  💰 " + saveMsg);
+            }
           }
         }
       }

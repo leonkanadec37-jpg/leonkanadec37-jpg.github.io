@@ -14,7 +14,7 @@
 
 var CONFIG = {
   ALERT_EMAIL: "viksonna94@gmail.com",
-  DAILY_BUDGET_CAP: 10.0, // Лимит для алерта при перерасходе
+  DAILY_BUDGET_CAP: 6.0, // Лимит для алерта при перерасходе (бюджет $4.14)
   SEND_DAILY_SUMMARY: true
 };
 
