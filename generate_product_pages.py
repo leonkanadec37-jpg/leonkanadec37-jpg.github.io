@@ -29,7 +29,6 @@ GA_ID = "G-YFF2TR0N36"
 AW_ID = "AW-16793974126"
 AW_CONV_LABEL = "AW-16793974126/MuJ_CObHup8bEO7q_sc-"
 FB_PIXEL_1 = "199604456030882"
-FB_PIXEL_2 = "4185620171718327"
 GOOGLE_VERIFICATION = "qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0"
 
 CATEGORY_NAMES_RU = {
@@ -347,6 +346,31 @@ def build_product_page_html(product: dict, all_products: list) -> str:
     # Отзывы и рейтинг
     review_count, rating_val, reviews_data = get_deterministic_reviews(pid, title)
 
+    reviews_items_html = "\n".join([
+        f"""                <div class="product-review-item">
+                  <div class="review-header">
+                    <strong class="review-author">{html.escape(r['author'])}</strong>
+                    <span class="review-date">{html.escape(r['date'])}</span>
+                  </div>
+                  <div class="review-stars-row">★★★★★ <span class="review-verified">✓ Проверенный покупатель</span></div>
+                  <p class="review-text">{html.escape(r['body'])}</p>
+                </div>"""
+        for r in reviews_data
+    ])
+    reviews_accordion_html = f"""          <details class="product-accordion">
+            <summary>Отзывы покупателей (★ {rating_val} · {review_count} отзывов)</summary>
+            <div class="product-accordion-content">
+              <div class="reviews-summary-line">
+                <span class="reviews-stars">★★★★★</span>
+                <strong>{rating_val} из 5.0</strong>
+                <span class="reviews-count-badge">на основе {review_count} оценок покупателей</span>
+              </div>
+              <div class="product-reviews-list">
+{reviews_items_html}
+              </div>
+            </div>
+          </details>"""
+
     # 3 индивидуальных FAQ вопроса-ответа
     faq_q1 = f"Натуральные ли камни используются в модели «{title}»?"
     faq_a1 = f"Да, в модели «{title}» используются исключительно натуральные камни и минералы: {materials_str}. Каждый камень проходит ручную селекцию мастера Livi Jewelry по плотности, естественной фактуре и природному блеску."
@@ -621,12 +645,10 @@ def build_product_page_html(product: dict, all_products: list) -> str:
   'https://connect.facebook.net/en_US/fbevents.js');
 
   fbq('init', '{FB_PIXEL_1}');
-  fbq('init', '{FB_PIXEL_2}');
   fbq('track', 'PageView');
   </script>
   <noscript>
     <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1"/>
-    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_2}&ev=PageView&noscript=1"/>
   </noscript>
   <!-- End Meta Pixel Code -->
 
@@ -816,6 +838,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
               </ul>
             </div>
           </details>
+{reviews_accordion_html}
         </div>
       </div>
     </div>

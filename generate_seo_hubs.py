@@ -1002,7 +1002,6 @@ def generate_hub_page(hub, products):
     s.parentNode.insertBefore(t,s)}}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '199604456030882');
-    fbq('init', '4185620171718327');
     fbq('track', 'PageView');
     fbq('track', 'ViewContent', {{
       content_category: '{clean_attr(hub["breadcrumb"])}',
@@ -1420,7 +1419,6 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
     s.parentNode.insertBefore(t,s)}}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '199604456030882');
-    fbq('init', '4185620171718327');
     fbq('track', 'PageView');
     fbq('track', 'ViewContent', {{
       content_category: '{clean_attr(kz_info["breadcrumb"])}',
