@@ -1,24 +1,20 @@
 /**
  * ==============================================================================
- * LIVI JEWELRY — GOOGLE ADS AUTOPILOT v5.1 DIAMOND SHIELD (БАЗА 5 955 ЗАПРОСОВ)
+ * LIVI JEWELRY — GOOGLE ADS AUTOPILOT v5.2 DIAMOND SHIELD (СИНХРОНИЗАЦИЯ СПИСКОВ)
  * ==============================================================================
  * 
- * ЧТО ДЕЛАЕТ ЭТОТ СКРИПТ АВТОМАТИЧЕСКИ КАЖДОЕ УТРО:
- * 1. [Pre-Emptive Diamond Shield] Превентивно добавляет 160+ корней брендов-конкурентов,
- *    ювелирных мастерских, переплавки, подделок и стоп-слов в мастер-список минус-слов,
- *    блокируя нецелевые показы ДО первого клика.
- * 2. [Full Stone WhiteList & Kazakh Ethno Guard] Защищает все природные минералы
- *    мастерской (жемчуг/жемчужные, барочный, нефрит, малахит, топаз, аквамарин, янтарь,
- *    обсидиан, ларимар и др.) и казахские национальные запросы (әшекей, маржан, меруерт,
- *    алқа, білезік, сырға, шашбау, этно).
- * 3. [Smart Metal & Gift Filter]
- *    - Блокирует общие подарки («подарки женщине», «что подарить подруге»), но РАЗРЕШАЕТ
- *      покупку наших камней в подарок («колье из жемчуга в подарок»).
- *    - Разрешает позолоту и серебряные замки/фурнитуру для наших камней, но блокирует
- *      заводское золото 585, кольца и ломбарды.
- * 4. [Anti-Workshop & Encyclopedia Shield] Блокирует запросы на литье/изготовление на заказ,
- *    ремонт, гравировку, рассказ Мопассана «Ожерелье», копии клевер/гвоздь и инфо-запросы.
- * 5. [No External OAuth] Работает без внешних вызовов UrlFetchApp — 100% стабильный запуск.
+ * ЧТО ДЕЛАЕТ ЭТОТ СКРИПТ АВТОМАТИЧЕСКИ:
+ * 1. [Auto-Convert "X камень" to Exact] Сам находит в мастер-списке старые фразовые
+ *    записи вида "аметист камень" / "нефрит камень", удаляет фразовый вариант и
+ *    переводит их в ТОЧНОЕ соответствие [аметист камень], чтобы не резать покупки.
+ * 2. [Pre-Emptive Brand Shield] Загружает 175+ корней всех брендов-конкурентов
+ *    (включая 12 брендов, которые раньше были только в Exact), мастерских и стоп-слов
+ *    во ФРАЗОВОМ соответствии до первого клика.
+ * 3. [Strict Silver & Gold 585 Ban (Вариант А)] Полная блокировка любого серебра и
+ *    заводского золота 585 пробы (разрешена только «позолота» в связке с нашим камнем).
+ * 4. [Full Stone & Kazakh Ethno WhiteList] Защищает все природные камни мастерской
+ *    и казахские национальные запросы (әшекей, маржан, меруерт, алқа, білезік, сырға).
+ * 5. [No External OAuth] Работает без внешних сетевых запросов — 100% стабильный запуск.
  * ==============================================================================
  */
 
@@ -35,10 +31,10 @@ var CONFIG = {
 };
 
 // ------------------------------------------------------------------------------
-// 0. БАЗОВЫЕ КОРНИ ДЛЯ ПРЕВЕНТИВНОЙ БЛОКИРОВКИ ДО ПЕРВОГО КЛИКА (ИЗ БАЗЫ 5 955 ФРАЗ)
+// 0. БАЗОВЫЕ КОРНИ БРЕНДОВ И МУСОРА (ДОБАВЛЯЮТСЯ ВО ФРАЗОВОМ СООТВЕТСТВИИ "...")
 // ------------------------------------------------------------------------------
 var SEED_ROOT_NEGATIVES = [
-  // Бренды-конкуренты и ювелирные сети:
+  // Все мировые и локальные бренды (включая бывшие Exact из списка 879 слов):
   "swarovski", "сваровски", "сваровский", "тиффани", "tiffany", "картье", "cartier",
   "messika", "мессика", "apm", "monaco", "апм", "монако", "aroush", "larosh",
   "laroush", "ляруш", "merhat", "мерхат", "tallys", "таллис", "sansi", "санси",
@@ -46,21 +42,23 @@ var SEED_ROOT_NEGATIVES = [
   "пандора", "pandora", "соколов", "sokolov", "санлайт", "sunlight", "ван клиф", "van cleef",
   "ванклив", "балауса", "balausa", "sakina", "сакина", "mone", "chopard", "шопард",
   "булгари", "bulgari", "bvlgari", "tous", "тоус", "адамас", "adamas", "мюз", "miuz",
-  "серебров", "сереброфф", "serebroff", "дамиани", "damiani", "фрайвилле", "frey wille",
-  "сблеском", "sbleskom", "луи витон", "louis vuitton", "шанель", "chanel",
-  "эрмес", "hermes", "гуччи", "gucci", "диор", "dior", "tatirocks", "athena gaia",
-  "miramira", "moonka", "sania", "sael", "rebecca", "tomiris", "shona", "siyera",
-  "viennois", "maria tash", "kruger studios", "рене лалик", "lalique", "best wishes",
-  "magic stones", "дерберг керн", "dyrberg", "деберкем", "deberquem", "канциан",
-  "graziella", "грациелла", "оксизян", "instyle", "сенсатори", "sensatori",
-  "дионис", "dionis", "keklik", "дэвид юрман", "david yurman", "кубачи", "каратов",
-  "karatov", "nature bijoux", "ouro", "ластория", "lastoria", "вива ла вика",
-  "viva la vika", "tesoro", "meraly", "армат", "armat", "lurea", "луара", "luara",
-  "kurshuni", "hefang", "серик рысбек", "serik rysbek", "ларентия", "laurentia",
-  "гальяно", "galliano", "леди коллекшн", "lady collection", "anka jewelry",
+  "московский ювелирный завод", "серебров", "сереброфф", "serebroff", "дамиани", "damiani",
+  "фрайвилле", "frey wille", "сблеском", "sbleskom", "луи витон", "louis vuitton",
+  "шанель", "chanel", "эрмес", "hermes", "гуччи", "gucci", "диор", "dior",
+  "tatirocks", "athena gaia", "miramira", "moonka", "sania", "sael", "rebecca",
+  "tomiris", "shona", "siyera", "viennois", "maria tash", "kruger studios",
+  "рене лалик", "lalique", "best wishes", "magic stones", "дерберг керн", "dyrberg",
+  "деберкем", "deberquem", "канциан", "graziella", "грациелла", "оксизян", "instyle",
+  "сенсатори", "sensatori", "дионис", "dionis", "keklik", "дэвид юрман", "david yurman",
+  "кубачи", "каратов", "karatov", "nature bijoux", "ouro", "ластория", "lastoria",
+  "вива ла вика", "viva la vika", "tesoro", "meraly", "армат", "armat", "lurea",
+  "луара", "luara", "kurshuni", "hefang", "серик рысбек", "serik rysbek", "ларентия",
+  "laurentia", "гальяно", "galliano", "леди коллекшн", "lady collection", "anka jewelry",
   "roberto bravo", "роберто браво", "алтын", "altyn", "talisman kz", "микимото",
   "mikimoto", "gotto jewelry", "pure jewelry", "soroka jewelry", "nomination", "номинэйшн",
   "лакоста", "la roche", "jewelry bus", "minimal silver",
+  "muraa", "yelai", "jewelfinger", "darry ring", "favory", "farro", "via jewelry",
+  "astra jewelry", "le carat", "mimi jewelry", "assos",
 
   // Изготовление на заказ, ювелирные мастерские, переплавка, гравировка:
   "на заказ", "изготовление на заказ", "изготовление ювелирных", "ювелирная мастерская",
@@ -80,7 +78,8 @@ var SEED_ROOT_NEGATIVES = [
   "для девочки", "для девочек", "для детей", "брошь", "броши", "брошка",
   "фенечка", "фенечки", "каффы", "пусеты",
 
-  // Нецелевые материалы, подделки, стекло, бисер, оценка сырья:
+  // Нецелевые материалы, подделки, стекло, бисер, серебро, оценка сырья:
+  "серебро", "серебряный", "серебряные", "серебряное", "серебряная",
   "муассанит", "xuping", "ксьюпинг", "медицинское золото", "медицинские серьги",
   "муранское стекло", "murano", "мурано", "бисер", "стеклярус", "лабрет", "пирсинг",
   "теннисный браслет", "фигурки детей", "каучук", "шнурок", "снейк", "жемчуг мело",
@@ -96,7 +95,7 @@ var SEED_ROOT_NEGATIVES = [
 ];
 
 // ------------------------------------------------------------------------------
-// 1. БРЕНДЫ-КОНКУРЕНТЫ (БЕЗУСЛОВНЫЙ БАН В ПЕРВУЮ ОЧЕРЕДЬ)
+// 1. БРЕНДЫ-КОНКУРЕНТЫ (БЕЗУСЛОВНЫЙ БАН В ПЕРВУЮ ОЧЕРЕДЬ ВО ФРАЗОВОМ СООТВЕТСТВИИ)
 // ------------------------------------------------------------------------------
 var COMPETITOR_BRANDS = [
   /swarovski/i, /сваровск/i, /тиффани/i, /tiffany/i, /картье/i, /cartier/i,
@@ -124,26 +123,21 @@ var COMPETITOR_BRANDS = [
   /roberto bravo/i, /роберто браво/i, /алтын\b/i, /altyn\b/i, /talisman\s*kz/i,
   /микимото/i, /mikimoto/i, /gotto jewelry/i, /pure jewelry/i, /soroka jewelry/i,
   /сорока\s*jewelry/i, /nomination/i, /номинэйшн/i, /лакост/i, /lacoste/i,
-  /la roche/i, /jewelry bus/i, /minimal\s*silver/i, /браслет minimal/i
+  /la roche/i, /jewelry bus/i, /minimal\s*silver/i, /браслет minimal/i,
+  /muraa/i, /yelai/i, /jewelfinger/i, /darry\s*ring/i, /favory/i, /farro/i,
+  /via\s*jewelry/i, /astra\s*jewelry/i, /le\s*carat/i, /mimi\s*jewelry/i, /assos/i
 ];
 
 // ------------------------------------------------------------------------------
 // 2. ЗАЩИТНЫЙ WHITELIST ВСЕХ НАТУРАЛЬНЫХ КАМНЕЙ, КАЗАХСКИХ ТЕРМИНОВ И ИЗДЕЛИЙ МАСТЕРСКОЙ
 // ------------------------------------------------------------------------------
 var SAFE_ROOTS = [
-  // Жемчуг во всех формах:
   /жемчу[гж]/i, /барочн/i, /майорк/i, /majorica/i, /pearl/i,
-
-  // Нефрит и жадеит:
   /нефрит/i, /жадеит/i, /джедаит/i,
-
-  // Классические минералы каталога:
   /аметист/i, /малахит/i, /агат/i, /гранат/i, /кварц/i, /бирюз/i, /гематит/i, /хрустал/i,
   /лунн.*камен/i, /лунн/i, /тигров.*глаз/i, /тигров/i, /лазурит/i, /коралл/i, /яшм/i,
   /сердолик/i, /амазонит/i, /турмалин/i, /цитрин/i, /авантюрин/i, /флюорит/i, /перламутр/i,
   /оникс/i, /шпинел/i, /лабрадор/i, /чароит/i, /хризопраз/i, /змеевик/i,
-
-  // Расширенный список минералов мастерской:
   /топаз/i, /аквамарин/i, /берилл/i, /опал/i, /янтар/i, /родонит/i, /пирит/i, /содалит/i,
   /морганит/i, /родохрозит/i, /кунцит/i, /халцедон/i, /ларимар/i, /larimar/i, /празиолит/i,
   /хризолит/i, /хризоколл/i, /апатит/i, /танзанит/i, /варисцит/i, /александрит/i,
@@ -161,10 +155,9 @@ var SAFE_ROOTS = [
 ];
 
 // ------------------------------------------------------------------------------
-// 3. СТОП-ПАТТЕРНЫ МУСОРА, МАСТЕРСКИХ, ДЕШЕВОГО ОПТА, ЧУЖИХ МЕТАЛЛОВ, КОЛЕЦ И ИНФО
+// 3. СТОП-ПАТТЕРНЫ МУСОРА, МАСТЕРСКИХ, СЕРЕБРА, ЗОЛОТА 585, КОЛЕЦ И ИНФО
 // ------------------------------------------------------------------------------
 var JUNK_PATTERNS = [
-  // Школьная литература, фейки клевер/гвоздь:
   /мопассан/i, /клевер/i, /гвоздь/i,
 
   // Производство, ювелирные мастерские, переплавка, гравировка:
@@ -172,10 +165,8 @@ var JUNK_PATTERNS = [
   /гравировк/i, /с надписью/i, /сделать на заказ/i,
   /ювелиры алматы/i, /ювелир алматы/i, /ювелир астана/i, /ювелиры астана/i,
 
-  // Дети, девочки:
+  // Дети, девочки, непрофильные изделия:
   /для девочк/i, /девочке/i, /девочки/i, /для детей/i, /детск/i, /фигурк.*детей/i,
-
-  // Другие типы украшений, которых нет у Livi:
   /брошь/i, /броши/i, /брошка/i, /фенечк/i, /кафф/i, /пусет/i, /галстук/i,
 
   // Пустые общие онлайн-запросы и иноязычный спам:
@@ -206,8 +197,8 @@ var JUNK_PATTERNS = [
   /секонд/i, /барахолк/i, /конфискат/i, /б[\s/]?у\b/i, /оптом/i, /опт\b/i,
   /olx/i, /олх/i, /авито/i, /ярмарка мастеров/i, /etsy/i,
 
-  // Заводское золото, кольца и драгкамни 1-й категории:
-  /(^|\s)золот/i, /серебр/i, /платин/i, /бриллиант/i, /брилиан/i, /diamond/i,
+  // Заводское золото, серебро (Вариант А — полный бан), кольца и драгкамни 1-й категории:
+  /(^|\s)золот/i, /серебр/i, /serebro/i, /платин/i, /бриллиант/i, /брилиан/i, /diamond/i,
   /изумруд/i, /рубин/i, /сапфир/i, /теннисн/i, /tennis.*bracelet/i,
   /кольц/i, /колечк/i, /перстен/i, /печатка/i, /обручальн/i, /помолвочн/i,
   /парные кольца/i, /на мизинец/i,
@@ -229,13 +220,10 @@ var JUNK_PATTERNS = [
   /лев\b/i, /льва/i, /дева/i, /весы/i, /весов/i, /скорпион/i, /стрелец/i, /козерог/i,
   /водолей/i, /рыбы/i,
 
-  // Гео-туризм и чужие страны:
+  // Гео-туризм и оффлайн-поиск:
   /вьетнам/i, /шри ланк/i, /катар/i, /пхукет/i, /гоа\b/i, /туркестан/i, /египет/i,
   /тайланд/i, /бали\b/i, /milan/i, /милан/i, /греци/i, /япони/i, /украин/i, /дагестан/i,
-  /узбекск/i, /турки/i, /турецк/i, /индийск/i,
-
-  // Оффлайн-поиск:
-  /ближайш/i, /поблизости/i, /рядом/i
+  /узбекск/i, /турки/i, /турецк/i, /индийск/i, /ближайш/i, /поблизости/i, /рядом/i
 ];
 
 function isSafeTerm(term) {
@@ -249,20 +237,25 @@ function isSafeTerm(term) {
   return false;
 }
 
+function isTwoWordStoneLookup(term) {
+  var clean = (term || "").toLowerCase().trim().replace(/^["\[]|["\]]$/g, "");
+  return /^[а-яёәіңғүұқөһa-z]+\s+(камень|тас|тасы)$/i.test(clean);
+}
+
 function evaluateSearchTerm(term) {
   var lower = (term || "").toLowerCase().trim();
-  if (!lower) return { isJunk: false, isSafe: false, reason: "Пустой запрос" };
+  if (!lower) return { isJunk: false, isExactOnly: false, isSafe: false, reason: "Пустой запрос" };
 
-  // 1. Бренд конкурента -> МГНОВЕННЫЙ БАН
+  // 1. Бренд конкурента -> МГНОВЕННЫЙ БАН (Фразовое соответствие)
   for (var b = 0; b < COMPETITOR_BRANDS.length; b++) {
     if (COMPETITOR_BRANDS[b].test(lower)) {
-      return { isJunk: true, isSafe: false, reason: "Бренд-конкурент (" + COMPETITOR_BRANDS[b] + ")" };
+      return { isJunk: true, isExactOnly: false, isSafe: false, reason: "Бренд-конкурент (" + COMPETITOR_BRANDS[b] + ")" };
     }
   }
 
   var hasSafeStone = isSafeTerm(lower);
 
-  // 2. Проверка на стоп-паттерны с умными исключениями для наших камней
+  // 2. Проверка на стоп-паттерны
   for (var j = 0; j < JUNK_PATTERNS.length; j++) {
     if (JUNK_PATTERNS[j].test(lower)) {
       var patStr = String(JUNK_PATTERNS[j]);
@@ -273,29 +266,24 @@ function evaluateSearchTerm(term) {
         continue;
       }
 
-      // Исключение Б: Серебряный замок/фурнитура + наш камень (кроме колец, 925 пробы и ломбардов)
-      var isSilverFittings = /серебр/i.test(lower) && !/кольц/i.test(lower) && !/проба/i.test(lower) && !/925/i.test(lower) && !/ломбард/i.test(lower);
-      if (hasSafeStone && isSilverFittings && patStr.indexOf("серебр") !== -1) {
-        continue;
-      }
-
-      // Исключение В: Покупка нашего конкретного камня/жемчуга в подарок («колье из жемчуга в подарок»)
+      // Исключение Б: Покупка нашего конкретного камня/жемчуга в подарок
       var isGiftPattern = patStr.indexOf("подар") !== -1 || patStr.indexOf("день рожден") !== -1 || patStr.indexOf("юбилей") !== -1;
       if (hasSafeStone && isGiftPattern) {
         continue;
       }
 
-      return { isJunk: true, isSafe: false, reason: "Стоп-паттерн (" + JUNK_PATTERNS[j] + ")" };
+      return { isJunk: true, isExactOnly: false, isSafe: false, reason: "Стоп-паттерн (" + JUNK_PATTERNS[j] + ")" };
     }
   }
 
-  // 3. Инфо-запрос вида "[минерал] камень / тас / тасы" из 2 слов без коммерческого намерения
-  if (/^[а-яёәіңғүұқөһa-z]+\s+(камень|тас|тасы)$/i.test(lower)) {
-    return { isJunk: true, isSafe: false, reason: "Инфо-запрос о минерале (X камень/тасы)" };
+  // 3. Инфо-запрос из 2 слов вида "[минерал] камень / тас / тасы" -> ТОЛЬКО ТОЧНОЕ СООТВЕТСТВИЕ [X камень]
+  if (isTwoWordStoneLookup(lower)) {
+    return { isJunk: true, isExactOnly: true, isSafe: false, reason: "Инфо-запрос [точное соответствие]" };
   }
 
   return {
     isJunk: false,
+    isExactOnly: false,
     isSafe: hasSafeStone,
     reason: hasSafeStone ? "Целевой камень / изделие мастерской" : "Общий целевой запрос"
   };
@@ -303,7 +291,7 @@ function evaluateSearchTerm(term) {
 
 function main() {
   Logger.log("==================================================================");
-  Logger.log("   💎 LIVI JEWELRY AUTOPILOT v5.1 DIAMOND SHIELD: ЗАПУСК         ");
+  Logger.log("   💎 LIVI JEWELRY AUTOPILOT v5.2 DIAMOND SHIELD: ЗАПУСК         ");
   Logger.log("==================================================================");
 
   var account = AdsApp.currentAccount();
@@ -314,8 +302,8 @@ function main() {
   var actionLogs = [];
   var warningsList = [];
 
-  // 1. Привязка мастер-списка и превентивная загрузка базовых корней брендов
-  Logger.log("\n[1/5] Проверка мастер-списка и превентивных стоп-корней...");
+  // 1. Привязка мастер-списка, конвертация "X камень" в [X камень] и превентивные бренды
+  Logger.log("\n[1/5] Синхронизация мастер-списка и перевод 'X камень' в точное соответствие...");
   var negativeList = getOrCreateNegativeList(CONFIG.NEGATIVE_LIST_NAME, actionLogs);
   var attachedCampaignsCount = attachNegativeListToAllCampaigns(negativeList);
   if (attachedCampaignsCount > 0) {
@@ -330,14 +318,14 @@ function main() {
   Logger.log("\n[3/5] Оптимизация ставок CPC ключевых слов...");
   optimizeKeywordBids(actionLogs);
 
-  // 4. Проверка корректности целевых посадочных страниц (без внешних HTTP вызовов)
+  // 4. Проверка корректности целевых посадочных страниц
   Logger.log("\n[4/5] Проверка корректности целевых страниц объявлений...");
   var landingPageAlerts = auditLandingPages();
   for (var b = 0; b < landingPageAlerts.length; b++) {
     warningsList.push(landingPageAlerts[b]);
   }
 
-  // 5. Детальный сбор статистики за вчера (Поиск + Shopping + Запросы)
+  // 5. Детальный сбор статистики за вчера
   Logger.log("\n[5/5] Формирование детального утреннего отчета за вчера...");
   var perfSummary = getYesterdayDetailedPerformance(currency, warningsList);
 
@@ -347,7 +335,7 @@ function main() {
   }
 
   Logger.log("\n==================================================================");
-  Logger.log("   АВТОПИЛОТ v5.1 DIAMOND SHIELD: Выполнение успешно завершено!   ");
+  Logger.log("   АВТОПИЛОТ v5.2 DIAMOND SHIELD: Выполнение успешно завершено!   ");
   Logger.log("==================================================================");
 }
 
@@ -364,17 +352,51 @@ function getOrCreateNegativeList(listName, actionLogs) {
   }
 
   var existing = {};
+  var toConvertExact = [];
+
   try {
     var it = negList.getNegativeKeywords();
     while (it.hasNext()) {
-      existing[it.next().getText().toLowerCase().replace(/^"|"$/g, "")] = true;
+      var nk = it.next();
+      var rawText = nk.getText().toLowerCase().trim();
+      var mType = nk.getMatchType();
+      var stripped = rawText.replace(/^["\[]|["\]]$/g, "").trim();
+
+      // Если "X камень" записано во фразовом или широком соответствии -> переводим в ТОЧНОЕ [X камень]
+      if (isTwoWordStoneLookup(stripped) && mType !== "EXACT") {
+        toConvertExact.push({ nkObj: nk, clean: stripped });
+      } else {
+        existing[stripped] = true;
+        existing[rawText] = true;
+      }
     }
   } catch (e) {}
 
+  // Авто-конвертация старых фразовых "X камень" в точное соответствие [X камень]
+  var convertedCount = 0;
+  for (var c = 0; c < toConvertExact.length; c++) {
+    var item = toConvertExact[c];
+    try {
+      if (CONFIG.APPLY_CHANGES) {
+        item.nkObj.remove();
+        negList.addNegativeKeyword("[" + item.clean + "]");
+      }
+      existing["[" + item.clean + "]"] = true;
+      existing[item.clean] = true;
+      convertedCount++;
+    } catch (convErr) {}
+  }
+  if (convertedCount > 0) {
+    var convMsg = "Переведено из фразового в точное соответствие [X камень]: " + convertedCount + " шт. (защита покупок с камнями).";
+    actionLogs.push(convMsg);
+    Logger.log("  🔄 " + convMsg);
+  }
+
+  // Превентивная загрузка брендов и стоп-корней во ФРАЗОВОМ соответствии
   var seeded = 0;
   for (var i = 0; i < SEED_ROOT_NEGATIVES.length; i++) {
     var rootWord = SEED_ROOT_NEGATIVES[i].toLowerCase().trim();
-    if (!existing[rootWord]) {
+    if (!existing[rootWord] && !existing['"' + rootWord + '"']) {
       try {
         if (CONFIG.APPLY_CHANGES) {
           negList.addNegativeKeyword('"' + rootWord + '"');
@@ -385,7 +407,7 @@ function getOrCreateNegativeList(listName, actionLogs) {
     }
   }
   if (seeded > 0) {
-    var seedMsg = "Превентивно добавлено " + seeded + " базовых корней минус-слов (бренды, мастерские и стоп-корни).";
+    var seedMsg = "Превентивно добавлено во фразовом соответствии: " + seeded + " брендов и стоп-корней.";
     actionLogs.push(seedMsg);
     Logger.log("  🛡️ " + seedMsg);
   }
@@ -425,7 +447,7 @@ function mineJunkSearchTerms(negativeList, actionLogs) {
   try {
     var negIter = negativeList.getNegativeKeywords();
     while (negIter.hasNext()) {
-      existingNegs[negIter.next().getText().toLowerCase()] = true;
+      existingNegs[negIter.next().getText().toLowerCase().trim()] = true;
     }
   } catch (err) {}
 
@@ -441,15 +463,16 @@ function mineJunkSearchTerms(negativeList, actionLogs) {
 
       var evalRes = evaluateSearchTerm(term);
       if (evalRes.isJunk) {
-        var phraseNeg = '"' + term + '"';
-        if (!existingNegs[phraseNeg.toLowerCase()] && !existingNegs[term]) {
+        // Для "X камень" ставим ТОЧНОЕ соответствие [...], для брендов и мусора — ФРАЗОВОЕ "..."
+        var formattedNeg = evalRes.isExactOnly ? ("[" + term + "]") : ('"' + term + '"');
+        if (!existingNegs[formattedNeg.toLowerCase()] && !existingNegs[term]) {
           try {
             if (CONFIG.APPLY_CHANGES) {
-              negativeList.addNegativeKeyword(phraseNeg);
+              negativeList.addNegativeKeyword(formattedNeg);
             }
-            existingNegs[phraseNeg.toLowerCase()] = true;
+            existingNegs[formattedNeg.toLowerCase()] = true;
             addedCount++;
-            var logMsg = "[Auto-Negated] Заблокирован нецелевой запрос: " + phraseNeg + " [" + evalRes.reason + "]";
+            var logMsg = "[Auto-Negated] Заблокирован запрос: " + formattedNeg + " [" + evalRes.reason + "]";
             actionLogs.push(logMsg);
             Logger.log("  🚫 " + logMsg);
           } catch (negErr) {}
@@ -697,12 +720,12 @@ function sendAutopilotEmailReport(accountName, customerId, currency, perf, actio
   var isAlert = warningsList.length > 0;
   var dateStr = Utilities.formatDate(new Date(), "Asia/Almaty", "dd.MM.yyyy");
   var subject = (isAlert ? "⚠️ Внимание: " : "💎 Livi Jewelry: ") +
-                "Утренний отчет Google Ads v5.1 DIAMOND SHIELD за вчера (" + dateStr + ") — " +
+                "Утренний отчет Google Ads v5.2 DIAMOND SHIELD за вчера (" + dateStr + ") — " +
                 perf.totalClicks + " кликов, " + perf.totalCost.toFixed(2) + " " + currency;
 
   var lines = [];
   lines.push("══════════════════════════════════════════════════════════════════");
-  lines.push("   LIVI JEWELRY — УТРЕННИЙ БОЕВОЙ ОТЧЕТ AUTOPILOT v5.1 DIAMOND   ");
+  lines.push("   LIVI JEWELRY — УТРЕННИЙ БОЕВОЙ ОТЧЕТ AUTOPILOT v5.2 DIAMOND   ");
   lines.push("══════════════════════════════════════════════════════════════════");
   lines.push("Аккаунт: " + accountName + " (ID: " + customerId + ")");
   lines.push("Дата формирования: " + Utilities.formatDate(new Date(), "Asia/Almaty", "dd.MM.yyyy HH:mm") + " (Астана)");
