@@ -19,6 +19,19 @@ import requests
 from bs4 import BeautifulSoup
 from PIL import Image, ImageOps
 
+try:
+    import pillow_heif
+    pillow_heif.register_heif_opener()
+except ImportError:
+    pass
+
+if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+        sys.stderr.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
+
 TRANSLIT_MAP = {
     'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'e',
     'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm',
@@ -701,7 +714,11 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
             dst_path = os.path.join("assets", filename)
             c += 1
 
-        optimize_image(src, dst_path)
+        try:
+            optimize_image(src, dst_path)
+        except Exception as e:
+            log_warning(f"Не удалось оптимизировать изображение для {raw_t} ({src}): {e}")
+            continue
         new_prod = {
             "id": new_id,
             "sku": generate_default_sku(new_id),
