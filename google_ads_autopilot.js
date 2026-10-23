@@ -1,6 +1,6 @@
 /**
  * ==============================================================================
- * LIVI JEWELRY — GOOGLE ADS AUTOPILOT v5.2 DIAMOND SHIELD (СИНХРОНИЗАЦИЯ СПИСКОВ)
+ * LIVI JEWELRY — GOOGLE ADS AUTOPILOT v5.3 DIAMOND SHIELD (СИНХРОНИЗАЦИЯ СПИСКОВ)
  * ==============================================================================
  * 
  * ЧТО ДЕЛАЕТ ЭТОТ СКРИПТ АВТОМАТИЧЕСКИ:
@@ -294,7 +294,7 @@ function evaluateSearchTerm(term) {
 
 function main() {
   Logger.log("==================================================================");
-  Logger.log("   💎 LIVI JEWELRY AUTOPILOT v5.2 DIAMOND SHIELD: ЗАПУСК         ");
+  Logger.log("   💎 LIVI JEWELRY AUTOPILOT v5.3 DIAMOND SHIELD: ЗАПУСК         ");
   Logger.log("==================================================================");
 
   var account = AdsApp.currentAccount();
@@ -338,7 +338,7 @@ function main() {
   }
 
   Logger.log("\n==================================================================");
-  Logger.log("   АВТОПИЛОТ v5.2 DIAMOND SHIELD: Выполнение успешно завершено!   ");
+  Logger.log("   АВТОПИЛОТ v5.3 DIAMOND SHIELD: Выполнение успешно завершено!   ");
   Logger.log("==================================================================");
 }
 
@@ -723,12 +723,12 @@ function sendAutopilotEmailReport(accountName, customerId, currency, perf, actio
   var isAlert = warningsList.length > 0;
   var dateStr = Utilities.formatDate(new Date(), "Asia/Almaty", "dd.MM.yyyy");
   var subject = (isAlert ? "⚠️ Внимание: " : "💎 Livi Jewelry: ") +
-                "Утренний отчет Google Ads v5.2 DIAMOND SHIELD за вчера (" + dateStr + ") — " +
+                "Утренний отчет Google Ads v5.3 DIAMOND SHIELD за вчера (" + dateStr + ") — " +
                 perf.totalClicks + " кликов, " + perf.totalCost.toFixed(2) + " " + currency;
 
   var lines = [];
   lines.push("══════════════════════════════════════════════════════════════════");
-  lines.push("   LIVI JEWELRY — УТРЕННИЙ БОЕВОЙ ОТЧЕТ AUTOPILOT v5.2 DIAMOND   ");
+  lines.push("   LIVI JEWELRY — УТРЕННИЙ БОЕВОЙ ОТЧЕТ AUTOPILOT v5.3 DIAMOND   ");
   lines.push("══════════════════════════════════════════════════════════════════");
   lines.push("Аккаунт: " + accountName + " (ID: " + customerId + ")");
   lines.push("Дата формирования: " + Utilities.formatDate(new Date(), "Asia/Almaty", "dd.MM.yyyy HH:mm") + " (Астана)");
