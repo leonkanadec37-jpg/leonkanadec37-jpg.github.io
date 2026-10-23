@@ -43,6 +43,7 @@ def run_step(script_name: str, desc: str):
     start_time = time.time()
     cmd = [sys.executable, script_name]
     res = subprocess.run(cmd)
+    time.sleep(0.15)
     elapsed = time.time() - start_time
 
     if res.returncode != 0:

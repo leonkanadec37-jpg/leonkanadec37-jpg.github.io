@@ -20,8 +20,26 @@ import html
 import json
 import os
 import re
+import time
 
 SITE_URL = "https://livijewelry.kz"
+
+
+def safe_write_text(file_path: str, content: str, retries: int = 5, delay: float = 0.15) -> None:
+    """Writes text to file with retry logic to avoid transient Windows file lock issues."""
+    parent_dir = os.path.dirname(os.path.abspath(file_path))
+    if parent_dir:
+        os.makedirs(parent_dir, exist_ok=True)
+    for attempt in range(retries):
+        try:
+            with open(file_path, "w", encoding="utf-8") as f:
+                f.write(content)
+            return
+        except OSError:
+            if attempt < retries - 1:
+                time.sleep(delay)
+            else:
+                raise
 GA_ID = "G-YFF2TR0N36"
 AW_ID = "AW-16793974126"
 AW_CONV_LABEL = "AW-16793974126/MuJ_CObHup8bEO7q_sc-"
@@ -710,12 +728,11 @@ def generate_kz_index(products_kz: list) -> str:
 
   <section class="hero" id="home">
     <div class="hero-content">
-      <span class="eyebrow">Табиғи інжу және тастар</span>
-      <h1>Әрбір бұйымдағы қайталанбас сұлулық</h1>
-      <p class="lead">Табиғи культивацияланған інжу мен асыл минералдардан қолдан жасалған авторлық әшекейлер. Астана бойынша күнделікті жедел жеткізу және бүкіл Қазақстанға жөнелту.</p>
+      <span class="hero-eyebrow">Қолдан жасалған авторлық әшекейлер</span>
+      <h1>Інжу мен тастардың қайталанбас эстетикасы</h1>
+      <p>Таңдаулы табиғи інжу, табиғи минералдар және төзімді гипоаллергенді фурнитура. Астана бойынша күнделікті жедел жеткізу және бүкіл әлемге жөнелту.</p>
       <div class="hero-actions">
         <a class="btn primary" href="/kz/shop.html">Каталогты көру</a>
-        <a class="btn outline" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейін%20жеке%20тапсырыспен%20жасатқым%20келеді." target="_blank" rel="noopener">WhatsApp арқылы кеңес алу</a>
       </div>
     </div>
     <div class="hero-media">
@@ -2135,20 +2152,17 @@ def generate_kz_pages():
     os.makedirs(os.path.join("kz", "product"), exist_ok=True)
 
     # 1. Main KZ Home
-    with open(os.path.join("kz", "index.html"), "w", encoding="utf-8") as f:
-        f.write(generate_kz_index(products_kz))
+    safe_write_text(os.path.join("kz", "index.html"), generate_kz_index(products_kz))
 
     # 2. Main KZ Shop
-    with open(os.path.join("kz", "shop.html"), "w", encoding="utf-8") as f:
-        f.write(generate_kz_shop(products_kz))
+    safe_write_text(os.path.join("kz", "shop.html"), generate_kz_shop(products_kz))
 
     # 3. 28 KZ Product Pages
     for p in products_kz:
         pid = p["id"]
         page_html = build_kz_product_page(p, products_kz)
         out_path = os.path.join("kz", "product", f"{pid}.html")
-        with open(out_path, "w", encoding="utf-8") as f:
-            f.write(page_html)
+        safe_write_text(out_path, page_html)
 
     print(f"[OK] Сгенерированы казахскоязычные страницы: kz/index.html, kz/shop.html и 28 товаров в kz/product/prod_XX.html")
 

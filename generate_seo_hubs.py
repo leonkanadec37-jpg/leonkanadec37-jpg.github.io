@@ -14,9 +14,27 @@ import os
 import re
 import json
 import html
+import time
 
 BASE_URL = "https://livijewelry.kz"
 PRODUCTS_FILE = "products.json"
+
+
+def safe_write_text(file_path: str, content: str, retries: int = 5, delay: float = 0.15) -> None:
+    """Writes text to file with retry logic to avoid transient Windows file lock issues (Errno 22 / PermissionError)."""
+    parent_dir = os.path.dirname(os.path.abspath(file_path))
+    if parent_dir:
+        os.makedirs(parent_dir, exist_ok=True)
+    for attempt in range(retries):
+        try:
+            with open(file_path, "w", encoding="utf-8") as f:
+                f.write(content)
+            return
+        except OSError:
+            if attempt < retries - 1:
+                time.sleep(delay)
+            else:
+                raise
 
 GENITIVE_STONE_MAP = {
     "натуральный жемчуг": "натурального жемчуга",
@@ -1208,8 +1226,7 @@ def generate_hub_page(hub, products):
 </body>
 </html>
 """
-    with open(slug, "w", encoding="utf-8") as f:
-        f.write(page_html)
+    safe_write_text(slug, page_html)
     return slug
 
 
@@ -1628,8 +1645,7 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
 </body>
 </html>
 """
-    with open(out_path, "w", encoding="utf-8") as f:
-        f.write(page_html)
+    safe_write_text(out_path, page_html)
     return out_path
 
 
@@ -1722,8 +1738,7 @@ def update_sergi_page(products: list):
   <link rel="alternate" hreflang="x-default" href="{BASE_URL}/sergi-iz-zhemchuga.html" />"""
         html_txt = html_txt.replace('<link rel="canonical" href="https://livijewelry.kz/sergi-iz-zhemchuga.html">', f'<link rel="canonical" href="https://livijewelry.kz/sergi-iz-zhemchuga.html">\n{hreflang_tags}')
 
-    with open(path, "w", encoding="utf-8") as f:
-        f.write(html_txt)
+    safe_write_text(path, html_txt)
     print(f"[OK] sergi-iz-zhemchuga.html обновлена ({len(earring_prods)} комплектов с серьгами)")
 
 
@@ -1776,8 +1791,7 @@ def update_category_hubs(products: list):
                 '  <link rel="alternate" hreflang="x-default" href="https://livijewelry.kz/kolye-iz-zhemchuga.html" />'
             )
 
-        with open(path_k, "w", encoding="utf-8") as f:
-            f.write(k_html)
+        safe_write_text(path_k, k_html)
         print(f"[OK] kolye-iz-zhemchuga.html ItemList обновлен ({len(unique_pids)} товаров)")
 
     # 2. braslety-iz-zhemchuga.html
@@ -1825,8 +1839,7 @@ def update_category_hubs(products: list):
                 '  <link rel="alternate" hreflang="x-default" href="https://livijewelry.kz/braslety-iz-zhemchuga.html" />'
             )
 
-        with open(path_b, "w", encoding="utf-8") as f:
-            f.write(b_html)
+        safe_write_text(path_b, b_html)
         print(f"[OK] braslety-iz-zhemchuga.html ItemList обновлен ({len(unique_pids)} товаров)")
 
 
@@ -1918,8 +1931,7 @@ def standardize_hub_header_and_drawer(file_path: str, slug: str):
 
     content = re.sub(r'<a\s+href="[^"]*kz/shop\.html"[^>]*>Қазақша\s+каталог</a>\s*', '', content)
 
-    with open(file_path, "w", encoding="utf-8") as f:
-        f.write(content)
+    safe_write_text(file_path, content)
 
 
 def update_existing_pages_interlinking():
@@ -1946,8 +1958,7 @@ def update_existing_pages_interlinking():
         else:
             c_html = c_html.replace("</main>", f"\n{interlink_block}\n  </main>")
 
-        with open(page, "w", encoding="utf-8") as f:
-            f.write(c_html)
+        safe_write_text(page, c_html)
 
 
 def generate_seo_hubs():
