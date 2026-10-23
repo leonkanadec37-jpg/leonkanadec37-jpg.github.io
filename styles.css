@@ -623,16 +623,19 @@ nav.menu {
   max-width: 440px;
   justify-self: end;
   width: 100%;
+  box-sizing: border-box;
 }
 .hero-col-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   text-decoration: none;
   background: #FAF8F5;
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 8px;
   padding: 16px 12px 14px;
+  box-sizing: border-box;
   transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.35s ease, box-shadow 0.35s ease;
 }
 .hero-col-item:hover {
@@ -643,13 +646,16 @@ nav.menu {
 .hero-col-thumb {
   width: 100%;
   aspect-ratio: 1;
-  max-width: 130px;
+  max-width: 120px;
+  max-height: 120px;
   border-radius: 50%;
   overflow: hidden;
   background: #EDEAE4;
-  margin-bottom: 10px;
-  border: 1px solid rgba(197, 162, 101, 0.25);
+  margin: 0 auto 10px;
+  border: 1.5px solid rgba(197, 162, 101, 0.35);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
+  flex-shrink: 0;
   transition: transform 0.4s ease;
 }
 .hero-col-item:hover .hero-col-thumb {
@@ -659,27 +665,24 @@ nav.menu {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 50%;
   display: block;
 }
-.hero-col-item:nth-child(1) .hero-col-thumb img {
-  object-position: center 38%;
-}
-.hero-col-item:nth-child(2) .hero-col-thumb img {
-  object-position: center 45%;
-}
-.hero-col-item:nth-child(3) .hero-col-thumb img {
-  object-position: center 45%;
-}
-.hero-col-item:nth-child(4) .hero-col-thumb img {
-  object-position: center 40%;
-}
+.hero-col-item:nth-child(1) .hero-col-thumb img { object-position: center 38%; }
+.hero-col-item:nth-child(2) .hero-col-thumb img { object-position: center 45%; }
+.hero-col-item:nth-child(3) .hero-col-thumb img { object-position: center 45%; }
+.hero-col-item:nth-child(4) .hero-col-thumb img { object-position: center 40%; }
 .hero-col-title {
+  display: block;
+  width: 100%;
   font-family: var(--font-serif);
   font-size: 14px;
   letter-spacing: 0.04em;
   color: var(--fg);
   text-align: center;
   font-weight: 400;
+  margin: 0;
+  white-space: nowrap;
   transition: color 0.3s;
 }
 .hero-col-item:hover .hero-col-title {
@@ -1571,41 +1574,70 @@ footer {
   }
   /* Вариант 3: Коллекции Дома на смартфонах — 4 изящных медальона в ряд */
   .hero-collections {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    max-width: 380px;
-    margin: 8px auto 0;
-    padding: 0;
-    justify-self: center;
-    width: 100%;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    gap: clamp(8px, 2.5vw, 14px) !important;
+    max-width: 380px !important;
+    margin: 10px auto 0 !important;
+    padding: 0 !important;
+    justify-self: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
   .hero-col-item {
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    padding: 0;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    flex: 1 1 0 !important;
+    max-width: 80px !important;
+    min-width: 58px !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
     box-shadow: none !important;
   }
   .hero-col-item:hover {
-    transform: none;
+    transform: none !important;
   }
   .hero-col-thumb {
-    width: clamp(58px, 16vw, 68px);
-    height: clamp(58px, 16vw, 68px);
-    max-width: 68px;
-    border-radius: 50%;
-    margin: 0 auto 6px;
-    border: 1px solid rgba(197, 162, 101, 0.4);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    width: clamp(56px, 15vw, 68px) !important;
+    height: clamp(56px, 15vw, 68px) !important;
+    max-width: 68px !important;
+    max-height: 68px !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    margin: 0 auto 6px !important;
+    border: 1.5px solid rgba(197, 162, 101, 0.45) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+  }
+  .hero-col-thumb img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    display: block !important;
   }
   .hero-col-title {
-    font-family: var(--font-sans);
-    font-size: 10px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    font-weight: 500;
-    color: var(--fg);
+    display: block !important;
+    width: 100% !important;
+    font-family: var(--font-sans) !important;
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    font-weight: 500 !important;
+    color: var(--fg) !important;
+    text-align: center !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
   }
   .hero-visual,
   .hero-media {
