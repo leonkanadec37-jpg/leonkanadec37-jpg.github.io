@@ -23,7 +23,7 @@ OUTPUT_CSV = "kaspi_catalog.csv"
 
 # Настройки продавца в Kaspi
 COMPANY_NAME = "Livi Jewelry"
-MERCHANT_ID = os.environ.get("KASPI_MERCHANT_ID", "LiviJewelry")
+MERCHANT_ID = os.environ.get("KASPI_MERCHANT_ID", "30485133")
 DEFAULT_STORE_ID = os.environ.get("KASPI_STORE_ID", "PP1")
 
 # Компенсация комиссии маркетплейса Kaspi (по умолчанию +15% с округлением до 500 тенге)
