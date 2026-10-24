@@ -26,6 +26,26 @@ COMPANY_NAME = "Livi Jewelry"
 MERCHANT_ID = os.environ.get("KASPI_MERCHANT_ID", "LiviJewelry")
 DEFAULT_STORE_ID = os.environ.get("KASPI_STORE_ID", "PP1")
 
+# Компенсация комиссии маркетплейса Kaspi (по умолчанию +15% с округлением до 500 тенге)
+KASPI_COMMISSION_MARKUP = float(os.environ.get("KASPI_COMMISSION_MARKUP", "1.15"))
+
+
+def calculate_kaspi_price(base_price: int, markup: float = KASPI_COMMISSION_MARKUP) -> int:
+    """
+    Рассчитывает цену для Kaspi с учетом комиссии маркетплейса (по умолчанию +15%).
+    Округляет до красивых кратных 500 тенге.
+    Примеры:
+      25 000 * 1.15 = 28 750 -> 29 000 ₸
+      34 000 * 1.15 = 39 100 -> 39 000 ₸
+      40 000 * 1.15 = 46 000 -> 46 000 ₸
+      80 000 * 1.15 = 92 000 -> 92 000 ₸
+    """
+    if not base_price or base_price <= 0:
+        return 0
+    raw = base_price * markup
+    return int(round(raw / 500.0) * 500)
+
+
 # Категории Kaspi в классификаторе «Украшения и бижутерия»
 KASPI_CATEGORY_MAP = {
     "Necklaces": "Украшения и бижутерия > Колье, бусы и ожерелья",
@@ -86,7 +106,8 @@ def generate_kaspi_xml(products: list, output_file: str = OUTPUT_XML):
     for p in products:
         sku = escape(str(p.get("sku") or p.get("id", "")))
         title = escape(clean_text(p.get("title", "")))
-        price_val = int(p.get("price", 0))
+        base_price = int(p.get("price", 0))
+        price_val = calculate_kaspi_price(base_price)
         in_stock = bool(p.get("inStock", True))
         preorder_flag = is_preorder(p)
 
@@ -145,7 +166,8 @@ def generate_kaspi_csv(products: list, output_file: str = OUTPUT_CSV):
             title = clean_text(p.get("title", ""))
             cat_key = p.get("category", "Necklaces")
             kaspi_cat = KASPI_CATEGORY_MAP.get(cat_key, "Украшения и бижутерия > Авторские украшения")
-            price_val = int(p.get("price", 0))
+            base_price = int(p.get("price", 0))
+            price_val = calculate_kaspi_price(base_price)
 
             in_stock = bool(p.get("inStock", True))
             preorder_flag = is_preorder(p)
