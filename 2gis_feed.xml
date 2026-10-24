@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-10-23 10:05">
+<yml_catalog date="2026-10-24 10:04">
   <shop>
     <name>Livi Jewelry</name>
     <company>Livi Jewelry — Авторские украшения ручной работы</company>
@@ -229,7 +229,7 @@
       <offer id="prod_22" available="true">
         <name>Колье «Гранж» с натуральным жемчугом</name>
         <url>https://livijewelry.kz/product/prod_22.html</url>
-        <price>45000</price>
+        <price>40000</price>
         <currencyId>KZT</currencyId>
         <categoryId>1</categoryId>
         <picture>https://livijewelry.kz/assets/kole-granzh-45000.webp</picture>
