@@ -847,6 +847,12 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
         except Exception as e:
             print(f"[WARN] Ошибка обновления каталога 2ГИС: {e}")
 
+        try:
+            from generate_kaspi_feed import generate_kaspi
+            generate_kaspi()
+        except Exception as e:
+            print(f"[WARN] Ошибка обновления фида Kaspi: {e}")
+
         actions = []
         if added_count > 0:
             actions.append(f"добавлено: {added_count}")
@@ -861,7 +867,7 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
 
         if auto_commit or auto_push:
             try:
-                subprocess.run(["git", "add", "-A", products_file, "shop.html", "index.html", "feed.xml", "google_merchant_feed.xml", "pinterest_feed.xml", "pinterest_bulk_pins.csv", "2gis_feed.xml", "2gis_catalog.csv", "sitemap.xml", "assets/", "product/", "kz/", "*.html"], check=True)
+                subprocess.run(["git", "add", "-A", products_file, "shop.html", "index.html", "feed.xml", "google_merchant_feed.xml", "pinterest_feed.xml", "pinterest_bulk_pins.csv", "2gis_feed.xml", "2gis_catalog.csv", "kaspi_feed.xml", "kaspi_catalog.csv", "sitemap.xml", "assets/", "product/", "kz/", "*.html"], check=True)
                 msg = f"Автосинхронизация каталога: {summary_str}"
                 subprocess.run(["git", "commit", "-m", msg], check=True)
                 print(f"[OK] Git commit: {msg}")

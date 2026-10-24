@@ -24,13 +24,15 @@ except Exception:
     pass
 
 STEPS = [
-    ("generate_product_pages.py", "1/7 Генерация RU страниц товаров и пререндеринг витрин"),
-    ("generate_seo_hubs.py", "2/7 Генерация 21 кластерного SEO-хаба"),
-    ("generate_kz_pages.py", "3/7 Генерация казахской витрины и KZ страниц товаров"),
-    ("generate_feed.py", "4/7 Генерация товарного фида Google Shopping"),
-    ("generate_pinterest_assets.py", "5/7 Генерация каталога и пинов Pinterest"),
-    ("generate_sitemap.py", "6/7 Генерация карты сайта sitemap.xml"),
-    ("verify_audit.py", "7/7 Запуск валидации технического аудита и 35 тестов инвариантов"),
+    ("generate_product_pages.py", "1/9 Генерация RU страниц товаров и пререндеринг витрин"),
+    ("generate_seo_hubs.py", "2/9 Генерация 21 кластерного SEO-хаба"),
+    ("generate_kz_pages.py", "3/9 Генерация казахской витрины и KZ страниц товаров"),
+    ("generate_feed.py", "4/9 Генерация товарного фида Google Shopping"),
+    ("generate_kaspi_feed.py", "5/9 Генерация товарного фида и каталога Kaspi.kz"),
+    ("generate_2gis_catalog.py", "6/9 Генерация товарного фида и каталога 2ГИС"),
+    ("generate_pinterest_assets.py", "7/9 Генерация каталога и пинов Pinterest"),
+    ("generate_sitemap.py", "8/9 Генерация карты сайта sitemap.xml"),
+    ("verify_audit.py", "9/9 Запуск валидации технического аудита и 35 тестов инвариантов"),
 ]
 
 

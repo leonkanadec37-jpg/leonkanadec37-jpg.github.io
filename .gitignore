@@ -5,6 +5,9 @@ __pycache__/
 Thumbs.db
 .github/
 *.csv
+!2gis_catalog.csv
+!kaspi_catalog.csv
+!pinterest_bulk_pins.csv
 big_report_terms.json
 detailed_5955_audit.txt
 unknowns_breakdown.txt

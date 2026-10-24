@@ -232,6 +232,12 @@ def main():
     except Exception:
         pass
 
+    try:
+        from generate_kaspi_feed import generate_kaspi
+        generate_kaspi()
+    except Exception:
+        pass
+
     if args.commit or args.push:
         try:
             subprocess.run(["git", "add", "-A"], check=True)

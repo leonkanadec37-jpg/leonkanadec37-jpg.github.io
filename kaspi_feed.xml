@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kaspi_catalog date="2026-10-24T14:32:37" xmlns="kaspiShopping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="kaspiShopping http://kaspi.kz/kaspishopping.xsd">
+  <company>Livi Jewelry</company>
+  <merchantid>LiviJewelry</merchantid>
+  <offers>
+    <offer sku="LIVI-01">
+      <model>Колье из натурального жемчуга с барочной подвеской</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>80000</price>
+    </offer>
+    <offer sku="LIVI-02">
+      <model>Колье из натурального жемчуга и горного хрусталя (Премиум)</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>80000</price>
+    </offer>
+    <offer sku="LIVI-03">
+      <model>Колье из жемчуга Майорка</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>34000</price>
+    </offer>
+    <offer sku="LIVI-04">
+      <model>Позолоченная цепь и браслет с барочным жемчугом</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>40000</price>
+    </offer>
+    <offer sku="LIVI-05">
+      <model>Цепь родированная и браслет с барочным жемчугом</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>40000</price>
+    </offer>
+    <offer sku="LIVI-06">
+      <model>Браслет из малахита</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>25000</price>
+    </offer>
+    <offer sku="LIVI-07">
+      <model>Булавка из аметиста и жемчуга, браслет, кольцо</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>74000</price>
+    </offer>
+    <offer sku="LIVI-08">
+      <model>Колье «Лапы» из натурального жемчуга</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>40000</price>
+    </offer>
+    <offer sku="LIVI-09">
+      <model>Колье из авантюрина и серьги</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>44000</price>
+    </offer>
+    <offer sku="LIVI-10">
+      <model>Колье из агата и граната, кольцо</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>48000</price>
+    </offer>
+    <offer sku="LIVI-11">
+      <model>Колье из аметиста и розового кварца, серьги из аметиста</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>61000</price>
+    </offer>
+    <offer sku="LIVI-12">
+      <model>Колье из жадеита и тигрового глаза, серьги из тигрового глаза</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>52000</price>
+    </offer>
+    <offer sku="LIVI-13">
+      <model>Колье из жемчуга Майорка и серьги</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>45000</price>
+    </offer>
+    <offer sku="LIVI-14">
+      <model>Колье из коралла и яшмы, браслет, серьги</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>60000</price>
+    </offer>
+    <offer sku="LIVI-15">
+      <model>Колье из розового кварца и жемчуга, серьги</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>56000</price>
+    </offer>
+    <offer sku="LIVI-16">
+      <model>Колье и серьги из натуральной бирюзы</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>50000</price>
+    </offer>
+    <offer sku="LIVI-17">
+      <model>Украшение-сотуар из агата и граната</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>36000</price>
+    </offer>
+    <offer sku="LIVI-18">
+      <model>Булавка, браслет, серьги, кольцо (под заказ)</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="5"/>
+      </availabilities>
+      <price>74000</price>
+    </offer>
+    <offer sku="LIVI-19">
+      <model>Колье из тигрового глаза и гематита</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>50000</price>
+    </offer>
+    <offer sku="LIVI-20">
+      <model>Колье из флюорита и цирконов</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>35000</price>
+    </offer>
+    <offer sku="LIVI-21">
+      <model>Колье «Клубнички» и розовый кварц с жемчугом</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>74000</price>
+    </offer>
+    <offer sku="LIVI-22">
+      <model>Колье «Гранж» с натуральным жемчугом</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>40000</price>
+    </offer>
+    <offer sku="LIVI-23">
+      <model>Колье из натурального граната</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>40000</price>
+    </offer>
+    <offer sku="LIVI-24">
+      <model>Колье из жемчуга и лазурита</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>40000</price>
+    </offer>
+    <offer sku="LIVI-25">
+      <model>Колье из граната и жемчуга</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>40000</price>
+    </offer>
+    <offer sku="LIVI-26">
+      <model>Колье с бирюзой и серьги</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>50000</price>
+    </offer>
+    <offer sku="LIVI-27">
+      <model>Колье из нефрита и гематита, серьги</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>61000</price>
+    </offer>
+    <offer sku="LIVI-28">
+      <model>Колье из бирюзы, браслет, серьги, кольцо</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>91000</price>
+    </offer>
+    <offer sku="LIVI-29">
+      <model>Колье из гематита</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>32000</price>
+    </offer>
+    <offer sku="LIVI-30">
+      <model>Колье из натуральных камней и браслет</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>38000</price>
+    </offer>
+    <offer sku="LIVI-31">
+      <model>Колье из яшмы и браслет</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>46000</price>
+    </offer>
+    <offer sku="LIVI-32">
+      <model>Колье и браслет из натуральных камней</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>38000</price>
+    </offer>
+    <offer sku="LIVI-33">
+      <model>Колье, браслет и серьги из натуральных камней</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>48000</price>
+    </offer>
+    <offer sku="LIVI-34">
+      <model>Серьги</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>15000</price>
+    </offer>
+    <offer sku="LIVI-35">
+      <model>Серьги из аква кварца</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>12000</price>
+    </offer>
+    <offer sku="LIVI-36">
+      <model>Серьги из далматиновой яшмы</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>16000</price>
+    </offer>
+    <offer sku="LIVI-37">
+      <model>Серьги из жадеита</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>14000</price>
+    </offer>
+    <offer sku="LIVI-38">
+      <model>Серьги из жемчуга Майорка</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>16000</price>
+    </offer>
+    <offer sku="LIVI-39">
+      <model>Серьги луна и звезда</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>14000</price>
+    </offer>
+    <offer sku="LIVI-40">
+      <model>Серьги пусеты</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>8500</price>
+    </offer>
+    <offer sku="LIVI-41">
+      <model>Серьги пусеты сердца</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>15000</price>
+    </offer>
+    <offer sku="LIVI-42">
+      <model>Серьги с жемчугом Майорка</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>12000</price>
+    </offer>
+    <offer sku="LIVI-43">
+      <model>Серьги с сердцами Swarovski</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>15000</price>
+    </offer>
+    <offer sku="LIVI-44">
+      <model>Серьги с тигровым глазом</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>12000</price>
+    </offer>
+    <offer sku="LIVI-45">
+      <model>Серьги сердца</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="no" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>12000</price>
+    </offer>
+    <offer sku="LIVI-46">
+      <model>Серьги со съемными сердцами из натуральных камней</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="no" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>16000</price>
+    </offer>
+    <offer sku="LIVI-47">
+      <model>Сотуар из бирюзы</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="no" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>30000</price>
+    </offer>
+    <offer sku="LIVI-48">
+      <model>Сотуар из тигрового глаза</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="no" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>30000</price>
+    </offer>
+    <offer sku="LIVI-49">
+      <model>Чокеры из граната и жемчуга</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="no" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>20000</price>
+    </offer>
+    <offer sku="LIVI-50">
+      <model>Колье из тигрового глаза и браслет</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>32000</price>
+    </offer>
+    <offer sku="LIVI-51">
+      <model>Сотуар из далматиновой яшмы и агата</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="no" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>26000</price>
+    </offer>
+    <offer sku="LIVI-52">
+      <model>Гематита и жемчуга Майорка</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>40000</price>
+    </offer>
+    <offer sku="LIVI-53">
+      <model>Колье из гематита и цирконов, браслет</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>51000</price>
+    </offer>
+    <offer sku="LIVI-54">
+      <model>Колье «Лапы» в черном цвете</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>40000</price>
+    </offer>
+    <offer sku="LIVI-55">
+      <model>Колье «Лапы» из ювелирного чешского стекла</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>40000</price>
+    </offer>
+    <offer sku="LIVI-56">
+      <model>Колье из граната и чешского стекла</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>36000</price>
+    </offer>
+    <offer sku="LIVI-57">
+      <model>Колье из жемчуга Майорка и ювелирного стекла</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>34000</price>
+    </offer>
+    <offer sku="LIVI-58">
+      <model>Серьги трансформеры со съемными сердцами из натуральных камней</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>16000</price>
+    </offer>
+  </offers>
+</kaspi_catalog>
