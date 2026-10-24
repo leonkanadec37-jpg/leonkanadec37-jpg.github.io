@@ -311,6 +311,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
     img_abs = f"{SITE_URL}/{img_rel}"
     page_url = f"{SITE_URL}/product/{pid}.html"
     kz_page_url = f"{SITE_URL}/kz/product/{pid}.html"
+    uz_page_url = f"{SITE_URL}/uz/product/{pid}.html"
 
     description = (product.get("description") or "").strip()
     materials = product.get("materials") or ["Натуральный жемчуг", "Ювелирный сплав"]
@@ -667,6 +668,8 @@ def build_product_page_html(product: dict, all_products: list) -> str:
   <link rel="alternate" hreflang="ru" href="{page_url}" />
   <link rel="alternate" hreflang="kk-KZ" href="{kz_page_url}" />
   <link rel="alternate" hreflang="kk" href="{kz_page_url}" />
+  <link rel="alternate" hreflang="uz-UZ" href="{uz_page_url}" />
+  <link rel="alternate" hreflang="uz" href="{uz_page_url}" />
   <link rel="alternate" hreflang="x-default" href="{page_url}" />
 
   <!-- Open Graph / Product -->
@@ -734,6 +737,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
       <div class="lang">
         <a href="{page_url}" class="active">RU</a>
         <a href="{kz_page_url}" lang="kk">KZ</a>
+        <a href="{uz_page_url}" lang="uz">UZ</a>
       </div>
     </div>
   </div>
@@ -750,6 +754,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
         <div class="header-lang-links" aria-label="Выбор языка">
           <a href="{page_url}" class="active">RU</a>
           <a href="{kz_page_url}" lang="kk">KZ</a>
+          <a href="{uz_page_url}" lang="uz">UZ</a>
         </div>
         <a class="cart-link" href="/cart.html" aria-label="Корзина">
           <span>Корзина</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
@@ -871,6 +876,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
         <a href="/privacy.html">Политика конфиденциальности</a>
         <a href="/terms.html">Условия использования</a>
         <a href="/shop.html">Каталог</a>
+        <a href="/uz/">Oʻzbekcha talqin</a>
       </div>
       <div class="copy">© <span id="year">2026</span> Livi Jewelry — Все права защищены.</div>
       <div class="links">
@@ -1245,9 +1251,9 @@ def generate_all():
     active = [p for p in products if p.get("inStock", True)]
     os.makedirs("product", exist_ok=True)
 
-    for p in active:
+    for p in products:
         out_path = os.path.join("product", f"{p['id']}.html")
-        page_html = build_product_page_html(p, active)
+        page_html = build_product_page_html(p, products)
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(page_html)
 

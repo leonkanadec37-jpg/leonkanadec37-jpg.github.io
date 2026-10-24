@@ -3,12 +3,11 @@
 """
 Генератор XML-карты сайта sitemap.xml (Livi Jewelry):
 Включает:
-- Главную страницу (/) и казахскую версию (/kz/)
-- Каталог (/shop.html) и казахский каталог (/kz/shop.html)
-- Все 21 SEO-хаб (15 тематических хабов + 6 новых узкоцелевых кластеров)
-- Все 28 русских карточек товаров (/product/prod_01.html ... /product/prod_28.html) с hreflang и <image:image>
-- Все 28 казахских карточек товаров (/kz/product/prod_01.html ... /kz/product/prod_28.html) с hreflang и <image:image>
-- Сервисные страницы (/delivery.html, /privacy.html, /terms.html, /cart.html)
+- Главную страницу (/) и языковые версии (/kz/, /uz/)
+- Каталог (/shop.html) и языковые версии (/kz/shop.html, /uz/shop.html)
+- Все 21 SEO-хаб (RU, KZ, UZ) с полным набором hreflang
+- Все активные карточки товаров (/product/prod_XX.html, /kz/product/prod_XX.html, /uz/product/prod_XX.html) с hreflang и <image:image>
+- Сервисные страницы (/delivery.html, /privacy.html, /terms.html и их /uz/ аналоги)
 """
 
 import json
@@ -35,7 +34,6 @@ SEO_HUBS = [
     ("ukrasheniya-iz-biryuzy.html", "0.85", "weekly"),
     ("ukrasheniya-iz-gornogo-hrustalya.html", "0.85", "weekly"),
     ("ukrasheniya-iz-lunnogo-kamnya.html", "0.85", "weekly"),
-    # 6 новых узкоцелевых SEO-хабов
     ("ukrasheniya-iz-zhemchuga-mayorka.html", "0.85", "weekly"),
     ("ukrasheniya-iz-tigrovogo-glaza.html", "0.85", "weekly"),
     ("ukrasheniya-iz-koralla-i-yashmy.html", "0.85", "weekly"),
@@ -58,8 +56,28 @@ def get_file_lastmod(filepath, default_date=None):
     return default_date or datetime.now().strftime("%Y-%m-%d")
 
 
+def build_symmetrical_hreflang(ru_url: str, kz_url: str, uz_url: str) -> list:
+    return [
+        f'    <xhtml:link rel="alternate" hreflang="ru-KZ" href="{ru_url}" />',
+        f'    <xhtml:link rel="alternate" hreflang="ru" href="{ru_url}" />',
+        f'    <xhtml:link rel="alternate" hreflang="kk-KZ" href="{kz_url}" />',
+        f'    <xhtml:link rel="alternate" hreflang="kk" href="{kz_url}" />',
+        f'    <xhtml:link rel="alternate" hreflang="uz-UZ" href="{uz_url}" />',
+        f'    <xhtml:link rel="alternate" hreflang="uz" href="{uz_url}" />',
+        f'    <xhtml:link rel="alternate" hreflang="x-default" href="{ru_url}" />',
+    ]
+
+
 def generate_sitemap():
     today = datetime.now().strftime("%Y-%m-%d")
+
+    # Load translations if available
+    uz_translations = {}
+    try:
+        from generate_uz_pages import UZ_TRANSLATIONS
+        uz_translations = UZ_TRANSLATIONS
+    except Exception:
+        pass
 
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
@@ -68,61 +86,50 @@ def generate_sitemap():
         '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
     ]
 
-    # 1. Главные страницы (RU + KZ)
-    lines.append("  <url>")
-    lines.append(f"    <loc>{SITE_URL}/</loc>")
-    lines.append(f"    <lastmod>{get_file_lastmod('index.html', today)}</lastmod>")
-    lines.append("    <changefreq>daily</changefreq>")
-    lines.append("    <priority>1.0</priority>")
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="ru-KZ" href="{SITE_URL}/" />')
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="ru" href="{SITE_URL}/" />')
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="kk-KZ" href="{SITE_URL}/kz/" />')
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="kk" href="{SITE_URL}/kz/" />')
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{SITE_URL}/" />')
-    lines.append("  </url>")
+    # 1. Главные страницы (RU, KZ, UZ)
+    ru_home = f"{SITE_URL}/"
+    kz_home = f"{SITE_URL}/kz/"
+    uz_home = f"{SITE_URL}/uz/"
+    home_hreflangs = build_symmetrical_hreflang(ru_home, kz_home, uz_home)
 
-    lines.append("  <url>")
-    lines.append(f"    <loc>{SITE_URL}/kz/</loc>")
-    lines.append(f"    <lastmod>{get_file_lastmod('kz/index.html', today)}</lastmod>")
-    lines.append("    <changefreq>daily</changefreq>")
-    lines.append("    <priority>0.9</priority>")
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="ru-KZ" href="{SITE_URL}/" />')
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="ru" href="{SITE_URL}/" />')
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="kk-KZ" href="{SITE_URL}/kz/" />')
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="kk" href="{SITE_URL}/kz/" />')
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{SITE_URL}/" />')
-    lines.append("  </url>")
+    for loc, lastmod_file, prio in [
+        (ru_home, "index.html", "1.0"),
+        (kz_home, "kz/index.html", "0.9"),
+        (uz_home, "uz/index.html", "0.9"),
+    ]:
+        lines.append("  <url>")
+        lines.append(f"    <loc>{loc}</loc>")
+        lines.append(f"    <lastmod>{get_file_lastmod(lastmod_file, today)}</lastmod>")
+        lines.append("    <changefreq>daily</changefreq>")
+        lines.append(f"    <priority>{prio}</priority>")
+        lines.extend(home_hreflangs)
+        lines.append("  </url>")
 
-    # 2. Каталоги (RU + KZ)
-    lines.append("  <url>")
-    lines.append(f"    <loc>{SITE_URL}/shop.html</loc>")
-    lines.append(f"    <lastmod>{get_file_lastmod('shop.html', today)}</lastmod>")
-    lines.append("    <changefreq>daily</changefreq>")
-    lines.append("    <priority>0.9</priority>")
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="ru-KZ" href="{SITE_URL}/shop.html" />')
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="ru" href="{SITE_URL}/shop.html" />')
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="kk-KZ" href="{SITE_URL}/kz/shop.html" />')
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="kk" href="{SITE_URL}/kz/shop.html" />')
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{SITE_URL}/shop.html" />')
-    lines.append("  </url>")
+    # 2. Каталоги (RU, KZ, UZ)
+    ru_shop = f"{SITE_URL}/shop.html"
+    kz_shop = f"{SITE_URL}/kz/shop.html"
+    uz_shop = f"{SITE_URL}/uz/shop.html"
+    shop_hreflangs = build_symmetrical_hreflang(ru_shop, kz_shop, uz_shop)
 
-    lines.append("  <url>")
-    lines.append(f"    <loc>{SITE_URL}/kz/shop.html</loc>")
-    lines.append(f"    <lastmod>{get_file_lastmod('kz/shop.html', today)}</lastmod>")
-    lines.append("    <changefreq>daily</changefreq>")
-    lines.append("    <priority>0.85</priority>")
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="ru-KZ" href="{SITE_URL}/shop.html" />')
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="ru" href="{SITE_URL}/shop.html" />')
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="kk-KZ" href="{SITE_URL}/kz/shop.html" />')
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="kk" href="{SITE_URL}/kz/shop.html" />')
-    lines.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{SITE_URL}/shop.html" />')
-    lines.append("  </url>")
+    for loc, lastmod_file, prio in [
+        (ru_shop, "shop.html", "0.9"),
+        (kz_shop, "kz/shop.html", "0.85"),
+        (uz_shop, "uz/shop.html", "0.85"),
+    ]:
+        lines.append("  <url>")
+        lines.append(f"    <loc>{loc}</loc>")
+        lines.append(f"    <lastmod>{get_file_lastmod(lastmod_file, today)}</lastmod>")
+        lines.append("    <changefreq>daily</changefreq>")
+        lines.append(f"    <priority>{prio}</priority>")
+        lines.extend(shop_hreflangs)
+        lines.append("  </url>")
 
-    # 3. Все 21 SEO-хаб (RU + KZ со связкой hreflang)
+    # 3. Все 21 SEO-хаб (RU + KZ + UZ со связкой hreflang)
     for page, prio, freq in SEO_HUBS:
         ru_url = f"{SITE_URL}/{page}"
         kz_url = f"{SITE_URL}/kz/{page}"
-        kz_file = f"kz/{page}"
+        uz_url = f"{SITE_URL}/uz/{page}"
+        hub_hreflangs = build_symmetrical_hreflang(ru_url, kz_url, uz_url)
 
         # RU Hub
         lines.append("  <url>")
@@ -130,37 +137,55 @@ def generate_sitemap():
         lines.append(f"    <lastmod>{get_file_lastmod(page, today)}</lastmod>")
         lines.append(f"    <changefreq>{freq}</changefreq>")
         lines.append(f"    <priority>{prio}</priority>")
-        lines.append(f'    <xhtml:link rel="alternate" hreflang="ru-KZ" href="{ru_url}" />')
-        lines.append(f'    <xhtml:link rel="alternate" hreflang="ru" href="{ru_url}" />')
-        lines.append(f'    <xhtml:link rel="alternate" hreflang="kk-KZ" href="{kz_url}" />')
-        lines.append(f'    <xhtml:link rel="alternate" hreflang="kk" href="{kz_url}" />')
-        lines.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{ru_url}" />')
+        lines.extend(hub_hreflangs)
         lines.append("  </url>")
 
         # KZ Hub
         lines.append("  <url>")
         lines.append(f"    <loc>{kz_url}</loc>")
-        lines.append(f"    <lastmod>{get_file_lastmod(kz_file, today)}</lastmod>")
+        lines.append(f"    <lastmod>{get_file_lastmod(f'kz/{page}', today)}</lastmod>")
         lines.append(f"    <changefreq>{freq}</changefreq>")
-        lines.append(f"    <priority>0.8</priority>")
-        lines.append(f'    <xhtml:link rel="alternate" hreflang="ru-KZ" href="{ru_url}" />')
-        lines.append(f'    <xhtml:link rel="alternate" hreflang="ru" href="{ru_url}" />')
-        lines.append(f'    <xhtml:link rel="alternate" hreflang="kk-KZ" href="{kz_url}" />')
-        lines.append(f'    <xhtml:link rel="alternate" hreflang="kk" href="{kz_url}" />')
-        lines.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{ru_url}" />')
+        lines.append("    <priority>0.8</priority>")
+        lines.extend(hub_hreflangs)
         lines.append("  </url>")
 
-    # 4. Сервисные страницы
-    for page, prio, freq in SERVICE_PAGES:
-        url = f"{SITE_URL}/{page}"
+        # UZ Hub
         lines.append("  <url>")
-        lines.append(f"    <loc>{url}</loc>")
+        lines.append(f"    <loc>{uz_url}</loc>")
+        lines.append(f"    <lastmod>{get_file_lastmod(f'uz/{page}', today)}</lastmod>")
+        lines.append(f"    <changefreq>{freq}</changefreq>")
+        lines.append("    <priority>0.8</priority>")
+        lines.extend(hub_hreflangs)
+        lines.append("  </url>")
+
+    # 4. Сервисные страницы (RU + UZ)
+    for page, prio, freq in SERVICE_PAGES:
+        ru_srv = f"{SITE_URL}/{page}"
+        uz_srv = f"{SITE_URL}/uz/{page}"
+        kz_srv = f"{SITE_URL}/kz/{page}"
+        srv_hreflangs = build_symmetrical_hreflang(ru_srv, kz_srv, uz_srv)
+
+        # RU Service
+        lines.append("  <url>")
+        lines.append(f"    <loc>{ru_srv}</loc>")
         lines.append(f"    <lastmod>{get_file_lastmod(page, today)}</lastmod>")
         lines.append(f"    <changefreq>{freq}</changefreq>")
         lines.append(f"    <priority>{prio}</priority>")
+        lines.extend(srv_hreflangs)
         lines.append("  </url>")
 
-    # 5. Все 28 RU и 28 KZ карточек товаров
+        # UZ Service
+        if os.path.exists(f"uz/{page}"):
+            lines.append("  <url>")
+            lines.append(f"    <loc>{uz_srv}</loc>")
+            lines.append(f"    <lastmod>{get_file_lastmod(f'uz/{page}', today)}</lastmod>")
+            lines.append(f"    <changefreq>{freq}</changefreq>")
+            lines.append(f"    <priority>{prio}</priority>")
+            lines.extend(srv_hreflangs)
+            lines.append("  </url>")
+
+    # 5. Все активные карточки товаров (RU, KZ, UZ)
+    products = []
     if os.path.exists("products.json"):
         with open("products.json", "r", encoding="utf-8") as f:
             products = json.load(f)
@@ -171,8 +196,13 @@ def generate_sitemap():
             pid = p["id"]
             ru_file = f"product/{pid}.html"
             kz_file = f"kz/product/{pid}.html"
+            uz_file = f"uz/product/{pid}.html"
+
             ru_url = f"{SITE_URL}/product/{pid}.html"
             kz_url = f"{SITE_URL}/kz/product/{pid}.html"
+            uz_url = f"{SITE_URL}/uz/product/{pid}.html"
+
+            prod_hreflangs = build_symmetrical_hreflang(ru_url, kz_url, uz_url)
 
             img_rel = p.get("image", "").lstrip("/")
             img_loc = escape(f"{SITE_URL}/{img_rel}")
@@ -189,11 +219,7 @@ def generate_sitemap():
             lines.append(f"    <lastmod>{get_file_lastmod(ru_file, today)}</lastmod>")
             lines.append("    <changefreq>weekly</changefreq>")
             lines.append("    <priority>0.8</priority>")
-            lines.append(f'    <xhtml:link rel="alternate" hreflang="ru-KZ" href="{ru_url}" />')
-            lines.append(f'    <xhtml:link rel="alternate" hreflang="ru" href="{ru_url}" />')
-            lines.append(f'    <xhtml:link rel="alternate" hreflang="kk-KZ" href="{kz_url}" />')
-            lines.append(f'    <xhtml:link rel="alternate" hreflang="kk" href="{kz_url}" />')
-            lines.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{ru_url}" />')
+            lines.extend(prod_hreflangs)
             lines.append("    <image:image>")
             lines.append(f"      <image:loc>{img_loc}</image:loc>")
             lines.append(f"      <image:title>{title_ru}</image:title>")
@@ -211,15 +237,32 @@ def generate_sitemap():
             lines.append(f"    <lastmod>{get_file_lastmod(kz_file, today)}</lastmod>")
             lines.append("    <changefreq>weekly</changefreq>")
             lines.append("    <priority>0.8</priority>")
-            lines.append(f'    <xhtml:link rel="alternate" hreflang="ru-KZ" href="{ru_url}" />')
-            lines.append(f'    <xhtml:link rel="alternate" hreflang="ru" href="{ru_url}" />')
-            lines.append(f'    <xhtml:link rel="alternate" hreflang="kk-KZ" href="{kz_url}" />')
-            lines.append(f'    <xhtml:link rel="alternate" hreflang="kk" href="{kz_url}" />')
-            lines.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{ru_url}" />')
+            lines.extend(prod_hreflangs)
             lines.append("    <image:image>")
             lines.append(f"      <image:loc>{img_loc}</image:loc>")
             lines.append(f"      <image:title>{title_kz}</image:title>")
             lines.append(f"      <image:caption>{caption_kz}</image:caption>")
+            lines.append("    </image:image>")
+            lines.append("  </url>")
+
+            # Узбекская карточка товара
+            uz_data = uz_translations.get(pid, {})
+            uz_title = uz_data.get("title") or p.get("title", "").strip()
+            uz_desc = uz_data.get("desc") or p.get("description", "").strip()
+            title_uz = escape(f"{uz_title} — Livi Jewelry qoʻl mehnati")
+            caption_uz = escape(
+                f"{uz_title}. {uz_desc} Tabiiy toshlar. Toshkent va butun Oʻzbekistonga yetkazib berish."
+            )
+            lines.append("  <url>")
+            lines.append(f"    <loc>{uz_url}</loc>")
+            lines.append(f"    <lastmod>{get_file_lastmod(uz_file, today)}</lastmod>")
+            lines.append("    <changefreq>weekly</changefreq>")
+            lines.append("    <priority>0.8</priority>")
+            lines.extend(prod_hreflangs)
+            lines.append("    <image:image>")
+            lines.append(f"      <image:loc>{img_loc}</image:loc>")
+            lines.append(f"      <image:title>{title_uz}</image:title>")
+            lines.append(f"      <image:caption>{caption_uz}</image:caption>")
             lines.append("    </image:image>")
             lines.append("  </url>")
 
@@ -228,9 +271,9 @@ def generate_sitemap():
     with open("sitemap.xml", "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
 
-    active_count = sum(1 for p in products if p.get("inStock", True)) if os.path.exists("products.json") else 0
-    total_urls = 2 + 2 + (len(SEO_HUBS) * 2) + len(SERVICE_PAGES) + (active_count * 2)
-    print(f"[OK] Sitemap обновлен: {total_urls} URLs (21 RU + 21 KZ хабов, 4 витрины/каталога, 3 сервисных, {active_count} RU + {active_count} KZ активных товаров)")
+    active_count = sum(1 for p in products if p.get("inStock", True))
+    total_urls = 3 + 3 + (len(SEO_HUBS) * 3) + len(SERVICE_PAGES) + 3 + (active_count * 3)
+    print(f"[OK] Sitemap обновлен: {total_urls} URLs (21 RU + 21 KZ + 21 UZ хабов, 6 витрин/каталогов, 6 сервисных, {active_count} RU + {active_count} KZ + {active_count} UZ активных товаров)")
 
 
 if __name__ == "__main__":

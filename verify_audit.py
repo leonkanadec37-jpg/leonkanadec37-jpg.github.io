@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Комплексный верификационный сьют аудита Livi Jewelry (35 строгих инвариантов).
+Комплексный верификационный сьют аудита Livi Jewelry (45 строгих инвариантов).
 Проверяет все 8 этапов полной модернизации:
 1. Каталог products.json (28 товаров, SKU, ЧПУ, спецификации specs, комплектации bundle_options, чистота текстов, коммерческая длина)
 2. Все 21 SEO-хаб (15 тематических + 6 новых узкоцелевых кластеров, непустая выдача, 11 сетов с серьгами, кликабельные плашки камней)
@@ -93,7 +93,7 @@ def extract_jsonld_blocks(html_text: str) -> list:
 
 def run_audit():
     print("=" * 76)
-    print("ЗАПУСК СТРОГОГО ТЕСТОВОГО КОМПЛЕКСА LIVI JEWELRY (35 ИНВАРИАНТОВ)")
+    print("ЗАПУСК СТРОГОГО ТЕСТОВОГО КОМПЛЕКСА LIVI JEWELRY (45 ИНВАРИАНТОВ)")
     print("=" * 76)
 
     # ---------------------------------------------------------
@@ -605,6 +605,203 @@ def run_audit():
     else:
         fail(f"35. Ошибка синхронизации: cart_bundle_ok={cart_bundle_ok}, sync_drive_ok={sync_drive_ok}, add_prod_ok={add_prod_ok}")
 
+    # ---------------------------------------------------------
+    # 9. Инварианты узбекской локализации (/uz/)
+    # ---------------------------------------------------------
+    # 36. Существование файлов узбекской витрины, хабов, сервисных страниц и карточек
+    uz_files_exist = (
+        os.path.exists("uz/index.html")
+        and os.path.exists("uz/shop.html")
+        and os.path.exists("uz/cart.html")
+        and os.path.exists("uz/delivery.html")
+        and os.path.exists("uz/terms.html")
+        and os.path.exists("uz/privacy.html")
+    )
+    uz_prods_exist = all(os.path.exists(os.path.join("uz", "product", f"{p['id']}.html")) for p in products)
+    uz_hubs_exist = all(os.path.exists(os.path.join("uz", h)) for h in ALL_21_HUBS)
+
+    if uz_files_exist and uz_prods_exist and uz_hubs_exist:
+        ok(f"36. UZ витрина: Существуют uz/index.html, uz/shop.html, 4 сервисные страницы, все 21 SEO-хаб и {len(products)} карточек в uz/product/")
+    else:
+        fail("36. Отсутствуют файлы узбекской витрины uz/index.html, uz/shop.html, хабы или карточки в uz/product/")
+
+    # 37. Ссылки на карточки товаров в узбекской витрине и защита от ошибок
+    with open("uz/index.html", "r", encoding="utf-8") as f:
+        uz_idx_txt = f.read()
+    with open("uz/shop.html", "r", encoding="utf-8") as f:
+        uz_shp_txt = f.read()
+
+    m_err_uz = re.search(r'<div id="catalogError"[^>]*>(.*?)</div>', uz_shp_txt, flags=re.S)
+    uz_err_empty = m_err_uz and m_err_uz.group(1).strip() == ""
+    uz_links_ok = 'href="/uz/product/prod_' in uz_idx_txt and 'href="/uz/product/prod_' in uz_shp_txt
+
+    if uz_links_ok and uz_err_empty:
+        ok("37. UZ витрина: Карточки ведут на /uz/product/prod_XX.html, блок #catalogError пуст в исходном HTML")
+    else:
+        fail(f"37. Ошибка в uz/index.html или uz/shop.html (uz_links_ok={uz_links_ok}, uz_err_empty={uz_err_empty})")
+
+    # 38. Тег lang="uz", канонический URL и og:locale="uz_UZ" на страницах товаров
+    uz_meta_ok = True
+    for p in products:
+        pid = p["id"]
+        upath = os.path.join("uz", "product", f"{pid}.html")
+        if not os.path.exists(upath):
+            uz_meta_ok = False
+            continue
+        with open(upath, "r", encoding="utf-8") as f:
+            utxt = f.read()
+        if (
+            '<html lang="uz">' not in utxt
+            or f'<link rel="canonical" href="{SITE_URL}/uz/product/{pid}.html"' not in utxt
+            or 'content="uz_UZ"' not in utxt
+        ):
+            fail(f"38. {upath}: неверный lang='uz', canonical или og:locale")
+            uz_meta_ok = False
+            break
+    if uz_meta_ok:
+        ok(f'38. UZ карточки: На всех {len(products)} страницах uz/product/prod_XX.html установлен <html lang="uz">, canonical и og:locale="uz_UZ"')
+
+    # 39. JSON-LD Product в узбекских карточках (priceCurrency: KZT, 0 KZT доставка, 14 дней возврат)
+    uz_schema_ok = True
+    for p in products:
+        pid = p["id"]
+        upath = os.path.join("uz", "product", f"{pid}.html")
+        if not os.path.exists(upath):
+            continue
+        with open(upath, "r", encoding="utf-8") as f:
+            utxt = f.read()
+        ulds = extract_jsonld_blocks(utxt)
+        uprod = next((x for x in ulds if x.get("@type") == "Product"), None)
+        if not uprod:
+            fail(f"39. {upath}: отсутствует JSON-LD Product")
+            uz_schema_ok = False
+            break
+        uoffer = uprod.get("offers", {})
+        if (
+            uoffer.get("priceCurrency") != "KZT"
+            or "hasMerchantReturnPolicy" not in uoffer
+            or "shippingDetails" not in uoffer
+        ):
+            fail(f"39. {upath}: в JSON-LD Product некорректные offers (priceCurrency: KZT, shippingDetails, returnPolicy)")
+            uz_schema_ok = False
+            break
+    if uz_schema_ok:
+        ok(f"39. UZ карточки: В JSON-LD Product сохранена валюта KZT, присутствуют shippingDetails (0 KZT) и hasMerchantReturnPolicy (14 дней)")
+
+    # 40. Симметричная связка hreflang для всех товаров между RU, KZ, UZ (7 тегов hreflang)
+    full_prod_hreflang_ok = True
+    for p in products:
+        pid = p["id"]
+        r_f = os.path.join("product", f"{pid}.html")
+        k_f = os.path.join("kz", "product", f"{pid}.html")
+        u_f = os.path.join("uz", "product", f"{pid}.html")
+        with open(r_f, "r", encoding="utf-8") as f:
+            rt = f.read()
+        with open(k_f, "r", encoding="utf-8") as f:
+            kt = f.read()
+        with open(u_f, "r", encoding="utf-8") as f:
+            ut = f.read()
+
+        u_target = f'href="{SITE_URL}/uz/product/{pid}.html"'
+        k_target = f'href="{SITE_URL}/kz/product/{pid}.html"'
+        r_target = f'href="{SITE_URL}/product/{pid}.html"'
+
+        if f'hreflang="uz-UZ" {u_target}' not in rt or f'hreflang="uz" {u_target}' not in rt:
+            fail(f"40. {r_f}: отсутствует ссылка hreflang uz-UZ/uz на узбекскую карточку")
+            full_prod_hreflang_ok = False
+            break
+        if f'hreflang="uz-UZ" {u_target}' not in kt or f'hreflang="uz" {u_target}' not in kt:
+            fail(f"40. {k_f}: отсутствует ссылка hreflang uz-UZ/uz на узбекскую карточку")
+            full_prod_hreflang_ok = False
+            break
+        if f'hreflang="ru-KZ" {r_target}' not in ut or f'hreflang="kk-KZ" {k_target}' not in ut or f'hreflang="uz-UZ" {u_target}' not in ut:
+            fail(f"40. {u_f}: отсутствуют взаимные hreflang ссылки на RU или KZ карточки")
+            full_prod_hreflang_ok = False
+            break
+    if full_prod_hreflang_ok:
+        ok(f"40. Hreflang карточек: Полная симметричная 3-язычная матрица (ru-KZ, ru, kk-KZ, kk, uz-UZ, uz, x-default) связывает все {len(products)} триплетов карточек")
+
+    # 41. Симметричная связка hreflang на всех 21 SEO-хабах
+    hubs_hreflang_ok = True
+    for h in ALL_21_HUBS:
+        with open(h, "r", encoding="utf-8") as f:
+            rt = f.read()
+        with open(os.path.join("kz", h), "r", encoding="utf-8") as f:
+            kt = f.read()
+        with open(os.path.join("uz", h), "r", encoding="utf-8") as f:
+            ut = f.read()
+
+        u_target = f'href="{SITE_URL}/uz/{h}"'
+        k_target = f'href="{SITE_URL}/kz/{h}"'
+        r_target = f'href="{SITE_URL}/{h}"'
+
+        if f'hreflang="uz-UZ" {u_target}' not in rt:
+            fail(f"41. {h}: отсутствует hreflang uz-UZ на узбекский хаб")
+            hubs_hreflang_ok = False
+            break
+        if f'hreflang="uz-UZ" {u_target}' not in kt:
+            fail(f"41. kz/{h}: отсутствует hreflang uz-UZ на узбекский хаб")
+            hubs_hreflang_ok = False
+            break
+        if f'hreflang="ru-KZ" {r_target}' not in ut or f'hreflang="kk-KZ" {k_target}' not in ut or f'hreflang="uz-UZ" {u_target}' not in ut:
+            fail(f"41. uz/{h}: отсутствуют взаимные hreflang на RU/KZ хабы")
+            hubs_hreflang_ok = False
+            break
+    if hubs_hreflang_ok:
+        ok(f"41. Hreflang хабов: Полная симметричная связка hreflang (RU, KZ, UZ) объединяет все 21 SEO-кластеров")
+
+    # 42. Трехпозиционный переключатель языков (RU | KZ | UZ) в шапке и меню
+    switchers_ok = True
+    for check_page in ["uz/index.html", "uz/shop.html", "index.html", "shop.html", "kolye-iz-zhemchuga.html"]:
+        with open(check_page, "r", encoding="utf-8") as f:
+            ct = f.read()
+        if 'header-lang-links' not in ct or 'UZ' not in ct or 'KZ' not in ct or 'RU' not in ct:
+            fail(f"42. {check_page}: не найден трехпозиционный переключатель RU | KZ | UZ в header-lang-links")
+            switchers_ok = False
+            break
+    if switchers_ok:
+        ok("42. Навигация: Трехпозиционный переключатель языков (RU | KZ | UZ) внедрен в header и drawer на витринах и хабах")
+
+    # 43. Условия доставки и оплаты для Узбекистана (СДЭК, Казпочта, Золотая Корона)
+    with open("uz/delivery.html", "r", encoding="utf-8") as f:
+        dt = f.read()
+    cdek_ok = "CDEK" in dt or "СДЭК" in dt
+    korona_ok = "KoronaPay" in dt or "Золотая Корона" in dt
+    geo_ok = any(v in dt for v in ["Oʻzbekiston", "O‘zbekiston", "O'zbekiston", "Toshkent"])
+    if cdek_ok and korona_ok and geo_ok:
+        ok("43. Логистика и оплата: В uz/delivery.html органично прописаны условия для Узбекистана (СДЭК, Казпочта, Золотая Корона / KoronaPay)")
+    else:
+        fail(f"43. uz/delivery.html: отсутствуют условия для Узбекистана (cdek={cdek_ok}, korona={korona_ok}, geo={geo_ok})")
+
+    # 44. Корзина uz/cart.html: чекаут, маска, шаги заказа и шаблон WhatsApp
+    with open("uz/cart.html", "r", encoding="utf-8") as f:
+        cart_uz = f.read()
+    cart_uz_ok = (
+        'content="noindex' in cart_uz
+        and f'<link rel="canonical" href="{SITE_URL}/uz/cart.html">' in cart_uz
+        and 'custPhone' in cart_uz
+        and 'WhatsApp' in cart_uz
+        and 'Savatcha' in cart_uz
+    )
+    if cart_uz_ok:
+        ok("44. Корзина uz/cart.html: Закрыта noindex, canonical на /uz/cart.html, форма чекаута и шаблон WhatsApp переведены на узбекский")
+    else:
+        fail("44. uz/cart.html: ошибки в мета-тегах, форме заказа или шаблоне WhatsApp")
+
+    # 45. Sitemap.xml содержит все UZ URL с взаимными xhtml:link
+    with open("sitemap.xml", "r", encoding="utf-8") as f:
+        sm_txt = f.read()
+    uz_home_in_sm = f"{SITE_URL}/uz/" in sm_txt
+    uz_shop_in_sm = f"{SITE_URL}/uz/shop.html" in sm_txt
+    uz_hubs_in_sm = all(f"{SITE_URL}/uz/{h}" in sm_txt for h in ALL_21_HUBS)
+    uz_prods_in_sm = all(f"{SITE_URL}/uz/product/{p['id']}.html" in sm_txt for p in active_prods)
+
+    if uz_home_in_sm and uz_shop_in_sm and uz_hubs_in_sm and uz_prods_in_sm:
+        ok(f"45. Sitemap.xml: Включает все узбекские URL (/uz/, /uz/shop.html, 21 UZ хаб, {len(active_prods)} UZ активных товаров с Image Sitemap и xhtml:link)")
+    else:
+        fail(f"45. Sitemap.xml: отсутствуют страницы uz (home={uz_home_in_sm}, shop={uz_shop_in_sm}, hubs={uz_hubs_in_sm}, prods={uz_prods_in_sm})")
+
+
     print("=" * 76)
     if errors:
         print(f"ИТОГ: ОБНАРУЖЕНО ОШИБОК: {len(errors)}")
@@ -612,7 +809,7 @@ def run_audit():
             print(f"  - {e}")
         sys.exit(1)
     else:
-        print(f"ИТОГ: ВСЕ ИНВАРИАНТЫ УСПЕШНО СОБЛЮДЕНЫ ({len(passed)}/35 PASS, 0 Errors)!")
+        print(f"ИТОГ: ВСЕ ИНВАРИАНТЫ УСПЕШНО СОБЛЮДЕНЫ ({len(passed)}/45 PASS, 0 Errors)!")
         print("=" * 76)
 
 

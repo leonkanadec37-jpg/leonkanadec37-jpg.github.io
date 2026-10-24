@@ -3,13 +3,16 @@
 """
 Единый оркестратор сборки и проверки сайта Livi Jewelry (livijewelry.kz):
 Последовательно запускает все генераторы кодовой базы и тестовый сьют:
-  1) generate_product_pages.py (28 RU страниц товаров + пререндеринг витрин)
-  2) generate_seo_hubs.py (21 кластерный SEO-хаб)
-  3) generate_kz_pages.py (витрина KZ + 28 казахских страниц товаров)
-  4) generate_feed.py (Google Merchant Center feed.xml)
-  5) generate_sitemap.py (XML карта сайта sitemap.xml)
-  6) build_campaign_assets.py (Google Ads кампании, ключевые слова и минус-слова)
-  7) verify_audit.py (автотесты всех 35 SEO/технических инвариантов)
+  1) generate_product_pages.py (RU страницы товаров + пререндеринг витрин)
+  2) generate_seo_hubs.py (21 кластерный SEO-хаб на RU, KZ, UZ)
+  3) generate_kz_pages.py (витрина KZ + казахские страницы товаров)
+  4) generate_uz_pages.py (витрина UZ + узбекские страницы товаров)
+  5) generate_feed.py (Google Merchant Center feed.xml)
+  6) generate_kaspi_feed.py (товарный фид и каталог Kaspi.kz)
+  7) generate_2gis_catalog.py (товарный фид и каталог 2ГИС)
+  8) generate_pinterest_assets.py (каталог и пины Pinterest)
+  9) generate_sitemap.py (XML карта сайта sitemap.xml)
+  10) verify_audit.py (автотесты всех 45 SEO/технических инвариантов)
 
 При любой ошибке процесс немедленно прерывается с кодом выхода != 0.
 """
@@ -24,15 +27,16 @@ except Exception:
     pass
 
 STEPS = [
-    ("generate_product_pages.py", "1/9 Генерация RU страниц товаров и пререндеринг витрин"),
-    ("generate_seo_hubs.py", "2/9 Генерация 21 кластерного SEO-хаба"),
-    ("generate_kz_pages.py", "3/9 Генерация казахской витрины и KZ страниц товаров"),
-    ("generate_feed.py", "4/9 Генерация товарного фида Google Shopping"),
-    ("generate_kaspi_feed.py", "5/9 Генерация товарного фида и каталога Kaspi.kz"),
-    ("generate_2gis_catalog.py", "6/9 Генерация товарного фида и каталога 2ГИС"),
-    ("generate_pinterest_assets.py", "7/9 Генерация каталога и пинов Pinterest"),
-    ("generate_sitemap.py", "8/9 Генерация карты сайта sitemap.xml"),
-    ("verify_audit.py", "9/9 Запуск валидации технического аудита и 35 тестов инвариантов"),
+    ("generate_product_pages.py", "1/10 Генерация RU страниц товаров и пререндеринг витрин"),
+    ("generate_seo_hubs.py", "2/10 Генерация 21 кластерного SEO-хаба (RU, KZ, UZ)"),
+    ("generate_kz_pages.py", "3/10 Генерация казахской витрины и KZ страниц товаров"),
+    ("generate_uz_pages.py", "4/10 Генерация узбекской витрины и UZ страниц товаров"),
+    ("generate_feed.py", "5/10 Генерация товарного фида Google Shopping"),
+    ("generate_kaspi_feed.py", "6/10 Генерация товарного фида и каталога Kaspi.kz"),
+    ("generate_2gis_catalog.py", "7/10 Генерация товарного фида и каталога 2ГИС"),
+    ("generate_pinterest_assets.py", "8/10 Генерация каталога и пинов Pinterest"),
+    ("generate_sitemap.py", "9/10 Генерация карты сайта sitemap.xml"),
+    ("verify_audit.py", "10/10 Запуск валидации технического аудита и 45 тестов инвариантов"),
 ]
 
 

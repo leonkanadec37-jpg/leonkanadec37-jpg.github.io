@@ -611,10 +611,12 @@ def generate_kz_index(products_kz: list) -> str:
   <meta name="description" content="Табиғи інжу мен тастардан жасалған әшекейлер: сырғалар, білезіктер, алқалар, сотуарлар және сақиналар. Астана бойынша сол күні жедел жеткізу, Қазақстан және әлем бойынша жеткізу — Livi Jewelry.">
   <link rel="canonical" href="{SITE_URL}/kz/">
   <link rel="alternate" hreflang="ru-KZ" href="{SITE_URL}/" />
-  <link rel="alternate" hreflang="ru" href="{SITE_URL}/">
+  <link rel="alternate" hreflang="ru" href="{SITE_URL}/" />
   <link rel="alternate" hreflang="kk-KZ" href="{SITE_URL}/kz/" />
-  <link rel="alternate" hreflang="kk" href="{SITE_URL}/kz/">
-  <link rel="alternate" hreflang="x-default" href="{SITE_URL}/">
+  <link rel="alternate" hreflang="kk" href="{SITE_URL}/kz/" />
+  <link rel="alternate" hreflang="uz-UZ" href="{SITE_URL}/uz/" />
+  <link rel="alternate" hreflang="uz" href="{SITE_URL}/uz/" />
+  <link rel="alternate" hreflang="x-default" href="{SITE_URL}/" />
   <meta name="google-site-verification" content="{GOOGLE_VERIFICATION}" />
   <meta name="facebook-domain-verification" content="{FB_DOMAIN_VERIFICATION}" />
 
@@ -800,6 +802,7 @@ def generate_kz_index(products_kz: list) -> str:
       <div class="lang">
         <a href="/" id="ruBtn">RU</a>
         <a href="/kz/" id="kkBtn" class="active">KZ</a>
+        <a href="/uz/" id="uzBtn">UZ</a>
       </div>
     </div>
   </div>
@@ -814,6 +817,7 @@ def generate_kz_index(products_kz: list) -> str:
         <div class="header-lang-links" aria-label="Тілді таңдау">
           <a href="/" lang="ru">RU</a>
           <a href="/kz/" class="active" lang="kk">KZ</a>
+          <a href="/uz/" lang="uz">UZ</a>
         </div>
         <a class="cart-link" href="/cart.html" aria-label="Себет">
           <span>Себет</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
@@ -1036,6 +1040,8 @@ def generate_kz_shop(products_kz: list) -> str:
   <link rel="alternate" hreflang="ru" href="{SITE_URL}/shop.html" />
   <link rel="alternate" hreflang="kk-KZ" href="{SITE_URL}/kz/shop.html" />
   <link rel="alternate" hreflang="kk" href="{SITE_URL}/kz/shop.html" />
+  <link rel="alternate" hreflang="uz-UZ" href="{SITE_URL}/uz/shop.html" />
+  <link rel="alternate" hreflang="uz" href="{SITE_URL}/uz/shop.html" />
   <link rel="alternate" hreflang="x-default" href="{SITE_URL}/shop.html" />
   <meta name="google-site-verification" content="{GOOGLE_VERIFICATION}" />
   <meta name="facebook-domain-verification" content="{FB_DOMAIN_VERIFICATION}" />
@@ -1116,6 +1122,7 @@ def generate_kz_shop(products_kz: list) -> str:
       <div class="lang">
         <a href="/shop.html" id="ruBtn">RU</a>
         <a href="/kz/shop.html" id="kkBtn" class="active">KZ</a>
+        <a href="/uz/shop.html" id="uzBtn">UZ</a>
       </div>
     </div>
   </div>
@@ -1130,6 +1137,7 @@ def generate_kz_shop(products_kz: list) -> str:
         <div class="header-lang-links" aria-label="Тілді таңдау">
           <a href="/shop.html" lang="ru">RU</a>
           <a href="/kz/shop.html" class="active" lang="kk">KZ</a>
+          <a href="/uz/shop.html" lang="uz">UZ</a>
         </div>
         <a class="cart-link" href="/cart.html" aria-label="Себет">
           <span>Себет</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
@@ -1387,6 +1395,7 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
     img_abs = f"{SITE_URL}/{img_rel}"
     ru_page_url = f"{SITE_URL}/product/{pid}.html"
     page_url = f"{SITE_URL}/kz/product/{pid}.html"
+    uz_page_url = f"{SITE_URL}/uz/product/{pid}.html"
 
     description = (pk.get("description") or "").strip()
     materials_kz = pk.get("materials") or ["Табиғи інжу"]
@@ -1817,6 +1826,8 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
   <link rel="alternate" hreflang="ru" href="{ru_page_url}" />
   <link rel="alternate" hreflang="kk-KZ" href="{page_url}" />
   <link rel="alternate" hreflang="kk" href="{page_url}" />
+  <link rel="alternate" hreflang="uz-UZ" href="{uz_page_url}" />
+  <link rel="alternate" hreflang="uz" href="{uz_page_url}" />
   <link rel="alternate" hreflang="x-default" href="{ru_page_url}" />
 
   <!-- Open Graph / Product -->
@@ -1884,6 +1895,7 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
       <div class="lang">
         <a href="{ru_page_url}" lang="ru">RU</a>
         <a href="{page_url}" class="active" lang="kk">KZ</a>
+        <a href="{uz_page_url}" lang="uz">UZ</a>
       </div>
     </div>
   </div>
@@ -1900,6 +1912,7 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
         <div class="header-lang-links" aria-label="Тілді таңдау">
           <a href="{ru_page_url}" lang="ru">RU</a>
           <a href="{page_url}" class="active" lang="kk">KZ</a>
+          <a href="{uz_page_url}" lang="uz">UZ</a>
         </div>
         <a class="cart-link" href="/cart.html" aria-label="Себет">
           <span>Себет</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
@@ -2275,19 +2288,19 @@ def generate_kz_pages():
     with open("products.json", "r", encoding="utf-8") as f:
         products = json.load(f)
 
-    active = [p for p in products if p.get("inStock", True)]
-    products_kz = [translate_product_kz(p) for p in active]
+    products_kz = [translate_product_kz(p) for p in products]
+    active_kz = [p for p in products_kz if p.get("inStock", True)]
 
     os.makedirs("kz", exist_ok=True)
     os.makedirs(os.path.join("kz", "product"), exist_ok=True)
 
     # 1. Main KZ Home
-    safe_write_text(os.path.join("kz", "index.html"), generate_kz_index(products_kz))
+    safe_write_text(os.path.join("kz", "index.html"), generate_kz_index(active_kz))
 
     # 2. Main KZ Shop
-    safe_write_text(os.path.join("kz", "shop.html"), generate_kz_shop(products_kz))
+    safe_write_text(os.path.join("kz", "shop.html"), generate_kz_shop(active_kz))
 
-    # 3. 28 KZ Product Pages
+    # 3. 58 KZ Product Pages
     for p in products_kz:
         pid = p["id"]
         page_html = build_kz_product_page(p, products_kz)

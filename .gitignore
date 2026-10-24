@@ -5,6 +5,7 @@ __pycache__/
 Thumbs.db
 .github/
 *.csv
+*.tar.gz
 !2gis_catalog.csv
 !kaspi_catalog.csv
 !pinterest_bulk_pins.csv
