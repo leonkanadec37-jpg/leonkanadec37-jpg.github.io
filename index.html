@@ -1015,6 +1015,15 @@
             method: method,
             page_location: window.location.href
           });
+          if(isWa){
+            gtag('event', 'whatsapp_click', {
+              currency: 'KZT',
+              value: 40000,
+              method: 'WhatsApp',
+              page_location: window.location.href,
+              lead_source: 'whatsapp_home'
+            });
+          }
         }
       }catch(err){}
       if(a.getAttribute('target') !== '_blank' && !e.ctrlKey && !e.metaKey){

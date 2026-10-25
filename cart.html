@@ -814,6 +814,13 @@
                 method: 'WhatsApp',
                 page_location: window.location.href
               });
+              gtag('event', 'whatsapp_click', {
+                currency: 'KZT',
+                value: total,
+                method: 'WhatsApp',
+                page_location: window.location.href,
+                lead_source: 'cart_whatsapp_direct'
+              });
             }
             if (typeof fbq === 'function') fbq('track', 'Contact');
           } catch(err){}
@@ -1028,6 +1035,15 @@
             method: method,
             page_location: window.location.href
           });
+          if(isWa){
+            gtag('event', 'whatsapp_click', {
+              currency: 'KZT',
+              value: val,
+              method: 'WhatsApp',
+              page_location: window.location.href,
+              lead_source: 'cart_global_click'
+            });
+          }
         }
       }catch(err){}
       if(a.getAttribute('target') !== '_blank' && !e.ctrlKey && !e.metaKey){

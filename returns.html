@@ -37,6 +37,7 @@
       if (href.includes('wa.me') && typeof gtag === 'function') {
         gtag('event', 'generate_lead', { currency: 'KZT', value: 40000, method: 'WhatsApp', page_location: window.location.href });
         gtag('event', 'contact', { currency: 'KZT', value: 40000, method: 'WhatsApp', page_location: window.location.href });
+        gtag('event', 'whatsapp_click', { currency: 'KZT', value: 40000, method: 'WhatsApp', page_location: window.location.href });
       }
     });
   </script>

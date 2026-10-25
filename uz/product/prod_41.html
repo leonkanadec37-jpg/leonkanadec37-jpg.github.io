@@ -594,6 +594,69 @@
         }
       };
     }
+
+    // WhatsApp Order Button and Global WhatsApp tracking
+    const waOrderBtnEl = document.getElementById('waOrderBtn');
+    if (waOrderBtnEl) {
+      waOrderBtnEl.addEventListener('click', function() {
+        try {
+          if (window.fbq) fbq('track', 'Contact');
+          if (typeof gtag === 'function') {
+            gtag('event', 'whatsapp_click', {
+              currency: 'KZT',
+              value: currentActivePrice,
+              method: 'WhatsApp',
+              page_location: window.location.href,
+              lead_source: 'uz_product_' + PRODUCT.id
+            });
+            gtag('event', 'contact', {
+              currency: 'KZT',
+              value: currentActivePrice,
+              method: 'WhatsApp',
+              page_location: window.location.href,
+              lead_source: 'uz_product_' + PRODUCT.id
+            });
+            gtag('event', 'generate_lead', {
+              currency: 'KZT',
+              value: currentActivePrice,
+              method: 'WhatsApp',
+              lead_source: 'uz_product_' + PRODUCT.id
+            });
+          }
+        } catch(e){}
+      });
+    }
+
+    document.addEventListener('click', function(e) {
+      const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
+      if (!a || a.id === 'waOrderBtn') return;
+      try {
+        if (window.fbq) fbq('track', 'Contact');
+        if (typeof gtag === 'function') {
+          gtag('event', 'whatsapp_click', {
+            currency: 'KZT',
+            value: (typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000),
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'uz_wa_link'
+          });
+          gtag('event', 'contact', {
+            currency: 'KZT',
+            value: (typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000),
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'uz_wa_link'
+          });
+          gtag('event', 'generate_lead', {
+            currency: 'KZT',
+            value: (typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000),
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'uz_wa_link'
+          });
+        }
+      } catch(err){}
+    });
   </script>
 </body>
 </html>

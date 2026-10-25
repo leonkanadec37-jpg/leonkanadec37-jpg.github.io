@@ -1482,6 +1482,38 @@ def generate_hub_page(hub, products):
         }}
       }});
     }});
+
+    // Отслеживание кликов по ссылкам WhatsApp на SEO-хабе
+    document.addEventListener('click', function(e) {{
+      const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
+      if (!a) return;
+      try {{
+        if (window.fbq) fbq('track', 'Contact');
+        if (typeof gtag === 'function') {{
+          gtag('event', 'whatsapp_click', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'seo_hub'
+          }});
+          gtag('event', 'contact', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'seo_hub'
+          }});
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'seo_hub'
+          }});
+        }}
+      }} catch (err) {{}}
+    }});
   </script>
 </body>
 </html>
@@ -1905,6 +1937,38 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
           }});
         }}
       }});
+    }});
+
+    // Отслеживание кликов по ссылкам WhatsApp на SEO-хабе
+    document.addEventListener('click', function(e) {{
+      const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
+      if (!a) return;
+      try {{
+        if (window.fbq) fbq('track', 'Contact');
+        if (typeof gtag === 'function') {{
+          gtag('event', 'whatsapp_click', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'seo_hub'
+          }});
+          gtag('event', 'contact', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'seo_hub'
+          }});
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'seo_hub'
+          }});
+        }}
+      }} catch (err) {{}}
     }});
   </script>
 </body>
@@ -2332,6 +2396,38 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
           }});
         }}
       }});
+    }});
+
+    // Отслеживание кликов по ссылкам WhatsApp на SEO-хабе
+    document.addEventListener('click', function(e) {{
+      const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
+      if (!a) return;
+      try {{
+        if (window.fbq) fbq('track', 'Contact');
+        if (typeof gtag === 'function') {{
+          gtag('event', 'whatsapp_click', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'seo_hub'
+          }});
+          gtag('event', 'contact', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'seo_hub'
+          }});
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'seo_hub'
+          }});
+        }}
+      }} catch (err) {{}}
     }});
   </script>
 </body>

@@ -1464,7 +1464,7 @@
     </div>
     <div id="catalogError" class="empty-state" hidden style="display:none" aria-hidden="true"></div>
 
-                                                                                                                                                                                                            <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
+                                                                                                                                                                                                                <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
       <details class="hub-interlink-accordion">
         <summary>Подборки по камням и стилям</summary>
         <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
@@ -1982,6 +1982,14 @@
               page_location: window.location.href,
               item_id: p.id
             });
+            gtag('event', 'whatsapp_click', {
+              currency: 'KZT',
+              value: totalVal,
+              method: 'WhatsApp',
+              page_location: window.location.href,
+              item_id: p.id,
+              lead_source: 'shop_modal'
+            });
           }
           if(window.fbq){
             fbq('track', 'Purchase', { value: totalVal, currency: 'KZT', content_ids: [p.id], content_type: 'product' });
@@ -2291,6 +2299,16 @@
             page_location: window.location.href,
             item_id: pid
           });
+          if(isWa){
+            gtag('event', 'whatsapp_click', {
+              currency: 'KZT',
+              value: estPrice,
+              method: 'WhatsApp',
+              page_location: window.location.href,
+              item_id: pid,
+              lead_source: 'whatsapp_shop'
+            });
+          }
         }
       }catch(err){}
       if(a.getAttribute('target') !== '_blank' && !e.ctrlKey && !e.metaKey){

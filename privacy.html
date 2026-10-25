@@ -261,6 +261,14 @@
             method: method,
             page_location: window.location.href
           });
+          if (isWa) {
+            gtag('event', 'whatsapp_click', {
+              currency: 'KZT',
+              value: 30000,
+              method: 'WhatsApp',
+              page_location: window.location.href
+            });
+          }
         }
         if (typeof fbq === 'function') fbq('track', 'Contact');
       } catch(err) {}
