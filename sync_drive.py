@@ -41,6 +41,33 @@ TRANSLIT_MAP = {
     'і': 'i', 'ң': 'n', 'ғ': 'g', 'ү': 'u', 'ұ': 'u', 'қ': 'k', 'ө': 'o', 'һ': 'h'
 }
 
+EXCLUSIONS_FILE = "excluded_products.json"
+
+def load_exclusions():
+    """Список товаров, намеренно удаленных с сайта (не добавлять повторно при синхронизации)."""
+    try:
+        with open(EXCLUSIONS_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return {
+            "drive_ids": set(data.get("drive_ids", [])),
+            "title_keywords": [k.lower() for k in data.get("title_keywords", [])],
+        }
+    except FileNotFoundError:
+        return {"drive_ids": set(), "title_keywords": []}
+    except Exception as e:
+        print(f"[WARN] Не удалось прочитать {EXCLUSIONS_FILE}: {e}")
+        return {"drive_ids": set(), "title_keywords": []}
+
+def get_exclusion_reason(raw_title, drive_id=None):
+    excl = load_exclusions()
+    if drive_id and drive_id in excl["drive_ids"]:
+        return f"drive_id {drive_id} в {EXCLUSIONS_FILE}"
+    t = (raw_title or "").lower()
+    for kw in excl["title_keywords"]:
+        if kw and kw in t:
+            return f"ключевое слово «{kw}» в {EXCLUSIONS_FILE}"
+    return None
+
 def slugify(text):
     text = text.lower().strip()
     result = []
@@ -317,15 +344,15 @@ def generate_default_specs(title, category, materials=None):
     
     if category == 'Sets':
         type_ru = "Комплект украшений ручной работы"
-        length_size = "Индивидуальный подбор размеров (бесплатная подгонка длины под заказ)"
+        length_size = "Размеры уточняйте у мастера в WhatsApp"
         clasp = "Надежные ювелирные карабины и гипоаллергенные замки"
     elif category == 'Bracelets':
         type_ru = "Многорядный браслет из натуральных камней"
-        length_size = "16–19 см (регулируемая застежка, бесплатная подгонка по обхвату запястья)"
+        length_size = "16–19 см (регулируемая застежка)"
         clasp = "Ювелирный карабин с удлинительной цепочкой"
     elif category == 'Chains':
         type_ru = "Фактурная цепь с авторской подвеской"
-        length_size = "42–48 см (регулируемая удлинительная цепочка, бесплатная подгонка под заказ)"
+        length_size = "42–48 см (регулируемая удлинительная цепочка)"
         clasp = "Ювелирный замок-тогл или карабин"
     elif category == 'Lariats':
         type_ru = "Украшение-сотуар ручной работы"
@@ -342,7 +369,7 @@ def generate_default_specs(title, category, materials=None):
             clasp = "Гипоаллергенный ювелирный замок / швензы со стойким покрытием"
     else:
         type_ru = "Дизайнерское колье ручной работы"
-        length_size = "40–45 см (регулируемая удлинительная цепочка, бесплатная подгонка под заказ)"
+        length_size = "40–45 см (регулируемая удлинительная цепочка)"
         clasp = "Ювелирный карабин с удлинителем"
 
     hardware = "Гипоаллергенный ювелирный сплав со стойким покрытием (родий / позолота)"
@@ -371,7 +398,7 @@ def generate_rich_description(title, category, price, elements=None, base_desc="
             f"Каждое изделие можно приобрести по отдельности или полным сетом. "
             f"Изысканный авторский комплект ручной работы из отборных натуральных камней. "
             f"Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. "
-            f"Бесплатная индивидуальная подгонка длины мастером. Фирменная подарочная упаковка Livi Jewelry."
+            f"Фирменная подарочная упаковка Livi Jewelry."
         )
     elif is_set:
         clean_title = re.sub(r'\(под заказ\)', '', title, flags=re.I).strip()
@@ -380,7 +407,7 @@ def generate_rich_description(title, category, price, elements=None, base_desc="
             f"Каждое изделие сета можно приобрести по отдельности или полным комплектом. "
             f"Украшения выполнены из отборных натуральных минералов и жемчуга с выразительным природным блеском. "
             f"Гипоаллергенная фурнитура со стойким родированием или позолотой не вызывает раздражения. "
-            f"Бесплатная индивидуальная подгонка длины под ваши мерки. Подарочная шкатулка Livi Jewelry."
+            f"Подарочная шкатулка Livi Jewelry."
         )
     elif category == 'Earrings':
         clean_title = re.sub(r'\(под заказ\)', '', title, flags=re.I).strip()
@@ -397,7 +424,7 @@ def generate_rich_description(title, category, price, elements=None, base_desc="
             f"Авторское украшение ручной работы: {clean_title}. Выполнено из отборных натуральных минералов "
             f"высокого качества селекции с природным сиянием и неповторимой текстурой. "
             f"Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. "
-            f"Бесплатная индивидуальная подгонка длины мастером и быстрая бережная доставка по Казахстану. "
+            f"Быстрая бережная доставка по Казахстану. "
             f"Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry."
         )
     return desc
@@ -547,6 +574,12 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
                 print(f"[SKIP] Пропущен служебный файл: {raw_title}")
                 continue
 
+            # Исключенные товары (excluded_products.json): удалены с сайта намеренно, не добавляем повторно
+            excl_reason = get_exclusion_reason(raw_title, fid)
+            if excl_reason:
+                print(f"[EXCLUDED] Пропущен исключенный товар: {raw_title} ({excl_reason})")
+                continue
+
             # Если товар уже в каталоге, используем его локальное фото для сверки
             if fid in existing_by_drive_id:
                 local_img = existing_by_drive_id[fid].get('image')
@@ -574,6 +607,10 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
         for fn in os.listdir(local_folder):
             fp = os.path.join(local_folder, fn)
             if os.path.isfile(fp) and fn.lower().endswith(('.jpg', '.jpeg', '.png', '.webp', '.mpo', '.heic')):
+                excl_reason = get_exclusion_reason(os.path.splitext(fn)[0])
+                if excl_reason:
+                    print(f"[EXCLUDED] Пропущен исключенный товар: {fn} ({excl_reason})")
+                    continue
                 candidates.append({'source_path': fp, 'raw_title': os.path.splitext(fn)[0]})
 
     print(f"[INFO] Найдено {len(candidates)} файлов для проверки.")

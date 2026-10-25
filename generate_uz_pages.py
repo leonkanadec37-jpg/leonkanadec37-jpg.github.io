@@ -99,11 +99,11 @@ ALL_21_HUBS = [
 UZ_TRANSLATIONS = {
     "prod_01": {
         "title": "Barokko marvaridli kulon bilan tabiiy marvariddan ko‘p qatorli marjon",
-        "desc": "Yirik tabiiy barokko marvarididan yasalgan nafis osma kulonli ko‘p qatorli hashamatli marjon. Har bir marvarid donasi o‘zining betakror jilosi va yorqin nuri bilan ajralib turadi. Kundalik obrazlarga ham, bayramona kechalarga ham ajoyib mos tushadi. Bardoshli gipoallergen zargarlik furniturasi bilan jihozlangan, usta tomonidan bo‘yin o‘lchamingizga moslab bepul sozlab beriladi.",
+        "desc": "Yirik tabiiy barokko marvarididan yasalgan nafis osma kulonli ko‘p qatorli hashamatli marjon. Har bir marvarid donasi o‘zining betakror jilosi va yorqin nuri bilan ajralib turadi. Kundalik obrazlarga ham, bayramona kechalarga ham ajoyib mos tushadi. Bardoshli gipoallergen zargarlik furniturasi bilan jihozlangan.",
     },
     "prod_02": {
         "title": "Tabiiy marvarid va tog‘ billuridan yasalgan marjon (Premium)",
-        "desc": "Premium toifadagi tabiiy marvarid, tiniq qirrali tog‘ billuri va yirik barokko marvarididan qo‘lda terilgan ko‘p qatlamli marjon. Yorug‘lik tushganda billur qirralari marvarid nurlari bilan uyg‘unlashib, betakror yorqinlik bag‘ishlaydi. Rodiy qoplamali mustahkam furnitura nozik teriga xavfsiz. Mahsulot uzunligi buyurtma paytida bepul moslashtiriladi.",
+        "desc": "Premium toifadagi tabiiy marvarid, tiniq qirrali tog‘ billuri va yirik barokko marvarididan qo‘lda terilgan ko‘p qatlamli marjon. Yorug‘lik tushganda billur qirralari marvarid nurlari bilan uyg‘unlashib, betakror yorqinlik bag‘ishlaydi. Rodiy qoplamali mustahkam furnitura nozik teriga xavfsiz.",
     },
     "prod_03": {
         "title": "Mayorka marvarididan klassik marjon",
@@ -159,7 +159,7 @@ UZ_TRANSLATIONS = {
     },
     "prod_16": {
         "title": "Tabiiy feruzadan marjon va ziraklar",
-        "desc": "To‘plamda: Tabiiy feruzadan marjon — 35 000 ₸, ziraklar — 15 000 ₸. To‘plamning to‘liq narxi — 50 000 ₸. Moviy osmon tusli tabiiy feruzaning tabiiy to‘qimasi bahor va yoz faslidagi liboslarga juda mos keladi. Buyurtma bo‘yicha o‘lchami bepul to‘g‘rilanadi.",
+        "desc": "To‘plamda: Tabiiy feruzadan marjon — 35 000 ₸, ziraklar — 15 000 ₸. To‘plamning to‘liq narxi — 50 000 ₸. Moviy osmon tusli tabiiy feruzaning tabiiy to‘qimasi bahor va yoz faslidagi liboslarga juda mos keladi.",
     },
     "prod_17": {
         "title": "Tabiiy aqiq va granatdan yasalgan sotuar-taqinchoq",
@@ -171,7 +171,7 @@ UZ_TRANSLATIONS = {
     },
     "prod_19": {
         "title": "Yo‘lbars ko‘zi va gematitdan yasalgan marjon",
-        "desc": "Yo‘lbars ko‘zining iliq tillarang nurlari va qirrali grafit gematit toshlaridan terilgan zamonaviy geometrik marjon. Klassik kostyumlar bilan ham, kundalik ko‘ylaklar bilan ham ajoyib uyg‘unlashadi. Uzunligi bepul sozlanadi.",
+        "desc": "Yo‘lbars ko‘zining iliq tillarang nurlari va qirrali grafit gematit toshlaridan terilgan zamonaviy geometrik marjon. Klassik kostyumlar bilan ham, kundalik ko‘ylaklar bilan ham ajoyib uyg‘unlashadi.",
     },
     "prod_20": {
         "title": "Tabiiy flyuorit va zirkonlardan yasalgan marjon",
@@ -323,7 +323,7 @@ UZ_TRANSLATIONS = {
     },
     "prod_57": {
         "title": "Mayorka marvaridi va zargarlik shishasidan marjon",
-        "desc": "Mayorka marvaridi va yaltiroq zargarlik shishasi birikmasidan ishlangan nozik marjon. Yengil va havodor tuzilishi bo‘yinda mayin turadi, o‘lchami bepul to‘g‘rilanadi.",
+        "desc": "Mayorka marvaridi va yaltiroq zargarlik shishasi birikmasidan ishlangan nozik marjon. Yengil va havodor tuzilishi bo‘yinda mayin turadi.",
     },
     "prod_58": {
         "title": "Tabiiy toshli yechiladigan yurakchali zirak-transformerlar",
@@ -674,7 +674,7 @@ def generate_uz_index(products_uz: list) -> str:
         ),
         (
             "Marjon yoki bilasuzukni shaxsiy o‘lcham bo‘yicha buyurtma qilish mumkinmi?",
-            "Albatta! Har bir marjon, choker, bilasuzuk, sotuar yoki uzukni sizning bo‘yin yoki bilak o‘lchamingizga, istalgan uzunlikka (masalan, 38 sm, 40 sm, 42 sm, 45 sm) va qoplama rangiga (rodiy yoki zarhal) moslab usta tomonidan bepul sozlab beriladi."
+            "Har bir buyumning o‘lchami kartochkada ko‘rsatilgan. Shaxsiy uzunlik va qoplama rangi (rodiy yoki zarhal) bo‘yicha ustaga WhatsApp orqali yozing."
         ),
         (
             "Taqinchoqlar qanday qadoqda keladi — sovg‘a qilishga tayyormi?",
@@ -1510,7 +1510,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
 
     length_raw = specs.get("length_size", "38–45 см")
     if "16" in length_raw and "19" in length_raw:
-        length_uz = "16–19 sm (qulay sozlanadigan, buyurtma bo‘yicha bepul o‘lchamlashtirish)"
+        length_uz = "16–19 sm (qulay sozlanadigan)"
     elif "100" in length_raw:
         length_uz = "100–120 sm (bir necha o‘ramda yoki nafis galstuk ko‘rinishida taqish uchun universal uzunlik)"
     elif "80" in length_raw or "85" in length_raw or "90" in length_raw:
@@ -1518,7 +1518,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
     elif "2.5" in length_raw or "3" in length_raw or "quloq" in length_raw:
         length_uz = "2.5–4.5 sm (yengil, quloq suprasiga qulay o‘tiradigan qulay bichim)"
     else:
-        length_uz = "38–45 sm (sozlanuvchi uzaytirgich zanjir, buyurtma bo‘yicha bepul o‘lchamlashtirish)"
+        length_uz = "38–45 sm (sozlanuvchi uzaytirgich zanjir)"
 
     hardware_uz = "Gipoallergen zargarlik qotishmasi (bardoshli rodiy / 18K zarhal qoplama)"
     clasp_uz = "Uzaytirgich zanjirli mustahkam zargarlik karabini"
@@ -1681,8 +1681,8 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
 
     faq_q1 = f"«{title}» taqinchog‘ida tabiiy toshlar va marvarid qanday ishlatilgan?"
     faq_a1 = f"Ushbu model Livi Jewelry ustaxonasida saralangan tabiiy minerallar ({materials_uz_str}) va yuqori toifadagi marvariddan qo‘lda terilgan. Furniturasi mustahkam gipoallergen qotishmadan iborat."
-    faq_q2 = f"«{title}» o‘lchamini shaxsiy buyurtma asosida bepul moslashtirish mumkinmi?"
-    faq_a2 = f"Ha, usta sizning bo‘yin yoki bilak o‘lchamingizga moslab buyum uzunligini bepul sozlab beradi, shuningdek qo‘shimcha uzaytirgich zanjir qo‘shadi."
+    faq_q2 = f"«{title}» o‘lchamini o‘zgartirish mumkinmi?"
+    faq_a2 = f"Buyum o‘lchami kartochkada ko‘rsatilgan. Uzunlikni o‘zgartirish imkoniyatini ustadan WhatsApp orqali aniqlang."
     faq_q3 = "Toshkentga va O‘zbekistonga yetkazib berish hamda to‘lov qanday bo‘ladi?"
     faq_a3 = "O‘zbekistonga jo‘natish CDEK yoki Qazpost orqali kuzatuv treking-kodi bilan amalga oshiriladi. To‘lov «Zolotaya Korona» (KoronaPay) yoki menejer bilan WhatsApp orqali tasdiqlanadi. Sovg‘a qadog‘i bepul qo‘shiladi."
 

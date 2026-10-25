@@ -1,0 +1,36 @@
+{
+  "_comment": "Товары, намеренно удаленные с сайта. sync_drive.py не будет добавлять их повторно из Google Диска.",
+  "title_keywords": [
+    "чешск",
+    "ювелирного стекла",
+    "ювелирное стекло"
+  ],
+  "drive_ids": [
+    "1BdwuyeqVCT8zkbSwTVp72VEcE6vHAgpa",
+    "1BUKOCawbUfz1XnY1pusdpjE5ziqbYN-x",
+    "1to6yyB4OoCNRznFt_njCZWi7mbLYluuf"
+  ],
+  "removed": [
+    {
+      "id": "prod_55",
+      "title": "Колье «Лапы» из ювелирного чешского стекла",
+      "drive_id": "1BdwuyeqVCT8zkbSwTVp72VEcE6vHAgpa",
+      "date": "2026-10-25",
+      "reason": "чешское/ювелирное стекло"
+    },
+    {
+      "id": "prod_56",
+      "title": "Колье из граната и чешского стекла",
+      "drive_id": "1BUKOCawbUfz1XnY1pusdpjE5ziqbYN-x",
+      "date": "2026-10-25",
+      "reason": "чешское/ювелирное стекло"
+    },
+    {
+      "id": "prod_57",
+      "title": "Колье из жемчуга Майорка и ювелирного стекла",
+      "drive_id": "1to6yyB4OoCNRznFt_njCZWi7mbLYluuf",
+      "date": "2026-10-25",
+      "reason": "чешское/ювелирное стекло"
+    }
+  ]
+}

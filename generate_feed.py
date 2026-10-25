@@ -214,7 +214,7 @@ def generate_feed():
       <g:gender>female</g:gender>
       <g:color>{color_str}</g:color>
       <g:material>{material_str}</g:material>
-      <g:product_highlight>100% натуральные камни и культивированный жемчуг</g:product_highlight>
+      <g:product_highlight>Натуральные камни и жемчуг ручной сборки</g:product_highlight>
       <g:product_highlight>Гипоаллергенная фурнитура со стойким покрытием (родий / позолота)</g:product_highlight>
       <g:product_highlight>Фирменная подарочная упаковка включена в стоимость</g:product_highlight>
       <g:product_highlight>Доставка день-в-день по Астане и СДЭК по всему Казахстану</g:product_highlight>

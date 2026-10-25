@@ -69,7 +69,7 @@ def generate_pinterest_assets():
         materials = ", ".join(p.get("materials") or ["натуральный жемчуг"])
 
         # Описание пина (до 500 символов под требования Pinterest SEO)
-        pin_desc = f"{title}. {desc_raw} Материалы: {materials}. Цена: {price:,} ₸. Бесплатная подгонка размера мастером. Доставка день-в-день по Астане, 1–3 дня экспресс СДЭК по Казахстану. {HASHTAGS_BASE}".replace(",", " ")
+        pin_desc = f"{title}. {desc_raw} Материалы: {materials}. Цена: {price:,} ₸. Доставка день-в-день по Астане, 1–3 дня экспресс СДЭК по Казахстану. {HASHTAGS_BASE}".replace(",", " ")
 
         if len(pin_desc) > 490:
             pin_desc = pin_desc[:487] + "..."

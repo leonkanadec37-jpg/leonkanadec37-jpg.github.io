@@ -114,7 +114,7 @@ ALL_HUBS = [
         "stone_name_prep": "комплектах украшений",
         "seo_title": "Эксклюзивные комплекты украшений ручной сборки в ателье Livi Jewelry",
         "seo_p1": "Ювелирный комплект из натуральных минералов и культивированного жемчуга — это безупречно выверенный ансамбль, в котором колье, браслет, серьги и кольцо гармонируют по оттенку, калибру камней и стилю фурнитуры. В мастерской Livi Jewelry (Астана, Казахстан) мы собираем комплекты вручную, тщательно отбирая каждый минерал по чистоте рисунка и глубине природного блеска. Вы можете приобрести как готовый сет целиком, так и отдельные его элементы.",
-        "seo_p2": "Каждое украшение создается на ювелирном тросике высокой прочности с использованием гипоаллергенной фурнитуры премиум-класса (стойкое родирование или позолота 18K). Перед отправкой мастер бесплатно адаптирует длину колье и обхват браслета под ваши индивидуальные мерки, чтобы посадка была идеальной. Все комплекты упаковываются в фирменную подарочную шкатулку и доставляются курьером день в день по Астане или экспресс-службой СДЭК в Алматы и любой город Казахстана за 1–3 рабочих дня."
+        "seo_p2": "Каждое украшение создается на ювелирном тросике высокой прочности с использованием гипоаллергенной фурнитуры премиум-класса (стойкое родирование или позолота 18K). Все комплекты упаковываются в фирменную подарочную шкатулку и доставляются курьером день в день по Астане или экспресс-службой СДЭК в Алматы и любой город Казахстана за 1–3 рабочих дня."
     },
     {
         "slug": "chokery-iz-naturalnyh-kamney.html",
@@ -178,7 +178,7 @@ ALL_HUBS = [
         "stone_name_prep": "украшениях из гематита",
         "seo_title": "Натуральный гематит в авторских колье и комплектах Livi Jewelry",
         "seo_p1": "Природный гематит ценится в высоком ювелирном искусстве за свой неповторимый зеркально-стальной отлив, приятную прохладу и благородную тяжесть. Граненые бусины и разделители из гематита создают выразительный контраст в сочетании с теплым тигровым глазом, изумрудным нефритом и перламутровым жемчугом, придавая украшению современный графичный характер.",
-        "seo_p2": "В мастерской Livi Jewelry гематит проходит деликатную полировку, сохраняя стойкий металлический блеск на долгие годы. Мы используем гипоаллергенную фурнитуру с родированием и позолотой, бесплатно подгоняем длину колье или браслета под ваши мерки и бережно отправляем заказы курьером по Астане и службой СДЭК в Алматы и все регионы Казахстана."
+        "seo_p2": "В мастерской Livi Jewelry гематит проходит деликатную полировку, сохраняя стойкий металлический блеск на долгие годы. Мы используем гипоаллергенную фурнитуру с родированием и позолотой и бережно отправляем заказы курьером по Астане и службой СДЭК в Алматы и все регионы Казахстана."
     },
     {
         "slug": "ukrasheniya-iz-malahita.html",
@@ -194,7 +194,7 @@ ALL_HUBS = [
         "stone_name_prep": "украшениях из малахита и нефрита",
         "seo_title": "Украшения из природного малахита и нефрита — изумрудный акцент Livi Jewelry",
         "seo_p1": "Натуральный малахит и зеленый нефрит — статусные благородные самоцветы. В палитре Livi Jewelry малахит и нефрит сочетаются с теплым сиянием позолоченной фурнитуры и натуральным жемчугом, создавая роскошный образ в стиле высоких ювелирных домов.",
-        "seo_p2": "Каждая бусина малахита и нефрита отбирается мастером вручную. Мы бесплатно адаптируем размер браслета или колье под ваше запястье и шею, упаковываем изделие в подарочный футляр Livi Jewelry и обеспечиваем быструю доставку по Астане, Алматы и всему Казахстану."
+        "seo_p2": "Каждая бусина малахита и нефрита отбирается мастером вручную. Мы упаковываем изделие в подарочный футляр Livi Jewelry и обеспечиваем быструю доставку по Астане, Алматы и всему Казахстану."
     },
     {
         "slug": "ukrasheniya-iz-ametista.html",
@@ -210,7 +210,7 @@ ALL_HUBS = [
         "stone_name_prep": "украшениях из аметиста и флюорита",
         "seo_title": "Авторские украшения из натурального аметиста и флюорита в ателье Livi Jewelry",
         "seo_p1": "Натуральный аметист и полупрозрачный флюорит — благородные минералы, которые превосходно преломляют свет. Прозрачные и полупрозрачные грани аметиста великолепно играют в авторских сочетаниях с нежным розовым кварцем и классическим речным жемчугом.",
-        "seo_p2": "В ателье Livi Jewelry вы можете купить комплекты, колье, серьги и броши-булавки из подлинного природного аметиста и флюорита ручной сборки с бесплатной подгонкой длины и быстрой доставкой по всему Казахстану."
+        "seo_p2": "В ателье Livi Jewelry вы можете купить комплекты, колье, серьги и броши-булавки из подлинного природного аметиста и флюорита ручной сборки с быстрой доставкой по всему Казахстану."
     },
     {
         "slug": "ukrasheniya-iz-granata.html",
@@ -226,7 +226,7 @@ ALL_HUBS = [
         "stone_name_prep": "украшениях из граната и агата",
         "seo_title": "Колье, сотуары и сеты из натурального граната и агата — Livi Jewelry",
         "seo_p1": "Природный гранат завораживает глубоким винно-рубиновым цветом, который вспыхивает яркими искрами при попадании света на ювелирные грани. В коллекции Livi Jewelry гранат представлен в сольных моно-колье и в драматичных контрастных композициях с бархатным черным агатом и белоснежным жемчугом.",
-        "seo_p2": "Мы используем только натуральный граненый гранат высокой чистоты и собираем каждое украшение вручную на прочном ювелирном тросике с надежными гипоаллергенными замками. Бесплатная регулировка длины и доставка СДЭК по всему Казахстану."
+        "seo_p2": "Мы используем только натуральный граненый гранат высокой чистоты и собираем каждое украшение вручную на прочном ювелирном тросике с надежными гипоаллергенными замками. Доставка СДЭК по всему Казахстану."
     },
     {
         "slug": "ukrasheniya-iz-rozovogo-kvarca.html",
@@ -258,7 +258,7 @@ ALL_HUBS = [
         "stone_name_prep": "украшениях из бирюзы",
         "seo_title": "Комплекты и колье из натуральной бирюзы ручной работы — Livi Jewelry",
         "seo_p1": "Натуральная бирюза — камень с тысячелетней историей, который почитается как талисман удачи и благополучия. Выразительный небесно-голубой оттенок природной бирюзы мгновенно притягивает взгляды и великолепно оттеняет любой цветотип внешности.",
-        "seo_p2": "В каталоге Livi Jewelry представлены роскошные сеты и комплекты из натуральной бирюзы (колье, браслет, серьги, кольцо), которые можно купить полным комплектом или выбрать отдельные изделия. Бесплатная подгонка размера и доставка по Казахстану."
+        "seo_p2": "В каталоге Livi Jewelry представлены роскошные сеты и комплекты из натуральной бирюзы (колье, браслет, серьги, кольцо), которые можно купить полным комплектом или выбрать отдельные изделия. Доставка по Казахстану."
     },
     {
         "slug": "ukrasheniya-iz-gornogo-hrustalya.html",
@@ -274,7 +274,7 @@ ALL_HUBS = [
         "stone_name_prep": "украшениях из горного хрусталя",
         "seo_title": "Колье и украшения из горного хрусталя ручной сборки в Livi Jewelry",
         "seo_p1": "Горный хрусталь — кристально чистая прозрачная разновидность природного кварца. Его ледяной блеск и высокая светопреломляющая способность создают эффект легкого сияющего ореола. В сочетании с натуральным жемчугом горный хрусталь придает колье воздушность и торжественную утонченность.",
-        "seo_p2": "Каждое украшение с горным хрусталем собирается вручную с использованием надежной гипоаллергенной фурнитуры (родий или позолота). Бесплатная коррекция длины и быстрая доставка по Казахстану."
+        "seo_p2": "Каждое украшение с горным хрусталем собирается вручную с использованием надежной гипоаллергенной фурнитуры (родий или позолота). Быстрая доставка по Казахстану."
     },
     {
         "slug": "ukrasheniya-iz-lunnogo-kamnya.html",
@@ -306,7 +306,7 @@ ALL_HUBS = [
         "stone_name_prep": "украшениях из жемчуга Майорка",
         "seo_title": "Украшения из жемчуга Майорка — совершенный блеск и ручная работа Livi Jewelry",
         "seo_p1": "Органический жемчуг Майорка создается по многовековой испанской технологии нанесения множества слоев натуральной жемчужной эссенции. Каждая бусина обретает зеркальную гладкость, устойчивость к выцветанию и завораживающее внутреннее свечение. В ателье Livi Jewelry мы объединяем Майорку с расписной керамикой, позолотой 18K и ювелирными элементами ручной сборки.",
-        "seo_p2": "Каждое колье и комплект комплектуются надежными гипоаллергенными замочками. Мы бесплатно подгоняем длину под вашу шею, упаковываем украшение в подарочную шкатулку Livi Jewelry и доставляем курьером в Астане день в день или экспресс-службой СДЭК по Казахстану."
+        "seo_p2": "Каждое колье и комплект комплектуются надежными гипоаллергенными замочками. Мы упаковываем украшение в подарочную шкатулку Livi Jewelry и доставляем курьером в Астане день в день или экспресс-службой СДЭК по Казахстану."
     },
     {
         "slug": "ukrasheniya-iz-tigrovogo-glaza.html",
@@ -322,7 +322,7 @@ ALL_HUBS = [
         "stone_name_prep": "украшениях из тигрового глаза и жадеита",
         "seo_title": "Украшения из тигрового глаза и жадеита — энергия и эстетика Livi Jewelry",
         "seo_p1": "Тигровый глаз завораживает своим золотисто-янтарным переливом и шелковистой иризацией, а зеленый жадеит привносит ноту спокойствия и природного благородства. В авторских украшениях Livi Jewelry эти камни подчеркнуты контрастными вставками из гематита и позолоты, создавая эффектный геометрический рисунок.",
-        "seo_p2": "Все изделия собираются вручную на прочном ювелирном тросике. Мастер бесплатно отрегулирует длину колье (38–46 см) под ваши мерки, упакует заказ в фирменный бархатный футляр и отправит курьером по Астане или СДЭК в Алматы и все регионы РК."
+        "seo_p2": "Все изделия собираются вручную на прочном ювелирном тросике. Мастер упакует заказ в фирменный бархатный футляр и отправит курьером по Астане или СДЭК в Алматы и все регионы РК."
     },
     {
         "slug": "ukrasheniya-iz-koralla-i-yashmy.html",
@@ -338,7 +338,7 @@ ALL_HUBS = [
         "stone_name_prep": "украшениях из коралла и яшмы",
         "seo_title": "Украшения из натурального коралла и пейзажной яшмы в ателье Livi Jewelry",
         "seo_p1": "Природный коралл терракотово-красного оттенка в дуэте с пейзажной яшмой воплощает тепло земли и солнца. Неповторимый природный рисунок каждого среза яшмы превращает любое украшение в подлинный артефакт. Комплекты великолепно гармонируют с натуральными тканями — льном, шелком, денимом и кашемиром.",
-        "seo_p2": "В Livi Jewelry вы можете приобрести как полный комплект (колье, браслет, серьги), так и любой элемент по отдельности. Бесплатная индивидуальная коррекция длины, надежная фурнитура, подарочная коробка и быстрая доставка по Казахстану."
+        "seo_p2": "В Livi Jewelry вы можете приобрести как полный комплект (колье, браслет, серьги), так и любой элемент по отдельности. Надежная фурнитура, подарочная коробка и быстрая доставка по Казахстану."
     },
     {
         "slug": "ukrasheniya-iz-lazurita.html",
@@ -354,7 +354,7 @@ ALL_HUBS = [
         "stone_name_prep": "украшениях из лазурита и авантюрина",
         "seo_title": "Украшения из натурального лазурита и авантюрина — авторский дизайн Livi Jewelry",
         "seo_p1": "Натуральный ультрамариновый лазурит с древности считался камнем монархов и высшей знати. Золотистые крупицы пирита внутри лазурита перекликаются с мерцающими чешуйками зеленого авантюрина и шелковым сиянием речного жемчуга. Это сочетание придает украшениям королевскую стать и непревзойденную глубину цвета.",
-        "seo_p2": "Каждое колье создается вручную в единственном экземпляре или малой серией. Мы устанавливаем стойкую гипоаллергенную фурнитуру, бесплатно подгоняем длину изделия и доставляем в фирменной подарочной коробке по Астане и всему Казахстану."
+        "seo_p2": "Каждое колье создается вручную в единственном экземпляре или малой серией. Мы устанавливаем стойкую гипоаллергенную фурнитуру и доставляем в фирменной подарочной коробке по Астане и всему Казахстану."
     },
     {
         "slug": "tsepi-s-barochnym-zhemchugom.html",
@@ -370,7 +370,7 @@ ALL_HUBS = [
         "stone_name_prep": "цепях с барочным жемчугом",
         "seo_title": "Цепи с крупным барочным жемчугом — трендовые украшения Livi Jewelry",
         "seo_p1": "Контраст массивных фактурных звеньев цепи и нежного органического барочного жемчуга — один из ведущих трендов современной ювелирной моды. Стойкое родиевое или 18-каратное позолоченное покрытие придает цепям безупречный блеск, не тускнеющий со временем.",
-        "seo_p2": "В коллекции Livi Jewelry представлены как лаконичные цепи с одиночной барочной жемчужиной, так и дерзкие гранж-модели и комплекты с браслетами. Бесплатная регулировка посадки по вашей шее и запястью, фирменная упаковка и доставка СДЭК."
+        "seo_p2": "В коллекции Livi Jewelry представлены как лаконичные цепи с одиночной барочной жемчужиной, так и дерзкие гранж-модели и комплекты с браслетами. Фирменная упаковка и доставка СДЭК."
     },
     {
         "slug": "koltsa-i-garnitury-iz-kamney.html",
@@ -405,17 +405,17 @@ KZ_HUBS_INFO = {
         "lead": "Табиғи культивацияланған інжуден, барокко інжуінен және Майорка інжуінен қолмен жиналған авторлық алқалар мен чокерлер. Төзімді алтын жалатылған және родийленген фурнитура.",
         "seo_title": "Livi Jewelry шеберханасындағы табиғи інжу алқалар — сапа мен нәзіктік",
         "seo_p1": "Табиғи інжу алқа — кез келген әйел образына ақсүйектік сипат беретін классикалық зергерлік бұйым. Livi Jewelry шеберханасында (Астана, Қазақстан) әрбір інжу түйіршігі жылтыры мен табиғи пішіні бойынша мұқият іріктеледі. Бұйымдар сапалы ювелирлік тросикте жиналып, аллергия тудырмайтын төзімді фурнитурамен жабдықталады.",
-        "seo_p2": "Шебер бұйымның ұзындығын мойын өлшеміңізге сәйкес тегін бейімдеп береді және қосымша 5 см ұзартқыш тізбек орнатады. Барлық алқалар фирмалық сыйлық қорабына салынып, Астана мен Алматыға және бүкіл Қазақстанға жедел жеткізіледі.",
+        "seo_p2": "Барлық алқалар фирмалық сыйлық қорабына салынып, Астана мен Алматыға және бүкіл Қазақстанға жедел жеткізіледі.",
     },
     "braslety-iz-zhemchuga.html": {
         "chip_label": "Інжу білезіктер",
         "h1": "Табиғи інжу мен тастардан жасалған білезіктер",
         "title_cluster": "інжу білезіктер",
         "breadcrumb": "Інжу білезіктер",
-        "lead": "Табиғи інжуден, малахиттен, бирюзадан және аметисттен жасалған нәзік қолдан жасалған білезіктер. Білек өлшеміне сәйкес тегін өлшемдеу.",
+        "lead": "Табиғи інжуден, малахиттен, бирюзадан және аметисттен жасалған нәзік қолдан жасалған білезіктер.",
         "seo_title": "Табиғи інжуден қолдан жасалған білезіктер — Livi Jewelry",
         "seo_p1": "Інжу білезіктер нәзік білектің сұлулығын айшықтап, күнделікті де, кешкі образдарға да үйлесімділік сыйлайды. Біз барокко інжуі мен табиғи минералдарды премиум санаттағы фурнитурамен үйлестіреміз.",
-        "seo_p2": "Тапсырыс беру кезінде шебер білезік көлемін дәл сіздің білегіңізге сай етіп тегін келтіреді. Қазақстанның барлық қалаларына СДЭК арқылы сенімді жеткізу.",
+        "seo_p2": "Қазақстанның барлық қалаларына СДЭК арқылы сенімді жеткізу.",
     },
     "sergi-iz-zhemchuga.html": {
         "chip_label": "Інжу сырғалар",
@@ -485,7 +485,7 @@ KZ_HUBS_INFO = {
         "lead": "Бірегей табиғи өрнегі бар малахит пен жасыл нефриттен жасалған білезіктер, алқалар мен жиынтықтар.",
         "seo_title": "Табиғи малахит пен нефриттен әшекейлер — Livi Jewelry",
         "seo_p1": "Табиғи малахит пен нефрит — асыл мәртебенің символы. Алтын жалатылған фурнитурамен бірге бұл тастар таңғажайып салтанат сыйлайды.",
-        "seo_p2": "Шебер әр тасты қолмен таңдайды. Өлшемді бейімдеу тегін жүргізіледі.",
+        "seo_p2": "Шебер әр тасты қолмен таңдайды.",
     },
     "ukrasheniya-iz-ametista.html": {
         "chip_label": "Аметист пен Флюорит",
@@ -505,7 +505,7 @@ KZ_HUBS_INFO = {
         "lead": "Қанық шарап реңкті қырлы анар тас пен барқыт қара агаттан жасалған алқалар, сотуарлар мен жиынтықтар.",
         "seo_title": "Табиғи анар тас пен агаттан алқалар мен жиынтықтар",
         "seo_p1": "Табиғи анар тас (гранат) терең қызыл-рубин реңкімен көз тартады. Қара агатпен қатар қолданылғанда айрықша сән түзейді.",
-        "seo_p2": "Берік ювелирлік тросикте қолмен жиналады, өлшемі тегін реттеледі.",
+        "seo_p2": "Берік ювелирлік тросикте қолмен жиналады.",
     },
     "ukrasheniya-iz-rozovogo-kvarca.html": {
         "chip_label": "Қызғылт кварц",
@@ -555,7 +555,7 @@ KZ_HUBS_INFO = {
         "lead": "Мінсіз шар тәріздес пішіні мен терең айнадай жылтыры бар Майорка органикалық інжуінен жасалған алқалар, жиынтықтар мен сырғалар.",
         "seo_title": "Майорка інжуінен жасалған әшекейлер — мінсіз жылтыр",
         "seo_p1": "Майорка інжуі табиғи інжу эссенциясының көптеген қабаттарын жағу арқылы испандық дәстүрлі технологиямен жасалады. Ол мінсіз тегістігімен және түсін жоғалтпайтын төзімділігімен ерекшеленеді.",
-        "seo_p2": "Өрнекті керамикамен және алтын жалатумен әдемі үйлеседі. Ұзындығын тегін реттеу қарастырылған.",
+        "seo_p2": "Өрнекті керамикамен және алтын жалатумен әдемі үйлеседі.",
     },
     "ukrasheniya-iz-tigrovogo-glaza.html": {
         "chip_label": "Жолбарыс көзі және Жадеит",
@@ -595,7 +595,7 @@ KZ_HUBS_INFO = {
         "lead": "Акцентті барокко інжуі бар алтын және родий жалатылған сәнді тізбектер, «Гранж» жиынтықтары мен білезіктер.",
         "seo_title": "Ірі барокко інжуі бар трендтік тізбектер — Livi Jewelry",
         "seo_p1": "Көлемді тізбек буындары мен нәзік барокко інжуінің қарама-қайшылығы — қазіргі зергерлік сәннің ең танымал тренді. Родий мен 18K алтын жабыны уақыт өте қарайып кетпейді.",
-        "seo_p2": "Мойын мен білек өлшеміне сәйкес тегін бейімделеді.",
+        "seo_p2": "Сыйлық қаптамасы тегін беріледі.",
     },
     "koltsa-i-garnitury-iz-kamney.html": {
         "chip_label": "Сақиналар мен сәттер",
@@ -620,17 +620,17 @@ UZ_HUBS_INFO = {
         "lead": "Tabiiy yetishtirilgan marvarid, barokko marvaridi va Mayorka marvarididan qoʻlda terilgan mualliflik marjonlari va chockerlari. Chidamli tillarang va rodiy qoplamali furnitura.",
         "seo_title": "Livi Jewelry ustaxonasining tabiiy marvarid marjonlari — nafislik va sifat",
         "seo_p1": "Tabiiy marvarid marjon — har qanday ayol qiyofasiga aslzodalik bagʻishlaydigan klassik zargarlik buyumi. Livi Jewelry ustaxonasida (Ostona) har bir marvarid donasi jilosi va tabiiy shakli boʻyicha sinchkovlik bilan saralanadi. Buyumlar sifatli zargarlik simiga terilib, allergiya chaqirmaydigan chidamli furnitura bilan taʼminlanadi.",
-        "seo_p2": "Usta buyum uzunligini boʻyningiz oʻlchamiga moslab bepul moslashtirib beradi va qoʻshimcha 5 sm uzaytiruvchi zanjir oʻrnatadi. Barcha marjonlar firma sovgʻa qutisiga solinib, Toshkent, Samarqand, Buxoro va butun Oʻzbekiston hamda Qozogʻiston boʻylab tezkor yetkazib beriladi.",
+        "seo_p2": "Barcha marjonlar firma sovgʻa qutisiga solinib, Toshkent, Samarqand, Buxoro va butun Oʻzbekiston hamda Qozogʻiston boʻylab tezkor yetkazib beriladi.",
     },
     "braslety-iz-zhemchuga.html": {
         "chip_label": "Marvarid bilaguzuklar",
         "h1": "Tabiiy marvarid va toshlardan bilaguzuklar — Livi Jewelry",
         "title_cluster": "marvarid bilaguzuklar",
         "breadcrumb": "Marvarid bilaguzuklar",
-        "lead": "Tabiiy marvarid, malaxit, feruza va ametistdan ishlangan nafis qoʻl mehnati bilaguzuklari. Bilak oʻlchamiga koʻra bepul moslashtirish.",
+        "lead": "Tabiiy marvarid, malaxit, feruza va ametistdan ishlangan nafis qoʻl mehnati bilaguzuklari.",
         "seo_title": "Tabiiy marvariddan qoʻlda yasalgan bilaguzuklar — Livi Jewelry",
         "seo_p1": "Marvarid bilaguzuklar nozik bilak goʻzalligini namoyon etib, kundalik va oqshom obrazlariga mukammal uygʻunlashadi. Biz barokko marvaridi va tabiiy minerallarni oliy toifadagi furnitura bilan birlashtiramiz.",
-        "seo_p2": "Buyurtma berishda usta bilaguzuk oʻlchamini aynan sizning bilagingizga moslab bepul toʻgʻrilab beradi. SDEK va Qazpost orqali Oʻzbekiston va butun MDH boʻylab ishonchli yetkazib berish.",
+        "seo_p2": "SDEK va Qazpost orqali Oʻzbekiston va butun MDH boʻylab ishonchli yetkazib berish.",
     },
     "sergi-iz-zhemchuga.html": {
         "chip_label": "Marvarid sirgʻalar",
@@ -660,7 +660,7 @@ UZ_HUBS_INFO = {
         "lead": "Tabiiy anor toshi, flyuorit, marvarid va gematitdan ishlangan qisqa nozik marjonlar va chockerlar. Uzunlikni sozlovchi 5 sm uzaytiruvchi zanjir.",
         "seo_title": "Tabiiy toshlardan yasalgan zamonaviy chockerlar — Livi Jewelry",
         "seo_p1": "Chocker — boʻyin chizigʻi va boʻyinturuq suyagini goʻzal ajratib koʻrsatuvchi zamonaviy zargarlik modasining yetakchi trendidir. Qirrali tabiiy minerallar yorugʻlik tushganda maftunkor jilo baxsh etadi.",
-        "seo_p2": "Har bir chocker cheklangan nusxada yasaladi. Shaxsiy oʻlchamni bepul moslashtirish va Oʻzbekistonning barcha viloyatlariga tezkor yetkazib berish mavjud.",
+        "seo_p2": "Har bir chocker cheklangan nusxada yasaladi. Oʻzbekistonning barcha viloyatlariga tezkor yetkazib berish mavjud.",
     },
     "sotuary-iz-zhemchuga.html": {
         "chip_label": "Marvarid sotuarlar",
@@ -710,7 +710,7 @@ UZ_HUBS_INFO = {
         "lead": "Shaffof va chuqur binafsha rangli tabiiy qirrali ametistdan marjonlar, bilaguzuklar va sirgʻalar. Tillarang va rodiy furnitura.",
         "seo_title": "Tabiiy ametistdan qoʻlda yasalgan zargarlik buyumlari",
         "seo_p1": "Ametist oʻzining jozibali binafsha tuslari bilan ichki xotirjamlik va maʼnaviy poklik ramzidir. Qirrali ametist munchoqlari quyosh nurida yorqin yaltiraydi.",
-        "seo_p2": "Ustaxonamiz ametistni marvarid va boshqa nozik minerallar bilan uygʻunlashtiradi. Oʻlchamni moslashtirish mutlaqo bepul.",
+        "seo_p2": "Ustaxonamiz ametistni marvarid va boshqa nozik minerallar bilan uygʻunlashtiradi.",
     },
     "ukrasheniya-iz-granata.html": {
         "chip_label": "Anor toshi taqinchoqlar",
@@ -750,7 +750,7 @@ UZ_HUBS_INFO = {
         "lead": "Koʻz yoshidek musaffo shaffof tabiiy togʻ billuridan qirrali chockerlar, marjonlar va sirgʻalar. Har qanday libos bilan mos tushuvchi universal nafislik.",
         "seo_title": "Tabiiy togʻ billuridan zargarlik buyumlari — Livi Jewelry",
         "seo_p1": "Togʻ billuri — mukammal shaffoflik va musaffo soflik timsolidir. U yorugʻlikni prizma kabi sindirib, kamalakning barcha ranglarida tovlanadi.",
-        "seo_p2": "Kundalik va tantanali uslub uchun eng mos tosh. Sovgʻa qutisi va bepul oʻlcham moslashuvi bilan.",
+        "seo_p2": "Kundalik va tantanali uslub uchun eng mos tosh. Sovgʻa qutisi bilan.",
     },
     "ukrasheniya-iz-lunnogo-kamnya.html": {
         "chip_label": "Oy toshi",
@@ -810,7 +810,7 @@ UZ_HUBS_INFO = {
         "lead": "Katta hajmli tilla va rodiy qoplamali zanjirlar hamda yirik assimetrik barokko marvaridi uygʻunligi. Zamonaviy shahar modasining yorqin timsoli.",
         "seo_title": "Barokko marvaridi bilan bezatilgan zamonaviy zanjirlar",
         "seo_p1": "Katta zanjirlar va tabiiy organik barokko marvaridi kontrasti bugungi kunda jahon podiumlarining eng ommabop zargarlik yoʻnalishidir.",
-        "seo_p2": "Qulay qulflar, gipoallergen mustahkam metall va bepul oʻlcham tanlash imkoniyati. Oʻzbekiston va Qozogʻistonga tezkor yetkazish.",
+        "seo_p2": "Qulay qulflar va gipoallergen mustahkam metall. Oʻzbekiston va Qozogʻistonga tezkor yetkazish.",
     },
     "koltsa-i-garnitury-iz-kamney.html": {
         "chip_label": "Uzuklar va garniturlar",
@@ -1099,8 +1099,8 @@ def generate_hub_page(hub, products):
     page_title = f"Купить {hub['title_cluster']} ручной работы в Астане, Алматы и Казахстане — цена в тенге | Livi Jewelry"
     meta_desc = (
         f"Купить {hub['title_cluster']} ручной работы в Livi Jewelry. "
-        f"Цены от {min_fmt} до {max_fmt} ₸. 100% натуральные камни и жемчуг, "
-        f"бесплатная индивидуальная подгонка размера, подарочная упаковка и быстрая доставка СДЭК по Казахстану."
+        f"Цены от {min_fmt} до {max_fmt} ₸. Натуральные камни и жемчуг, "
+        f"подарочная упаковка и быстрая доставка СДЭК по Казахстану."
     )
 
     first_img = matched_products[0]["image"].lstrip("/") if matched_products else "assets/kole-iz-naturalnogo-zhemchuga-80000.webp"
@@ -1168,8 +1168,8 @@ def generate_hub_page(hub, products):
     # 3. FAQPage Schema
     q1 = f"Как проверяется подлинность {hub['stone_name_gen']} в украшениях Livi Jewelry?"
     a1 = f"В ателье Livi Jewelry мы используем исключительно натуральные минералы и отборный культивированный жемчуг. Каждая партия {hub['stone_name_gen']} проходит ручную проверку мастером на природную плотность, характерную прохладу камня, естественные включения и глубину оттенка."
-    q2 = f"Можно ли бесплатно изменить длину или размер в {hub['stone_name_prep']}?"
-    a2 = "Да, перед отправкой мастер бесплатно адаптирует длину колье, чокера или обхват браслета точно под ваши индивидуальные мерки, а также добавит удобную удлинительную цепочку 5 см и установит родированную или позолоченную гипоаллергенную фурнитуру на ваш выбор."
+    q2 = f"Можно ли изменить длину или размер в {hub['stone_name_prep']}?"
+    a2 = "Размеры каждого изделия указаны в карточке товара. По вопросам изменения длины колье, чокера или браслета напишите мастеру в WhatsApp — подскажем, возможно ли это для выбранной модели."
     q3 = "В какой упаковке доставляются украшения и какие сроки доставки по Казахстану?"
     a3 = "Каждое изделие бережно упаковывается в фирменную подарочную коробочку или бархатный мешочек Livi Jewelry (бесплатно). Доставка по Астане осуществляется курьером день в день, а в Алматы, Шымкент, Караганду и все города Казахстана — экспресс-службой СДЭК за 1–3 рабочих дня."
 
@@ -1561,13 +1561,13 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
         "lead": "Табиғи інжу мен минералдардан қолдан жасалған авторлық әшекейлер. Қазақстан бойынша жедел жеткізу.",
         "seo_title": "Livi Jewelry шеберханасының эксклюзивті әшекейлері",
         "seo_p1": "Livi Jewelry шеберханасында әрбір зергерлік бұйым табиғи асыл тастардан қолмен жиналады.",
-        "seo_p2": "Өлшемді тегін реттеу және СДЭК арқылы Қазақстанның кез келген қаласына жедел жеткізу қарастырылған.",
+        "seo_p2": "СДЭК арқылы Қазақстанның кез келген қаласына жедел жеткізу қарастырылған.",
     })
 
     page_title = f"{kz_info['h1']} — бағасы теңгемен сатып алу | Қолдан жасалған Livi Jewelry"
     meta_desc = (
         f"{kz_info['lead']} Бағасы {min_fmt} ₸ — {max_fmt} ₸. "
-        f"100% табиғи тастар мен інжу, өлшемді тегін келтіру, сыйлық қаптамасы және Қазақстан бойынша жылдам жеткізу."
+        f"Табиғи тастар мен інжу, сыйлық қаптамасы және Қазақстан бойынша жылдам жеткізу."
     )
 
     first_img = matched[0]["image"].lstrip("/") if matched else "assets/kole-iz-naturalnogo-zhemchuga-80000.webp"
@@ -1622,8 +1622,8 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
     # FAQ Schema
     q1 = "Livi Jewelry әшекейлеріндегі тастар мен інжудің табиғи екені қалай тексеріледі?"
     a1 = "Livi Jewelry ательесінде біз тек табиғи минералдар мен таңдаулы культивацияланған інжуді пайдаланамыз. Әрбір партия шебердің жеке бақылауынан өтеді: тастың табиғи тығыздығы, салқындығы, табиғи құрылымы және түс тереңдігі тексеріледі."
-    q2 = "Бұйымның ұзындығын немесе өлшемін тегін өзгертуге бола ма?"
-    a2 = "Иә, тапсырысты жібермес бұрын шебер алқаның, чокердің ұзындығын немесе білезік өлшемін сіздің жеке өлшемдеріңізге сәйкес тегін бейімдеп береді, сондай-ақ 5 см ұзартқыш тізбек қосып береді."
+    q2 = "Бұйымның ұзындығын немесе өлшемін өзгертуге бола ма?"
+    a2 = "Әр бұйымның өлшемі карточкада көрсетілген. Ұзындықты өзгерту мүмкіндігін WhatsApp арқылы шеберден нақтылаңыз."
     q3 = "Әшекейлер қандай қаптамада жеткізіледі және Қазақстан бойынша жеткізу мерзімі қандай?"
     a3 = "Әрбір бұйым Livi Jewelry фирмалық сыйлық қорабына немесе барқыт дорбасына тегін салынады. Астана бойынша жеткізу курьермен сол күні, ал Алматы, Шымкент, Қарағанды және барлық өңірлерге СДЭК қызметімен 1–3 жұмыс күнінде жеткізіледі."
 
@@ -2018,13 +2018,13 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
         "lead": "Tabiiy marvarid va minerallardan qoʻlda yasalgan mualliflik zargarlik buyumlari. Oʻzbekiston va Qozogʻiston boʻylab tezkor yetkazib berish.",
         "seo_title": "Livi Jewelry ustaxonasining eksklyuziv taqinchoqlari",
         "seo_p1": "Livi Jewelry ustaxonasida har bir zargarlik buyumi tabiiy asil toshlardan qoʻlda yigʻiladi.",
-        "seo_p2": "Oʻlchamni bepul moslashtirish va SDEK orqali Oʻzbekistonning istalgan shahriga ishonchli yetkazib berish mavjud.",
+        "seo_p2": "SDEK orqali Oʻzbekistonning istalgan shahriga ishonchli yetkazib berish mavjud.",
     })
 
     page_title = f"{uz_info['h1']} — narxi tenge bilan sotib olish | Qoʻl mehnati Livi Jewelry"
     meta_desc = (
         f"{uz_info['lead']} Narxi {min_fmt} ₸ — {max_fmt} ₸. "
-        f"100% tabiiy toshlar va marvarid, oʻlchamni bepul moslashtirish, sovgʻa qadoqlanishi va Oʻzbekistonga tezkor yetkazib berish."
+        f"Tabiiy toshlar va marvarid, sovgʻa qadoqlanishi va Oʻzbekistonga tezkor yetkazib berish."
     )
 
     first_img = matched[0]["image"].lstrip("/") if matched else "assets/kole-iz-naturalnogo-zhemchuga-80000.webp"
@@ -2080,8 +2080,8 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
     # FAQ Schema
     q1 = "Livi Jewelry taqinchoqlaridagi toshlar va marvaridning tabiiyligi qanday tekshiriladi?"
     a1 = "Livi Jewelry atelyesida biz faqat tabiiy minerallar va saralangan yetishtirilgan marvariddan foydalanamiz. Har bir partiya ustaning shaxsiy nazoratidan oʻtadi: toshning tabiiy zichligi, salqinligi, tabiiy tuzilishi va rang chuqurligi sinchiklab tekshiriladi."
-    q2 = "Buyumning uzunligini yoki oʻlchamini bepul oʻzgartirish mumkinmi?"
-    a2 = "Ha, buyurtmani yuborishdan oldin usta marjon, chocker uzunligini yoki bilaguzuk oʻlchamini sizning shaxsiy oʻlchamingizga moslab bepul moslashtirib beradi, shuningdek 5 sm uzaytiruvchi zanjir qoʻshib beradi."
+    q2 = "Buyumning uzunligini yoki oʻlchamini oʻzgartirish mumkinmi?"
+    a2 = "Har bir buyumning oʻlchami kartochkada koʻrsatilgan. Uzunlikni oʻzgartirish imkoniyatini ustadan WhatsApp orqali aniqlang."
     q3 = "Taqinchoqlar qanday qadoqda yetkaziladi va Oʻzbekistonga yetkazib berish shartlari qanday?"
     a3 = "Har bir buyum Livi Jewelry firma sovgʻa qutisi yoki baxmal xaltachasiga bepul qadoqlanadi. Oʻzbekistonga (Toshkent, Samarqand, Buxoro va barcha viloyatlarga) SDEK yoki Qazpost orqali kuzatuv (trek) raqami bilan yetkaziladi."
 
