@@ -1,30 +1,29 @@
 /**
  * ==============================================================================
- * LIVI JEWELRY — АВТОМАТИЧЕСКОЕ СОЗДАНИЕ ВСЕХ РАСШИРЕНИЙ ОБЪЯВЛЕНИЙ (ASSETS) v1.0
+ * LIVI JEWELRY — АВТОМАТИЧЕСКОЕ СОЗДАНИЕ ВСЕХ РАСШИРЕНИЙ ОБЪЯВЛЕНИЙ (ASSETS) v2.0
  * ==============================================================================
- * 
+ *
  * ЧТО ЭТОТ СКРИПТ ДЕЛАЕТ АВТОМАТИЧЕСКИ (ЗА 5 СЕКУНД):
- * 1. Создает 4 богатые Быстрые ссылки (Sitelinks) с описаниями и URL на SEO-хабы:
- *    - «Колье из жемчуга» -> /kolye-iz-zhemchuga.html
+ * 1. Создает 6 Быстрых ссылок (Sitelinks) с описаниями и URL на главные разделы:
  *    - «Комплекты украшений» -> /komplekty-ukrasheniy.html
- *    - «Серьги с жемчугом» -> /sergi-iz-zhemchuga.html
- *    - «Браслеты из камней» -> /braslety-iz-zhemchuga.html
- * 2. Создает 6 Уточнений (Callouts):
- *    - «100% натуральные камни»
- *    - «Барочный жемчуг»
- *    - «Ручная работа Livi»
- *    - «Доставка 1-3 дня по РК»
- *    - «Подарочная упаковка»
- *    - «Kaspi Red / Рассрочка»
+ *    - «Колье из жемчуга» -> /kolye-iz-zhemchuga.html
+ *    - «Серьги от 8 500 ₸» -> /sergi-iz-zhemchuga.html
+ *    - «Чокеры из камней» -> /chokery-iz-naturalnyh-kamney.html
+ *    - «Сотуары и галстуки» -> /sotuary-iz-zhemchuga.html
+ *    - «Весь каталог (55 моделей)» -> /shop.html
+ * 2. Создает 8 Уточнений (Callouts) без стоп-фраз:
+ *    - «Натуральные камни и жемчуг»
+ *    - «Ручная работа в Астане»
+ *    - «Курьером день-в-день Астана»
+ *    - «Доставка СДЭК 1-3 дня по РК»
+ *    - «Подарочная упаковка 0 ₸»
+ *    - «Kaspi Pay / Kaspi Red»
+ *    - «Живое видео в WhatsApp»
+ *    - «Стойкий родий и позолота»
  * 3. Создает 2 Структурированных описания (Structured Snippets):
- *    - Материалы: Барочный жемчуг, Аметист, Малахит, Бирюза, Гранат, Кварц
- *    - Типы: Колье, Чокеры, Серьги, Браслеты, Авторские сеты, Сотуары
+ *    - Типы: Комплекты, Колье, Серьги, Чокеры, Сотуары, Цепи с жемчугом
+ *    - Стили: Барочный жемчуг, Натуральные камни, Жемчуг Майорка, Ручная работа
  * 4. Автоматически привязывает их к кампании "Livi Jewelry - Поиск Казахстан"!
- * 
- * КАК ЗАПУСТИТЬ:
- * 1. Откройте Google Ads -> Инструменты и настройки -> Скрипты (Scripts).
- * 2. Нажмите "+", вставьте этот код, нажмите "Авторизовать" и "Выполнить".
- * 3. Все расширения будут мгновенно созданы в вашем аккаунте без ручной рутины!
  * ==============================================================================
  */
 
@@ -34,7 +33,7 @@ var CONFIG = {
 
 function main() {
   Logger.log("==================================================================");
-  Logger.log("   💎 LIVI JEWELRY — АВТОМАТИЧЕСКОЕ СОЗДАНИЕ РАСШИРЕНИЙ (ASSETS)   ");
+  Logger.log("   💎 LIVI JEWELRY — АВТОМАТИЧЕСКОЕ СОЗДАНИЕ РАСШИРЕНИЙ v2.0      ");
   Logger.log("==================================================================");
 
   var campIter = AdsApp.campaigns()
@@ -49,53 +48,69 @@ function main() {
   var campaign = campIter.next();
   Logger.log("✓ Кампания найдена: " + campaign.getName());
 
-  // 1. Быстрые ссылки (Sitelinks)
   setupSitelinks(campaign);
-
-  // 2. Уточнения (Callouts)
   setupCallouts(campaign);
-
-  // 3. Структурированные описания (Snippets)
   setupSnippets(campaign);
 
   Logger.log("\n==================================================================");
-  Logger.log("🎉 ВСЕ РАСШИРЕНИЯ УСПЕШНО СОЗДАНЫ И ПРИВЯЗАНЫ К КАМПАНИИ!");
+  Logger.log("🎉 ВСЕ РАСШИРЕНИЯ v2.0 УСПЕШНО СОЗДАНЫ И ПРИВЯЗАНЫ К КАМПАНИИ!");
   Logger.log("==================================================================");
 }
 
 function setupSitelinks(campaign) {
   Logger.log("\n[1] Настройка Быстрых ссылок (Sitelinks)...");
-  
+
   var existing = {};
   var it = campaign.extensions().sitelinks().get();
   while (it.hasNext()) {
-    existing[it.next().getLinkText().toLowerCase().trim()] = true;
+    var sl = it.next();
+    var txt = sl.getLinkText().toLowerCase().trim();
+    // Удаляем старую ссылку на браслеты, так как в каталоге всего 1 браслет
+    if (txt.indexOf("браслет") !== -1) {
+      campaign.removeSitelink(sl);
+      Logger.log("  • Отвязана неактуальная быстрая ссылка: \"" + sl.getLinkText() + "\"");
+      continue;
+    }
+    existing[txt] = true;
   }
 
+  // Лимиты Google Ads: text <= 25 симв., desc1 <= 35 симв., desc2 <= 35 симв.
   var sitelinksData = [
     {
-      text: "Колье из жемчуга",
-      desc1: "Натуральный барочный жемчуг",
-      desc2: "Ручная работа и премиум фурнитура",
-      url: "https://livijewelry.kz/kolye-iz-zhemchuga.html"
-    },
-    {
-      text: "Комплекты украшений",
-      desc1: "Авторские сеты колье и серьги",
-      desc2: "Идеальный подарок со вкусом",
+      text: "Комплекты украшений",             // 19
+      desc1: "Колье, браслет и серьги в сете",   // 30
+      desc2: "Можно купить вместе или отдельно", // 32
       url: "https://livijewelry.kz/komplekty-ukrasheniy.html"
     },
     {
-      text: "Серьги с жемчугом",
-      desc1: "Барокко и майорка ручной работы",
-      desc2: "Гипоаллергенный сплав и позолота",
+      text: "Колье из жемчуга",                // 16
+      desc1: "Натуральный и барочный жемчуг",   // 29
+      desc2: "Ручная сборка и стойкая фурнитура",// 33
+      url: "https://livijewelry.kz/kolye-iz-zhemchuga.html"
+    },
+    {
+      text: "Серьги от 8 500 ₸",               // 17
+      desc1: "Пусеты, трансформеры и классика",  // 31
+      desc2: "Гипоаллергенный родий и позолота", // 32
       url: "https://livijewelry.kz/sergi-iz-zhemchuga.html"
     },
     {
-      text: "Браслеты из камней",
-      desc1: "Малахит, аметист, бирюза и гранат",
-      desc2: "Быстрая доставка по всему Казахстану",
-      url: "https://livijewelry.kz/braslety-iz-zhemchuga.html"
+      text: "Чокеры из камней",                // 16
+      desc1: "Граненый гранат, аметист, жемчуг", // 32
+      desc2: "Изящная посадка по линии шеи",     // 28
+      url: "https://livijewelry.kz/chokery-iz-naturalnyh-kamney.html"
+    },
+    {
+      text: "Сотуары и галстуки",              // 18
+      desc1: "Длинные колье-трансформеры 85 см", // 32
+      desc2: "Эффектный акцент для декольте",    // 29
+      url: "https://livijewelry.kz/sotuary-iz-zhemchuga.html"
+    },
+    {
+      text: "Весь каталог Livi",               // 17
+      desc1: "55 авторских украшений в наличии", // 32
+      desc2: "Доставка СДЭК по всему Казахстану",// 33
+      url: "https://livijewelry.kz/shop.html"
     }
   ];
 
@@ -113,7 +128,7 @@ function setupSitelinks(campaign) {
         .withDescription1(item.desc1)
         .withDescription2(item.desc2)
         .withFinalUrl(item.url);
-      
+
       var op = builder.build();
       if (op.isSuccessful()) {
         campaign.addSitelink(op.getResult());
@@ -131,20 +146,30 @@ function setupSitelinks(campaign) {
 
 function setupCallouts(campaign) {
   Logger.log("\n[2] Настройка Уточнений (Callouts)...");
-  
+
   var existing = {};
   var it = campaign.extensions().callouts().get();
   while (it.hasNext()) {
-    existing[it.next().getText().toLowerCase().trim()] = true;
+    var co = it.next();
+    var txt = co.getText().toLowerCase().trim();
+    if (txt.indexOf("100%") !== -1 || txt.indexOf("подгон") !== -1) {
+      campaign.removeCallout(co);
+      Logger.log("  • Отвязано устаревшее уточнение: \"" + co.getText() + "\"");
+      continue;
+    }
+    existing[txt] = true;
   }
 
+  // Лимит Google Ads: до 25 символов
   var calloutsList = [
-    "100% натуральные камни",
-    "Барочный жемчуг",
-    "Ручная работа Livi",
-    "Доставка 1-3 дня по РК",
-    "Подарочная упаковка",
-    "Kaspi Red / Рассрочка"
+    "Природные камни и жемчуг", // 24
+    "Ручная работа в Астане",   // 22
+    "Доставка в день заказа",   // 22
+    "СДЭК 1-3 дня по всему РК", // 24
+    "Подарочная упаковка 0 ₸",  // 23
+    "Kaspi Pay и Kaspi Red",    // 21
+    "Живое видео в WhatsApp",   // 22
+    "Стойкий родий и позолота"  // 24
   ];
 
   var created = 0;
@@ -171,7 +196,7 @@ function setupCallouts(campaign) {
 
 function setupSnippets(campaign) {
   Logger.log("\n[3] Настройка Структурированных описаний (Snippets)...");
-  
+
   var existing = {};
   var it = campaign.extensions().snippets().get();
   while (it.hasNext()) {
@@ -181,11 +206,11 @@ function setupSnippets(campaign) {
   var snippetsData = [
     {
       header: "Типы",
-      values: ["Колье", "Чокеры", "Серьги", "Браслеты", "Авторские сеты", "Сотуары"]
+      values: ["Комплекты украшений", "Колье из жемчуга", "Колье из камней", "Серьги", "Чокеры", "Сотуары"]
     },
     {
-      header: "Материалы",
-      values: ["Барочный жемчуг", "Аметист", "Малахит", "Бирюза", "Гранат", "Кварц"]
+      header: "Модели",
+      values: ["Барочный жемчуг", "Натуральные самоцветы", "Жемчуг Майорка", "Цепи с жемчужиной", "Колье-галстуки"]
     }
   ];
 
