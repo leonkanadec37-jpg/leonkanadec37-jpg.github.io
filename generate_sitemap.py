@@ -174,6 +174,16 @@ def generate_sitemap():
         lines.extend(srv_hreflangs)
         lines.append("  </url>")
 
+        # KZ Service
+        if os.path.exists(f"kz/{page}"):
+            lines.append("  <url>")
+            lines.append(f"    <loc>{kz_srv}</loc>")
+            lines.append(f"    <lastmod>{get_file_lastmod(f'kz/{page}', today)}</lastmod>")
+            lines.append(f"    <changefreq>{freq}</changefreq>")
+            lines.append(f"    <priority>{prio}</priority>")
+            lines.extend(srv_hreflangs)
+            lines.append("  </url>")
+
         # UZ Service
         if os.path.exists(f"uz/{page}"):
             lines.append("  <url>")

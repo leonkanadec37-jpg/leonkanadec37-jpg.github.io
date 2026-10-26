@@ -1866,9 +1866,9 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
   <footer>
     <div class="foot">
       <div class="links">
-        <a href="delivery.html">Жеткізу, төлем және қайтару</a>
-        <a href="privacy.html">Құпиялылық саясаты</a>
-        <a href="terms.html">Пайдалану шарттары</a>
+        <a href="/kz/delivery.html">Жеткізу, төлем және қайтару</a>
+        <a href="/kz/privacy.html">Құпиялылық саясаты</a>
+        <a href="/kz/terms.html">Пайдалану шарттары</a>
         <a href="/kz/shop.html">Каталог</a>
       </div>
       <div class="copy">© 2026 Livi Jewelry. Барлық құқықтар қорғалған. Қазақстанда қолдан жасалған.</div>

@@ -2347,6 +2347,223 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
 """
 
 
+def generate_kz_service_pages():
+    """Генерирует сервисные страницы на казахском языке (kz/delivery.html, kz/privacy.html, kz/terms.html)
+    и индексные страницы директорий товаров (kz/product/index.html, product/index.html, uz/product/index.html),
+    исключая ошибки 404 в Google Search Console."""
+
+    delivery_html = f"""<!doctype html>
+<html lang="kk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="google-site-verification" content="{GOOGLE_VERIFICATION}" />
+  <title>Жеткізу, төлем және қайтару | Livi Jewelry — Авторлық әшекейлер</title>
+  <meta name="description" content="Астана бойынша сол күні курьерлік жеткізу, Алматы мен бүкіл Қазақстанға СДЭК арқылы 1–3 күнде жөнелту, Kaspi.kz арқылы төлем және 14 күн ішінде қайтару кепілдігі.">
+  <link rel="canonical" href="{SITE_URL}/kz/delivery.html">
+  <link rel="alternate" hreflang="ru-KZ" href="{SITE_URL}/delivery.html" />
+  <link rel="alternate" hreflang="ru" href="{SITE_URL}/delivery.html" />
+  <link rel="alternate" hreflang="kk-KZ" href="{SITE_URL}/kz/delivery.html" />
+  <link rel="alternate" hreflang="kk" href="{SITE_URL}/kz/delivery.html" />
+  <link rel="alternate" hreflang="uz-UZ" href="{SITE_URL}/uz/delivery.html" />
+  <link rel="alternate" hreflang="uz" href="{SITE_URL}/uz/delivery.html" />
+  <link rel="alternate" hreflang="x-default" href="{SITE_URL}/delivery.html" />
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="kk_KZ">
+  <meta property="og:title" content="Жеткізу, төлем және қайтару — Livi Jewelry">
+  <meta property="og:description" content="Астана мен Қазақстан бойынша жедел жеткізу, Kaspi Pay арқылы төлем, 14 күндік қайтару кепілдігі.">
+  <meta property="og:url" content="{SITE_URL}/kz/delivery.html">
+  <meta property="og:image" content="{SITE_URL}/icon-512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="brand" href="/kz/"><span>LIVI JEWELRY</span></a>
+      <div class="nav-actions">
+        <div class="header-lang-links" aria-label="Тілді таңдау">
+          <a href="/delivery.html" lang="ru">RU</a>
+          <a href="/kz/delivery.html" class="active" lang="kk">KZ</a>
+          <a href="/uz/delivery.html" lang="uz">UZ</a>
+        </div>
+        <a class="cart-link" href="/cart.html" aria-label="Себет"><span>Себет</span></a>
+      </div>
+    </div>
+  </header>
+  <main class="wrap service-page" style="padding:32px 16px;max-width:860px;margin:0 auto;">
+    <h1 style="font-size:28px;margin-bottom:12px;">Жеткізу, төлем және 14 күндік қайтару кепілдігі</h1>
+    <p style="color:#666;line-height:1.6;margin-bottom:32px;">Livi Jewelry шеберханасы Астана, Алматы, бүкіл Қазақстан және әлем бойынша жылдам әрі ұқыпты жеткізу қызметін ұсынады.</p>
+    <section style="margin-bottom:36px;">
+      <h2 style="font-size:20px;border-bottom:2px solid var(--accent);padding-bottom:6px;margin-bottom:16px;">1. Жеткізу географиясы мен мерзімдері</h2>
+      <ul style="line-height:1.8;color:#444;">
+        <li><strong>Астана бойынша:</strong> Тапсырыс берілген күні курьер арқылы есікке дейін (сол күні жеткізу) жөнелтіледі.</li>
+        <li><strong>Бүкіл Қазақстан бойынша:</strong> Алматы, Шымкент, Қарағанды және ҚР барлық қалаларына СДЭК курьерлік қызметімен 1–3 жұмыс күнінде жеткізіледі.</li>
+        <li><strong>Халықаралық жеткізу:</strong> Өзбекстанға және әлемнің кез келген еліне СДЭК / Қазпошта арқылы трек-нөмірмен жеткізіледі.</li>
+      </ul>
+    </section>
+    <section style="margin-bottom:36px;">
+      <h2 style="font-size:20px;border-bottom:2px solid var(--accent);padding-bottom:6px;margin-bottom:16px;">2. Төлем және 14 күн ішінде қайтару</h2>
+      <p style="line-height:1.6;color:#444;">Төлем Kaspi.kz қосымшасында қашықтан шот (Kaspi Pay) арқылы қабылданады. ҚР заңнамасына сәйкес тауарлық түрі мен фирмалық қаптамасы сақталған әшекейді алған сәттен бастап 14 күнтізбелік күн ішінде айырбастауға немесе қайтаруға болады.</p>
+    </section>
+  </main>
+  <footer id="contact">
+    <div class="foot">
+      <div class="links">
+        <a href="/kz/delivery.html">Жеткізу, төлем және қайтару</a>
+        <a href="/kz/privacy.html">Құпиялылық саясаты</a>
+        <a href="/kz/terms.html">Пайдалану шарттары</a>
+        <a href="/kz/shop.html">Каталог</a>
+        <a href="/delivery.html">Русская версия</a>
+      </div>
+      <div class="copy">© 2026 Livi Jewelry — Барлық құқықтар қорғалған.</div>
+    </div>
+  </footer>
+</body>
+</html>
+"""
+    safe_write_text(os.path.join("kz", "delivery.html"), delivery_html)
+
+    terms_html = f"""<!doctype html>
+<html lang="kk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Пайдалану шарттары және жария оферта | Livi Jewelry</title>
+  <meta name="description" content="Livi Jewelry авторлық зергерлік бұйымдар интернет-дүкенінің пайдалану шарттары, қызмет көрсету ережелері және жария офертасы.">
+  <link rel="canonical" href="{SITE_URL}/kz/terms.html">
+  <link rel="alternate" hreflang="ru-KZ" href="{SITE_URL}/terms.html" />
+  <link rel="alternate" hreflang="ru" href="{SITE_URL}/terms.html" />
+  <link rel="alternate" hreflang="kk-KZ" href="{SITE_URL}/kz/terms.html" />
+  <link rel="alternate" hreflang="kk" href="{SITE_URL}/kz/terms.html" />
+  <link rel="alternate" hreflang="uz-UZ" href="{SITE_URL}/uz/terms.html" />
+  <link rel="alternate" hreflang="uz" href="{SITE_URL}/uz/terms.html" />
+  <link rel="alternate" hreflang="x-default" href="{SITE_URL}/terms.html" />
+  <meta name="robots" content="index, follow">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="brand" href="/kz/"><span>LIVI JEWELRY</span></a>
+      <div class="nav-actions">
+        <div class="header-lang-links">
+          <a href="/terms.html" lang="ru">RU</a>
+          <a href="/kz/terms.html" class="active" lang="kk">KZ</a>
+          <a href="/uz/terms.html" lang="uz">UZ</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="wrap service-page" style="padding:32px 16px;max-width:860px;margin:0 auto;line-height:1.7;">
+    <h1>Пайдалану шарттары және жария оферта</h1>
+    <p>Осы құжат «Livi Jewelry» интернет-дүкенін (https://livijewelry.kz) пайдалану тәртібін және авторлық зергерлік бұйымдарды сатып алу шарттарын белгілейді.</p>
+    <h2>1. Жалпы ережелер мен төлем</h2>
+    <p>Барлық бұйымдар таңдаулы табиғи минералдар мен інжуден қолмен жасалады. Тауарлардың ресми бағасы Қазақстан теңгесімен (₸ / KZT) көрсетілген.</p>
+    <h2>2. Жеткізу және қайтару</h2>
+    <p>Жеткізу Астана бойынша курьермен және бүкіл Қазақстанға СДЭК арқылы жүзеге асырылады. Сатып алушы тауарлық түрі сақталған жағдайда бұйымды алған күннен бастап 14 күн ішінде айырбастауға немесе қайтаруға құқылы.</p>
+  </main>
+  <footer id="contact">
+    <div class="foot">
+      <div class="links">
+        <a href="/kz/delivery.html">Жеткізу және төлем</a>
+        <a href="/kz/privacy.html">Құпиялылық саясаты</a>
+        <a href="/kz/shop.html">Каталог</a>
+        <a href="/terms.html">Русская версия</a>
+      </div>
+      <div class="copy">© 2026 Livi Jewelry — Барлық құқықтар қорғалған.</div>
+    </div>
+  </footer>
+</body>
+</html>
+"""
+    safe_write_text(os.path.join("kz", "terms.html"), terms_html)
+
+    privacy_html = f"""<!doctype html>
+<html lang="kk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Құпиялылық саясаты | Livi Jewelry</title>
+  <meta name="description" content="Livi Jewelry интернет-дүкені клиенттерінің дербес деректерін қорғау және құпиялылық саясаты.">
+  <link rel="canonical" href="{SITE_URL}/kz/privacy.html">
+  <link rel="alternate" hreflang="ru-KZ" href="{SITE_URL}/privacy.html" />
+  <link rel="alternate" hreflang="ru" href="{SITE_URL}/privacy.html" />
+  <link rel="alternate" hreflang="kk-KZ" href="{SITE_URL}/kz/privacy.html" />
+  <link rel="alternate" hreflang="kk" href="{SITE_URL}/kz/privacy.html" />
+  <link rel="alternate" hreflang="uz-UZ" href="{SITE_URL}/uz/privacy.html" />
+  <link rel="alternate" hreflang="uz" href="{SITE_URL}/uz/privacy.html" />
+  <link rel="alternate" hreflang="x-default" href="{SITE_URL}/privacy.html" />
+  <meta name="robots" content="index, follow">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="brand" href="/kz/"><span>LIVI JEWELRY</span></a>
+      <div class="nav-actions">
+        <div class="header-lang-links">
+          <a href="/privacy.html" lang="ru">RU</a>
+          <a href="/kz/privacy.html" class="active" lang="kk">KZ</a>
+          <a href="/uz/privacy.html" lang="uz">UZ</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="wrap service-page" style="padding:32px 16px;max-width:860px;margin:0 auto;line-height:1.7;">
+    <h1>Құпиялылық саясаты</h1>
+    <p>«Livi Jewelry» клиенттердің жеке деректерінің құпиялылығы мен қауіпсіздігін жоғары бағалайды. Деректер тек тапсырысты өңдеу және курьерлік қызметке (СДЭК, пошта) тапсыру үшін пайдаланылады және үшінші тұлғаларға берілмейді.</p>
+  </main>
+  <footer id="contact">
+    <div class="foot">
+      <div class="links">
+        <a href="/kz/delivery.html">Жеткізу және төлем</a>
+        <a href="/kz/terms.html">Пайдалану шарттары</a>
+        <a href="/kz/shop.html">Каталог</a>
+        <a href="/privacy.html">Русская версия</a>
+      </div>
+      <div class="copy">© 2026 Livi Jewelry — Барлық құқықтар қорғалған.</div>
+    </div>
+  </footer>
+</body>
+</html>
+"""
+    safe_write_text(os.path.join("kz", "privacy.html"), privacy_html)
+
+    for folder, shop_path, lang_code, title_txt in [
+        (os.path.join("kz", "product"), "/kz/shop.html", "kk", "Әшекейлер каталогы | Livi Jewelry"),
+        ("product", "/shop.html", "ru", "Каталог украшений | Livi Jewelry"),
+        (os.path.join("uz", "product"), "/uz/shop.html", "uz", "Taqinchoqlar katalogi | Livi Jewelry"),
+    ]:
+        os.makedirs(folder, exist_ok=True)
+        dir_index_html = f"""<!doctype html>
+<html lang="{lang_code}">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{title_txt}</title>
+  <link rel="canonical" href="{SITE_URL}{shop_path}">
+  <meta http-equiv="refresh" content="0; url={shop_path}">
+  <meta name="robots" content="noindex, follow">
+  <script>window.location.replace("{shop_path}");</script>
+</head>
+<body>
+  <p><a href="{shop_path}">{title_txt} →</a></p>
+</body>
+</html>
+"""
+        safe_write_text(os.path.join(folder, "index.html"), dir_index_html)
+
+
 def generate_kz_pages():
     with open("products.json", "r", encoding="utf-8") as f:
         products = json.load(f)
@@ -2370,7 +2587,10 @@ def generate_kz_pages():
         out_path = os.path.join("kz", "product", f"{pid}.html")
         safe_write_text(out_path, page_html)
 
-    print(f"[OK] Сгенерированы казахскоязычные страницы: kz/index.html, kz/shop.html и 28 товаров в kz/product/prod_XX.html")
+    # 4. KZ Service Pages & Directory Index Pages
+    generate_kz_service_pages()
+
+    print(f"[OK] Сгенерированы казахскоязычные страницы: kz/index.html, kz/shop.html, сервисные страницы и {len(products_kz)} товаров в kz/product/prod_XX.html")
 
 
 if __name__ == "__main__":
