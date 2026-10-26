@@ -1514,8 +1514,8 @@
               }]
             });
           }
-          if(!e.target.closest('a') && pid) {
-            window.location.href = '/uz/product/' + pid + '.html';
+          if(!e.target.closest('a') && link) {
+            window.location.href = link.getAttribute('href');
           }
         });
       });

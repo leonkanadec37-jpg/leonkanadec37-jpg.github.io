@@ -73,9 +73,15 @@ def generate_sitemap():
 
     # Load translations if available
     uz_translations = {}
+    kz_translations = {}
     try:
         from generate_uz_pages import UZ_TRANSLATIONS
         uz_translations = UZ_TRANSLATIONS
+    except Exception:
+        pass
+    try:
+        from generate_kz_pages import KZ_TRANSLATIONS
+        kz_translations = KZ_TRANSLATIONS
     except Exception:
         pass
 
@@ -238,9 +244,12 @@ def generate_sitemap():
             lines.append("  </url>")
 
             # Казахская карточка товара
-            title_kz = escape(f"{p.get('title', '').strip()} — Livi Jewelry қол еңбегі")
+            kz_data = kz_translations.get(pid, {})
+            kz_t_str = kz_data.get("title") or p.get("title", "").strip()
+            kz_d_str = kz_data.get("desc") or p.get("description", "").strip()
+            title_kz = escape(f"{kz_t_str} — Livi Jewelry қол еңбегі")
             caption_kz = escape(
-                f"{p.get('title', '').strip()}. {p.get('description', '').strip()} Табиғи тастар. Астана мен Қазақстан бойынша жедел жеткізу."
+                f"{kz_t_str}. {kz_d_str} Табиғи тастар. Астана мен Қазақстан бойынша жедел жеткізу."
             )
             lines.append("  <url>")
             lines.append(f"    <loc>{kz_url}</loc>")

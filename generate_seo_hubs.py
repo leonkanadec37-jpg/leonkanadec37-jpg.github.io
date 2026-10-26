@@ -86,15 +86,43 @@ REVIEWS_POOL = [
 ]
 
 
-def get_deterministic_reviews(pid: str, title: str):
+REVIEWS_POOL_KZ = [
+    ("Әйгерім Қ., Астана", "2026-01-18", "Өте нәзік әрі талғампаз әшекей! Тастары табиғи, жылтыры ерекше, ілгегі өте ыңғайлы әрі сенімді. Астана бойынша тапсырыс берген күні әдемі сыйлық қорапшасында жеткізіп берді.", 5.0),
+    ("Мәдина С., Алматы", "2026-01-26", "Жеке өлшеммен және родийленген фурнитурамен тапсырыс бердім. Мойынға мінсіз жарасты! СДЭК Алматыға 2 күнде жеткізді, қаптамасы нағыз люкс, сыйлыққа бірден дайын.", 5.0),
+    ("Данара Т., Астана", "2026-02-04", "Өмірде суреттегіден де сәнді көрінеді. Інжу түйіршіктері іріктелген, фурнитурасы гипоаллергенді — шешпей тағып жүрмін. Шеберге кеңесі үшін үлкен рақмет!", 5.0),
+    ("Әлия М., Қарағанды", "2026-02-12", "Қолмен өте ұқыпты жиналған. Тастары салмақты әрі жағымды салқын. Тегін фирмалық барқыт дорбашасы мен сыйлық қорапшасы үшін бөлек алғыс.", 4.9),
+    ("Кәмила Б., Шымкент", "2026-02-27", "Әшекей жоғары зергерлік өнер туындысындай көрінеді. Фурнитура жабыны төзімді, тастардың жарқылы көз тартады. Есікке дейін тез жеткізілді.", 5.0),
+    ("Салтанат Е., Ақтөбе", "2026-03-03", "Керемет қол еңбегі. Моншақтары өлшемі мен реңкі бойынша мінсіз таңдалған. Ұзартқыш тізбегі әртүрлі киіммен тағуға өте ыңғайлы.", 4.9),
+]
+
+REVIEWS_POOL_UZ = [
+    ("Mohira K., Toshkent", "2026-01-18", "Juda nafis va betakror taqinchoq! Toshlari tabiiy, jilosi o‘zgacha, qulfi juda qulay va mustahkam. Chiroyli sovg‘a qutichasida tez yetkazib berishdi.", 5.0),
+    ("Madina S., Samarqand", "2026-01-26", "Maxsus uzunlik va rodiy furnitura bilan buyurtma qildim. Bo‘yinga juda go‘zal yarashdi! CDEK orqali tez yetib keldi, qadog‘i haqiqiy lyuks darajada.", 5.0),
+    ("Dilnoza T., Toshkent", "2026-02-04", "Hayotda suratdagidan ham hashamatli ko‘rinadi. Marvarid donalari saralangan, furniturasi gipoallergen — yechmasdan taqyapman. Ustaga katta rahmat!", 5.0),
+    ("Shahnoza M., Buxoro", "2026-02-12", "Qo‘lda juda nozik va sifatli terilgan. Tabiiy toshlarning yoqimli salqinligi sezilib turadi. Firma baxmal xaltachasi va sovg‘a qutisi uchun alohida rahmat.", 4.9),
+    ("Kamila B., Farg‘ona", "2026-02-27", "Taqinchoq yuqori zargarlik san’ati asaridek ko‘rinadi. Qoplamasi chidamli, toshlarning yaltirashi maftun qiladi. Eshikkacha tez va ehtiyotkorlik bilan yetkazildi.", 5.0),
+    ("Zarina E., Namangan", "2026-03-03", "Ajoyib qo‘l mehnati. Munchoqlar o‘lchami va rangi bo‘yicha ideal tanlangan. Uzaytirgich zanjiri turli liboslar bilan taqishga juda qulay.", 4.9),
+]
+
+
+def get_deterministic_reviews(pid: str, title: str, is_kz: bool = False, is_uz: bool = False):
     m = re.search(r"(\d+)", pid)
     idx = int(m.group(1)) if m else 1
     review_count = 5 + ((idx * 7) % 20)  # 5 .. 24
-    r1 = REVIEWS_POOL[(idx * 3 - 2) % len(REVIEWS_POOL)]
-    r2 = REVIEWS_POOL[(idx * 5 + 1) % len(REVIEWS_POOL)]
+    if is_uz:
+        pool = REVIEWS_POOL_UZ
+        suffix = f"«{title}» modeli barcha kutganimizdan ham a’lo chiqdi."
+    elif is_kz:
+        pool = REVIEWS_POOL_KZ
+        suffix = f"«{title}» үлгісі барлық күткенімізден де асып түсті."
+    else:
+        pool = REVIEWS_POOL
+        suffix = f"Модель «{title}» превзошла все ожидания."
+    r1 = pool[(idx * 3 - 2) % len(pool)]
+    r2 = pool[(idx * 5 + 1) % len(pool)]
     rating_val = f"{r1[3]:.1f}"
     return review_count, rating_val, [
-        {"author": r1[0], "date": r1[1], "body": f"{r1[2]} Модель «{title}» превзошла все ожидания.", "rating": str(int(r1[3]))},
+        {"author": r1[0], "date": r1[1], "body": f"{r1[2]} {suffix}", "rating": str(int(r1[3]))},
         {"author": r2[0], "date": r2[1], "body": r2[2], "rating": str(int(r2[3]))},
     ]
 
@@ -866,7 +894,7 @@ def build_product_schema_for_itemlist(p: dict, idx: int, is_kz: bool = False, kz
     else:
         p_url = f"{BASE_URL}/product/{pid}.html"
 
-    rev_count, rating_val, rev_list = get_deterministic_reviews(pid, ptitle)
+    rev_count, rating_val, rev_list = get_deterministic_reviews(pid, ptitle, is_kz=is_kz, is_uz=is_uz)
 
     return {
         "@type": "Product",

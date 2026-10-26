@@ -1444,8 +1444,8 @@ def generate_uz_shop(products_uz: list) -> str:
               }}]
             }});
           }}
-          if(!e.target.closest('a') && pid) {{
-            window.location.href = '/uz/product/' + pid + '.html';
+          if(!e.target.closest('a') && link) {{
+            window.location.href = link.getAttribute('href');
           }}
         }});
       }});
@@ -1736,6 +1736,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
 
   <title>{html.escape(page_title)}</title>
   <meta name="description" content="{html.escape(meta_desc)}" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <link rel="canonical" href="{page_url}" />
   <link rel="alternate" hreflang="ru-KZ" href="{ru_page_url}" />
   <link rel="alternate" hreflang="ru" href="{ru_page_url}" />
