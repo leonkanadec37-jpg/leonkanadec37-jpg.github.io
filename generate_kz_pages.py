@@ -978,8 +978,8 @@ def generate_kz_index(products_kz: list) -> str:
             }}]
           }});
         }}
-        if(!e.target.closest('a') && pid) {{
-          window.location.href = '/kz/product/' + pid + '.html';
+        if(!e.target.closest('a') && link) {{
+          window.location.href = link.getAttribute('href');
         }}
       }});
     }});
@@ -1370,8 +1370,8 @@ def generate_kz_shop(products_kz: list) -> str:
             }}]
           }});
         }}
-        if(!e.target.closest('a') && pid) {{
-          window.location.href = '/kz/product/' + pid + '.html';
+        if(!e.target.closest('a') && link) {{
+          window.location.href = link.getAttribute('href');
         }}
       }});
     }});
@@ -2552,11 +2552,11 @@ def generate_kz_service_pages():
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>{title_txt}</title>
   <link rel="canonical" href="{SITE_URL}{shop_path}">
-  <meta http-equiv="refresh" content="0; url={shop_path}">
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <script>window.location.replace("{shop_path}");</script>
 </head>
 <body>
+  <h1>{title_txt}</h1>
   <p><a href="{shop_path}">{title_txt} →</a></p>
 </body>
 </html>
