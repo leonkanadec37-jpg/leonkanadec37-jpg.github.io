@@ -1546,6 +1546,12 @@ def generate_hub_page(hub, products):
             'currency': 'KZT',
             'transaction_id': 'LIVI-WA-HUB-' + Date.now()
           }});
+          gtag('event', 'purchase', {{
+            transaction_id: 'LIVI-WA-HUB-' + Date.now(),
+            value: 40000,
+            currency: 'KZT',
+            items: [{{ item_id: 'hub_lead', price: 40000 }}]
+          }});
         }}
       }} catch (err) {{}}
     }});
@@ -2007,6 +2013,12 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
             'value': 40000,
             'currency': 'KZT',
             'transaction_id': 'LIVI-WA-HUB-' + Date.now()
+          }});
+          gtag('event', 'purchase', {{
+            transaction_id: 'LIVI-WA-HUB-' + Date.now(),
+            value: 40000,
+            currency: 'KZT',
+            items: [{{ item_id: 'hub_lead', price: 40000 }}]
           }});
         }}
       }} catch (err) {{}}
@@ -2472,6 +2484,12 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
             'value': 40000,
             'currency': 'KZT',
             'transaction_id': 'LIVI-WA-HUB-' + Date.now()
+          }});
+          gtag('event', 'purchase', {{
+            transaction_id: 'LIVI-WA-HUB-' + Date.now(),
+            value: 40000,
+            currency: 'KZT',
+            items: [{{ item_id: 'hub_lead', price: 40000 }}]
           }});
         }}
       }} catch (err) {{}}

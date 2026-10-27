@@ -1029,6 +1029,12 @@
               'currency': 'KZT',
               'transaction_id': 'LIVI-WA-HOME-' + Date.now()
             });
+            gtag('event', 'purchase', {
+              transaction_id: 'LIVI-WA-HOME-' + Date.now(),
+              value: 40000,
+              currency: 'KZT',
+              items: [{ item_id: 'home_lead', price: 40000 }]
+            });
           }
         }
       }catch(err){}

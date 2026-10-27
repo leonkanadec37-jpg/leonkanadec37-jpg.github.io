@@ -1160,6 +1160,12 @@
             'currency': 'KZT',
             'transaction_id': 'LIVI-WA-HUB-' + Date.now()
           });
+          gtag('event', 'purchase', {
+            transaction_id: 'LIVI-WA-HUB-' + Date.now(),
+            value: 40000,
+            currency: 'KZT',
+            items: [{ item_id: 'hub_lead', price: 40000 }]
+          });
         }
       } catch (err) {}
     });

@@ -1123,6 +1123,12 @@ def build_product_page_html(product: dict, all_products: list) -> str:
               'currency': 'KZT',
               'transaction_id': txId
             }});
+            gtag('event', 'purchase', {{
+              transaction_id: txId,
+              value: currentActivePrice,
+              currency: 'KZT',
+              items: [{{ item_id: PRODUCT.id, item_name: PRODUCT.title, price: currentActivePrice }}]
+            }});
           }}
         }} catch (e) {{}}
       }});
@@ -1161,6 +1167,12 @@ def build_product_page_html(product: dict, all_products: list) -> str:
             'value': (typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000),
             'currency': 'KZT',
             'transaction_id': 'LIVI-WA-' + PRODUCT.id + '-' + Date.now()
+          }});
+          gtag('event', 'purchase', {{
+            transaction_id: 'LIVI-WA-' + PRODUCT.id + '-' + Date.now(),
+            value: (typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000),
+            currency: 'KZT',
+            items: [{{ item_id: PRODUCT.id, item_name: PRODUCT.title, price: (typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000) }}]
           }});
         }}
       }} catch (err) {{}}
