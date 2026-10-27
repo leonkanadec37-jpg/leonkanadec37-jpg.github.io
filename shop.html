@@ -1344,7 +1344,7 @@
     </div>
     <div id="catalogError" class="empty-state" hidden style="display:none" aria-hidden="true"></div>
 
-                                                                                                                                                                                                                                                <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
+                                                                                                                                                                                                                                                            <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
       <details class="hub-interlink-accordion">
         <summary>Подборки по камням и стилям</summary>
         <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
@@ -1870,6 +1870,12 @@
               item_id: p.id,
               lead_source: 'shop_modal'
             });
+            gtag('event', 'conversion', {
+              'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+              'value': totalVal,
+              'currency': 'KZT',
+              'transaction_id': 'LIVI-WA-' + p.id + '-' + Date.now()
+            });
           }
           if(window.fbq){
             fbq('track', 'Purchase', { value: totalVal, currency: 'KZT', content_ids: [p.id], content_type: 'product' });
@@ -2187,6 +2193,12 @@
               page_location: window.location.href,
               item_id: pid,
               lead_source: 'whatsapp_shop'
+            });
+            gtag('event', 'conversion', {
+              'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+              'value': estPrice,
+              'currency': 'KZT',
+              'transaction_id': 'LIVI-WA-' + (pid || 'shop') + '-' + Date.now()
             });
           }
         }

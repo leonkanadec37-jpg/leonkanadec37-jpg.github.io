@@ -18,6 +18,7 @@ import time
 
 BASE_URL = "https://livijewelry.kz"
 PRODUCTS_FILE = "products.json"
+AW_CONV_LABEL = "AW-16793974126/MuJ_CObHup8bEO7q_sc-"
 
 
 def safe_write_text(file_path: str, content: str, retries: int = 5, delay: float = 0.15) -> None:
@@ -1539,6 +1540,12 @@ def generate_hub_page(hub, products):
             page_location: window.location.href,
             lead_source: 'seo_hub'
           }});
+          gtag('event', 'conversion', {{
+            'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+            'value': 40000,
+            'currency': 'KZT',
+            'transaction_id': 'LIVI-WA-HUB-' + Date.now()
+          }});
         }}
       }} catch (err) {{}}
     }});
@@ -1994,6 +2001,12 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
             method: 'WhatsApp',
             page_location: window.location.href,
             lead_source: 'seo_hub'
+          }});
+          gtag('event', 'conversion', {{
+            'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+            'value': 40000,
+            'currency': 'KZT',
+            'transaction_id': 'LIVI-WA-HUB-' + Date.now()
           }});
         }}
       }} catch (err) {{}}
@@ -2453,6 +2466,12 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
             method: 'WhatsApp',
             page_location: window.location.href,
             lead_source: 'seo_hub'
+          }});
+          gtag('event', 'conversion', {{
+            'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+            'value': 40000,
+            'currency': 'KZT',
+            'transaction_id': 'LIVI-WA-HUB-' + Date.now()
           }});
         }}
       }} catch (err) {{}}

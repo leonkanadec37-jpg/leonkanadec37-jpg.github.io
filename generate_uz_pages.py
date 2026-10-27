@@ -2145,6 +2145,12 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
               method: 'WhatsApp',
               lead_source: 'uz_product_' + PRODUCT.id
             }});
+            gtag('event', 'conversion', {{
+              'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+              'value': currentActivePrice,
+              'currency': 'KZT',
+              'transaction_id': 'LIVI-UZ-WA-' + PRODUCT.id + '-' + Date.now()
+            }});
           }}
         }} catch(e){{}}
       }});
@@ -2176,6 +2182,12 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
             method: 'WhatsApp',
             page_location: window.location.href,
             lead_source: 'uz_wa_link'
+          }});
+          gtag('event', 'conversion', {{
+            'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+            'value': (typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000),
+            'currency': 'KZT',
+            'transaction_id': 'LIVI-UZ-WA-' + PRODUCT.id + '-' + Date.now()
           }});
         }}
       }} catch(err){{}}

@@ -1023,6 +1023,12 @@
               page_location: window.location.href,
               lead_source: 'whatsapp_home'
             });
+            gtag('event', 'conversion', {
+              'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+              'value': 40000,
+              'currency': 'KZT',
+              'transaction_id': 'LIVI-WA-HOME-' + Date.now()
+            });
           }
         }
       }catch(err){}
