@@ -23,12 +23,12 @@
   <link rel="stylesheet" href="styles.css">
 
   <!-- Icons & Manifest -->
-  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#111111">
   <meta name="msapplication-TileColor" content="#111111">
@@ -520,7 +520,20 @@
       const cart = read();
 
       if(cart.length === 0){
-        root.innerHTML = `<div class="empty">${tr('empty')}<br><br><a href="shop.html" style="font-weight:600;text-decoration:underline">${tr('go')}</a></div>`;
+        let lastOrderHtml = '';
+        try {
+          const hist = JSON.parse(localStorage.getItem('livi_orders_history') || '[]');
+          if(hist.length > 0 && hist[0].waUrl){
+            const lo = hist[0];
+            const recTitle = lang()==='kk' ? `????? ???????????? ? ${lo.orderId} ????????` : '??? ????????? ????? ? ' + lo.orderId + ' ????????';
+            const recBtn = lang()==='kk' ? '?????????? WhatsApp ?????? ????? ???' : '????????? ????? ? WhatsApp ????????';
+            lastOrderHtml = `<div style="margin-top:24px;padding:18px;background:#FAF8F5;border:1px solid rgba(197,168,128,0.4);border-radius:10px;max-width:480px;margin-left:auto;margin-right:auto;">
+              <div style="font-weight:600;margin-bottom:8px;">? ${recTitle} (${Number(lo.totalAmount||0).toLocaleString('ru-RU')} ?)</div>
+              <a href="${lo.waUrl}" target="_blank" rel="noopener" class="btn-submit-order" style="display:inline-flex;text-decoration:none;padding:12px 20px;font-size:14px;width:auto;">${recBtn}</a>
+            </div>`;
+          }
+        } catch(e){}
+        root.innerHTML = `<div class="empty">${tr('empty')}<br><br><a href="shop.html" style="font-weight:600;text-decoration:underline">${tr('go')}</a>${lastOrderHtml}</div>`;
         updateBadge(); return;
       }
 
@@ -788,10 +801,29 @@
         });
       }
 
+      try {
+        const savedDraft = JSON.parse(localStorage.getItem('livi_checkout_draft') || '{}');
+        ['orderName', 'orderPhone', 'orderCity', 'orderAddress', 'orderComment'].forEach(id => {
+          const el = document.getElementById(id);
+          if(el && savedDraft[id] && !el.value) el.value = savedDraft[id];
+        });
+      } catch(e){}
+
+      function saveCheckoutDraft(){
+        try {
+          const draft = {};
+          ['orderName', 'orderPhone', 'orderCity', 'orderAddress', 'orderComment'].forEach(id => {
+            const el = document.getElementById(id);
+            if(el) draft[id] = el.value;
+          });
+          localStorage.setItem('livi_checkout_draft', JSON.stringify(draft));
+        } catch(e){}
+      }
+
       ['orderName', 'orderPhone', 'orderCity', 'orderAddress', 'orderComment'].forEach(id => {
         const el = document.getElementById(id);
         if(el) {
-          el.addEventListener('input', updateWaLink);
+          el.addEventListener('input', () => { saveCheckoutDraft(); updateWaLink(); });
         }
       });
       updateWaLink();
