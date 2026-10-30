@@ -362,9 +362,15 @@
     // Drawer + lang
     const drawer = document.getElementById('drawer'), burger = document.getElementById('burger');
     const ruBtn = document.getElementById('ruBtn'), kkBtn = document.getElementById('kkBtn');
-    burger.onclick = () => { drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); document.body.classList.add('drawer-open'); };
-    drawer.querySelector('.drawer-back').onclick = () => { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); document.body.classList.remove('drawer-open'); };
-    ruBtn.onclick = () => setLang('ru'); kkBtn.onclick = () => setLang('kk');
+    if (burger && drawer) {
+      burger.onclick = () => { drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); document.body.classList.add('drawer-open'); };
+      const drawerBack = drawer.querySelector('.drawer-back');
+      if (drawerBack) {
+        drawerBack.onclick = () => { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); document.body.classList.remove('drawer-open'); };
+      }
+    }
+    if (ruBtn) ruBtn.onclick = () => setLang('ru');
+    if (kkBtn) kkBtn.onclick = () => setLang('kk');
 
     /* ===== Cart logic ===== */
     // Google Apps Script Webhook URL (из google_apps_script_order_backend.js)
@@ -517,10 +523,10 @@
           const hist = JSON.parse(localStorage.getItem('livi_orders_history') || '[]');
           if(hist.length > 0 && hist[0].waUrl){
             const lo = hist[0];
-            const recTitle = lang()==='kk' ? `????? ???????????? ? ${lo.orderId} ????????` : '??? ????????? ????? ? ' + lo.orderId + ' ????????';
-            const recBtn = lang()==='kk' ? '?????????? WhatsApp ?????? ????? ???' : '????????? ????? ? WhatsApp ????????';
+            const recTitle = lang()==='kk' ? `Соңғы тапсырысыңыз № ${lo.orderId} сақталды` : 'Ваш предыдущий заказ № ' + lo.orderId + ' сохранен';
+            const recBtn = lang()==='kk' ? 'Тапсырысты WhatsApp арқылы қайта ашу' : 'Повторить заказ в WhatsApp оператору';
             lastOrderHtml = `<div style="margin-top:24px;padding:18px;background:#FAF8F5;border:1px solid rgba(197,168,128,0.4);border-radius:10px;max-width:480px;margin-left:auto;margin-right:auto;">
-              <div style="font-weight:600;margin-bottom:8px;">? ${recTitle} (${Number(lo.totalAmount||0).toLocaleString('ru-RU')} ?)</div>
+              <div style="font-weight:600;margin-bottom:8px;">✨ ${recTitle} (${Number(lo.totalAmount||0).toLocaleString('ru-RU')} ₸)</div>
               <a href="${lo.waUrl}" target="_blank" rel="noopener" class="btn-submit-order" style="display:inline-flex;text-decoration:none;padding:12px 20px;font-size:14px;width:auto;">${recBtn}</a>
             </div>`;
           }
@@ -541,7 +547,7 @@
         const rawImg = i.img || i.image || 'assets/placeholder.jpg';
         const imgSrc = rawImg.startsWith('../') ? rawImg.slice(3) : (rawImg.startsWith('/') ? rawImg.slice(1) : rawImg);
         const unitVal = unitPrice(i);
-        const priceDisplay = i.price || (unitVal ? `${unitVal.toLocaleString('ru-RU')} ₸` : '');
+        const priceDisplay = unitVal ? `${unitVal.toLocaleString('ru-RU')} ₸` : (i.price || '');
         const customText = formatItemCustomText(i);
         const customHtml = customText ? `<div class="cart-item-custom">${customText}</div>` : '';
         row.innerHTML = `
@@ -1043,32 +1049,40 @@
       const waBtn = document.getElementById('modalWaBtn');
       const closeBtn = document.getElementById('modalCloseBtn');
 
-      orderNoEl.textContent = `Заказ № ${orderData.orderId} (${orderData.totalAmount.toLocaleString('ru-RU')} тг)`;
-      waBtn.href = waUrl;
-      waBtn.onclick = () => {
-        try {
-          const orderTotal = Number(orderData.totalAmount || total);
-          if (typeof fbq === 'function') {
-            fbq('track', 'InitiateCheckout', { currency: 'KZT', value: orderTotal });
-            fbq('track', 'Contact');
-            fbq('track', 'Lead', {
-              value: orderTotal,
-              currency: 'KZT',
-              content_name: 'WhatsApp переход из модального окна',
-              content_type: 'product'
-            });
+      if(orderNoEl) orderNoEl.textContent = `Заказ № ${orderData.orderId} (${Number(orderData.totalAmount || 0).toLocaleString('ru-RU')} тг)`;
+      if(waBtn) {
+        waBtn.href = waUrl;
+        waBtn.onclick = () => {
+          try {
+            const orderTotal = Number(orderData.totalAmount || 0);
+            if (typeof fbq === 'function') {
+              fbq('track', 'InitiateCheckout', { currency: 'KZT', value: orderTotal });
+              fbq('track', 'Contact');
+              fbq('track', 'Lead', {
+                value: orderTotal,
+                currency: 'KZT',
+                content_name: 'WhatsApp переход из модального окна',
+                content_type: 'product'
+              });
+            }
+          } catch(err){}
+        };
+      }
+
+      if(modal) {
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+      }
+
+      if(closeBtn) {
+        closeBtn.onclick = () => {
+          if(modal) {
+            modal.classList.remove('open');
+            modal.setAttribute('aria-hidden', 'true');
           }
-        } catch(err){}
-      };
-
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden', 'false');
-
-      closeBtn.onclick = () => {
-        modal.classList.remove('open');
-        modal.setAttribute('aria-hidden', 'true');
-        window.location.href = 'shop.html';
-      };
+          window.location.href = 'shop.html';
+        };
+      }
     }
 
     applyLang(); render(); updateBadge();
