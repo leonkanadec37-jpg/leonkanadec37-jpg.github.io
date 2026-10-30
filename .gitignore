@@ -9,6 +9,14 @@ Thumbs.db
 !2gis_catalog.csv
 !kaspi_catalog.csv
 !pinterest_bulk_pins.csv
+!feeds/2gis_catalog.csv
+!feeds/kaspi_catalog.csv
+!feeds/pinterest_bulk_pins.csv
+backups/
+tests/fixtures/*.webp
+marketing/google_ads/data/big_report_terms.json
+marketing/google_ads/data/detailed_5955_audit.txt
+marketing/google_ads/data/unknowns_breakdown.txt
 big_report_terms.json
 detailed_5955_audit.txt
 unknowns_breakdown.txt

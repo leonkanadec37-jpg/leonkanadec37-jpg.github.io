@@ -596,15 +596,7 @@
     })();
 
     function getAttributionSummary(txId){
-      try {
-        const attr = JSON.parse(localStorage.getItem('livi_attribution') || '{}');
-        const src = attr.utm_source || (attr.gclid ? 'Google Ads' : (attr.fbclid ? 'Meta Ads' : 'Direct/Organic'));
-        const term = attr.utm_term || attr.utm_campaign || '—';
-        const code = attr.gclid ? attr.gclid.substring(0, 12) : (txId || ('LIVI-' + String(Date.now()).slice(-4)));
-        return `\n📊 Дереккөз: ${src} | Сұраныс: ${term} | Код: ${code}`;
-      } catch(e){
-        return '';
-      }
+      return '';
     }
 
     // Отправка события view_item при открытии страницы товара

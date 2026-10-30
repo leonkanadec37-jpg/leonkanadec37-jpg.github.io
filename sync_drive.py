@@ -10,6 +10,8 @@ Livi Jewelry - Автоматическая синхронизация това�
 
 import os
 import sys
+sys.dont_write_bytecode = True
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "scripts"))
 import re
 import json
 import shutil
@@ -857,6 +859,8 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
             generate_seo_hubs()
             from generate_kz_pages import generate_kz_pages
             generate_kz_pages()
+            from generate_uz_pages import generate_uz_pages
+            generate_uz_pages()
         except Exception as e:
             print(f"[WARN] Ошибка генерации статических страниц товаров: {e}")
 
@@ -904,7 +908,8 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
 
         if auto_commit or auto_push:
             try:
-                subprocess.run(["git", "add", "-A", products_file, "shop.html", "index.html", "feed.xml", "google_merchant_feed.xml", "pinterest_feed.xml", "pinterest_bulk_pins.csv", "2gis_feed.xml", "2gis_catalog.csv", "kaspi_feed.xml", "kaspi_catalog.csv", "sitemap.xml", "assets/", "product/", "kz/", "*.html"], check=True)
+                targets = [products_file, "shop.html", "index.html", "feed.xml", "google_merchant_feed.xml", "pinterest_feed.xml", "2gis_feed.xml", "kaspi_feed.xml", "sitemap.xml", "assets/", "product/", "kz/", "uz/", "feeds/", "*.html"]
+                subprocess.run(["git", "add", "-A"] + [t for t in targets if t.endswith("*.html") or os.path.exists(t)], check=True)
                 msg = f"Автосинхронизация каталога: {summary_str}"
                 subprocess.run(["git", "commit", "-m", msg], check=True)
                 print(f"[OK] Git commit: {msg}")

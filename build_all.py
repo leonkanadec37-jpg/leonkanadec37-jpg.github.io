@@ -17,9 +17,14 @@
 При любой ошибке процесс немедленно прерывается с кодом выхода != 0.
 """
 
+import os
 import sys
 import subprocess
 import time
+
+sys.dont_write_bytecode = True
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+os.chdir(ROOT_DIR)
 
 try:
     sys.stdout.reconfigure(encoding="utf-8")
@@ -27,16 +32,16 @@ except Exception:
     pass
 
 STEPS = [
-    ("generate_product_pages.py", "1/10 Генерация RU страниц товаров и пререндеринг витрин"),
-    ("generate_seo_hubs.py", "2/10 Генерация 21 кластерного SEO-хаба (RU, KZ, UZ)"),
-    ("generate_kz_pages.py", "3/10 Генерация казахской витрины и KZ страниц товаров"),
-    ("generate_uz_pages.py", "4/10 Генерация узбекской витрины и UZ страниц товаров"),
-    ("generate_feed.py", "5/10 Генерация товарного фида Google Shopping"),
-    ("generate_kaspi_feed.py", "6/10 Генерация товарного фида и каталога Kaspi.kz"),
-    ("generate_2gis_catalog.py", "7/10 Генерация товарного фида и каталога 2ГИС"),
-    ("generate_pinterest_assets.py", "8/10 Генерация каталога и пинов Pinterest"),
-    ("generate_sitemap.py", "9/10 Генерация карты сайта sitemap.xml"),
-    ("verify_audit.py", "10/10 Запуск валидации технического аудита и 45 тестов инвариантов"),
+    ("scripts/generate_product_pages.py", "1/10 Генерация RU страниц товаров и пререндеринг витрин"),
+    ("scripts/generate_seo_hubs.py", "2/10 Генерация 21 кластерного SEO-хаба (RU, KZ, UZ)"),
+    ("scripts/generate_kz_pages.py", "3/10 Генерация казахской витрины и KZ страниц товаров"),
+    ("scripts/generate_uz_pages.py", "4/10 Генерация узбекской витрины и UZ страниц товаров"),
+    ("scripts/generate_feed.py", "5/10 Генерация товарного фида Google Shopping"),
+    ("scripts/generate_kaspi_feed.py", "6/10 Генерация товарного фида и каталога Kaspi.kz"),
+    ("scripts/generate_2gis_catalog.py", "7/10 Генерация товарного фида и каталога 2ГИС"),
+    ("scripts/generate_pinterest_assets.py", "8/10 Генерация каталога и пинов Pinterest"),
+    ("scripts/generate_sitemap.py", "9/10 Генерация карты сайта sitemap.xml"),
+    ("scripts/verify_audit.py", "10/10 Запуск валидации технического аудита и 45 тестов инвариантов"),
 ]
 
 

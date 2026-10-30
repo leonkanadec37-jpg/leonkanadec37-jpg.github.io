@@ -1,14 +1,28 @@
 User-agent: *
 Allow: /
 Allow: /kz/
+Allow: /uz/
 Allow: /product/
 Allow: /assets/
+Disallow: /marketing/
+Disallow: /scripts/
+Disallow: /tests/
+Disallow: /docs/
+Disallow: /backups/
+Disallow: /feeds/
 
 User-agent: Googlebot
 Allow: /
 Allow: /kz/
+Allow: /uz/
 Allow: /product/
 Allow: /assets/
+Disallow: /marketing/
+Disallow: /scripts/
+Disallow: /tests/
+Disallow: /docs/
+Disallow: /backups/
+Disallow: /feeds/
 
 User-agent: Googlebot-Image
 Allow: /
@@ -17,12 +31,15 @@ Allow: /assets/
 
 User-agent: Storebot-Google
 Allow: /
+Allow: /kz/
+Allow: /uz/
 Allow: /product/
 Allow: /assets/
 
 User-agent: AdsBot-Google
 Allow: /
 Allow: /kz/
+Allow: /uz/
 Allow: /product/
 Allow: /assets/
 

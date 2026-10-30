@@ -23,9 +23,9 @@
 
    - **Одиночное добавление товара**:
      ```bash
-     python add_product.py --image path.jpg --title "Название" --category Necklaces --price 25000 [--commit] [--push]
+     python scripts/add_product.py --image path.jpg --title "Название" --category Necklaces --price 25000 [--commit] [--push]
      ```
-     Скрипт `add_product.py` также автоматически проверяет дубликаты перед добавлением. Для принудительного добавления есть флаг `--force`.
+     Скрипт `scripts/add_product.py` также автоматически проверяет дубликаты перед добавлением. Для принудительного добавления есть флаг `--force`.
 
 3. **Стандарты медиафайлов**:
    - Все фотографии конвертируются в формат **WebP** (качество 82, метод 6).
@@ -45,10 +45,43 @@
      * Категория для таких товаров назначается `Sets` (Комплекты).
 
 6. **Интеграция с Kaspi.kz**:
-   - Фид наличия и цен для Kaspi генерируется скриптом `generate_kaspi_feed.py` и сохраняется в:
+   - Фид наличия и цен для Kaspi генерируется скриптом `scripts/generate_kaspi_feed.py` и сохраняется в:
      * `kaspi_feed.xml` — XML-прайс-лист по схеме `kaspiShopping` (доступен по ссылке `https://livijewelry.kz/kaspi_feed.xml`).
-     * `kaspi_catalog.csv` — CSV с кодировкой UTF-8-SIG и разделителем `;` для пакетного создания и модерации карточек в кабинете Kaspi Pay.
+     * `feeds/kaspi_catalog.csv` — CSV с кодировкой UTF-8-SIG и разделителем `;` для пакетного создания и модерации карточек в кабинете Kaspi Pay.
    - Товары с пометкой «(под заказ)» в Kaspi XML автоматически получают атрибут `preOrder="5"`.
    - Неактивные товары (`inStock: false`) автоматически получают `available="no"`.
-   - Шаг `generate_kaspi_feed.py` встроен в единый оркестратор `build_all.py`, `sync_drive.py` и `add_product.py`.
+   - Шаг `generate_kaspi_feed.py` встроен в единый оркестратор `build_all.py`, `sync_drive.py` и `scripts/add_product.py`.
+
+## 7. Строгая архитектура папок и размещение файлов (СТРОГОЕ ПРАВИЛО)
+
+**ЗАПРЕЩЕНО складывать в корень проекта новые рекламные скрипты, CSV-отчеты, дампы, временные тесты и документацию.** Все файлы должны строго раскладываться по своим профильным папкам:
+
+1. **`marketing/google_ads/`** — всё, что связано с рекламой Google Ads и поисковой аналитикой:
+   - `marketing/google_ads/scripts/` — JS-скрипты автоматизации Google Ads (`google_ads_*.js`, импорт/экспорт минус-слов) и Python-анализаторы поисковых запросов.
+   - `marketing/google_ads/data/` — CSV-файлы ключевых слов, минус-слова (`master_negative_keywords_kz.csv` и др.), JSON-дампы отчетов и текстовые аудиты запросов.
+   - `marketing/google_ads/docs/` — инструкции и регламенты по настройке Google Ads (`настройка_google_ads.md`, `скрипты_google_ads.md`).
+   - `marketing/reports/` — выгрузки и папки с отчетами из рекламных кабинетов (`GOOGLE ADS ОТЧЕТЫ` и др.).
+   - `marketing/ads_archive/` — архивные материалы рекламных кампаний.
+
+2. **`assets/`** — исключительно медиафайлы боевого сайта (оптимизированные `.webp` фото товаров, видео витрины, логотипы) и `assets/icons/` (все иконки `favicon-*.png`, `icon-*.png`, `apple-touch-icon.png`, `favicon.svg`).
+
+3. **`feeds/`** — CSV-каталоги для пакетной загрузки в кабинеты маркетплейсов и соцсетей (`feeds/kaspi_catalog.csv`, `feeds/2gis_catalog.csv`, `feeds/pinterest_bulk_pins.csv`).
+
+4. **`tests/`** — тестовые скрипты и временные превью:
+   - Тестовые скрипты (`test_*.py`) размещаются в `tests/`.
+   - Тестовые рендеры и превью изображений размещаются в `tests/fixtures/` (и игнорируются Git).
+
+5. **`docs/`** — техническая документация проекта, отчеты по аудиту (`AUDIT_AND_FIX_REPORT.md`, `HUMAN_ACTION_REQUIRED.md` и др.).
+
+6. **`scripts/`** — все генераторы сайта и фидов (`generate_*.py`), автотесты (`verify_audit.py`), скрипт добавления товара (`add_product.py`) и серверные утилиты (`google_apps_script_order_backend.js`).
+
+7. **`backups/`** — локальные архивы и резервные копии (папка добавлена в `.gitignore`, не коммитится в репозиторий).
+
+8. **Корень проекта (`/`)** — содержит **только**:
+   - Боевые страницы сайта (`index.html`, `shop.html`, `cart.html`, сервисные страницы и 21 кластерный SEO-хаб) и языковые директории (`kz/`, `uz/`, `product/`).
+   - Публичные XML-фиды и карты сайта, запрашиваемые роботами по URL (`kaspi_feed.xml`, `feed.xml`, `google_merchant_feed.xml`, `2gis_feed.xml`, `pinterest_feed.xml`, `sitemap.xml`, `robots.txt`).
+   - Базу данных каталога (`products.json`, `excluded_products.json`).
+   - Главные пульты запуска (`build_all.py`, `sync_drive.py`).
+   - Конфигурационные файлы веб-сервера и PWA (`CNAME`, `.nojekyll`, `_headers`, `site.webmanifest`, `service-worker.js`, `styles.css`, `favicon.ico`).
+
 
