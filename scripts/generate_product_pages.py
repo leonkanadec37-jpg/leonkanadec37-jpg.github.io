@@ -1047,7 +1047,8 @@ def build_product_page_html(product: dict, all_products: list) -> str:
             image: PRODUCT.image,
             qty: 1,
             customBundle: customBundleEl ? customBundleEl.value : '',
-            customSize: sizeVal
+            customSize: sizeVal,
+            url: PRODUCT.url
           }});
         }}
         writeCart(items);

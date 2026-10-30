@@ -422,6 +422,22 @@
       return parts.join(' · ');
     }
 
+    function getItemUrl(item){
+      if(!item) return '';
+      if(item.url && typeof item.url === 'string' && item.url.startsWith('http')) return item.url;
+      const rawId = String(item.id || item.cartItemId || item.productId || item.sku || '');
+      let m = rawId.match(/(prod_\d+)/i);
+      if(!m && item.image) m = String(item.image).match(/(prod_\d+)/i);
+      if(!m && item.img) m = String(item.img).match(/(prod_\d+)/i);
+      if(m){
+        const prodId = m[1].toLowerCase();
+        const curLang = (typeof lang === 'function') ? lang() : 'ru';
+        const prefix = curLang === 'kk' ? '/kz' : (curLang === 'uz' ? '/uz' : '');
+        return `https://livijewelry.kz${prefix}/product/${prodId}.html`;
+      }
+      return '';
+    }
+
     function read(){
       try{
         const raw3 = localStorage.getItem('livi_cart_v3');
@@ -550,10 +566,13 @@
         const priceDisplay = unitVal ? `${unitVal.toLocaleString('ru-RU')} ₸` : (i.price || '');
         const customText = formatItemCustomText(i);
         const customHtml = customText ? `<div class="cart-item-custom">${customText}</div>` : '';
+        const iUrl = getItemUrl(i);
+        const titleInner = iUrl ? `<a href="${iUrl}" style="color:inherit;text-decoration:none;">${i.title||''}</a>` : (i.title||'');
+        const thumbInner = iUrl ? `<a href="${iUrl}" class="thumb"><img src="${imgSrc}" alt="${(i.title||'Украшение Livi Jewelry').replace(/"/g, '&quot;')}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" loading="lazy" decoding="async" width="80" height="106"></a>` : `<div class="thumb"><img src="${imgSrc}" alt="${(i.title||'Украшение Livi Jewelry').replace(/"/g, '&quot;')}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" loading="lazy" decoding="async" width="80" height="106"></div>`;
         row.innerHTML = `
-          <div class="thumb"><img src="${imgSrc}" alt="${(i.title||'Украшение Livi Jewelry').replace(/"/g, '&quot;')}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" loading="lazy" decoding="async" width="80" height="106"></div>
+          ${thumbInner}
           <div class="item-info">
-            <div class="title">${i.title||''}</div>
+            <div class="title">${titleInner}</div>
             ${customHtml}
             <div class="muted item-price">${priceDisplay}</div>
           </div>
@@ -733,10 +752,17 @@
                     lang()==='kk' ? 'Сәлем! Livi Jewelry-ден тапсырыс бергім келеді:\n\n' :
                     'Здравствуйте! Хочу оформить заказ в Livi Jewelry:\n\n');
 
+        const linkLabel = lang() === 'kk' ? 'Сілтеме' : (lang() === 'en' ? 'Link' : 'Ссылка');
+        const paramLabel = lang() === 'kk' ? 'Параметрлері' : (lang() === 'en' ? 'Parameters' : 'Параметры');
         text += cart.map(i => {
-          const pDisp = i.price || `${unitPrice(i).toLocaleString('ru-RU')} ₸`;
+          const uVal = unitPrice(i);
+          const pDisp = uVal ? `${uVal.toLocaleString('ru-RU')} ₸` : (i.price || '');
           const cText = formatItemCustomText(i);
-          return `• ${i.title} — ${pDisp} × ${i.qty}${cText ? ' (' + cText + ')' : ''}`;
+          const iUrl = getItemUrl(i);
+          let itemLine = `• ${i.title} — ${pDisp} × ${i.qty}`;
+          if (cText) itemLine += `\n  ${paramLabel}: ${cText}`;
+          if (iUrl) itemLine += `\n  ${linkLabel}: ${iUrl}`;
+          return itemLine;
         }).join('\n');
         text += `\n\nИтого к оплате: ${total.toLocaleString('ru-RU')} ₸`;
 
@@ -751,7 +777,7 @@
           text += `• Оплата: Удаленный счёт Kaspi Pay`;
         }
         text += getAttributionSummary();
-        waAltBtn.href = `https://wa.me/${WA_PHONE}?text=` + encodeURIComponent(text);
+        if(waAltBtn) waAltBtn.href = `https://wa.me/${WA_PHONE}?text=` + encodeURIComponent(text);
       }
 
       // GA4 & Google Ads Dynamic Remarketing Items Mapping
@@ -917,7 +943,8 @@
             customBundle: it.customBundle || it.bundleOption || '',
             customSize: it.customSize || it.size || '',
             customHardware: it.customHardware || it.hardware || '',
-            customGift: it.customGift || (it.giftPackaging ? 'Подарочная упаковка' : '') || ''
+            customGift: it.customGift || (it.giftPackaging ? 'Подарочная упаковка' : '') || '',
+            url: getItemUrl(it)
           }))
         };
 
@@ -1011,10 +1038,17 @@
         waText += `*Заказ № ${orderId}*\n`;
         waText += `━━━━━━━━━━━━━━━━━━━━━\n`;
         waText += `*Состав заказа:*\n`;
+        const linkLabel = lang() === 'kk' ? 'Сілтеме' : (lang() === 'en' ? 'Link' : 'Ссылка');
+        const paramLabel = lang() === 'kk' ? 'Параметрлері' : (lang() === 'en' ? 'Parameters' : 'Параметры');
         waText += cart.map(i => {
-          const pDisp = i.price || `${unitPrice(i).toLocaleString('ru-RU')} ₸`;
+          const uVal = unitPrice(i);
+          const pDisp = uVal ? `${uVal.toLocaleString('ru-RU')} ₸` : (i.price || '');
           const cText = formatItemCustomText(i);
-          return `• ${i.title} — ${pDisp} × ${i.qty}${cText ? '\n  Параметры: ' + cText : ''}`;
+          const iUrl = getItemUrl(i);
+          let itemLine = `• ${i.title} — ${pDisp} × ${i.qty}`;
+          if (cText) itemLine += `\n  ${paramLabel}: ${cText}`;
+          if (iUrl) itemLine += `\n  ${linkLabel}: ${iUrl}`;
+          return itemLine;
         }).join('\n');
         waText += `\n\n*Итого к оплате:* *${total.toLocaleString('ru-RU')} ₸*\n`;
         waText += `━━━━━━━━━━━━━━━━━━━━━\n`;

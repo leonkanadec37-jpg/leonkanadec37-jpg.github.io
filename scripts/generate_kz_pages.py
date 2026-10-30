@@ -2397,7 +2397,8 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
             customBundle: bundleOpt,
             customSize: selectedSize,
             bundleOption: bundleOpt,
-            size: selectedSize
+            size: selectedSize,
+            url: PRODUCT.url
           }});
         }}
         writeCart(cart);
