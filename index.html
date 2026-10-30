@@ -993,7 +993,17 @@
         a.setAttribute('href', href);
       }
       try{
-        if(window.fbq) fbq('track', 'Contact');
+        if(window.fbq) {
+          if(isWa) {
+            fbq('track', 'InitiateCheckout', { currency: 'KZT', value: 40000 });
+            fbq('track', 'Lead', {
+              value: 40000,
+              currency: 'KZT',
+              content_name: 'WhatsApp контакт'
+            });
+          }
+          fbq('track', 'Contact');
+        }
         if(typeof gtag === 'function'){
           gtag('event', 'generate_lead', {
             currency: 'KZT',

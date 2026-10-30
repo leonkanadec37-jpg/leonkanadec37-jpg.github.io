@@ -1344,7 +1344,7 @@
     </div>
     <div id="catalogError" class="empty-state" hidden style="display:none" aria-hidden="true"></div>
 
-                                                                                                                                                                                                                                                                                                        <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
+                                                                                                                                                                                                                                                                                                                    <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
       <details class="hub-interlink-accordion">
         <summary>Подборки по камням и стилям</summary>
         <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
@@ -1876,8 +1876,11 @@
             });
           }
           if(window.fbq){
-            fbq('track', 'Purchase', { value: totalVal, currency: 'KZT', content_ids: [p.id], content_type: 'product' });
+            const orderTotal = Number(totalVal);
+            fbq('track', 'InitiateCheckout', { currency: 'KZT', value: orderTotal, content_ids: [p.id], content_type: 'product' });
+            fbq('track', 'Purchase', { value: orderTotal, currency: 'KZT', content_ids: [p.id], content_type: 'product' });
             fbq('track', 'Contact');
+            fbq('track', 'Lead', { value: orderTotal, currency: 'KZT', content_name: p.title, content_ids: [p.id], content_type: 'product' });
           }
         };
       }
@@ -2167,7 +2170,24 @@
         a.setAttribute('href', href);
       }
       try{
-        if(window.fbq) fbq('track', 'Contact');
+        if(window.fbq) {
+          if(isWa) {
+            fbq('track', 'InitiateCheckout', {
+              currency: 'KZT',
+              value: Number(estPrice),
+              content_type: 'product',
+              content_ids: [pid]
+            });
+            fbq('track', 'Lead', {
+              value: Number(estPrice),
+              currency: 'KZT',
+              content_name: 'WhatsApp клик (каталог)',
+              content_type: 'product',
+              content_ids: [pid]
+            });
+          }
+          fbq('track', 'Contact');
+        }
         if(typeof gtag === 'function'){
           gtag('event', 'generate_lead', {
             currency: 'KZT',

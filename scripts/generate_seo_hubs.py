@@ -1517,7 +1517,13 @@ def generate_hub_page(hub, products):
       const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
       if (!a) return;
       try {{
-        if (window.fbq) fbq('track', 'Contact');
+        if (window.fbq) {{
+          fbq('track', 'Contact');
+          fbq('track', 'Lead', {{
+            content_name: document.title,
+            currency: 'KZT'
+          }});
+        }}
         if (typeof gtag === 'function') {{
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',
@@ -1985,7 +1991,13 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
       const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
       if (!a) return;
       try {{
-        if (window.fbq) fbq('track', 'Contact');
+        if (window.fbq) {{
+          fbq('track', 'Contact');
+          fbq('track', 'Lead', {{
+            content_name: document.title,
+            currency: 'KZT'
+          }});
+        }}
         if (typeof gtag === 'function') {{
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',
@@ -2456,7 +2468,13 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
       const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
       if (!a) return;
       try {{
-        if (window.fbq) fbq('track', 'Contact');
+        if (window.fbq) {{
+          fbq('track', 'Contact');
+          fbq('track', 'Lead', {{
+            content_name: document.title,
+            currency: 'KZT'
+          }});
+        }}
         if (typeof gtag === 'function') {{
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',

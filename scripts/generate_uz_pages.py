@@ -1104,6 +1104,46 @@ def generate_uz_index(products_uz: list) -> str:
         }}
       }});
     }});
+
+    // WhatsApp кликларини Meta Pixel ва GA4-га узатиш
+    document.addEventListener('click', function(e) {{
+      const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
+      if (!a) return;
+      try {{
+        if (typeof fbq === 'function') {{
+          fbq('track', 'InitiateCheckout', {{ currency: 'KZT', value: 40000 }});
+          fbq('track', 'Contact');
+          fbq('track', 'Lead', {{
+            value: 40000,
+            currency: 'KZT',
+            content_name: 'WhatsApp контакт'
+          }});
+        }}
+        if (typeof gtag === 'function') {{
+          gtag('event', 'whatsapp_click', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'uz_index_wa'
+          }});
+          gtag('event', 'contact', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href
+          }});
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href
+          }});
+        }}
+      }} catch (err) {{}}
+        }}
+      }});
+    }});
   </script>
 </body>
 </html>
@@ -1476,6 +1516,44 @@ def generate_uz_shop(products_uz: list) -> str:
         renderCards(PRODUCTS_UZ);
       }});
     }}
+
+    // WhatsApp кликларини Meta Pixel ва GA4-га узатиш
+    document.addEventListener('click', function(e) {{
+      const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
+      if (!a) return;
+      try {{
+        if (typeof fbq === 'function') {{
+          fbq('track', 'InitiateCheckout', {{ currency: 'KZT', value: 40000 }});
+          fbq('track', 'Contact');
+          fbq('track', 'Lead', {{
+            value: 40000,
+            currency: 'KZT',
+            content_name: 'WhatsApp каталог'
+          }});
+        }}
+        if (typeof gtag === 'function') {{
+          gtag('event', 'whatsapp_click', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'uz_shop_wa'
+          }});
+          gtag('event', 'contact', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href
+          }});
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href
+          }});
+        }}
+      }} catch (err) {{}}
+    }});
   </script>
 </body>
 </html>
@@ -2123,7 +2201,23 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
     if (waOrderBtnEl) {{
       waOrderBtnEl.addEventListener('click', function() {{
         try {{
-          if (window.fbq) fbq('track', 'Contact');
+          const orderTotal = Number(currentActivePrice || PRODUCT.price || 0);
+          if (window.fbq) {{
+            fbq('track', 'InitiateCheckout', {{
+              currency: 'KZT',
+              value: orderTotal,
+              content_ids: [PRODUCT.id],
+              content_type: 'product'
+            }});
+            fbq('track', 'Contact');
+            fbq('track', 'Lead', {{
+              content_name: PRODUCT.title,
+              content_ids: [PRODUCT.id],
+              content_type: 'product',
+              value: orderTotal,
+              currency: 'KZT'
+            }});
+          }}
           if (typeof gtag === 'function') {{
             gtag('event', 'whatsapp_click', {{
               currency: 'KZT',
@@ -2166,7 +2260,23 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
       const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
       if (!a || a.id === 'waOrderBtn') return;
       try {{
-        if (window.fbq) fbq('track', 'Contact');
+        const orderTotal = Number(typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000);
+        if (window.fbq) {{
+          fbq('track', 'InitiateCheckout', {{
+            currency: 'KZT',
+            value: orderTotal,
+            content_ids: [PRODUCT.id],
+            content_type: 'product'
+          }});
+          fbq('track', 'Contact');
+          fbq('track', 'Lead', {{
+            content_name: PRODUCT.title,
+            content_ids: [PRODUCT.id],
+            content_type: 'product',
+            value: orderTotal,
+            currency: 'KZT'
+          }});
+        }}
         if (typeof gtag === 'function') {{
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',
@@ -2533,11 +2643,67 @@ def generate_uz_service_pages():
 
       const waUrl = 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(waMsg);
 
+      // Meta Pixel & GA4 track
+      try {{
+        const orderTotal = Number(totalSum);
+        if (window.fbq) {{
+          const prodIds = cart.map(i => i.id).filter(Boolean);
+          fbq('track', 'InitiateCheckout', {{
+            currency: 'KZT',
+            value: orderTotal,
+            content_ids: prodIds,
+            content_type: 'product'
+          }});
+          fbq('track', 'Purchase', {{
+            content_ids: prodIds,
+            value: orderTotal,
+            currency: 'KZT',
+            content_type: 'product'
+          }});
+          fbq('track', 'Lead', {{
+            content_ids: prodIds,
+            value: orderTotal,
+            currency: 'KZT',
+            content_name: 'Buyurtma ' + orderNo,
+            content_type: 'product'
+          }});
+          fbq('track', 'Contact');
+        }}
+        if (typeof gtag === 'function') {{
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: totalSum,
+            method: 'WhatsApp',
+            lead_source: 'uz_cart_checkout'
+          }});
+          gtag('event', 'purchase', {{
+            transaction_id: orderNo,
+            value: totalSum,
+            currency: 'KZT'
+          }});
+        }}
+      }} catch(err){{}}
+
       const modal = document.getElementById('successModal');
       const modalNo = document.getElementById('modalOrderNo');
       const modalWa = document.getElementById('modalWaBtn');
       if(modalNo) modalNo.textContent = `Buyurtma № ${{orderNo}}`;
-      if(modalWa) modalWa.href = waUrl;
+      if(modalWa) {{
+        modalWa.href = waUrl;
+        modalWa.onclick = () => {{
+          try {{
+            if (typeof fbq === 'function') {{
+              fbq('track', 'Contact');
+              fbq('track', 'Lead', {{
+                value: totalSum,
+                currency: 'KZT',
+                content_name: 'WhatsApp o‘tish (modal)',
+                content_type: 'product'
+              }});
+            }}
+          }} catch(e){{}}
+        }};
+      }}
       if(modal){{
         modal.classList.add('open');
         modal.setAttribute('aria-hidden', 'false');
@@ -2554,6 +2720,22 @@ def generate_uz_service_pages():
     }};
 
     renderCart();
+
+    // WhatsApp кликларини кузатиш
+    document.addEventListener('click', function(e) {{
+      const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
+      if (!a || a.id === 'modalWaBtn') return;
+      try {{
+        if (typeof fbq === 'function') {{
+          fbq('track', 'Contact');
+          fbq('track', 'Lead', {{
+            value: 40000,
+            currency: 'KZT',
+            content_name: 'WhatsApp savatcha'
+          }});
+        }}
+      }} catch (err) {{}}
+    }});
 
     const drawer = document.getElementById('drawer'), burger = document.getElementById('burger');
     if(burger && drawer){{

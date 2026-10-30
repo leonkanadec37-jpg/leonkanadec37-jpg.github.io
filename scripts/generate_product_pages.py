@@ -1087,7 +1087,24 @@ def build_product_page_html(product: dict, all_products: list) -> str:
         const txId = 'LIVI-WA-' + PRODUCT.id + '-' + Date.now();
         waBtn.setAttribute('href', buildWhatsAppHref(txId));
         try {{
-          if (window.fbq) fbq('track', 'Contact');
+          const orderTotal = Number(currentActivePrice || PRODUCT.price || 0);
+          if (window.fbq) {{
+            fbq('track', 'InitiateCheckout', {{
+              currency: 'KZT',
+              value: orderTotal,
+              content_ids: [PRODUCT.id],
+              content_name: PRODUCT.title,
+              content_type: 'product'
+            }});
+            fbq('track', 'Contact');
+            fbq('track', 'Lead', {{
+              content_name: PRODUCT.title,
+              content_ids: [PRODUCT.id],
+              content_type: 'product',
+              value: orderTotal,
+              currency: 'KZT'
+            }});
+          }}
           if (typeof gtag === 'function') {{
             gtag('event', 'whatsapp_click', {{
               currency: 'KZT',
@@ -1131,7 +1148,24 @@ def build_product_page_html(product: dict, all_products: list) -> str:
       const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
       if (!a || a.id === 'waOrderBtn') return;
       try {{
-        if (window.fbq) fbq('track', 'Contact');
+        const orderTotal = Number(typeof currentActivePrice !== 'undefined' ? currentActivePrice : (PRODUCT.price || 40000));
+        if (window.fbq) {{
+          fbq('track', 'InitiateCheckout', {{
+            currency: 'KZT',
+            value: orderTotal,
+            content_ids: [PRODUCT.id],
+            content_name: PRODUCT.title,
+            content_type: 'product'
+          }});
+          fbq('track', 'Contact');
+          fbq('track', 'Lead', {{
+            content_name: PRODUCT.title,
+            content_ids: [PRODUCT.id],
+            content_type: 'product',
+            value: orderTotal,
+            currency: 'KZT'
+          }});
+        }}
         if (typeof gtag === 'function') {{
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',

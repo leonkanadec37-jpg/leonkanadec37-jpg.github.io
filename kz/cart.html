@@ -846,7 +846,18 @@
                 lead_source: 'cart_whatsapp_direct'
               });
             }
-            if (typeof fbq === 'function') fbq('track', 'Contact');
+            if (typeof fbq === 'function') {
+              const orderTotal = Number(total);
+              fbq('track', 'InitiateCheckout', { currency: 'KZT', value: orderTotal });
+              fbq('track', 'Contact');
+              fbq('track', 'Lead', {
+                value: orderTotal,
+                currency: 'KZT',
+                content_name: 'Оформление через WhatsApp (быстрый заказ)',
+                content_type: 'product',
+                content_ids: cart.map(i => i.id).filter(Boolean)
+              });
+            }
           } catch(err){}
           setTimeout(() => {
             write([]);
@@ -927,16 +938,34 @@
 
         // 2. Отправка конверсии в Meta Pixel, Google Ads (Enhanced) и GA4
         try {
+          const orderTotal = Number(total);
           if(window.fbq){
             const prodIds = cart.map(i => i.id).filter(Boolean);
+            fbq('track', 'InitiateCheckout', {
+              currency: 'KZT',
+              value: orderTotal,
+              content_ids: prodIds,
+              contents: cart.map(i => ({ id: i.id, quantity: Number(i.qty || 1), item_price: Number(i.price || 0) })),
+              content_type: 'product',
+              num_items: cart.reduce((s,i)=>s+Number(i.qty||0),0)
+            });
             fbq('track', 'Purchase', {
               content_ids: prodIds,
               contents: cart.map(i => ({ id: i.id, quantity: Number(i.qty || 1), item_price: Number(i.price || 0) })),
-              value: total,
+              value: orderTotal,
               currency: 'KZT',
               content_type: 'product',
               num_items: cart.reduce((s,i)=>s+Number(i.qty||0),0)
             });
+            fbq('track', 'Lead', {
+              content_ids: prodIds,
+              contents: cart.map(i => ({ id: i.id, quantity: Number(i.qty || 1), item_price: Number(i.price || 0) })),
+              value: orderTotal,
+              currency: 'KZT',
+              content_name: 'Оформление заказа ' + orderId,
+              content_type: 'product'
+            });
+            fbq('track', 'Contact');
           }
 
           // Enhanced Conversions: чистый номер телефона + имя + город для Google Ads
@@ -1016,6 +1045,21 @@
 
       orderNoEl.textContent = `Заказ № ${orderData.orderId} (${orderData.totalAmount.toLocaleString('ru-RU')} тг)`;
       waBtn.href = waUrl;
+      waBtn.onclick = () => {
+        try {
+          const orderTotal = Number(orderData.totalAmount || total);
+          if (typeof fbq === 'function') {
+            fbq('track', 'InitiateCheckout', { currency: 'KZT', value: orderTotal });
+            fbq('track', 'Contact');
+            fbq('track', 'Lead', {
+              value: orderTotal,
+              currency: 'KZT',
+              content_name: 'WhatsApp переход из модального окна',
+              content_type: 'product'
+            });
+          }
+        } catch(err){}
+      };
 
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
@@ -1046,7 +1090,18 @@
         a.setAttribute('href', href);
       }
       try{
-        if(window.fbq) fbq('track', 'Contact');
+        if(window.fbq) {
+          if(isWa) {
+            fbq('track', 'InitiateCheckout', { currency: 'KZT', value: Number(val) });
+            fbq('track', 'Lead', {
+              value: Number(val),
+              currency: 'KZT',
+              content_name: 'Клик WhatsApp (корзина)',
+              content_type: 'product'
+            });
+          }
+          fbq('track', 'Contact');
+        }
         if(typeof gtag === 'function'){
           gtag('event', 'generate_lead', {
             currency: 'KZT',

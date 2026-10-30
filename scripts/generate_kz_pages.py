@@ -1075,6 +1075,44 @@ def generate_kz_index(products_kz: list) -> str:
         }}
       }});
     }});
+
+    // WhatsApp кликтерін Meta Pixel және GA4-ке жіберу
+    document.addEventListener('click', function(e) {{
+      const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
+      if (!a) return;
+      try {{
+        if (window.fbq) {{
+          fbq('track', 'InitiateCheckout', {{ currency: 'KZT', value: 40000 }});
+          fbq('track', 'Contact');
+          fbq('track', 'Lead', {{
+            value: 40000,
+            currency: 'KZT',
+            content_name: 'WhatsApp контакт'
+          }});
+        }}
+        if (typeof gtag === 'function') {{
+          gtag('event', 'whatsapp_click', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'kz_index_wa'
+          }});
+          gtag('event', 'contact', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href
+          }});
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href
+          }});
+        }}
+      }} catch (err) {{}}
+    }});
   </script>
 </body>
 </html>
@@ -1466,6 +1504,44 @@ def generate_kz_shop(products_kz: list) -> str:
           window.location.href = link.getAttribute('href');
         }}
       }});
+    }});
+
+    // WhatsApp кликтерін Meta Pixel және GA4-ке жіберу
+    document.addEventListener('click', function(e) {{
+      const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
+      if (!a) return;
+      try {{
+        if (window.fbq) {{
+          fbq('track', 'InitiateCheckout', {{ currency: 'KZT', value: 40000 }});
+          fbq('track', 'Contact');
+          fbq('track', 'Lead', {{
+            value: 40000,
+            currency: 'KZT',
+            content_name: 'WhatsApp каталог'
+          }});
+        }}
+        if (typeof gtag === 'function') {{
+          gtag('event', 'whatsapp_click', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'kz_shop_wa'
+          }});
+          gtag('event', 'contact', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href
+          }});
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href
+          }});
+        }}
+      }} catch (err) {{}}
     }});
   </script>
 </body>
@@ -2364,7 +2440,23 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
     if (waOrderBtnEl) {{
       waOrderBtnEl.addEventListener('click', function() {{
         try {{
-          if (window.fbq) fbq('track', 'Contact');
+          const orderTotal = Number(currentActivePrice || PRODUCT.price || 0);
+          if (window.fbq) {{
+            fbq('track', 'InitiateCheckout', {{
+              currency: 'KZT',
+              value: orderTotal,
+              content_ids: [PRODUCT.id],
+              content_type: 'product'
+            }});
+            fbq('track', 'Contact');
+            fbq('track', 'Lead', {{
+              content_name: PRODUCT.title,
+              content_ids: [PRODUCT.id],
+              content_type: 'product',
+              value: orderTotal,
+              currency: 'KZT'
+            }});
+          }}
           if (typeof gtag === 'function') {{
             gtag('event', 'whatsapp_click', {{
               currency: 'KZT',
@@ -2407,7 +2499,23 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
       const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
       if (!a || a.id === 'waOrderBtn') return;
       try {{
-        if (window.fbq) fbq('track', 'Contact');
+        const orderTotal = Number(typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000);
+        if (window.fbq) {{
+          fbq('track', 'InitiateCheckout', {{
+            currency: 'KZT',
+            value: orderTotal,
+            content_ids: [PRODUCT.id],
+            content_type: 'product'
+          }});
+          fbq('track', 'Contact');
+          fbq('track', 'Lead', {{
+            content_name: PRODUCT.title,
+            content_ids: [PRODUCT.id],
+            content_type: 'product',
+            value: orderTotal,
+            currency: 'KZT'
+          }});
+        }}
         if (typeof gtag === 'function') {{
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',
