@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-10-30 22:26">
+<yml_catalog date="2026-10-31 00:22">
   <shop>
     <name>Livi Jewelry</name>
     <company>Livi Jewelry — Авторские украшения ручной работы</company>
@@ -29,7 +29,7 @@
       <offer id="prod_02" available="true">
         <name>Колье из натурального жемчуга и горного хрусталя (Премиум)</name>
         <url>https://livijewelry.kz/product/prod_02.html</url>
-        <price>80000</price>
+        <price>60000</price>
         <currencyId>KZT</currencyId>
         <categoryId>1</categoryId>
         <picture>https://livijewelry.kz/assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp</picture>
