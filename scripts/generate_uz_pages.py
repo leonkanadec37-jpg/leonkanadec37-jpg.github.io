@@ -981,7 +981,7 @@ def generate_uz_index(products_uz: list) -> str:
       </a>
       <a href="/uz/sergi-iz-zhemchuga.html" class="hero-col-item">
         <div class="hero-col-thumb">
-          <img src="/assets/sergi-iz-zhemchuga-mayorka-16000.webp" alt="Ziraklar" width="72" height="72" loading="eager">
+          <img src="/assets/sergi-transformery-so-semnymi-serdtsami-iz-naturalnykh-kamney-16000.webp" alt="Ziraklar" width="72" height="72" loading="eager">
         </div>
         <span class="hero-col-title">Ziraklar</span>
       </a>

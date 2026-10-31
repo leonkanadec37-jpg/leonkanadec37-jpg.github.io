@@ -947,7 +947,7 @@ def generate_kz_index(products_kz: list) -> str:
       </a>
       <a href="/kz/sergi-iz-zhemchuga.html" class="hero-col-item">
         <div class="hero-col-thumb">
-          <img src="/assets/sergi-iz-zhemchuga-mayorka-16000.webp" alt="Сырғалар" width="72" height="72" loading="eager">
+          <img src="/assets/sergi-transformery-so-semnymi-serdtsami-iz-naturalnykh-kamney-16000.webp" alt="Сырғалар" width="72" height="72" loading="eager">
         </div>
         <span class="hero-col-title">Сырғалар</span>
       </a>
