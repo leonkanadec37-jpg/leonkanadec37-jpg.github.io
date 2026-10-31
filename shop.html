@@ -1320,7 +1320,7 @@
     </div>
     <div id="catalogError" class="empty-state" hidden style="display:none" aria-hidden="true"></div>
 
-                                                                                                                                                                                                                                                                                                                                        <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
+                                                                                                                                                                                                                                                                                                                                            <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
       <details class="hub-interlink-accordion">
         <summary>Подборки по камням и стилям</summary>
         <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
@@ -1794,11 +1794,12 @@
 
       // Configure WhatsApp 1-click button (Direct Order Checkout -> purchase + generate_lead + contact)
       if(mWa){
-        mWa.onclick = () => {
+        mWa.onclick = (e) => {
           const currentQty = Number(mQtyEl.textContent) || 1;
           const totalVal = priceNum * currentQty;
           const txId = 'LIVI-' + Date.now();
           updateModalWaHref(txId);
+          const targetUrl = mWa.href;
           const itemsArr = [{
             id: p.id,
             item_id: p.id,
@@ -1859,6 +1860,10 @@
             fbq('track', 'Contact');
             fbq('track', 'Lead', { value: orderTotal, currency: 'KZT', content_name: p.title, content_ids: [p.id], content_type: 'product' });
           }
+          if(e && e.preventDefault) e.preventDefault();
+          setTimeout(() => {
+            window.location.href = targetUrl;
+          }, 180);
         };
       }
 
@@ -2205,9 +2210,9 @@
           }
         }
       }catch(err){}
-      if(a.getAttribute('target') !== '_blank' && !e.ctrlKey && !e.metaKey){
-        e.preventDefault();
-        setTimeout(function(){ window.location.href = href; }, 150);
+      if((isWa || a.getAttribute('target') !== '_blank') && !e.ctrlKey && !e.metaKey){
+        if(e && e.preventDefault) e.preventDefault();
+        setTimeout(function(){ window.location.href = href; }, 180);
       }
     });
     const fy = document.getElementById('footYear'); if(fy) fy.textContent = new Date().getFullYear();

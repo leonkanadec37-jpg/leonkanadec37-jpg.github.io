@@ -1084,9 +1084,10 @@ def build_product_page_html(product: dict, all_products: list) -> str:
     }}
 
     if (waBtn) {{
-      waBtn.addEventListener('click', function() {{
+      waBtn.addEventListener('click', function(e) {{
         const txId = 'LIVI-WA-' + PRODUCT.id + '-' + Date.now();
-        waBtn.setAttribute('href', buildWhatsAppHref(txId));
+        const targetUrl = buildWhatsAppHref(txId);
+        waBtn.setAttribute('href', targetUrl);
         try {{
           const orderTotal = Number(currentActivePrice || PRODUCT.price || 0);
           if (window.fbq) {{
@@ -1140,7 +1141,11 @@ def build_product_page_html(product: dict, all_products: list) -> str:
               items: [{{ item_id: PRODUCT.id, item_name: PRODUCT.title, price: currentActivePrice }}]
             }});
           }}
-        }} catch (e) {{}}
+        }} catch (err) {{}}
+        if (e && e.preventDefault) e.preventDefault();
+        setTimeout(function() {{
+          window.location.href = targetUrl;
+        }}, 180);
       }});
     }}
 
@@ -1148,6 +1153,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
     document.addEventListener('click', function(e) {{
       const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
       if (!a || a.id === 'waOrderBtn') return;
+      const targetUrl = a.href;
       try {{
         const orderTotal = Number(typeof currentActivePrice !== 'undefined' ? currentActivePrice : (PRODUCT.price || 40000));
         if (window.fbq) {{
@@ -1203,6 +1209,10 @@ def build_product_page_html(product: dict, all_products: list) -> str:
           }});
         }}
       }} catch (err) {{}}
+      if (e && e.preventDefault) e.preventDefault();
+      setTimeout(function() {{
+        window.location.href = targetUrl;
+      }}, 180);
     }});
 
     // Событие select_item при клике на похожие товары
