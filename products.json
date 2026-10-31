@@ -1570,9 +1570,11 @@
       "clasp": "Гипоаллергенный ювелирный замок / швензы со стойким покрытием",
       "packaging": "Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry"
     },
-    "inStock": true,
-    "featured": true,
-    "drive_id": "157HkzNm_i5zvoDMh9UTGrJu7DRya9B2a"
+    "inStock": false,
+    "featured": false,
+    "drive_id": "157HkzNm_i5zvoDMh9UTGrJu7DRya9B2a",
+    "archived": true,
+    "archived_at": "2026-10-31"
   },
   {
     "id": "prod_36",
