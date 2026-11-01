@@ -1320,7 +1320,7 @@
     </div>
     <div id="catalogError" class="empty-state" hidden style="display:none" aria-hidden="true"></div>
 
-                                                                                                                                                                                                                                                                                                                                                    <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
+                                                                                                                                                                                                                                                                                                                                                        <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
       <details class="hub-interlink-accordion">
         <summary>Подборки по камням и стилям</summary>
         <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
@@ -2171,21 +2171,6 @@
           fbq('track', 'Contact');
         }
         if(typeof gtag === 'function'){
-          gtag('event', 'generate_lead', {
-            currency: 'KZT',
-            value: estPrice,
-            method: method,
-            page_location: window.location.href,
-            item_id: pid,
-            lead_source: 'whatsapp_shop'
-          });
-          gtag('event', 'contact', {
-            currency: 'KZT',
-            value: estPrice,
-            method: method,
-            page_location: window.location.href,
-            item_id: pid
-          });
           if(isWa){
             gtag('event', 'whatsapp_click', {
               currency: 'KZT',
@@ -2196,21 +2181,17 @@
               lead_source: 'whatsapp_shop'
             });
             gtag('event', 'conversion', {
-              'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
-              'value': estPrice,
-              'currency': 'KZT',
-              'transaction_id': 'LIVI-WA-' + (pid || 'shop') + '-' + Date.now()
-            });
-            gtag('event', 'conversion', {
               'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
               'value': 1.0,
               'currency': 'USD'
             });
-            gtag('event', 'purchase', {
-              transaction_id: 'LIVI-WA-' + (pid || 'shop') + '-' + Date.now(),
-              value: estPrice,
+          } else if(isIg){
+            gtag('event', 'contact', {
               currency: 'KZT',
-              items: [{ item_id: (pid || 'shop'), price: estPrice }]
+              value: estPrice,
+              method: 'Instagram',
+              page_location: window.location.href,
+              item_id: pid
             });
           }
         }

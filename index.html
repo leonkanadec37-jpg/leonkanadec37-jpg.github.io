@@ -1005,19 +1005,6 @@
           fbq('track', 'Contact');
         }
         if(typeof gtag === 'function'){
-          gtag('event', 'generate_lead', {
-            currency: 'KZT',
-            value: 40000,
-            method: method,
-            page_location: window.location.href,
-            lead_source: 'whatsapp_home'
-          });
-          gtag('event', 'contact', {
-            currency: 'KZT',
-            value: 40000,
-            method: method,
-            page_location: window.location.href
-          });
           if(isWa){
             gtag('event', 'whatsapp_click', {
               currency: 'KZT',
@@ -1027,21 +1014,16 @@
               lead_source: 'whatsapp_home'
             });
             gtag('event', 'conversion', {
-              'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
-              'value': 40000,
-              'currency': 'KZT',
-              'transaction_id': 'LIVI-WA-HOME-' + Date.now()
-            });
-            gtag('event', 'conversion', {
               'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
               'value': 1.0,
               'currency': 'USD'
             });
-            gtag('event', 'purchase', {
-              transaction_id: 'LIVI-WA-HOME-' + Date.now(),
-              value: 40000,
+          } else if(isIg){
+            gtag('event', 'contact', {
               currency: 'KZT',
-              items: [{ item_id: 'home_lead', price: 40000 }]
+              value: 40000,
+              method: 'Instagram',
+              page_location: window.location.href
             });
           }
         }

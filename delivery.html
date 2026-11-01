@@ -318,18 +318,6 @@
       const method = isWa ? 'WhatsApp' : 'Instagram';
       try {
         if (typeof gtag === 'function') {
-          gtag('event', 'generate_lead', {
-            currency: 'KZT',
-            value: 30000,
-            method: method,
-            page_location: window.location.href
-          });
-          gtag('event', 'contact', {
-            currency: 'KZT',
-            value: 30000,
-            method: method,
-            page_location: window.location.href
-          });
           if (isWa) {
             gtag('event', 'whatsapp_click', {
               currency: 'KZT',
@@ -341,6 +329,13 @@
               'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
               'value': 1.0,
               'currency': 'USD'
+            });
+          } else if (isIg) {
+            gtag('event', 'contact', {
+              currency: 'KZT',
+              value: 30000,
+              method: 'Instagram',
+              page_location: window.location.href
             });
           }
         }
