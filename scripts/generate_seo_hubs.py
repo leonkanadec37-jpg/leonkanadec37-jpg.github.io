@@ -1311,7 +1311,9 @@ def generate_hub_page(hub, products):
     fbq('track', 'PageView');
     fbq('track', 'ViewContent', {{
       content_category: '{clean_attr(hub["breadcrumb"])}',
-      content_name: '{clean_attr(hub["h1"])}'
+      content_name: '{clean_attr(hub["h1"])}',
+      value: {min_price},
+      currency: 'KZT'
     }});
   </script>
   <noscript><img height="1" width="1" style="display:none"
@@ -1764,7 +1766,9 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
     fbq('track', 'PageView');
     fbq('track', 'ViewContent', {{
       content_category: '{clean_attr(kz_info["breadcrumb"])}',
-      content_name: '{clean_attr(kz_info["h1"])}'
+      content_name: '{clean_attr(kz_info["h1"])}',
+      value: {min_price},
+      currency: 'KZT'
     }});
   </script>
   <noscript><img height="1" width="1" style="display:none"
@@ -2220,7 +2224,9 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
     fbq('track', 'PageView');
     fbq('track', 'ViewContent', {{
       content_category: '{clean_attr(uz_info["breadcrumb"])}',
-      content_name: '{clean_attr(uz_info["h1"])}'
+      content_name: '{clean_attr(uz_info["h1"])}',
+      value: {min_price},
+      currency: 'KZT'
     }});
   </script>
   <noscript><img height="1" width="1" style="display:none"

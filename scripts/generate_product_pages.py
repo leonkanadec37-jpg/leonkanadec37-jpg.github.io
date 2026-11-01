@@ -944,7 +944,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
           content_ids: [PRODUCT.id],
           content_name: PRODUCT.title,
           content_type: 'product',
-          value: PRODUCT.price,
+          value: Math.max(1, Number(PRODUCT.price || 40000)),
           currency: 'KZT'
         }});
       }}
@@ -1075,7 +1075,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
               content_ids: [PRODUCT.id],
               content_name: bundleVal,
               content_type: 'product',
-              value: currentActivePrice,
+              value: Math.max(1, Number(currentActivePrice || PRODUCT.price || 40000)),
               currency: 'KZT'
             }});
           }}
@@ -1089,7 +1089,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
         const targetUrl = buildWhatsAppHref(txId);
         waBtn.setAttribute('href', targetUrl);
         try {{
-          const orderTotal = Number(currentActivePrice || PRODUCT.price || 0);
+          const orderTotal = Math.max(1, Number(currentActivePrice || PRODUCT.price || 40000));
           if (window.fbq) {{
             fbq('track', 'InitiateCheckout', {{
               currency: 'KZT',
@@ -1135,7 +1135,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
       if (!a || a.id === 'waOrderBtn') return;
       const targetUrl = a.href;
       try {{
-        const orderTotal = Number(typeof currentActivePrice !== 'undefined' ? currentActivePrice : (PRODUCT.price || 40000));
+        const orderTotal = Math.max(1, Number(typeof currentActivePrice !== 'undefined' ? currentActivePrice : (PRODUCT.price || 40000)));
         if (window.fbq) {{
           fbq('track', 'InitiateCheckout', {{
             currency: 'KZT',

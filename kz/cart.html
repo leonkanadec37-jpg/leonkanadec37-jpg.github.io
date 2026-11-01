@@ -811,15 +811,32 @@
         }
       }
 
+      // Helper: Meta Pixel Manual Advanced Matching
+      function sendMetaAdvancedMatching(p, n, c){
+        if(!p && !n && !c) return;
+        const clean = (p || '').replace(/\D/g, '');
+        const fPhone = clean.length === 11 ? '+7' + clean.slice(1) : (clean ? '+7' + clean : '');
+        const fName = (n || '').trim().split(/\s+/)[0] || '';
+        const matchData = { country: 'kz' };
+        if(fPhone) matchData.ph = fPhone;
+        if(fName) matchData.fn = fName.toLowerCase();
+        if(c) matchData.ct = c.trim().toLowerCase();
+        if(typeof fbq === 'function'){
+          fbq('init', '199604456030882', matchData);
+          fbq('init', '4185620171718327', matchData);
+        }
+      }
+
       // Meta Pixel InitiateCheckout
       if(window.fbq && cart.length > 0 && !window._fbqInitiateSent){
         window._fbqInitiateSent = true;
         const prodIds = cart.map(i => i.id).filter(Boolean);
+        const safeTotal = Math.max(1, Number(total) || 1);
         fbq('track', 'InitiateCheckout', {
           content_ids: prodIds,
           contents: cart.map(i => ({ id: i.id, quantity: Number(i.qty || 1), item_price: Number(i.price || 0) })),
           content_type: 'product',
-          value: total,
+          value: safeTotal,
           currency: 'KZT',
           num_items: cart.reduce((s,i)=>s+Number(i.qty||0),0)
         });
@@ -831,6 +848,9 @@
           const el = document.getElementById(id);
           if(el && savedDraft[id] && !el.value) el.value = savedDraft[id];
         });
+        if(savedDraft.orderPhone || savedDraft.orderName || savedDraft.orderCity){
+          sendMetaAdvancedMatching(savedDraft.orderPhone, savedDraft.orderName, savedDraft.orderCity);
+        }
       } catch(e){}
 
       function saveCheckoutDraft(){
@@ -841,6 +861,9 @@
             if(el) draft[id] = el.value;
           });
           localStorage.setItem('livi_checkout_draft', JSON.stringify(draft));
+          if(draft.orderPhone || draft.orderName || draft.orderCity){
+            sendMetaAdvancedMatching(draft.orderPhone, draft.orderName, draft.orderCity);
+          }
         } catch(e){}
       }
 
@@ -870,7 +893,7 @@
               });
             }
             if (typeof fbq === 'function') {
-              const orderTotal = Number(total);
+              const orderTotal = Math.max(1, Number(total) || 30000);
               fbq('track', 'InitiateCheckout', { currency: 'KZT', value: orderTotal });
               fbq('track', 'Contact');
               fbq('track', 'Lead', {
@@ -962,7 +985,8 @@
 
         // 2. Отправка конверсии в Meta Pixel, Google Ads (Enhanced) и GA4
         try {
-          const orderTotal = Number(total);
+          const orderTotal = Math.max(1, Number(total) || 30000);
+          sendMetaAdvancedMatching(phone, name, city);
           if(window.fbq){
             const prodIds = cart.map(i => i.id).filter(Boolean);
             fbq('track', 'InitiateCheckout', {
@@ -1095,10 +1119,11 @@
               });
             }
             if (typeof fbq === 'function') {
-              fbq('track', 'InitiateCheckout', { currency: 'KZT', value: orderTotal });
+              const safeOrderTotal = Math.max(1, Number(orderTotal) || 30000);
+              fbq('track', 'InitiateCheckout', { currency: 'KZT', value: safeOrderTotal });
               fbq('track', 'Contact');
               fbq('track', 'Lead', {
-                value: orderTotal,
+                value: safeOrderTotal,
                 currency: 'KZT',
                 content_name: 'WhatsApp переход из модального окна',
                 content_type: 'product'
@@ -1144,10 +1169,11 @@
       }
       try{
         if(window.fbq) {
+          const safeVal = Math.max(1, Number(val) || 30000);
           if(isWa) {
-            fbq('track', 'InitiateCheckout', { currency: 'KZT', value: Number(val) });
+            fbq('track', 'InitiateCheckout', { currency: 'KZT', value: safeVal });
             fbq('track', 'Lead', {
-              value: Number(val),
+              value: safeVal,
               currency: 'KZT',
               content_name: 'Клик WhatsApp (корзина)',
               content_type: 'product'
