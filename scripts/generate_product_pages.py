@@ -1134,6 +1134,11 @@ def build_product_page_html(product: dict, all_products: list) -> str:
               'currency': 'KZT',
               'transaction_id': txId
             }});
+            gtag('event', 'conversion', {{
+              'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+              'value': 1.0,
+              'currency': 'USD'
+            }});
             gtag('event', 'purchase', {{
               transaction_id: txId,
               value: currentActivePrice,
@@ -1200,6 +1205,11 @@ def build_product_page_html(product: dict, all_products: list) -> str:
             'value': (typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000),
             'currency': 'KZT',
             'transaction_id': 'LIVI-WA-' + PRODUCT.id + '-' + Date.now()
+          }});
+          gtag('event', 'conversion', {{
+            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+            'value': 1.0,
+            'currency': 'USD'
           }});
           gtag('event', 'purchase', {{
             transaction_id: 'LIVI-WA-' + PRODUCT.id + '-' + Date.now(),

@@ -1552,6 +1552,11 @@ def generate_hub_page(hub, products):
             'currency': 'KZT',
             'transaction_id': 'LIVI-WA-HUB-' + Date.now()
           }});
+          gtag('event', 'conversion', {{
+            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+            'value': 1.0,
+            'currency': 'USD'
+          }});
           gtag('event', 'purchase', {{
             transaction_id: 'LIVI-WA-HUB-' + Date.now(),
             value: 40000,
@@ -2025,6 +2030,11 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
             'value': 40000,
             'currency': 'KZT',
             'transaction_id': 'LIVI-WA-HUB-' + Date.now()
+          }});
+          gtag('event', 'conversion', {{
+            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+            'value': 1.0,
+            'currency': 'USD'
           }});
           gtag('event', 'purchase', {{
             transaction_id: 'LIVI-WA-HUB-' + Date.now(),
@@ -2502,6 +2512,11 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
             'value': 40000,
             'currency': 'KZT',
             'transaction_id': 'LIVI-WA-HUB-' + Date.now()
+          }});
+          gtag('event', 'conversion', {{
+            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+            'value': 1.0,
+            'currency': 'USD'
           }});
           gtag('event', 'purchase', {{
             transaction_id: 'LIVI-WA-HUB-' + Date.now(),

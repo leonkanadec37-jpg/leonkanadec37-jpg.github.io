@@ -361,6 +361,23 @@ ${itemsText}
             method: 'WhatsApp',
             lead_source: 'uz_cart_checkout'
           });
+          gtag('event', 'whatsapp_click', {
+            currency: 'KZT',
+            value: totalSum,
+            method: 'WhatsApp',
+            lead_source: 'uz_cart_checkout'
+          });
+          gtag('event', 'conversion', {
+            'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+            'value': totalSum,
+            'currency': 'KZT',
+            'transaction_id': orderNo
+          });
+          gtag('event', 'conversion', {
+            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+            'value': 1.0,
+            'currency': 'USD'
+          });
           gtag('event', 'purchase', {
             transaction_id: orderNo,
             value: totalSum,
@@ -377,6 +394,13 @@ ${itemsText}
         modalWa.href = waUrl;
         modalWa.onclick = () => {
           try {
+            if (typeof gtag === 'function') {
+              gtag('event', 'conversion', {
+                'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+                'value': 1.0,
+                'currency': 'USD'
+              });
+            }
             if (typeof fbq === 'function') {
               fbq('track', 'Contact');
               fbq('track', 'Lead', {
@@ -411,6 +435,19 @@ ${itemsText}
       const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
       if (!a || a.id === 'modalWaBtn') return;
       try {
+        if (typeof gtag === 'function') {
+          gtag('event', 'whatsapp_click', {
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href
+          });
+          gtag('event', 'conversion', {
+            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+            'value': 1.0,
+            'currency': 'USD'
+          });
+        }
         if (typeof fbq === 'function') {
           fbq('track', 'Contact');
           fbq('track', 'Lead', {

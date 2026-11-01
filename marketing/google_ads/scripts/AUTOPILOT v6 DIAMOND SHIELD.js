@@ -18,7 +18,7 @@
  *      полностью открыты и защищены в SAFE_STONE_ROOTS!
  * 3. [Новые бренды конкурентов и чужие магазины]:
  *    - В COMPETITOR_BRANDS и SEED_ROOT_NEGATIVES добавлены: /uno\s*de\s*50/i,
- *      /selro/i, /selini/i, /tory\s*burch/i, /леонардо/i, /kalliope/i.
+ *      /selro/i, /selini/i, /tory\s*burch/i, /леонардо/i, /patrizia\s*dal+ana/i, /patrizia\s*dal+iana/i, /patrizia/i, /kalliope/i.
  * 4. [Полный фильтр курортных стран и чужого импорта (ТОП-15) + Турецкий трафик]:
  *    - Закрыта орфографическая дыра Таиланда: /та[йи]ланд/i, /тайск/i ("таиланд", "тайланд", "из тайланда").
  *    - Полный блок чужих стран: Турция (/турецк/i, /турци/i), ОАЭ/Дубай (/дубай/i),
@@ -135,10 +135,11 @@ var SEED_ROOT_NEGATIVES = [
   "изготовление ювелирных", "ювелирная мастерская",
   "ювелирные мастерские", "ювелиры алматы", "ювелир алматы", "ювелир астана", "ювелиры астана",
   "мастерская", "ремонт", "пайка", "перетяжка", "чистка", "ультразвуковая", "изготовление", "литье",
-  "переплавка", "литье золота", "с гравировкой", "гравировка", "цепочки на заказ",
+  "переплавка", "литье золота", "с гравировкой", "гравировка", "сделать подвеску",
+  "сделать кольцо", "цепочки на заказ",
   "экспертиза", "лом", "инструменты", "уменьшение", "увеличение", "научиться", "станки",
-  "замок для", "оценка", "нить", "часики", "капельки",
-  "сдать", "б у", "б/у", "секонд", "опт", "эпоксидная", "проволока",
+  "замок для", "оценка", "нить", "часики", "сережки капельки",
+  "сдать", "бу", "б/у", "секонд", "опт", "эпоксидная", "проволока",
   "бусины", "бусины оптом", "леска для бисера", "купить леску", "кабошон",
   "мастер класс", "схема", "плетение", "как сделать", "медицинская сталь",
   "serebro", "silver", "kumush", "кумуш", "золото 585", "золотой", "золотое",
@@ -155,25 +156,28 @@ var SEED_ROOT_NEGATIVES = [
   "ultratovushli", "ультратовушли", "ishlab chiqarish", "ишлаб чиқариш",
   "quyish", "қуйиш", "qayta eritish", "қайта эритиш", "oltin quyish", "олтин қуйиш",
   "gravirovkali", "гравировкали", "gravirovka", "гравировка",
-  "zanjir zakaz", "занжир",
+  "kulon yasash", "кулон ясаш", "uzuk yasash", "узук ясаш",
+  "zanjir zakaz", "занжир", "kulon zakaz",
   "ekspertiza", "экспертиза", "oltin lomi", "олтин ломи", "lom", "лом",
   "asboblar", "асбоблар", "kichraytirish", "кичрайтириш", "kattalashtirish", "катталаштириш",
   "o'rganish", "ўрганиш", "dastgohlar", "дастгоҳлар", "stanoklar", "станоклар",
   "uchun qulf", "учун қулф", "baholash", "баҳолаш",
 
   // Рукоделие, расходники, б/у
-  "ip", "ип", "soatcha", "соатча",
+  "ip", "ип", "soatcha", "соатча", "tomchi sirg'alar", "томчи сирғалар",
   "topshirish", "топшириш", "ishlatilgan", "ишлатилган", "b/u", "б/у",
   "sekond", "секонд", "ulgurji", "улгуржи", "optom", "оптом",
-  "epoksi", "эпокси", "sim", "сим",
-  "leska", "леска", "biser uchun", "бисер учун",
+  "epoksi", "эпокси", "sim", "сим", "munchoqlar ulgurji", "мунчоқлар улгуржи",
+  "munchoq optom", "мунчоқ оптом", "leska", "леска", "biser uchun", "бисер учун",
   "leska olish", "леска олиш", "kaboshon", "кабошон",
   "mahorat darsi", "маҳорат дарси", "sxema", "схема",
   "to'qish", "тўқиш", "o'rish", "ўриш", "qanday yasaladi", "қандай ясалади",
   "tibbiy po'lat", "тиббий пўлат",
 
   // Металлы, драгоценности и брендовые мотивы
-  "585 oltin", "585 олтин", "oltin 585", "олтин 585",
+  "585 oltin", "585 олтин", "oltin 585", "олтин 585", "oltin bilaguzuk", "олтин билагузук",
+  "oltin uzuk", "олтин узук", "oltin sirg'alar", "олтин сирғалар", "oltin ziraklar", "олтин зираклар",
+  "oltin zanjir", "олтин занжир", "oltin kulonlar", "олтин кулонлар", "oltin to'plam", "олтин тўплам",
   "platina", "платина", "platinali", "платинали", "brilliantli", "бриллиантли",
   "mix", "мих", "sebarga", "себарга", "Gi de Mopassan", "Ги де Мопассан",
   "xoch", "хоч", "but", "бут", "erkaklarniki", "эркакларники",
@@ -186,7 +190,7 @@ var SEED_ROOT_NEGATIVES = [
 
   // Школьная литература, фейки клевер/гвоздь:
   "мопассан", "краткое содержание", "рассказ", "анализ рассказа",
-  "клевер", "гвоздь",
+  "клевер", "кулон гвоздь", "гвоздь",
 
   // Общие подарки без указания камня:
   "что подарить", "что можно подарить", "подарить девушке", "подарок девушке",
@@ -197,15 +201,15 @@ var SEED_ROOT_NEGATIVES = [
   "для девочки", "для девочек", "для детей", "для самых маленьких",
   "брошь", "броши", "брошка", "фенечка", "фенечки", "каффы",
   "гердан", "шахмаран", "шаркия", "хеликс",
-  "из глины", "крючком", "вязаные", "из монет", "дзи",
+  "из глины", "крючком", "вязаные", "из монет", "бусины дзи", "бусы дзи",
   "магнитные", "пинтерест", "pinterest", "ссср",
 
   // Нецелевые материалы, подделки, стекло, бисер, серебро, оценка сырья:
   "серебро", "серебряный", "серебряные", "серебряное", "серебряная",
-  "муассанит", "xuping", "ксьюпинг", "медицинское золото",
+  "муассанит", "xuping", "ксьюпинг", "медицинское золото", "медицинские серьги",
   "бисер", "стеклярус", "лабрет", "пирсинг",
-  "теннисный", "фигурки детей", "каучук", "шнурок", "снейк", "мело",
-  "с буквой", "шерсть", "валяные", "ломбард", "скупка",
+  "теннисный браслет", "фигурки детей", "каучук", "шнурок", "снейк", "жемчуг мело",
+  "с буквой", "бусы из шерсти", "ломбард", "скупка",
   "бисероплетение", "алиэкспресс", "aliexpress", "temu", "тему",
   "shein", "шейн", "таобао", "taobao", "секонд хенд", "барахолка", "конфискат",
   "оптом", "авито", "olx", "ярмарка мастеров", "etsy", // Металлы, дешевые аналоги и пирсинг
@@ -213,19 +217,20 @@ var SEED_ROOT_NEGATIVES = [
   "muassanit", "муассанит",
   "xuping", "ksyuping", "ксюпинг",
   "tibbiy oltin", "тиббий олтин", "meditsina oltini", "медицина олтини",
-  "tibbiy", "meditsina",
+  "tibbiy sirg'alar", "тиббий сирғалар", "meditsina sirg'alari", "медицина сирғалари",
   "labret", "лабрет", "pirsing", "пирсинг",
 
   // Рукоделие, бисер и нецелевые материалы
-  "biser", "бисер",
+  "biser", "бисер", "mayda munchoq", "майда мунчоқ",
   "steklyarus", "стеклярус",
   "biser to'qish", "бисер тўқиш", "biser tikish", "бисер тикиш",
   "kauchuk", "каучук", "shnur", "шнур", "tasmacha", "тасмача",
   "ilon zanjir", "илон занжир", "sneyk", "снейк",
-  "melo", "jun", "жун",
+  "melo marvarid", "мело марварид", "melo inju", "мело инжу",
+  "jun munchoq", "жун мунчоқ", "jundan munchoq", "жундан мунчоқ",
 
   // Типы дизайнов
-  "tennis", "теннис",
+  "tennis bilaguzuk", "теннис билагузук",
   "bola shaklidagi", "бола шаклидаги", "bola figuralari", "бола фигуралари",
   "harfli", "ҳарфли", "harf bilan", "ҳарф билан",
 
@@ -295,14 +300,14 @@ var COMPETITOR_BRANDS = [
   /lurea/i, /луара/i, /luara/i, /kurshuni/i, /hefang/i, /серик\s*рысбек/i,
   /serik\s*rysbek/i, /ларентия/i, /laurentia/i, /гальяно/i, /galliano/i,
   /lady\s*collection/i, /леди\s*коллекшн/i, /anka\s*jewelry/i, /moon\s*soul/i,
-  /moon\s*almaty/i, /roberto\s*bravo/i, /роберто\s*браво/i,
+  /moon\s*almaty/i, /moon\s*/i, /roberto\s*bravo/i, /роберто\s*браво/i,
   /(^|[^а-яёa-z])алтын([^а-яёa-z]|$)/i, /altyn\b/i, /talisman\s*kz/i, /микимото/i,
   /mikimoto/i, /gotto\s*jewelry/i, /pure\s*jewelry/i, /soroka\s*jewelry/i, /сорока\s*jewelry/i,
   /nomination/i, /номинэйшн/i, /лакост/i, /lacoste/i, /la\s*roche/i, /jewelry\s*bus/i,
-  /minimal\s*silver/i, /muraa/i, /yelai/i, /jewelfinger/i,
+  /minimal\s*silver/i, /браслет\s*minimal/i, /muraa/i, /yelai/i, /jewelfinger/i,
   /darry\s*ring/i, /favory/i, /farro/i, /via\s*jewelry/i, /astra\s*jewelry/i,
   /le\s*carat/i, /mimi\s*jewelry/i, /assos/i, /два\s*жираф/i, /ganezzi/i,
-  /larimar\s*jewelry/i,
+  /larimar\s*jewelry/i, /оскар де ла рента/i, /Oscar de la Renta/i, /agatha/i, 
 
   // Мировые дома высокой моды, премиальные бренды и обновление v5.8.1:
   /miu\s*miu/i, /миу\s*миу/i, /fendi/i, /фенди/i,
@@ -336,7 +341,7 @@ var COMPETITOR_BRANDS = [
   /lhasa/i, /лхаса/i, /charlotte\s*chesnais/i, /tina\s*pearl/i,
   /саботини/i, /sabotini/i, /leari/i, /\bzara\b/i, /(^|[^а-яёa-z])зара([^а-яёa-z]|$)/i,
   /тадж\s*махал/i, /камнемани/i, /la\s*voie\s*nomade/i,
-  /uno\s*de\s*50/i, /selro/i, /selini/i, /tory\s*burch/i, /леонардо/i
+  /uno\s*de\s*50/i, /selro/i, /selini/i, /tory\s*burch/i, /леонардо/i, /patrizia/i, /dall?ana/i, /dall?iana/i
 ];
 
 // ------------------------------------------------------------------------------
@@ -417,6 +422,7 @@ var SAFE_STONE_ROOTS = [
 //    (СИНХРОНИЗИРОВАНО НА 3 ЯЗЫКАХ: RU + KZ + UZ)
 // ------------------------------------------------------------------------------
 var JUNK_PATTERNS = [
+  /слонов[а-я]*\s+кост/i, /слоновая\s+кость/i, /\bivory\b/i,
   // Литература и фейки клевер/гвоздь:
   /мопассан/i, /краткое\s*содержание/i, /рассказ/i, /анализ\s*рассказа/i,
   /клевер/i, /гвоздь/i,
@@ -428,7 +434,7 @@ var JUNK_PATTERNS = [
   /экспертиз/i, /(^|[^а-яёa-z])лом([^а-яёa-z]|$)/i, /инструмент/i,
   /уменьшени/i, /увеличени/i, /научиться/i, /станок/i, /станки/i,
   /замок\s+для/i, /оценк/i, /(^|[^а-яёa-z])нить([^а-яёa-z]|$)/i, /часик/i,
-  /сережки\s+капельки/i, /дубай/i,
+  /сережки\s+капельки/i, /дубай/i, /как сделать/i, /как делать/i,
   // UZ мастерские / ремонт / изготовление:
   /ustaxon/i, /устахон/i, /ta['’ʻ]?mirlash/i, /tamirlash/i, /таъмирлаш/i,
   /yasash/i, /ясаш/i, /kavsharlash/i, /qayta\s*eritish/i, /gravirovka/i,
@@ -534,10 +540,10 @@ var JUNK_PATTERNS = [
   /грузинск/i, /чешск/i, /чехи/i, /испанск/i, /французск/i, /итальянск/i, /итали/i,
   /китая/i, /(^|[^а-яёa-z])китай([^а-яёa-z]|$)/i, /китайск/i, /ссср/i, /ближайш/i, /поблизости/i, /рядом/i, /yaqinidagi/i,
 
-  // Кольца без указания камня (RU + UZ) проверяются ПОСЛЕ всех остальных стоп-слов:
+  // Кольца, гвоздики (RU + KZ + UZ) проверяются ПОСЛЕ всех остальных стоп-слов:
   // (если есть камень/жемчуг — разрешены; если без камня — переводятся строго в ТОЧНОЕ соответствие [X]):
-  /кольц/i, /колечк/i, /перстен/i,
-  /\buzuk\b/i, /\buzuklar\b/i, /узук/i
+  /кольц/i, /колечк/i, /перстен/i, /гвоздик/i,
+  /\buzuk\b/i, /\buzuklar\b/i, /узук/i, /\bzirak\b/i, /\bziraklar\b/i, /зирак/i
 ];
 
 function isSafeStoneTerm(term) {
@@ -567,7 +573,7 @@ function isJewelryProductTerm(term) {
 function isSingleWordCategoryTerm(term) {
   var clean = (term || "").toLowerCase().trim().replace(/^["\[]|["\]]$/g, "").trim();
   if (!clean) return false;
-  return /^(колье|серьги|сережки|серёжки|бусы|браслет|браслеты|ожерелье|ожерелья|сотуар|сатуар|sotuar|бижутерия|кольцо|кольца|пусеты|гвоздики|uzuk|zirak|где\s+можно\s+купить)$/i.test(clean);
+  return /^(колье|серьги|сережки|серёжки|бусы|браслет|браслеты|ожерелье|ожерелья|сотуар|сатуар|sotuar|бижутерия|где\s+можно\s+купить|натуральный|натуральные|природный|природные)$/i.test(clean);
 }
 
 // Умная проверка однословных названий сырья, двухсловных инфо-запросов и многословных цен сырья БЕЗ изделия (RU + KZ + UZ)
@@ -589,7 +595,7 @@ function isTwoWordStoneLookup(term) {
 
   // 2. Классические 2-словные инфо-запросы (RU + KZ + UZ: "[минерал] камень/виды/цвет/цена/натуральный/tosh/narxi/xususiyatlari")
   var fwd = /^[а-яёәіңғүұқөһa-z'’ʻ-]+\s+(камень|камни|камен|минерал|тас|тасы|бағасы|tosh|toshi|narxi|turlari|rangi|xususiyatlari|виды|вид|цвет|цвета|свойства|цена|стоимость|натуральный|природный|оригинал|tabiiy)$/i.test(clean);
-  var rev = /^(камень|камни|камен|минерал|tosh|tabiiy|виды|вид|цвет|цвета|свойства|цена|стоимость|натуральный|природный|коричневые|зеленые|черные|белые|красные|синие|голубые|розовые|желтые)\s+[а-яёәіңғүұқөһa-z'’ʻ-]+$/i.test(clean);
+  var rev = /^(камень|камни|камен|минерал|tosh|tabiiy|виды|вид|цвет|цвета|свойства|цена|стоимость|натуральный|природный|(?:коричнев|зелен|черн|бел|красн|син|голуб|розов|желт)[а-яё]*)\s+[а-яёәіңғүұқөһa-z'’ʻ-]+$/i.test(clean);
   if (!hasJewelryProductWord && !hasBuyActionWord && (fwd || rev)) return true;
 
   // 3. Многословные запросы (3-5 слов) про сам камень/минерал/цену сырья БЕЗ указания ювелирного изделия
@@ -642,25 +648,30 @@ function evaluateSearchTerm(term) {
         continue;
       }
 
-      // Исключение В (RU + UZ): Кольца и узбекские uzuk
-      // Если в запросе есть наш камень/жемчуг или другое украшение (браслет, серьги, колье) — разрешаем!
-      var hasOtherJewelry = /браслет|колье|серьг|сережк|серёжк|пусет|гвоздик|бусы|чокер|сотуар|ожерел/i.test(lower);
-      var isRingOnlyPattern = (
+      // Исключение В и Г (RU + UZ): Пусеты, серьги-гвоздики, кольца и узбекские uzuk/zirak
+      // Если в запросе есть наш камень/жемчуг — разрешаем!
+      // Если камня в запросе НЕТ — блокируем ТОЛЬКО В ТОЧНОМ СООТВЕТСТВИИ [X], чтобы не резать "marvarid zirak" и "кольцо с жемчугом"!
+      var isRingOrStudPattern = (
         patStr === "/кольц/i" ||
         patStr === "/колечк/i" ||
         patStr === "/перстен/i" ||
+        patStr === "/пусет/i" ||
+        patStr === "/пуссет/i" ||
+        patStr === "/гвоздик/i" ||
         patStr.indexOf("uzuk") !== -1 ||
-        patStr === "/узук/i"
+        patStr === "/узук/i" ||
+        patStr.indexOf("zirak") !== -1 ||
+        patStr === "/зирак/i"
       );
-      if (isRingOnlyPattern) {
-        if (hasSafeStone || isLineJewelry || hasOtherJewelry) {
+      if (isRingOrStudPattern) {
+        if (hasSafeStone || isLineJewelry) {
           continue;
         } else {
           return {
             isJunk: true,
             isExactOnly: true,
             isSafe: false,
-            reason: "Общий запрос кольца/uzuk без камня [точное соответствие]"
+            reason: "Общий запрос кольца/пусеты/uzuk/zirak без камня [точное соответствие]"
           };
         }
       }
@@ -955,11 +966,23 @@ function getOrCreateNegativeList(listName, actionLogs) {
 
 function attachNegativeListToAllCampaigns(negativeList) {
   var count = 0;
+  var listName = negativeList.getName ? negativeList.getName() : "";
+  var listId = negativeList.getId ? negativeList.getId() : null;
+
   var campIter = AdsApp.campaigns().get();
   while (campIter.hasNext()) {
     var camp = campIter.next();
     try {
-      if (CONFIG.APPLY_CHANGES) {
+      var isAttached = false;
+      var existingLists = camp.negativeKeywordLists().get();
+      while (existingLists.hasNext()) {
+        var el = existingLists.next();
+        if ((listId && el.getId() === listId) || (listName && el.getName() === listName)) {
+          isAttached = true;
+          break;
+        }
+      }
+      if (!isAttached && CONFIG.APPLY_CHANGES) {
         camp.addNegativeKeywordList(negativeList);
       }
       count++;
@@ -970,7 +993,16 @@ function attachNegativeListToAllCampaigns(negativeList) {
   while (shopIter.hasNext()) {
     var sCamp = shopIter.next();
     try {
-      if (CONFIG.APPLY_CHANGES) {
+      var sIsAttached = false;
+      var sExistingLists = sCamp.negativeKeywordLists().get();
+      while (sExistingLists.hasNext()) {
+        var sel = sExistingLists.next();
+        if ((listId && sel.getId() === listId) || (listName && sel.getName() === listName)) {
+          sIsAttached = true;
+          break;
+        }
+      }
+      if (!sIsAttached && CONFIG.APPLY_CHANGES) {
         sCamp.addNegativeKeywordList(negativeList);
       }
       count++;
@@ -1044,38 +1076,44 @@ function mineJunkSearchTerms(negativeList, actionLogs) {
     Logger.log("  [!] Ошибка чтения существующих минус-слов во 2 шаге: " + err);
   }
 
-  try {
-    var query = "SELECT search_term_view.search_term, metrics.cost_micros, metrics.clicks, metrics.conversions " +
-                "FROM search_term_view WHERE segments.date DURING LAST_7_DAYS";
-    var rows = AdsApp.search(query);
+  var dateWindows = ["LAST_7_DAYS", "TODAY"];
+  var seenTerms = {};
 
-    while (rows.hasNext()) {
-      var row = rows.next();
-      var term = (row.searchTermView.search_term || row.searchTermView.searchTerm || "").trim().toLowerCase();
-      if (!term || term.length < 2) continue;
+  for (var dw = 0; dw < dateWindows.length; dw++) {
+    try {
+      var query = "SELECT search_term_view.search_term, metrics.cost_micros, metrics.clicks, metrics.conversions " +
+                  "FROM search_term_view WHERE segments.date DURING " + dateWindows[dw];
+      var rows = AdsApp.search(query);
 
-      var evalRes = evaluateSearchTerm(term);
-      if (evalRes.isJunk) {
-        // ЗОЛОТОЕ ПРАВИЛО: все найденные запросы блокируются СТРОГО в ТОЧНОМ соответствии [...]
-        var formattedNeg = "[" + term + "]";
-        var checkExists = existingNegs[formattedNeg.toLowerCase()] || existingNegs[term];
+      while (rows.hasNext()) {
+        var row = rows.next();
+        var term = (row.searchTermView.search_term || row.searchTermView.searchTerm || "").trim().toLowerCase();
+        if (!term || term.length < 2 || seenTerms[term]) continue;
+        seenTerms[term] = true;
 
-        if (!checkExists) {
-          try {
-            if (CONFIG.APPLY_CHANGES) {
-              negativeList.addNegativeKeyword(formattedNeg);
-            }
-            existingNegs[formattedNeg.toLowerCase()] = true;
-            addedCount++;
-            var logMsg = "[Auto-Negated] Заблокирован запрос [ТОЧНЫЙ МИНУС]: " + formattedNeg + " [" + evalRes.reason + "]";
-            actionLogs.push(logMsg);
-            Logger.log("  🚫 " + logMsg);
-          } catch (negErr) {}
+        var evalRes = evaluateSearchTerm(term);
+        if (evalRes.isJunk) {
+          // ЗОЛОТОЕ ПРАВИЛО: все найденные запросы блокируются СТРОГО в ТОЧНОМ соответствии [...]
+          var formattedNeg = "[" + term + "]";
+          var checkExists = existingNegs[formattedNeg.toLowerCase()] || existingNegs[term];
+
+          if (!checkExists) {
+            try {
+              if (CONFIG.APPLY_CHANGES) {
+                negativeList.addNegativeKeyword(formattedNeg);
+              }
+              existingNegs[formattedNeg.toLowerCase()] = true;
+              addedCount++;
+              var logMsg = "[Auto-Negated] Заблокирован запрос [ТОЧНЫЙ МИНУС]: " + formattedNeg + " [" + evalRes.reason + "]";
+              actionLogs.push(logMsg);
+              Logger.log("  🚫 " + logMsg);
+            } catch (negErr) {}
+          }
         }
       }
+    } catch (e) {
+      Logger.log("  ℹ️ Окно " + dateWindows[dw] + ": " + e.message);
     }
-  } catch (e) {
-    Logger.log("  ℹ️ Запрос отчета поисковых фраз: " + e.message);
   }
 
   return addedCount;

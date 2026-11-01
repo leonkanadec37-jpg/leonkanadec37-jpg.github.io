@@ -1110,6 +1110,11 @@ def generate_kz_index(products_kz: list) -> str:
             method: 'WhatsApp',
             page_location: window.location.href
           }});
+          gtag('event', 'conversion', {{
+            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+            'value': 1.0,
+            'currency': 'USD'
+          }});
         }}
       }} catch (err) {{}}
     }});
@@ -1539,6 +1544,11 @@ def generate_kz_shop(products_kz: list) -> str:
             value: 40000,
             method: 'WhatsApp',
             page_location: window.location.href
+          }});
+          gtag('event', 'conversion', {{
+            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+            'value': 1.0,
+            'currency': 'USD'
           }});
         }}
       }} catch (err) {{}}
@@ -2485,6 +2495,11 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
               'currency': 'KZT',
               'transaction_id': 'LIVI-KZ-WA-' + PRODUCT.id + '-' + Date.now()
             }});
+            gtag('event', 'conversion', {{
+              'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+              'value': 1.0,
+              'currency': 'USD'
+            }});
             gtag('event', 'purchase', {{
               transaction_id: 'LIVI-KZ-WA-' + PRODUCT.id + '-' + Date.now(),
               value: currentActivePrice,
@@ -2544,6 +2559,11 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
             'value': (typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000),
             'currency': 'KZT',
             'transaction_id': 'LIVI-KZ-WA-' + PRODUCT.id + '-' + Date.now()
+          }});
+          gtag('event', 'conversion', {{
+            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+            'value': 1.0,
+            'currency': 'USD'
           }});
           gtag('event', 'purchase', {{
             transaction_id: 'LIVI-KZ-WA-' + PRODUCT.id + '-' + Date.now(),

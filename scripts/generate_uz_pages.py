@@ -1139,10 +1139,13 @@ def generate_uz_index(products_uz: list) -> str:
             method: 'WhatsApp',
             page_location: window.location.href
           }});
+          gtag('event', 'conversion', {{
+            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+            'value': 1.0,
+            'currency': 'USD'
+          }});
         }}
       }} catch (err) {{}}
-        }}
-      }});
     }});
   </script>
 </body>
@@ -1551,6 +1554,11 @@ def generate_uz_shop(products_uz: list) -> str:
             method: 'WhatsApp',
             page_location: window.location.href
           }});
+          gtag('event', 'conversion', {{
+            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+            'value': 1.0,
+            'currency': 'USD'
+          }});
         }}
       }} catch (err) {{}}
     }});
@@ -1852,6 +1860,31 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{ dataLayer.push(arguments); }}
+    gtag('js', new Date());
+    gtag('config', '{GA_ID}');
+    gtag('config', '{AW_ID}');
+  </script>
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {{if(f.fbq)return;n=f.fbq=function(){{n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)}};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '{FB_PIXEL_1}');
+  fbq('init', '{FB_PIXEL_2}');
+  fbq('track', 'PageView');
+  </script>
 
   <!-- Schema.org JSON-LD: Product -->
   <script type="application/ld+json">
@@ -2197,7 +2230,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
     }}
 
     // WhatsApp Order Button and Global WhatsApp tracking
-    const waOrderBtnEl = document.getElementById('waOrderBtn');
+    const waOrderBtnEl = document.getElementById('waOrderBtn') || document.getElementById('buyWaBtn');
     if (waOrderBtnEl) {{
       waOrderBtnEl.addEventListener('click', function() {{
         try {{
@@ -2245,6 +2278,11 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
               'currency': 'KZT',
               'transaction_id': 'LIVI-UZ-WA-' + PRODUCT.id + '-' + Date.now()
             }});
+            gtag('event', 'conversion', {{
+              'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+              'value': 1.0,
+              'currency': 'USD'
+            }});
             gtag('event', 'purchase', {{
               transaction_id: 'LIVI-UZ-WA-' + PRODUCT.id + '-' + Date.now(),
               value: currentActivePrice,
@@ -2258,7 +2296,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
 
     document.addEventListener('click', function(e) {{
       const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
-      if (!a || a.id === 'waOrderBtn') return;
+      if (!a || a.id === 'waOrderBtn' || a.id === 'buyWaBtn') return;
       try {{
         const orderTotal = Number(typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000);
         if (window.fbq) {{
@@ -2304,6 +2342,11 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
             'value': (typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000),
             'currency': 'KZT',
             'transaction_id': 'LIVI-UZ-WA-' + PRODUCT.id + '-' + Date.now()
+          }});
+          gtag('event', 'conversion', {{
+            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+            'value': 1.0,
+            'currency': 'USD'
           }});
           gtag('event', 'purchase', {{
             transaction_id: 'LIVI-UZ-WA-' + PRODUCT.id + '-' + Date.now(),
@@ -2676,6 +2719,23 @@ def generate_uz_service_pages():
             method: 'WhatsApp',
             lead_source: 'uz_cart_checkout'
           }});
+          gtag('event', 'whatsapp_click', {{
+            currency: 'KZT',
+            value: totalSum,
+            method: 'WhatsApp',
+            lead_source: 'uz_cart_checkout'
+          }});
+          gtag('event', 'conversion', {{
+            'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+            'value': totalSum,
+            'currency': 'KZT',
+            'transaction_id': orderNo
+          }});
+          gtag('event', 'conversion', {{
+            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+            'value': 1.0,
+            'currency': 'USD'
+          }});
           gtag('event', 'purchase', {{
             transaction_id: orderNo,
             value: totalSum,
@@ -2692,6 +2752,13 @@ def generate_uz_service_pages():
         modalWa.href = waUrl;
         modalWa.onclick = () => {{
           try {{
+            if (typeof gtag === 'function') {{
+              gtag('event', 'conversion', {{
+                'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+                'value': 1.0,
+                'currency': 'USD'
+              }});
+            }}
             if (typeof fbq === 'function') {{
               fbq('track', 'Contact');
               fbq('track', 'Lead', {{
@@ -2726,6 +2793,19 @@ def generate_uz_service_pages():
       const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
       if (!a || a.id === 'modalWaBtn') return;
       try {{
+        if (typeof gtag === 'function') {{
+          gtag('event', 'whatsapp_click', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href
+          }});
+          gtag('event', 'conversion', {{
+            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+            'value': 1.0,
+            'currency': 'USD'
+          }});
+        }}
         if (typeof fbq === 'function') {{
           fbq('track', 'Contact');
           fbq('track', 'Lead', {{
@@ -2922,6 +3002,27 @@ def generate_uz_service_pages():
       </div>
     </div>
   </footer>
+  <script>
+    document.addEventListener('click', function(e) {{
+      const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
+      if (!a) return;
+      try {{
+        if (typeof gtag === 'function') {{
+          gtag('event', 'whatsapp_click', {{
+            currency: 'KZT',
+            value: 30000,
+            method: 'WhatsApp',
+            page_location: window.location.href
+          }});
+          gtag('event', 'conversion', {{
+            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+            'value': 1.0,
+            'currency': 'USD'
+          }});
+        }}
+      }} catch (err) {{}}
+    }});
+  </script>
 </body>
 </html>
 """

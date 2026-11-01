@@ -45,6 +45,31 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YFF2TR0N36"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-YFF2TR0N36');
+    gtag('config', 'AW-16793974126');
+  </script>
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '199604456030882');
+  fbq('init', '4185620171718327');
+  fbq('track', 'PageView');
+  </script>
+
   <!-- Schema.org JSON-LD: Product -->
   <script type="application/ld+json">
 {
@@ -609,7 +634,7 @@
     }
 
     // WhatsApp Order Button and Global WhatsApp tracking
-    const waOrderBtnEl = document.getElementById('waOrderBtn');
+    const waOrderBtnEl = document.getElementById('waOrderBtn') || document.getElementById('buyWaBtn');
     if (waOrderBtnEl) {
       waOrderBtnEl.addEventListener('click', function() {
         try {
@@ -657,6 +682,11 @@
               'currency': 'KZT',
               'transaction_id': 'LIVI-UZ-WA-' + PRODUCT.id + '-' + Date.now()
             });
+            gtag('event', 'conversion', {
+              'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+              'value': 1.0,
+              'currency': 'USD'
+            });
             gtag('event', 'purchase', {
               transaction_id: 'LIVI-UZ-WA-' + PRODUCT.id + '-' + Date.now(),
               value: currentActivePrice,
@@ -670,7 +700,7 @@
 
     document.addEventListener('click', function(e) {
       const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
-      if (!a || a.id === 'waOrderBtn') return;
+      if (!a || a.id === 'waOrderBtn' || a.id === 'buyWaBtn') return;
       try {
         const orderTotal = Number(typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000);
         if (window.fbq) {
@@ -716,6 +746,11 @@
             'value': (typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000),
             'currency': 'KZT',
             'transaction_id': 'LIVI-UZ-WA-' + PRODUCT.id + '-' + Date.now()
+          });
+          gtag('event', 'conversion', {
+            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+            'value': 1.0,
+            'currency': 'USD'
           });
           gtag('event', 'purchase', {
             transaction_id: 'LIVI-UZ-WA-' + PRODUCT.id + '-' + Date.now(),

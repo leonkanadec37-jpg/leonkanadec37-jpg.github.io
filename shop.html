@@ -1320,7 +1320,7 @@
     </div>
     <div id="catalogError" class="empty-state" hidden style="display:none" aria-hidden="true"></div>
 
-                                                                                                                                                                                                                                                                                                                                                <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
+                                                                                                                                                                                                                                                                                                                                                    <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
       <details class="hub-interlink-accordion">
         <summary>Подборки по камням и стилям</summary>
         <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
@@ -2200,6 +2200,11 @@
               'value': estPrice,
               'currency': 'KZT',
               'transaction_id': 'LIVI-WA-' + (pid || 'shop') + '-' + Date.now()
+            });
+            gtag('event', 'conversion', {
+              'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
+              'value': 1.0,
+              'currency': 'USD'
             });
             gtag('event', 'purchase', {
               transaction_id: 'LIVI-WA-' + (pid || 'shop') + '-' + Date.now(),
