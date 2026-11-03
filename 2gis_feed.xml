@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-11-02 10:00">
+<yml_catalog date="2026-11-03 10:00">
   <shop>
     <name>Livi Jewelry</name>
     <company>Livi Jewelry — Авторские украшения ручной работы</company>
@@ -455,26 +455,6 @@
         <picture>https://livijewelry.kz/assets/sergi-s-tigrovym-glazom-12000.webp</picture>
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[Дизайнерские серьги ручной работы: Серьги с тигровым глазом. Выполнены из отборных натуральных минералов и материалов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенные ювелирные швензы со стойким защитным покрытием не темнеют и комфортны для чувствительной кожи. Комфортный легкий вес для ежедневной носки и быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
-      </offer>
-      <offer id="prod_45" available="false">
-        <name>Серьги сердца</name>
-        <url>https://livijewelry.kz/product/prod_45.html</url>
-        <price>12000</price>
-        <currencyId>KZT</currencyId>
-        <categoryId>3</categoryId>
-        <picture>https://livijewelry.kz/assets/sergi-serdtsa-12000.webp</picture>
-        <vendor>Livi Jewelry</vendor>
-        <description><![CDATA[Дизайнерские серьги ручной работы: Серьги сердца. Выполнены из отборных натуральных минералов и материалов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенные ювелирные швензы со стойким защитным покрытием не темнеют и комфортны для чувствительной кожи. Комфортный легкий вес для ежедневной носки и быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
-      </offer>
-      <offer id="prod_46" available="false">
-        <name>Серьги со съемными сердцами из натуральных камней</name>
-        <url>https://livijewelry.kz/product/prod_46.html</url>
-        <price>16000</price>
-        <currencyId>KZT</currencyId>
-        <categoryId>3</categoryId>
-        <picture>https://livijewelry.kz/assets/sergi-so-semnymi-serdtsami-iz-naturalnykh-kamney-16000.webp</picture>
-        <vendor>Livi Jewelry</vendor>
-        <description><![CDATA[Дизайнерские серьги ручной работы: Серьги со съемными сердцами из натуральных камней. Выполнены из отборных натуральных минералов и материалов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенные ювелирные швензы со стойким защитным покрытием не темнеют и комфортны для чувствительной кожи. Комфортный легкий вес для ежедневной носки и быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
       </offer>
       <offer id="prod_47" available="false">
         <name>Сотуар из бирюзы</name>
