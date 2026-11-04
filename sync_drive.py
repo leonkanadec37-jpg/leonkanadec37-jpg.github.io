@@ -163,6 +163,11 @@ def parse_item_info(raw_title):
                 if name:
                     elements.append((name, price_num))
 
+    if len(elements) == 1 and len(chunks) > 1:
+        clean_name = re.sub(r'\s*\.?\s*\d+[\.\s]?\d*\s*(?:тг|тенге|\.)?.*$', '', clean_raw, flags=re.IGNORECASE).strip()
+        if clean_name:
+            elements = [(clean_name, elements[0][1])]
+
     if not elements:
         p_match = re.search(r'(\d+[\.\s]?\d{3})', raw)
         if not p_match:
@@ -295,6 +300,8 @@ def detect_materials(title, description=""):
     if 'циркон' in text: mats.append('Цирконы')
     if 'гематит' in text: mats.append('Гематит')
     if 'авантюрин' in text: mats.append('Натуральный авантюрин')
+    if 'чешск' in text: mats.append('Чешское стекло')
+    elif 'стекл' in text: mats.append('Ювелирное стекло')
     if 'позолот' in text or 'золот' in text: mats.append('Позолота')
     
     mats.append('Ювелирный сплав')
