@@ -62,10 +62,9 @@
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '199604456030882');
-    fbq('init', '4185620171718327');
     fbq('track', 'PageView');
   </script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=199604456030882&ev=PageView&noscript=1" /><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=4185620171718327&ev=PageView&noscript=1" /></noscript>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=199604456030882&ev=PageView&noscript=1" /></noscript>
 
   <script type="application/ld+json">
 {
@@ -842,6 +841,28 @@
   </script>
 </head>
 <body>
+  <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
+  <script>
+    (function captureAttribution(){
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var existing = JSON.parse(localStorage.getItem('livi_attribution') || '{}');
+        var keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid','fbclid','yclid'];
+        var hasNew = false;
+        keys.forEach(function(k){
+          var val = params.get(k);
+          if(val){ existing[k] = val; hasNew = true; }
+        });
+        if(!existing.landing_page) existing.landing_page = window.location.pathname + window.location.search;
+        if(!existing.referrer && document.referrer) existing.referrer = document.referrer;
+        if(!existing.first_visit) existing.first_visit = new Date().toISOString();
+        if(hasNew || !localStorage.getItem('livi_attribution')){
+          localStorage.setItem('livi_attribution', JSON.stringify(existing));
+        }
+      } catch(e){}
+    })();
+  </script>
+
   <!-- Drawer -->
   <div id="drawer" class="drawer" aria-hidden="true">
     <div class="drawer-back" role="button" tabindex="0" aria-label="Мәзірді жабу"></div>
@@ -949,315 +970,315 @@
 
     <div class="grid" id="grid">
       <article class="card" data-id="prod_01">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Барокко інжу алқасы бар табиғи інжуден жасалған көпқатарлы алқа — қолмен жасалған (табиғи інжу, барокко інжуі, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_01.html" class="card-img-wrap"><img src="/assets/kole-iz-naturalnogo-zhemchuga-80000.webp" srcset="/assets/kole-iz-naturalnogo-zhemchuga-80000-750w.webp 750w, /assets/kole-iz-naturalnogo-zhemchuga-80000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Барокко інжу алқасы бар табиғи інжуден жасалған көпқатарлы алқа — қолмен жасалған (табиғи інжу, барокко інжуі, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_01.html" class="card-title-link" data-id="prod_01" data-title="Барокко інжу алқасы бар табиғи інжуден жасалған көпқатарлы алқа" data-price="80000" data-category="Necklaces">Барокко інжу алқасы бар табиғи інжуден жасалған көпқатарлы алқа</a></div>
           <div class="price">80 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_02">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp" alt="Табиғи інжу мен тау хрусталінен жасалған алқа (Премиум) — қолмен жасалған (табиғи інжу, тау хрусталі, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_02.html" class="card-img-wrap"><img src="/assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp" srcset="/assets/kole-iz-naturalnogo-zhemchuga-premium-80000-750w.webp 750w, /assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Табиғи інжу мен тау хрусталінен жасалған алқа (Премиум) — қолмен жасалған (табиғи інжу, тау хрусталі, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_02.html" class="card-title-link" data-id="prod_02" data-title="Табиғи інжу мен тау хрусталінен жасалған алқа (Премиум)" data-price="60000" data-category="Necklaces">Табиғи інжу мен тау хрусталінен жасалған алқа (Премиум)</a></div>
           <div class="price">60 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_03">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-zhemchuga-mayorka-34000.webp" alt="Майорка інжуінен жасалған классикалық алқа — қолмен жасалған (майорка інжуі, керамикалық моншақтар, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_03.html" class="card-img-wrap"><img src="/assets/kole-iz-zhemchuga-mayorka-34000.webp" srcset="/assets/kole-iz-zhemchuga-mayorka-34000-750w.webp 750w, /assets/kole-iz-zhemchuga-mayorka-34000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Майорка інжуінен жасалған классикалық алқа — қолмен жасалған (майорка інжуі, керамикалық моншақтар, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_03.html" class="card-title-link" data-id="prod_03" data-title="Майорка інжуінен жасалған классикалық алқа" data-price="34000" data-category="Necklaces">Майорка інжуінен жасалған классикалық алқа</a></div>
           <div class="price">34 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_04">
-        <div class="card-img-wrap"><img src="/assets/komplekt-tsep-braslet-40000.webp" alt="Алтын жалатылған тізбек және барокко інжулі білезік — қолмен жасалған (алтын жалату, табиғи барокко інжуі), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_04.html" class="card-img-wrap"><img src="/assets/komplekt-tsep-braslet-40000.webp" srcset="/assets/komplekt-tsep-braslet-40000-750w.webp 750w, /assets/komplekt-tsep-braslet-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Алтын жалатылған тізбек және барокко інжулі білезік — қолмен жасалған (алтын жалату, табиғи барокко інжуі), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_04.html" class="card-title-link" data-id="prod_04" data-title="Алтын жалатылған тізбек және барокко інжулі білезік" data-price="40000" data-category="Sets">Алтын жалатылған тізбек және барокко інжулі білезік</a></div>
           <div class="price">40 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_05">
-        <div class="card-img-wrap"><img src="/assets/tsep-rodirovannaya-braslet-40000.webp" alt="Родий жалатылған тізбек және барокко інжулі білезік — қолмен жасалған (родированная фурнитура, табиғи барокко інжуі), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_05.html" class="card-img-wrap"><img src="/assets/tsep-rodirovannaya-braslet-40000.webp" srcset="/assets/tsep-rodirovannaya-braslet-40000-750w.webp 750w, /assets/tsep-rodirovannaya-braslet-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Родий жалатылған тізбек және барокко інжулі білезік — қолмен жасалған (родированная фурнитура, табиғи барокко інжуі), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_05.html" class="card-title-link" data-id="prod_05" data-title="Родий жалатылған тізбек және барокко інжулі білезік" data-price="40000" data-category="Sets">Родий жалатылған тізбек және барокко інжулі білезік</a></div>
           <div class="price">40 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_06">
-        <div class="card-img-wrap"><img src="/assets/braslet-iz-malakhita-25000.webp" alt="Табиғи малахиттен жасалған білезік — қолмен жасалған (табиғи малахит, гипоаллергенді зергерлік қорытпа, алтын жалату), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_06.html" class="card-img-wrap"><img src="/assets/braslet-iz-malakhita-25000.webp" srcset="/assets/braslet-iz-malakhita-25000-750w.webp 750w, /assets/braslet-iz-malakhita-25000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Табиғи малахиттен жасалған білезік — қолмен жасалған (табиғи малахит, гипоаллергенді зергерлік қорытпа, алтын жалату), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_06.html" class="card-title-link" data-id="prod_06" data-title="Табиғи малахиттен жасалған білезік" data-price="25000" data-category="Bracelets">Табиғи малахиттен жасалған білезік</a></div>
           <div class="price">25 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_07">
-        <div class="card-img-wrap"><img src="/assets/garnitur-iz-ametista-i-zhemchuga-40000.webp" alt="Аметист пен інжу түйреуіш, білезік, сақина — қолмен жасалған (табиғи аметист, табиғи інжу, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_07.html" class="card-img-wrap"><img src="/assets/garnitur-iz-ametista-i-zhemchuga-40000.webp" srcset="/assets/garnitur-iz-ametista-i-zhemchuga-40000-750w.webp 750w, /assets/garnitur-iz-ametista-i-zhemchuga-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Аметист пен інжу түйреуіш, білезік, сақина — қолмен жасалған (табиғи аметист, табиғи інжу, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_07.html" class="card-title-link" data-id="prod_07" data-title="Аметист пен інжу түйреуіш, білезік, сақина" data-price="74000" data-category="Sets">Аметист пен інжу түйреуіш, білезік, сақина</a></div>
           <div class="price">74 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_08">
-        <div class="card-img-wrap"><img src="/assets/kole-lapy-40000.webp" alt="Табиғи інжуден жасалған «Лапы» авторлық алқасы — қолмен жасалған (табиғи інжу, гипоаллергенді зергерлік қорытпа, алтын жалату), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_08.html" class="card-img-wrap"><img src="/assets/kole-lapy-40000.webp" srcset="/assets/kole-lapy-40000-750w.webp 750w, /assets/kole-lapy-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Табиғи інжуден жасалған «Лапы» авторлық алқасы — қолмен жасалған (табиғи інжу, гипоаллергенді зергерлік қорытпа, алтын жалату), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_08.html" class="card-title-link" data-id="prod_08" data-title="Табиғи інжуден жасалған «Лапы» авторлық алқасы" data-price="40000" data-category="Necklaces">Табиғи інжуден жасалған «Лапы» авторлық алқасы</a></div>
           <div class="price">40 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_09">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-avantyurina-s-sergami-34000.webp" alt="Табиғи авантюрин алқасы мен сырғалар — қолмен жасалған (табиғи авантюрин, гипоаллергенді зергерлік қорытпа, алтын жалату), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_09.html" class="card-img-wrap"><img src="/assets/kole-iz-avantyurina-s-sergami-34000.webp" srcset="/assets/kole-iz-avantyurina-s-sergami-34000-750w.webp 750w, /assets/kole-iz-avantyurina-s-sergami-34000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Табиғи авантюрин алқасы мен сырғалар — қолмен жасалған (табиғи авантюрин, гипоаллергенді зергерлік қорытпа, алтын жалату), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_09.html" class="card-title-link" data-id="prod_09" data-title="Табиғи авантюрин алқасы мен сырғалар" data-price="44000" data-category="Sets">Табиғи авантюрин алқасы мен сырғалар</a></div>
           <div class="price">44 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_10">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-agata-i-granata-s-koltsom-40000.webp" alt="Агат пен анар тастан жасалған алқа және сақина — қолмен жасалған (табиғи агат, табиғи анар тас (гранат), гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_10.html" class="card-img-wrap"><img src="/assets/kole-iz-agata-i-granata-s-koltsom-40000.webp" srcset="/assets/kole-iz-agata-i-granata-s-koltsom-40000-750w.webp 750w, /assets/kole-iz-agata-i-granata-s-koltsom-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Агат пен анар тастан жасалған алқа және сақина — қолмен жасалған (табиғи агат, табиғи анар тас (гранат), гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_10.html" class="card-title-link" data-id="prod_10" data-title="Агат пен анар тастан жасалған алқа және сақина" data-price="48000" data-category="Sets">Агат пен анар тастан жасалған алқа және сақина</a></div>
           <div class="price">48 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_11">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp" alt="Аметист пен қызғылт кварц алқасы және аметист сырғалар — қолмен жасалған (табиғи аметист, қызғылт кварц, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_11.html" class="card-img-wrap"><img src="/assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp" srcset="/assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000-750w.webp 750w, /assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Аметист пен қызғылт кварц алқасы және аметист сырғалар — қолмен жасалған (табиғи аметист, қызғылт кварц, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_11.html" class="card-title-link" data-id="prod_11" data-title="Аметист пен қызғылт кварц алқасы және аметист сырғалар" data-price="61000" data-category="Sets">Аметист пен қызғылт кварц алқасы және аметист сырғалар</a></div>
           <div class="price">61 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_12">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-zhadeita-i-tigrovogo-glaza-s-sergami-36000.webp" alt="Жадеит пен жолбарыс көзінен алқа және сырғалар — қолмен жасалған (табиғи жадеит, жолбарыс көзі, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_12.html" class="card-img-wrap"><img src="/assets/kole-iz-zhadeita-i-tigrovogo-glaza-s-sergami-36000.webp" srcset="/assets/kole-iz-zhadeita-i-tigrovogo-glaza-s-sergami-36000-750w.webp 750w, /assets/kole-iz-zhadeita-i-tigrovogo-glaza-s-sergami-36000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Жадеит пен жолбарыс көзінен алқа және сырғалар — қолмен жасалған (табиғи жадеит, жолбарыс көзі, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_12.html" class="card-title-link" data-id="prod_12" data-title="Жадеит пен жолбарыс көзінен алқа және сырғалар" data-price="52000" data-category="Sets">Жадеит пен жолбарыс көзінен алқа және сырғалар</a></div>
           <div class="price">52 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_13">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-zhemchuga-mayorka-s-sergami-35000.webp" alt="Майорка інжуінен алқа және сырғалар — қолмен жасалған (майорка інжуі, гипоаллергенді зергерлік қорытпа, алтын жалату), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_13.html" class="card-img-wrap"><img src="/assets/kole-iz-zhemchuga-mayorka-s-sergami-35000.webp" srcset="/assets/kole-iz-zhemchuga-mayorka-s-sergami-35000-750w.webp 750w, /assets/kole-iz-zhemchuga-mayorka-s-sergami-35000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Майорка інжуінен алқа және сырғалар — қолмен жасалған (майорка інжуі, гипоаллергенді зергерлік қорытпа, алтын жалату), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_13.html" class="card-title-link" data-id="prod_13" data-title="Майорка інжуінен алқа және сырғалар" data-price="45000" data-category="Sets">Майорка інжуінен алқа және сырғалар</a></div>
           <div class="price">45 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_14">
-        <div class="card-img-wrap"><img src="/assets/komplekt-iz-koralla-i-yashmy-40000.webp" alt="Маржан (коралл) мен яшмадан алқа, білезік, сырғалар — қолмен жасалған (табиғи маржан (коралл), яшма, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_14.html" class="card-img-wrap"><img src="/assets/komplekt-iz-koralla-i-yashmy-40000.webp" srcset="/assets/komplekt-iz-koralla-i-yashmy-40000-750w.webp 750w, /assets/komplekt-iz-koralla-i-yashmy-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Маржан (коралл) мен яшмадан алқа, білезік, сырғалар — қолмен жасалған (табиғи маржан (коралл), яшма, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_14.html" class="card-title-link" data-id="prod_14" data-title="Маржан (коралл) мен яшмадан алқа, білезік, сырғалар" data-price="60000" data-category="Sets">Маржан (коралл) мен яшмадан алқа, білезік, сырғалар</a></div>
           <div class="price">60 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_15">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-rozovogo-kvartsa-i-zhemchuga-s-sergami-40000.webp" alt="Қызғылт кварц пен інжуден алқа және сырғалар — қолмен жасалған (қызғылт кварц, табиғи інжу, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_15.html" class="card-img-wrap"><img src="/assets/kole-iz-rozovogo-kvartsa-i-zhemchuga-s-sergami-40000.webp" srcset="/assets/kole-iz-rozovogo-kvartsa-i-zhemchuga-s-sergami-40000-750w.webp 750w, /assets/kole-iz-rozovogo-kvartsa-i-zhemchuga-s-sergami-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Қызғылт кварц пен інжуден алқа және сырғалар — қолмен жасалған (қызғылт кварц, табиғи інжу, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_15.html" class="card-title-link" data-id="prod_15" data-title="Қызғылт кварц пен інжуден алқа және сырғалар" data-price="56000" data-category="Sets">Қызғылт кварц пен інжуден алқа және сырғалар</a></div>
           <div class="price">56 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_16">
-        <div class="card-img-wrap"><img src="/assets/komplekt-iz-naturalnoy-biryuzy-50000.webp" alt="Табиғи фирузадан алқа мен сырғалар — қолмен жасалған (табиғи фируза (бирюза), гипоаллергенді зергерлік қорытпа, алтын жалату), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_16.html" class="card-img-wrap"><img src="/assets/komplekt-iz-naturalnoy-biryuzy-50000.webp" srcset="/assets/komplekt-iz-naturalnoy-biryuzy-50000-750w.webp 750w, /assets/komplekt-iz-naturalnoy-biryuzy-50000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Табиғи фирузадан алқа мен сырғалар — қолмен жасалған (табиғи фируза (бирюза), гипоаллергенді зергерлік қорытпа, алтын жалату), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_16.html" class="card-title-link" data-id="prod_16" data-title="Табиғи фирузадан алқа мен сырғалар" data-price="50000" data-category="Sets">Табиғи фирузадан алқа мен сырғалар</a></div>
           <div class="price">50 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_17">
-        <div class="card-img-wrap"><img src="/assets/ukrashenie-sotuar-iz-agata-i-granata-36000.webp" alt="Табиғи агат пен анар тастан жасалған сотуар-әшекей — қолмен жасалған (табиғи агат, табиғи анар тас (гранат), гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_17.html" class="card-img-wrap"><img src="/assets/ukrashenie-sotuar-iz-agata-i-granata-36000.webp" srcset="/assets/ukrashenie-sotuar-iz-agata-i-granata-36000-750w.webp 750w, /assets/ukrashenie-sotuar-iz-agata-i-granata-36000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Табиғи агат пен анар тастан жасалған сотуар-әшекей — қолмен жасалған (табиғи агат, табиғи анар тас (гранат), гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_17.html" class="card-title-link" data-id="prod_17" data-title="Табиғи агат пен анар тастан жасалған сотуар-әшекей" data-price="36000" data-category="Lariats">Табиғи агат пен анар тастан жасалған сотуар-әшекей</a></div>
           <div class="price">36 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_18">
-        <div class="card-img-wrap"><img src="/assets/bulavka-30000.webp" alt="Түйреуіш, білезік, сырғалар, сақина (тапсырыспен) — қолмен жасалған (табиғи інжу, табиғи тастар, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_18.html" class="card-img-wrap"><img src="/assets/bulavka-30000.webp" srcset="/assets/bulavka-30000-750w.webp 750w, /assets/bulavka-30000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Түйреуіш, білезік, сырғалар, сақина (тапсырыспен) — қолмен жасалған (табиғи інжу, табиғи тастар, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_18.html" class="card-title-link" data-id="prod_18" data-title="Түйреуіш, білезік, сырғалар, сақина (тапсырыспен)" data-price="74000" data-category="Sets">Түйреуіш, білезік, сырғалар, сақина (тапсырыспен)</a></div>
           <div class="price">74 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_19">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-tigrovogo-glaza-i-gematita-50000.webp" alt="Жолбарыс көзі мен гематиттен жасалған алқа — қолмен жасалған (жолбарыс көзі, гематит, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_19.html" class="card-img-wrap"><img src="/assets/kole-iz-tigrovogo-glaza-i-gematita-50000.webp" srcset="/assets/kole-iz-tigrovogo-glaza-i-gematita-50000-750w.webp 750w, /assets/kole-iz-tigrovogo-glaza-i-gematita-50000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Жолбарыс көзі мен гематиттен жасалған алқа — қолмен жасалған (жолбарыс көзі, гематит, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_19.html" class="card-title-link" data-id="prod_19" data-title="Жолбарыс көзі мен гематиттен жасалған алқа" data-price="50000" data-category="Necklaces">Жолбарыс көзі мен гематиттен жасалған алқа</a></div>
           <div class="price">50 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_20">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-flyuorita-i-tsirkonov-35000.webp" alt="Табиғи флюорит пен циркондардан жасалған алқа — қолмен жасалған (табиғи флюорит, циркондар, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_20.html" class="card-img-wrap"><img src="/assets/kole-iz-flyuorita-i-tsirkonov-35000.webp" srcset="/assets/kole-iz-flyuorita-i-tsirkonov-35000-750w.webp 750w, /assets/kole-iz-flyuorita-i-tsirkonov-35000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Табиғи флюорит пен циркондардан жасалған алқа — қолмен жасалған (табиғи флюорит, циркондар, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_20.html" class="card-title-link" data-id="prod_20" data-title="Табиғи флюорит пен циркондардан жасалған алқа" data-price="35000" data-category="Necklaces">Табиғи флюорит пен циркондардан жасалған алқа</a></div>
           <div class="price">35 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_21">
-        <div class="card-img-wrap"><img src="/assets/kole-s-klubnichkami-34000.webp" alt="«Құлпынай» және інжу қосылған қызғылт кварц алқалары — қолмен жасалған (табиғи інжу, қызғылт кварц, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_21.html" class="card-img-wrap"><img src="/assets/kole-s-klubnichkami-34000.webp" srcset="/assets/kole-s-klubnichkami-34000-750w.webp 750w, /assets/kole-s-klubnichkami-34000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="«Құлпынай» және інжу қосылған қызғылт кварц алқалары — қолмен жасалған (табиғи інжу, қызғылт кварц, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_21.html" class="card-title-link" data-id="prod_21" data-title="«Құлпынай» және інжу қосылған қызғылт кварц алқалары" data-price="74000" data-category="Sets">«Құлпынай» және інжу қосылған қызғылт кварц алқалары</a></div>
           <div class="price">74 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_22">
-        <div class="card-img-wrap"><img src="/assets/kole-granzh-45000.webp" alt="Табиғи інжу қосылған «Гранж» авторлық алқасы — қолмен жасалған (табиғи інжу, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_22.html" class="card-img-wrap"><img src="/assets/kole-granzh-45000.webp" srcset="/assets/kole-granzh-45000-750w.webp 750w, /assets/kole-granzh-45000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Табиғи інжу қосылған «Гранж» авторлық алқасы — қолмен жасалған (табиғи інжу, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_22.html" class="card-title-link" data-id="prod_22" data-title="Табиғи інжу қосылған «Гранж» авторлық алқасы" data-price="40000" data-category="Necklaces">Табиғи інжу қосылған «Гранж» авторлық алқасы</a></div>
           <div class="price">40 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_23">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-granata-40000.webp" alt="Табиғи анар тастан (гранат) жасалған алқа — қолмен жасалған (табиғи анар тас (гранат), гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_23.html" class="card-img-wrap"><img src="/assets/kole-iz-granata-40000.webp" srcset="/assets/kole-iz-granata-40000-750w.webp 750w, /assets/kole-iz-granata-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Табиғи анар тастан (гранат) жасалған алқа — қолмен жасалған (табиғи анар тас (гранат), гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_23.html" class="card-title-link" data-id="prod_23" data-title="Табиғи анар тастан (гранат) жасалған алқа" data-price="40000" data-category="Necklaces">Табиғи анар тастан (гранат) жасалған алқа</a></div>
           <div class="price">40 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_24">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-zhemchuga-i-lazurita-40000.webp" alt="Табиғи інжу мен лазуриттен жасалған алқа — қолмен жасалған (табиғи інжу, табиғи лазурит, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_24.html" class="card-img-wrap"><img src="/assets/kole-iz-zhemchuga-i-lazurita-40000.webp" srcset="/assets/kole-iz-zhemchuga-i-lazurita-40000-750w.webp 750w, /assets/kole-iz-zhemchuga-i-lazurita-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Табиғи інжу мен лазуриттен жасалған алқа — қолмен жасалған (табиғи інжу, табиғи лазурит, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_24.html" class="card-title-link" data-id="prod_24" data-title="Табиғи інжу мен лазуриттен жасалған алқа" data-price="40000" data-category="Necklaces">Табиғи інжу мен лазуриттен жасалған алқа</a></div>
           <div class="price">40 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_25">
-        <div class="card-img-wrap"><img src="/assets/granata-i-zhemchuga-40000.webp" alt="Анар тас (гранат) пен табиғи інжуден жасалған алқа — қолмен жасалған (табиғи інжу, табиғи анар тас (гранат), гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_25.html" class="card-img-wrap"><img src="/assets/granata-i-zhemchuga-40000.webp" srcset="/assets/granata-i-zhemchuga-40000-750w.webp 750w, /assets/granata-i-zhemchuga-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Анар тас (гранат) пен табиғи інжуден жасалған алқа — қолмен жасалған (табиғи інжу, табиғи анар тас (гранат), гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_25.html" class="card-title-link" data-id="prod_25" data-title="Анар тас (гранат) пен табиғи інжуден жасалған алқа" data-price="40000" data-category="Necklaces">Анар тас (гранат) пен табиғи інжуден жасалған алқа</a></div>
           <div class="price">40 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_26">
-        <div class="card-img-wrap"><img src="/assets/komplekt-kole-s-biryuzoy-sergi-50000.webp" alt="Фируза (бирюза) қосылған алқа және сырғалар — қолмен жасалған (табиғи фируза (бирюза), гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_26.html" class="card-img-wrap"><img src="/assets/komplekt-kole-s-biryuzoy-sergi-50000.webp" srcset="/assets/komplekt-kole-s-biryuzoy-sergi-50000-750w.webp 750w, /assets/komplekt-kole-s-biryuzoy-sergi-50000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Фируза (бирюза) қосылған алқа және сырғалар — қолмен жасалған (табиғи фируза (бирюза), гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_26.html" class="card-title-link" data-id="prod_26" data-title="Фируза (бирюза) қосылған алқа және сырғалар" data-price="50000" data-category="Sets">Фируза (бирюза) қосылған алқа және сырғалар</a></div>
           <div class="price">50 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_27">
-        <div class="card-img-wrap"><img src="/assets/komplekt-nefrita-i-gematita-sergi-61000.webp" alt="Нефрит пен гематит алқасы және сырғалар — қолмен жасалған (табиғи нефрит, гематит, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_27.html" class="card-img-wrap"><img src="/assets/komplekt-nefrita-i-gematita-sergi-61000.webp" srcset="/assets/komplekt-nefrita-i-gematita-sergi-61000-750w.webp 750w, /assets/komplekt-nefrita-i-gematita-sergi-61000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Нефрит пен гематит алқасы және сырғалар — қолмен жасалған (табиғи нефрит, гематит, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_27.html" class="card-title-link" data-id="prod_27" data-title="Нефрит пен гематит алқасы және сырғалар" data-price="61000" data-category="Sets">Нефрит пен гематит алқасы және сырғалар</a></div>
           <div class="price">61 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_28">
-        <div class="card-img-wrap"><img src="/assets/komplekt-komplekt-iz-biryuzy-kole-braslet-sergi-koltso-91000.webp" alt="Табиғи фирузадан алқа, білезік, сырғалар, сақина — қолмен жасалған (табиғи фируза (бирюза), гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_28.html" class="card-img-wrap"><img src="/assets/komplekt-komplekt-iz-biryuzy-kole-braslet-sergi-koltso-91000.webp" srcset="/assets/komplekt-komplekt-iz-biryuzy-kole-braslet-sergi-koltso-91000-750w.webp 750w, /assets/komplekt-komplekt-iz-biryuzy-kole-braslet-sergi-koltso-91000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Табиғи фирузадан алқа, білезік, сырғалар, сақина — қолмен жасалған (табиғи фируза (бирюза), гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_28.html" class="card-title-link" data-id="prod_28" data-title="Табиғи фирузадан алқа, білезік, сырғалар, сақина" data-price="91000" data-category="Sets">Табиғи фирузадан алқа, білезік, сырғалар, сақина</a></div>
           <div class="price">91 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_29">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-gematita-32000.webp" alt="Табиғи гематиттен жасалған алқа — қолмен жасалған (гематит, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_29.html" class="card-img-wrap"><img src="/assets/kole-iz-gematita-32000.webp" srcset="/assets/kole-iz-gematita-32000-750w.webp 750w, /assets/kole-iz-gematita-32000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Табиғи гематиттен жасалған алқа — қолмен жасалған (гематит, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_29.html" class="card-title-link" data-id="prod_29" data-title="Табиғи гематиттен жасалған алқа" data-price="32000" data-category="Necklaces">Табиғи гематиттен жасалған алқа</a></div>
           <div class="price">32 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_30">
-        <div class="card-img-wrap"><img src="/assets/komplekt-kole-iz-naturalnykh-kamney-braslet-38000.webp" alt="Табиғи тастардан жасалған алқа және білезік — қолмен жасалған (гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_30.html" class="card-img-wrap"><img src="/assets/komplekt-kole-iz-naturalnykh-kamney-braslet-38000.webp" srcset="/assets/komplekt-kole-iz-naturalnykh-kamney-braslet-38000-750w.webp 750w, /assets/komplekt-kole-iz-naturalnykh-kamney-braslet-38000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Табиғи тастардан жасалған алқа және білезік — қолмен жасалған (гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_30.html" class="card-title-link" data-id="prod_30" data-title="Табиғи тастардан жасалған алқа және білезік" data-price="38000" data-category="Sets">Табиғи тастардан жасалған алқа және білезік</a></div>
           <div class="price">38 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_31">
-        <div class="card-img-wrap"><img src="/assets/komplekt-kole-iz-yashmy-braslet-46000.webp" alt="Яшмадан жасалған алқа және білезік — қолмен жасалған (яшма, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_31.html" class="card-img-wrap"><img src="/assets/komplekt-kole-iz-yashmy-braslet-46000.webp" srcset="/assets/komplekt-kole-iz-yashmy-braslet-46000-750w.webp 750w, /assets/komplekt-kole-iz-yashmy-braslet-46000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Яшмадан жасалған алқа және білезік — қолмен жасалған (яшма, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_31.html" class="card-title-link" data-id="prod_31" data-title="Яшмадан жасалған алқа және білезік" data-price="46000" data-category="Sets">Яшмадан жасалған алқа және білезік</a></div>
           <div class="price">46 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_32">
-        <div class="card-img-wrap"><img src="/assets/komplekt-komplekt-iz-naturalnykh-kamney-kole-braslet-38000.webp" alt="Табиғи тастар жиынтығы: алқа мен білезік — қолмен жасалған (гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_32.html" class="card-img-wrap"><img src="/assets/komplekt-komplekt-iz-naturalnykh-kamney-kole-braslet-38000.webp" srcset="/assets/komplekt-komplekt-iz-naturalnykh-kamney-kole-braslet-38000-750w.webp 750w, /assets/komplekt-komplekt-iz-naturalnykh-kamney-kole-braslet-38000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Табиғи тастар жиынтығы: алқа мен білезік — қолмен жасалған (гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_32.html" class="card-title-link" data-id="prod_32" data-title="Табиғи тастар жиынтығы: алқа мен білезік" data-price="38000" data-category="Sets">Табиғи тастар жиынтығы: алқа мен білезік</a></div>
           <div class="price">38 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_33">
-        <div class="card-img-wrap"><img src="/assets/komplekt-komplekt-iz-naturalnykh-kamney-kole-braslet-sergi-48000.webp" alt="Табиғи тастардан жасалған алқа, білезік және сырғалар — қолмен жасалған (гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_33.html" class="card-img-wrap"><img src="/assets/komplekt-komplekt-iz-naturalnykh-kamney-kole-braslet-sergi-48000.webp" srcset="/assets/komplekt-komplekt-iz-naturalnykh-kamney-kole-braslet-sergi-48000-750w.webp 750w, /assets/komplekt-komplekt-iz-naturalnykh-kamney-kole-braslet-sergi-48000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Табиғи тастардан жасалған алқа, білезік және сырғалар — қолмен жасалған (гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_33.html" class="card-title-link" data-id="prod_33" data-title="Табиғи тастардан жасалған алқа, білезік және сырғалар" data-price="48000" data-category="Sets">Табиғи тастардан жасалған алқа, білезік және сырғалар</a></div>
           <div class="price">48 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_34">
-        <div class="card-img-wrap"><img src="/assets/sergi-15000.webp" alt="Авторлық қолдан жасалған сырғалар — қолмен жасалған (гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_34.html" class="card-img-wrap"><img src="/assets/sergi-15000.webp" srcset="/assets/sergi-15000-750w.webp 750w, /assets/sergi-15000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Авторлық қолдан жасалған сырғалар — қолмен жасалған (гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_34.html" class="card-title-link" data-id="prod_34" data-title="Авторлық қолдан жасалған сырғалар" data-price="15000" data-category="Earrings">Авторлық қолдан жасалған сырғалар</a></div>
           <div class="price">15 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_50">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-tigrovogo-glaza-i-braslet-32000.webp" alt="Жолбарыс көзінен жасалған алқа және білезік — қолмен жасалған (жолбарыс көзі, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_50.html" class="card-img-wrap"><img src="/assets/kole-iz-tigrovogo-glaza-i-braslet-32000.webp" srcset="/assets/kole-iz-tigrovogo-glaza-i-braslet-32000-750w.webp 750w, /assets/kole-iz-tigrovogo-glaza-i-braslet-32000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Жолбарыс көзінен жасалған алқа және білезік — қолмен жасалған (жолбарыс көзі, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_50.html" class="card-title-link" data-id="prod_50" data-title="Жолбарыс көзінен жасалған алқа және білезік" data-price="32000" data-category="Sets">Жолбарыс көзінен жасалған алқа және білезік</a></div>
           <div class="price">32 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_52">
-        <div class="card-img-wrap"><img src="/assets/gematita-i-zhemchuga-mayorka-40000.webp" alt="Гематит пен Майорка інжуінен жасалған алқа — қолмен жасалған (табиғи інжу, гематит, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_52.html" class="card-img-wrap"><img src="/assets/gematita-i-zhemchuga-mayorka-40000.webp" srcset="/assets/gematita-i-zhemchuga-mayorka-40000-750w.webp 750w, /assets/gematita-i-zhemchuga-mayorka-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Гематит пен Майорка інжуінен жасалған алқа — қолмен жасалған (табиғи інжу, гематит, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_52.html" class="card-title-link" data-id="prod_52" data-title="Гематит пен Майорка інжуінен жасалған алқа" data-price="40000" data-category="Necklaces">Гематит пен Майорка інжуінен жасалған алқа</a></div>
           <div class="price">40 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_53">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-gematita-i-tsirkonov-braslet-51000.webp" alt="Гематит пен циркондардан жасалған алқа және білезік — қолмен жасалған (циркондар, гематит, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_53.html" class="card-img-wrap"><img src="/assets/kole-iz-gematita-i-tsirkonov-braslet-51000.webp" srcset="/assets/kole-iz-gematita-i-tsirkonov-braslet-51000-750w.webp 750w, /assets/kole-iz-gematita-i-tsirkonov-braslet-51000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Гематит пен циркондардан жасалған алқа және білезік — қолмен жасалған (циркондар, гематит, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_53.html" class="card-title-link" data-id="prod_53" data-title="Гематит пен циркондардан жасалған алқа және білезік" data-price="51000" data-category="Sets">Гематит пен циркондардан жасалған алқа және білезік</a></div>
           <div class="price">51 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_54">
-        <div class="card-img-wrap"><img src="/assets/kole-lapy-v-chernom-tsvete-40000.webp" alt="Қара түсті «Лапы» авторлық алқасы — қолмен жасалған (гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_54.html" class="card-img-wrap"><img src="/assets/kole-lapy-v-chernom-tsvete-40000.webp" srcset="/assets/kole-lapy-v-chernom-tsvete-40000-750w.webp 750w, /assets/kole-lapy-v-chernom-tsvete-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Қара түсті «Лапы» авторлық алқасы — қолмен жасалған (гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_54.html" class="card-title-link" data-id="prod_54" data-title="Қара түсті «Лапы» авторлық алқасы" data-price="40000" data-category="Necklaces">Қара түсті «Лапы» авторлық алқасы</a></div>
           <div class="price">40 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_60">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-akva-kvartsa-i-zhemchuga-40000.webp" alt="Колье из аква кварца и жемчуга — қолмен жасалған (табиғи інжу, қызғылт кварц, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_60.html" class="card-img-wrap"><img src="/assets/kole-iz-akva-kvartsa-i-zhemchuga-40000.webp" srcset="/assets/kole-iz-akva-kvartsa-i-zhemchuga-40000-750w.webp 750w, /assets/kole-iz-akva-kvartsa-i-zhemchuga-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из аква кварца и жемчуга — қолмен жасалған (табиғи інжу, қызғылт кварц, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_60.html" class="card-title-link" data-id="prod_60" data-title="Колье из аква кварца и жемчуга" data-price="40000" data-category="Necklaces">Колье из аква кварца и жемчуга</a></div>
           <div class="price">40 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_61">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-gornogo-khrustalya-i-zhemchuga-sergi-70000.webp" alt="Колье из горного хрусталя и жемчуга, серьги — қолмен жасалған (табиғи інжу, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_61.html" class="card-img-wrap"><img src="/assets/kole-iz-gornogo-khrustalya-i-zhemchuga-sergi-70000.webp" srcset="/assets/kole-iz-gornogo-khrustalya-i-zhemchuga-sergi-70000-750w.webp 750w, /assets/kole-iz-gornogo-khrustalya-i-zhemchuga-sergi-70000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из горного хрусталя и жемчуга, серьги — қолмен жасалған (табиғи інжу, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_61.html" class="card-title-link" data-id="prod_61" data-title="Колье из горного хрусталя и жемчуга, серьги" data-price="70000" data-category="Sets">Колье из горного хрусталя и жемчуга, серьги</a></div>
           <div class="price">70 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_62">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-zhemchuga-i-ametista-50000.webp" alt="Колье из жемчуга и аметиста — қолмен жасалған (табиғи інжу, табиғи аметист, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_62.html" class="card-img-wrap"><img src="/assets/kole-iz-zhemchuga-i-ametista-50000.webp" srcset="/assets/kole-iz-zhemchuga-i-ametista-50000-750w.webp 750w, /assets/kole-iz-zhemchuga-i-ametista-50000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из жемчуга и аметиста — қолмен жасалған (табиғи інжу, табиғи аметист, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_62.html" class="card-title-link" data-id="prod_62" data-title="Колье из жемчуга и аметиста" data-price="50000" data-category="Necklaces">Колье из жемчуга и аметиста</a></div>
           <div class="price">50 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_63">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-zhemchuga-i-gornogo-khrustalya-sergi-69000.webp" alt="Колье из жемчуга и горного хрусталя, серьги — қолмен жасалған (табиғи інжу, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_63.html" class="card-img-wrap"><img src="/assets/kole-iz-zhemchuga-i-gornogo-khrustalya-sergi-69000.webp" srcset="/assets/kole-iz-zhemchuga-i-gornogo-khrustalya-sergi-69000-750w.webp 750w, /assets/kole-iz-zhemchuga-i-gornogo-khrustalya-sergi-69000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из жемчуга и горного хрусталя, серьги — қолмен жасалған (табиғи інжу, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_63.html" class="card-title-link" data-id="prod_63" data-title="Колье из жемчуга и горного хрусталя, серьги" data-price="69000" data-category="Sets">Колье из жемчуга и горного хрусталя, серьги</a></div>
           <div class="price">69 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_64">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-agata-i-braslet-47000.webp" alt="Колье из Агата и браслет — қолмен жасалған (табиғи агат, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_64.html" class="card-img-wrap"><img src="/assets/kole-iz-agata-i-braslet-47000.webp" srcset="/assets/kole-iz-agata-i-braslet-47000-750w.webp 750w, /assets/kole-iz-agata-i-braslet-47000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из Агата и браслет — қолмен жасалған (табиғи агат, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_64.html" class="card-title-link" data-id="prod_64" data-title="Колье из Агата и браслет" data-price="47000" data-category="Sets">Колье из Агата и браслет</a></div>
           <div class="price">47 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_65">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-naturalnogo-zhemchuga-70000.webp" alt="Колье из натурального жемчуга — қолмен жасалған (табиғи інжу, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_65.html" class="card-img-wrap"><img src="/assets/kole-iz-naturalnogo-zhemchuga-70000.webp" srcset="/assets/kole-iz-naturalnogo-zhemchuga-70000-750w.webp 750w, /assets/kole-iz-naturalnogo-zhemchuga-70000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из натурального жемчуга — қолмен жасалған (табиғи інжу, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_65.html" class="card-title-link" data-id="prod_65" data-title="Колье из натурального жемчуга" data-price="70000" data-category="Necklaces">Колье из натурального жемчуга</a></div>
           <div class="price">70 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_66">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-tigrovogo-glaza-i-zhemchuga-34000.webp" alt="Колье из тигрового глаза и жемчуга — қолмен жасалған (табиғи інжу, жолбарыс көзі, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/kz/product/prod_66.html" class="card-img-wrap"><img src="/assets/kole-iz-tigrovogo-glaza-i-zhemchuga-34000.webp" srcset="/assets/kole-iz-tigrovogo-glaza-i-zhemchuga-34000-750w.webp 750w, /assets/kole-iz-tigrovogo-glaza-i-zhemchuga-34000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из тигрового глаза и жемчуга — қолмен жасалған (табиғи інжу, жолбарыс көзі, гипоаллергенді зергерлік қорытпа), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/kz/product/prod_66.html" class="card-title-link" data-id="prod_66" data-title="Колье из тигрового глаза и жемчуга" data-price="34000" data-category="Necklaces">Колье из тигрового глаза и жемчуга</a></div>
           <div class="price">34 000 ₸</div>
@@ -1493,11 +1514,7 @@
             page_location: window.location.href,
             lead_source: 'kz_shop_wa'
           });
-          gtag('event', 'conversion', {
-            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
-            'value': 1.0,
-            'currency': 'USD'
-          });
+          gtag('event', 'conversion', { 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' });
         }
       } catch (err) {}
     });

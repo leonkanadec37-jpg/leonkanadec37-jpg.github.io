@@ -44,7 +44,7 @@ GA_ID = "G-YFF2TR0N36"
 AW_ID = "AW-16793974126"
 AW_CONV_LABEL = "AW-16793974126/MuJ_CObHup8bEO7q_sc-"
 FB_PIXEL_1 = "199604456030882"
-FB_PIXEL_2 = "4185620171718327"
+# FB_PIXEL_2 removed
 GOOGLE_VERIFICATION = "qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0"
 FB_DOMAIN_VERIFICATION = "lrr1e3sbmseisnpm2nclqko8w1rfcw"
 
@@ -592,13 +592,16 @@ def build_kz_card_html(pk: dict, indent: str = "      ") -> str:
     title = html.escape(pk["title"])
     price_num = pk["price"]
     price_str = format_price_kz(price_num)
-    img = pk["image"]
+    img = pk["image"].lstrip("/")
+    base_img, _ = os.path.splitext(img)
+    mob_img = f"{base_img}-750w.webp"
+    srcset_attr = f' srcset="/{mob_img} 750w, /{img} 1440w" sizes="(max-width: 768px) 50vw, 300px"' if os.path.exists(mob_img) else ""
     stones = ", ".join(pk["materials"]).lower()
     alt = html.escape(f"{pk['title']} — қолмен жасалған ({stones}), Livi Jewelry")
     cat = html.escape(pk["category"])
     return (
         f'{indent}<article class="card" data-id="{pid}">\n'
-        f'{indent}  <div class="card-img-wrap"><img src="{img}" alt="{alt}" loading="lazy" decoding="async" width="600" height="800"></div>\n'
+        f'{indent}  <a href="/kz/product/{pid}.html" class="card-img-wrap"><img src="/{img}"{srcset_attr} alt="{alt}" loading="lazy" decoding="async" width="600" height="800"></a>\n'
         f'{indent}  <div class="body">\n'
         f'{indent}    <div class="title"><a href="/kz/product/{pid}.html" class="card-title-link" data-id="{pid}" data-title="{title}" data-price="{price_num}" data-category="{cat}">{title}</a></div>\n'
         f'{indent}    <div class="price">{price_str} ₸</div>\n'
@@ -864,10 +867,9 @@ def generate_kz_index(products_kz: list) -> str:
     s.parentNode.insertBefore(t,s)}}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '{FB_PIXEL_1}');
-    fbq('init', '{FB_PIXEL_2}');
     fbq('track', 'PageView');
   </script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_2}&ev=PageView&noscript=1" /></noscript>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /></noscript>
 
   <script type="application/ld+json">
 {json.dumps(graph_ld, ensure_ascii=False, indent=2)}
@@ -1098,11 +1100,7 @@ def generate_kz_index(products_kz: list) -> str:
             page_location: window.location.href,
             lead_source: 'kz_index_wa'
           }});
-          gtag('event', 'conversion', {{
-            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
-            'value': 1.0,
-            'currency': 'USD'
-          }});
+          gtag('event', 'conversion', {{ 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' }});
         }}
       }} catch (err) {{}}
     }});
@@ -1214,16 +1212,37 @@ def generate_kz_shop(products_kz: list) -> str:
     s.parentNode.insertBefore(t,s)}}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '{FB_PIXEL_1}');
-    fbq('init', '{FB_PIXEL_2}');
     fbq('track', 'PageView');
   </script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_2}&ev=PageView&noscript=1" /></noscript>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /></noscript>
 
   <script type="application/ld+json">
 {json.dumps(item_list_ld, ensure_ascii=False, indent=2)}
   </script>
 </head>
 <body>
+  <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
+  <script>
+    (function captureAttribution(){{
+      try {{
+        var params = new URLSearchParams(window.location.search);
+        var existing = JSON.parse(localStorage.getItem('livi_attribution') || '{{}}');
+        var keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid','fbclid','yclid'];
+        var hasNew = false;
+        keys.forEach(function(k){{
+          var val = params.get(k);
+          if(val){{ existing[k] = val; hasNew = true; }}
+        }});
+        if(!existing.landing_page) existing.landing_page = window.location.pathname + window.location.search;
+        if(!existing.referrer && document.referrer) existing.referrer = document.referrer;
+        if(!existing.first_visit) existing.first_visit = new Date().toISOString();
+        if(hasNew || !localStorage.getItem('livi_attribution')){{
+          localStorage.setItem('livi_attribution', JSON.stringify(existing));
+        }}
+      }} catch(e){{}}
+    }})();
+  </script>
+
   <!-- Drawer -->
   <div id="drawer" class="drawer" aria-hidden="true">
     <div class="drawer-back" role="button" tabindex="0" aria-label="Мәзірді жабу"></div>
@@ -1521,11 +1540,7 @@ def generate_kz_shop(products_kz: list) -> str:
             page_location: window.location.href,
             lead_source: 'kz_shop_wa'
           }});
-          gtag('event', 'conversion', {{
-            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
-            'value': 1.0,
-            'currency': 'USD'
-          }});
+          gtag('event', 'conversion', {{ 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' }});
         }}
       }} catch (err) {{}}
     }});
@@ -1546,6 +1561,8 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
     cat_hub_url, cat_hub_label = CATEGORY_HUB_LINKS.get(category, ("/kz/shop.html", "Каталог"))
 
     img_rel = pk["image"].lstrip("/")
+    base_rel, _ = os.path.splitext(img_rel)
+    mob_img_rel = f"{base_rel}-750w.webp"
     img_abs = f"{SITE_URL}/{img_rel}"
     ru_page_url = f"{SITE_URL}/product/{pid}.html"
     page_url = f"{SITE_URL}/kz/product/{pid}.html"
@@ -1941,10 +1958,19 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){{dataLayer.push(arguments);}}
+    gtag('consent', 'default', {{
+      'ad_storage': 'granted',
+      'analytics_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'wait_for_update': 500
+    }});
+    gtag('set', 'url_passthrough', true);
+    gtag('set', 'ads_data_redaction', false);
     gtag('js', new Date());
 
-    gtag('config', '{GA_ID}');
-    gtag('config', '{AW_ID}');
+    gtag('config', '{GA_ID}', {{ 'linker': {{ 'domains': ['livijewelry.kz'] }} }});
+    gtag('config', '{AW_ID}', {{ 'allow_enhanced_conversions': true, 'linker': {{ 'domains': ['livijewelry.kz'] }} }});
   </script>
 
   <!-- Meta Pixel Code -->
@@ -1959,12 +1985,11 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
   'https://connect.facebook.net/en_US/fbevents.js');
 
   fbq('init', '{FB_PIXEL_1}');
-  fbq('init', '{FB_PIXEL_2}');
   fbq('track', 'PageView');
   </script>
   <noscript>
     <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1"/>
-    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_2}&ev=PageView&noscript=1"/>
+    
   </noscript>
   <!-- End Meta Pixel Code -->
 
@@ -2028,6 +2053,28 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
   </script>
 </head>
 <body>
+  <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
+  <script>
+    (function captureAttribution(){{
+      try {{
+        var params = new URLSearchParams(window.location.search);
+        var existing = JSON.parse(localStorage.getItem('livi_attribution') || '{{}}');
+        var keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid','fbclid','yclid'];
+        var hasNew = false;
+        keys.forEach(function(k){{
+          var val = params.get(k);
+          if(val){{ existing[k] = val; hasNew = true; }}
+        }});
+        if(!existing.landing_page) existing.landing_page = window.location.pathname + window.location.search;
+        if(!existing.referrer && document.referrer) existing.referrer = document.referrer;
+        if(!existing.first_visit) existing.first_visit = new Date().toISOString();
+        if(hasNew || !localStorage.getItem('livi_attribution')){{
+          localStorage.setItem('livi_attribution', JSON.stringify(existing));
+        }}
+      }} catch(e){{}}
+    }})();
+  </script>
+
   <!-- Drawer -->
   <div id="drawer" class="drawer" aria-hidden="true">
     <div class="drawer-back" role="button" tabindex="0" aria-label="Мәзірді жабу"></div>
@@ -2100,7 +2147,7 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
 
     <div class="product-detail-grid">
       <div class="product-gallery">
-        <img src="/{img_rel}" alt="{html.escape(title)} — Livi Jewelry" width="900" height="1200" fetchpriority="high" decoding="async" />
+        <img src="/{img_rel}" srcset="/{mob_img_rel} 750w, /{img_rel} 1440w" sizes="(max-width: 640px) 100vw, 50vw" alt="{html.escape(title)} — Livi Jewelry" width="900" height="1200" fetchpriority="high" decoding="async" />
       </div>
 
       <div class="product-info-col">
@@ -2197,6 +2244,15 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
       </div>
     </div>
   </footer>
+
+  <!-- Mobile Sticky Bottom Bar (Only visible on screens <= 768px) -->
+  <aside class="mobile-sticky-bar" aria-label="Тапсырыс беру">
+    <div class="mobile-sticky-price">{price_fmt} ₸</div>
+    <div class="mobile-sticky-actions">
+      <button type="button" id="stickyCartBtn" class="btn btn-sticky-cart">Себетке</button>
+      <a id="stickyWaBtn" href="{wa_href}" class="btn btn-sticky-wa" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </aside>
 
   <!-- Floating WhatsApp Widget -->
   <a class="floating-wa" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener" aria-label="WhatsApp арқылы кеңес алу">
@@ -2320,12 +2376,16 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
         const addBtn = document.getElementById('addToCartBtn');
         if (addBtn) addBtn.textContent = 'Себетке қосу — ' + formatKZT(newPrice) + ' ₸';
 
+        const stickyPrice = document.querySelector('.mobile-sticky-price');
+        if (stickyPrice) stickyPrice.textContent = formatKZT(newPrice) + ' ₸';
+        const stickyWa = document.getElementById('stickyWaBtn');
         const waBtn = document.getElementById('waOrderBtn');
         if (waBtn) {{
           const waMsg = 'Сәлеметсіз бе! Келесі әшекейге тапсырыс бергім келеді: ' + PRODUCT.title +
             ' (' + optName + ', Артикул: ' + PRODUCT.sku + ') — ' + formatKZT(newPrice) + ' ₸.\\n' +
             'Сілтеме: ' + PRODUCT.url;
           waBtn.href = 'https://wa.me/77054510584?text=' + encodeURIComponent(waMsg);
+          if (stickyWa) stickyWa.href = waBtn.href;
         }}
 
         try {{
@@ -2354,73 +2414,70 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
       }});
     }}
 
-    // Add to cart
-    const addBtn = document.getElementById('addToCartBtn');
-    if (addBtn) {{
-      addBtn.onclick = () => {{
-        const sizeEl = document.getElementById('customSize');
-        const bundleOpt = bundleSelect ? bundleSelect.options[bundleSelect.selectedIndex].value : '';
+    // Add to cart with direct checkout transition
+    function handleAddToCart() {{
+      const sizeEl = document.getElementById('customSize');
+      const bundleOpt = bundleSelect ? bundleSelect.options[bundleSelect.selectedIndex].value : '';
+      const selectedSize = sizeEl ? sizeEl.value : '';
 
-        const selectedSize = sizeEl ? sizeEl.value : '';
+      const cart = readCart();
+      const cartItemId = PRODUCT.id + (bundleSelect ? ('-' + bundleSelect.selectedIndex) : '');
+      const existing = cart.find(i => (i.cartItemId || i.id) === cartItemId);
 
-        const cart = readCart();
-        const cartItemId = PRODUCT.id + (bundleSelect ? ('-' + bundleSelect.selectedIndex) : '');
-        const existing = cart.find(i => (i.cartItemId || i.id) === cartItemId);
+      if (existing) {{
+        existing.qty = (existing.qty || 1) + 1;
+      }} else {{
+        cart.push({{
+          id: cartItemId,
+          cartItemId: cartItemId,
+          sku: PRODUCT.sku,
+          title: currentActiveTitle,
+          price: currentActivePrice,
+          unit: currentActivePrice,
+          image: PRODUCT.image,
+          category: PRODUCT.category,
+          qty: 1,
+          customBundle: bundleOpt,
+          customSize: selectedSize,
+          bundleOption: bundleOpt,
+          size: selectedSize,
+          url: PRODUCT.url
+        }});
+      }}
+      writeCart(cart);
 
-        if (existing) {{
-          existing.qty = (existing.qty || 1) + 1;
-        }} else {{
-          cart.push({{
-            id: cartItemId,
-            cartItemId: cartItemId,
-            sku: PRODUCT.sku,
-            title: currentActiveTitle,
-            price: currentActivePrice,
-            unit: currentActivePrice,
-            image: PRODUCT.image,
-            category: PRODUCT.category,
-            qty: 1,
-            customBundle: bundleOpt,
-            customSize: selectedSize,
-            bundleOption: bundleOpt,
-            size: selectedSize,
-            url: PRODUCT.url
+      try {{
+        if (typeof gtag === 'function') {{
+          gtag('event', 'add_to_cart', {{
+            currency: 'KZT',
+            value: currentActivePrice,
+            items: [{{
+              item_id: PRODUCT.id,
+              item_name: currentActiveTitle,
+              item_category: PRODUCT.category,
+              price: currentActivePrice,
+              quantity: 1
+            }}]
           }});
         }}
-        writeCart(cart);
-
-        const toast = document.getElementById('addedToast');
-        if (toast) {{
-          toast.style.display = 'block';
-          setTimeout(() => {{ toast.style.display = 'none'; }}, 6000);
+        if (window.fbq) {{
+          fbq('track', 'AddToCart', {{
+            content_ids: [PRODUCT.id],
+            content_name: currentActiveTitle,
+            content_type: 'product',
+            value: Math.max(1, Number(currentActivePrice || PRODUCT.price || 40000)),
+            currency: 'KZT'
+          }});
         }}
+      }} catch(e){{}}
 
-        try {{
-          if (typeof gtag === 'function') {{
-            gtag('event', 'add_to_cart', {{
-              currency: 'KZT',
-              value: currentActivePrice,
-              items: [{{
-                item_id: PRODUCT.id,
-                item_name: currentActiveTitle,
-                item_category: PRODUCT.category,
-                price: currentActivePrice,
-                quantity: 1
-              }}]
-            }});
-          }}
-          if (window.fbq) {{
-            fbq('track', 'AddToCart', {{
-              content_ids: [PRODUCT.id],
-              content_name: currentActiveTitle,
-              content_type: 'product',
-              value: Math.max(1, Number(currentActivePrice || PRODUCT.price || 40000)),
-              currency: 'KZT'
-            }});
-          }}
-        }} catch(e){{}}
-      }};
+      window.location.href = '/kz/cart.html';
     }}
+
+    const addBtn = document.getElementById('addToCartBtn');
+    if (addBtn) addBtn.onclick = handleAddToCart;
+    const stickyCartBtn = document.getElementById('stickyCartBtn');
+    if (stickyCartBtn) stickyCartBtn.onclick = handleAddToCart;
 
     // WhatsApp Order Button and Global WhatsApp tracking
     const waOrderBtnEl = document.getElementById('waOrderBtn');
@@ -2452,11 +2509,7 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
               page_location: window.location.href,
               lead_source: 'kz_product_' + PRODUCT.id
             }});
-            gtag('event', 'conversion', {{
-              'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
-              'value': 1.0,
-              'currency': 'USD'
-            }});
+            gtag('event', 'conversion', {{ 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' }});
           }}
         }} catch(e){{}}
       }});
@@ -2491,11 +2544,7 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
             page_location: window.location.href,
             lead_source: 'kz_wa_link'
           }});
-          gtag('event', 'conversion', {{
-            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
-            'value': 1.0,
-            'currency': 'USD'
-          }});
+          gtag('event', 'conversion', {{ 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' }});
         }}
       }} catch(err){{}}
     }});

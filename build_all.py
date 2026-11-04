@@ -32,6 +32,7 @@ except Exception:
     pass
 
 STEPS = [
+    ("scripts/generate_mobile_images.py", "0/10 Генерация мобильных 750w WebP изображений"),
     ("scripts/generate_product_pages.py", "1/10 Генерация RU страниц товаров и пререндеринг витрин"),
     ("scripts/generate_seo_hubs.py", "2/10 Генерация 21 кластерного SEO-хаба (RU, KZ, UZ)"),
     ("scripts/generate_kz_pages.py", "3/10 Генерация казахской витрины и KZ страниц товаров"),

@@ -159,10 +159,9 @@
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '199604456030882');
-    fbq('init', '4185620171718327');
     fbq('track', 'PageView');
   </script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=199604456030882&ev=PageView&noscript=1" /><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=4185620171718327&ev=PageView&noscript=1" /></noscript>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=199604456030882&ev=PageView&noscript=1" /></noscript>
 
   <script type="application/ld+json">
 {
@@ -249,6 +248,28 @@
   </script>
 </head>
 <body>
+  <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
+  <script>
+    (function captureAttribution(){
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var existing = JSON.parse(localStorage.getItem('livi_attribution') || '{}');
+        var keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid','fbclid','yclid'];
+        var hasNew = false;
+        keys.forEach(function(k){
+          var val = params.get(k);
+          if(val){ existing[k] = val; hasNew = true; }
+        });
+        if(!existing.landing_page) existing.landing_page = window.location.pathname + window.location.search;
+        if(!existing.referrer && document.referrer) existing.referrer = document.referrer;
+        if(!existing.first_visit) existing.first_visit = new Date().toISOString();
+        if(hasNew || !localStorage.getItem('livi_attribution')){
+          localStorage.setItem('livi_attribution', JSON.stringify(existing));
+        }
+      } catch(e){}
+    })();
+  </script>
+
   <!-- Drawer -->
   <div id="drawer" class="drawer" aria-hidden="true">
     <div class="drawer-back" role="button" tabindex="0" aria-label="Menyuni yopish"></div>
@@ -364,84 +385,84 @@
       </div>
       <div class="grid" id="featGrid">
       <article class="card" data-id="prod_01">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Barokko marvaridli kulon bilan tabiiy marvariddan ko‘p qatorli marjon — qo‘lda yasalgan (tabiiy marvarid, barokko marvaridi, gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/uz/product/prod_01.html" class="card-img-wrap"><img src="/assets/kole-iz-naturalnogo-zhemchuga-80000.webp" srcset="/assets/kole-iz-naturalnogo-zhemchuga-80000-750w.webp 750w, /assets/kole-iz-naturalnogo-zhemchuga-80000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Barokko marvaridli kulon bilan tabiiy marvariddan ko‘p qatorli marjon — qo‘lda yasalgan (tabiiy marvarid, barokko marvaridi, gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/uz/product/prod_01.html" class="card-title-link" data-id="prod_01" data-title="Barokko marvaridli kulon bilan tabiiy marvariddan ko‘p qatorli marjon" data-price="80000" data-category="Necklaces">Barokko marvaridli kulon bilan tabiiy marvariddan ko‘p qatorli marjon</a></div>
           <div class="price">80 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_02">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp" alt="Tabiiy marvarid va tog‘ billuridan yasalgan marjon (Premium) — qo‘lda yasalgan (tabiiy marvarid, tog‘ billuri, gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/uz/product/prod_02.html" class="card-img-wrap"><img src="/assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp" srcset="/assets/kole-iz-naturalnogo-zhemchuga-premium-80000-750w.webp 750w, /assets/kole-iz-naturalnogo-zhemchuga-premium-80000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Tabiiy marvarid va tog‘ billuridan yasalgan marjon (Premium) — qo‘lda yasalgan (tabiiy marvarid, tog‘ billuri, gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/uz/product/prod_02.html" class="card-title-link" data-id="prod_02" data-title="Tabiiy marvarid va tog‘ billuridan yasalgan marjon (Premium)" data-price="60000" data-category="Necklaces">Tabiiy marvarid va tog‘ billuridan yasalgan marjon (Premium)</a></div>
           <div class="price">60 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_06">
-        <div class="card-img-wrap"><img src="/assets/braslet-iz-malakhita-25000.webp" alt="Tabiiy malaxitdan yasalgan bilasuzuk — qo‘lda yasalgan (tabiiy malaxit, gipoallergen zargarlik qotishmasi, 18k zarhal qoplama), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/uz/product/prod_06.html" class="card-img-wrap"><img src="/assets/braslet-iz-malakhita-25000.webp" srcset="/assets/braslet-iz-malakhita-25000-750w.webp 750w, /assets/braslet-iz-malakhita-25000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Tabiiy malaxitdan yasalgan bilasuzuk — qo‘lda yasalgan (tabiiy malaxit, gipoallergen zargarlik qotishmasi, 18k zarhal qoplama), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/uz/product/prod_06.html" class="card-title-link" data-id="prod_06" data-title="Tabiiy malaxitdan yasalgan bilasuzuk" data-price="25000" data-category="Bracelets">Tabiiy malaxitdan yasalgan bilasuzuk</a></div>
           <div class="price">25 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_07">
-        <div class="card-img-wrap"><img src="/assets/garnitur-iz-ametista-i-zhemchuga-40000.webp" alt="Ametist va marvaridli to‘g‘nog‘ich, bilasuzuk, uzuk — qo‘lda yasalgan (tabiiy ametist, tabiiy marvarid, gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/uz/product/prod_07.html" class="card-img-wrap"><img src="/assets/garnitur-iz-ametista-i-zhemchuga-40000.webp" srcset="/assets/garnitur-iz-ametista-i-zhemchuga-40000-750w.webp 750w, /assets/garnitur-iz-ametista-i-zhemchuga-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Ametist va marvaridli to‘g‘nog‘ich, bilasuzuk, uzuk — qo‘lda yasalgan (tabiiy ametist, tabiiy marvarid, gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/uz/product/prod_07.html" class="card-title-link" data-id="prod_07" data-title="Ametist va marvaridli to‘g‘nog‘ich, bilasuzuk, uzuk" data-price="74000" data-category="Sets">Ametist va marvaridli to‘g‘nog‘ich, bilasuzuk, uzuk</a></div>
           <div class="price">74 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_10">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-agata-i-granata-s-koltsom-40000.webp" alt="Aqiq va granatdan marjon hamda uzuk — qo‘lda yasalgan (tabiiy aqiq, tabiiy granat (yoqut), gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/uz/product/prod_10.html" class="card-img-wrap"><img src="/assets/kole-iz-agata-i-granata-s-koltsom-40000.webp" srcset="/assets/kole-iz-agata-i-granata-s-koltsom-40000-750w.webp 750w, /assets/kole-iz-agata-i-granata-s-koltsom-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Aqiq va granatdan marjon hamda uzuk — qo‘lda yasalgan (tabiiy aqiq, tabiiy granat (yoqut), gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/uz/product/prod_10.html" class="card-title-link" data-id="prod_10" data-title="Aqiq va granatdan marjon hamda uzuk" data-price="48000" data-category="Sets">Aqiq va granatdan marjon hamda uzuk</a></div>
           <div class="price">48 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_11">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp" alt="Ametist va pushti kvarsdan marjon, ametist ziraklar — qo‘lda yasalgan (tabiiy ametist, pushti kvars, gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/uz/product/prod_11.html" class="card-img-wrap"><img src="/assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp" srcset="/assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000-750w.webp 750w, /assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Ametist va pushti kvarsdan marjon, ametist ziraklar — qo‘lda yasalgan (tabiiy ametist, pushti kvars, gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/uz/product/prod_11.html" class="card-title-link" data-id="prod_11" data-title="Ametist va pushti kvarsdan marjon, ametist ziraklar" data-price="61000" data-category="Sets">Ametist va pushti kvarsdan marjon, ametist ziraklar</a></div>
           <div class="price">61 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_16">
-        <div class="card-img-wrap"><img src="/assets/komplekt-iz-naturalnoy-biryuzy-50000.webp" alt="Tabiiy feruzadan marjon va ziraklar — qo‘lda yasalgan (tabiiy feruza, gipoallergen zargarlik qotishmasi, 18k zarhal qoplama), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/uz/product/prod_16.html" class="card-img-wrap"><img src="/assets/komplekt-iz-naturalnoy-biryuzy-50000.webp" srcset="/assets/komplekt-iz-naturalnoy-biryuzy-50000-750w.webp 750w, /assets/komplekt-iz-naturalnoy-biryuzy-50000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Tabiiy feruzadan marjon va ziraklar — qo‘lda yasalgan (tabiiy feruza, gipoallergen zargarlik qotishmasi, 18k zarhal qoplama), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/uz/product/prod_16.html" class="card-title-link" data-id="prod_16" data-title="Tabiiy feruzadan marjon va ziraklar" data-price="50000" data-category="Sets">Tabiiy feruzadan marjon va ziraklar</a></div>
           <div class="price">50 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_17">
-        <div class="card-img-wrap"><img src="/assets/ukrashenie-sotuar-iz-agata-i-granata-36000.webp" alt="Tabiiy aqiq va granatdan yasalgan sotuar-taqinchoq — qo‘lda yasalgan (tabiiy aqiq, tabiiy granat (yoqut), gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/uz/product/prod_17.html" class="card-img-wrap"><img src="/assets/ukrashenie-sotuar-iz-agata-i-granata-36000.webp" srcset="/assets/ukrashenie-sotuar-iz-agata-i-granata-36000-750w.webp 750w, /assets/ukrashenie-sotuar-iz-agata-i-granata-36000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Tabiiy aqiq va granatdan yasalgan sotuar-taqinchoq — qo‘lda yasalgan (tabiiy aqiq, tabiiy granat (yoqut), gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/uz/product/prod_17.html" class="card-title-link" data-id="prod_17" data-title="Tabiiy aqiq va granatdan yasalgan sotuar-taqinchoq" data-price="36000" data-category="Lariats">Tabiiy aqiq va granatdan yasalgan sotuar-taqinchoq</a></div>
           <div class="price">36 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_19">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-tigrovogo-glaza-i-gematita-50000.webp" alt="Yo‘lbars ko‘zi va gematitdan yasalgan marjon — qo‘lda yasalgan (yo‘lbars ko‘zi, gematit, gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/uz/product/prod_19.html" class="card-img-wrap"><img src="/assets/kole-iz-tigrovogo-glaza-i-gematita-50000.webp" srcset="/assets/kole-iz-tigrovogo-glaza-i-gematita-50000-750w.webp 750w, /assets/kole-iz-tigrovogo-glaza-i-gematita-50000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Yo‘lbars ko‘zi va gematitdan yasalgan marjon — qo‘lda yasalgan (yo‘lbars ko‘zi, gematit, gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/uz/product/prod_19.html" class="card-title-link" data-id="prod_19" data-title="Yo‘lbars ko‘zi va gematitdan yasalgan marjon" data-price="50000" data-category="Necklaces">Yo‘lbars ko‘zi va gematitdan yasalgan marjon</a></div>
           <div class="price">50 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_20">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-flyuorita-i-tsirkonov-35000.webp" alt="Tabiiy flyuorit va zirkonlardan yasalgan marjon — qo‘lda yasalgan (tabiiy flyuorit, zargarlik zirkonlari, gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/uz/product/prod_20.html" class="card-img-wrap"><img src="/assets/kole-iz-flyuorita-i-tsirkonov-35000.webp" srcset="/assets/kole-iz-flyuorita-i-tsirkonov-35000-750w.webp 750w, /assets/kole-iz-flyuorita-i-tsirkonov-35000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Tabiiy flyuorit va zirkonlardan yasalgan marjon — qo‘lda yasalgan (tabiiy flyuorit, zargarlik zirkonlari, gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/uz/product/prod_20.html" class="card-title-link" data-id="prod_20" data-title="Tabiiy flyuorit va zirkonlardan yasalgan marjon" data-price="35000" data-category="Necklaces">Tabiiy flyuorit va zirkonlardan yasalgan marjon</a></div>
           <div class="price">35 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_23">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-granata-40000.webp" alt="Tabiiy granatdan yasalgan marjon — qo‘lda yasalgan (tabiiy granat (yoqut), gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/uz/product/prod_23.html" class="card-img-wrap"><img src="/assets/kole-iz-granata-40000.webp" srcset="/assets/kole-iz-granata-40000-750w.webp 750w, /assets/kole-iz-granata-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Tabiiy granatdan yasalgan marjon — qo‘lda yasalgan (tabiiy granat (yoqut), gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/uz/product/prod_23.html" class="card-title-link" data-id="prod_23" data-title="Tabiiy granatdan yasalgan marjon" data-price="40000" data-category="Necklaces">Tabiiy granatdan yasalgan marjon</a></div>
           <div class="price">40 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_24">
-        <div class="card-img-wrap"><img src="/assets/kole-iz-zhemchuga-i-lazurita-40000.webp" alt="Tabiiy marvarid va lojuvarddan (lazurit) marjon — qo‘lda yasalgan (tabiiy marvarid, tabiiy lojuvard (lazurit), gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></div>
+        <a href="/uz/product/prod_24.html" class="card-img-wrap"><img src="/assets/kole-iz-zhemchuga-i-lazurita-40000.webp" srcset="/assets/kole-iz-zhemchuga-i-lazurita-40000-750w.webp 750w, /assets/kole-iz-zhemchuga-i-lazurita-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Tabiiy marvarid va lojuvarddan (lazurit) marjon — qo‘lda yasalgan (tabiiy marvarid, tabiiy lojuvard (lazurit), gipoallergen zargarlik qotishmasi), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/uz/product/prod_24.html" class="card-title-link" data-id="prod_24" data-title="Tabiiy marvarid va lojuvarddan (lazurit) marjon" data-price="40000" data-category="Necklaces">Tabiiy marvarid va lojuvarddan (lazurit) marjon</a></div>
           <div class="price">40 000 ₸</div>
@@ -595,11 +616,7 @@
             page_location: window.location.href,
             lead_source: 'uz_index_wa'
           });
-          gtag('event', 'conversion', {
-            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
-            'value': 1.0,
-            'currency': 'USD'
-          });
+          gtag('event', 'conversion', { 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' });
         }
       } catch (err) {}
     });

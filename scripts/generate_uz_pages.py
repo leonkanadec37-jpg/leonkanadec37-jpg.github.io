@@ -44,7 +44,7 @@ GA_ID = "G-YFF2TR0N36"
 AW_ID = "AW-16793974126"
 AW_CONV_LABEL = "AW-16793974126/MuJ_CObHup8bEO7q_sc-"
 FB_PIXEL_1 = "199604456030882"
-FB_PIXEL_2 = "4185620171718327"
+# FB_PIXEL_2 removed
 GOOGLE_VERIFICATION = "qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0"
 FB_DOMAIN_VERIFICATION = "lrr1e3sbmseisnpm2nclqko8w1rfcw"
 
@@ -636,13 +636,16 @@ def build_uz_card_html(pk: dict, indent: str = "      ") -> str:
     title = html.escape(pk["title"])
     price_num = pk["price"]
     price_str = format_price_uz(price_num)
-    img = pk["image"]
+    img = pk["image"].lstrip("/")
+    base_img, _ = os.path.splitext(img)
+    mob_img = f"{base_img}-750w.webp"
+    srcset_attr = f' srcset="/{mob_img} 750w, /{img} 1440w" sizes="(max-width: 768px) 50vw, 300px"' if os.path.exists(mob_img) else ""
     stones = ", ".join(pk["materials"]).lower()
     alt = html.escape(f"{pk['title']} — qo‘lda yasalgan ({stones}), Livi Jewelry")
     cat = html.escape(pk["category"])
     return (
         f'{indent}<article class="card" data-id="{pid}">\n'
-        f'{indent}  <div class="card-img-wrap"><img src="{img}" alt="{alt}" loading="lazy" decoding="async" width="600" height="800"></div>\n'
+        f'{indent}  <a href="/uz/product/{pid}.html" class="card-img-wrap"><img src="/{img}"{srcset_attr} alt="{alt}" loading="lazy" decoding="async" width="600" height="800"></a>\n'
         f'{indent}  <div class="body">\n'
         f'{indent}    <div class="title"><a href="/uz/product/{pid}.html" class="card-title-link" data-id="{pid}" data-title="{title}" data-price="{price_num}" data-category="{cat}">{title}</a></div>\n'
         f'{indent}    <div class="price">{price_str} ₸</div>\n'
@@ -897,16 +900,37 @@ def generate_uz_index(products_uz: list) -> str:
     s.parentNode.insertBefore(t,s)}}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '{FB_PIXEL_1}');
-    fbq('init', '{FB_PIXEL_2}');
     fbq('track', 'PageView');
   </script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_2}&ev=PageView&noscript=1" /></noscript>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /></noscript>
 
   <script type="application/ld+json">
 {json.dumps(schema_graph, ensure_ascii=False, indent=2)}
   </script>
 </head>
 <body>
+  <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
+  <script>
+    (function captureAttribution(){{
+      try {{
+        var params = new URLSearchParams(window.location.search);
+        var existing = JSON.parse(localStorage.getItem('livi_attribution') || '{{}}');
+        var keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid','fbclid','yclid'];
+        var hasNew = false;
+        keys.forEach(function(k){{
+          var val = params.get(k);
+          if(val){{ existing[k] = val; hasNew = true; }}
+        }});
+        if(!existing.landing_page) existing.landing_page = window.location.pathname + window.location.search;
+        if(!existing.referrer && document.referrer) existing.referrer = document.referrer;
+        if(!existing.first_visit) existing.first_visit = new Date().toISOString();
+        if(hasNew || !localStorage.getItem('livi_attribution')){{
+          localStorage.setItem('livi_attribution', JSON.stringify(existing));
+        }}
+      }} catch(e){{}}
+    }})();
+  </script>
+
   <!-- Drawer -->
   <div id="drawer" class="drawer" aria-hidden="true">
     <div class="drawer-back" role="button" tabindex="0" aria-label="Menyuni yopish"></div>
@@ -1127,11 +1151,7 @@ def generate_uz_index(products_uz: list) -> str:
             page_location: window.location.href,
             lead_source: 'uz_index_wa'
           }});
-          gtag('event', 'conversion', {{
-            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
-            'value': 1.0,
-            'currency': 'USD'
-          }});
+          gtag('event', 'conversion', {{ 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' }});
         }}
       }} catch (err) {{}}
     }});
@@ -1243,16 +1263,37 @@ def generate_uz_shop(products_uz: list) -> str:
     s.parentNode.insertBefore(t,s)}}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '{FB_PIXEL_1}');
-    fbq('init', '{FB_PIXEL_2}');
     fbq('track', 'PageView');
   </script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_2}&ev=PageView&noscript=1" /></noscript>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /></noscript>
 
   <script type="application/ld+json">
 {json.dumps(item_list_ld, ensure_ascii=False, indent=2)}
   </script>
 </head>
 <body>
+  <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
+  <script>
+    (function captureAttribution(){{
+      try {{
+        var params = new URLSearchParams(window.location.search);
+        var existing = JSON.parse(localStorage.getItem('livi_attribution') || '{{}}');
+        var keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid','fbclid','yclid'];
+        var hasNew = false;
+        keys.forEach(function(k){{
+          var val = params.get(k);
+          if(val){{ existing[k] = val; hasNew = true; }}
+        }});
+        if(!existing.landing_page) existing.landing_page = window.location.pathname + window.location.search;
+        if(!existing.referrer && document.referrer) existing.referrer = document.referrer;
+        if(!existing.first_visit) existing.first_visit = new Date().toISOString();
+        if(hasNew || !localStorage.getItem('livi_attribution')){{
+          localStorage.setItem('livi_attribution', JSON.stringify(existing));
+        }}
+      }} catch(e){{}}
+    }})();
+  </script>
+
   <!-- Drawer -->
   <div id="drawer" class="drawer" aria-hidden="true">
     <div class="drawer-back" role="button" tabindex="0" aria-label="Menyuni yopish"></div>
@@ -1530,11 +1571,7 @@ def generate_uz_shop(products_uz: list) -> str:
             page_location: window.location.href,
             lead_source: 'uz_shop_wa'
           }});
-          gtag('event', 'conversion', {{
-            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
-            'value': 1.0,
-            'currency': 'USD'
-          }});
+          gtag('event', 'conversion', {{ 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' }});
         }}
       }} catch (err) {{}}
     }});
@@ -1556,6 +1593,9 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
 
     img_rel = pk["image"].lstrip("/")
     img_abs = f"{SITE_URL}/{img_rel}"
+    img_rel = pk["image"].lstrip("/")
+    base_rel, _ = os.path.splitext(img_rel)
+    mob_img_rel = f"{base_rel}-750w.webp"
     ru_page_url = f"{SITE_URL}/product/{pid}.html"
     kz_page_url = f"{SITE_URL}/kz/product/{pid}.html"
     page_url = f"{SITE_URL}/uz/product/{pid}.html"
@@ -1842,9 +1882,19 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){{ dataLayer.push(arguments); }}
+    gtag('consent', 'default', {{
+      'ad_storage': 'granted',
+      'analytics_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'wait_for_update': 500
+    }});
+    gtag('set', 'url_passthrough', true);
+    gtag('set', 'ads_data_redaction', false);
     gtag('js', new Date());
-    gtag('config', '{GA_ID}');
-    gtag('config', '{AW_ID}');
+
+    gtag('config', '{GA_ID}', {{ 'linker': {{ 'domains': ['livijewelry.kz'] }} }});
+    gtag('config', '{AW_ID}', {{ 'allow_enhanced_conversions': true, 'linker': {{ 'domains': ['livijewelry.kz'] }} }});
   </script>
 
   <!-- Meta Pixel Code -->
@@ -1858,7 +1908,6 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
   s.parentNode.insertBefore(t,s)}}(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', '{FB_PIXEL_1}');
-  fbq('init', '{FB_PIXEL_2}');
   fbq('track', 'PageView');
   </script>
 
@@ -1878,6 +1927,28 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
   </script>
 </head>
 <body>
+  <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
+  <script>
+    (function captureAttribution(){{
+      try {{
+        var params = new URLSearchParams(window.location.search);
+        var existing = JSON.parse(localStorage.getItem('livi_attribution') || '{{}}');
+        var keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid','fbclid','yclid'];
+        var hasNew = false;
+        keys.forEach(function(k){{
+          var val = params.get(k);
+          if(val){{ existing[k] = val; hasNew = true; }}
+        }});
+        if(!existing.landing_page) existing.landing_page = window.location.pathname + window.location.search;
+        if(!existing.referrer && document.referrer) existing.referrer = document.referrer;
+        if(!existing.first_visit) existing.first_visit = new Date().toISOString();
+        if(hasNew || !localStorage.getItem('livi_attribution')){{
+          localStorage.setItem('livi_attribution', JSON.stringify(existing));
+        }}
+      }} catch(e){{}}
+    }})();
+  </script>
+
   <!-- Drawer -->
   <div id="drawer" class="drawer" aria-hidden="true">
     <div class="drawer-back" role="button" tabindex="0" aria-label="Menyuni yopish"></div>
@@ -1950,7 +2021,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
       <!-- Rasm galereyasi -->
       <div class="product-gallery">
         <div class="product-main-img-wrap">
-          <img src="{pk['image']}" alt="{html.escape(title)} — qo‘lda yasalgan ({materials_uz_str}), Livi Jewelry" class="product-main-img" id="mainProductImg" width="600" height="800" fetchpriority="high">
+          <img src="/{img_rel}" srcset="/{mob_img_rel} 750w, /{img_rel} 1440w" sizes="(max-width: 640px) 100vw, 50vw" alt="{html.escape(title)} — qo‘lda yasalgan ({materials_uz_str}), Livi Jewelry" class="product-main-img" id="mainProductImg" width="600" height="800" fetchpriority="high">
         </div>
       </div>
 
@@ -2092,6 +2163,15 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
     </div>
   </footer>
 
+  <!-- Mobile Sticky Bottom Bar (Only visible on screens <= 768px) -->
+  <aside class="mobile-sticky-bar" aria-label="Buyurtma berish">
+    <div class="mobile-sticky-price">{price_fmt} ₸</div>
+    <div class="mobile-sticky-actions">
+      <button type="button" id="stickyCartBtn" class="btn btn-sticky-cart">Savatchaga</button>
+      <a id="stickyWaBtn" href="https://wa.me/77054510584?text=Salom!%20Livi%20Jewelry%20taqinchoqlari%20bo‘yicha%20maslahat%20olmoqchiman." class="btn btn-sticky-wa" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </aside>
+
   <!-- Floating WhatsApp Widget -->
   <a class="floating-wa" href="https://wa.me/77054510584?text=Salom!%20Livi%20Jewelry%20taqinchoqlari%20bo‘yicha%20maslahat%20olmoqchiman." target="_blank" rel="noopener" aria-label="WhatsApp orqali maslahat olish">
     <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
@@ -2170,40 +2250,63 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
 
     updateWaLink();
 
-    const addBtn = document.getElementById('addToCartBtn');
-    if(addBtn){{
-      addBtn.onclick = () => {{
-        let cart = [];
-        try {{ cart = JSON.parse(localStorage.getItem('livi_cart_v3') || '[]'); }} catch(e){{}}
-        const bundleOpt = bundleSelect ? bundleSelect.value : '';
-        const itemIdx = cart.findIndex(i => i.id === PRODUCT.id && (i.customBundle || '') === bundleOpt);
-        if(itemIdx > -1){{
-          cart[itemIdx].qty = (cart[itemIdx].qty || 1) + 1;
-        }} else {{
-          cart.push({{
-            id: PRODUCT.id,
-            title: currentActiveTitle,
-            price: currentActivePrice,
-            image: PRODUCT.image,
-            category: PRODUCT.category,
-            qty: 1,
-            customBundle: bundleOpt,
-            bundleOption: bundleOpt,
-            unitPrice: currentActivePrice
+    function handleAddToCart() {{
+      let cart = [];
+      try {{ cart = JSON.parse(localStorage.getItem('livi_cart_v3') || '[]'); }} catch(e){{}}
+      const bundleOpt = bundleSelect ? bundleSelect.value : '';
+      const itemIdx = cart.findIndex(i => i.id === PRODUCT.id && (i.customBundle || '') === bundleOpt);
+      if(itemIdx > -1){{
+        cart[itemIdx].qty = (cart[itemIdx].qty || 1) + 1;
+      }} else {{
+        cart.push({{
+          id: PRODUCT.id,
+          title: currentActiveTitle,
+          price: currentActivePrice,
+          image: PRODUCT.image,
+          category: PRODUCT.category,
+          qty: 1,
+          customBundle: bundleOpt,
+          bundleOption: bundleOpt,
+          unitPrice: currentActivePrice
+        }});
+      }}
+      try {{
+        localStorage.setItem('livi_cart_v3', JSON.stringify(cart));
+        updateBadge();
+      }} catch(e){{}}
+
+      try {{
+        if (typeof gtag === 'function') {{
+          gtag('event', 'add_to_cart', {{
+            currency: 'KZT',
+            value: currentActivePrice,
+            items: [{{
+              item_id: PRODUCT.id,
+              item_name: currentActiveTitle,
+              item_category: PRODUCT.category,
+              price: currentActivePrice,
+              quantity: 1
+            }}]
           }});
         }}
-        try {{
-          localStorage.setItem('livi_cart_v3', JSON.stringify(cart));
-          updateBadge();
-        }} catch(e){{}}
-
-        const toast = document.getElementById('addedToast');
-        if(toast){{
-          toast.style.display = 'block';
-          setTimeout(() => {{ toast.style.display = 'none'; }}, 5000);
+        if (window.fbq) {{
+          fbq('track', 'AddToCart', {{
+            content_ids: [PRODUCT.id],
+            content_name: currentActiveTitle,
+            content_type: 'product',
+            value: Math.max(1, Number(currentActivePrice || PRODUCT.price || 40000)),
+            currency: 'KZT'
+          }});
         }}
-      }};
+      }} catch(e){{}}
+
+      window.location.href = '/uz/cart.html';
     }}
+
+    const addBtn = document.getElementById('addToCartBtn');
+    if(addBtn) addBtn.onclick = handleAddToCart;
+    const stickyCartBtn = document.getElementById('stickyCartBtn');
+    if(stickyCartBtn) stickyCartBtn.onclick = handleAddToCart;
 
     // WhatsApp Order Button and Global WhatsApp tracking
     const waOrderBtnEl = document.getElementById('waOrderBtn') || document.getElementById('buyWaBtn');
@@ -2235,11 +2338,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
               page_location: window.location.href,
               lead_source: 'uz_product_' + PRODUCT.id
             }});
-            gtag('event', 'conversion', {{
-              'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
-              'value': 1.0,
-              'currency': 'USD'
-            }});
+            gtag('event', 'conversion', {{ 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' }});
           }}
         }} catch(e){{}}
       }});
@@ -2274,11 +2373,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
             page_location: window.location.href,
             lead_source: 'uz_wa_link'
           }});
-          gtag('event', 'conversion', {{
-            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
-            'value': 1.0,
-            'currency': 'USD'
-          }});
+          gtag('event', 'conversion', {{ 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' }});
         }}
       }} catch(err){{}}
     }});
@@ -2347,11 +2442,32 @@ def generate_uz_service_pages():
     s.parentNode.insertBefore(t,s)}}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '{FB_PIXEL_1}');
-    fbq('init', '{FB_PIXEL_2}');
     fbq('track', 'PageView');
   </script>
 </head>
 <body>
+  <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
+  <script>
+    (function captureAttribution(){{
+      try {{
+        var params = new URLSearchParams(window.location.search);
+        var existing = JSON.parse(localStorage.getItem('livi_attribution') || '{{}}');
+        var keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid','fbclid','yclid'];
+        var hasNew = false;
+        keys.forEach(function(k){{
+          var val = params.get(k);
+          if(val){{ existing[k] = val; hasNew = true; }}
+        }});
+        if(!existing.landing_page) existing.landing_page = window.location.pathname + window.location.search;
+        if(!existing.referrer && document.referrer) existing.referrer = document.referrer;
+        if(!existing.first_visit) existing.first_visit = new Date().toISOString();
+        if(hasNew || !localStorage.getItem('livi_attribution')){{
+          localStorage.setItem('livi_attribution', JSON.stringify(existing));
+        }}
+      }} catch(e){{}}
+    }})();
+  </script>
+
   <!-- Drawer -->
   <div id="drawer" class="drawer" aria-hidden="true">
     <div class="drawer-back" role="button" tabindex="0" aria-label="Menyuni yopish"></div>
@@ -2668,11 +2784,7 @@ def generate_uz_service_pages():
                 page_location: window.location.href,
                 lead_source: 'uz_cart_modal_wa'
               }});
-              gtag('event', 'conversion', {{
-                'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
-                'value': 1.0,
-                'currency': 'USD'
-              }});
+              gtag('event', 'conversion', {{ 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' }});
             }}
             if (typeof fbq === 'function') {{
               fbq('track', 'Contact');
@@ -2715,11 +2827,7 @@ def generate_uz_service_pages():
             method: 'WhatsApp',
             page_location: window.location.href
           }});
-          gtag('event', 'conversion', {{
-            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
-            'value': 1.0,
-            'currency': 'USD'
-          }});
+          gtag('event', 'conversion', {{ 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' }});
         }}
         if (typeof fbq === 'function') {{
           fbq('track', 'Contact');
@@ -2822,6 +2930,28 @@ def generate_uz_service_pages():
   </script>
 </head>
 <body>
+  <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
+  <script>
+    (function captureAttribution(){{
+      try {{
+        var params = new URLSearchParams(window.location.search);
+        var existing = JSON.parse(localStorage.getItem('livi_attribution') || '{{}}');
+        var keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid','fbclid','yclid'];
+        var hasNew = false;
+        keys.forEach(function(k){{
+          var val = params.get(k);
+          if(val){{ existing[k] = val; hasNew = true; }}
+        }});
+        if(!existing.landing_page) existing.landing_page = window.location.pathname + window.location.search;
+        if(!existing.referrer && document.referrer) existing.referrer = document.referrer;
+        if(!existing.first_visit) existing.first_visit = new Date().toISOString();
+        if(hasNew || !localStorage.getItem('livi_attribution')){{
+          localStorage.setItem('livi_attribution', JSON.stringify(existing));
+        }}
+      }} catch(e){{}}
+    }})();
+  </script>
+
   <!-- Drawer -->
   <div id="drawer" class="drawer" aria-hidden="true">
     <div class="drawer-back" role="button" tabindex="0" aria-label="Menyuni yopish"></div>
@@ -2929,11 +3059,7 @@ def generate_uz_service_pages():
             method: 'WhatsApp',
             page_location: window.location.href
           }});
-          gtag('event', 'conversion', {{
-            'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
-            'value': 1.0,
-            'currency': 'USD'
-          }});
+          gtag('event', 'conversion', {{ 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' }});
         }}
       }} catch (err) {{}}
     }});

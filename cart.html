@@ -63,13 +63,10 @@
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '199604456030882');
-    fbq('init', '4185620171718327');
     fbq('track', 'PageView');
   </script>
   <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=199604456030882&ev=PageView&noscript=1"
-  /><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=4185620171718327&ev=PageView&noscript=1"
   /></noscript>
   <!-- End Meta Pixel Code -->
 </head>
@@ -193,7 +190,7 @@
       try {
         const params = new URLSearchParams(window.location.search);
         const existing = JSON.parse(localStorage.getItem('livi_attribution') || '{}');
-        const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid','yclid'];
+        const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid','fbclid','yclid'];
         let hasNew = false;
         keys.forEach(k => {
           const val = params.get(k);
@@ -823,7 +820,6 @@
         if(c) matchData.ct = c.trim().toLowerCase();
         if(typeof fbq === 'function'){
           fbq('init', '199604456030882', matchData);
-          fbq('init', '4185620171718327', matchData);
         }
       }
 
@@ -886,11 +882,7 @@
                 page_location: window.location.href,
                 lead_source: 'cart_whatsapp_direct'
               });
-              gtag('event', 'conversion', {
-                'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
-                'value': 1.0,
-                'currency': 'USD'
-              });
+              gtag('event', 'conversion', { 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' });
             }
             if (typeof fbq === 'function') {
               const orderTotal = Math.max(1, Number(total) || 30000);
@@ -928,7 +920,7 @@
 
         const submitBtn = document.getElementById('submitOrderBtn');
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span>Открываем WhatsApp...</span>';
+        submitBtn.innerHTML = '<span>Заказ оформлен ✓</span>';
 
         const orderId = generateOrderId();
         const attribution = getAttributionObject();
@@ -1085,10 +1077,7 @@
         // 5. Очищаем корзину
         write([]);
 
-        // 6. Переходим в WhatsApp
-        setTimeout(() => {
-          window.location.href = waUrl;
-        }, 250);
+        // 6. Модальное окно с инструкцией Kaspi Pay активно; переход в WhatsApp по желанию пользователя через modalWaBtn
       };
     }
 
@@ -1105,11 +1094,7 @@
           try {
             const orderTotal = Number(orderData.totalAmount || 0);
             if (typeof gtag === 'function') {
-              gtag('event', 'conversion', {
-                'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
-                'value': 1.0,
-                'currency': 'USD'
-              });
+              gtag('event', 'conversion', { 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' });
               gtag('event', 'whatsapp_click', {
                 currency: 'KZT',
                 value: orderTotal,
@@ -1190,11 +1175,7 @@
               page_location: window.location.href,
               lead_source: 'cart_global_click'
             });
-            gtag('event', 'conversion', {
-              'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
-              'value': 1.0,
-              'currency': 'USD'
-            });
+            gtag('event', 'conversion', { 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' });
           } else if(isIg){
             gtag('event', 'contact', {
               currency: 'KZT',
