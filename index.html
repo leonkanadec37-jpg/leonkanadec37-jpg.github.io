@@ -37,115 +37,8 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=20261023d">
-  <style>
-    /* Critical Hero Collections (Van Cleef & Arpels Style) */
-    .hero-collections {
-      display: flex !important;
-      flex-direction: row !important;
-      justify-content: center !important;
-      align-items: flex-start !important;
-      gap: clamp(8px, 2.5vw, 14px) !important;
-      max-width: 380px !important;
-      margin: 10px auto 0 !important;
-      padding: 0 !important;
-      width: 100% !important;
-      box-sizing: border-box !important;
-    }
-    .hero-col-item {
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: center !important;
-      text-align: center !important;
-      text-decoration: none !important;
-      flex: 1 1 0 !important;
-      max-width: 80px !important;
-      min-width: 58px !important;
-      background: transparent !important;
-      border: none !important;
-      padding: 0 !important;
-      box-shadow: none !important;
-    }
-    .hero-col-thumb {
-      width: clamp(56px, 15vw, 68px) !important;
-      height: clamp(56px, 15vw, 68px) !important;
-      max-width: 68px !important;
-      max-height: 68px !important;
-      border-radius: 50% !important;
-      overflow: hidden !important;
-      margin: 0 auto 6px !important;
-      border: 1.5px solid rgba(197, 162, 101, 0.45) !important;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
-      box-sizing: border-box !important;
-      flex-shrink: 0 !important;
-      background: #FAF8F5 !important;
-    }
-    .hero-col-thumb img {
-      width: 100% !important;
-      height: 100% !important;
-      max-width: 100% !important;
-      max-height: 100% !important;
-      object-fit: cover !important;
-      border-radius: 50% !important;
-      display: block !important;
-    }
-    .hero-col-item:nth-child(1) .hero-col-thumb img { object-position: center 38% !important; }
-    .hero-col-item:nth-child(2) .hero-col-thumb img { object-position: center 45% !important; }
-    .hero-col-item:nth-child(3) .hero-col-thumb img { object-position: center 45% !important; }
-    .hero-col-item:nth-child(4) .hero-col-thumb img { object-position: center 40% !important; }
-    .hero-col-title {
-      display: block !important;
-      width: 100% !important;
-      font-family: 'Montserrat', sans-serif !important;
-      font-size: 10px !important;
-      line-height: 1.2 !important;
-      letter-spacing: 0.06em !important;
-      text-transform: uppercase !important;
-      font-weight: 500 !important;
-      color: #141312 !important;
-      text-align: center !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      white-space: nowrap !important;
-    }
-    @media (min-width: 861px) {
-      .hero-collections {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 16px !important;
-        max-width: 440px !important;
-        margin: 0 0 0 auto !important;
-      }
-      .hero-col-item {
-        max-width: none !important;
-        background: #FAF8F5 !important;
-        border: 1px solid rgba(0, 0, 0, 0.05) !important;
-        border-radius: 8px !important;
-        padding: 16px 12px 14px !important;
-        box-shadow: none !important;
-        transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
-      }
-      .hero-col-item:hover {
-        transform: translateY(-3px) !important;
-        border-color: rgba(197, 162, 101, 0.45) !important;
-        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06) !important;
-      }
-      .hero-col-thumb {
-        width: 100% !important;
-        height: auto !important;
-        aspect-ratio: 1 !important;
-        max-width: 120px !important;
-        max-height: 120px !important;
-        margin-bottom: 10px !important;
-      }
-      .hero-col-title {
-        font-family: 'Cormorant Garamond', serif !important;
-        font-size: 14px !important;
-        letter-spacing: 0.04em !important;
-        text-transform: none !important;
-      }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 
   <!-- Icons & Manifest (robust for search) -->
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons/favicon-48.png">
@@ -372,65 +265,44 @@
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-content">
-      <span class="hero-eyebrow" data-i18n="hero.eyebrow">Авторские украшения ручной работы</span>
-      <h1 data-i18n="hero.title">Неповторимая эстетика жемчуга и камней</h1>
-      <p data-i18n="hero.text">Отборный натуральный жемчуг, природные минералы и стойкая гипоаллергенная фурнитура. Доставка день-в-день по Астане и бережная отправка по всему миру.</p>
-      <div class="hero-actions">
-        <a class="btn" href="shop.html" data-i18n="hero.cta">Перейти в каталог</a>
-      </div>
-    </div>
-    <nav class="hero-collections" aria-label="Коллекции украшений">
-      <a href="/kolye-iz-zhemchuga.html" class="hero-col-item">
-        <div class="hero-col-thumb">
-          <img src="assets/kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Колье из натурального жемчуга" width="72" height="72" loading="eager">
-        </div>
-        <span class="hero-col-title" data-i18n="chip.necklaces">Колье</span>
-      </a>
-      <a href="/sergi-iz-zhemchuga.html" class="hero-col-item">
-        <div class="hero-col-thumb">
-          <img src="assets/sergi-transformery-so-semnymi-serdtsami-iz-naturalnykh-kamney-16000.webp" alt="Серьги ручной работы" width="72" height="72" loading="eager">
-        </div>
-        <span class="hero-col-title" data-i18n="chip.earrings">Серьги</span>
-      </a>
-      <a href="/braslety-iz-zhemchuga.html" class="hero-col-item">
-        <div class="hero-col-thumb">
-          <img src="assets/braslet-iz-malakhita-25000.webp" alt="Браслеты из натуральных камней" width="72" height="72" loading="eager">
-        </div>
-        <span class="hero-col-title" data-i18n="chip.bracelets">Браслеты</span>
-      </a>
-      <a href="/komplekty-ukrasheniy.html" class="hero-col-item">
-        <div class="hero-col-thumb">
-          <img src="assets/komplekt-tsep-braslet-40000.webp" alt="Комплекты украшений" width="72" height="72" loading="eager">
-        </div>
-        <span class="hero-col-title" data-i18n="chip.sets">Комплекты</span>
-      </a>
-    </nav>
-  </section>
-
-  <section class="section">
-    <h2 data-i18n="feat.title">Избранные товары</h2>
-    <div class="rule"></div>
+  <section class="section catalog-hero">
+    <h1 data-i18n="hero.title">Неповторимая эстетика жемчуга и камней</h1>
+    <p class="catalog-subtitle" data-i18n="hero.text">Авторские украшения ручной работы из натурального жемчуга и камней — каталог: серьги, браслеты, колье, комплекты</p>
 
     <!-- Подборки по камням и стилям (прямые индексируемые ссылки на SEO-хабы) -->
-    <nav class="stone-chips" aria-label="Подборки по камням и стилям">
-      <a class="chip-link" href="/ukrasheniya-iz-barochnogo-zhemchuga.html" data-i18n="chip.baroque">Барочный жемчуг</a>
-      <a class="chip-link" href="/ukrasheniya-iz-malahita.html" data-i18n="chip.malachite">Малахит</a>
-      <a class="chip-link" href="/ukrasheniya-iz-rozovogo-kvarca.html" data-i18n="chip.rosequartz">Розовый кварц</a>
-      <a class="chip-link" href="/ukrasheniya-iz-gematita.html" data-i18n="chip.hematite">Гематит</a>
-      <a class="chip-link" href="/ukrasheniya-iz-granata.html" data-i18n="chip.garnet">Гранат</a>
-      <a class="chip-link" href="/ukrasheniya-iz-ametista.html" data-i18n="chip.amethyst">Аметист</a>
-      <a class="chip-link" href="/ukrasheniya-iz-gornogo-hrustalya.html" data-i18n="chip.crystal">Горный хрусталь</a>
-      <a class="chip-link" href="/ukrasheniya-iz-biryuzy.html" data-i18n="chip.turquoise">Бирюза</a>
-      <a class="chip-link" href="/ukrasheniya-iz-lunnogo-kamnya.html">Лунный камень и перламутр</a>
-      <a class="chip-link" href="/kolye-iz-zhemchuga.html" data-i18n="chip.necklaces">Колье из жемчуга</a>
-      <a class="chip-link" href="/chokery-iz-naturalnyh-kamney.html">Чокеры из камней</a>
-      <a class="chip-link" href="/sotuary-iz-zhemchuga.html" data-i18n="chip.lariats">Сотуары</a>
-      <a class="chip-link" href="/braslety-iz-zhemchuga.html" data-i18n="chip.bracelets">Браслеты</a>
-      <a class="chip-link" href="/sergi-iz-zhemchuga.html" data-i18n="chip.earrings">Серьги</a>
-      <a class="chip-link" href="/komplekty-ukrasheniy.html" data-i18n="chip.sets">Комплекты украшений</a>
+    <nav class="stone-chips" aria-label="Подборки по камням и стилям" style="margin: 18px 0 22px;">
+      <a class="stone-chip" href="/kolye-iz-zhemchuga.html" data-i18n="chip.necklaces">Колье из жемчуга</a>
+      <a class="stone-chip" href="/braslety-iz-zhemchuga.html" data-i18n="chip.bracelets">Браслеты</a>
+      <a class="stone-chip" href="/sergi-iz-zhemchuga.html" data-i18n="chip.earrings">Серьги</a>
+      <a class="stone-chip" href="/komplekty-ukrasheniy.html" data-i18n="chip.sets">Комплекты</a>
+      <a class="stone-chip" href="/chokery-iz-naturalnyh-kamney.html">Чокеры</a>
+      <a class="stone-chip" href="/sotuary-iz-zhemchuga.html" data-i18n="chip.lariats">Сотуары</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-barochnogo-zhemchuga.html" data-i18n="chip.baroque">Барочный жемчуг</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-gematita.html" data-i18n="chip.hematite">Гематит</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-malahita.html" data-i18n="chip.malachite">Малахит</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-ametista.html" data-i18n="chip.amethyst">Аметист</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-granata.html" data-i18n="chip.garnet">Гранат</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-rozovogo-kvarca.html" data-i18n="chip.rosequartz">Розовый кварц</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-biryuzy.html" data-i18n="chip.turquoise">Бирюза</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-gornogo-hrustalya.html" data-i18n="chip.crystal">Горный хрусталь</a>
+      <a class="stone-chip" href="/ukrasheniya-iz-lunnogo-kamnya.html">Лунный камень и Перламутр</a>
     </nav>
+
+    <div class="toolbar">
+      <div class="search-box">
+        <input type="text" id="homeSearchInput" class="search-input" placeholder="Поиск украшений..." aria-label="Поиск украшений">
+        <button id="homeSearchClear" class="search-clear" aria-label="Очистить поиск">✕</button>
+      </div>
+      <div class="filters" id="homeFilters">
+        <button type="button" class="tag active" data-cat="All">Все</button>
+        <button type="button" class="tag" data-cat="Necklaces">Колье</button>
+        <button type="button" class="tag" data-cat="Earrings">Серьги</button>
+        <button type="button" class="tag" data-cat="Bracelets">Браслеты</button>
+        <button type="button" class="tag" data-cat="Sets">Комплекты</button>
+        <button type="button" class="tag" data-cat="Lariats">Сотуары</button>
+        <button type="button" class="tag" data-cat="Chains">Цепи</button>
+      </div>
+    </div>
 
     <!-- Витрина из 12 избранных карточек с разными камнями -->
     <div id="featGrid" class="grid" aria-live="polite">
@@ -518,6 +390,9 @@
           <div class="price">40 000 ₸</div>
         </div>
       </article>
+    </div>
+    <div class="catalog-more-wrap">
+      <a class="btn-catalog-more" href="shop.html" data-i18n="hero.cta">Смотреть весь каталог →</a>
     </div>
   </section>
 
@@ -717,8 +592,8 @@
         'nav.home':'Главная','nav.shop':'Каталог','nav.cart':'Корзина',
         'hero.eyebrow':'Авторские украшения ручной работы',
         'hero.title':'Неповторимая эстетика жемчуга и камней',
-        'hero.text':'Отборный натуральный жемчуг, природные минералы и стойкая гипоаллергенная фурнитура. Доставка день-в-день по Астане и бережная отправка по всему миру.',
-        'hero.cta':'Перейти в каталог',
+        'hero.text':'Авторские украшения ручной работы из натурального жемчуга и камней — каталог: серьги, браслеты, колье, комплекты',
+        'hero.cta':'Смотреть весь каталог →',
         'feat.title':'Избранные товары',
         'chip.baroque':'Барочный жемчуг','chip.malachite':'Малахит','chip.rosequartz':'Розовый кварц',
         'chip.hematite':'Гематит','chip.garnet':'Гранат','chip.amethyst':'Аметист',
@@ -855,44 +730,145 @@
       return `${title} — авторская ручная работа (${mats}), Livi Jewelry`;
     }
 
-    // Featured: отображаем витрину из 12 избранных товаров с разными камнями
+    // Featured & Interactive Catalog Filter/Search on Homepage
+    let HOME_PRODUCTS = [];
+    let activeHomeCat = 'All';
+    let homeSearchQuery = '';
+    const homeSearchInput = document.getElementById('homeSearchInput');
+    const homeSearchClear = document.getElementById('homeSearchClear');
+    const homeFiltersEl = document.getElementById('homeFilters');
+
+    function initHomeStaticCards(){
+      const grid = document.getElementById('featGrid');
+      if(!grid) return;
+      grid.querySelectorAll('.card').forEach((card, idx) => {
+        if(card.dataset.enhanced) return;
+        card.dataset.enhanced = 'true';
+        card.onclick = (e) => {
+          const pid = card.getAttribute('data-id');
+          const link = card.querySelector('.card-title-link');
+          const pTitle = link ? (link.getAttribute('data-title') || link.textContent.trim()) : '';
+          const pPrice = link ? Number(link.getAttribute('data-price') || 0) : 0;
+          const pCat = link ? (link.getAttribute('data-category') || '') : '';
+          if(typeof gtag === 'function'){
+            gtag('event', 'select_item', {
+              item_list_name: 'Featured Home',
+              items: [{ item_id: pid, item_name: pTitle, item_category: pCat, price: pPrice, quantity: 1, index: idx + 1 }]
+            });
+          }
+          if(!e.target.closest('a') && pid) location.href = `/product/${encodeURIComponent(pid)}.html`;
+        };
+      });
+    }
+    initHomeStaticCards();
+
     function renderFeat(items){
       const grid=document.getElementById('featGrid');
-      if(!grid || !Array.isArray(items) || !items.length) return;
+      if(!grid) return;
+      if(!Array.isArray(items) || !items.length){
+        grid.innerHTML = '<div class="empty-state">По вашему запросу ничего не найдено</div>';
+        return;
+      }
       grid.innerHTML = '';
-      items.forEach(p=>{
+      items.forEach((p, idx)=>{
         const altText = buildCleanAlt(p);
         const priceNum = Number(p.price) || 0;
         const priceStr = priceNum ? `${priceNum.toLocaleString('ru-RU')} ₸` : 'Цена по запросу';
-        const c=document.createElement('article'); c.className='card';
+        const c=document.createElement('article');
+        c.className='card';
+        c.setAttribute('data-id', p.id || '');
         const targetUrl = p.id ? `/product/${encodeURIComponent(p.id)}.html` : 'shop.html';
-        c.innerHTML=`<div class="card-img-wrap"><img src="${p.image}" alt="${altText}" loading="lazy" decoding="async" width="600" height="800"></div><div class="body"><div class="title"><a href="${targetUrl}" class="card-title-link" data-id="${p.id || ''}" data-title="${(p.title || '').replace(/"/g, '&quot;')}" data-price="${priceNum}" data-category="${p.category || ''}">${p.title}</a></div><div class="price">${priceStr}</div></div>`;
+        c.innerHTML=`<a href="${targetUrl}" class="card-img-wrap"><img src="${p.image}" alt="${altText}" loading="lazy" decoding="async" width="600" height="800"></a><div class="body"><div class="title"><a href="${targetUrl}" class="card-title-link" data-id="${p.id || ''}" data-title="${(p.title || '').replace(/"/g, '&quot;')}" data-price="${priceNum}" data-category="${p.category || ''}">${p.title}</a></div><div class="price">${priceStr}</div></div>`;
         c.onclick=(e)=>{
           if(typeof gtag === 'function') {
             gtag('event', 'select_item', {
               item_list_name: 'Featured Home',
-              items: [{ item_id: p.id, item_name: p.title, item_category: p.category, price: priceNum, quantity: 1 }]
+              items: [{ item_id: p.id, item_name: p.title, item_category: p.category, price: priceNum, quantity: 1, index: idx + 1 }]
             });
           }
           if(!e.target.closest('a')) location.href = targetUrl;
         };
         grid.appendChild(c);
       });
-      if(typeof gtag === 'function'){
+      if(typeof gtag === 'function' && !window._homeViewItemListSent){
+        window._homeViewItemListSent = true;
         gtag('event', 'view_item_list', {
           item_list_name: 'Featured Home',
-          items: items.map((p, idx) => ({ item_id: p.id, item_name: p.title, item_category: p.category, price: Number(p.price) || 0, index: idx + 1 }))
+          items: items.slice(0, 12).map((p, idx) => ({ item_id: p.id, item_name: p.title, item_category: p.category, price: Number(p.price) || 0, index: idx + 1 }))
         });
       }
+    }
+
+    function filterHomeGrid(){
+      if(!HOME_PRODUCTS.length) return;
+      const byId = {};
+      HOME_PRODUCTS.forEach(p => { if(p.id) byId[p.id] = p; });
+      let items = HOME_PRODUCTS;
+      if(activeHomeCat === 'All' && !homeSearchQuery.trim()){
+        const picked = FEATURED_IDS.map(id => byId[id]).filter(Boolean);
+        items = picked.length >= 8 ? picked : HOME_PRODUCTS.slice(0, 12);
+      } else {
+        if(activeHomeCat !== 'All'){
+          items = items.filter(p => p.category === activeHomeCat);
+        }
+        if(homeSearchQuery.trim()){
+          const q = homeSearchQuery.toLowerCase().trim();
+          items = items.filter(p => {
+            const t = (p.title || '').toLowerCase();
+            const d = (p.description || '').toLowerCase();
+            const m = (p.materials || []).join(' ').toLowerCase();
+            const kw = (p.search_keywords || []).join(' ').toLowerCase();
+            const sku = (p.sku || '').toLowerCase();
+            return t.includes(q) || d.includes(q) || m.includes(q) || kw.includes(q) || sku.includes(q);
+          });
+        }
+      }
+      renderFeat(items);
+    }
+
+    if(homeFiltersEl){
+      homeFiltersEl.querySelectorAll('.tag[data-cat]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeHomeCat = btn.getAttribute('data-cat') || 'All';
+          homeFiltersEl.querySelectorAll('.tag').forEach(b => b.classList.toggle('active', b === btn));
+          filterHomeGrid();
+        });
+      });
+    }
+    if(homeSearchInput){
+      homeSearchInput.addEventListener('input', (e) => {
+        homeSearchQuery = e.target.value || '';
+        if(homeSearchClear) homeSearchClear.style.display = homeSearchQuery ? 'block' : 'none';
+        filterHomeGrid();
+      });
+    }
+    if(homeSearchClear){
+      homeSearchClear.addEventListener('click', () => {
+        if(homeSearchInput){ homeSearchInput.value = ''; homeSearchInput.focus(); }
+        homeSearchQuery = '';
+        homeSearchClear.style.display = 'none';
+        filterHomeGrid();
+      });
     }
 
     fetch('products.json')
       .then(r => r.ok ? r.json() : Promise.reject())
       .then(data => {
-        const byId = {};
-        data.forEach(p => { if(p.id) byId[p.id] = p; });
-        const picked = FEATURED_IDS.map(id => byId[id]).filter(Boolean);
-        renderFeat(picked.length >= 8 ? picked : data.slice(0, 12));
+        if(Array.isArray(data)){
+          HOME_PRODUCTS = data.filter(p => p.inStock !== false);
+          if(activeHomeCat !== 'All' || homeSearchQuery.trim()){
+            filterHomeGrid();
+          } else if(typeof gtag === 'function' && !window._homeViewItemListSent){
+            window._homeViewItemListSent = true;
+            const byId = {};
+            HOME_PRODUCTS.forEach(p => { if(p.id) byId[p.id] = p; });
+            const picked = FEATURED_IDS.map(id => byId[id]).filter(Boolean);
+            gtag('event', 'view_item_list', {
+              item_list_name: 'Featured Home',
+              items: picked.map((p, idx) => ({ item_id: p.id, item_name: p.title, item_category: p.category, price: Number(p.price) || 0, index: idx + 1 }))
+            });
+          }
+        }
       })
       .catch(()=>{});
 

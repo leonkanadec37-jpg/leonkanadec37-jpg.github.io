@@ -4,16 +4,18 @@
    Pure aesthetics, airy whitespace, refined serif typography, zero clutter.
    ========================================================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
 :root {
-  /* Van Cleef & Arpels Palette (Option 1B) */
+  /* Van Cleef & Arpels Palette (Option 1B — Warm Beige / Pearl Milk) */
   --bg: #FAF9F6;              /* Warm alabaster / pearl milk */
-  --bg-surface: #FAF9F6;      /* Clean seamless surface */
-  --bg-modal: #FFFFFF;        /* Modal clean surface */
+  --bg-surface: #F6F3EC;      /* Soft warm champagne / beige card surface */
+  --bg-modal: #FAF9F6;        /* Modal warm surface */
   --fg: #141312;              /* Deep luxury charcoal / black */
   --fg-soft: #4A4642;         /* Refined body text */
   --muted: #848079;           /* Understated neutral taupe */
   --line: #E8E4DC;            /* Ultra-fine 1px border */
-  --line-light: #F2EFEA;      /* Delicate hairline */
+  --line-light: #EFECE6;      /* Delicate hairline */
   --gold: #C2A67E;            /* Muted jewelry gold */
 
   /* Geometry & Typography */
@@ -1089,7 +1091,7 @@ h1 {
   align-items: center;
   border: 1px solid var(--line);
   padding: 16px 20px;
-  background: #FFFFFF;
+  background: #F6F3EC;
 }
 .thumb {
   width: 88px;
@@ -1772,7 +1774,7 @@ footer {
     gap: 6px 14px;
     align-items: center;
     padding: 14px;
-    background: #FFFFFF;
+    background: #F6F3EC;
   }
   .thumb {
     width: 76px;
@@ -1857,7 +1859,7 @@ footer {
   flex-shrink: 0;
   width: 44px;
   height: 44px;
-  background: #FFFFFF;
+  background: #F6F3EC;
   border: 1px solid var(--line);
   display: flex;
   align-items: center;
@@ -2000,7 +2002,7 @@ body:has(#successModal.open) .floating-wa,
   grid-template-columns: minmax(300px, 400px) 1fr;
   gap: 56px;
   align-items: center;
-  background: #FFFFFF;
+  background: #F6F3EC;
   border: 1px solid var(--line);
   padding: 48px;
 }
@@ -2514,9 +2516,9 @@ body:has(#successModal.open) .floating-wa,
   flex-shrink: 0;
   display: inline-block;
   padding: 6px 14px;
-  border: 1px solid #e5e0d8;
+  border: 1px solid #E5E0D8;
   border-radius: 99px;
-  background: #FFFFFF;
+  background: #F6F3EC;
   color: var(--fg-soft);
   font-size: 12px;
   font-weight: 400;
@@ -2525,10 +2527,11 @@ body:has(#successModal.open) .floating-wa,
   transition: var(--transition);
 }
 .chip-link:hover,
-.stone-chip:hover {
-  border-color: var(--fg);
-  background: var(--fg);
-  color: #FFFFFF;
+.stone-chip:hover,
+.stone-chip.active {
+  border-color: var(--gold);
+  background: #EBE5D8;
+  color: var(--fg);
 }
 
 /* Catalog Filter Tabs (Single-line horizontal scroll) */
@@ -2584,8 +2587,8 @@ body:has(#successModal.open) .floating-wa,
   margin-top: 36px;
 }
 .benefit-card {
-  background: #FFFFFF;
-  border: 1px solid var(--line-light);
+  background: #F6F3EC;
+  border: 1px solid var(--line);
   padding: 32px 28px;
   display: flex;
   flex-direction: column;
@@ -2725,8 +2728,8 @@ body:has(#successModal.open) .floating-wa,
 .mat-pill-link,
 .mat-pill {
   display: inline-block;
-  background: #FFFFFF;
-  color: var(--fg);
+  background: #F6F3EC;
+  color: var(--fg-soft);
   font-size: 11.5px;
   letter-spacing: 0.04em;
   padding: 4px 12px;
@@ -2737,9 +2740,9 @@ body:has(#successModal.open) .floating-wa,
   line-height: 1.4;
 }
 .mat-pill-link:hover {
-  background: var(--fg);
-  color: #FFFFFF;
-  border-color: var(--fg);
+  background: #EBE5D8;
+  color: var(--fg);
+  border-color: var(--gold);
 }
 
 .product-customizer {
@@ -2770,7 +2773,7 @@ body:has(#successModal.open) .floating-wa,
   width: 100%;
   padding: 12px 14px;
   border: 1px solid var(--line);
-  background: #FFFFFF;
+  background-color: #F6F3EC;
   color: var(--fg);
   font-family: var(--font-sans);
   font-size: 13.5px;
@@ -2855,7 +2858,7 @@ body:has(#successModal.open) .floating-wa,
   gap: 12px;
 }
 .review-card {
-  background: #FFFFFF;
+  background: #F6F3EC;
   border: 1px solid var(--line);
   padding: 14px 16px;
 }
@@ -2953,21 +2956,22 @@ body:has(#successModal.open) .floating-wa,
 .hub-interlink-chips a {
   flex-shrink: 0 !important;
   display: inline-block;
-  border: 1px solid #e5e0d8 !important;
+  border: 1px solid #E5E0D8 !important;
   border-radius: 99px !important;
   padding: 5px 12px !important;
   font-size: 12px !important;
   color: var(--fg-soft) !important;
-  background: #FFFFFF !important;
+  background: #F6F3EC !important;
   line-height: 1.4 !important;
   transition: var(--transition) !important;
 }
 .hub-interlink-section .stone-chip:hover,
 .hub-interlink-section .chip-link:hover,
-.hub-interlink-chips a:hover {
-  border-color: var(--fg) !important;
-  background: var(--fg) !important;
-  color: #FFFFFF !important;
+.hub-interlink-chips a:hover,
+.hub-interlink-section .stone-chip.active {
+  border-color: var(--gold) !important;
+  background: #EBE5D8 !important;
+  color: var(--fg) !important;
 }
 
 /* Streamlined Hub & Landing Hero Cleanups */
@@ -3431,5 +3435,83 @@ body:has(#successModal.open) .floating-wa,
   }
 }
 
-
+/* ==========================================================================
+   Unified Beige Catalog Style for Homepage & All Showcases (Variant 1)
+   ========================================================================== */
+.catalog-hero {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 40px 24px 28px;
+}
+.catalog-hero h1,
+main.wrap > h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 3.6vw, 40px);
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  text-align: center;
+  color: var(--fg);
+  margin: 0 0 10px;
+  line-height: 1.22;
+}
+.catalog-subtitle {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: #77736B;
+  line-height: 1.45;
+  margin: 0 auto 18px !important;
+  font-weight: 300;
+  max-width: 680px;
+  text-align: center;
+}
+.catalog-more-wrap {
+  text-align: center;
+  margin: 36px 0 8px;
+}
+.btn-catalog-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 30px;
+  background: #F6F3EC;
+  color: var(--fg);
+  border: 1px solid #DCD5C9;
+  border-radius: 99px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: var(--transition);
+}
+.btn-catalog-more:hover {
+  background: #EBE5D8;
+  border-color: var(--gold);
+  color: var(--fg);
+  transform: translateY(-1px);
+}
+.video-actions .btn {
+  background: #F6F3EC;
+  color: var(--fg);
+  border: 1px solid #DCD5C9;
+  border-radius: 99px;
+  padding: 12px 24px;
+}
+.video-actions .btn:hover {
+  background: #EBE5D8;
+  border-color: var(--gold);
+  color: var(--fg);
+}
+.editorial-content,
+.feature-card {
+  background: #F6F3EC !important;
+  border: 1px solid var(--line) !important;
+}
+@media (max-width: 640px) {
+  .catalog-hero {
+    padding: 32px 16px 24px;
+  }
+}
 

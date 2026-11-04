@@ -707,7 +707,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 
   <!-- Schema.org JSON-LD: Product (Merchant Listing) -->
@@ -1347,9 +1347,9 @@ def sync_static_catalogs(products: list):
             featured = products[:12]
 
         feat_cards = "\n".join(build_static_card_html(p, indent="      ") for p in featured)
-        new_feat = f'<div id="featGrid" class="grid" aria-live="polite">\n{feat_cards}\n    </div>\n  </section>'
+        new_feat = f'<div id="featGrid" class="grid" aria-live="polite">\n{feat_cards}\n    </div>'
         index_html = re.sub(
-            r'<div id="featGrid" class="grid" aria-live="polite">.*?</div>\s*</section>',
+            r'<div id="featGrid" class="grid" aria-live="polite">.*?</div>(?=\s*(?:<div class="catalog-more-wrap"|</section>))',
             lambda _: new_feat,
             index_html,
             count=1,
