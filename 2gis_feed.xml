@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-11-03 10:00">
+<yml_catalog date="2026-11-04 10:00">
   <shop>
     <name>Livi Jewelry</name>
     <company>Livi Jewelry — Авторские украшения ручной работы</company>
@@ -476,16 +476,6 @@
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[Авторское украшение ручной работы: Сотуар из тигрового глаза. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
       </offer>
-      <offer id="prod_49" available="false">
-        <name>Чокеры из граната и жемчуга</name>
-        <url>https://livijewelry.kz/product/prod_49.html</url>
-        <price>20000</price>
-        <currencyId>KZT</currencyId>
-        <categoryId>1</categoryId>
-        <picture>https://livijewelry.kz/assets/chokery-iz-granata-i-zhemchuga-20000.webp</picture>
-        <vendor>Livi Jewelry</vendor>
-        <description><![CDATA[Авторское украшение ручной работы: Чокеры из граната и жемчуга. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
-      </offer>
       <offer id="prod_50" available="true">
         <name>Колье из тигрового глаза и браслет</name>
         <url>https://livijewelry.kz/product/prod_50.html</url>
@@ -546,7 +536,7 @@
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[Дизайнерские серьги ручной работы: Серьги трансформеры со съемными сердцами из натуральных камней. Выполнены из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенные ювелирные швензы со стойким защитным покрытием не темнеют и комфортны для чувствительной кожи. Комфортный легкий вес для ежедневной носки и быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
       </offer>
-      <offer id="prod_59" available="true">
+      <offer id="prod_59" available="false">
         <name>Колье из аква кварца и жемчуга, серьги из перламутра и жемчуга</name>
         <url>https://livijewelry.kz/product/prod_59.html</url>
         <price>56000</price>

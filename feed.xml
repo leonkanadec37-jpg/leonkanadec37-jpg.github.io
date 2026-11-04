@@ -1477,38 +1477,6 @@
       <g:custom_label_4>Handmade_KZ</g:custom_label_4>
     </item>
     <item>
-      <g:id>prod_49</g:id>
-      <g:title>Чокеры из граната и жемчуга — ручная работа (натуральный жемчуг) | Livi Jewelry</g:title>
-      <g:description>Авторское украшение ручной работы: Чокеры из граната и жемчуга. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry. Авторское украшение ручной работы от казахстанского бренда Livi Jewelry. Материалы: Натуральный жемчуг, Натуральный гранат, Ювелирный сплав. Фирменная подарочная упаковка в комплекте. Быстрая доставка СДЭК по Астане, Алматы и всему Казахстану.</g:description>
-      <g:link>https://livijewelry.kz/product/prod_49.html</g:link>
-      <g:image_link>https://livijewelry.kz/assets/chokery-iz-granata-i-zhemchuga-20000.webp</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>out_of_stock</g:availability>
-      <g:price>20000.00 KZT</g:price>
-      <g:brand>Livi Jewelry</g:brand>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:google_product_category>196</g:google_product_category>
-      <g:product_type>Украшения &gt; Колье и бусы из натурального жемчуга и камней</g:product_type>
-      <g:age_group>adult</g:age_group>
-      <g:gender>female</g:gender>
-      <g:color>Белый перламутр / Красный / Бордовый / Серебристый</g:color>
-      <g:material>Натуральный жемчуг / Натуральный гранат / Ювелирный сплав</g:material>
-      <g:product_highlight>Натуральные камни и жемчуг ручной сборки</g:product_highlight>
-      <g:product_highlight>Гипоаллергенная фурнитура со стойким покрытием (родий / позолота)</g:product_highlight>
-      <g:product_highlight>Фирменная подарочная упаковка включена в стоимость</g:product_highlight>
-      <g:product_highlight>Доставка день-в-день по Астане и СДЭК по всему Казахстану</g:product_highlight>
-      <g:shipping>
-        <g:country>KZ</g:country>
-        <g:service>Курьер / СДЭК</g:service>
-        <g:price>0.00 KZT</g:price>
-      </g:shipping>
-      <g:custom_label_0>Tier_3_Entry_Under_35k</g:custom_label_0>
-      <g:custom_label_1>Catalog_Standard</g:custom_label_1>
-      <g:custom_label_2>Necklaces</g:custom_label_2>
-      <g:custom_label_3>Garnet</g:custom_label_3>
-      <g:custom_label_4>Handmade_KZ</g:custom_label_4>
-    </item>
-    <item>
       <g:id>prod_50</g:id>
       <g:title>Колье из тигрового глаза и браслет — ручная работа (тигровый глаз) | Livi Jewelry</g:title>
       <g:description>В комплекте: Колье из тигрового глаза — 20 000 тг, Браслет — 12 000 тг. Полная стоимость комплекта — 32 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry. Доступные варианты комплектации: Полный комплект (Колье из тигрового глаза + Браслет) (32 000 ₸); Колье из тигрового глаза (20 000 ₸); Браслет (12 000 ₸). Авторское украшение ручной работы от казахстанского бренда Livi Jewelry. Материалы: Тигровый глаз, Ювелирный сплав. Фирменная подарочная упаковка в комплекте. Быстрая доставка СДЭК по Астане, Алматы и всему Казахстану.</g:description>
@@ -1707,7 +1675,7 @@
       <g:link>https://livijewelry.kz/product/prod_59.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/kole-iz-akva-kvartsa-i-zhemchuga-sergi-iz-perlamutra-i-zhemchuga-56000.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
+      <g:availability>out_of_stock</g:availability>
       <g:price>56000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
