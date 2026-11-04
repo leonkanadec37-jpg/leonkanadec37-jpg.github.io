@@ -434,19 +434,6 @@
       <g:google_product_category>196</g:google_product_category>
     </item>
     <item>
-      <g:id>prod_34</g:id>
-      <g:title>Серьги</g:title>
-      <g:description>Дизайнерские серьги ручной работы: Серьги. Выполнены из отборных натуральных минералов и материалов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенные ювелирные швензы со стойким защитным покрытием не темнеют и комфортны для чувствительной кожи. Комфортный легкий вес для ежедневной носки и быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.</g:description>
-      <g:link>https://livijewelry.kz/product/prod_34.html?utm_source=pinterest&amp;utm_medium=social&amp;utm_campaign=product_pins</g:link>
-      <g:image_link>https://livijewelry.kz/assets/sergi-15000.webp</g:image_link>
-      <g:price>15000.00 KZT</g:price>
-      <g:availability>in stock</g:availability>
-      <g:condition>new</g:condition>
-      <g:brand>Livi Jewelry</g:brand>
-      <g:product_type>Серьги и сеты с натуральным жемчугом</g:product_type>
-      <g:google_product_category>196</g:google_product_category>
-    </item>
-    <item>
       <g:id>prod_50</g:id>
       <g:title>Колье из тигрового глаза и браслет</g:title>
       <g:description>В комплекте: Колье из тигрового глаза — 20 000 тг, Браслет — 12 000 тг. Полная стоимость комплекта — 32 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.</g:description>
@@ -587,6 +574,32 @@
       <g:condition>new</g:condition>
       <g:brand>Livi Jewelry</g:brand>
       <g:product_type>Колье и чокеры из натурального жемчуга</g:product_type>
+      <g:google_product_category>196</g:google_product_category>
+    </item>
+    <item>
+      <g:id>prod_67</g:id>
+      <g:title>Булавка из горного хрусталя, серьги, кольцо</g:title>
+      <g:description>В комплекте: Булавка из горного хрусталя — 35 000 тг, Серьги — 15 000 тг, Кольцо — 12 500 тг. Полная стоимость комплекта — 62 500 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_67.html?utm_source=pinterest&amp;utm_medium=social&amp;utm_campaign=product_pins</g:link>
+      <g:image_link>https://livijewelry.kz/assets/bulavka-iz-gornogo-khrustalya-sergi-koltso-62500.webp</g:image_link>
+      <g:price>62500.00 KZT</g:price>
+      <g:availability>in stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:product_type>Комплекты украшений ручной работы</g:product_type>
+      <g:google_product_category>196</g:google_product_category>
+    </item>
+    <item>
+      <g:id>prod_68</g:id>
+      <g:title>Колье из тигрового глаза и граната, серьги</g:title>
+      <g:description>В комплекте: Колье из тигрового глаза и граната — 35 000 тг, Серьги — 16 000 тг. Полная стоимость комплекта — 51 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_68.html?utm_source=pinterest&amp;utm_medium=social&amp;utm_campaign=product_pins</g:link>
+      <g:image_link>https://livijewelry.kz/assets/kole-iz-tigrovogo-glaza-i-granata-sergi-51000.webp</g:image_link>
+      <g:price>51000.00 KZT</g:price>
+      <g:availability>in stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:product_type>Комплекты украшений ручной работы</g:product_type>
       <g:google_product_category>196</g:google_product_category>
     </item>
   </channel>

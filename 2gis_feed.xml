@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-11-04 20:53">
+<yml_catalog date="2026-11-04 21:13">
   <shop>
     <name>Livi Jewelry</name>
     <company>Livi Jewelry — Авторские украшения ручной работы</company>
@@ -346,7 +346,7 @@
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[В комплекте: Колье из натуральных камней — 26 000 тг, Браслет — 12 000 тг, Серьги — 10 000 тг. Полная стоимость комплекта — 48 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
       </offer>
-      <offer id="prod_34" available="true">
+      <offer id="prod_34" available="false">
         <name>Серьги</name>
         <url>https://livijewelry.kz/product/prod_34.html</url>
         <price>15000</price>
@@ -615,6 +615,26 @@
         <picture>https://livijewelry.kz/assets/kole-iz-tigrovogo-glaza-i-zhemchuga-34000.webp</picture>
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[Авторское украшение ручной работы: Колье из тигрового глаза и жемчуга. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_67" available="true">
+        <name>Булавка из горного хрусталя, серьги, кольцо</name>
+        <url>https://livijewelry.kz/product/prod_67.html</url>
+        <price>62500</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>4</categoryId>
+        <picture>https://livijewelry.kz/assets/bulavka-iz-gornogo-khrustalya-sergi-koltso-62500.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[В комплекте: Булавка из горного хрусталя — 35 000 тг, Серьги — 15 000 тг, Кольцо — 12 500 тг. Полная стоимость комплекта — 62 500 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_68" available="true">
+        <name>Колье из тигрового глаза и граната, серьги</name>
+        <url>https://livijewelry.kz/product/prod_68.html</url>
+        <price>51000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>4</categoryId>
+        <picture>https://livijewelry.kz/assets/kole-iz-tigrovogo-glaza-i-granata-sergi-51000.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[В комплекте: Колье из тигрового глаза и граната — 35 000 тг, Серьги — 16 000 тг. Полная стоимость комплекта — 51 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
       </offer>
     </offers>
   </shop>
