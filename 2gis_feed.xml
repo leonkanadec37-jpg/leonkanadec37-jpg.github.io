@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-11-04 21:14">
+<yml_catalog date="2026-11-04 21:55">
   <shop>
     <name>Livi Jewelry</name>
     <company>Livi Jewelry — Авторские украшения ручной работы</company>
@@ -326,7 +326,7 @@
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[В комплекте: Колье из яшмы — 34 000 тг, браслет — 12 000 тг. Полная стоимость комплекта — 46 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
       </offer>
-      <offer id="prod_32" available="true">
+      <offer id="prod_32" available="false">
         <name>Колье и браслет из натуральных камней</name>
         <url>https://livijewelry.kz/product/prod_32.html</url>
         <price>38000</price>
@@ -336,7 +336,7 @@
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[В комплекте: Колье из натуральных камней — 26 000 тг, Браслет — 12 000 тг. Полная стоимость комплекта — 38 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
       </offer>
-      <offer id="prod_33" available="true">
+      <offer id="prod_33" available="false">
         <name>Колье, браслет и серьги из натуральных камней</name>
         <url>https://livijewelry.kz/product/prod_33.html</url>
         <price>48000</price>
@@ -635,6 +635,86 @@
         <picture>https://livijewelry.kz/assets/kole-iz-tigrovogo-glaza-i-granata-sergi-51000.webp</picture>
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[В комплекте: Колье из тигрового глаза и граната — 35 000 тг, Серьги — 16 000 тг. Полная стоимость комплекта — 51 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_69" available="true">
+        <name>Колье «Лапы» из ювелирного чешского стекла</name>
+        <url>https://livijewelry.kz/product/prod_69.html</url>
+        <price>40000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>1</categoryId>
+        <picture>https://livijewelry.kz/assets/kole-lapy-iz-yuvelirnogo-cheshskogo-stekla-40000.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[Авторское украшение ручной работы: Колье «Лапы» из ювелирного чешского стекла. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_70" available="true">
+        <name>Колье из граната и чешского стекла</name>
+        <url>https://livijewelry.kz/product/prod_70.html</url>
+        <price>36000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>1</categoryId>
+        <picture>https://livijewelry.kz/assets/kole-iz-granata-i-cheshskogo-stekla-36000.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[Авторское украшение ручной работы: Колье из граната и чешского стекла. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_71" available="true">
+        <name>Колье из жемчуга Майорка и ювелирного стекла</name>
+        <url>https://livijewelry.kz/product/prod_71.html</url>
+        <price>34000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>1</categoryId>
+        <picture>https://livijewelry.kz/assets/kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla-34000.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[Авторское украшение ручной работы: Колье из жемчуга Майорка и ювелирного стекла. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_72" available="true">
+        <name>Колье из жемчуга Майорка и ювелирного стекла, серьги</name>
+        <url>https://livijewelry.kz/product/prod_72.html</url>
+        <price>49000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>4</categoryId>
+        <picture>https://livijewelry.kz/assets/kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla-sergi-49000.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[В комплекте: Колье из жемчуга Майорка и ювелирного стекла — 35 000 тг, Серьги — 14 000 тг. Полная стоимость комплекта — 49 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_73" available="true">
+        <name>Колье из натурального жемчуга и серьги</name>
+        <url>https://livijewelry.kz/product/prod_73.html</url>
+        <price>93000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>4</categoryId>
+        <picture>https://livijewelry.kz/assets/kole-iz-naturalnogo-zhemchuga-i-sergi-93000.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[В комплекте: Колье из натурального жемчуга — 75 000 тг, Серьги — 18 000 тг. Полная стоимость комплекта — 93 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_74" available="true">
+        <name>Гематита и ювелирного стекла</name>
+        <url>https://livijewelry.kz/product/prod_74.html</url>
+        <price>30000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>1</categoryId>
+        <picture>https://livijewelry.kz/assets/gematita-i-yuvelirnogo-stekla-30000.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[Авторское украшение ручной работы: Гематита и ювелирного стекла. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_75" available="true">
+        <name>Колье из чешского стекла и серьги</name>
+        <url>https://livijewelry.kz/product/prod_75.html</url>
+        <price>65000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>4</categoryId>
+        <picture>https://livijewelry.kz/assets/kole-iz-cheshskogo-stekla-i-sergi-65000.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[В комплекте: Колье из чешского стекла — 50 000 тг, Серьги — 15 000 тг. Полная стоимость комплекта — 65 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_76" available="true">
+        <name>Колье из чешского стекла Бургундия и серьги</name>
+        <url>https://livijewelry.kz/product/prod_76.html</url>
+        <price>64000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>4</categoryId>
+        <picture>https://livijewelry.kz/assets/kole-iz-cheshskogo-stekla-burgundiya-i-sergi-64000.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[В комплекте: Колье из чешского стекла Бургундия — 50 000 тг, Серьги — 14 000 тг. Полная стоимость комплекта — 64 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
       </offer>
     </offers>
   </shop>
