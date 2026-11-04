@@ -568,7 +568,7 @@
       try {
         const params = new URLSearchParams(window.location.search);
         const existing = JSON.parse(localStorage.getItem('livi_attribution') || '{}');
-        const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid','yclid'];
+        const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid','fbclid','yclid'];
         let hasNew = false;
         keys.forEach(k => {
           const val = params.get(k);
