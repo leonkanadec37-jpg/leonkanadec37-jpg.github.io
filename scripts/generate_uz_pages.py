@@ -1073,7 +1073,7 @@ def generate_uz_index(products_uz: list) -> str:
       try {{
         const params = new URLSearchParams(window.location.search);
         const existing = JSON.parse(localStorage.getItem('livi_attribution') || '{{}}');
-        const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid','yclid'];
+        const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid','fbclid','yclid'];
         let hasNew = false;
         keys.forEach(k => {{
           const val = params.get(k);
@@ -1429,7 +1429,7 @@ def generate_uz_shop(products_uz: list) -> str:
       try {{
         const params = new URLSearchParams(window.location.search);
         const existing = JSON.parse(localStorage.getItem('livi_attribution') || '{{}}');
-        const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid','yclid'];
+        const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid','fbclid','yclid'];
         let hasNew = false;
         keys.forEach(k => {{
           const val = params.get(k);
@@ -2190,7 +2190,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
       try {{
         const params = new URLSearchParams(window.location.search);
         const existing = JSON.parse(localStorage.getItem('livi_attribution') || '{{}}');
-        const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid','yclid'];
+        const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid','fbclid','yclid'];
         let hasNew = false;
         keys.forEach(k => {{
           const val = params.get(k);
@@ -2537,8 +2537,12 @@ def generate_uz_service_pages():
       </div>
 
       <div class="modal-actions">
+        <a id="modalKaspiPayBtn" href="https://pay.kaspi.kz/pay/7cch2qn1" target="_blank" rel="noopener" class="btn-modal-kaspi">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+          <span id="modalKaspiPayText">Kaspi.kz ilovasida to‘lash</span>
+        </a>
+        <a id="modalWaBtn" class="btn-alt-wa" target="_blank" rel="noopener">WhatsApp orqali chekni yuborish</a>
         <button id="modalCloseBtn" class="btn-modal-close">Katalogga qaytish</button>
-        <a id="modalWaBtn" class="btn-alt-wa" target="_blank" rel="noopener">WhatsApp orqali yuborish</a>
       </div>
     </div>
   </div>
@@ -2548,7 +2552,7 @@ def generate_uz_service_pages():
       try {{
         const params = new URLSearchParams(window.location.search);
         const existing = JSON.parse(localStorage.getItem('livi_attribution') || '{{}}');
-        const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid','yclid'];
+        const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid','fbclid','yclid'];
         let hasNew = false;
         keys.forEach(k => {{
           const val = params.get(k);

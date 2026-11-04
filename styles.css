@@ -1457,6 +1457,40 @@ h1 {
   gap: 10px;
   margin-top: 24px;
 }
+
+/* Kaspi Pay Modal Button */
+.btn-modal-kaspi {
+  width: 100%;
+  background: #f14635;
+  color: #ffffff !important;
+  border: 1px solid #f14635;
+  padding: 16px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(241, 70, 53, 0.35);
+  transition: var(--transition);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.btn-modal-kaspi:hover {
+  background: #d83525;
+  border-color: #d83525;
+  color: #ffffff !important;
+  box-shadow: 0 6px 22px rgba(241, 70, 53, 0.5);
+  transform: translateY(-1px);
+}
+.btn-modal-kaspi svg {
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
 .btn-modal-close {
   width: 100%;
   background: var(--fg);
