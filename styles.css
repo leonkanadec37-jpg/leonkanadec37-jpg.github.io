@@ -3332,6 +3332,10 @@ body:has(#successModal.open) .floating-wa,
   display: none;
 }
 @media (max-width: 768px) {
+  body:has(.mobile-sticky-bar) .floating-wa,
+  main.product-page ~ .floating-wa {
+    display: none !important;
+  }
   .mobile-sticky-bar {
     display: block;
     position: fixed;
