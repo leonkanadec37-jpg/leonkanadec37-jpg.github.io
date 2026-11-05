@@ -1762,7 +1762,7 @@
         const altText = altByCat(p.category, p.title, p.price, p.materials);
         const loadingAttr = idx < 4 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
 
-        card.innerHTML=`<a href="/product/${p.id}.html" class="card-img-wrap"><img src="${p.image}" alt="${altText}" onerror="this.onerror=null;this.src='assets/placeholder.jpg'" ${loadingAttr} decoding="async" width="600" height="800"></a>
+        card.innerHTML=`<a href="/product/${p.id}.html" class="card-img-wrap"><img src="${p.image}" srcset="${p.image.replace(/\.webp$/i, '-750w.webp')} 750w, ${p.image} 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="${altText}" onerror="this.onerror=null;this.removeAttribute('srcset');this.src='assets/placeholder.jpg'" ${loadingAttr} decoding="async" width="600" height="800"></a>
           <div class="body">
             <div class="title"><a href="/product/${p.id}.html" class="card-title-link" data-id="${p.id}" data-title="${(p.title || '').replace(/"/g, '&quot;')}" data-price="${priceNum}" data-category="${p.category || ''}">${p.title}</a></div>
             <div class="price">${priceStr}</div>

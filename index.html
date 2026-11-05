@@ -416,16 +416,35 @@
       <div class="video-player-wrap">
         <video id="atelierVideo" 
                poster="assets/livi-atelier-poster.webp" 
-               autoplay 
                muted 
                loop 
                playsinline 
-               preload="metadata"
+               preload="none"
                aria-label="Живое видео украшений Livi Jewelry">
           <source src="assets/livi-atelier-showcase.mp4" type="video/mp4">
           <source src="assets/livi-atelier-showcase.webm" type="video/webm">
           Ваш браузер не поддерживает видео HTML5.
         </video>
+        <script>
+          (() => {
+            const video = document.getElementById('atelierVideo');
+            const playVideo = () => {
+              video.play().catch(() => { video.controls = true; });
+            };
+            if ('IntersectionObserver' in window) {
+              const observer = new IntersectionObserver(entries => {
+                if (entries[0].isIntersecting) {
+                  playVideo();
+                } else {
+                  video.pause();
+                }
+              });
+              observer.observe(video);
+            } else {
+              video.controls = true;
+            }
+          })();
+        </script>
         <div class="video-badge">
           <span class="video-badge-dot"></span>
           <span>Livi Atelier • Live</span>
@@ -769,7 +788,7 @@
         c.className='card';
         c.setAttribute('data-id', p.id || '');
         const targetUrl = p.id ? `/product/${encodeURIComponent(p.id)}.html` : 'shop.html';
-        c.innerHTML=`<a href="${targetUrl}" class="card-img-wrap"><img src="${p.image}" alt="${altText}" loading="lazy" decoding="async" width="600" height="800"></a><div class="body"><div class="title"><a href="${targetUrl}" class="card-title-link" data-id="${p.id || ''}" data-title="${(p.title || '').replace(/"/g, '&quot;')}" data-price="${priceNum}" data-category="${p.category || ''}">${p.title}</a></div><div class="price">${priceStr}</div></div>`;
+        c.innerHTML=`<a href="${targetUrl}" class="card-img-wrap"><img src="${p.image}" srcset="${p.image.replace(/\.webp$/i, '-750w.webp')} 750w, ${p.image} 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="${altText}" loading="lazy" decoding="async" width="600" height="800"></a><div class="body"><div class="title"><a href="${targetUrl}" class="card-title-link" data-id="${p.id || ''}" data-title="${(p.title || '').replace(/"/g, '&quot;')}" data-price="${priceNum}" data-category="${p.category || ''}">${p.title}</a></div><div class="price">${priceStr}</div></div>`;
         c.onclick=(e)=>{
           if(typeof gtag === 'function') {
             gtag('event', 'select_item', {
