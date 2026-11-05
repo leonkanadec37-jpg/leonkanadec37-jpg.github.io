@@ -399,18 +399,7 @@
         <div class="product-price-val">25 000 ₸</div>
 
         
-        <div class="product-customizer" aria-label="Жеке жинақтау параметрлері">
-          <div class="customizer-field">
-            <label class="customizer-label" for="customSize">Өлшемін таңдаңыз (білек орамы)</label>
-            <select id="customSize" class="customizer-select">
-              <option value="16 см">16 см</option>
-              <option value="17 см (стандартты)" selected>17 см (стандартты)</option>
-              <option value="18 см">18 см</option>
-              <option value="19 см">19 см</option>
-              <option value="Жеке білек өлшемі">Жеке білек өлшемі</option>
-            </select>
-          </div>
-        </div>
+
 
         <div class="product-cta-group">
           <button type="button" class="btn primary" id="addToCartBtn">Себетке қосу — 25 000 ₸</button>
@@ -754,13 +743,11 @@
 
     // Add to cart with direct checkout transition
     function handleAddToCart() {
-      const sizeEl = document.getElementById('customSize');
       const bundleOpt = bundleSelect ? bundleSelect.options[bundleSelect.selectedIndex].value : '';
-      const selectedSize = sizeEl ? sizeEl.value : '';
 
       const cart = readCart();
       const cartItemId = PRODUCT.id + (bundleSelect ? ('-' + bundleSelect.selectedIndex) : '');
-      const existing = cart.find(i => (i.cartItemId || i.id) === cartItemId);
+      const existing = cart.find(i => (i.cartItemId || i.id) === cartItemId && !(i.customSize || i.size));
 
       if (existing) {
         existing.qty = (existing.qty || 1) + 1;
@@ -776,9 +763,7 @@
           category: PRODUCT.category,
           qty: 1,
           customBundle: bundleOpt,
-          customSize: selectedSize,
           bundleOption: bundleOpt,
-          size: selectedSize,
           url: PRODUCT.url
         });
       }

@@ -400,20 +400,13 @@
 
         <div class="bundle-breakdown-badge">Жиынтықта: Колье из горного хрусталя и жемчуга — 50 000 ₸ • Серьги — 20 000 ₸ (бөлек сатып алуға болады)</div>
 
-        <div class="product-customizer" aria-label="Жеке жинақтау параметрлері">
+        <div class="product-customizer">
           <div class="customizer-field bundle-select-field">
             <label class="customizer-label" for="customBundle">Жиынтықталуын таңдаңыз</label>
             <select id="customBundle" class="customizer-select">
               <option value="Полный комплект (Колье из горного хрусталя и жемчуга + Серьги)" data-price="70000" selected>Полный комплект (Колье из горного хрусталя и жемчуга + Серьги) — 70 000 ₸</option>
               <option value="Колье из горного хрусталя и жемчуга" data-price="50000">Колье из горного хрусталя и жемчуга — 50 000 ₸</option>
               <option value="Серьги" data-price="20000">Серьги — 20 000 ₸</option>
-            </select>
-          </div>
-          <div class="customizer-field">
-            <label class="customizer-label" for="customSize">Ұзындығы мен қонуын таңдаңыз</label>
-            <select id="customSize" class="customizer-select">
-              <option value="Үлгінің стандартты қонуы" selected>Үлгінің стандартты қонуы</option>
-              <option value="Жеке ұзындық (шебермен нақтылау)">Жеке ұзындық (шебермен нақтылау)</option>
             </select>
           </div>
         </div>
@@ -759,13 +752,11 @@
 
     // Add to cart with direct checkout transition
     function handleAddToCart() {
-      const sizeEl = document.getElementById('customSize');
       const bundleOpt = bundleSelect ? bundleSelect.options[bundleSelect.selectedIndex].value : '';
-      const selectedSize = sizeEl ? sizeEl.value : '';
 
       const cart = readCart();
       const cartItemId = PRODUCT.id + (bundleSelect ? ('-' + bundleSelect.selectedIndex) : '');
-      const existing = cart.find(i => (i.cartItemId || i.id) === cartItemId);
+      const existing = cart.find(i => (i.cartItemId || i.id) === cartItemId && !(i.customSize || i.size));
 
       if (existing) {
         existing.qty = (existing.qty || 1) + 1;
@@ -781,9 +772,7 @@
           category: PRODUCT.category,
           qty: 1,
           customBundle: bundleOpt,
-          customSize: selectedSize,
           bundleOption: bundleOpt,
-          size: selectedSize,
           url: PRODUCT.url
         });
       }

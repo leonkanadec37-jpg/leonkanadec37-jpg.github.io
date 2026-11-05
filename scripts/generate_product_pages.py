@@ -14,7 +14,7 @@
   hasMerchantReturnPolicy и полный shippingDetails со shippingRate 0 KZT
 - Визуальную таблицу характеристик изделия (<dl class="product-specs-grid">)
 - Визуальный и Schema.org блок FAQPage (3 индивидуальных вопроса-ответа с названием изделия и камней)
-- Интерактивный CRO-блок кастомизации изделия (размер/длина, фурнитура, упаковка) и выбор комплектации (bundle_options)
+- Выбор комплектации (bundle_options) с обновлением цены и заказа
 - Двусторонние hreflang связки с казахскими страницами /kz/product/prod_XX.html и прямой переход в переключателе языка
 - Сквозную атрибуцию UTM/gclid/fbclid (livi_attribution) и события GA4/Ads/Meta
 """
@@ -234,65 +234,34 @@ def build_meta_description(product: dict) -> str:
 
 
 def build_customizer_html(product: dict) -> str:
-    category = product.get("category") or "Necklaces"
-    title_low = (product.get("title") or "").lower()
     bundle_options = product.get("bundle_options") or []
+    if not bundle_options:
+        return ""
 
-    bundle_html = ""
-    if bundle_options:
-        bundle_opts_html = "\n".join(
-            f'              <option value="{html.escape(opt["name"])}" data-price="{opt["price"]}"{" selected" if opt.get("is_full") else ""}>{html.escape(opt["name"])} — {format_price_ru(opt["price"])} ₸</option>'
-            for opt in bundle_options
-        )
-        bundle_html = f"""          <div class="customizer-field bundle-select-field">
-            <label class="customizer-label" for="customBundle">Выберите комплектацию</label>
-            <select id="customBundle" class="customizer-select">
-{bundle_opts_html}
-            </select>
-          </div>\n"""
-
-    if category == "Bracelets":
-        size_label = "Выберите размер (обхват запястья)"
-        options = [
-            ("16 см", False),
-            ("17 см (стандарт)", True),
-            ("18 см", False),
-            ("19 см", False),
-            ("Индивидуальный обхват запястья", False),
-        ]
-    elif category in ("Sets", "Lariats", "Earrings"):
-        size_label = "Выберите длину / посадку"
-        options = [
-            ("Стандартная посадка модели", True),
-            ("Индивидуальная длина (уточнить у мастера)", False),
-        ]
-    else:
-        size_label = "Выберите длину / размер"
-        is_choker = "чокер" in title_low
-        options = [
-            ("38 см (чокер)", is_choker),
-            ("40 см (стандарт)", not is_choker),
-            ("42 см", False),
-            ("45 см", False),
-            ("Индивидуальный размер (уточнит мастер)", False),
-        ]
-
-    opts_html = "\n".join(
-        f'              <option value="{html.escape(val)}"{" selected" if sel else ""}>{html.escape(val)}</option>'
-        for val, sel in options
+    options = "\n".join(
+        f'              <option value="{html.escape(opt["name"])}" data-price="{opt["price"]}"{" selected" if opt.get("is_full") else ""}>{html.escape(opt["name"])} — {format_price_ru(opt["price"])} ₸</option>'
+        for opt in bundle_options
     )
-
-    return f"""        <div class="product-customizer" aria-label="Параметры индивидуальной сборки">
-{bundle_html}          <div class="customizer-field">
-            <label class="customizer-label" for="customSize">{size_label}</label>
-            <select id="customSize" class="customizer-select">
-{opts_html}
-            </select>
-          </div>
+    return f"""        <div class="product-customizer">
+          <label class="customizer-label" for="customBundle">Выберите комплектацию</label>
+          <select id="customBundle" class="customizer-select">
+{options}
+          </select>
         </div>"""
 
 
-def build_product_page_html(product: dict, all_products: list) -> str:
+def storefront_header(home_html: str, language_paths: dict[str, str]) -> str:
+    start = home_html.index('  <header class="storefront-header">')
+    end = home_html.index('</header>', start) + len('</header>')
+    header = home_html[start:end]
+    return re.sub(
+        r'href="[^"]+"(?=[^>]*hreflang="(ru|kk|uz)")',
+        lambda match: f'href="{language_paths[match[1]]}"',
+        header,
+    )
+
+
+def build_product_page_html(product: dict, all_products: list, home_html: str) -> str:
     pid = product["id"]
     livi_sku = product.get("sku") or get_livi_sku(pid)
     title = product["title"].strip()
@@ -588,11 +557,6 @@ def build_product_page_html(product: dict, all_products: list) -> str:
         for h_url, h_lbl in ALL_21_HUBS
     )
 
-    drawer_hub_links = "\n".join(
-        f'            <a href="{h_url}">{html.escape(h_lbl)}</a>'
-        for h_url, h_lbl in ALL_21_HUBS
-    )
-
     bundle_badge_html = ""
     if bundle_options:
         opts_summary = " • ".join(
@@ -601,7 +565,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
             if not opt.get("is_full")
         )
         if opts_summary:
-            bundle_badge_html = f'<div class="bundle-breakdown-badge">В комплекте: {html.escape(opts_summary)} (можно приобрести отдельно)</div>\n'
+            bundle_badge_html = f'        <div class="bundle-breakdown-badge">В комплекте: {html.escape(opts_summary)} (можно приобрести отдельно)</div>\n'
 
     # Воздушный абзац описания (без сырых ценников комплекта в начале)
     about_text = description
@@ -704,7 +668,8 @@ def build_product_page_html(product: dict, all_products: list) -> str:
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=2">
+  <link rel="stylesheet" href="/styles.css?v=4">
+  <script src="/scripts/storefront-menu.js" defer></script>
 
   <!-- Schema.org JSON-LD: Product (Merchant Listing) -->
   <script type="application/ld+json">
@@ -722,65 +687,9 @@ def build_product_page_html(product: dict, all_products: list) -> str:
   </script>
 </head>
 <body>
-  <!-- Drawer -->
-  <div id="drawer" class="drawer" aria-hidden="true">
-    <div class="drawer-back" role="button" tabindex="0" aria-label="Закрыть меню"></div>
-    <div class="drawer-panel" role="menu" aria-label="Меню">
-      <a href="/">Главная</a>
-      <a href="/shop.html">Каталог</a>
-      <details class="drawer-accordion">
-        <summary>Коллекции и камни</summary>
-        <div class="drawer-subnav">
-{drawer_hub_links}
-        </div>
-      </details>
-      <a href="/komplekty-ukrasheniy.html">Комплекты украшений</a>
-      <a href="/delivery.html">Доставка и оплата</a>
-      <div class="drawer-socials">
-        <a class="drawer-soc-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="drawer-soc-link" href="https://wa.me/77054510584?text=Здравствуйте!%20Подскажите,%20пожалуйста,%20по%20украшениям%20Livi%20Jewelry%20—%20хочу%20уточнить%20наличие%20и%20проконсультироваться%20✨" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-      <div class="lang">
-        <a href="{page_url}" class="active">RU</a>
-        <a href="{kz_page_url}" lang="kk">KZ</a>
-        <a href="{uz_page_url}" lang="uz">UZ</a>
-      </div>
-    </div>
-  </div>
+{storefront_header(home_html, {"ru": page_url, "kk": kz_page_url, "uz": uz_page_url})}
 
-  <header>
-    <div class="nav">
-      <button id="burger" class="hamburger" aria-label="Меню"><span></span></button>
-
-      <a class="brand" href="/" aria-label="Livi Jewelry">
-        <span>LIVI JEWELRY</span>
-      </a>
-
-      <div class="nav-actions">
-        <div class="header-lang-links" aria-label="Выбор языка">
-          <a href="{page_url}" class="active">RU</a>
-          <a href="{kz_page_url}" lang="kk">KZ</a>
-          <a href="{uz_page_url}" lang="uz">UZ</a>
-        </div>
-        <a class="cart-link" href="/cart.html" aria-label="Корзина">
-          <span>Корзина</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
-        </a>
-        <a class="quick-link ig-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A4.5 4.5 0 1 0 16.5 12 4.505 4.505 0 0 0 12 7.5zm6.5-.75a1.25 1.25 0 1 0 1.25 1.25A1.25 1.25 0 0 0 18.5 6.75Zm-6.5 2A3.25 3.25 0 1 1 8.75 12 3.254 3.254 0 0 1 12 8.75Z"/>
-          </svg>
-        </a>
-        <a class="quick-link wa-link" href="https://wa.me/77054510584?text=Здравствуйте!%20Подскажите,%20пожалуйста,%20по%20украшениям%20Livi%20Jewelry%20—%20хочу%20уточнить%20наличие%20и%20проконсультироваться%20✨" target="_blank" rel="noopener" aria-label="WhatsApp">
-          <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" fill="currentColor">
-            <path d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
-            <path d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <main class="product-page">
+  <main class="product-page storefront-product">
     <!-- Хлебные крошки -->
     <nav class="breadcrumbs" aria-label="Хлебные крошки">
       <a href="/">Главная</a>
@@ -802,7 +711,6 @@ def build_product_page_html(product: dict, all_products: list) -> str:
         <h1 class="product-h1">{html.escape(title)}</h1>
         <div class="product-price-val">{price_fmt} ₸</div>
 
-        {bundle_badge_html}
 {customizer_html}
 
         <div class="product-cta-group">
@@ -819,7 +727,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
           ✓ Украшение добавлено в корзину! <a href="/cart.html" style="text-decoration:underline;font-weight:600;margin-left:6px;">Перейти к оформлению →</a>
         </div>
 
-        <!-- Блок «Об украшении» -->
+{bundle_badge_html}        <!-- Блок «Об украшении» -->
         <section class="product-about-block" aria-label="Об украшении">
           <h2 class="product-about-title">Об украшении</h2>
           <p class="product-about-text">{html.escape(about_text)}</p>
@@ -834,7 +742,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
                 <div class="spec-row"><dt>Тип украшения</dt><dd>{html.escape(specs.get('type_ru', cat_ru))}</dd></div>
                 <div class="spec-row"><dt>Основные камни и минералы</dt><dd><div class="mat-pills" style="margin-top:2px;">{material_pills}</div></dd></div>
                 <div class="spec-row"><dt>Фурнитура и покрытие</dt><dd>{html.escape(specs.get('hardware', 'Гипоаллергенный ювелирный сплав (родий / позолота)'))}</dd></div>
-                <div class="spec-row"><dt>Размер и посадка</dt><dd>{html.escape(specs.get('length_size', '38–45 см'))}</dd></div>
+                <div class="spec-row"><dt>Размер и посадка</dt><dd>{html.escape(specs.get('length_size') or 'Уточнить у мастера')}</dd></div>
                 <div class="spec-row"><dt>Застежка</dt><dd>{html.escape(specs.get('clasp', 'Ювелирный карабин с удлинителем'))}</dd></div>
                 <div class="spec-row"><dt>Комплектация и упаковка</dt><dd>{html.escape(specs.get('packaging', 'Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry'))}</dd></div>
               </dl>
@@ -978,15 +886,6 @@ def build_product_page_html(product: dict, all_products: list) -> str:
       }}
     }} catch (e) {{}}
 
-    // Drawer
-    const drawer = document.getElementById('drawer');
-    const burger = document.getElementById('burger');
-    if (burger && drawer) {{
-      burger.onclick = () => {{ drawer.classList.add('open'); drawer.setAttribute('aria-hidden', 'false'); document.body.classList.add('drawer-open'); }};
-      const back = drawer.querySelector('.drawer-back');
-      if (back) back.onclick = () => {{ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); document.body.classList.remove('drawer-open'); }};
-    }}
-
     function readCart() {{
       try {{
         const raw = localStorage.getItem('livi_cart_v3') || localStorage.getItem('livi_cart_v2') || '[]';
@@ -1017,7 +916,6 @@ def build_product_page_html(product: dict, all_products: list) -> str:
 
     // Динамическое обновление WhatsApp и цены при выборе комплектации (bundle_options)
     const customBundleEl = document.getElementById('customBundle');
-    const customSizeEl = document.getElementById('customSize');
     const waBtn = document.getElementById('waOrderBtn');
     const stickyWaBtn = document.getElementById('stickyWaBtn');
     const addToCartBtn = document.getElementById('addToCartBtn');
@@ -1044,11 +942,10 @@ def build_product_page_html(product: dict, all_products: list) -> str:
       syncWhatsAppLink();
     }}
 
-    function buildWhatsAppHref(txId) {{
-      const sizeVal = customSizeEl ? customSizeEl.value : 'Стандарт';
+    function buildWhatsAppHref() {{
       const bundleVal = customBundleEl ? customBundleEl.value : currentActiveTitle;
       const priceFormatted = currentActivePrice.toLocaleString('ru-RU');
-      const msg = `Здравствуйте! Хочу уточнить наличие и заказать: ${{bundleVal}} (Артикул: ${{PRODUCT.sku}}) за ${{priceFormatted}} ₸ ✨\\nПараметры: ${{sizeVal}}.\\nСсылка: ${{PRODUCT.url}}`;
+      const msg = `Здравствуйте! Хочу уточнить наличие и заказать: ${{bundleVal}} (Артикул: ${{PRODUCT.sku}}) за ${{priceFormatted}} ₸ ✨\\nСсылка: ${{PRODUCT.url}}`;
       return 'https://wa.me/77054510584?text=' + encodeURIComponent(msg);
     }}
 
@@ -1063,15 +960,13 @@ def build_product_page_html(product: dict, all_products: list) -> str:
     }}
 
     if (customBundleEl) customBundleEl.addEventListener('change', syncBundleSelection);
-    if (customSizeEl) customSizeEl.addEventListener('change', syncWhatsAppLink);
     syncBundleSelection();
 
     function handleAddToCart() {{
-      const sizeVal = customSizeEl ? customSizeEl.value : 'Стандарт';
       const bundleVal = customBundleEl ? customBundleEl.value : currentActiveTitle;
       const items = readCart();
       const itemUniqueId = PRODUCT.id + (customBundleEl ? '-' + customBundleEl.selectedIndex : '');
-      const idx = items.findIndex(x => x.id === itemUniqueId && (x.customSize || '') === sizeVal);
+      const idx = items.findIndex(x => x.id === itemUniqueId && !(x.customSize || x.size));
       if (idx >= 0) {{
         items[idx].qty = Number(items[idx].qty || 1) + 1;
       }} else {{
@@ -1084,7 +979,6 @@ def build_product_page_html(product: dict, all_products: list) -> str:
           image: PRODUCT.image,
           qty: 1,
           customBundle: customBundleEl ? customBundleEl.value : '',
-          customSize: sizeVal,
           url: PRODUCT.url
         }});
       }}
@@ -1101,7 +995,6 @@ def build_product_page_html(product: dict, all_products: list) -> str:
               item_id: PRODUCT.id,
               item_name: bundleVal,
               item_category: PRODUCT.category,
-              item_variant: sizeVal,
               price: currentActivePrice,
               quantity: 1
             }}],
@@ -1364,11 +1257,13 @@ def generate_all():
         products = json.load(f)
 
     active = [p for p in products if p.get("inStock", True)]
+    with open("index.html", encoding="utf-8") as f:
+        home_html = f.read()
     os.makedirs("product", exist_ok=True)
 
     for p in products:
         out_path = os.path.join("product", f"{p['id']}.html")
-        page_html = build_product_page_html(p, products)
+        page_html = build_product_page_html(p, products, home_html)
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(page_html)
 

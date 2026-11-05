@@ -1497,20 +1497,6 @@
         <div class="modal-materials" id="mMats"></div>
         <div class="modal-desc" id="mDesc"></div>
 
-        <!-- CRO-блок кастомизации изделия в модальном окне -->
-        <div class="product-customizer" aria-label="Параметры индивидуальной сборки" style="margin: 12px 0;">
-          <div class="customizer-field">
-            <label class="customizer-label" for="mCustomSize" id="mCustomSizeLabel">Выберите длину / размер</label>
-            <select id="mCustomSize" class="customizer-select">
-              <option value="40 см (стандарт)" selected>40 см (стандарт)</option>
-              <option value="38 см (чокер)">38 см (чокер)</option>
-              <option value="42 см">42 см</option>
-              <option value="45 см">45 см</option>
-              <option value="Индивидуальный размер (уточнит мастер)">Индивидуальный размер (уточнит мастер)</option>
-            </select>
-          </div>
-        </div>
-
         <div class="qty">
           <button id="mMinus" aria-label="−">−</button>
           <span id="mQty">1</span>
@@ -1801,11 +1787,10 @@
     }
 
     /* ===== CART ===== */
-    function addToCart(p, qty, customSize){
+    function addToCart(p, qty){
       const q = Math.max(1, Number(qty||1));
       const cart = readCart();
-      const sizeVal = customSize || 'Стандарт';
-      const i = cart.findIndex(x => x.id === p.id && (x.customSize || '') === sizeVal);
+      const i = cart.findIndex(x => x.id === p.id && !(x.customSize || x.size));
       const unit = Number(p.price) || 0;
       const priceStr = unit ? `${unit.toLocaleString('ru-RU')} тг` : 'Цена по запросу';
       if(i > -1){
@@ -1821,7 +1806,6 @@
           img: p.image,
           qty: q,
           unit,
-          customSize: sizeVal,
           url: 'https://livijewelry.kz/product/' + p.id + '.html'
         });
       }
@@ -1835,31 +1819,7 @@
           mPrice=document.getElementById('mPrice'), mMats=document.getElementById('mMats'), mDesc=document.getElementById('mDesc'), mQtyEl=document.getElementById('mQty');
     const mMinus=document.getElementById('mMinus'), mPlus=document.getElementById('mPlus'), mAdd=document.getElementById('mAdd'), mClose=document.getElementById('mClose');
     const mWa=document.getElementById('mWa'), mPageLink=document.getElementById('mPageLink');
-    const mCustomSize=document.getElementById('mCustomSize'), mCustomSizeLabel=document.getElementById('mCustomSizeLabel');
-    let currentProduct=null;
-
-    function configureModalCustomizer(p){
-      if(!mCustomSize) return;
-      const cat = p.category || 'Necklaces';
-      const isChoker = (p.title || '').toLowerCase().includes('чокер');
-      let opts = [];
-      if(cat === 'Bracelets'){
-        if(mCustomSizeLabel) mCustomSizeLabel.textContent = 'Выберите размер (обхват запястья)';
-        opts = ['16 см', '17 см (стандарт)', '18 см', '19 см', 'Индивидуальный обхват запястья'];
-      } else if(cat === 'Sets' || cat === 'Lariats' || cat === 'Earrings'){
-        if(mCustomSizeLabel) mCustomSizeLabel.textContent = 'Выберите длину / посадку';
-        opts = ['Стандартная посадка модели', 'Индивидуальная длина (уточнить у мастера)'];
-      } else {
-        if(mCustomSizeLabel) mCustomSizeLabel.textContent = 'Выберите длину / размер';
-        opts = ['38 см (чокер)', '40 см (стандарт)', '42 см', '45 см', 'Индивидуальный размер (уточнит мастер)'];
-      }
-      mCustomSize.innerHTML = opts.map(o => {
-        const sel = (cat === 'Bracelets' && o.includes('17 см')) ||
-                    ((cat === 'Sets' || cat === 'Lariats' || cat === 'Earrings') && o.includes('Стандартная')) ||
-                    (cat !== 'Bracelets' && cat !== 'Sets' && cat !== 'Lariats' && cat !== 'Earrings' && ((isChoker && o.includes('38 см')) || (!isChoker && o.includes('40 см'))));
-        return `<option value="${o}"${sel ? ' selected' : ''}>${o}</option>`;
-      }).join('');
-    }
+    let currentProduct = null;
 
     function updateModalWaHref(txId){
       if(!currentProduct || !mWa) return;
@@ -1867,12 +1827,10 @@
       const priceNum = Number(p.price) || 0;
       const priceFmt = priceNum ? priceNum.toLocaleString('ru-RU') : '';
       const sku = getLiviSku(p.id);
-      const sizeVal = mCustomSize ? mCustomSize.value : 'Стандарт';
-      const waText = `Здравствуйте! Хочу уточнить наличие и заказать: ${p.title} (Артикул: ${sku}) за ${priceFmt} ₸ ✨\nПараметры: ${sizeVal}.\nСсылка: https://livijewelry.kz/product/${p.id}.html`;
+      const waText = `Здравствуйте! Хочу уточнить наличие и заказать: ${p.title} (Артикул: ${sku}) за ${priceFmt} ₸ ✨\nСсылка: https://livijewelry.kz/product/${p.id}.html`;
       mWa.href = `https://wa.me/77054510584?text=` + encodeURIComponent(waText);
     }
 
-    if(mCustomSize) mCustomSize.addEventListener('change', () => updateModalWaHref());
 
     function openModal(p){
       currentProduct=p;
@@ -1907,7 +1865,6 @@
       mQtyEl.textContent='1';
       mAdd.textContent=tr('ui.add');
 
-      configureModalCustomizer(p);
       updateModalWaHref();
 
       // Link to individual static product page
@@ -2027,8 +1984,7 @@
       if(currentProduct){ 
         const qty = Number(mQtyEl.textContent) || 1;
         const priceNum = Number(currentProduct.price) || 0;
-        const sizeVal = mCustomSize ? mCustomSize.value : 'Стандарт';
-        addToCart(currentProduct, qty, sizeVal); 
+        addToCart(currentProduct, qty);
         if(window.fbq){
           fbq('track', 'AddToCart', {
             content_name: currentProduct.title,
@@ -2046,7 +2002,6 @@
               id: currentProduct.id,
               item_id: currentProduct.id,
               item_name: currentProduct.title,
-              item_variant: sizeVal,
               price: priceNum,
               item_brand: 'Livi Jewelry',
               quantity: qty,

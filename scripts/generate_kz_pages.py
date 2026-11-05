@@ -1774,44 +1774,10 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
             </select>
           </div>\n"""
 
-    if category == "Bracelets":
-        size_label = "Өлшемін таңдаңыз (білек орамы)"
-        options = [
-            ("16 см", False),
-            ("17 см (стандартты)", True),
-            ("18 см", False),
-            ("19 см", False),
-            ("Жеке білек өлшемі", False),
-        ]
-    elif category in ("Sets", "Lariats", "Earrings"):
-        size_label = "Ұзындығы мен қонуын таңдаңыз"
-        options = [
-            ("Үлгінің стандартты қонуы", True),
-            ("Жеке ұзындық (шебермен нақтылау)", False),
-        ]
-    else:
-        size_label = "Ұзындығы мен өлшемін таңдаңыз"
-        options = [
-            ("38 см (чокер)", False),
-            ("40 см (стандартты)", True),
-            ("42 см", False),
-            ("45 см", False),
-            ("Жеке өлшем (шебер нақтылайды)", False),
-        ]
-
-    opts_html = "\n".join(
-        f'              <option value="{html.escape(val)}"{" selected" if sel else ""}>{html.escape(val)}</option>'
-        for val, sel in options
+    customizer_html = (
+        f'        <div class="product-customizer">\n{bundle_html}        </div>'
+        if bundle_html else ""
     )
-
-    customizer_html = f"""        <div class="product-customizer" aria-label="Жеке жинақтау параметрлері">
-{bundle_html}          <div class="customizer-field">
-            <label class="customizer-label" for="customSize">{size_label}</label>
-            <select id="customSize" class="customizer-select">
-{opts_html}
-            </select>
-          </div>
-        </div>"""
 
     reviews_cards_html = "\n".join(
         f"""          <div class="review-card">
@@ -2326,13 +2292,11 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
 
     // Add to cart with direct checkout transition
     function handleAddToCart() {{
-      const sizeEl = document.getElementById('customSize');
       const bundleOpt = bundleSelect ? bundleSelect.options[bundleSelect.selectedIndex].value : '';
-      const selectedSize = sizeEl ? sizeEl.value : '';
 
       const cart = readCart();
       const cartItemId = PRODUCT.id + (bundleSelect ? ('-' + bundleSelect.selectedIndex) : '');
-      const existing = cart.find(i => (i.cartItemId || i.id) === cartItemId);
+      const existing = cart.find(i => (i.cartItemId || i.id) === cartItemId && !(i.customSize || i.size));
 
       if (existing) {{
         existing.qty = (existing.qty || 1) + 1;
@@ -2348,9 +2312,7 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
           category: PRODUCT.category,
           qty: 1,
           customBundle: bundleOpt,
-          customSize: selectedSize,
           bundleOption: bundleOpt,
-          size: selectedSize,
           url: PRODUCT.url
         }});
       }}
@@ -2667,13 +2629,18 @@ def generate_kz_service_pages():
         kz_cart_html = kz_cart_html.replace('<html lang="ru">', '<html lang="kk">', 1)
         kz_cart_html = kz_cart_html.replace('<title data-i18n="meta.title">Livi Jewelry ? ???????</title>', '<title data-i18n="meta.title">Livi Jewelry ? ?????</title>', 1)
         kz_cart_html = kz_cart_html.replace('<link rel="canonical" href="https://livijewelry.kz/cart.html">', f'<link rel="canonical" href="{SITE_URL}/kz/cart.html">', 1)
-        kz_cart_html = kz_cart_html.replace('<link rel="stylesheet" href="styles.css">', '<link rel="stylesheet" href="/styles.css?v=2">', 1)
-        kz_cart_html = kz_cart_html.replace('<a class="brand" href="/">', '<a class="brand" href="/kz/">')
-        kz_cart_html = kz_cart_html.replace('<a class="cart-link" href="cart.html">', '<a class="cart-link" href="/kz/cart.html">')
+        kz_cart_html = kz_cart_html.replace('class="brand" href="/"', 'class="brand" href="/kz/"')
+        kz_cart_html = kz_cart_html.replace('class="cart-link" href="/cart.html"', 'class="cart-link" href="/kz/cart.html"')
+        kz_cart_html = kz_cart_html.replace('href="/delivery.html"', 'href="/kz/delivery.html"')
+        kz_cart_html = kz_cart_html.replace('href="/shop.html?', 'href="/kz/shop.html?')
         kz_cart_html = kz_cart_html.replace('<a href="shop.html"', '<a href="/kz/shop.html"')
         kz_cart_html = kz_cart_html.replace("window.location.href = 'shop.html';", "window.location.href = '/kz/shop.html';")
-        kz_cart_html = kz_cart_html.replace('<a href="/cart.html" class="active">RU</a>\n        <a href="/kz/cart.html">KZ</a>', '<a href="/cart.html">RU</a>\n        <a href="/kz/cart.html" class="active">KZ</a>')
-        kz_cart_html = kz_cart_html.replace('<a href="/cart.html" class="active">RU</a>\n          <a href="/kz/cart.html">KZ</a>', '<a href="/cart.html">RU</a>\n          <a href="/kz/cart.html" class="active">KZ</a>')
+        kz_cart_html = re.sub(r'(<a href="/cart.html"[^>]*?) class="active"', r'\1', kz_cart_html)
+        kz_cart_html = kz_cart_html.replace('<a href="/kz/cart.html"', '<a href="/kz/cart.html" class="active"')
+        kz_cart_html = kz_cart_html.replace('>Меню<', '>Мәзір<')
+        kz_cart_html = kz_cart_html.replace('>Доставка<', '>Жеткізу<')
+        kz_cart_html = kz_cart_html.replace('>Доставка и оплата<', '>Жеткізу және төлем<')
+        kz_cart_html = kz_cart_html.replace('>По материалу<', '>Материал бойынша<')
         kz_cart_html = kz_cart_html.replace("function lang(){ return localStorage.getItem('lang') || 'ru'; }", "function lang(){ return 'kk'; }")
         kz_cart_html = kz_cart_html.replace("'assets/placeholder.jpg'", "'/assets/placeholder.jpg'")
         kz_cart_html = kz_cart_html.replace("const imgSrc = rawImg.startsWith('../') ? rawImg.slice(3) : (rawImg.startsWith('/') ? rawImg.slice(1) : rawImg);", "const imgSrc = rawImg.startsWith('../') ? '/' + rawImg.slice(3) : (rawImg.startsWith('/') ? rawImg : '/' + rawImg);")
