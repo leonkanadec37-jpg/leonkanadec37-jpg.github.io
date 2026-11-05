@@ -829,23 +829,21 @@ def generate_kz_index(products_kz: list) -> str:
       <h1>Інжу мен тастардың қайталанбас эстетикасы</h1>
       <p class="catalog-subtitle">Табиғи інжу мен минералдардан қолдан жасалған авторлық әшекейлер — каталог: сырғалар, білезіктер, алқалар, жиынтықтар</p>
 
-      <nav class="stone-chips" aria-label="Тастар мен стильдер бойынша жинақтар" style="margin: 18px 0 22px;">
-        <a href="/kz/kolye-iz-zhemchuga.html" class="stone-chip">Інжу алқалар</a>
-        <a href="/kz/braslety-iz-zhemchuga.html" class="stone-chip">Білезіктер</a>
-        <a href="/kz/sergi-iz-zhemchuga.html" class="stone-chip">Сырғалар</a>
-        <a href="/kz/komplekty-ukrasheniy.html" class="stone-chip">Жиынтықтар</a>
-        <a href="/kz/chokery-iz-naturalnyh-kamney.html" class="stone-chip">Чокерлер</a>
-        <a href="/kz/sotuary-iz-zhemchuga.html" class="stone-chip">Сотуарлар</a>
-        <a href="/kz/ukrasheniya-iz-barochnogo-zhemchuga.html" class="stone-chip">Барокко інжуі</a>
-        <a href="/kz/ukrasheniya-iz-gematita.html" class="stone-chip">Гематит</a>
-        <a href="/kz/ukrasheniya-iz-malahita.html" class="stone-chip">Малахит</a>
-        <a href="/kz/ukrasheniya-iz-ametista.html" class="stone-chip">Аметист</a>
-        <a href="/kz/ukrasheniya-iz-granata.html" class="stone-chip">Анар тас</a>
-        <a href="/kz/ukrasheniya-iz-rozovogo-kvarca.html" class="stone-chip">Қызғылт кварц</a>
-        <a href="/kz/ukrasheniya-iz-biryuzy.html" class="stone-chip">Фируза</a>
-        <a href="/kz/ukrasheniya-iz-gornogo-hrustalya.html" class="stone-chip">Тау хрусталі</a>
-        <a href="/kz/ukrasheniya-iz-lunnogo-kamnya.html" class="stone-chip">Ай тасы мен Перламутр</a>
-      </nav>
+      <nav class="stone-chips" aria-label="Табиғи тастар бойынша топтамалар" style="margin: 18px 0 22px;">
+      <a href="/kz/ukrasheniya-iz-barochnogo-zhemchuga.html" class="stone-chip">Барокко інжуі</a>
+      <a href="/kz/ukrasheniya-iz-malahita.html" class="stone-chip">Малахит</a>
+      <a href="/kz/ukrasheniya-iz-rozovogo-kvarca.html" class="stone-chip">Қызғылт кварц</a>
+      <a href="/kz/ukrasheniya-iz-granata.html" class="stone-chip">Анар тас</a>
+      <a href="/kz/ukrasheniya-iz-ametista.html" class="stone-chip">Аметист</a>
+      <a href="/kz/ukrasheniya-iz-biryuzy.html" class="stone-chip">Фируза</a>
+      <a href="/kz/ukrasheniya-iz-gornogo-hrustalya.html" class="stone-chip">Тау хрусталі</a>
+      <a href="/kz/ukrasheniya-iz-gematita.html" class="stone-chip">Гематит</a>
+      <a href="/kz/ukrasheniya-iz-lunnogo-kamnya.html" class="stone-chip">Ай тасы</a>
+      <a href="/kz/ukrasheniya-iz-zhemchuga-mayorka.html" class="stone-chip">Майорка інжуі</a>
+      <a href="/kz/ukrasheniya-iz-koralla-i-yashmy.html" class="stone-chip">Маржан мен Яшма</a>
+      <a href="/kz/ukrasheniya-iz-lazurita.html" class="stone-chip">Лазурит</a>
+      <a href="/kz/ukrasheniya-iz-tigrovogo-glaza.html" class="stone-chip">Жолбарыс көзі</a>
+    </nav>
 
       <div class="toolbar">
         <div class="search-box">
@@ -1216,22 +1214,20 @@ def generate_kz_shop(products_kz: list) -> str:
     <h1 style="margin-bottom:6px;">Әшекейлер каталогы</h1>
     <p class="catalog-subtitle" style="font-size: 13px; color: #777; line-height: 1.4; margin: 0 0 16px;">Інжу және табиғи тастардан жасалған әшекейлер каталогы: алқалар, білезіктер, сырғалар, жиынтықтар</p>
 
-    <nav class="stone-chips" aria-label="Тастар мен санаттар бойынша топтамалар" style="margin: 18px 0 22px;">
-      <a href="/kolye-iz-zhemchuga.html" class="stone-chip">Інжу алқалар</a>
-      <a href="/braslety-iz-zhemchuga.html" class="stone-chip">Білезіктер</a>
-      <a href="/sergi-iz-zhemchuga.html" class="stone-chip">Сырғалар</a>
-      <a href="/komplekty-ukrasheniy.html" class="stone-chip">Жиынтықтар</a>
-      <a href="/chokery-iz-naturalnyh-kamney.html" class="stone-chip">Чокерлер</a>
-      <a href="/sotuary-iz-zhemchuga.html" class="stone-chip">Сотуарлар</a>
-      <a href="/ukrasheniya-iz-barochnogo-zhemchuga.html" class="stone-chip">Барокко інжуі</a>
-      <a href="/ukrasheniya-iz-gematita.html" class="stone-chip">Гематит</a>
-      <a href="/ukrasheniya-iz-malahita.html" class="stone-chip">Малахит</a>
-      <a href="/ukrasheniya-iz-ametista.html" class="stone-chip">Аметист</a>
-      <a href="/ukrasheniya-iz-granata.html" class="stone-chip">Анар тас</a>
-      <a href="/ukrasheniya-iz-rozovogo-kvarca.html" class="stone-chip">Қызғылт кварц</a>
-      <a href="/ukrasheniya-iz-biryuzy.html" class="stone-chip">Фируза</a>
-      <a href="/ukrasheniya-iz-gornogo-hrustalya.html" class="stone-chip">Тау хрусталі</a>
-      <a href="/ukrasheniya-iz-lunnogo-kamnya.html" class="stone-chip">Ай тасы</a>
+    <nav class="stone-chips" aria-label="Табиғи тастар бойынша топтамалар" style="margin: 18px 0 22px;">
+      <a href="/kz/ukrasheniya-iz-barochnogo-zhemchuga.html" class="stone-chip">Барокко інжуі</a>
+      <a href="/kz/ukrasheniya-iz-malahita.html" class="stone-chip">Малахит</a>
+      <a href="/kz/ukrasheniya-iz-rozovogo-kvarca.html" class="stone-chip">Қызғылт кварц</a>
+      <a href="/kz/ukrasheniya-iz-granata.html" class="stone-chip">Анар тас</a>
+      <a href="/kz/ukrasheniya-iz-ametista.html" class="stone-chip">Аметист</a>
+      <a href="/kz/ukrasheniya-iz-biryuzy.html" class="stone-chip">Фируза</a>
+      <a href="/kz/ukrasheniya-iz-gornogo-hrustalya.html" class="stone-chip">Тау хрусталі</a>
+      <a href="/kz/ukrasheniya-iz-gematita.html" class="stone-chip">Гематит</a>
+      <a href="/kz/ukrasheniya-iz-lunnogo-kamnya.html" class="stone-chip">Ай тасы</a>
+      <a href="/kz/ukrasheniya-iz-zhemchuga-mayorka.html" class="stone-chip">Майорка інжуі</a>
+      <a href="/kz/ukrasheniya-iz-koralla-i-yashmy.html" class="stone-chip">Маржан мен Яшма</a>
+      <a href="/kz/ukrasheniya-iz-lazurita.html" class="stone-chip">Лазурит</a>
+      <a href="/kz/ukrasheniya-iz-tigrovogo-glaza.html" class="stone-chip">Жолбарыс көзі</a>
     </nav>
 
     <div class="toolbar" style="margin-bottom: 24px;">

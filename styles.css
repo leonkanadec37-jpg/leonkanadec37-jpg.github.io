@@ -1191,8 +1191,9 @@ h1 {
 
 /* Checkout Form Card */
 .checkout-card {
-  background: transparent;
-  border: 1px solid var(--line);
+  background: #FAF9F6;
+  border: 1px solid #E8E4DC;
+  border-radius: 10px;
   padding: 36px 30px;
   margin-top: 32px;
 }
@@ -1221,19 +1222,22 @@ h1 {
   margin-bottom: 8px;
   color: var(--fg-soft);
 }
-.form-group input, .form-group textarea {
+.form-group input, .form-group textarea, .form-group select {
   width: 100%;
   padding: 13px 14px;
-  border: 1px solid var(--line);
+  border: 1px solid #E2DDD5;
   font: inherit;
   font-size: 14px;
-  background: #FFFDFB;
-  transition: border-color 0.25s;
+  background: #FAF8F5;
+  transition: all 0.25s ease;
   color: var(--fg);
-  border-radius: 0px;
+  border-radius: 6px;
+  box-sizing: border-box;
 }
-.form-group input:focus, .form-group textarea:focus {
-  border-color: var(--fg);
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+  background: #FFFFFF;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
   outline: none;
 }
 .form-hint {
@@ -1247,31 +1251,39 @@ h1 {
 .del-tabs {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 6px;
   margin-bottom: 20px;
+  background: #EFECE6;
+  padding: 5px;
+  border-radius: 8px;
+  border: 1px solid #E5E0D8;
 }
 .del-tab {
-  padding: 14px 16px;
-  border: 1px solid var(--line);
+  padding: 12px 14px;
+  border: 1px solid transparent;
+  border-radius: 6px;
   background: transparent;
   text-align: center;
   cursor: pointer;
   font-size: 13px;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  transition: var(--transition);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  transition: all 0.25s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--fg);
+  color: #6E685F;
 }
 .del-tab:hover {
-  border-color: var(--fg);
+  color: var(--fg);
+  background: rgba(255, 255, 255, 0.45);
 }
 .del-tab.active {
-  background: var(--fg);
-  color: #fff;
-  border-color: var(--fg);
+  background: #FAF9F6;
+  color: var(--fg);
+  border-color: rgba(197, 160, 89, 0.4);
+  box-shadow: 0 2px 8px rgba(30, 25, 20, 0.06);
+  font-weight: 600;
 }
 
 /* Payment Notice (Kaspi) */
@@ -1313,23 +1325,25 @@ h1 {
 /* Checkout Submit Button */
 .btn-submit-order {
   width: 100%;
-  background: var(--fg);
-  color: #fff;
-  border: 1px solid var(--fg);
-  padding: 16px 24px;
+  background: #1C1A17;
+  color: #FFFFFF;
+  border: 1px solid #1C1A17;
+  border-radius: 6px;
+  padding: 16px 22px;
   font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: var(--transition);
+  transition: all 0.25s ease;
 }
 .btn-submit-order:hover {
-  background: transparent;
-  color: var(--fg);
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #FFFFFF;
 }
 .btn-submit-order:disabled {
   opacity: 0.5;
@@ -1828,7 +1842,7 @@ footer {
     color: #D32F2F;
     background: rgba(211, 47, 47, 0.08);
   }
-  .del-tabs { grid-template-columns: 1fr; }
+  /* .del-tabs remains 2-column segmented control on mobile */
   .checkout-card { padding: 22px 14px; }
   .checkout-title { font-size: 20px; gap: 8px; margin-bottom: 20px; }
 }
@@ -1926,13 +1940,13 @@ footer {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #141312;
+  background: #1C1B19;
   color: #FFFFFF;
-  padding: 12px 18px 12px 14px;
+  padding: 11px 18px 11px 14px;
   border-radius: 999px;
-  box-shadow: 0 8px 24px rgba(20, 19, 18, 0.22);
+  box-shadow: 0 8px 24px rgba(20, 19, 18, 0.18);
   transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(197, 160, 89, 0.35);
   text-decoration: none;
 }
 .floating-wa svg {
@@ -1955,20 +1969,25 @@ footer {
 .floating-wa:hover svg {
   transform: scale(1.1);
 }
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .floating-wa {
     bottom: 18px;
     right: 14px;
-    padding: 9px 14px;
-    gap: 7px;
-  }
-  .floating-wa svg {
-    width: 18px;
-    height: 18px;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 16px rgba(20, 19, 18, 0.22);
+    border: 1px solid rgba(197, 160, 89, 0.45);
+    background: #1C1B19;
   }
   .floating-wa-text {
-    font-size: 12.5px;
-    letter-spacing: 0.02em;
+    display: none !important;
+  }
+  .floating-wa svg {
+    width: 22px;
+    height: 22px;
   }
 }
 

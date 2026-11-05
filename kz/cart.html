@@ -237,7 +237,7 @@
         'total': 'Итого к оплате:',
         'clear': 'Очистить корзину',
         'remove': 'Удалить',
-        'checkout.title': 'Оформление заказа и доставка СДЭК',
+        'checkout.title': 'Оформление заказа',
         'checkout.label_name': 'Ваше имя и фамилия *',
         'checkout.hint_name': 'Для получения заказа в отделении СДЭК по удостоверению',
         'checkout.label_phone': 'Номер телефона (для Kaspi) *',
@@ -279,7 +279,7 @@
         'total': 'Барлығы төлеуге:',
         'clear': 'Себетті тазарту',
         'remove': 'Жою',
-        'checkout.title': 'Тапсырыс беру және CDEK жеткізу',
+        'checkout.title': 'Тапсырыс беру',
         'checkout.label_name': 'Аты-жөніңіз *',
         'checkout.hint_name': 'CDEK бөлімшесінде құжат бойынша алу үшін',
         'checkout.label_phone': 'Телефон нөмірі (Kaspi үшін) *',
@@ -545,7 +545,7 @@
             const recTitle = lang()==='kk' ? `Соңғы тапсырысыңыз № ${lo.orderId} сақталды` : 'Ваш предыдущий заказ № ' + lo.orderId + ' сохранен';
             const recBtn = lang()==='kk' ? 'Тапсырысты WhatsApp арқылы қайта ашу' : 'Повторить заказ в WhatsApp оператору';
             lastOrderHtml = `<div style="margin-top:24px;padding:18px;background:#FAF8F5;border:1px solid rgba(197,168,128,0.4);border-radius:10px;max-width:480px;margin-left:auto;margin-right:auto;">
-              <div style="font-weight:600;margin-bottom:8px;">✨ ${recTitle} (${Number(lo.totalAmount||0).toLocaleString('ru-RU')} ₸)</div>
+              <div style="font-weight:600;margin-bottom:8px;">${recTitle} (${Number(lo.totalAmount||0).toLocaleString('ru-RU')} ₸)</div>
               <a href="${lo.waUrl}" target="_blank" rel="noopener" class="btn-submit-order" style="display:inline-flex;text-decoration:none;padding:12px 20px;font-size:14px;width:auto;">${recBtn}</a>
             </div>`;
           }
@@ -616,7 +616,6 @@
       checkoutCard.className = 'checkout-card';
       checkoutCard.innerHTML = `
         <div class="checkout-title">
-          <span>✨</span>
           <div data-i18n="checkout.title">${tr('checkout.title')}</div>
         </div>
 
