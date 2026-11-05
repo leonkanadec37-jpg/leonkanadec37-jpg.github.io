@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-11-05 08:02">
+<yml_catalog date="2026-11-05 10:00">
   <shop>
     <name>Livi Jewelry</name>
     <company>Livi Jewelry — Авторские украшения ручной работы</company>
@@ -166,7 +166,7 @@
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[В комплекте: Колье из розового кварца и жемчуга — 40 000 тг, Серьги — 16 000 тг. Полная стоимость комплекта — 56 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Воплощение нежности и изящества: полупрозрачные бусины пудрового розового кварца в сочетании с перламутровым жемчугом. Комплект придает образу свежесть и легкую романтичность, уместен как на каждый день, так и для торжеств. Серьги можно купить отдельно.]]></description>
       </offer>
-      <offer id="prod_16" available="true">
+      <offer id="prod_16" available="false">
         <name>Колье и серьги из натуральной бирюзы</name>
         <url>https://livijewelry.kz/product/prod_16.html</url>
         <price>50000</price>
@@ -599,7 +599,7 @@
       <offer id="prod_65" available="true">
         <name>Колье из натурального жемчуга</name>
         <url>https://livijewelry.kz/product/prod_65.html</url>
-        <price>70000</price>
+        <price>75000</price>
         <currencyId>KZT</currencyId>
         <categoryId>1</categoryId>
         <picture>https://livijewelry.kz/assets/kole-iz-naturalnogo-zhemchuga-70000.webp</picture>
@@ -659,7 +659,7 @@
       <offer id="prod_71" available="true">
         <name>Колье из жемчуга Майорка и ювелирного стекла</name>
         <url>https://livijewelry.kz/product/prod_71.html</url>
-        <price>34000</price>
+        <price>35000</price>
         <currencyId>KZT</currencyId>
         <categoryId>1</categoryId>
         <picture>https://livijewelry.kz/assets/kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla-34000.webp</picture>

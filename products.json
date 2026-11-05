@@ -747,9 +747,11 @@
         "is_full": false
       }
     ],
-    "inStock": true,
-    "featured": true,
-    "drive_id": "15rL3L5QdsyicAuVoN4vrglHjQBvxXsVI"
+    "inStock": false,
+    "featured": false,
+    "drive_id": "15rL3L5QdsyicAuVoN4vrglHjQBvxXsVI",
+    "archived": true,
+    "archived_at": "2026-11-05"
   },
   {
     "id": "prod_17",
@@ -2522,7 +2524,7 @@
     "title": "Колье из натурального жемчуга",
     "seo_slug": "kole-iz-naturalnogo-zhemchuga",
     "category": "Necklaces",
-    "price": 70000,
+    "price": 75000,
     "image": "assets/kole-iz-naturalnogo-zhemchuga-70000.webp",
     "materials": [
       "Натуральный жемчуг",
@@ -2768,7 +2770,7 @@
     "title": "Колье из жемчуга Майорка и ювелирного стекла",
     "seo_slug": "kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla",
     "category": "Necklaces",
-    "price": 34000,
+    "price": 35000,
     "image": "assets/kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla-34000.webp",
     "materials": [
       "Натуральный жемчуг",

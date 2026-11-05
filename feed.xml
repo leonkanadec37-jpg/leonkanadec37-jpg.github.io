@@ -491,7 +491,7 @@
       <g:link>https://livijewelry.kz/product/prod_16.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/komplekt-iz-naturalnoy-biryuzy-50000.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
+      <g:availability>out_of_stock</g:availability>
       <g:price>50000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -1868,7 +1868,7 @@
       <g:image_link>https://livijewelry.kz/assets/kole-iz-naturalnogo-zhemchuga-70000.webp</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>70000.00 KZT</g:price>
+      <g:price>75000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>196</g:google_product_category>
@@ -2060,7 +2060,7 @@
       <g:image_link>https://livijewelry.kz/assets/kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla-34000.webp</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>34000.00 KZT</g:price>
+      <g:price>35000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>196</g:google_product_category>
@@ -2078,7 +2078,7 @@
         <g:service>Курьер / СДЭК</g:service>
         <g:price>0.00 KZT</g:price>
       </g:shipping>
-      <g:custom_label_0>Tier_3_Entry_Under_35k</g:custom_label_0>
+      <g:custom_label_0>Tier_2_Core_35k_to_54k</g:custom_label_0>
       <g:custom_label_1>Catalog_Standard</g:custom_label_1>
       <g:custom_label_2>Necklaces</g:custom_label_2>
       <g:custom_label_3>Majorica_Pearl</g:custom_label_3>
