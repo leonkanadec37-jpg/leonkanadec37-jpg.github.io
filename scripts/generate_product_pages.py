@@ -49,11 +49,7 @@ CATEGORY_HUB_LINKS = {
     "Sets": ("/komplekty-ukrasheniy.html", "Комплекты украшений"),
 }
 
-FEATURED_IDS = [
-    "prod_01", "prod_02", "prod_06", "prod_07",
-    "prod_10", "prod_11", "prod_16", "prod_17",
-    "prod_19", "prod_20", "prod_23", "prod_24",
-]
+FEATURED_IDS = ["prod_01", "prod_06", "prod_11", "prod_24"]
 
 GENITIVE_STONE_MAP = {
     "натуральный жемчуг": "натурального жемчуга",
@@ -1337,17 +1333,18 @@ def sync_static_catalogs(products: list):
             f.write(shop_html)
         print(f"[OK] Пререндеринг {len(products)} карточек и ItemList встроен в shop.html")
 
-    # 2. index.html (12 избранных карточек)
+    # 2. index.html (один ряд избранных карточек)
     if os.path.exists("index.html"):
         with open("index.html", "r", encoding="utf-8") as f:
             index_html = f.read()
 
         by_id = {p["id"]: p for p in products if "id" in p}
         featured = [by_id[pid] for pid in FEATURED_IDS if pid in by_id]
-        if len(featured) < 8:
-            featured = products[:12]
+        featured_ids = {p["id"] for p in featured}
+        featured.extend(p for p in products if p["id"] not in featured_ids)
+        featured = featured[:len(FEATURED_IDS)]
 
-        feat_cards = "\n".join(build_static_card_html(p, indent="      ", is_first_row=(idx < 4)) for idx, p in enumerate(featured))
+        feat_cards = "\n".join(build_static_card_html(p, indent="      ") for p in featured)
         new_feat = f'<div id="featGrid" class="grid" aria-live="polite">\n{feat_cards}\n    </div>'
         index_html = re.sub(
             r'<div id="featGrid" class="grid" aria-live="polite">.*?</div>(?=\s*(?:<div class="catalog-more-wrap"|</section>))',
