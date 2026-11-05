@@ -511,6 +511,7 @@
     // Phone mask helper for +7 (7XX) XXX-XX-XX
     function formatKZPhone(value){
       let digits = value.replace(/\D/g, '');
+      if (!digits) return '';
       if (digits.startsWith('8')) digits = '7' + digits.slice(1);
       if (!digits.startsWith('7')) digits = '7' + digits;
       digits = digits.slice(0, 11);
@@ -622,19 +623,19 @@
         <form id="orderForm" autocomplete="on">
           <div class="form-group">
             <label for="orderName" data-i18n="checkout.label_name">${tr('checkout.label_name')}</label>
-            <input type="text" id="orderName" required placeholder="Алия Серикова" autocomplete="name">
+            <input type="text" id="orderName" required placeholder="Алия Серикова" autocomplete="name" enterkeyhint="next" autocapitalize="words">
             <span class="form-hint" data-i18n="checkout.hint_name">${tr('checkout.hint_name')}</span>
           </div>
 
           <div class="form-group">
             <label for="orderPhone" data-i18n="checkout.label_phone">${tr('checkout.label_phone')}</label>
-            <input type="tel" id="orderPhone" required placeholder="+7 (705) 000-00-00" autocomplete="tel">
+            <input type="tel" id="orderPhone" required placeholder="+7 (705) 000-00-00" autocomplete="tel" inputmode="tel" enterkeyhint="next">
             <span class="form-hint" data-i18n="checkout.hint_phone">${tr('checkout.hint_phone')}</span>
           </div>
 
           <div class="form-group">
             <label for="orderCity" data-i18n="checkout.label_city">${tr('checkout.label_city')}</label>
-            <input type="text" id="orderCity" required placeholder="Астана, Алматы, Шымкент..." list="kzCities" autocomplete="address-level2">
+            <input type="text" id="orderCity" required placeholder="Астана, Алматы, Шымкент..." list="kzCities" autocomplete="address-level2" enterkeyhint="next" autocapitalize="words">
             <datalist id="kzCities">
               <option value="Астана"><option value="Алматы"><option value="Шымкент">
               <option value="Актобе"><option value="Караганда"><option value="Тараз">
@@ -656,13 +657,13 @@
 
           <div class="form-group">
             <label id="addrLabel" for="orderAddress">${tr('checkout.label_addr_pvz')}</label>
-            <input type="text" id="orderAddress" required placeholder="${tr('checkout.placeholder_addr_pvz')}" autocomplete="street-address">
+            <input type="text" id="orderAddress" required placeholder="${tr('checkout.placeholder_addr_pvz')}" autocomplete="street-address" enterkeyhint="next">
             <span class="form-hint" id="addrHint">${tr('checkout.hint_addr_pvz')}</span>
           </div>
 
           <div class="form-group">
             <label for="orderComment" data-i18n="checkout.label_comment">${tr('checkout.label_comment')}</label>
-            <textarea id="orderComment" rows="2" placeholder="${tr('checkout.placeholder_comment')}"></textarea>
+            <textarea id="orderComment" rows="2" placeholder="${tr('checkout.placeholder_comment')}" enterkeyhint="done"></textarea>
           </div>
 
           <div class="payment-notice">
@@ -1107,7 +1108,16 @@
         kaspiBtn.onclick = () => {
           try {
             if (navigator.clipboard && navigator.clipboard.writeText) {
-              navigator.clipboard.writeText(orderData.orderId);
+              navigator.clipboard.writeText(orderData.orderId).catch(function(){});
+            } else {
+              const ta = document.createElement('textarea');
+              ta.value = orderData.orderId;
+              ta.style.position = 'fixed';
+              ta.style.opacity = '0';
+              document.body.appendChild(ta);
+              ta.select();
+              document.execCommand('copy');
+              document.body.removeChild(ta);
             }
           } catch(e){}
           try {

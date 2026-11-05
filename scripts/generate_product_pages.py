@@ -708,7 +708,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=2">
 
   <!-- Schema.org JSON-LD: Product (Merchant Listing) -->
   <script type="application/ld+json">
@@ -1251,7 +1251,7 @@ def build_product_page_html(product: dict, all_products: list) -> str:
 """
 
 
-def build_static_card_html(product: dict, indent: str = "    ") -> str:
+def build_static_card_html(product: dict, indent: str = "    ", is_first_row: bool = False) -> str:
     pid = product["id"]
     title = html.escape(product["title"].strip())
     price_num = int(product.get("price") or 0)
@@ -1262,9 +1262,10 @@ def build_static_card_html(product: dict, indent: str = "    ") -> str:
     base_img, _ = os.path.splitext(img)
     mob_img = f"{base_img}-750w.webp"
     srcset_attr = f' srcset="/{mob_img} 750w, /{img} 1440w" sizes="(max-width: 768px) 50vw, 300px"' if os.path.exists(mob_img) else ""
+    loading_attr = 'loading="eager" fetchpriority="high"' if is_first_row else 'loading="lazy"'
     return (
         f'{indent}<article class="card" data-id="{pid}">\n'
-        f'{indent}  <a href="/product/{pid}.html" class="card-img-wrap"><img src="{img}"{srcset_attr} alt="{alt}" loading="lazy" decoding="async" width="600" height="800"></a>\n'
+        f'{indent}  <a href="/product/{pid}.html" class="card-img-wrap"><img src="{img}"{srcset_attr} alt="{alt}" {loading_attr} decoding="async" width="600" height="800"></a>\n'
         f'{indent}  <div class="body">\n'
         f'{indent}    <div class="title"><a href="/product/{pid}.html" class="card-title-link" data-id="{pid}" data-title="{title}" data-price="{price_num}" data-category="{cat}">{title}</a></div>\n'
         f'{indent}    <div class="price">{price} ₸</div>\n'
@@ -1313,7 +1314,7 @@ def sync_static_catalogs(products: list):
             flags=re.DOTALL,
         )
 
-        cards_block = "\n".join(build_static_card_html(p, indent="      ") for p in products)
+        cards_block = "\n".join(build_static_card_html(p, indent="      ", is_first_row=(idx < 4)) for idx, p in enumerate(products))
         new_grid = f'<div class="grid" id="grid">\n{cards_block}\n    </div>'
         shop_html = re.sub(
             r'<div class="grid" id="grid">.*?</div>\s*(?=(?:<div id="catalogError"|<section|</main>))',
@@ -1346,7 +1347,7 @@ def sync_static_catalogs(products: list):
         if len(featured) < 8:
             featured = products[:12]
 
-        feat_cards = "\n".join(build_static_card_html(p, indent="      ") for p in featured)
+        feat_cards = "\n".join(build_static_card_html(p, indent="      ", is_first_row=(idx < 4)) for idx, p in enumerate(featured))
         new_feat = f'<div id="featGrid" class="grid" aria-live="polite">\n{feat_cards}\n    </div>'
         index_html = re.sub(
             r'<div id="featGrid" class="grid" aria-live="polite">.*?</div>(?=\s*(?:<div class="catalog-more-wrap"|</section>))',

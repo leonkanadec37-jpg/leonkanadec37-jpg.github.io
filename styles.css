@@ -97,8 +97,10 @@ nav.menu {
 }
 
 .hamburger {
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border: none;
   background: transparent;
   display: inline-grid;
@@ -1154,7 +1156,11 @@ h1 {
   background: transparent;
   color: var(--muted);
   cursor: pointer;
-  padding: 6px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
   font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1720,8 +1726,10 @@ footer {
   }
   .hamburger {
     justify-self: start !important;
-    width: 34px !important;
-    height: 34px !important;
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
     flex-shrink: 0 !important;
   }
   .brand {
@@ -1775,6 +1783,8 @@ footer {
   .form-group textarea,
   .form-group select {
     font-size: 16px !important; /* Prevents iOS Safari auto-zoom on input focus */
+    scroll-margin-top: 80px;
+    scroll-margin-bottom: 40px;
   }
 }
 
@@ -1820,9 +1830,19 @@ footer {
   .btn-remove {
     grid-area: del;
     align-self: start;
-    padding: 2px 4px;
-    line-height: 1;
-    margin-top: -2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    margin: -10px -10px 0 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
   .remove-label {
     display: none;
@@ -1831,8 +1851,8 @@ footer {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     font-size: 15px;
     color: var(--muted);
     border-radius: 50%;
@@ -2193,7 +2213,8 @@ body:has(#successModal.open) .floating-wa,
 .product-main-image-wrap img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background-color: #FAF8F5;
   display: block;
   transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
@@ -2473,12 +2494,29 @@ body:has(#successModal.open) .floating-wa,
   .product-gallery,
   .product-detail-media {
     position: static;
-    max-height: 48vh;
+    width: 100%;
+    height: auto;
+    max-height: 75vh;
+    aspect-ratio: auto;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FAF8F5;
+    overflow: hidden;
   }
   .product-gallery img,
-  .product-detail-media img {
-    max-height: 48vh;
-    object-fit: cover;
+  .product-detail-media img,
+  .product-main-image-wrap img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 75vh;
+    object-fit: contain;
+    object-position: center;
+    background-color: #FAF8F5;
+    display: block;
+    margin: 0 auto;
   }
   .product-page,
   .product-page-wrap {
@@ -2520,15 +2558,36 @@ body:has(#successModal.open) .floating-wa,
   overflow-x: auto;
   white-space: nowrap;
   gap: 8px;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(194, 166, 126, 0.35) transparent;
   -webkit-overflow-scrolling: touch;
-  padding: 4px 2px 14px;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  padding: 4px 28px 14px 2px;
   margin: 0 0 24px 0;
   max-width: 100%;
   width: 100%;
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 calc(100% - 36px), rgba(0, 0, 0, 0.2) calc(100% - 8px), transparent 100%);
+  mask-image: linear-gradient(to right, #000 0%, #000 calc(100% - 36px), rgba(0, 0, 0, 0.2) calc(100% - 8px), transparent 100%);
+  transition: mask-image 0.25s, -webkit-mask-image 0.25s;
 }
 .stone-chips::-webkit-scrollbar {
-  display: none;
+  height: 3px;
+}
+.stone-chips::-webkit-scrollbar-track {
+  background: transparent;
+}
+.stone-chips::-webkit-scrollbar-thumb {
+  background: rgba(194, 166, 126, 0.35);
+  border-radius: 3px;
+}
+.stone-chips.is-scrolled {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.2) 8px, #000 36px, #000 calc(100% - 36px), rgba(0, 0, 0, 0.2) calc(100% - 8px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.2) 8px, #000 36px, #000 calc(100% - 36px), rgba(0, 0, 0, 0.2) calc(100% - 8px), transparent 100%);
+}
+.stone-chips.at-end {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.2) 8px, #000 36px, #000 100%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.2) 8px, #000 36px, #000 100%);
 }
 .chip-link,
 .stone-chip {
@@ -2560,13 +2619,34 @@ body:has(#successModal.open) .floating-wa,
   overflow-x: auto;
   white-space: nowrap;
   gap: 8px;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(194, 166, 126, 0.35) transparent;
   -webkit-overflow-scrolling: touch;
-  padding: 6px 2px;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  padding: 6px 28px 6px 2px;
   width: 100%;
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 calc(100% - 36px), rgba(0, 0, 0, 0.2) calc(100% - 8px), transparent 100%);
+  mask-image: linear-gradient(to right, #000 0%, #000 calc(100% - 36px), rgba(0, 0, 0, 0.2) calc(100% - 8px), transparent 100%);
+  transition: mask-image 0.25s, -webkit-mask-image 0.25s;
 }
 .filters::-webkit-scrollbar {
-  display: none;
+  height: 3px;
+}
+.filters::-webkit-scrollbar-track {
+  background: transparent;
+}
+.filters::-webkit-scrollbar-thumb {
+  background: rgba(194, 166, 126, 0.35);
+  border-radius: 3px;
+}
+.filters.is-scrolled {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.2) 8px, #000 36px, #000 calc(100% - 36px), rgba(0, 0, 0, 0.2) calc(100% - 8px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.2) 8px, #000 36px, #000 calc(100% - 36px), rgba(0, 0, 0, 0.2) calc(100% - 8px), transparent 100%);
+}
+.filters.at-end {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.2) 8px, #000 36px, #000 100%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.2) 8px, #000 36px, #000 100%);
 }
 .filters .tag,
 .filters button,

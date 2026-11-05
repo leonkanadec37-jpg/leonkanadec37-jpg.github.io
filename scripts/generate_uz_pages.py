@@ -631,7 +631,7 @@ def translate_product_uz(p: dict) -> dict:
         "inStock": p.get("inStock", True),
     }
 
-def build_uz_card_html(pk: dict, indent: str = "      ") -> str:
+def build_uz_card_html(pk: dict, indent: str = "      ", is_first_row: bool = False) -> str:
     pid = pk["id"]
     title = html.escape(pk["title"])
     price_num = pk["price"]
@@ -643,9 +643,10 @@ def build_uz_card_html(pk: dict, indent: str = "      ") -> str:
     stones = ", ".join(pk["materials"]).lower()
     alt = html.escape(f"{pk['title']} — qo‘lda yasalgan ({stones}), Livi Jewelry")
     cat = html.escape(pk["category"])
+    loading_attr = 'loading="eager" fetchpriority="high"' if is_first_row else 'loading="lazy"'
     return (
         f'{indent}<article class="card" data-id="{pid}">\n'
-        f'{indent}  <a href="/uz/product/{pid}.html" class="card-img-wrap"><img src="/{img}"{srcset_attr} alt="{alt}" loading="lazy" decoding="async" width="600" height="800"></a>\n'
+        f'{indent}  <a href="/uz/product/{pid}.html" class="card-img-wrap"><img src="/{img}"{srcset_attr} alt="{alt}" {loading_attr} decoding="async" width="600" height="800"></a>\n'
         f'{indent}  <div class="body">\n'
         f'{indent}    <div class="title"><a href="/uz/product/{pid}.html" class="card-title-link" data-id="{pid}" data-title="{title}" data-price="{price_num}" data-category="{cat}">{title}</a></div>\n'
         f'{indent}    <div class="price">{price_str} ₸</div>\n'
@@ -660,7 +661,7 @@ def generate_uz_index(products_uz: list) -> str:
     if len(featured) < 8:
         featured = products_uz[:12]
 
-    feat_cards_html = "\n".join(build_uz_card_html(p, indent="      ") for p in featured)
+    feat_cards_html = "\n".join(build_uz_card_html(p, indent="      ", is_first_row=(idx < 4)) for idx, p in enumerate(featured))
 
     faq_items = [
         (
@@ -768,7 +769,7 @@ def generate_uz_index(products_uz: list) -> str:
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=2">
 
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons/favicon-48.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -1089,7 +1090,7 @@ def generate_uz_index(products_uz: list) -> str:
 
 
 def generate_uz_shop(products_uz: list) -> str:
-    all_cards_html = "\n".join(build_uz_card_html(p, indent="      ") for p in products_uz)
+    all_cards_html = "\n".join(build_uz_card_html(p, indent="      ", is_first_row=(idx < 4)) for idx, p in enumerate(products_uz))
 
     item_list_ld = {
         "@context": "https://schema.org",
@@ -1155,7 +1156,7 @@ def generate_uz_shop(products_uz: list) -> str:
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=2">
 
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons/favicon-48.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -1800,7 +1801,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=2">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
@@ -2332,7 +2333,7 @@ def generate_uz_service_pages():
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=2">
 
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons/favicon-48.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -2561,17 +2562,17 @@ def generate_uz_service_pages():
             <form id="checkoutForm" onsubmit="handleCheckout(event)">
               <div style="margin-bottom:14px;">
                 <label style="display:block;font-size:13px;font-weight:600;margin-bottom:4px;">Ism va familiyangiz *</label>
-                <input type="text" id="custName" required placeholder="Masalan: Dilnoza Karimova" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;box-sizing:border-box;">
+                <input type="text" id="custName" required placeholder="Masalan: Dilnoza Karimova" autocomplete="name" enterkeyhint="next" autocapitalize="words" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;box-sizing:border-box;">
                 <span style="font-size:11px;color:#777;">CDEK yoki pochtada qabul qilib olish uchun</span>
               </div>
               <div style="margin-bottom:14px;">
                 <label style="display:block;font-size:13px;font-weight:600;margin-bottom:4px;">Telefon raqamingiz (WhatsApp) *</label>
-                <input type="tel" id="custPhone" required placeholder="+998 90 123 45 67 yoki +7 ..." style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;box-sizing:border-box;">
+                <input type="tel" id="custPhone" required placeholder="+998 90 123 45 67 yoki +7 ..." autocomplete="tel" inputmode="tel" enterkeyhint="next" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;box-sizing:border-box;">
                 <span style="font-size:11px;color:#777;">Buyurtmani tasdiqlash va treking-raqamni yuborish uchun</span>
               </div>
               <div style="margin-bottom:14px;">
                 <label style="display:block;font-size:13px;font-weight:600;margin-bottom:4px;">Yetkazib berish shahri va hududi *</label>
-                <input type="text" id="custCity" required placeholder="Masalan: Toshkent shahri / Samarqand / Ostona" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;box-sizing:border-box;">
+                <input type="text" id="custCity" required placeholder="Masalan: Toshkent shahri / Samarqand / Ostona" autocomplete="address-level2" enterkeyhint="next" autocapitalize="words" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;box-sizing:border-box;">
               </div>
               <div style="margin-bottom:14px;">
                 <label style="display:block;font-size:13px;font-weight:600;margin-bottom:4px;">Yetkazib berish usuli:</label>
@@ -2584,11 +2585,11 @@ def generate_uz_service_pages():
               </div>
               <div style="margin-bottom:14px;">
                 <label style="display:block;font-size:13px;font-weight:600;margin-bottom:4px;">Yetkazib berish manzili *</label>
-                <input type="text" id="custAddr" required placeholder="Ko‘cha, uy, xonadon yoki CDEK PVZ manzili" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;box-sizing:border-box;">
+                <input type="text" id="custAddr" required placeholder="Ko‘cha, uy, xonadon yoki CDEK PVZ manzili" autocomplete="street-address" enterkeyhint="next" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;box-sizing:border-box;">
               </div>
               <div style="margin-bottom:18px;">
                 <label style="display:block;font-size:13px;font-weight:600;margin-bottom:4px;">Buyurtmaga izoh (ixtiyoriy)</label>
-                <textarea id="custComment" rows="2" placeholder="Bo‘yin o‘lchami, sovg‘a qutisi bo‘yicha tilaklar..." style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;box-sizing:border-box;"></textarea>
+                <textarea id="custComment" rows="2" placeholder="Bo‘yin o‘lchami, sovg‘a qutisi bo‘yicha tilaklar..." enterkeyhint="done" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;box-sizing:border-box;"></textarea>
               </div>
 
               <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:6px;padding:12px;margin-bottom:16px;">
@@ -2809,7 +2810,7 @@ def generate_uz_service_pages():
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=2">
 
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -3019,7 +3020,7 @@ def generate_uz_service_pages():
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=2">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
 </head>
@@ -3087,7 +3088,7 @@ def generate_uz_service_pages():
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=2">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
 </head>

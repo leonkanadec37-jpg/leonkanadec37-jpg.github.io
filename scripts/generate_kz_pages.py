@@ -587,7 +587,7 @@ def translate_product_kz(p: dict) -> dict:
     }
 
 
-def build_kz_card_html(pk: dict, indent: str = "      ") -> str:
+def build_kz_card_html(pk: dict, indent: str = "      ", is_first_row: bool = False) -> str:
     pid = pk["id"]
     title = html.escape(pk["title"])
     price_num = pk["price"]
@@ -599,9 +599,10 @@ def build_kz_card_html(pk: dict, indent: str = "      ") -> str:
     stones = ", ".join(pk["materials"]).lower()
     alt = html.escape(f"{pk['title']} — қолмен жасалған ({stones}), Livi Jewelry")
     cat = html.escape(pk["category"])
+    loading_attr = 'loading="eager" fetchpriority="high"' if is_first_row else 'loading="lazy"'
     return (
         f'{indent}<article class="card" data-id="{pid}">\n'
-        f'{indent}  <a href="/kz/product/{pid}.html" class="card-img-wrap"><img src="/{img}"{srcset_attr} alt="{alt}" loading="lazy" decoding="async" width="600" height="800"></a>\n'
+        f'{indent}  <a href="/kz/product/{pid}.html" class="card-img-wrap"><img src="/{img}"{srcset_attr} alt="{alt}" {loading_attr} decoding="async" width="600" height="800"></a>\n'
         f'{indent}  <div class="body">\n'
         f'{indent}    <div class="title"><a href="/kz/product/{pid}.html" class="card-title-link" data-id="{pid}" data-title="{title}" data-price="{price_num}" data-category="{cat}">{title}</a></div>\n'
         f'{indent}    <div class="price">{price_str} ₸</div>\n'
@@ -616,7 +617,7 @@ def generate_kz_index(products_kz: list) -> str:
     if len(featured) < 8:
         featured = products_kz[:12]
 
-    feat_cards_html = "\n".join(build_kz_card_html(p, indent="      ") for p in featured)
+    feat_cards_html = "\n".join(build_kz_card_html(p, indent="      ", is_first_row=(idx < 4)) for idx, p in enumerate(featured))
 
     faq_items = [
         (
@@ -725,7 +726,7 @@ def generate_kz_index(products_kz: list) -> str:
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=2">
 
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons/favicon-48.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -1022,7 +1023,7 @@ def generate_kz_index(products_kz: list) -> str:
 
 
 def generate_kz_shop(products_kz: list) -> str:
-    all_cards_html = "\n".join(build_kz_card_html(p, indent="      ") for p in products_kz)
+    all_cards_html = "\n".join(build_kz_card_html(p, indent="      ", is_first_row=(idx < 4)) for idx, p in enumerate(products_kz))
 
     item_list_ld = {
         "@context": "https://schema.org",
@@ -1088,7 +1089,7 @@ def generate_kz_shop(products_kz: list) -> str:
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=2">
 
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons/favicon-48.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -1944,7 +1945,7 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=2">
 
   <!-- Schema.org JSON-LD: Product (Merchant Listing) -->
   <script type="application/ld+json">
@@ -2498,7 +2499,7 @@ def generate_kz_service_pages():
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=2">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
 </head>
@@ -2565,7 +2566,7 @@ def generate_kz_service_pages():
   <link rel="alternate" hreflang="uz" href="{SITE_URL}/uz/terms.html" />
   <link rel="alternate" hreflang="x-default" href="{SITE_URL}/terms.html" />
   <meta name="robots" content="index, follow">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=2">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
 </head>
@@ -2622,7 +2623,7 @@ def generate_kz_service_pages():
   <link rel="alternate" hreflang="uz" href="{SITE_URL}/uz/privacy.html" />
   <link rel="alternate" hreflang="x-default" href="{SITE_URL}/privacy.html" />
   <meta name="robots" content="index, follow">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=2">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
 </head>
@@ -2666,7 +2667,7 @@ def generate_kz_service_pages():
         kz_cart_html = kz_cart_html.replace('<html lang="ru">', '<html lang="kk">', 1)
         kz_cart_html = kz_cart_html.replace('<title data-i18n="meta.title">Livi Jewelry ? ???????</title>', '<title data-i18n="meta.title">Livi Jewelry ? ?????</title>', 1)
         kz_cart_html = kz_cart_html.replace('<link rel="canonical" href="https://livijewelry.kz/cart.html">', f'<link rel="canonical" href="{SITE_URL}/kz/cart.html">', 1)
-        kz_cart_html = kz_cart_html.replace('<link rel="stylesheet" href="styles.css">', '<link rel="stylesheet" href="/styles.css">', 1)
+        kz_cart_html = kz_cart_html.replace('<link rel="stylesheet" href="styles.css">', '<link rel="stylesheet" href="/styles.css?v=2">', 1)
         kz_cart_html = kz_cart_html.replace('<a class="brand" href="/">', '<a class="brand" href="/kz/">')
         kz_cart_html = kz_cart_html.replace('<a class="cart-link" href="cart.html">', '<a class="cart-link" href="/kz/cart.html">')
         kz_cart_html = kz_cart_html.replace('<a href="shop.html"', '<a href="/kz/shop.html"')
