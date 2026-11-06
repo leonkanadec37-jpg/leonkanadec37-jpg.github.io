@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<kaspi_catalog date="2026-11-05T20:18:14" xmlns="kaspiShopping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="kaspiShopping http://kaspi.kz/kaspishopping.xsd">
+<kaspi_catalog date="2026-11-06T10:00:54" xmlns="kaspiShopping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="kaspiShopping http://kaspi.kz/kaspishopping.xsd">
   <company>Livi Jewelry</company>
   <merchantid>30485133</merchantid>
   <offers>
@@ -355,22 +355,6 @@
       </availabilities>
       <price>14000</price>
     </offer>
-    <offer sku="LIVI-47">
-      <model>Сотуар из бирюзы</model>
-      <brand>Livi Jewelry</brand>
-      <availabilities>
-        <availability available="no" storeId="PP1" preOrder="0"/>
-      </availabilities>
-      <price>34500</price>
-    </offer>
-    <offer sku="LIVI-48">
-      <model>Сотуар из тигрового глаза</model>
-      <brand>Livi Jewelry</brand>
-      <availabilities>
-        <availability available="no" storeId="PP1" preOrder="0"/>
-      </availabilities>
-      <price>34500</price>
-    </offer>
     <offer sku="LIVI-50">
       <model>Колье из тигрового глаза и браслет</model>
       <brand>Livi Jewelry</brand>
@@ -378,14 +362,6 @@
         <availability available="yes" storeId="PP1" preOrder="0"/>
       </availabilities>
       <price>37000</price>
-    </offer>
-    <offer sku="LIVI-51">
-      <model>Сотуар из далматиновой яшмы и агата</model>
-      <brand>Livi Jewelry</brand>
-      <availabilities>
-        <availability available="no" storeId="PP1" preOrder="0"/>
-      </availabilities>
-      <price>30000</price>
     </offer>
     <offer sku="LIVI-52">
       <model>Гематита и жемчуга Майорка</model>

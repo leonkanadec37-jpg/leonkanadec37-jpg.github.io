@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-11-05 20:18">
+<yml_catalog date="2026-11-06 10:00">
   <shop>
     <name>Livi Jewelry</name>
     <company>Livi Jewelry — Авторские украшения ручной работы</company>
@@ -456,26 +456,6 @@
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[Дизайнерские серьги ручной работы: Серьги с тигровым глазом. Выполнены из отборных натуральных минералов и материалов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенные ювелирные швензы со стойким защитным покрытием не темнеют и комфортны для чувствительной кожи. Комфортный легкий вес для ежедневной носки и быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
       </offer>
-      <offer id="prod_47" available="false">
-        <name>Сотуар из бирюзы</name>
-        <url>https://livijewelry.kz/product/prod_47.html</url>
-        <price>30000</price>
-        <currencyId>KZT</currencyId>
-        <categoryId>5</categoryId>
-        <picture>https://livijewelry.kz/assets/sotuar-iz-biryuzy-30000.webp</picture>
-        <vendor>Livi Jewelry</vendor>
-        <description><![CDATA[Авторское украшение ручной работы: Сотуар из бирюзы. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
-      </offer>
-      <offer id="prod_48" available="false">
-        <name>Сотуар из тигрового глаза</name>
-        <url>https://livijewelry.kz/product/prod_48.html</url>
-        <price>30000</price>
-        <currencyId>KZT</currencyId>
-        <categoryId>5</categoryId>
-        <picture>https://livijewelry.kz/assets/sotuar-iz-tigrovogo-glaza-30000.webp</picture>
-        <vendor>Livi Jewelry</vendor>
-        <description><![CDATA[Авторское украшение ручной работы: Сотуар из тигрового глаза. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
-      </offer>
       <offer id="prod_50" available="true">
         <name>Колье из тигрового глаза и браслет</name>
         <url>https://livijewelry.kz/product/prod_50.html</url>
@@ -485,16 +465,6 @@
         <picture>https://livijewelry.kz/assets/kole-iz-tigrovogo-glaza-i-braslet-32000.webp</picture>
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[В комплекте: Колье из тигрового глаза — 20 000 тг, Браслет — 12 000 тг. Полная стоимость комплекта — 32 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
-      </offer>
-      <offer id="prod_51" available="false">
-        <name>Сотуар из далматиновой яшмы и агата</name>
-        <url>https://livijewelry.kz/product/prod_51.html</url>
-        <price>26000</price>
-        <currencyId>KZT</currencyId>
-        <categoryId>5</categoryId>
-        <picture>https://livijewelry.kz/assets/sotuar-iz-dolmatinovoy-yashmy-i-agata-26000.webp</picture>
-        <vendor>Livi Jewelry</vendor>
-        <description><![CDATA[Авторское украшение ручной работы: Сотуар из далматиновой яшмы и агата. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
       </offer>
       <offer id="prod_52" available="true">
         <name>Гематита и жемчуга Майорка</name>
