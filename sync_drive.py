@@ -304,6 +304,10 @@ def detect_materials(title, description=""):
     if 'авантюрин' in text: mats.append('Натуральный авантюрин')
     if 'чешск' in text: mats.append('Чешское стекло')
     elif 'стекл' in text: mats.append('Ювелирное стекло')
+    if 'хрустал' in text: mats.append('Горный хрусталь')
+    if 'амазонит' in text: mats.append('Амазонит')
+    if 'лунн' in text: mats.append('Лунный камень')
+    if 'лазурит' in text: mats.append('Лазурит')
     if 'позолот' in text or 'золот' in text: mats.append('Позолота')
     
     mats.append('Ювелирный сплав')
@@ -570,29 +574,59 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
     if drive_url:
         print(f"[INFO] Считываем каталог из Google Drive: {drive_url}")
         
-        # Парсим оригинальные названия файлов и ID из HTML страницы папки Google Диска
+        # Парсим оригинальные названия файлов и ID из HTML страницы папки Google Диска.
+        # Внимание: веб-интерфейс Google Диска ограничивает SSR-таблицу ровно 50 элементами.
+        # Чтобы получить все файлы (> 50), опрашиваем папку с разными сортировками
+        # (по умолчанию A-Z, по дате изменения и Z-A) и дополнительно парсим массив window['_DRIVE_ivd'].
         current_drive_ids = set()
         drive_items = []
-        try:
-            r = requests.get(drive_url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=15)
-            soup = BeautifulSoup(r.content.decode('utf-8', errors='replace'), 'html.parser')
-            for tr in soup.find_all('tr', attrs={'data-id': True}):
-                fid = tr.get('data-id')
-                if not fid:
+        base_clean = drive_url.split('?')[0]
+        sort_variants = ['', '?sort=13&direction=a', '?sort=7&direction=d', '?sort=13&direction=d']
+
+        for sp in sort_variants:
+            target_url = base_clean + sp
+            try:
+                r = requests.get(target_url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}, timeout=15)
+                if r.status_code != 200:
                     continue
-                current_drive_ids.add(fid)
-                label = tr.get('aria-label') or ''
-                if not label:
-                    for el in tr.find_all(True):
-                        al = el.get('aria-label') or ''
-                        if 'Image' in al or 'Shared' in al or 'Video' in al:
-                            label = al
-                            break
-                clean_title = label.replace(' Image Shared', '').replace(' Shared', '').strip()
-                if clean_title:
-                    drive_items.append((fid, clean_title))
-        except Exception as e:
-            print(f"[WARN] Не удалось извлечь метаданные через web: {e}")
+
+                # Вариант A: парсим JSON из window['_DRIVE_ivd']
+                match = re.search(r"window\['_DRIVE_ivd'\]\s*=\s*'([^']+)'", r.text)
+                if match:
+                    raw_val = match.group(1)
+                    decoded_str = re.sub(r'\\x([0-9a-fA-F]{2})', lambda m: chr(int(m.group(1), 16)), raw_val).replace('\\/', '/')
+                    try:
+                        data = json.loads(decoded_str)
+                        if data and isinstance(data[0], list):
+                            for it in data[0]:
+                                if len(it) > 2 and it[0] and it[2]:
+                                    fid = it[0]
+                                    fname = it[2].strip()
+                                    if fid not in current_drive_ids:
+                                        current_drive_ids.add(fid)
+                                        drive_items.append((fid, fname))
+                    except Exception:
+                        pass
+
+                # Вариант B: парсим теги <tr> BeautifulSoup
+                soup = BeautifulSoup(r.content.decode('utf-8', errors='replace'), 'html.parser')
+                for tr in soup.find_all('tr', attrs={'data-id': True}):
+                    fid = tr.get('data-id')
+                    if not fid or fid in current_drive_ids:
+                        continue
+                    label = tr.get('aria-label') or ''
+                    if not label:
+                        for el in tr.find_all(True):
+                            al = el.get('aria-label') or ''
+                            if any(k in al for k in ['Image', 'Shared', 'Video']):
+                                label = al
+                                break
+                    clean_title = label.replace(' Image Shared', '').replace(' Shared', '').strip()
+                    if clean_title:
+                        current_drive_ids.add(fid)
+                        drive_items.append((fid, clean_title))
+            except Exception as e:
+                print(f"[WARN] Не удалось извлечь метаданные через web ({sp}): {e}")
 
         # Собираем кандидатов для проверки
         existing_by_drive_id = {p['drive_id']: p for p in products if p.get('drive_id')}
