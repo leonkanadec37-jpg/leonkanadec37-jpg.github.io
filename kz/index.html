@@ -258,6 +258,7 @@
           <button type="button" class="tag" data-cat="Earrings">Сырғалар</button>
           <button type="button" class="tag" data-cat="Bracelets">Білезіктер</button>
           <button type="button" class="tag" data-cat="Sets">Жиынтықтар</button>
+          <button type="button" class="tag" data-cat="Rings">Сақиналар</button>
           <button type="button" class="tag" data-cat="Lariats">Сотуарлар</button>
           <button type="button" class="tag" data-cat="Chains">Тізбектер</button>
         </div>
@@ -454,7 +455,7 @@
         const link = card.querySelector('.card-title-link');
         const cat = link ? (link.getAttribute('data-category') || '') : '';
         const title = link ? (link.textContent || '').toLowerCase() : '';
-        const matchCat = kzActiveCat === 'All' || cat === kzActiveCat;
+        const matchCat = kzActiveCat === 'All' || cat === kzActiveCat || (kzActiveCat === 'Rings' && (cat === 'Rings' || title.includes('кольц') || title.includes('сақина')));
         const matchQ = !q || title.includes(q);
         card.style.display = (matchCat && matchQ) ? '' : 'none';
       });

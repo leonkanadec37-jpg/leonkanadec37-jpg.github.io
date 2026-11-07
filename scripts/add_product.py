@@ -12,7 +12,7 @@ Livi Jewelry - Скрипт мгновенного добавления/выгр
       [--featured] \
       [--commit]
 
-Категории: Necklaces, Earrings, Sets, Bracelets, Lariats, Chains
+Категории: Necklaces, Earrings, Sets, Bracelets, Lariats, Chains, Rings
 """
 
 import os
@@ -90,7 +90,7 @@ def main():
     parser = argparse.ArgumentParser(description="Добавление товара в каталог Livi Jewelry")
     parser.add_argument("--image", required=True, help="Путь к исходной фотографии (jpg, png, webp)")
     parser.add_argument("--title", required=True, help="Название товара")
-    parser.add_argument("--category", required=True, choices=["Necklaces", "Earrings", "Sets", "Bracelets", "Lariats", "Chains"], help="Категория")
+    parser.add_argument("--category", required=True, choices=["Necklaces", "Earrings", "Sets", "Bracelets", "Lariats", "Chains", "Rings"], help="Категория")
     parser.add_argument("--price", type=int, required=True, help="Цена в тенге (число)")
     parser.add_argument("--materials", default="", help="Материалы через запятую")
     parser.add_argument("--description", default="", help="Описание товара")

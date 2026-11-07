@@ -60,6 +60,7 @@ CATEGORY_NAMES_KZ = {
     "Chains": "Тізбектер мен чокерлер",
     "Bracelets": "Білезіктер",
     "Earrings": "Сырғалар",
+    "Rings": "Сақиналар",
     "Sets": "Жиынтықтар",
 }
 
@@ -69,6 +70,7 @@ CATEGORY_HUB_LINKS = {
     "Chains": ("/kz/chokery-iz-naturalnyh-kamney.html", "Чокерлер мен тізбектер"),
     "Bracelets": ("/kz/braslety-iz-zhemchuga.html", "Білезіктер"),
     "Earrings": ("/kz/sergi-iz-zhemchuga.html", "Сырғалар"),
+    "Rings": ("/kz/koltsa-i-garnitury-iz-kamney.html", "Сақиналар мен гарнитурлар"),
     "Sets": ("/kz/komplekty-ukrasheniy.html", "Жиынтықтар"),
 }
 
@@ -856,6 +858,7 @@ def generate_kz_index(products_kz: list) -> str:
           <button type="button" class="tag" data-cat="Earrings">Сырғалар</button>
           <button type="button" class="tag" data-cat="Bracelets">Білезіктер</button>
           <button type="button" class="tag" data-cat="Sets">Жиынтықтар</button>
+          <button type="button" class="tag" data-cat="Rings">Сақиналар</button>
           <button type="button" class="tag" data-cat="Lariats">Сотуарлар</button>
           <button type="button" class="tag" data-cat="Chains">Тізбектер</button>
         </div>
@@ -953,7 +956,7 @@ def generate_kz_index(products_kz: list) -> str:
         const link = card.querySelector('.card-title-link');
         const cat = link ? (link.getAttribute('data-category') || '') : '';
         const title = link ? (link.textContent || '').toLowerCase() : '';
-        const matchCat = kzActiveCat === 'All' || cat === kzActiveCat;
+        const matchCat = kzActiveCat === 'All' || cat === kzActiveCat || (kzActiveCat === 'Rings' && (cat === 'Rings' || title.includes('кольц') || title.includes('сақина')));
         const matchQ = !q || title.includes(q);
         card.style.display = (matchCat && matchQ) ? '' : 'none';
       }});

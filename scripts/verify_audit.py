@@ -574,10 +574,14 @@ def run_audit():
     with open("cart.html", "r", encoding="utf-8") as f:
         cart_code = f.read()
 
+    with open("scripts/cart-core.js", "r", encoding="utf-8") as f:
+        cart_core = f.read()
+
     cart_bundle_ok = (
-        "customBundle" in cart_code
-        and "unitPrice" in cart_code
-        and "item.customBundle" in cart_code
+        'src="/scripts/cart-core.js"' in cart_code
+        and "item.customBundle" in cart_core
+        and "function unitPrice(item)" in cart_core
+        and "unitPrice(i)" in cart_code
         and "Комплектация:" in cart_code
     )
 
@@ -780,6 +784,7 @@ def run_audit():
     cart_uz_ok = (
         'content="noindex' in cart_uz
         and f'<link rel="canonical" href="{SITE_URL}/uz/cart.html">' in cart_uz
+        and 'src="/scripts/cart-core.js"' in cart_uz
         and 'custPhone' in cart_uz
         and 'WhatsApp' in cart_uz
         and 'Savatcha' in cart_uz

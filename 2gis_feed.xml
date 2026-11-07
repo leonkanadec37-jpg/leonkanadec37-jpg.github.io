@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-11-07 10:49">
+<yml_catalog date="2026-11-07 11:22">
   <shop>
     <name>Livi Jewelry</name>
     <company>Livi Jewelry — Авторские украшения ручной работы</company>
@@ -14,6 +14,8 @@
       <category id="3">Серьги</category>
       <category id="4">Комплекты украшений</category>
       <category id="5">Сотуары и галстуки</category>
+      <category id="6">Кольца и перстни</category>
+      <category id="7">Цепочки и чокеры</category>
     </categories>
     <offers>
       <offer id="prod_01" available="true">

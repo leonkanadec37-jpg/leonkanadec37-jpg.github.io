@@ -37,6 +37,7 @@ CATEGORY_NAMES_RU = {
     "Chains": "Цепочки и чокеры",
     "Bracelets": "Браслеты",
     "Earrings": "Серьги",
+    "Rings": "Кольца",
     "Sets": "Комплекты украшений",
 }
 
@@ -46,6 +47,7 @@ CATEGORY_HUB_LINKS = {
     "Chains": ("/chokery-iz-naturalnyh-kamney.html", "Чокеры и цепочки"),
     "Bracelets": ("/braslety-iz-zhemchuga.html", "Браслеты из жемчуга"),
     "Earrings": ("/sergi-iz-zhemchuga.html", "Серьги из жемчуга"),
+    "Rings": ("/koltsa-i-garnitury-iz-kamney.html", "Кольца и сеты"),
     "Sets": ("/komplekty-ukrasheniy.html", "Комплекты украшений"),
 }
 

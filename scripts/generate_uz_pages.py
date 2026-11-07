@@ -60,6 +60,7 @@ CATEGORY_NAMES_UZ = {
     "Chains": "Zanjirlar va chokerlar",
     "Bracelets": "Bilasuzuklar",
     "Earrings": "Ziraklar",
+    "Rings": "Uzuklar",
     "Sets": "To‘plamlar",
 }
 
@@ -69,6 +70,7 @@ CATEGORY_HUB_LINKS = {
     "Chains": ("/uz/chokery-iz-naturalnyh-kamney.html", "Toshli chokerlar va zanjirlar"),
     "Bracelets": ("/uz/braslety-iz-zhemchuga.html", "Marvarid bilasuzuklar"),
     "Earrings": ("/uz/sergi-iz-zhemchuga.html", "Marvarid ziraklar"),
+    "Rings": ("/uz/koltsa-i-garnitury-iz-kamney.html", "Uzuklar va to‘plamlar"),
     "Sets": ("/uz/komplekty-ukrasheniy.html", "Taqinchoqlar to‘plami"),
 }
 
@@ -922,6 +924,7 @@ def generate_uz_index(products_uz: list) -> str:
           <button type="button" class="tag" data-cat="Earrings">Ziraklar</button>
           <button type="button" class="tag" data-cat="Bracelets">Bilasuzuklar</button>
           <button type="button" class="tag" data-cat="Sets">To‘plamlar</button>
+          <button type="button" class="tag" data-cat="Rings">Uzuklar</button>
           <button type="button" class="tag" data-cat="Lariats">Sotuarlar</button>
           <button type="button" class="tag" data-cat="Chains">Zanjirlar</button>
         </div>
@@ -1020,7 +1023,7 @@ def generate_uz_index(products_uz: list) -> str:
         const link = card.querySelector('.card-title-link');
         const cat = link ? (link.getAttribute('data-category') || '') : '';
         const title = link ? (link.textContent || '').toLowerCase() : '';
-        const matchCat = uzActiveCat === 'All' || cat === uzActiveCat;
+        const matchCat = uzActiveCat === 'All' || cat === uzActiveCat || (uzActiveCat === 'Rings' && (cat === 'Rings' || title.includes('кольц') || title.includes('uzuk')));
         const matchQ = !q || title.includes(q);
         card.style.display = (matchCat && matchQ) ? '' : 'none';
       }});
@@ -2373,26 +2376,6 @@ def generate_uz_service_pages():
 </head>
 <body>
   <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
-  <script>
-    (function captureAttribution(){{
-      try {{
-        var params = new URLSearchParams(window.location.search);
-        var existing = JSON.parse(localStorage.getItem('livi_attribution') || '{{}}');
-        var keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid','fbclid','yclid'];
-        var hasNew = false;
-        keys.forEach(function(k){{
-          var val = params.get(k);
-          if(val){{ existing[k] = val; hasNew = true; }}
-        }});
-        if(!existing.landing_page) existing.landing_page = window.location.pathname + window.location.search;
-        if(!existing.referrer && document.referrer) existing.referrer = document.referrer;
-        if(!existing.first_visit) existing.first_visit = new Date().toISOString();
-        if(hasNew || !localStorage.getItem('livi_attribution')){{
-          localStorage.setItem('livi_attribution', JSON.stringify(existing));
-        }}
-      }} catch(e){{}}
-    }})();
-  </script>
 
   <!-- Drawer -->
   <div id="drawer" class="drawer" aria-hidden="true">
@@ -2473,34 +2456,12 @@ def generate_uz_service_pages():
     </div>
   </div>
 
+  <script src="/scripts/cart-core.js"></script>
   <script>
-    (function captureAttribution(){{
-      try {{
-        const params = new URLSearchParams(window.location.search);
-        const existing = JSON.parse(localStorage.getItem('livi_attribution') || '{{}}');
-        const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid','fbclid','yclid'];
-        let hasNew = false;
-        keys.forEach(k => {{
-          const val = params.get(k);
-          if(val) {{ existing[k] = val; hasNew = true; }}
-        }});
-        if(!existing.landing_page) existing.landing_page = window.location.pathname + window.location.search;
-        if(!existing.referrer && document.referrer) existing.referrer = document.referrer;
-        if(!existing.first_visit) existing.first_visit = new Date().toISOString();
-        if(hasNew || !localStorage.getItem('livi_attribution')) {{
-          localStorage.setItem('livi_attribution', JSON.stringify(existing));
-        }}
-      }} catch(e){{}}
-    }})();
-
+    const {{ readCart, writeCart, unitPrice, totalPrice, captureAttribution, bindPhone, escapeHtml }} = LiviCart;
+    captureAttribution();
     const WA_PHONE = '77054510584';
-
-    function readCart(){{
-      try {{ return JSON.parse(localStorage.getItem('livi_cart_v3') || '[]'); }} catch(e){{ return []; }}
-    }}
-    function writeCart(c){{
-      try {{ localStorage.setItem('livi_cart_v3', JSON.stringify(c)); }} catch(e){{}}
-    }}
+    let validatePhone;
 
     function renderCart(){{
       const root = document.getElementById('root');
@@ -2522,18 +2483,18 @@ def generate_uz_service_pages():
         return;
       }}
 
-      const totalSum = cart.reduce((s, i) => s + (Number(i.unitPrice || i.price || 0) * Number(i.qty || 1)), 0);
+      const totalSum = totalPrice(cart);
       const totalSumFmt = totalSum.toLocaleString('ru-RU').replace(/,/g, ' ');
 
       const itemsHtml = cart.map((item, idx) => {{
-        const uPrice = Number(item.unitPrice || item.price || 0);
-        const itemSum = uPrice * Number(item.qty || 1);
-        const bundleInfo = item.customBundle ? `<div style="font-size:12px;color:var(--muted);margin-top:2px;">Komplektatsiya: <strong>${{html.escape(item.customBundle)}}</strong></div>` : '';
+        const uPrice = unitPrice(item);
+        const bundle = item.customBundle || item.bundleOption;
+        const bundleInfo = bundle ? `<div style="font-size:12px;color:var(--muted);margin-top:2px;">Komplektatsiya: <strong>${{escapeHtml(bundle)}}</strong></div>` : '';
         return `
           <div class="cart-item" style="display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.06);">
-            <img src="${{item.image}}" alt="${{html.escape(item.title)}}" style="width:64px;height:80px;object-fit:cover;border-radius:4px;">
+            <img src="${{escapeHtml(String(item.image || item.img || '').replace(/^(?:[.]{1,2}[/]|[/])?assets[/]/, '/assets/'))}}" alt="${{escapeHtml(item.title)}}" width="64" height="80" loading="lazy" decoding="async" style="object-fit:cover;border-radius:4px;">
             <div style="flex:1;min-width:0;">
-              <h3 style="font-size:15px;margin:0 0 4px;"><a href="/uz/product/${{item.id}}.html">${{html.escape(item.title)}}</a></h3>
+              <h3 style="font-size:15px;margin:0 0 4px;"><a href="/uz/product/${{encodeURIComponent(String(item.productId || item.id || '').match(/prod_\\d+/i)?.[0] || '')}}.html">${{escapeHtml(item.title)}}</a></h3>
               ${{bundleInfo}}
               <div style="font-size:14px;color:var(--accent);font-weight:600;margin-top:4px;">${{uPrice.toLocaleString('ru-RU').replace(/,/g, ' ')}} ₸</div>
             </div>
@@ -2604,12 +2565,13 @@ def generate_uz_service_pages():
           </div>
         </div>
       `;
+      validatePhone = bindPhone(document.getElementById('custPhone'), 'uz');
     }}
 
     window.changeQty = function(idx, delta){{
       const cart = readCart();
       if(cart[idx]){{
-        cart[idx].qty = Math.max(1, (cart[idx].qty || 1) + delta);
+        cart[idx].qty = Math.max(1, Number(cart[idx].qty || 1) + delta);
         writeCart(cart);
         renderCart();
       }}
@@ -2632,6 +2594,7 @@ def generate_uz_service_pages():
       const cart = readCart();
       if(cart.length === 0) return;
 
+      if (!validatePhone()) return;
       const name = document.getElementById('custName').value.trim();
       const phone = document.getElementById('custPhone').value.trim();
       const city = document.getElementById('custCity').value.trim();
@@ -2640,9 +2603,9 @@ def generate_uz_service_pages():
       const comment = document.getElementById('custComment').value.trim();
 
       const orderNo = 'LV-' + Math.floor(1000 + Math.random() * 9000);
-      const totalSum = cart.reduce((s, i) => s + (Number(i.unitPrice || i.price || 0) * Number(i.qty || 1)), 0);
+      const totalSum = totalPrice(cart);
 
-      const itemsText = cart.map(i => `• ${{i.title}} ${{i.customBundle ? '('+i.customBundle+')' : ''}} — ${{i.qty}} dona x ${{Number(i.unitPrice||i.price||0).toLocaleString('ru-RU').replace(/,/g, ' ')}} ₸`).join('\n');
+      const itemsText = cart.map(i => `• ${{i.title}} ${{i.sku ? '[' + i.sku + ']' : ''}} ${{i.customBundle || i.bundleOption ? '(' + (i.customBundle || i.bundleOption) + ')' : ''}} — ${{i.qty}} dona x ${{unitPrice(i).toLocaleString('ru-RU').replace(/,/g, ' ')}} ₸`).join('\\n');
 
       const waMsg = `Salom, Livi Jewelry! Men buyurtma bermoqchiman:\n` +
         `• Buyurtma №: ${{orderNo}}\n` +
