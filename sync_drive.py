@@ -522,7 +522,7 @@ def download_drive_file(fid, dst_path):
         print(f"[WARN] Прямое скачивание {fid} не удалось: {e}")
     return False
 
-def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_push=False):
+def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_push=False, diff_threshold=0.1, force=False):
     products_file = "products.json"
     if os.path.exists(products_file):
         with open(products_file, "r", encoding="utf-8") as f:
@@ -645,23 +645,23 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
         duplicate_reason = ""
         matched_prod = None
 
-        if cand_fp:
+        if cand_fp and not force:
             for pid, (efp, ep) in existing_fps.items():
                 diff = compute_diff(cand_fp, efp)
-                if diff < 12.0:  # порог различия менее 5%
+                if diff < diff_threshold:  # порог различия
                     is_duplicate = True
                     matched_prod = ep
                     duplicate_reason = f"визуально совпадает с {pid} (\"{ep.get('title')}\", diff={diff:.2f})"
                     break
 
-        # 2. Проверка по нормализованному названию
-        if not is_duplicate:
+        # 2. Проверка по нормализованному названию и цене (только при отсутствии фото)
+        if not is_duplicate and not force and not cand_fp:
             norm_cand = normalize_title(parsed_info['title'])
             for p in products:
-                if normalize_title(p.get('title', '')) == norm_cand:
+                if normalize_title(p.get('title', '')) == norm_cand and p.get('price') == parsed_info['display_price']:
                     is_duplicate = True
                     matched_prod = p
-                    duplicate_reason = f"название совпадает с {p['id']} (\"{p.get('title')}\")"
+                    duplicate_reason = f"название и цена совпадают с {p['id']} (\"{p.get('title')}\")"
                     break
 
         # 3. Проверка по drive_id
@@ -938,10 +938,12 @@ if __name__ == "__main__":
     parser.add_argument("--local-folder", default=None, help="Путь к локальной папке с фотографиями")
     parser.add_argument("--commit", action="store_true", help="Автоматически создать git commit")
     parser.add_argument("--push", action="store_true", help="Автоматически отправить в git push")
+    parser.add_argument("--threshold", type=float, default=0.1, help="Порог различия фото для дубликатов (по умолчанию: 0.1)")
+    parser.add_argument("--force", action="store_true", help="Принудительно добавлять все товары без отсечения по визуальной схожести")
 
     args = parser.parse_args()
     if not args.drive_url and not args.local_folder:
         print("Использование: python sync_drive.py <URL_диска> [--commit] [--push]")
         sys.exit(1)
 
-    sync_products(drive_url=args.drive_url, local_folder=args.local_folder, auto_commit=args.commit, auto_push=args.push)
+    sync_products(drive_url=args.drive_url, local_folder=args.local_folder, auto_commit=args.commit, auto_push=args.push, diff_threshold=args.threshold, force=args.force)
