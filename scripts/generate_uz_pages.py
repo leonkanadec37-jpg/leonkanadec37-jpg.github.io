@@ -1416,7 +1416,7 @@ def generate_uz_shop(products_uz: list) -> str:
         return `
           <article class="card" data-id="${{p.id}}">
             <div class="card-img-wrap">
-              <img src="${{p.image}}" srcset="${{p.image.replace(/\\.webp$/i, '-750w.webp')}} 750w, ${{p.image}} 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="${{alt}}" loading="lazy" decoding="async" width="600" height="800">
+              <img src="${{p.image}}" srcset="${{p.image.replace(/\\.webp$/i, '-750w.webp')}} 750w, ${{p.image}} 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="${{alt}}" onerror="if(this.srcset){{this.removeAttribute('srcset');this.src='${{p.image}}';}}else{{this.onerror=null;this.src='/assets/placeholder.jpg';}}" loading="lazy" decoding="async" width="600" height="800">
             </div>
             <div class="body">
               <div class="title"><a href="/uz/product/${{p.id}}.html" class="card-title-link" data-id="${{p.id}}" data-title="${{p.title}}" data-price="${{p.price}}" data-category="${{p.category}}">${{p.title}}</a></div>

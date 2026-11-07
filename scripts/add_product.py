@@ -198,6 +198,12 @@ def main():
     print(f"     Категория: {args.category} | Цена: {args.price} тг | Фото: assets/{img_filename}")
 
     try:
+        from generate_mobile_images import generate_mobile_images
+        generate_mobile_images()
+    except Exception:
+        pass
+
+    try:
         from generate_product_pages import generate_all
         generate_all()
     except Exception:

@@ -914,6 +914,12 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
             json.dump(products, f, ensure_ascii=False, indent=2)
         update_shop_schema(products)
         try:
+            from generate_mobile_images import generate_mobile_images
+            generate_mobile_images()
+        except Exception as e:
+            print("[WARN] Error generating mobile images:", e)
+
+        try:
             from generate_product_pages import generate_all
             generate_all()
             from generate_seo_hubs import generate_seo_hubs
