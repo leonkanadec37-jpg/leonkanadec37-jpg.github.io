@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-11-07 10:07">
+<yml_catalog date="2026-11-07 10:20">
   <shop>
     <name>Livi Jewelry</name>
     <company>Livi Jewelry — Авторские украшения ручной работы</company>
@@ -629,7 +629,7 @@
       <offer id="prod_71" available="true">
         <name>Колье из жемчуга Майорка и ювелирного стекла</name>
         <url>https://livijewelry.kz/product/prod_71.html</url>
-        <price>35000</price>
+        <price>34000</price>
         <currencyId>KZT</currencyId>
         <categoryId>1</categoryId>
         <picture>https://livijewelry.kz/assets/kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla-34000.webp</picture>
@@ -685,6 +685,26 @@
         <picture>https://livijewelry.kz/assets/kole-iz-cheshskogo-stekla-burgundiya-i-sergi-64000.webp</picture>
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[В комплекте: Колье из чешского стекла Бургундия — 50 000 тг, Серьги — 14 000 тг. Полная стоимость комплекта — 64 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_77" available="true">
+        <name>Колье из жемчуга Майорка и ювелирного стекла, серьги</name>
+        <url>https://livijewelry.kz/product/prod_77.html</url>
+        <price>49000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>4</categoryId>
+        <picture>https://livijewelry.kz/assets/kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla-sergi-49000-1.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[В комплекте: Колье из жемчуга Майорка и ювелирного стекла — 35 000 тг, Серьги — 14 000 тг. Полная стоимость комплекта — 49 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_78" available="true">
+        <name>Колье из жемчуга Майорка и ювелирного стекла</name>
+        <url>https://livijewelry.kz/product/prod_78.html</url>
+        <price>35000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>1</categoryId>
+        <picture>https://livijewelry.kz/assets/kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla-35000.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[Авторское украшение ручной работы: Колье из жемчуга Майорка и ювелирного стекла. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
       </offer>
     </offers>
   </shop>
