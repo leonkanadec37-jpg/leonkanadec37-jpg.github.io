@@ -343,19 +343,6 @@
       <g:google_product_category>196</g:google_product_category>
     </item>
     <item>
-      <g:id>prod_28</g:id>
-      <g:title>Колье из бирюзы, браслет, серьги, кольцо</g:title>
-      <g:description>В комплекте: Колье из бирюзы — 40 000 тг, Браслет — 23 000 тг, Серьги — 14 000 тг, Кольцо — 14 000 тг. Полная стоимость комплекта — 91 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Полный царственный сет из натуральной бирюзы небесно-голубого цвета. Идеально сбалансированный ансамбль для статусных выходов и торжественных событий. Любой предмет можно заказать отдельно.</g:description>
-      <g:link>https://livijewelry.kz/product/prod_28.html?utm_source=pinterest&amp;utm_medium=social&amp;utm_campaign=product_pins</g:link>
-      <g:image_link>https://livijewelry.kz/assets/komplekt-komplekt-iz-biryuzy-kole-braslet-sergi-koltso-91000.webp</g:image_link>
-      <g:price>91000.00 KZT</g:price>
-      <g:availability>in stock</g:availability>
-      <g:condition>new</g:condition>
-      <g:brand>Livi Jewelry</g:brand>
-      <g:product_type>Комплекты украшений ручной работы</g:product_type>
-      <g:google_product_category>196</g:google_product_category>
-    </item>
-    <item>
       <g:id>prod_29</g:id>
       <g:title>Колье из гематита</g:title>
       <g:description>Авторское украшение ручной работы: Колье из гематита. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.</g:description>
@@ -691,6 +678,19 @@
       <g:condition>new</g:condition>
       <g:brand>Livi Jewelry</g:brand>
       <g:product_type>Колье и чокеры из натурального жемчуга</g:product_type>
+      <g:google_product_category>196</g:google_product_category>
+    </item>
+    <item>
+      <g:id>prod_79</g:id>
+      <g:title>Колье из лунного камня и жемчуга Майорка, кольцо</g:title>
+      <g:description>В комплекте: Колье из лунного камня и жемчуга Майорка — 35 000 тг, Кольцо — 16 000 тг. Полная стоимость комплекта — 51 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_79.html?utm_source=pinterest&amp;utm_medium=social&amp;utm_campaign=product_pins</g:link>
+      <g:image_link>https://livijewelry.kz/assets/kole-iz-lunnogo-kamnya-i-zhemchuga-mayorka-koltso-51000.webp</g:image_link>
+      <g:price>51000.00 KZT</g:price>
+      <g:availability>in stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:product_type>Комплекты украшений ручной работы</g:product_type>
       <g:google_product_category>196</g:google_product_category>
     </item>
   </channel>
