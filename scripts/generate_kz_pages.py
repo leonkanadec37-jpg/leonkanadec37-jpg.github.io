@@ -495,16 +495,26 @@ BUNDLE_OPTIONS_KZ = {
     ],
 }
 
-REVIEWS_POOL_KZ = [
-    ("Айгерім Қ., Астана", "2026-02-14", "Керемет нәзік әшекей! Тастары табиғи, ерекше тірі жылтыры бар, құлпы өте ыңғайлы және мықты. Астана бойынша тапсырыс берген күні әдемі сыйлық қорабында курьермен жеткізілді."),
-    ("Мәдина С., Алматы", "2026-02-28", "Жеке ұзындық пен родий жалатылған фурнитураға тапсырыс берген едім. Мойынға өте әдемі қонды! СДЭК Алматыға 2 күнде жеткізді, қаптамасы нағыз премиум сапада."),
-    ("Данара Т., Астана", "2026-03-05", "Өмірде фотодағыдан да әдемі көрінеді екен. Інжу түйірлері сапалы, фурнитурасы гипоаллергенді — шешпей тағып жүрмін, ешқандай аллергия жоқ. Шеберге кеңесі үшін рақмет!"),
-    ("Әлия М., Қарағанды", "2026-03-12", "Өте ұқыпты қол еңбегі. Тастары жағымды салмақты әрі салқын. Фирмалық барқыт дорбаша мен сыйлық қорапшасы үшін бөлек алғыс, бәрі тегін кіреді."),
-    ("Жанна Н., Алматы", "2026-03-19", "Сіңліме сыйлыққа алғанмын, өте қатты ұнады! Шебер WhatsApp арқылы дұрыс ұзындықты таңдауға көмектесіп, жіберер алдында видеосын көрсетті. Жиынтығын міндетті түрде аламын."),
-    ("Кәмила Б., Шымкент", "2026-03-27", "Әшекей нағыз зергерлік өнер туындысындай көрінеді. Жабыны сапалы, тастардың жарқылы таңғалдырады. Есікке дейін тез әрі ұқыпты жеткізілді."),
-]
+def load_reviews() -> list:
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    rev_path = os.path.join(root_dir, "reviews.json")
+    if os.path.exists(rev_path):
+        try:
+            with open(rev_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, list):
+                    return data
+        except Exception:
+            pass
+    return []
 
 
+ALL_REVIEWS = load_reviews()
+
+
+def get_product_reviews(pid: str) -> list:
+    """Возвращает список реальных отзывов для данного товара из reviews.json."""
+    return [r for r in ALL_REVIEWS if r.get("product_id") == pid]
 def format_price_kz(price: int) -> str:
     return f"{int(price):,}".replace(",", " ")
 
@@ -1036,17 +1046,21 @@ def generate_kz_shop(products_kz: list) -> str:
                 "@type": "ListItem",
                 "position": idx + 1,
                 "url": f"{SITE_URL}/kz/product/{p['id']}.html",
-                "name": p["title"],
-                "image": f"{SITE_URL}{p['image']}",
-                "description": p["description"],
-                "sku": p["sku"],
-                "mpn": p["sku"],
-                "offers": {
-                    "@type": "Offer",
-                    "url": f"{SITE_URL}/kz/product/{p['id']}.html",
-                    "price": f"{p['price']:.2f}",
-                    "priceCurrency": "KZT",
-                    "availability": "https://schema.org/InStock",
+                "item": {
+                    "@type": "Product",
+                    "name": p["title"],
+                    "image": f"{SITE_URL}{p['image']}",
+                    "description": p["description"],
+                    "sku": p["sku"],
+                    "mpn": p["sku"],
+                    "brand": {"@type": "Brand", "name": "Livi Jewelry"},
+                    "offers": {
+                        "@type": "Offer",
+                        "url": f"{SITE_URL}/kz/product/{p['id']}.html",
+                        "price": f"{p['price']:.2f}",
+                        "priceCurrency": "KZT",
+                        "availability": "https://schema.org/InStock",
+                    },
                 },
             }
             for idx, p in enumerate(products_kz)
@@ -1529,35 +1543,31 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
         material_pills_list.append('<a href="/kolye-iz-zhemchuga.html" class="mat-pill mat-pill-link">Табиғи інжу</a>')
     material_pills = "\n            ".join(material_pills_list)
 
-    # Reviews
-    m_idx = re.search(r"(\d+)", pid)
-    idx = int(m_idx.group(1)) if m_idx else 1
-    review_count = 12 + ((idx * 5) % 17)
-    r1 = REVIEWS_POOL_KZ[(idx - 1) % len(REVIEWS_POOL_KZ)]
-    r2 = REVIEWS_POOL_KZ[(idx + 2) % len(REVIEWS_POOL_KZ)]
-    reviews_data = [
-        {"author": r1[0], "date": r1[1], "body": f"{r1[2]} «{title}» үлгісі біз күткеннен де асып түсті."},
-        {"author": r2[0], "date": r2[1], "body": r2[2]},
-    ]
-
-    reviews_kz_items_html = "\n".join([
-        f"""                <div class="product-review-item">
+    # Reviews (only real reviews from reviews.json)
+    product_reviews = get_product_reviews(pid)
+    reviews_accordion_html = ""
+    if product_reviews:
+        rev_count = len(product_reviews)
+        avg_rating = sum(float(r.get("rating", 5.0)) for r in product_reviews) / rev_count
+        rating_val = f"{avg_rating:.1f}"
+        reviews_kz_items_html = "\n".join([
+            f"""                <div class="product-review-item">
                   <div class="review-header">
-                    <strong class="review-author">{html.escape(r['author'])}</strong>
-                    <span class="review-date">{html.escape(r['date'])}</span>
+                    <strong class="review-author">{html.escape(r.get('author', 'Сатып алушы'))}</strong>
+                    <span class="review-date">{html.escape(r.get('date', ''))}</span>
                   </div>
-                  <div class="review-stars-row">★★★★★ <span class="review-verified">✓ Расталған сатып алушы</span></div>
-                  <p class="review-text">{html.escape(r['body'])}</p>
+                  <div class="review-stars-row">{'★' * int(float(r.get('rating', 5.0)))}</div>
+                  <p class="review-text">{html.escape(r.get('text', r.get('body', '')))}</p>
                 </div>"""
-        for r in reviews_data
-    ])
-    reviews_accordion_html = f"""          <details class="product-accordion">
-            <summary>Сатып алушылардың пікірлері (★ 5.0 · {review_count} пікір)</summary>
+            for r in product_reviews
+        ])
+        reviews_accordion_html = f"""          <details class="product-accordion">
+            <summary>Сатып алушылардың пікірлері (★ {rating_val} · {rev_count} пікір)</summary>
             <div class="product-accordion-content">
               <div class="reviews-summary-line">
                 <span class="reviews-stars">★★★★★</span>
-                <strong>5.0 / 5.0</strong>
-                <span class="reviews-count-badge">{review_count} сатып алушының бағалауы бойынша</span>
+                <strong>{rating_val} / 5.0</strong>
+                <span class="reviews-count-badge">{rev_count} сатып алушының бағалауы бойынша</span>
               </div>
               <div class="product-reviews-list">
 {reviews_kz_items_html}
@@ -1621,28 +1631,7 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
             "name": "Livi Jewelry"
         },
         "category": cat_kz,
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "5.0",
-            "reviewCount": str(review_count),
-            "bestRating": "5",
-            "worstRating": "1"
-        },
-        "review": [
-            {
-                "@type": "Review",
-                "author": {"@type": "Person", "name": rv["author"]},
-                "datePublished": rv["date"],
-                "reviewBody": rv["body"],
-                "reviewRating": {
-                    "@type": "Rating",
-                    "ratingValue": "5.0",
-                    "bestRating": "5",
-                    "worstRating": "1"
-                }
-            }
-            for rv in reviews_data
-        ],
+
         "offers": {
             "@type": "Offer",
             "url": page_url,
@@ -1700,6 +1689,30 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
             }
         }
     }
+
+    if product_reviews:
+        product_ld["aggregateRating"] = {
+            "@type": "AggregateRating",
+            "ratingValue": rating_val,
+            "reviewCount": str(rev_count),
+            "bestRating": "5",
+            "worstRating": "1"
+        }
+        product_ld["review"] = [
+            {
+                "@type": "Review",
+                "author": {"@type": "Person", "name": r.get("author", "Сатып алушы")},
+                "datePublished": r.get("date", ""),
+                "reviewBody": r.get("text", r.get("body", "")),
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": str(r.get("rating", 5)),
+                    "bestRating": "5",
+                    "worstRating": "1"
+                }
+            }
+            for r in product_reviews
+        ]
 
     # JSON-LD BreadcrumbList
     breadcrumb_ld = {
@@ -1780,17 +1793,6 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
     customizer_html = (
         f'        <div class="product-customizer">\n{bundle_html}        </div>'
         if bundle_html else ""
-    )
-
-    reviews_cards_html = "\n".join(
-        f"""          <div class="review-card">
-            <div class="review-card-top">
-              <span class="review-author">{html.escape(rv["author"])}</span>
-              <span class="review-stars" aria-label="5-тен 5 бағасы">★★★★★ 5.0</span>
-            </div>
-            <p class="review-body">{html.escape(rv["body"])}</p>
-          </div>"""
-        for rv in reviews_data
     )
 
     interlink_chips_html = "\n".join(
@@ -2630,7 +2632,8 @@ def generate_kz_service_pages():
         with open("cart.html", "r", encoding="utf-8") as cf:
             kz_cart_html = cf.read()
         kz_cart_html = kz_cart_html.replace('<html lang="ru">', '<html lang="kk">', 1)
-        kz_cart_html = kz_cart_html.replace('<title data-i18n="meta.title">Livi Jewelry ? ???????</title>', '<title data-i18n="meta.title">Livi Jewelry ? ?????</title>', 1)
+        kz_cart_html = re.sub(r'<title data-i18n="meta\.title">.*?</title>', '<title data-i18n="meta.title">Livi Jewelry — Себет</title>', kz_cart_html)
+        kz_cart_html = re.sub(r'<h1 data-i18n="page\.title">.*?</h1>', '<h1 data-i18n="page.title">Себет</h1>', kz_cart_html)
         kz_cart_html = kz_cart_html.replace('<link rel="canonical" href="https://livijewelry.kz/cart.html">', f'<link rel="canonical" href="{SITE_URL}/kz/cart.html">', 1)
         kz_cart_html = kz_cart_html.replace('class="brand" href="/"', 'class="brand" href="/kz/"')
         kz_cart_html = kz_cart_html.replace('class="cart-link" href="/cart.html"', 'class="cart-link" href="/kz/cart.html"')

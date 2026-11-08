@@ -545,15 +545,26 @@ BUNDLE_OPTIONS_UZ = {
     ],
 }
 
-REVIEWS_POOL_UZ = [
-    ("Nodira K., Toshkent", "2026-02-14", "Aql bovar qilmas darajada nafis taqinchoq! Toshlari tabiiy, o‘ziga xos jonli jilosi bor, qulfi juda qulay va mustahkam. Toshkentga CDEK orqali 3 kunda chiroyli sovg‘a qutisida xavfsiz yetkazib berildi."),
-    ("Dilnoza S., Samarqand", "2026-02-28", "Bo‘yin o‘lchami va rodiy qoplamali furniturani moslashtirishni so‘ragan edim. Bo‘yinga juda chiroyli tushdi! Zolotaya Korona orqali oson to‘ladim, qadoqlanishi haqiqiy lyuks darajasida."),
-    ("Shahnoza T., Buxoro", "2026-03-05", "Hayotda fotosuratdagidan ham go‘zalroq ko‘rinadi. Marvarid donalari saralangan, furniturasi gipoallergen — yechmasdan taqyapman, hech qanday allergiya bermadi. Ustaga samimiy maslahati uchun katta rahmat!"),
-    ("Feruza M., Namangan", "2026-03-12", "Juda ozoda va mukammal qo‘l mehnati. Toshlari yoqimli salmoqli va salqin. Firmaning baxmal xaltachasi va sovg‘a qutisi bepul berilgani alohida quvontirdi."),
-    ("Zilola N., Toshkent", "2026-03-19", "Singlimga tug‘ilgan kuniga sovg‘a olgandim, juda ham xursand bo‘ldi! Usta WhatsApp orqali to‘g‘ri o‘lcham tanlashda yordam berdi va jo‘natishdan oldin video qilib ko‘rsatdi. Albatta to‘plamini ham olamiz."),
-    ("Kamila B., Farg‘ona", "2026-03-27", "Taqinchoq haqiqiy yuqori zargarlik san’ati asaridek ko‘rinadi. Qoplamasi sifatli, toshlarning yaltirashi hayratda qoldiradi. Eshikkacha tez va ehtiyotkorlik bilan yetkazildi."),
-]
+def load_reviews() -> list:
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    rev_path = os.path.join(root_dir, "reviews.json")
+    if os.path.exists(rev_path):
+        try:
+            with open(rev_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, list):
+                    return data
+        except Exception:
+            pass
+    return []
 
+
+ALL_REVIEWS = load_reviews()
+
+
+def get_product_reviews(pid: str) -> list:
+    """Возвращает список реальных отзывов для данного товара из reviews.json."""
+    return [r for r in ALL_REVIEWS if r.get("product_id") == pid]
 def format_price_uz(price: int) -> str:
     return f"{int(price):,}".replace(",", " ")
 
@@ -1103,17 +1114,21 @@ def generate_uz_shop(products_uz: list) -> str:
                 "@type": "ListItem",
                 "position": idx + 1,
                 "url": f"{SITE_URL}/uz/product/{p['id']}.html",
-                "name": p["title"],
-                "image": f"{SITE_URL}{p['image']}",
-                "description": p["description"],
-                "sku": p["sku"],
-                "mpn": p["sku"],
-                "offers": {
-                    "@type": "Offer",
-                    "url": f"{SITE_URL}/uz/product/{p['id']}.html",
-                    "price": f"{p['price']:.2f}",
-                    "priceCurrency": "KZT",
-                    "availability": "https://schema.org/InStock",
+                "item": {
+                    "@type": "Product",
+                    "name": p["title"],
+                    "image": f"{SITE_URL}{p['image']}",
+                    "description": p["description"],
+                    "sku": p["sku"],
+                    "mpn": p["sku"],
+                    "brand": {"@type": "Brand", "name": "Livi Jewelry"},
+                    "offers": {
+                        "@type": "Offer",
+                        "url": f"{SITE_URL}/uz/product/{p['id']}.html",
+                        "price": f"{p['price']:.2f}",
+                        "priceCurrency": "KZT",
+                        "availability": "https://schema.org/InStock",
+                    },
                 },
             }
             for idx, p in enumerate(products_uz)
@@ -1582,28 +1597,34 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
         material_pills_list.append('<a href="/uz/kolye-iz-zhemchuga.html" class="mat-pill mat-pill-link">Tabiiy marvarid</a>')
     material_pills = "\n            ".join(material_pills_list)
 
-    # Reviews
-    m_idx = re.search(r"(\d+)", pid)
-    idx = int(m_idx.group(1)) if m_idx else 1
-    review_count = 12 + ((idx * 5) % 17)
-    r1 = REVIEWS_POOL_UZ[(idx - 1) % len(REVIEWS_POOL_UZ)]
-    r2 = REVIEWS_POOL_UZ[(idx + 2) % len(REVIEWS_POOL_UZ)]
-    reviews_data = [
-        {"author": r1[0], "date": r1[1], "body": f"{r1[2]} «{title}» modeli biz kutgandan ham a’lo darajada chiqdi."},
-        {"author": r2[0], "date": r2[1], "body": r2[2]},
-    ]
-
-    reviews_uz_items_html = "\n".join([
-        f"""                <div class="product-review-item">
+    # Reviews (only real reviews from reviews.json)
+    product_reviews = get_product_reviews(pid)
+    reviews_uz_section_html = ""
+    if product_reviews:
+        rev_count = len(product_reviews)
+        avg_rating = sum(float(r.get("rating", 5.0)) for r in product_reviews) / rev_count
+        rating_val = f"{avg_rating:.1f}"
+        reviews_uz_items_html = "\n".join([
+            f"""                <div class="product-review-item">
                   <div class="review-header">
-                    <strong class="review-author">{html.escape(r['author'])}</strong>
-                    <span class="review-date">{html.escape(r['date'])}</span>
+                    <strong class="review-author">{html.escape(r.get('author', 'Xaridor'))}</strong>
+                    <span class="review-date">{html.escape(r.get('date', ''))}</span>
                   </div>
-                  <div class="review-stars-row">★★★★★ <span class="review-verified">✓ Tasdiqlangan xaridor</span></div>
-                  <p class="review-text">{html.escape(r['body'])}</p>
+                  <div class="review-stars-row">{'★' * int(float(r.get('rating', 5.0)))}</div>
+                  <p class="review-text">{html.escape(r.get('text', r.get('body', '')))}</p>
                 </div>"""
-        for r in reviews_data
-    ])
+            for r in product_reviews
+        ])
+        reviews_uz_section_html = f"""    <!-- Xaridorlar fikrlari -->
+    <section class="product-reviews-section" style="margin-top:40px;">
+      <div class="reviews-head" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <h2 style="font-size:22px;margin:0;">Xaridorlar baholari va fikrlari ({rating_val} ★)</h2>
+        <span class="reviews-count-badge" style="font-size:13px;color:var(--muted);">{rev_count} ta tasdiqlangan baho</span>
+      </div>
+      <div class="product-reviews-list">
+{reviews_uz_items_html}
+      </div>
+    </section>"""
 
     # Schemas
     product_ld = {
@@ -1627,28 +1648,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
         },
         "material": materials_uz,
         "category": cat_uz,
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "5.0",
-            "reviewCount": str(review_count),
-            "bestRating": "5",
-            "worstRating": "1"
-        },
-        "review": [
-            {
-                "@type": "Review",
-                "author": {"@type": "Person", "name": r["author"]},
-                "datePublished": r["date"],
-                "reviewBody": r["body"],
-                "reviewRating": {
-                    "@type": "Rating",
-                    "ratingValue": "5",
-                    "bestRating": "5",
-                    "worstRating": "1"
-                }
-            }
-            for r in reviews_data
-        ],
+
         "offers": {
             "@type": "Offer",
             "url": page_url,
@@ -2062,16 +2062,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
       </div>
     </section>
 
-    <!-- Xaridorlar fikrlari -->
-    <section class="product-reviews-section" style="margin-top:40px;">
-      <div class="reviews-head" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-        <h2 style="font-size:22px;margin:0;">Xaridorlar baholari va fikrlari (5.0 ★)</h2>
-        <span class="reviews-count-badge" style="font-size:13px;color:var(--muted);">{review_count} ta tasdiqlangan baho</span>
-      </div>
-      <div class="product-reviews-list">
-        {reviews_uz_items_html}
-      </div>
-    </section>
+{reviews_uz_section_html}
   </main>
 
   <footer id="contact">

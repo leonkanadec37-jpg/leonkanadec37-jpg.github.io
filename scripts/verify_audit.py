@@ -284,6 +284,28 @@ def run_audit():
     prod_pills_ok = True
     prod_reviews_ok = True
 
+    reviews_file = 'reviews.json'
+    real_reviews = []
+    if os.path.exists(reviews_file):
+        try:
+            with open(reviews_file, 'r', encoding='utf-8') as rf:
+                data = json.load(rf)
+                if isinstance(data, list):
+                    real_reviews = data
+        except Exception:
+            pass
+
+    reviews_file = 'reviews.json'
+    real_reviews = []
+    if os.path.exists(reviews_file):
+        try:
+            with open(reviews_file, 'r', encoding='utf-8') as rf:
+                data = json.load(rf)
+                if isinstance(data, list):
+                    real_reviews = data
+        except Exception:
+            pass
+
     for p in products:
         pid = p["id"]
         path = os.path.join("product", f"{pid}.html")
@@ -350,10 +372,22 @@ def run_audit():
             fail(f"19. {path}: отсутствуют ссылки mat-pill-link в блоке материалов")
             prod_pills_ok = False
 
-        # 20. Отзывы 5.0 ★ и рейтинг в Schema.org Product
-        if not prod_ld or not prod_ld.get("review") or not prod_ld.get("aggregateRating"):
-            fail(f"20. {path}: отсутствует Schema.org review или aggregateRating в Product JSON-LD")
-            prod_reviews_ok = False
+        # 20. Отзывы и aggregateRating (синхронизация с reviews.json, защита от фейков)
+        p_real_reviews = [r for r in real_reviews if r.get('product_id') == pid]
+        if not p_real_reviews:
+            if "Проверенный покупатель" in txt:
+                fail(f"20. {path}: обнаружена фейковая строка 'Проверенный покупатель' при пустом reviews.json")
+                prod_reviews_ok = False
+            if "aggregateRating" in txt or (prod_ld and prod_ld.get("aggregateRating")):
+                fail(f"20. {path}: обнаружен фейковый aggregateRating в JSON-LD при пустом reviews.json")
+                prod_reviews_ok = False
+            if prod_ld and prod_ld.get("review"):
+                fail(f"20. {path}: обнаружен фейковый review в JSON-LD при пустом reviews.json")
+                prod_reviews_ok = False
+        else:
+            if not prod_ld or not prod_ld.get("review") or not prod_ld.get("aggregateRating"):
+                fail(f"20. {path}: отсутствует Schema.org review или aggregateRating для реальных отзывов из reviews.json")
+                prod_reviews_ok = False
 
     if prod_files_ok:
         ok(f"12. Карточки товаров: Существуют все {len(products)} файлов /product/prod_XX.html")
@@ -372,7 +406,7 @@ def run_audit():
     if prod_pills_ok:
         ok("19. Карточки товаров: Все плашки камней содержат кликабельные ссылки на соответствующие SEO-хабы")
     if prod_reviews_ok:
-        ok("20. Карточки товаров: Внедрена расширенная Schema.org (JewelryStore, material, color, pattern, aggregateRating 5.0, review)")
+        ok("20. Карточки товаров: Отзывы и aggregateRating синхронизированы с reviews.json (фейковые генераторы удалены)")
 
     # ---------------------------------------------------------
     # 4. Инварианты казахской локализации (/kz/)

@@ -786,7 +786,7 @@ h1 {
   display: flex;
   gap: 24px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   border-bottom: 1px solid var(--line);
   padding-bottom: 14px;
   width: 100%;
@@ -2011,6 +2011,25 @@ footer {
   }
 }
 
+
+/* Background scroll lock for mobile menu and modal dialogs */
+html.drawer-open,
+body.drawer-open,
+html.modal-open,
+body.modal-open {
+  overflow: hidden !important;
+  touch-action: none;
+}
+
+.storefront-menu,
+.drawer-panel,
+.drawer,
+.modal-card,
+.modal-content,
+.modal-inner {
+  overscroll-behavior: contain;
+}
+
 /* Hide floating WA when mobile drawer, modal, or cart overlay is active */
 body.drawer-open .floating-wa,
 body.modal-open .floating-wa,
@@ -2618,13 +2637,15 @@ body:has(#successModal.open) .floating-wa,
   flex-wrap: nowrap;
   overflow-x: auto;
   white-space: nowrap;
+  justify-content: flex-start;
   gap: 8px;
   scrollbar-width: thin;
   scrollbar-color: rgba(194, 166, 126, 0.35) transparent;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
   scroll-snap-type: x proximity;
-  padding: 6px 28px 6px 2px;
+  padding: 6px 16px;
+  padding-inline: 16px;
   width: 100%;
   -webkit-mask-image: linear-gradient(to right, #000 0%, #000 calc(100% - 36px), rgba(0, 0, 0, 0.2) calc(100% - 8px), transparent 100%);
   mask-image: linear-gradient(to right, #000 0%, #000 calc(100% - 36px), rgba(0, 0, 0, 0.2) calc(100% - 8px), transparent 100%);

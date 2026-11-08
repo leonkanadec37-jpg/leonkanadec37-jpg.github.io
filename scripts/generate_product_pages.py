@@ -103,28 +103,26 @@ ALL_21_HUBS = [
     ("/koltsa-i-garnitury-iz-kamney.html", "Кольца и сеты"),
 ]
 
-REVIEWS_POOL = [
-    ("Айгерим К., Астана", "2026-01-18", "Невероятно нежное украшение! Камни натуральные, с благородным живым блеском, замочек очень удобный и надежный. Доставили курьером по Астане в день заказа в красивой подарочной коробочке.", 5.0),
-    ("Мадина С., Алматы", "2026-01-26", "Заказывала с индивидуальной подгонкой длины и родиевой фурнитурой. Село идеально по шее! СДЭК доставил в Алматы за 2 дня, упаковка — настоящий люкс, сразу готово для подарка.", 5.0),
-    ("Данара Т., Астана", "2026-02-04", "Вживую смотрится еще роскошнее, чем на фото. Жемчужины отборные, фурнитура гипоаллергенная — ношу не снимая, никакого раздражения. Спасибо мастеру за чуткую консультацию!", 5.0),
-    ("Алия М., Караганда", "2026-02-12", "Очень тонкая, аккуратная ручная сборка. Камни приятно тяжелые и прохладные на ощупь. Отдельное спасибо за фирменный бархатный мешочек и подарочную упаковку без доплат.", 4.9),
-    ("Жанна Н., Алматы", "2026-02-19", "Покупала на подарок сестре, она в полном восторге! Мастер помогла выбрать идеальную длину по WhatsApp и прислала видео перед отправкой. Однозначно вернусь за комплектом.", 5.0),
-    ("Камила Б., Шымкент", "2026-02-27", "Украшение выглядит как высокое ювелирное искусство. Покрытие фурнитуры стойкое, блеск камней завораживает. Доставка до двери быстрая, всё бережно упаковано.", 5.0),
-    ("Салтанат Е., Актобе", "2026-03-03", "Потрясающая ручная работа. Бусины идеально подобраны по размеру и оттенку. Удлинительная цепочка очень выручает под разные вырезы одежды.", 4.9),
-    ("Динара Ж., Павлодар", "2026-03-09", "Заказывала с доставкой СДЭК, пришло за 3 дня. Качество исполнения безупречное, фурнитура не темнеет даже при постоянной носке.", 5.0),
-    ("Гульназ Р., Астана", "2026-03-14", "Купила на свадьбу подруги, собрала море комплиментов! Жемчуг очень благородно переливается при вечернем освещении.", 5.0),
-    ("Анель К., Алматы", "2026-03-20", "Очень стильное и лаконичное украшение. Подошло и под базовую белую рубашку, и под шелковое платье. Приятно носить вещь, сделанную с любовью.", 5.0),
-    ("Зарина У., Костанай", "2026-03-26", "Фантастическое сияние минералов! Мастер помогла с выбором размера, всё село тютелька в тютельку. Упаковка как в лучших ювелирных домах.", 4.9),
-    ("Ботагоз М., Тараз", "2026-03-31", "Натуральные камни чувствуются сразу — тяжеленькие, прохладные. Замочек очень надежный, сама могу легко застегнуть.", 5.0),
-    ("Меруерт С., Атырау", "2026-04-03", "Заказ пришел в идеальном состоянии, упакован на совесть. Вживую смотрится в разы богаче, чем на снимках. Очень рекомендую!", 5.0),
-    ("Асель Д., Усть-Каменогорск", "2026-04-07", "Прекрасный баланс веса, украшение лежит ровно, не перекручивается. Видно высокое мастерство сборки.", 5.0),
-    ("Индира Б., Семей", "2026-04-10", "Порадовало внимательное отношение: перед отправкой мне сняли видео изделия при дневном свете. Доехало быстро и без нареканий.", 4.9),
-    ("Томирис А., Астана", "2026-04-12", "Идеальный подарок себе любимой! Очень изысканно, ношу с огромным удовольствием каждый день.", 5.0),
-    ("Карлыгаш Т., Алматы", "2026-04-14", "Качество премиум. Брала вместе с браслетом, получился роскошный сет. Спасибо огромное за ваш труд!", 5.0),
-    ("Назерке К., Шымкент", "2026-04-16", "Шикарные камни, чистая природная текстура. Заказ отправили в тот же день, трек отслеживался без проблем.", 5.0),
-    ("Айсулу Е., Актау", "2026-04-18", "Благородное сияние и идеальная полировка бусин. На шее лежит невесомо, при этом ощущается приятная прохлада натурального камня.", 4.9),
-    ("Малика О., Кызылорда", "2026-04-20", "Быстрая доставка курьером, фирменная упаковка с лентой — распаковывать одно удовольствие! Украшение в жизни ещё красивее.", 5.0),
-]
+def load_reviews() -> list:
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    rev_path = os.path.join(root_dir, "reviews.json")
+    if os.path.exists(rev_path):
+        try:
+            with open(rev_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, list):
+                    return data
+        except Exception:
+            pass
+    return []
+
+
+ALL_REVIEWS = load_reviews()
+
+
+def get_product_reviews(pid: str) -> list:
+    """Возвращает список реальных отзывов для данного товара из reviews.json."""
+    return [r for r in ALL_REVIEWS if r.get("product_id") == pid]
 
 
 def format_price_ru(price: int) -> str:
@@ -199,18 +197,6 @@ def infer_color(product: dict) -> str:
         colors.append("Белый перламутровый / Серебристый")
     return ", ".join(dict.fromkeys(colors[:2]))
 
-
-def get_deterministic_reviews(pid: str, title: str):
-    m = re.search(r"(\d+)", pid)
-    idx = int(m.group(1)) if m else 1
-    review_count = 5 + ((idx * 7) % 20)  # 5 .. 24
-    r1 = REVIEWS_POOL[(idx * 3 - 2) % len(REVIEWS_POOL)]
-    r2 = REVIEWS_POOL[(idx * 5 + 1) % len(REVIEWS_POOL)]
-    rating_val = f"{r1[3]:.1f}"
-    return review_count, rating_val, [
-        {"author": r1[0], "date": r1[1], "body": f"{r1[2]} Модель «{title}» превзошла все ожидания.", "rating": str(int(r1[3]))},
-        {"author": r2[0], "date": r2[1], "body": r2[2], "rating": str(int(r2[3]))},
-    ]
 
 
 def build_clean_alt(product: dict) -> str:
@@ -313,27 +299,31 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
         )
     material_pills = "\n            ".join(material_pills_list)
 
-    # Отзывы и рейтинг
-    review_count, rating_val, reviews_data = get_deterministic_reviews(pid, title)
-
-    reviews_items_html = "\n".join([
-        f"""                <div class="product-review-item">
+    # Отзывы и рейтинг (только реальные отзывы из reviews.json)
+    product_reviews = get_product_reviews(pid)
+    reviews_accordion_html = ""
+    if product_reviews:
+        rev_count = len(product_reviews)
+        avg_rating = sum(float(r.get("rating", 5.0)) for r in product_reviews) / rev_count
+        rating_val = f"{avg_rating:.1f}"
+        reviews_items_html = "\n".join([
+            f"""                <div class="product-review-item">
                   <div class="review-header">
-                    <strong class="review-author">{html.escape(r['author'])}</strong>
-                    <span class="review-date">{html.escape(r['date'])}</span>
+                    <strong class="review-author">{html.escape(r.get('author', 'Покупатель'))}</strong>
+                    <span class="review-date">{html.escape(r.get('date', ''))}</span>
                   </div>
-                  <div class="review-stars-row">★★★★★ <span class="review-verified">✓ Проверенный покупатель</span></div>
-                  <p class="review-text">{html.escape(r['body'])}</p>
+                  <div class="review-stars-row">{'★' * int(float(r.get('rating', 5.0)))}</div>
+                  <p class="review-text">{html.escape(r.get('text', r.get('body', '')))}</p>
                 </div>"""
-        for r in reviews_data
-    ])
-    reviews_accordion_html = f"""          <details class="product-accordion">
-            <summary>Отзывы покупателей (★ {rating_val} · {review_count} отзывов)</summary>
+            for r in product_reviews
+        ])
+        reviews_accordion_html = f"""          <details class="product-accordion">
+            <summary>Отзывы покупателей (★ {rating_val} · {rev_count} отзывов)</summary>
             <div class="product-accordion-content">
               <div class="reviews-summary-line">
                 <span class="reviews-stars">★★★★★</span>
                 <strong>{rating_val} из 5.0</strong>
-                <span class="reviews-count-badge">на основе {review_count} оценок покупателей</span>
+                <span class="reviews-count-badge">на основе {rev_count} оценок покупателей</span>
               </div>
               <div class="product-reviews-list">
 {reviews_items_html}
@@ -400,28 +390,6 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
             "name": "Livi Jewelry"
         },
         "category": cat_ru,
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": rating_val,
-            "reviewCount": str(review_count),
-            "bestRating": "5",
-            "worstRating": "1"
-        },
-        "review": [
-            {
-                "@type": "Review",
-                "author": {"@type": "Person", "name": rv["author"]},
-                "datePublished": rv["date"],
-                "reviewBody": rv["body"],
-                "reviewRating": {
-                    "@type": "Rating",
-                    "ratingValue": rv["rating"],
-                    "bestRating": "5",
-                    "worstRating": "1"
-                }
-            }
-            for rv in reviews_data
-        ],
         "offers": {
             "@type": "Offer",
             "url": page_url,
@@ -479,6 +447,30 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
             }
         }
     }
+
+    if product_reviews:
+        product_ld["aggregateRating"] = {
+            "@type": "AggregateRating",
+            "ratingValue": rating_val,
+            "reviewCount": str(rev_count),
+            "bestRating": "5",
+            "worstRating": "1"
+        }
+        product_ld["review"] = [
+            {
+                "@type": "Review",
+                "author": {"@type": "Person", "name": r.get("author", "Покупатель")},
+                "datePublished": r.get("date", ""),
+                "reviewBody": r.get("text", r.get("body", "")),
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": str(r.get("rating", 5)),
+                    "bestRating": "5",
+                    "worstRating": "1"
+                }
+            }
+            for r in product_reviews
+        ]
 
     # JSON-LD BreadcrumbList
     breadcrumb_ld = {
@@ -542,17 +534,6 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
     wa_href = f"https://wa.me/77054510584?text={html.escape(re.sub(r' ', '%20', wa_text.replace(chr(10), '%0A')))}"
 
     customizer_html = build_customizer_html(product)
-
-    reviews_cards_html = "\n".join(
-        f"""          <div class="review-card">
-            <div class="review-card-top">
-              <span class="review-author">{html.escape(rv["author"])}</span>
-              <span class="review-stars" aria-label="Оценка {rv['rating']} из 5">★★★★★ {float(rv['rating']):.1f}</span>
-            </div>
-            <p class="review-body">{html.escape(rv["body"])}</p>
-          </div>"""
-        for rv in reviews_data
-    )
 
     interlink_chips_html = "\n".join(
         f'        <a href="{h_url}" class="stone-chip">{html.escape(h_lbl)}</a>'
@@ -1180,17 +1161,21 @@ def sync_static_catalogs(products: list):
                     "@type": "ListItem",
                     "position": idx + 1,
                     "url": f"{SITE_URL}/product/{p['id']}.html",
-                    "name": p["title"].strip(),
-                    "image": f"{SITE_URL}/{p['image'].lstrip('/')}",
-                    "description": (p.get("description") or p["title"]).strip(),
-                    "sku": p["id"],
-                    "mpn": p["id"],
-                    "offers": {
-                        "@type": "Offer",
-                        "url": f"{SITE_URL}/product/{p['id']}.html",
-                        "price": f"{int(p.get('price') or 0):.2f}",
-                        "priceCurrency": "KZT",
-                        "availability": "https://schema.org/InStock",
+                    "item": {
+                        "@type": "Product",
+                        "name": p["title"].strip(),
+                        "image": f"{SITE_URL}/{p['image'].lstrip('/')}",
+                        "description": (p.get("description") or p["title"]).strip(),
+                        "sku": p["id"],
+                        "mpn": p["id"],
+                        "brand": {"@type": "Brand", "name": "Livi Jewelry"},
+                        "offers": {
+                            "@type": "Offer",
+                            "url": f"{SITE_URL}/product/{p['id']}.html",
+                            "price": f"{int(p.get('price') or 0):.2f}",
+                            "priceCurrency": "KZT",
+                            "availability": "https://schema.org/InStock",
+                        },
                     },
                 }
                 for idx, p in enumerate(products)

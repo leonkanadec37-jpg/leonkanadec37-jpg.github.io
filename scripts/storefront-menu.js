@@ -6,15 +6,23 @@
   const materials = menu.querySelector('.storefront-materials');
   const desktop = window.matchMedia('(min-width: 769px)');
 
+  let savedScrollY = 0;
+
   function setOpen(open, returnFocus = false) {
     if (!open && returnFocus) trigger.focus();
     trigger.setAttribute('aria-expanded', String(open));
     menu.hidden = !open;
     backdrop.hidden = !open;
-    document.body.classList.toggle('drawer-open', open);
     if (open) {
+      savedScrollY = window.scrollY || window.pageYOffset || 0;
+      document.documentElement.classList.add('drawer-open');
+      document.body.classList.add('drawer-open');
       materials.open = desktop.matches;
       menu.querySelector('a').focus({ preventScroll: true });
+    } else {
+      document.documentElement.classList.remove('drawer-open');
+      document.body.classList.remove('drawer-open');
+      window.scrollTo(0, savedScrollY);
     }
   }
 
