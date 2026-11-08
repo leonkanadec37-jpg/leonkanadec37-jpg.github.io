@@ -1086,7 +1086,7 @@ def generate_hub_page(hub, products):
         alt_str = clean_attr(build_clean_alt(p))
         cards_html.append(f"""        <article class="card" data-id="{pid}" data-name="{clean_attr(ptitle)}" data-price="{pprice}" data-category="{clean_attr(p.get('category', 'Necklaces'))}" onclick="if(!event.target.closest('a'))location.href='/product/{pid}.html'">
           <div class="card-img-wrap">
-            <img src="/{pimg_rel}" alt="{alt_str}" {"loading=\"eager\" fetchpriority=\"high\"" if idx < 4 else "loading=\"lazy\""} decoding="async" width="600" height="800">
+            <img src="/{pimg_rel}" alt="{alt_str}" {"loading=\"eager\" fetchpriority=\"high\"" if idx <= 2 else ("loading=\"eager\"" if idx <= 8 else "loading=\"lazy\"")} decoding="async" width="600" height="800">
           </div>
           <div class="body">
             {rec_badge}
@@ -1542,7 +1542,7 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
         alt_str = clean_attr(f"{ptitle_kz} — авторлық қолөнер туындысы, Livi Jewelry")
         cards_html.append(f"""        <article class="card" data-id="{pid}" data-name="{clean_attr(ptitle_kz)}" data-price="{pprice}" data-category="{clean_attr(p.get('category', 'Necklaces'))}" onclick="if(!event.target.closest('a'))location.href='/kz/product/{pid}.html'">
           <div class="card-img-wrap">
-            <img src="/{pimg_rel}" alt="{alt_str}" {"loading=\"eager\" fetchpriority=\"high\"" if idx < 4 else "loading=\"lazy\""} decoding="async" width="600" height="800">
+            <img src="/{pimg_rel}" alt="{alt_str}" {"loading=\"eager\" fetchpriority=\"high\"" if idx <= 2 else ("loading=\"eager\"" if idx <= 8 else "loading=\"lazy\"")} decoding="async" width="600" height="800">
           </div>
           <div class="body">
             <h3 class="title"><a href="/kz/product/{pid}.html" class="card-title-link">{ptitle_kz}</a></h3>
@@ -1992,7 +1992,7 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
 
         cards_html.append(f"""        <article class="card" data-id="{pid}" data-name="{clean_attr(ptitle_uz)}" data-price="{pprice}" data-category="{clean_attr(p.get('category', 'Necklaces'))}" onclick="if(!event.target.closest('a'))location.href='/uz/product/{pid}.html'">
           <div class="card-img-wrap">
-            <img src="/{pimg_rel}" alt="{alt_str}" {"loading=\"eager\" fetchpriority=\"high\"" if idx < 4 else "loading=\"lazy\""} decoding="async" width="600" height="800">
+            <img src="/{pimg_rel}" alt="{alt_str}" {"loading=\"eager\" fetchpriority=\"high\"" if idx <= 2 else ("loading=\"eager\"" if idx <= 8 else "loading=\"lazy\"")} decoding="async" width="600" height="800">
           </div>
           <div class="body">
             <h3 class="title"><a href="/uz/product/{pid}.html" class="card-title-link">{ptitle_uz}</a></h3>

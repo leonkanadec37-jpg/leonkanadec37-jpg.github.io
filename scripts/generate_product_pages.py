@@ -1123,7 +1123,7 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
 """
 
 
-def build_static_card_html(product: dict, indent: str = "    ", is_first_row: bool = False) -> str:
+def build_static_card_html(product: dict, indent: str = "    ", is_first_row: bool = False, priority_high: bool = False) -> str:
     pid = product["id"]
     title = html.escape(product["title"].strip())
     price_num = int(product.get("price") or 0)
@@ -1134,7 +1134,7 @@ def build_static_card_html(product: dict, indent: str = "    ", is_first_row: bo
     base_img, _ = os.path.splitext(img)
     mob_img = f"{base_img}-750w.webp"
     srcset_attr = f' srcset="/{mob_img} 750w, /{img} 1440w" sizes="(max-width: 768px) 50vw, 300px"' if os.path.exists(mob_img) else ""
-    loading_attr = 'loading="eager" fetchpriority="high"' if is_first_row else 'loading="lazy"'
+    loading_attr = 'loading="eager" fetchpriority="high"' if priority_high else ('loading="eager"' if is_first_row else 'loading="lazy"')
     return (
         f'{indent}<article class="card" data-id="{pid}">\n'
         f'{indent}  <a href="/product/{pid}.html" class="card-img-wrap"><img src="{img}"{srcset_attr} alt="{alt}" {loading_attr} decoding="async" width="600" height="800"></a>\n'
@@ -1190,7 +1190,7 @@ def sync_static_catalogs(products: list):
             flags=re.DOTALL,
         )
 
-        cards_block = "\n".join(build_static_card_html(p, indent="      ", is_first_row=(idx < 4)) for idx, p in enumerate(products))
+        cards_block = "\n".join(build_static_card_html(p, indent="      ", is_first_row=(idx < 8), priority_high=(idx < 2)) for idx, p in enumerate(products))
         new_grid = f'<div class="grid" id="grid">\n{cards_block}\n    </div>'
         shop_html = re.sub(
             r'<div class="grid" id="grid">.*?</div>\s*(?=(?:<div id="catalogError"|<section|</main>))',
@@ -1224,7 +1224,7 @@ def sync_static_catalogs(products: list):
         featured.extend(p for p in products if p["id"] not in featured_ids)
         featured = featured[:len(FEATURED_IDS)]
 
-        feat_cards = "\n".join(build_static_card_html(p, indent="      ") for p in featured)
+        feat_cards = "\n".join(build_static_card_html(p, indent="      ", is_first_row=True, priority_high=(idx < 2)) for idx, p in enumerate(featured))
         new_feat = f'<div id="featGrid" class="grid" aria-live="polite">\n{feat_cards}\n    </div>'
         index_html = re.sub(
             r'<div id="featGrid" class="grid" aria-live="polite">.*?</div>(?=\s*(?:<div class="catalog-more-wrap"|</section>))',

@@ -644,7 +644,7 @@ def translate_product_uz(p: dict) -> dict:
         "inStock": p.get("inStock", True),
     }
 
-def build_uz_card_html(pk: dict, indent: str = "      ", is_first_row: bool = False) -> str:
+def build_uz_card_html(pk: dict, indent: str = "      ", is_first_row: bool = False, priority_high: bool = False) -> str:
     pid = pk["id"]
     title = html.escape(pk["title"])
     price_num = pk["price"]
@@ -656,7 +656,7 @@ def build_uz_card_html(pk: dict, indent: str = "      ", is_first_row: bool = Fa
     stones = ", ".join(pk["materials"]).lower()
     alt = html.escape(f"{pk['title']} — qo‘lda yasalgan ({stones}), Livi Jewelry")
     cat = html.escape(pk["category"])
-    loading_attr = 'loading="eager" fetchpriority="high"' if is_first_row else 'loading="lazy"'
+    loading_attr = 'loading="eager" fetchpriority="high"' if priority_high else ('loading="eager"' if is_first_row else 'loading="lazy"')
     return (
         f'{indent}<article class="card" data-id="{pid}">\n'
         f'{indent}  <a href="/uz/product/{pid}.html" class="card-img-wrap"><img src="/{img}"{srcset_attr} alt="{alt}" {loading_attr} decoding="async" width="600" height="800"></a>\n'
@@ -674,7 +674,7 @@ def generate_uz_index(products_uz: list) -> str:
     if len(featured) < 8:
         featured = products_uz[:12]
 
-    feat_cards_html = "\n".join(build_uz_card_html(p, indent="      ", is_first_row=(idx < 4)) for idx, p in enumerate(featured))
+    feat_cards_html = "\n".join(build_uz_card_html(p, indent="      ", is_first_row=(idx < 8), priority_high=(idx < 2)) for idx, p in enumerate(featured))
 
     faq_items = [
         (
@@ -783,6 +783,8 @@ def generate_uz_index(products_uz: list) -> str:
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css?v=2">
+  <!-- Preload Mobile LCP Image -->
+  <link rel="preload" as="image" href="{SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000-750w.webp" imagesrcset="{SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000-750w.webp 750w, {SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000.webp 1440w" imagesizes="(max-width: 768px) 50vw, 300px" fetchpriority="high">
 
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons/favicon-48.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -1104,7 +1106,7 @@ def generate_uz_index(products_uz: list) -> str:
 
 
 def generate_uz_shop(products_uz: list) -> str:
-    all_cards_html = "\n".join(build_uz_card_html(p, indent="      ", is_first_row=(idx < 4)) for idx, p in enumerate(products_uz))
+    all_cards_html = "\n".join(build_uz_card_html(p, indent="      ", is_first_row=(idx < 8), priority_high=(idx < 2)) for idx, p in enumerate(products_uz))
 
     item_list_ld = {
         "@context": "https://schema.org",
@@ -1175,6 +1177,8 @@ def generate_uz_shop(products_uz: list) -> str:
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css?v=2">
+  <!-- Preload Mobile LCP Image -->
+  <link rel="preload" as="image" href="{SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000-750w.webp" imagesrcset="{SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000-750w.webp 750w, {SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000.webp 1440w" imagesizes="(max-width: 768px) 50vw, 300px" fetchpriority="high">
 
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons/favicon-48.png">
   <link rel="icon" href="/favicon.ico" sizes="any">

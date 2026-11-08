@@ -845,6 +845,29 @@ h1 {
   transition: opacity 0.3s;
 }
 
+/* D10: Disable fade-in and transition delay for first 8 cards above the fold (prevents gray placeholder lag) */
+.grid > .card:nth-child(-n+8),
+.storefront-featured .card:nth-child(-n+8) {
+  opacity: 1 !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+.grid > .card:nth-child(-n+8) .card-img-wrap,
+.storefront-featured .card:nth-child(-n+8) .card-img-wrap {
+  animation: none !important;
+}
+
+.grid > .card:nth-child(-n+8) img,
+.storefront-featured .card:nth-child(-n+8) img {
+  animation: none !important;
+}
+
+.grid > .card:nth-child(-n+8):hover img,
+.storefront-featured .card:nth-child(-n+8):hover img {
+  transition: transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+}
+
 .card .card-img-wrap {
   display: block;
   width: 100%;

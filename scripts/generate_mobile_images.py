@@ -13,6 +13,11 @@ from PIL import Image
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PRODUCTS_FILE = os.path.join(ROOT_DIR, "products.json")
 
+# Standalone assets (hero, banners) that need -750w.webp versions for mobile LCP
+EXTRA_IMAGES = [
+    "assets/hero-kole-iz-naturalnogo-zhemchuga-80000.webp",
+]
+
 
 def generate_mobile_images():
     if not os.path.exists(PRODUCTS_FILE):
@@ -22,11 +27,15 @@ def generate_mobile_images():
     with open(PRODUCTS_FILE, "r", encoding="utf-8") as f:
         products = json.load(f)
 
+    image_paths = [(p.get("image") or "").lstrip("/") for p in products]
+    image_paths.extend([p.lstrip("/") for p in EXTRA_IMAGES])
+
     generated = 0
     skipped = 0
 
-    for p in products:
-        rel_path = (p.get("image") or "").lstrip("/")
+    for rel_path in image_paths:
+        if not rel_path:
+            continue
         full_path = os.path.join(ROOT_DIR, rel_path)
         if not os.path.exists(full_path):
             continue
