@@ -48,11 +48,97 @@ FB_PIXEL_1 = "199604456030882"
 GOOGLE_VERIFICATION = "qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0"
 FB_DOMAIN_VERIFICATION = "lrr1e3sbmseisnpm2nclqko8w1rfcw"
 
-FEATURED_IDS = [
-    "prod_01", "prod_02", "prod_06", "prod_07",
-    "prod_10", "prod_11", "prod_16", "prod_17",
-    "prod_19", "prod_20", "prod_23", "prod_24",
-]
+UZ_FOOTER_HTML = """  <footer id="contact" class="site-footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>LIVI JEWELRY</h3>
+          <p class="footer-tagline">Tabiiy marvarid va qimmatbaho minerallardan qo‘lda yasalgan mualliflik zargarlik buyumlari.</p>
+          <div class="footer-contacts">
+            <div class="footer-contact-item">
+              <span class="contact-label">Shahar:</span>
+              <span>Ostona sh., Toshkent va butun O‘zbekistonga tezkor yetkazish</span>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">Telefon / WhatsApp:</span>
+              <a href="https://wa.me/77054510584" target="_blank" rel="noopener">+7 (705) 519-58-75</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">Ish vaqti:</span>
+              <span>Har kuni 10:00 dan 20:00 gacha</span>
+            </div>
+          </div>
+          <div class="kaspi-badge">
+            <span class="kaspi-icon">●</span>
+            <span>Kaspi Pay · KoronaPay · Xalqaro to‘lov</span>
+          </div>
+        </div>
+
+        <div class="footer-columns-grid">
+          <div class="footer-col">
+            <h4 class="footer-col-title">Marjonlar va sotuarlar</h4>
+            <ul class="footer-col-links">
+              <li><a href="/uz/kolye-iz-zhemchuga.html">Marvarid marjonlar</a></li>
+              <li><a href="/uz/sotuary-iz-zhemchuga.html">Marvarid sotuarlar</a></li>
+              <li><a href="/uz/chokery-iz-naturalnyh-kamney.html">Toshlardan chokerlar</a></li>
+              <li><a href="/uz/tsepi-s-barochnym-zhemchugom.html">Marvaridli zanjirlar</a></li>
+              <li><a href="/uz/ukrasheniya-iz-barochnogo-zhemchuga.html">Barokko marvaridi</a></li>
+              <li><a href="/uz/ukrasheniya-iz-zhemchuga-mayorka.html">Mayorka marvaridi</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Sirg‘alar va to‘plamlar</h4>
+            <ul class="footer-col-links">
+              <li><a href="/uz/sergi-iz-zhemchuga.html">Marvarid sirg‘alar</a></li>
+              <li><a href="/uz/braslety-iz-zhemchuga.html">Marvarid bilaguzuklar</a></li>
+              <li><a href="/uz/komplekty-ukrasheniy.html">Taqinchoq to‘plamlari</a></li>
+              <li><a href="/uz/koltsa-i-garnitury-iz-kamney.html">Uzuklar va garniturlar</a></li>
+              <li><a href="/uz/shop.html">Barcha katalog</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Tabiiy toshlar</h4>
+            <ul class="footer-col-links">
+              <li><a href="/uz/ukrasheniya-iz-malahita.html">Malaxit va nefrit</a></li>
+              <li><a href="/uz/ukrasheniya-iz-ametista.html">Ametist</a></li>
+              <li><a href="/uz/ukrasheniya-iz-granata.html">Granat</a></li>
+              <li><a href="/uz/ukrasheniya-iz-rozovogo-kvarca.html">Pushti kvars</a></li>
+              <li><a href="/uz/ukrasheniya-iz-biryuzy.html">Tabiiy feruza</a></li>
+              <li><a href="/uz/ukrasheniya-iz-gornogo-hrustalya.html">Tog‘ billuri</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Minerallar va noyob toshlar</h4>
+            <ul class="footer-col-links">
+              <li><a href="/uz/ukrasheniya-iz-tigrovogo-glaza.html">Yo‘lbars ko‘zi</a></li>
+              <li><a href="/uz/ukrasheniya-iz-koralla-i-yashmy.html">Marjon va yashma</a></li>
+              <li><a href="/uz/ukrasheniya-iz-lazurita.html">Tabiiy lazurit</a></li>
+              <li><a href="/uz/ukrasheniya-iz-lunnogo-kamnya.html">Oy toshi</a></li>
+              <li><a href="/uz/ukrasheniya-iz-gematita.html">Gematit</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-copy">
+          © <span id="year">2026</span> Livi Jewelry. Barcha huquqlar himoyalangan.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="/uz/delivery.html">Yetkazib berish va to‘lov</a>
+          <a href="/uz/terms.html">Ommaviy oferta</a>
+          <a href="/uz/privacy.html">Maxfiylik siyosati</a>
+          <a href="/">Русский</a>
+          <a href="/kz/">Қазақша</a>
+        </div>
+      </div>
+    </div>
+  </footer>"""
+
+FEATURED_IDS = ["prod_01", "prod_06", "prod_11", "prod_24", "prod_04", "prod_08", "prod_17", "prod_16"]
 
 CATEGORY_NAMES_UZ = {
     "Necklaces": "Marjonlar",
@@ -664,9 +750,15 @@ def build_uz_card_html(pk: dict, indent: str = "      ", is_first_row: bool = Fa
     alt = html.escape(f"{pk['title']} — qo‘lda yasalgan ({stones}), Livi Jewelry")
     cat = html.escape(pk["category"])
     loading_attr = 'loading="eager" fetchpriority="high"' if priority_high else ('loading="eager"' if is_first_row else 'loading="lazy"')
+    badge_val = pk.get("badge")
+    badge_html = ""
+    if badge_val:
+        uz_badge = "Xit" if badge_val == "Хит" else ("Yangi" if badge_val == "Новинка" else "So‘nggi nusxa")
+        badge_cls = "badge-hit" if badge_val == "Хит" else ("badge-new" if badge_val == "Новинка" else "badge-last")
+        badge_html = f'<span class="card-badge {badge_cls}">{html.escape(uz_badge)}</span>'
     return (
         f'{indent}<article class="card" data-id="{pid}">\n'
-        f'{indent}  <a href="/uz/product/{pid}.html" class="card-img-wrap"><img src="/{img}"{srcset_attr} alt="{alt}" {loading_attr} decoding="async" width="600" height="800"></a>\n'
+        f'{indent}  <a href="/uz/product/{pid}.html" class="card-img-wrap">{badge_html}<img src="/{img}"{srcset_attr} alt="{alt}" {loading_attr} decoding="async" width="600" height="800"></a>\n'
         f'{indent}  <div class="body">\n'
         f'{indent}    <div class="title"><a href="/uz/product/{pid}.html" class="card-title-link" data-id="{pid}" data-title="{title}" data-price="{price_num}" data-category="{cat}">{title}</a></div>\n'
         f'{indent}    <div class="price">{price_str} ₸</div>\n'
@@ -890,6 +982,9 @@ def generate_uz_index(products_uz: list) -> str:
         <span>LIVI JEWELRY</span>
       </a>
       <div class="nav-actions">
+        <a href="/uz/shop.html?search=1" class="header-search-btn" aria-label="Taqinchoqlarni qidirish">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
         <div class="header-lang-links" aria-label="Tilni tanlash">
           <a href="/" lang="ru">RU</a>
           <a href="/kz/" lang="kk">KZ</a>
@@ -913,43 +1008,74 @@ def generate_uz_index(products_uz: list) -> str:
     </div>
   </header>
 
-  <main class="wrap">
-    <section class="section catalog-hero" id="home" style="padding-top:0;">
-      <h1>Marvarid va toshlarning betakror estetikasi</h1>
-      <p class="catalog-subtitle">Tabiiy marvarid va minerallardan qo‘lda yasalgan mualliflik taqinchoqlari — katalog: ziraklar, bilasuzuklar, marjonlar, to‘plamlar</p>
-
-      <nav class="stone-chips" aria-label="Tabiiy toshlar bo‘yicha to‘plamlar" style="margin: 18px 0 22px;">
-      <a href="/uz/ukrasheniya-iz-barochnogo-zhemchuga.html" class="stone-chip">Barokko marvaridi</a>
-      <a href="/uz/ukrasheniya-iz-malahita.html" class="stone-chip">Malaxit</a>
-      <a href="/uz/ukrasheniya-iz-rozovogo-kvarca.html" class="stone-chip">Pushti kvars</a>
-      <a href="/uz/ukrasheniya-iz-granata.html" class="stone-chip">Granat</a>
-      <a href="/uz/ukrasheniya-iz-ametista.html" class="stone-chip">Ametist</a>
-      <a href="/uz/ukrasheniya-iz-biryuzy.html" class="stone-chip">Feruza</a>
-      <a href="/uz/ukrasheniya-iz-gornogo-hrustalya.html" class="stone-chip">Tog‘ billuri</a>
-      <a href="/uz/ukrasheniya-iz-gematita.html" class="stone-chip">Gematit</a>
-      <a href="/uz/ukrasheniya-iz-lunnogo-kamnya.html" class="stone-chip">Oy toshi</a>
-      <a href="/uz/ukrasheniya-iz-zhemchuga-mayorka.html" class="stone-chip">Mayorka marvaridi</a>
-      <a href="/uz/ukrasheniya-iz-koralla-i-yashmy.html" class="stone-chip">Marjon va Yashma</a>
-      <a href="/uz/ukrasheniya-iz-lazurita.html" class="stone-chip">Lazurit</a>
-      <a href="/uz/ukrasheniya-iz-tigrovogo-glaza.html" class="stone-chip">Yo‘lbars ko‘zi</a>
-    </nav>
-
-      <div class="toolbar">
-        <div class="search-box">
-          <input type="text" id="uzHomeSearch" class="search-input" placeholder="Taqinchoqlarni qidirish..." aria-label="Taqinchoqlarni qidirish">
-        </div>
-        <div class="filters" id="uzHomeFilters">
-          <button type="button" class="tag active" data-cat="All">Barchasi</button>
-          <button type="button" class="tag" data-cat="Necklaces">Marjonlar</button>
-          <button type="button" class="tag" data-cat="Earrings">Ziraklar</button>
-          <button type="button" class="tag" data-cat="Bracelets">Bilasuzuklar</button>
-          <button type="button" class="tag" data-cat="Sets">To‘plamlar</button>
-          <button type="button" class="tag" data-cat="Rings">Uzuklar</button>
-          <button type="button" class="tag" data-cat="Lariats">Sotuarlar</button>
-          <button type="button" class="tag" data-cat="Chains">Zanjirlar</button>
+  <section class="storefront-cover">
+    <div class="storefront-cover-inner">
+      <div class="storefront-cover-text">
+        <h1 class="storefront-cover-title">Marvarid va tabiiy toshlardan mualliflik taqinchoqlari</h1>
+        <p class="storefront-cover-subtitle">Ostona · Qozog‘iston va O‘zbekistonga yetkazib berish</p>
+        <div class="storefront-cover-actions">
+          <a href="/uz/shop.html" class="storefront-cover-cta">Katalogga o‘tish →</a>
+          <a href="https://wa.me/77054510584?text=Salom!%20Livi%20Jewelry%20taqinchoqlari%20haqida%20bilmoqchiman" target="_blank" rel="noopener" class="storefront-cover-cta-wa">WhatsApp</a>
         </div>
       </div>
+    </div>
+  </section>
 
+  <div class="home-trust-strip">
+    <div class="home-trust-item"><span>Bugun Ostona bo‘yicha</span></div>
+    <span class="home-trust-dot">·</span>
+    <div class="home-trust-item"><span>SDEK 1–3 kun</span></div>
+    <span class="home-trust-dot">·</span>
+    <div class="home-trust-item"><span>KoronaPay / Kaspi to‘lov</span></div>
+  </div>
+
+  <section class="section-category-tiles">
+    <div class="category-tiles-grid">
+      <a href="/uz/kolye-iz-zhemchuga.html" class="category-tile">
+        <img src="/assets/kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Marvarid marjonlar" class="category-tile-img" loading="lazy" width="400" height="300">
+        <div class="category-tile-overlay">
+          <span class="category-tile-title">Marjonlar</span>
+        </div>
+      </a>
+      <a href="/uz/sergi-iz-zhemchuga.html" class="category-tile">
+        <img src="/assets/sergi-iz-barochnogo-zhemchuga-18000.webp" alt="Marvarid sirg‘alar" class="category-tile-img" loading="lazy" width="400" height="300">
+        <div class="category-tile-overlay">
+          <span class="category-tile-title">Sirg‘alar</span>
+        </div>
+      </a>
+      <a href="/uz/komplekty-ukrasheniy.html" class="category-tile">
+        <img src="/assets/komplekt-kole-i-braslet-iz-rozovogo-kvarca-55000.webp" alt="Taqinchoq to‘plamlari" class="category-tile-img" loading="lazy" width="400" height="300">
+        <div class="category-tile-overlay">
+          <span class="category-tile-title">To‘plamlar</span>
+        </div>
+      </a>
+      <a href="/uz/koltsa-i-garnitury-iz-kamney.html" class="category-tile">
+        <img src="/assets/koltso-iz-perlamutra-15000.webp" alt="Uzuklar va garniturlar" class="category-tile-img" loading="lazy" width="400" height="300">
+        <div class="category-tile-overlay">
+          <span class="category-tile-title">Uzuklar</span>
+        </div>
+      </a>
+      <a href="/uz/sotuary-iz-zhemchuga.html" class="category-tile">
+        <img src="/assets/dlinnyy-sotuar-iz-zhemchuga-i-kamney-35000.webp" alt="Marvarid sotuarlar" class="category-tile-img" loading="lazy" width="400" height="300">
+        <div class="category-tile-overlay">
+          <span class="category-tile-title">Sotuarlar</span>
+        </div>
+      </a>
+      <a href="/uz/shop.html?cat=Stones" class="category-tile">
+        <img src="/assets/choker-iz-naturalnogo-malahita-24000.webp" alt="Tabiiy toshlar" class="category-tile-img" loading="lazy" width="400" height="300">
+        <div class="category-tile-overlay">
+          <span class="category-tile-title">Toshlar</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <section class="section" id="featured">
+      <div class="section-head">
+        <h2>Tanlangan taqinchoqlar</h2>
+        <a class="section-link" href="/uz/shop.html">Barchasini ko‘rish →</a>
+      </div>
       <div class="grid" id="featGrid">
 {feat_cards_html}
       </div>
@@ -959,6 +1085,32 @@ def generate_uz_index(products_uz: list) -> str:
     </section>
   </main>
 
+  <section class="holiday-gifts-section">
+    <div class="holiday-gifts-banner">
+      <span class="holiday-gifts-tag">Bayram to‘plami</span>
+      <h2 class="holiday-gifts-title">Yangi yilga sovg‘alar ✨</h2>
+      <p class="holiday-gifts-desc">Yaqinlaringiz uchun tabiiy marvarid va qimmatbaho toshlardan tayyorlangan nafis sovg‘alar. Har bir buyum firma qutisida taqdim etiladi.</p>
+      <div class="holiday-budget-chips">
+        <a href="/uz/shop.html?max_price=20000" class="budget-chip">20 000 ₸ gacha</a>
+        <a href="/uz/shop.html?min_price=20000&max_price=40000" class="budget-chip">20 000 – 40 000 ₸</a>
+        <a href="/uz/komplekty-ukrasheniy.html" class="budget-chip">To‘plamlar</a>
+        <a href="/uz/shop.html" class="budget-chip budget-chip-all">Barcha katalog →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section video-section">
+    <div class="section-head">
+      <h2>Ustaxona muhiti</h2>
+    </div>
+    <div class="video-container">
+      <video class="storefront-video" controls playsinline preload="metadata" poster="/assets/hero-kole-iz-naturalnogo-zhemchuga-80000.webp">
+        <source src="/assets/video-showcase.mp4" type="video/mp4">
+        Brauzeringiz videoni qo‘llab-quvvatlamaydi.
+      </video>
+    </div>
+  </section>
+
   <section class="faq-section" id="faq">
     <h2>Ko‘p beriladigan savollar (FAQ)</h2>
     <div class="rule"></div>
@@ -967,23 +1119,7 @@ def generate_uz_index(products_uz: list) -> str:
     </div>
   </section>
 
-  <footer id="contact">
-    <div class="foot">
-      <div class="links">
-        <a href="/uz/delivery.html">Yetkazib berish, to‘lov va qaytarish</a>
-        <a href="/uz/privacy.html">Maxfiylik siyosati</a>
-        <a href="/uz/terms.html">Foydalanish shartlari</a>
-        <a href="/uz/shop.html">Katalog</a>
-        <a href="/">Русская версия</a>
-        <a href="/kz/">Қазақша нұсқа</a>
-      </div>
-      <div class="copy">© <span id="year">2026</span> Livi Jewelry — Barcha huquqlar himoyalangan.</div>
-      <div class="links">
-        <a class="tag" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="tag" href="https://wa.me/77054510584" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-    </div>
-  </footer>
+{UZ_FOOTER_HTML}
 
   <!-- Floating WhatsApp Widget -->
   <a class="floating-wa" href="https://wa.me/77054510584?text=Salom!%20Livi%20Jewelry%20taqinchoqlari%20bo‘yicha%20maslahat%20olmoqchiman." target="_blank" rel="noopener" aria-label="WhatsApp orqali maslahat olish">
@@ -1227,6 +1363,28 @@ def generate_uz_shop(products_uz: list) -> str:
   <script type="application/ld+json">
 {json.dumps(item_list_ld, ensure_ascii=False, indent=2)}
   </script>
+
+  <!-- Structured Data: BreadcrumbList -->
+  <script type="application/ld+json">
+  {{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Bosh sahifa",
+        "item": "{SITE_URL}/uz/"
+      }},
+      {{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Katalog",
+        "item": "{SITE_URL}/uz/shop.html"
+      }}
+    ]
+  }}
+  </script>
 </head>
 <body>
   <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
@@ -1284,6 +1442,9 @@ def generate_uz_shop(products_uz: list) -> str:
         <span>LIVI JEWELRY</span>
       </a>
       <div class="nav-actions">
+        <a href="/uz/shop.html?search=1" class="header-search-btn" aria-label="Taqinchoqlarni izlash">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
         <div class="header-lang-links" aria-label="Tilni tanlash">
           <a href="/shop.html" lang="ru">RU</a>
           <a href="/kz/shop.html" lang="kk">KZ</a>
@@ -1350,23 +1511,7 @@ def generate_uz_shop(products_uz: list) -> str:
     </section>
   </main>
 
-  <footer id="contact">
-    <div class="foot">
-      <div class="links">
-        <a href="/uz/delivery.html">Yetkazib berish, to‘lov va qaytarish (14 kun)</a>
-        <a href="/uz/privacy.html">Maxfiylik siyosati</a>
-        <a href="/uz/terms.html">Foydalanish shartlari</a>
-        <a href="/uz/">Bosh sahifa</a>
-        <a href="/shop.html">Русский каталог</a>
-        <a href="/kz/shop.html">Қазақша каталог</a>
-      </div>
-      <div class="copy">© <span id="footYear">2026</span> Livi Jewelry — Barcha huquqlar himoyalangan.</div>
-      <div class="links">
-        <a class="tag" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="tag" href="https://wa.me/77054510584" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-    </div>
-  </footer>
+{UZ_FOOTER_HTML}
 
   <!-- Floating WhatsApp Widget -->
   <a class="floating-wa" href="https://wa.me/77054510584?text=Salom!%20Livi%20Jewelry%20taqinchoqlari%20bo‘yicha%20maslahat%20olmoqchiman." target="_blank" rel="noopener" aria-label="WhatsApp orqali maslahat olish">
@@ -2126,6 +2271,9 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
         <span>LIVI JEWELRY</span>
       </a>
       <div class="nav-actions">
+        <a href="/uz/shop.html?search=1" class="header-search-btn" aria-label="Taqinchoqlarni izlash">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
         <div class="header-lang-links" aria-label="Tilni tanlash">
           <a href="{ru_page_url}" lang="ru">RU</a>
           <a href="{kz_page_url}" lang="kk">KZ</a>
@@ -2290,23 +2438,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
 {reviews_uz_section_html}
   </main>
 
-  <footer id="contact">
-    <div class="foot">
-      <div class="links">
-        <a href="/uz/delivery.html">Yetkazib berish, to‘lov va qaytarish (14 kun)</a>
-        <a href="/uz/privacy.html">Maxfiylik siyosati</a>
-        <a href="/uz/terms.html">Foydalanish shartlari</a>
-        <a href="/uz/shop.html">Katalog</a>
-        <a href="{ru_page_url}">Русская версия</a>
-        <a href="{kz_page_url}">Қазақша нұсқа</a>
-      </div>
-      <div class="copy">© <span id="year">2026</span> Livi Jewelry — Barcha huquqlar himoyalangan.</div>
-      <div class="links">
-        <a class="tag" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="tag" href="https://wa.me/77054510584" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-    </div>
-  </footer>
+{UZ_FOOTER_HTML}
 
   <!-- Mobile Sticky Bottom Bar (Only visible on screens <= 768px) -->
   <aside class="mobile-sticky-bar" aria-label="Buyurtma berish">
@@ -2708,13 +2840,6 @@ def generate_uz_service_pages():
 
   <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="{SITE_URL}/uz/cart.html">
-  <link rel="alternate" hreflang="ru-KZ" href="{SITE_URL}/cart.html" />
-  <link rel="alternate" hreflang="ru" href="{SITE_URL}/cart.html" />
-  <link rel="alternate" hreflang="kk-KZ" href="{SITE_URL}/kz/cart.html" />
-  <link rel="alternate" hreflang="kk" href="{SITE_URL}/kz/cart.html" />
-  <link rel="alternate" hreflang="uz-UZ" href="{SITE_URL}/uz/cart.html" />
-  <link rel="alternate" hreflang="uz" href="{SITE_URL}/uz/cart.html" />
-  <link rel="alternate" hreflang="x-default" href="{SITE_URL}/cart.html" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2787,6 +2912,9 @@ def generate_uz_service_pages():
         <span>LIVI JEWELRY</span>
       </a>
       <div class="nav-actions">
+        <a href="/uz/shop.html?search=1" class="header-search-btn" aria-label="Taqinchoqlarni izlash">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
         <div class="header-lang-links" aria-label="Tilni tanlash">
           <a href="/cart.html" lang="ru">RU</a>
           <a href="/kz/cart.html" lang="kk">KZ</a>
@@ -2895,9 +3023,12 @@ def generate_uz_service_pages():
         <div class="cart-layout" style="display:grid;grid-template-columns:1fr;gap:32px;">
           <div class="cart-items-col">
             ${{itemsHtml}}
-            <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px;">
-              <button type="button" onclick="clearCart()" style="background:none;border:none;color:#888;text-decoration:underline;cursor:pointer;">Savatchani tozalash</button>
-              <div style="font-size:18px;font-weight:700;">Jami to‘lov: <span style="color:var(--accent);">${{totalSumFmt}} ₸</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:flex-end;padding-top:16px;">
+              <button type="button" onclick="clearCart()" style="background:none;border:none;color:#888;text-decoration:underline;cursor:pointer;padding-bottom:2px;">Savatchani tozalash</button>
+              <div style="text-align:right;">
+                <div style="font-size:18px;font-weight:700;">Jami to‘lov: <span style="color:var(--accent);">${{totalSumFmt}} ₸</span></div>
+                <div class="total-delivery-note" style="margin-top:4px;">+ yetkazib berish SDEK tarifi bo‘yicha</div>
+              </div>
             </div>
           </div>
 
@@ -3255,6 +3386,9 @@ def generate_uz_service_pages():
         <span>LIVI JEWELRY</span>
       </a>
       <div class="nav-actions">
+        <a href="/uz/shop.html?search=1" class="header-search-btn" aria-label="Taqinchoqlarni izlash">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
         <div class="header-lang-links" aria-label="Tilni tanlash">
           <a href="/delivery.html" lang="ru">RU</a>
           <a href="/kz/delivery.html" lang="kk">KZ</a>
@@ -3306,23 +3440,7 @@ def generate_uz_service_pages():
     </section>
   </main>
 
-  <footer id="contact">
-    <div class="foot">
-      <div class="links">
-        <a href="/uz/delivery.html">Yetkazib berish, to‘lov va qaytarish</a>
-        <a href="/uz/privacy.html">Maxfiylik siyosati</a>
-        <a href="/uz/terms.html">Foydalanish shartlari</a>
-        <a href="/uz/shop.html">Katalog</a>
-        <a href="/delivery.html">Русская версия</a>
-        <a href="/kz/delivery.html">Қазақша нұсқа</a>
-      </div>
-      <div class="copy">© <span id="year">2026</span> Livi Jewelry — Barcha huquqlar himoyalangan.</div>
-      <div class="links">
-        <a class="tag" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="tag" href="https://wa.me/77054510584" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-    </div>
-  </footer>
+{UZ_FOOTER_HTML}
   <script>
     document.addEventListener('click', function(e) {{
       const a = e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]');
@@ -3397,17 +3515,7 @@ def generate_uz_service_pages():
     <p>Xaridor tovar ko‘rinishi saqlangan holda buyumni qabul qilib olgan kundan boshlab 14 kun ichida almashtirish yoki qaytarish huquqiga ega.</p>
   </main>
 
-  <footer id="contact">
-    <div class="foot">
-      <div class="links">
-        <a href="/uz/delivery.html">Yetkazib berish va to‘lov</a>
-        <a href="/uz/privacy.html">Maxfiylik siyosati</a>
-        <a href="/uz/shop.html">Katalog</a>
-        <a href="/terms.html">Русская версия</a>
-      </div>
-      <div class="copy">© 2026 Livi Jewelry — Barcha huquqlar himoyalangan.</div>
-    </div>
-  </footer>
+{UZ_FOOTER_HTML}
 </body>
 </html>
 """
@@ -3463,17 +3571,7 @@ def generate_uz_service_pages():
     <p>Biz barcha shaxsiy ma’lumotlarni ruxsatsiz kirish va tarqalishdan himoya qilish uchun zamonaviy xavfsizlik protokollarini qo‘llaymiz.</p>
   </main>
 
-  <footer id="contact">
-    <div class="foot">
-      <div class="links">
-        <a href="/uz/delivery.html">Yetkazib berish va to‘lov</a>
-        <a href="/uz/terms.html">Foydalanish shartlari</a>
-        <a href="/uz/shop.html">Katalog</a>
-        <a href="/privacy.html">Русская версия</a>
-      </div>
-      <div class="copy">© 2026 Livi Jewelry — Barcha huquqlar himoyalangan.</div>
-    </div>
-  </footer>
+{UZ_FOOTER_HTML}
 </body>
 </html>
 """

@@ -7,13 +7,6 @@
 
   <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="https://livijewelry.kz/uz/cart.html">
-  <link rel="alternate" hreflang="ru-KZ" href="https://livijewelry.kz/cart.html" />
-  <link rel="alternate" hreflang="ru" href="https://livijewelry.kz/cart.html" />
-  <link rel="alternate" hreflang="kk-KZ" href="https://livijewelry.kz/kz/cart.html" />
-  <link rel="alternate" hreflang="kk" href="https://livijewelry.kz/kz/cart.html" />
-  <link rel="alternate" hreflang="uz-UZ" href="https://livijewelry.kz/uz/cart.html" />
-  <link rel="alternate" hreflang="uz" href="https://livijewelry.kz/uz/cart.html" />
-  <link rel="alternate" hreflang="x-default" href="https://livijewelry.kz/cart.html" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -86,6 +79,9 @@
         <span>LIVI JEWELRY</span>
       </a>
       <div class="nav-actions">
+        <a href="/uz/shop.html?search=1" class="header-search-btn" aria-label="Taqinchoqlarni izlash">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
         <div class="header-lang-links" aria-label="Tilni tanlash">
           <a href="/cart.html" lang="ru">RU</a>
           <a href="/kz/cart.html" lang="kk">KZ</a>
@@ -194,9 +190,12 @@
         <div class="cart-layout" style="display:grid;grid-template-columns:1fr;gap:32px;">
           <div class="cart-items-col">
             ${itemsHtml}
-            <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px;">
-              <button type="button" onclick="clearCart()" style="background:none;border:none;color:#888;text-decoration:underline;cursor:pointer;">Savatchani tozalash</button>
-              <div style="font-size:18px;font-weight:700;">Jami to‘lov: <span style="color:var(--accent);">${totalSumFmt} ₸</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:flex-end;padding-top:16px;">
+              <button type="button" onclick="clearCart()" style="background:none;border:none;color:#888;text-decoration:underline;cursor:pointer;padding-bottom:2px;">Savatchani tozalash</button>
+              <div style="text-align:right;">
+                <div style="font-size:18px;font-weight:700;">Jami to‘lov: <span style="color:var(--accent);">${totalSumFmt} ₸</span></div>
+                <div class="total-delivery-note" style="margin-top:4px;">+ yetkazib berish SDEK tarifi bo‘yicha</div>
+              </div>
             </div>
           </div>
 

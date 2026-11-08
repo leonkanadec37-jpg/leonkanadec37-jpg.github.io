@@ -34,7 +34,8 @@
       "prod_04",
       "prod_73",
       "prod_40"
-    ]
+    ],
+    "badge": "Хит"
   },
   {
     "id": "prod_02",
@@ -150,7 +151,8 @@
       }
     ],
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "badge": "Хит"
   },
   {
     "id": "prod_05",
@@ -234,7 +236,8 @@
     },
     "inStock": true,
     "featured": true,
-    "drive_id": "1bgzq1fwdRGOoq5UnH_OoSfyZdAnmIzRX"
+    "drive_id": "1bgzq1fwdRGOoq5UnH_OoSfyZdAnmIzRX",
+    "badge": "Хит"
   },
   {
     "id": "prod_07",
@@ -484,7 +487,8 @@
     ],
     "inStock": true,
     "featured": true,
-    "drive_id": "1xO8E2jIZoz5sl6H6e2BlmfODQdT-Sdue"
+    "drive_id": "1xO8E2jIZoz5sl6H6e2BlmfODQdT-Sdue",
+    "badge": "Хит"
   },
   {
     "id": "prod_12",
@@ -756,7 +760,8 @@
     "featured": false,
     "drive_id": "15rL3L5QdsyicAuVoN4vrglHjQBvxXsVI",
     "archived": true,
-    "archived_at": "2026-11-05"
+    "archived_at": "2026-11-05",
+    "badge": "Хит"
   },
   {
     "id": "prod_17",
@@ -1270,7 +1275,8 @@
     "featured": false,
     "drive_id": "1LiBlhCjXe9XR2d5iBc6Y2Hfk8_gzLjD2",
     "archived": true,
-    "archived_at": "2026-11-07"
+    "archived_at": "2026-11-07",
+    "badge": "Хит"
   },
   {
     "id": "prod_29",
@@ -2794,7 +2800,8 @@
         "is_full": false
       }
     ],
-    "drive_id": "19lXEbx1slzWtaK1MHUI5ZGpfl059XSrW"
+    "drive_id": "19lXEbx1slzWtaK1MHUI5ZGpfl059XSrW",
+    "badge": "Новинка"
   },
   {
     "id": "prod_74",
@@ -2881,7 +2888,8 @@
         "is_full": false
       }
     ],
-    "drive_id": "1vd4RZjxCqAth9XVfi6zAXn3ozzpivHUa"
+    "drive_id": "1vd4RZjxCqAth9XVfi6zAXn3ozzpivHUa",
+    "badge": "Новинка"
   },
   {
     "id": "prod_76",
@@ -2933,7 +2941,8 @@
         "is_full": false
       }
     ],
-    "drive_id": "1KHTNKf_nN-NHpX0ShzriNvxNWPltHuMs"
+    "drive_id": "1KHTNKf_nN-NHpX0ShzriNvxNWPltHuMs",
+    "badge": "Новинка"
   },
   {
     "id": "prod_77",
@@ -2986,7 +2995,8 @@
         "is_full": false
       }
     ],
-    "drive_id": "16uUSZG3bL77SwV6eUiMbCRenOhI-2fiO"
+    "drive_id": "16uUSZG3bL77SwV6eUiMbCRenOhI-2fiO",
+    "badge": "Новинка"
   },
   {
     "id": "prod_78",
@@ -3073,7 +3083,8 @@
         "is_full": false
       }
     ],
-    "drive_id": "1l741Aoyisf6l03bXVQ-TnMDUuscq2rzm"
+    "drive_id": "1l741Aoyisf6l03bXVQ-TnMDUuscq2rzm",
+    "badge": "Новинка"
   },
   {
     "id": "prod_80",
@@ -3107,7 +3118,8 @@
     },
     "inStock": true,
     "featured": true,
-    "drive_id": "1lgDyCW6aANtskO3ucReW9C4CYsSIyoMT"
+    "drive_id": "1lgDyCW6aANtskO3ucReW9C4CYsSIyoMT",
+    "badge": "Новинка"
   },
   {
     "id": "prod_81",
@@ -3141,7 +3153,8 @@
     },
     "inStock": true,
     "featured": true,
-    "drive_id": "1zBAZZ0PSKFFSNXBk4D9Lj5ghdQ-bYVeg"
+    "drive_id": "1zBAZZ0PSKFFSNXBk4D9Lj5ghdQ-bYVeg",
+    "badge": "Новинка"
   },
   {
     "id": "prod_82",
@@ -3175,7 +3188,8 @@
     },
     "inStock": true,
     "featured": true,
-    "drive_id": "1IDCRpJwat8L-F2jW2lpoiHQEiP8HLEYc"
+    "drive_id": "1IDCRpJwat8L-F2jW2lpoiHQEiP8HLEYc",
+    "badge": "Новинка"
   },
   {
     "id": "prod_83",
@@ -3210,7 +3224,8 @@
     },
     "inStock": true,
     "featured": true,
-    "drive_id": "1b2kTwBx0gGI3vu8vZvcYkhg8ujURpTeB"
+    "drive_id": "1b2kTwBx0gGI3vu8vZvcYkhg8ujURpTeB",
+    "badge": "Последний экземпляр"
   },
   {
     "id": "prod_84",
@@ -3247,7 +3262,8 @@
     },
     "inStock": true,
     "featured": true,
-    "drive_id": "1oxSzh1NjzwAIPxDQ6od0RXcr8vLkl2kf"
+    "drive_id": "1oxSzh1NjzwAIPxDQ6od0RXcr8vLkl2kf",
+    "badge": "Последний экземпляр"
   },
   {
     "id": "prod_85",
@@ -3284,7 +3300,8 @@
     },
     "inStock": true,
     "featured": true,
-    "drive_id": "1I71htvuffIDm06HbVnZKBrW7BRjMrxtF"
+    "drive_id": "1I71htvuffIDm06HbVnZKBrW7BRjMrxtF",
+    "badge": "Последний экземпляр"
   },
   {
     "id": "prod_86",
@@ -3321,7 +3338,8 @@
     },
     "inStock": true,
     "featured": true,
-    "drive_id": "1KFc-CPByiGDpWN7eIszM5OXViLiKSpsP"
+    "drive_id": "1KFc-CPByiGDpWN7eIszM5OXViLiKSpsP",
+    "badge": "Последний экземпляр"
   },
   {
     "id": "prod_87",
@@ -3358,7 +3376,8 @@
     },
     "inStock": true,
     "featured": true,
-    "drive_id": "1TSUnab-KuJWz4jx9CiRDqrxpnIqnpR7E"
+    "drive_id": "1TSUnab-KuJWz4jx9CiRDqrxpnIqnpR7E",
+    "badge": "Последний экземпляр"
   },
   {
     "id": "prod_88",

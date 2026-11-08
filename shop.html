@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 
   <!-- SEO -->
-  <title data-i18n="meta.title">Каталог жемчужной бижутерии — купить серьги, браслеты, колье, кольца | Livi Jewelry</title>
-  <meta name="description" content="Украшения из жемчуга и натуральных камней: серьги, браслеты, колье, кольца, сотуары и комплекты. Бижутерия ручной работы — в наличии и на заказ в Астане и Алматы. Доставка СДЭК по Казахстану.">
+  <title>Каталог украшений из жемчуга и камней | Livi Jewelry</title>
+  <meta name="description" content="Каталог авторских украшений из жемчуга и натуральных камней: колье, серьги, кольца, комплекты. Доставка СДЭК по Казахстану и по Астане.">>
   <link rel="canonical" href="https://livijewelry.kz/shop.html">
   <link rel="alternate" hreflang="ru-KZ" href="https://livijewelry.kz/shop.html" />
   <link rel="alternate" hreflang="ru" href="https://livijewelry.kz/shop.html" />
@@ -1870,6 +1870,27 @@
   ]
 }
   </script>
+  <!-- Structured Data: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Главная",
+        "item": "https://livijewelry.kz/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Каталог",
+        "item": "https://livijewelry.kz/shop.html"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="storefront-header">
@@ -1884,6 +1905,9 @@
       </div>
       <a class="brand" href="/" aria-label="Livi Jewelry">LIVI JEWELRY</a>
       <div class="nav-actions">
+        <a href="/shop.html?search=1" class="header-search-btn" aria-label="Поиск по каталогу">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
         <nav class="header-lang-links" aria-label="Выбор языка">
           <a href="/shop.html" hreflang="ru" class="active" onclick="localStorage.setItem('lang','ru')">RU</a>
           <a href="/kz/shop.html" hreflang="kk" onclick="localStorage.setItem('lang','kk')">KZ</a>
@@ -1974,8 +1998,8 @@
         <button type="button" class="tag" data-cat="Chains">Цепи</button>
       </div>
     </div>
-    <details class="catalog-materials">
-      <summary>По материалу</summary>
+    <div class="catalog-materials-bar" aria-label="Подборки по природным камням">
+      <span class="materials-label">По камням:</span>
       <nav class="stone-chips" aria-label="Подборки по природным камням">
         <a href="/ukrasheniya-iz-barochnogo-zhemchuga.html" class="stone-chip">Барочный жемчуг</a>
         <a href="/ukrasheniya-iz-malahita.html" class="stone-chip">Малахит</a>
@@ -1991,10 +2015,33 @@
         <a href="/ukrasheniya-iz-lazurita.html" class="stone-chip">Лазурит</a>
         <a href="/ukrasheniya-iz-tigrovogo-glaza.html" class="stone-chip">Тигровый глаз</a>
       </nav>
-    </details>
+    </div>
+
+    <div class="catalog-toolbar">
+      <div class="catalog-toolbar-left">
+        <div id="catalogCount" class="catalog-count">Все украшения</div>
+      </div>
+      <div class="catalog-toolbar-right">
+        <div class="catalog-price-filters" id="priceFilters">
+          <button type="button" class="price-chip active" data-min="0" data-max="0">Все цены</button>
+          <button type="button" class="price-chip" data-min="0" data-max="25000">до 25 000 ₸</button>
+          <button type="button" class="price-chip" data-min="25000" data-max="50000">25–50 000 ₸</button>
+          <button type="button" class="price-chip" data-min="50000" data-max="0">от 50 000 ₸</button>
+        </div>
+        <div class="catalog-sort-wrap">
+          <label for="catalogSort" class="sr-only">Сортировка</label>
+          <select id="catalogSort" class="catalog-sort-select" aria-label="Сортировка каталога">
+            <option value="popular">По популярности</option>
+            <option value="price_asc">Цена: по возрастанию ↑</option>
+            <option value="price_desc">Цена: по убыванию ↓</option>
+            <option value="newest">Сначала новинки</option>
+          </select>
+        </div>
+      </div>
+    </div>
     <div class="grid" id="grid">
       <article class="card" data-id="prod_01">
-        <a href="/product/prod_01.html" class="card-img-wrap"><img src="assets/kole-iz-naturalnogo-zhemchuga-80000.webp" srcset="/assets/kole-iz-naturalnogo-zhemchuga-80000-400w.webp 400w, /assets/kole-iz-naturalnogo-zhemchuga-80000-750w.webp 750w, /assets/kole-iz-naturalnogo-zhemchuga-80000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из натурального жемчуга с барочной подвеской — авторская ручная работа (Натуральный жемчуг, Барочный жемчуг, Ювелирный сплав), Livi Jewelry" loading="eager" fetchpriority="high" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_01.html" class="card-img-wrap"><span class="card-badge badge-hit">Хит</span><img src="assets/kole-iz-naturalnogo-zhemchuga-80000.webp" srcset="/assets/kole-iz-naturalnogo-zhemchuga-80000-400w.webp 400w, /assets/kole-iz-naturalnogo-zhemchuga-80000-750w.webp 750w, /assets/kole-iz-naturalnogo-zhemchuga-80000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из натурального жемчуга с барочной подвеской — авторская ручная работа (Натуральный жемчуг, Барочный жемчуг, Ювелирный сплав), Livi Jewelry" loading="eager" fetchpriority="high" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_01.html" class="card-title-link" data-id="prod_01" data-title="Колье из натурального жемчуга с барочной подвеской" data-price="80000" data-category="Necklaces">Колье из натурального жемчуга с барочной подвеской</a></div>
           <div class="price">80 000 ₸</div>
@@ -2015,7 +2062,7 @@
         </div>
       </article>
       <article class="card" data-id="prod_04">
-        <a href="/product/prod_04.html" class="card-img-wrap"><img src="assets/komplekt-tsep-braslet-40000.webp" srcset="/assets/komplekt-tsep-braslet-40000-400w.webp 400w, /assets/komplekt-tsep-braslet-40000-750w.webp 750w, /assets/komplekt-tsep-braslet-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Позолоченная цепь и браслет с барочным жемчугом — авторская ручная работа (Позолота, Натуральный барочный жемчуг), Livi Jewelry" loading="eager" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_04.html" class="card-img-wrap"><span class="card-badge badge-hit">Хит</span><img src="assets/komplekt-tsep-braslet-40000.webp" srcset="/assets/komplekt-tsep-braslet-40000-400w.webp 400w, /assets/komplekt-tsep-braslet-40000-750w.webp 750w, /assets/komplekt-tsep-braslet-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Позолоченная цепь и браслет с барочным жемчугом — авторская ручная работа (Позолота, Натуральный барочный жемчуг), Livi Jewelry" loading="eager" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_04.html" class="card-title-link" data-id="prod_04" data-title="Позолоченная цепь и браслет с барочным жемчугом" data-price="40000" data-category="Sets">Позолоченная цепь и браслет с барочным жемчугом</a></div>
           <div class="price">40 000 ₸</div>
@@ -2029,7 +2076,7 @@
         </div>
       </article>
       <article class="card" data-id="prod_06">
-        <a href="/product/prod_06.html" class="card-img-wrap"><img src="assets/braslet-iz-malakhita-25000.webp" srcset="/assets/braslet-iz-malakhita-25000-400w.webp 400w, /assets/braslet-iz-malakhita-25000-750w.webp 750w, /assets/braslet-iz-malakhita-25000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Браслет из малахита — авторская ручная работа (Натуральный малахит, Ювелирный сплав, Позолота), Livi Jewelry" loading="eager" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_06.html" class="card-img-wrap"><span class="card-badge badge-hit">Хит</span><img src="assets/braslet-iz-malakhita-25000.webp" srcset="/assets/braslet-iz-malakhita-25000-400w.webp 400w, /assets/braslet-iz-malakhita-25000-750w.webp 750w, /assets/braslet-iz-malakhita-25000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Браслет из малахита — авторская ручная работа (Натуральный малахит, Ювелирный сплав, Позолота), Livi Jewelry" loading="eager" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_06.html" class="card-title-link" data-id="prod_06" data-title="Браслет из малахита" data-price="25000" data-category="Bracelets">Браслет из малахита</a></div>
           <div class="price">25 000 ₸</div>
@@ -2064,7 +2111,7 @@
         </div>
       </article>
       <article class="card" data-id="prod_11">
-        <a href="/product/prod_11.html" class="card-img-wrap"><img src="assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp" srcset="/assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000-400w.webp 400w, /assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000-750w.webp 750w, /assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из аметиста и розового кварца, серьги из аметиста — авторская ручная работа (Натуральный аметист, Розовый кварц, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_11.html" class="card-img-wrap"><span class="card-badge badge-hit">Хит</span><img src="assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp" srcset="/assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000-400w.webp 400w, /assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000-750w.webp 750w, /assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из аметиста и розового кварца, серьги из аметиста — авторская ручная работа (Натуральный аметист, Розовый кварц, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_11.html" class="card-title-link" data-id="prod_11" data-title="Колье из аметиста и розового кварца, серьги из аметиста" data-price="61000" data-category="Sets">Колье из аметиста и розового кварца, серьги из аметиста</a></div>
           <div class="price">61 000 ₸</div>
@@ -2358,7 +2405,7 @@
         </div>
       </article>
       <article class="card" data-id="prod_73">
-        <a href="/product/prod_73.html" class="card-img-wrap"><img src="assets/kole-iz-naturalnogo-zhemchuga-i-sergi-93000.webp" srcset="/assets/kole-iz-naturalnogo-zhemchuga-i-sergi-93000-400w.webp 400w, /assets/kole-iz-naturalnogo-zhemchuga-i-sergi-93000-750w.webp 750w, /assets/kole-iz-naturalnogo-zhemchuga-i-sergi-93000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из натурального жемчуга и серьги — авторская ручная работа (Натуральный жемчуг, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_73.html" class="card-img-wrap"><span class="card-badge badge-new">Новинка</span><img src="assets/kole-iz-naturalnogo-zhemchuga-i-sergi-93000.webp" srcset="/assets/kole-iz-naturalnogo-zhemchuga-i-sergi-93000-400w.webp 400w, /assets/kole-iz-naturalnogo-zhemchuga-i-sergi-93000-750w.webp 750w, /assets/kole-iz-naturalnogo-zhemchuga-i-sergi-93000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из натурального жемчуга и серьги — авторская ручная работа (Натуральный жемчуг, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_73.html" class="card-title-link" data-id="prod_73" data-title="Колье из натурального жемчуга и серьги" data-price="93000" data-category="Sets">Колье из натурального жемчуга и серьги</a></div>
           <div class="price">93 000 ₸</div>
@@ -2372,21 +2419,21 @@
         </div>
       </article>
       <article class="card" data-id="prod_75">
-        <a href="/product/prod_75.html" class="card-img-wrap"><img src="assets/kole-iz-cheshskogo-stekla-i-sergi-65000.webp" srcset="/assets/kole-iz-cheshskogo-stekla-i-sergi-65000-400w.webp 400w, /assets/kole-iz-cheshskogo-stekla-i-sergi-65000-750w.webp 750w, /assets/kole-iz-cheshskogo-stekla-i-sergi-65000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из чешского стекла и серьги — авторская ручная работа (Чешское стекло, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_75.html" class="card-img-wrap"><span class="card-badge badge-new">Новинка</span><img src="assets/kole-iz-cheshskogo-stekla-i-sergi-65000.webp" srcset="/assets/kole-iz-cheshskogo-stekla-i-sergi-65000-400w.webp 400w, /assets/kole-iz-cheshskogo-stekla-i-sergi-65000-750w.webp 750w, /assets/kole-iz-cheshskogo-stekla-i-sergi-65000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из чешского стекла и серьги — авторская ручная работа (Чешское стекло, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_75.html" class="card-title-link" data-id="prod_75" data-title="Колье из чешского стекла и серьги" data-price="65000" data-category="Sets">Колье из чешского стекла и серьги</a></div>
           <div class="price">65 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_76">
-        <a href="/product/prod_76.html" class="card-img-wrap"><img src="assets/kole-iz-cheshskogo-stekla-burgundiya-i-sergi-64000.webp" srcset="/assets/kole-iz-cheshskogo-stekla-burgundiya-i-sergi-64000-400w.webp 400w, /assets/kole-iz-cheshskogo-stekla-burgundiya-i-sergi-64000-750w.webp 750w, /assets/kole-iz-cheshskogo-stekla-burgundiya-i-sergi-64000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из чешского стекла Бургундия и серьги — авторская ручная работа (Чешское стекло, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_76.html" class="card-img-wrap"><span class="card-badge badge-new">Новинка</span><img src="assets/kole-iz-cheshskogo-stekla-burgundiya-i-sergi-64000.webp" srcset="/assets/kole-iz-cheshskogo-stekla-burgundiya-i-sergi-64000-400w.webp 400w, /assets/kole-iz-cheshskogo-stekla-burgundiya-i-sergi-64000-750w.webp 750w, /assets/kole-iz-cheshskogo-stekla-burgundiya-i-sergi-64000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из чешского стекла Бургундия и серьги — авторская ручная работа (Чешское стекло, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_76.html" class="card-title-link" data-id="prod_76" data-title="Колье из чешского стекла Бургундия и серьги" data-price="64000" data-category="Sets">Колье из чешского стекла Бургундия и серьги</a></div>
           <div class="price">64 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_77">
-        <a href="/product/prod_77.html" class="card-img-wrap"><img src="assets/kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla-sergi-49000-1.webp" srcset="/assets/kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla-sergi-49000-1-400w.webp 400w, /assets/kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla-sergi-49000-1-750w.webp 750w, /assets/kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla-sergi-49000-1.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из жемчуга Майорка и ювелирного стекла, серьги — авторская ручная работа (Натуральный жемчуг, Ювелирное стекло, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_77.html" class="card-img-wrap"><span class="card-badge badge-new">Новинка</span><img src="assets/kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla-sergi-49000-1.webp" srcset="/assets/kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla-sergi-49000-1-400w.webp 400w, /assets/kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla-sergi-49000-1-750w.webp 750w, /assets/kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla-sergi-49000-1.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из жемчуга Майорка и ювелирного стекла, серьги — авторская ручная работа (Натуральный жемчуг, Ювелирное стекло, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_77.html" class="card-title-link" data-id="prod_77" data-title="Колье из жемчуга Майорка и ювелирного стекла, серьги" data-price="49000" data-category="Sets">Колье из жемчуга Майорка и ювелирного стекла, серьги</a></div>
           <div class="price">49 000 ₸</div>
@@ -2400,63 +2447,63 @@
         </div>
       </article>
       <article class="card" data-id="prod_79">
-        <a href="/product/prod_79.html" class="card-img-wrap"><img src="assets/kole-iz-lunnogo-kamnya-i-zhemchuga-mayorka-koltso-51000.webp" srcset="/assets/kole-iz-lunnogo-kamnya-i-zhemchuga-mayorka-koltso-51000-400w.webp 400w, /assets/kole-iz-lunnogo-kamnya-i-zhemchuga-mayorka-koltso-51000-750w.webp 750w, /assets/kole-iz-lunnogo-kamnya-i-zhemchuga-mayorka-koltso-51000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из лунного камня и жемчуга Майорка, кольцо — авторская ручная работа (Натуральный жемчуг, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_79.html" class="card-img-wrap"><span class="card-badge badge-new">Новинка</span><img src="assets/kole-iz-lunnogo-kamnya-i-zhemchuga-mayorka-koltso-51000.webp" srcset="/assets/kole-iz-lunnogo-kamnya-i-zhemchuga-mayorka-koltso-51000-400w.webp 400w, /assets/kole-iz-lunnogo-kamnya-i-zhemchuga-mayorka-koltso-51000-750w.webp 750w, /assets/kole-iz-lunnogo-kamnya-i-zhemchuga-mayorka-koltso-51000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из лунного камня и жемчуга Майорка, кольцо — авторская ручная работа (Натуральный жемчуг, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_79.html" class="card-title-link" data-id="prod_79" data-title="Колье из лунного камня и жемчуга Майорка, кольцо" data-price="51000" data-category="Sets">Колье из лунного камня и жемчуга Майорка, кольцо</a></div>
           <div class="price">51 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_80">
-        <a href="/product/prod_80.html" class="card-img-wrap"><img src="assets/sergi-pusety-16000.webp" srcset="/assets/sergi-pusety-16000-400w.webp 400w, /assets/sergi-pusety-16000-750w.webp 750w, /assets/sergi-pusety-16000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Серьги пусеты — авторская ручная работа (Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_80.html" class="card-img-wrap"><span class="card-badge badge-new">Новинка</span><img src="assets/sergi-pusety-16000.webp" srcset="/assets/sergi-pusety-16000-400w.webp 400w, /assets/sergi-pusety-16000-750w.webp 750w, /assets/sergi-pusety-16000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Серьги пусеты — авторская ручная работа (Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_80.html" class="card-title-link" data-id="prod_80" data-title="Серьги пусеты" data-price="16000" data-category="Earrings">Серьги пусеты</a></div>
           <div class="price">16 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_81">
-        <a href="/product/prod_81.html" class="card-img-wrap"><img src="assets/sotuar-iz-cheshskogo-stekla-30000.webp" srcset="/assets/sotuar-iz-cheshskogo-stekla-30000-400w.webp 400w, /assets/sotuar-iz-cheshskogo-stekla-30000-750w.webp 750w, /assets/sotuar-iz-cheshskogo-stekla-30000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Сотуар из чешского стекла — авторская ручная работа (Чешское стекло, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_81.html" class="card-img-wrap"><span class="card-badge badge-new">Новинка</span><img src="assets/sotuar-iz-cheshskogo-stekla-30000.webp" srcset="/assets/sotuar-iz-cheshskogo-stekla-30000-400w.webp 400w, /assets/sotuar-iz-cheshskogo-stekla-30000-750w.webp 750w, /assets/sotuar-iz-cheshskogo-stekla-30000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Сотуар из чешского стекла — авторская ручная работа (Чешское стекло, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_81.html" class="card-title-link" data-id="prod_81" data-title="Сотуар из чешского стекла" data-price="30000" data-category="Lariats">Сотуар из чешского стекла</a></div>
           <div class="price">30 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_82">
-        <a href="/product/prod_82.html" class="card-img-wrap"><img src="assets/sotuar-iz-avantyurina-40000.webp" srcset="/assets/sotuar-iz-avantyurina-40000-400w.webp 400w, /assets/sotuar-iz-avantyurina-40000-750w.webp 750w, /assets/sotuar-iz-avantyurina-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Сотуар из авантюрина — авторская ручная работа (Натуральный авантюрин, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_82.html" class="card-img-wrap"><span class="card-badge badge-new">Новинка</span><img src="assets/sotuar-iz-avantyurina-40000.webp" srcset="/assets/sotuar-iz-avantyurina-40000-400w.webp 400w, /assets/sotuar-iz-avantyurina-40000-750w.webp 750w, /assets/sotuar-iz-avantyurina-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Сотуар из авантюрина — авторская ручная работа (Натуральный авантюрин, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_82.html" class="card-title-link" data-id="prod_82" data-title="Сотуар из авантюрина" data-price="40000" data-category="Lariats">Сотуар из авантюрина</a></div>
           <div class="price">40 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_83">
-        <a href="/product/prod_83.html" class="card-img-wrap"><img src="assets/koltso-14000.webp" srcset="/assets/koltso-14000-400w.webp 400w, /assets/koltso-14000-750w.webp 750w, /assets/koltso-14000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Кольцо — авторская ручная работа (Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_83.html" class="card-img-wrap"><span class="card-badge badge-last">Последний экземпляр</span><img src="assets/koltso-14000.webp" srcset="/assets/koltso-14000-400w.webp 400w, /assets/koltso-14000-750w.webp 750w, /assets/koltso-14000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Кольцо — авторская ручная работа (Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_83.html" class="card-title-link" data-id="prod_83" data-title="Кольцо" data-price="14000" data-category="Rings">Кольцо</a></div>
           <div class="price">14 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_84">
-        <a href="/product/prod_84.html" class="card-img-wrap"><img src="assets/koltso-iz-gornogo-khrustalya-16000.webp" srcset="/assets/koltso-iz-gornogo-khrustalya-16000-400w.webp 400w, /assets/koltso-iz-gornogo-khrustalya-16000-750w.webp 750w, /assets/koltso-iz-gornogo-khrustalya-16000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Кольцо из горного хрусталя — авторская ручная работа (Горный хрусталь, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_84.html" class="card-img-wrap"><span class="card-badge badge-last">Последний экземпляр</span><img src="assets/koltso-iz-gornogo-khrustalya-16000.webp" srcset="/assets/koltso-iz-gornogo-khrustalya-16000-400w.webp 400w, /assets/koltso-iz-gornogo-khrustalya-16000-750w.webp 750w, /assets/koltso-iz-gornogo-khrustalya-16000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Кольцо из горного хрусталя — авторская ручная работа (Горный хрусталь, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_84.html" class="card-title-link" data-id="prod_84" data-title="Кольцо из горного хрусталя" data-price="16000" data-category="Rings">Кольцо из горного хрусталя</a></div>
           <div class="price">16 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_85">
-        <a href="/product/prod_85.html" class="card-img-wrap"><img src="assets/koltso-iz-rozovogo-kvartsa-16000.webp" srcset="/assets/koltso-iz-rozovogo-kvartsa-16000-400w.webp 400w, /assets/koltso-iz-rozovogo-kvartsa-16000-750w.webp 750w, /assets/koltso-iz-rozovogo-kvartsa-16000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Кольцо из розового кварца — авторская ручная работа (Розовый кварц, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_85.html" class="card-img-wrap"><span class="card-badge badge-last">Последний экземпляр</span><img src="assets/koltso-iz-rozovogo-kvartsa-16000.webp" srcset="/assets/koltso-iz-rozovogo-kvartsa-16000-400w.webp 400w, /assets/koltso-iz-rozovogo-kvartsa-16000-750w.webp 750w, /assets/koltso-iz-rozovogo-kvartsa-16000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Кольцо из розового кварца — авторская ручная работа (Розовый кварц, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_85.html" class="card-title-link" data-id="prod_85" data-title="Кольцо из розового кварца" data-price="16000" data-category="Rings">Кольцо из розового кварца</a></div>
           <div class="price">16 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_86">
-        <a href="/product/prod_86.html" class="card-img-wrap"><img src="assets/koltso-iz-ametista-16000.webp" srcset="/assets/koltso-iz-ametista-16000-400w.webp 400w, /assets/koltso-iz-ametista-16000-750w.webp 750w, /assets/koltso-iz-ametista-16000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Кольцо из аметиста — авторская ручная работа (Натуральный аметист, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_86.html" class="card-img-wrap"><span class="card-badge badge-last">Последний экземпляр</span><img src="assets/koltso-iz-ametista-16000.webp" srcset="/assets/koltso-iz-ametista-16000-400w.webp 400w, /assets/koltso-iz-ametista-16000-750w.webp 750w, /assets/koltso-iz-ametista-16000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Кольцо из аметиста — авторская ручная работа (Натуральный аметист, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_86.html" class="card-title-link" data-id="prod_86" data-title="Кольцо из аметиста" data-price="16000" data-category="Rings">Кольцо из аметиста</a></div>
           <div class="price">16 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_87">
-        <a href="/product/prod_87.html" class="card-img-wrap"><img src="assets/koltso-iz-amazonita-16000.webp" srcset="/assets/koltso-iz-amazonita-16000-400w.webp 400w, /assets/koltso-iz-amazonita-16000-750w.webp 750w, /assets/koltso-iz-amazonita-16000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Кольцо из амазонита — авторская ручная работа (Амазонит, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_87.html" class="card-img-wrap"><span class="card-badge badge-last">Последний экземпляр</span><img src="assets/koltso-iz-amazonita-16000.webp" srcset="/assets/koltso-iz-amazonita-16000-400w.webp 400w, /assets/koltso-iz-amazonita-16000-750w.webp 750w, /assets/koltso-iz-amazonita-16000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Кольцо из амазонита — авторская ручная работа (Амазонит, Ювелирный сплав), Livi Jewelry" loading="lazy" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_87.html" class="card-title-link" data-id="prod_87" data-title="Кольцо из амазонита" data-price="16000" data-category="Rings">Кольцо из амазонита</a></div>
           <div class="price">16 000 ₸</div>
@@ -2514,7 +2561,7 @@
     </div>
     <div id="catalogError" class="empty-state" hidden style="display:none" aria-hidden="true"></div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
       <details class="hub-interlink-accordion">
         <summary>Подборки по камням и стилям</summary>
         <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
@@ -2546,18 +2593,92 @@
   </main>
 
   <!-- Footer -->
-  <footer id="contact">
-    <div class="foot">
-      <div class="links">
-        <a href="delivery.html">Доставка, оплата и возврат (14 дней)</a>
-        <a href="privacy.html">Политика конфиденциальности</a>
-        <a href="terms.html">Условия использования</a>
-        <a href="/">Главная</a>
+  <footer id="contact" class="site-footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>LIVI JEWELRY</h3>
+          <p class="footer-tagline">Авторские украшения из натурального жемчуга и драгоценных минералов ручной работы.</p>
+          <div class="footer-contacts">
+            <div class="footer-contact-item">
+              <span class="contact-label">Город:</span>
+              <span>г. Астана, доставка день-в-день</span>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">Телефон / WhatsApp:</span>
+              <a href="https://wa.me/77054510584" target="_blank" rel="noopener">+7 (705) 519-58-75</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">Режим работы:</span>
+              <span>Ежедневно с 10:00 до 20:00</span>
+            </div>
+          </div>
+          <div class="kaspi-badge">
+            <span class="kaspi-icon">●</span>
+            <span>Оплата через Kaspi Pay · Kaspi Red</span>
+          </div>
+        </div>
+
+        <div class="footer-columns-grid">
+          <div class="footer-col">
+            <h4 class="footer-col-title">Колье и сотуары</h4>
+            <ul class="footer-col-links">
+              <li><a href="/kolye-iz-zhemchuga.html">Колье из жемчуга</a></li>
+              <li><a href="/sotuary-iz-zhemchuga.html">Сотуары из жемчуга</a></li>
+              <li><a href="/chokery-iz-naturalnyh-kamney.html">Чокеры из камней</a></li>
+              <li><a href="/tsepi-s-barochnym-zhemchugom.html">Цепи с жемчугом</a></li>
+              <li><a href="/ukrasheniya-iz-barochnogo-zhemchuga.html">Барочный жемчуг</a></li>
+              <li><a href="/ukrasheniya-iz-zhemchuga-mayorka.html">Жемчуг Майорка</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Серьги и сеты</h4>
+            <ul class="footer-col-links">
+              <li><a href="/sergi-iz-zhemchuga.html">Серьги из жемчуга</a></li>
+              <li><a href="/braslety-iz-zhemchuga.html">Браслеты из жемчуга</a></li>
+              <li><a href="/komplekty-ukrasheniy.html">Комплекты украшений</a></li>
+              <li><a href="/koltsa-i-garnitury-iz-kamney.html">Кольца и гарнитуры</a></li>
+              <li><a href="/shop.html">Весь каталог</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Натуральные камни</h4>
+            <ul class="footer-col-links">
+              <li><a href="/ukrasheniya-iz-malahita.html">Малахит и нефрит</a></li>
+              <li><a href="/ukrasheniya-iz-ametista.html">Аметист</a></li>
+              <li><a href="/ukrasheniya-iz-granata.html">Гранат</a></li>
+              <li><a href="/ukrasheniya-iz-rozovogo-kvarca.html">Розовый кварц</a></li>
+              <li><a href="/ukrasheniya-iz-biryuzy.html">Натуральная бирюза</a></li>
+              <li><a href="/ukrasheniya-iz-gornogo-hrustalya.html">Горный хрусталь</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Минералы и редкое</h4>
+            <ul class="footer-col-links">
+              <li><a href="/ukrasheniya-iz-tigrovogo-glaza.html">Тигровый глаз</a></li>
+              <li><a href="/ukrasheniya-iz-koralla-i-yashmy.html">Коралл и яшма</a></li>
+              <li><a href="/ukrasheniya-iz-lazurita.html">Натуральный лазурит</a></li>
+              <li><a href="/ukrasheniya-iz-lunnogo-kamnya.html">Лунный камень</a></li>
+              <li><a href="/ukrasheniya-iz-gematita.html">Гематит</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div class="copy">© <span id="footYear"></span> Livi Jewelry — Все права защищены.</div>
-      <div class="links">
-        <a class="tag" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="tag" href="https://wa.me/77054510584" target="_blank" rel="noopener">WhatsApp</a>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-copy">
+          © <span id="year">2026</span> Livi Jewelry. Все права защищены.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="/delivery.html">Доставка и оплата</a>
+          <a href="/terms.html">Оферта</a>
+          <a href="/privacy.html">Конфиденциальность</a>
+          <a href="/kz/">Қазақша</a>
+          <a href="/uz/">O‘zbekcha</a>
+        </div>
       </div>
     </div>
   </footer>
@@ -2680,6 +2801,30 @@
     let PRODUCTS = [];
     let activeCat = localStorage.getItem('livi_active_cat') || 'All';
     let searchQuery = '';
+    let currentSort = 'popular';
+    let activePriceMin = 0;
+    let activePriceMax = 0;
+
+    function pluralize(n, one, two, five) {
+      n = Math.abs(n) % 100;
+      const n1 = n % 10;
+      if (n > 10 && n < 20) return five;
+      if (n1 > 1 && n1 < 5) return two;
+      if (n1 === 1) return one;
+      return five;
+    }
+
+    function updateCatalogCount(count) {
+      const el = document.getElementById('catalogCount');
+      if (!el) return;
+      if (lang() === 'kk') {
+        el.textContent = `${count} әшекей`;
+      } else if (lang() === 'uz') {
+        el.textContent = `${count} taqinchoq`;
+      } else {
+        el.textContent = `${count} ${pluralize(count, 'украшение', 'украшения', 'украшений')}`;
+      }
+    }
 
     function applyLang(){
       document.title = tr('meta.title');
@@ -2783,10 +2928,11 @@
     }
 
     function renderGrid(forceRebuild = false){
-      const isDefaultView = (activeCat === 'All') && !searchQuery.trim() && (lang() === 'ru');
+      const isDefaultView = (activeCat === 'All') && !searchQuery.trim() && (currentSort === 'popular') && (activePriceMin === 0) && (activePriceMax === 0) && (lang() === 'ru');
       const staticCards = grid ? grid.querySelectorAll('.card, .product-card') : [];
       if(isDefaultView && staticCards.length > 0 && !forceRebuild){
         initStaticCards();
+        updateCatalogCount(staticCards.length);
         return;
       }
       grid.innerHTML='';
@@ -2811,6 +2957,37 @@
         });
       }
 
+      if(activePriceMin > 0){
+        items = items.filter(p => (Number(p.price) || 0) >= activePriceMin);
+      }
+      if(activePriceMax > 0){
+        items = items.filter(p => (Number(p.price) || 0) <= activePriceMax);
+      }
+
+      if(currentSort === 'price_asc'){
+        items = items.slice().sort((a,b) => (Number(a.price) || 0) - (Number(b.price) || 0));
+      } else if(currentSort === 'price_desc'){
+        items = items.slice().sort((a,b) => (Number(b.price) || 0) - (Number(a.price) || 0));
+      } else if(currentSort === 'newest'){
+        items = items.slice().sort((a,b) => {
+          const aNew = a.badge === 'Новинка' ? 1 : 0;
+          const bNew = b.badge === 'Новинка' ? 1 : 0;
+          if (aNew !== bNew) return bNew - aNew;
+          const aNum = parseInt((a.id || '').replace(/\D/g, '') || '0', 10);
+          const bNum = parseInt((b.id || '').replace(/\D/g, '') || '0', 10);
+          return bNum - aNum;
+        });
+      } else if(currentSort === 'popular'){
+        items = items.slice().sort((a,b) => {
+          const aHit = a.badge === 'Хит' ? 1 : 0;
+          const bHit = b.badge === 'Хит' ? 1 : 0;
+          if (aHit !== bHit) return bHit - aHit;
+          return 0;
+        });
+      }
+
+      updateCatalogCount(items.length);
+
       if(!items.length){
         grid.innerHTML = `<div class="empty-state">${tr('search.empty')}</div>`;
         return;
@@ -2828,7 +3005,13 @@
 
         const smlImg = p.image.replace(/\.webp$/i, '-400w.webp');
         const mobImg = p.image.replace(/\.webp$/i, '-750w.webp');
-        card.innerHTML=`<a href="/product/${p.id}.html" class="card-img-wrap"><img src="${p.image}" srcset="${smlImg} 400w, ${mobImg} 750w, ${p.image} 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="${altText}" onerror="if(this.srcset){this.removeAttribute('srcset');this.src='${p.image}';}else{this.onerror=null;this.src='assets/placeholder.jpg';}" ${loadingAttr} decoding="async" width="600" height="800"></a>
+        const badgeVal = p.badge || '';
+        let badgeHtml = '';
+        if(badgeVal){
+          const bCls = badgeVal === 'Хит' ? 'badge-hit' : (badgeVal === 'Новинка' ? 'badge-new' : 'badge-last');
+          badgeHtml = `<span class="card-badge ${bCls}">${badgeVal}</span>`;
+        }
+        card.innerHTML=`<a href="/product/${p.id}.html" class="card-img-wrap">${badgeHtml}<img src="${p.image}" srcset="${smlImg} 400w, ${mobImg} 750w, ${p.image} 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="${altText}" onerror="if(this.srcset){this.removeAttribute('srcset');this.src='${p.image}';}else{this.onerror=null;this.src='assets/placeholder.jpg';}" ${loadingAttr} decoding="async" width="600" height="800"></a>
           <div class="body">
             <div class="title"><a href="/product/${p.id}.html" class="card-title-link" data-id="${p.id}" data-title="${(p.title || '').replace(/"/g, '&quot;')}" data-price="${priceNum}" data-category="${p.category || ''}">${p.title}</a></div>
             <div class="price">${priceStr}</div>
@@ -3132,11 +3315,46 @@
       });
     }
 
-    // URL search param ?filter=, ?q= or ?cat=
+    // URL search param ?filter=, ?q= or ?cat=, ?min_price=, ?max_price=, ?sort=
     const urlParams = new URLSearchParams(window.location.search);
     const filterParam = urlParams.get('filter');
-    const initialCat = urlParams.get('cat');
-    const initialQuery = urlParams.get('q');
+    const initialCat = urlParams.get('cat') || urlParams.get('category');
+    const initialQuery = urlParams.get('q') || urlParams.get('search');
+    const initialSort = urlParams.get('sort');
+    const minPriceParam = urlParams.get('min_price');
+    const maxPriceParam = urlParams.get('max_price');
+
+    if(minPriceParam) activePriceMin = Number(minPriceParam) || 0;
+    if(maxPriceParam) activePriceMax = Number(maxPriceParam) || 0;
+    if(initialSort) currentSort = initialSort;
+
+    function setupToolbarEvents() {
+      const sortSelect = document.getElementById('catalogSort');
+      if (sortSelect) {
+        sortSelect.value = currentSort;
+        sortSelect.addEventListener('change', (e) => {
+          currentSort = e.target.value;
+          renderGrid(true);
+        });
+      }
+
+      const priceChips = document.querySelectorAll('.price-chip');
+      priceChips.forEach(btn => {
+        const bMin = Number(btn.getAttribute('data-min')) || 0;
+        const bMax = Number(btn.getAttribute('data-max')) || 0;
+        if (bMin === activePriceMin && bMax === activePriceMax) {
+          priceChips.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        }
+        btn.addEventListener('click', () => {
+          priceChips.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activePriceMin = Number(btn.getAttribute('data-min')) || 0;
+          activePriceMax = Number(btn.getAttribute('data-max')) || 0;
+          renderGrid(true);
+        });
+      });
+    }
 
     const FILTER_CAT_MAP = {
       'all': 'All',

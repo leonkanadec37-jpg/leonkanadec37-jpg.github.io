@@ -4,6 +4,8 @@ Allow: /kz/
 Allow: /uz/
 Allow: /product/
 Allow: /assets/
+Disallow: /*?q=
+Disallow: /*?sort=
 Disallow: /marketing/
 Disallow: /scripts/
 Disallow: /tests/
@@ -17,6 +19,8 @@ Allow: /kz/
 Allow: /uz/
 Allow: /product/
 Allow: /assets/
+Disallow: /*?q=
+Disallow: /*?sort=
 Disallow: /marketing/
 Disallow: /scripts/
 Disallow: /tests/

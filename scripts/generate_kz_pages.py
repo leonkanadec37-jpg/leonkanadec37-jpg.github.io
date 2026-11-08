@@ -48,6 +48,96 @@ FB_PIXEL_1 = "199604456030882"
 GOOGLE_VERIFICATION = "qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0"
 FB_DOMAIN_VERIFICATION = "lrr1e3sbmseisnpm2nclqko8w1rfcw"
 
+KZ_FOOTER_HTML = """  <footer id="contact" class="site-footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>LIVI JEWELRY</h3>
+          <p class="footer-tagline">Табиғи інжу мен асыл минералдардан қолдан жасалған авторлық әшекейлер.</p>
+          <div class="footer-contacts">
+            <div class="footer-contact-item">
+              <span class="contact-label">Қала:</span>
+              <span>Астана қ., сол күні жедел жеткізу</span>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">Телефон / WhatsApp:</span>
+              <a href="https://wa.me/77054510584" target="_blank" rel="noopener">+7 (705) 519-58-75</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">Жұмыс уақыты:</span>
+              <span>Күн сайын 10:00-ден 20:00-ге дейін</span>
+            </div>
+          </div>
+          <div class="kaspi-badge">
+            <span class="kaspi-icon">●</span>
+            <span>Kaspi Pay · Kaspi Red арқылы төлем</span>
+          </div>
+        </div>
+
+        <div class="footer-columns-grid">
+          <div class="footer-col">
+            <h4 class="footer-col-title">Алқалар мен сотуарлар</h4>
+            <ul class="footer-col-links">
+              <li><a href="/kz/kolye-iz-zhemchuga.html">Інжу алқалар</a></li>
+              <li><a href="/kz/sotuary-iz-zhemchuga.html">Інжу сотуарлар</a></li>
+              <li><a href="/kz/chokery-iz-naturalnyh-kamney.html">Табиғи тастардан чокерлер</a></li>
+              <li><a href="/kz/tsepi-s-barochnym-zhemchugom.html">Інжу шынжырлар</a></li>
+              <li><a href="/kz/ukrasheniya-iz-barochnogo-zhemchuga.html">Барокко інжуі</a></li>
+              <li><a href="/kz/ukrasheniya-iz-zhemchuga-mayorka.html">Майорка інжуі</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Сырғалар мен жиынтықтар</h4>
+            <ul class="footer-col-links">
+              <li><a href="/kz/sergi-iz-zhemchuga.html">Інжу сырғалар</a></li>
+              <li><a href="/kz/braslety-iz-zhemchuga.html">Інжу білезіктер</a></li>
+              <li><a href="/kz/komplekty-ukrasheniy.html">Әшекей жиынтықтары</a></li>
+              <li><a href="/kz/koltsa-i-garnitury-iz-kamney.html">Сақиналар мен гарнитурлар</a></li>
+              <li><a href="/kz/shop.html">Барлық каталог</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Табиғи тастар</h4>
+            <ul class="footer-col-links">
+              <li><a href="/kz/ukrasheniya-iz-malahita.html">Малахит және нефрит</a></li>
+              <li><a href="/kz/ukrasheniya-iz-ametista.html">Аметист</a></li>
+              <li><a href="/kz/ukrasheniya-iz-granata.html">Анар тас (гранат)</a></li>
+              <li><a href="/kz/ukrasheniya-iz-rozovogo-kvarca.html">Қызғылт кварц</a></li>
+              <li><a href="/kz/ukrasheniya-iz-biryuzy.html">Табиғи фируза</a></li>
+              <li><a href="/kz/ukrasheniya-iz-gornogo-hrustalya.html">Тау хрусталі</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Минералдар мен сирек тастар</h4>
+            <ul class="footer-col-links">
+              <li><a href="/kz/ukrasheniya-iz-tigrovogo-glaza.html">Жолбарыс көзі</a></li>
+              <li><a href="/kz/ukrasheniya-iz-koralla-i-yashmy.html">Маржан мен яшма</a></li>
+              <li><a href="/kz/ukrasheniya-iz-lazurita.html">Табиғи лазурит</a></li>
+              <li><a href="/kz/ukrasheniya-iz-lunnogo-kamnya.html">Ай тасы</a></li>
+              <li><a href="/kz/ukrasheniya-iz-gematita.html">Гематит</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-copy">
+          © <span id="year">2026</span> Livi Jewelry. Барлық құқықтар қорғалған.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="/kz/delivery.html">Жеткізу және төлем</a>
+          <a href="/kz/terms.html">Оферта</a>
+          <a href="/kz/privacy.html">Құпиялылық</a>
+          <a href="/">Русский</a>
+          <a href="/uz/">O‘zbekcha</a>
+        </div>
+      </div>
+    </div>
+  </footer>"""
+
 FEATURED_IDS = [
     "prod_01", "prod_02", "prod_06", "prod_07",
     "prod_10", "prod_11", "prod_16", "prod_17",
@@ -619,9 +709,15 @@ def build_kz_card_html(pk: dict, indent: str = "      ", is_first_row: bool = Fa
     alt = html.escape(f"{pk['title']} — қолмен жасалған ({stones}), Livi Jewelry")
     cat = html.escape(pk["category"])
     loading_attr = 'loading="eager" fetchpriority="high"' if priority_high else ('loading="eager"' if is_first_row else 'loading="lazy"')
+    badge_val = pk.get("badge")
+    badge_html = ""
+    if badge_val:
+        b_text = "Хит" if badge_val == "Хит" else ("Жаңа" if badge_val == "Новинка" else "Соңғы дана")
+        b_cls = "badge-hit" if badge_val == "Хит" else ("badge-new" if badge_val == "Новинка" else "badge-last")
+        badge_html = f'<span class="card-badge {b_cls}">{html.escape(b_text)}</span>'
     return (
         f'{indent}<article class="card" data-id="{pid}">\n'
-        f'{indent}  <a href="/kz/product/{pid}.html" class="card-img-wrap"><img src="/{img}"{srcset_attr} alt="{alt}" {loading_attr} decoding="async" width="600" height="800"></a>\n'
+        f'{indent}  <a href="/kz/product/{pid}.html" class="card-img-wrap">{badge_html}<img src="/{img}"{srcset_attr} alt="{alt}" {loading_attr} decoding="async" width="600" height="800"></a>\n'
         f'{indent}  <div class="body">\n'
         f'{indent}    <div class="title"><a href="/kz/product/{pid}.html" class="card-title-link" data-id="{pid}" data-title="{title}" data-price="{price_num}" data-category="{cat}">{title}</a></div>\n'
         f'{indent}    <div class="price">{price_str} ₸</div>\n'
@@ -653,7 +749,7 @@ def generate_kz_index(products_kz: list) -> str:
         ),
         (
             "Әшекейлер қандай қаптамада келеді — сыйлыққа дайын ба?",
-            "Әрбір Livi Jewelry әшекейі фирмалық сыйлық қорапшасына және барқыт дорбашаға ұқыпты салынады. Сыйлық қаптамасы бағаға тегін кіреді (0 ₸) және тапсырыс сыйлық ретінде табыстауға толық дайын."
+            "Әрбір Livi Jewelry әшекейі фирмалық сыйлық қорапшасына және барқыт дорбашаға ұқыпты салынады. Сыйлық қаптамасы фирмалық жиынтыққа кіреді және тапсырыс сыйлық ретінде табыстауға толық дайын."
         ),
         (
             "Төлемді Kaspi.kz арқылы қалай жасауға болады?",
@@ -722,8 +818,8 @@ def generate_kz_index(products_kz: list) -> str:
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 
-  <title>Livi Jewelry — Табиғи інжу мен тастардан қолдан жасалған авторлық әшекейлер | Астана</title>
-  <meta name="description" content="Табиғи інжу мен тастардан жасалған әшекейлер: сырғалар, білезіктер, алқалар, сотуарлар және сақиналар. Астана бойынша сол күні жедел жеткізу, Қазақстан және әлем бойынша жеткізу — Livi Jewelry.">
+  <title>Інжу мен табиғи тастардан жасалған әшекейлер | Livi</title>
+  <meta name="description" content="Табиғи інжу мен тастардан жасалған авторлық әшекейлер: алқалар, сырғалар, білезіктер. Астана мен Қазақстан бойынша жеткізу — Livi Jewelry.">
   <link rel="canonical" href="{SITE_URL}/kz/">
   <link rel="alternate" hreflang="ru-KZ" href="{SITE_URL}/" />
   <link rel="alternate" hreflang="ru" href="{SITE_URL}/" />
@@ -823,6 +919,9 @@ def generate_kz_index(products_kz: list) -> str:
         <span>LIVI JEWELRY</span>
       </a>
       <div class="nav-actions">
+        <a href="/kz/shop.html?search=1" class="header-search-btn" aria-label="Әшекейлерді іздеу">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
         <div class="header-lang-links" aria-label="Тілді таңдау">
           <a href="/" lang="ru">RU</a>
           <a href="/kz/" class="active" lang="kk">KZ</a>
@@ -846,51 +945,108 @@ def generate_kz_index(products_kz: list) -> str:
     </div>
   </header>
 
-  <main class="wrap">
-    <section class="section catalog-hero" id="home" style="padding-top:0;">
-      <h1>Інжу мен тастардың қайталанбас эстетикасы</h1>
-      <p class="catalog-subtitle">Табиғи інжу мен минералдардан қолдан жасалған авторлық әшекейлер — каталог: сырғалар, білезіктер, алқалар, жиынтықтар</p>
-
-      <nav class="stone-chips" aria-label="Табиғи тастар бойынша топтамалар" style="margin: 18px 0 22px;">
-      <a href="/kz/ukrasheniya-iz-barochnogo-zhemchuga.html" class="stone-chip">Барокко інжуі</a>
-      <a href="/kz/ukrasheniya-iz-malahita.html" class="stone-chip">Малахит</a>
-      <a href="/kz/ukrasheniya-iz-rozovogo-kvarca.html" class="stone-chip">Қызғылт кварц</a>
-      <a href="/kz/ukrasheniya-iz-granata.html" class="stone-chip">Анар тас</a>
-      <a href="/kz/ukrasheniya-iz-ametista.html" class="stone-chip">Аметист</a>
-      <a href="/kz/ukrasheniya-iz-biryuzy.html" class="stone-chip">Фируза</a>
-      <a href="/kz/ukrasheniya-iz-gornogo-hrustalya.html" class="stone-chip">Тау хрусталі</a>
-      <a href="/kz/ukrasheniya-iz-gematita.html" class="stone-chip">Гематит</a>
-      <a href="/kz/ukrasheniya-iz-lunnogo-kamnya.html" class="stone-chip">Ай тасы</a>
-      <a href="/kz/ukrasheniya-iz-zhemchuga-mayorka.html" class="stone-chip">Майорка інжуі</a>
-      <a href="/kz/ukrasheniya-iz-koralla-i-yashmy.html" class="stone-chip">Маржан мен Яшма</a>
-      <a href="/kz/ukrasheniya-iz-lazurita.html" class="stone-chip">Лазурит</a>
-      <a href="/kz/ukrasheniya-iz-tigrovogo-glaza.html" class="stone-chip">Жолбарыс көзі</a>
-    </nav>
-
-      <div class="toolbar">
-        <div class="search-box">
-          <input type="text" id="kzHomeSearch" class="search-input" placeholder="Әшекейлерді іздеу..." aria-label="Әшекейлерді іздеу">
-        </div>
-        <div class="filters" id="kzHomeFilters">
-          <button type="button" class="tag active" data-cat="All">Барлығы</button>
-          <button type="button" class="tag" data-cat="Necklaces">Алқалар</button>
-          <button type="button" class="tag" data-cat="Earrings">Сырғалар</button>
-          <button type="button" class="tag" data-cat="Bracelets">Білезіктер</button>
-          <button type="button" class="tag" data-cat="Sets">Жиынтықтар</button>
-          <button type="button" class="tag" data-cat="Rings">Сақиналар</button>
-          <button type="button" class="tag" data-cat="Lariats">Сотуарлар</button>
-          <button type="button" class="tag" data-cat="Chains">Тізбектер</button>
+  <section class="storefront-cover">
+    <div class="storefront-cover-inner">
+      <div class="storefront-cover-text">
+        <h1 class="storefront-cover-title">Інжу мен табиғи тастардан жасалған авторлық әшекейлер</h1>
+        <p class="storefront-cover-subtitle">Астана · Қазақстан бойынша жеткізу</p>
+        <div class="storefront-cover-actions">
+          <a href="/kz/shop.html" class="storefront-cover-cta">Каталогқа өту →</a>
+          <a href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20туралы%20білгім%20келеді" target="_blank" rel="noopener" class="storefront-cover-cta-wa">WhatsApp</a>
         </div>
       </div>
+    </div>
+  </section>
 
+  <div class="home-trust-strip">
+    <div class="home-trust-item"><span>Бүгін Астана бойынша</span></div>
+    <span class="home-trust-dot">·</span>
+    <div class="home-trust-item"><span>СДЭК 1–3 күн</span></div>
+    <span class="home-trust-dot">·</span>
+    <div class="home-trust-item"><span>Kaspi арқылы төлеу</span></div>
+  </div>
+
+  <section class="section-category-tiles">
+    <div class="category-tiles-grid">
+      <a href="/kz/kolye-iz-zhemchuga.html" class="category-tile">
+        <img src="/assets/kole-iz-naturalnogo-zhemchuga-80000.webp" alt="Інжу алқалар" class="category-tile-img" loading="lazy" width="400" height="300">
+        <div class="category-tile-overlay">
+          <span class="category-tile-title">Алқалар</span>
+        </div>
+      </a>
+      <a href="/kz/sergi-iz-zhemchuga.html" class="category-tile">
+        <img src="/assets/sergi-iz-barochnogo-zhemchuga-18000.webp" alt="Інжу сырғалар" class="category-tile-img" loading="lazy" width="400" height="300">
+        <div class="category-tile-overlay">
+          <span class="category-tile-title">Сырғалар</span>
+        </div>
+      </a>
+      <a href="/kz/komplekty-ukrasheniy.html" class="category-tile">
+        <img src="/assets/komplekt-kole-i-braslet-iz-rozovogo-kvarca-55000.webp" alt="Әшекей жиынтықтары" class="category-tile-img" loading="lazy" width="400" height="300">
+        <div class="category-tile-overlay">
+          <span class="category-tile-title">Жиынтықтар</span>
+        </div>
+      </a>
+      <a href="/kz/koltsa-i-garnitury-iz-kamney.html" class="category-tile">
+        <img src="/assets/koltso-iz-perlamutra-15000.webp" alt="Сақиналар мен гарнитурлар" class="category-tile-img" loading="lazy" width="400" height="300">
+        <div class="category-tile-overlay">
+          <span class="category-tile-title">Сақиналар</span>
+        </div>
+      </a>
+      <a href="/kz/sotuary-iz-zhemchuga.html" class="category-tile">
+        <img src="/assets/dlinnyy-sotuar-iz-zhemchuga-i-kamney-35000.webp" alt="Інжу сотуарлар" class="category-tile-img" loading="lazy" width="400" height="300">
+        <div class="category-tile-overlay">
+          <span class="category-tile-title">Сотуарлар</span>
+        </div>
+      </a>
+      <a href="/kz/shop.html?cat=Stones" class="category-tile">
+        <img src="/assets/choker-iz-naturalnogo-malahita-24000.webp" alt="Табиғи тастар" class="category-tile-img" loading="lazy" width="400" height="300">
+        <div class="category-tile-overlay">
+          <span class="category-tile-title">Тастар</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <section class="section" id="featured">
+      <div class="section-head">
+        <h2>Таңдаулы әшекейлер</h2>
+        <a class="section-link" href="/kz/shop.html">Барлығын көру →</a>
+      </div>
       <div class="grid" id="featGrid">
 {feat_cards_html}
       </div>
       <div class="catalog-more-wrap">
-        <a href="/kz/shop.html" class="btn-catalog-more">Барлық каталогты көру (28 модель) →</a>
+        <a href="/kz/shop.html" class="btn-catalog-more">Барлық каталогты көру →</a>
       </div>
     </section>
   </main>
+
+  <section class="holiday-gifts-section">
+    <div class="holiday-gifts-banner">
+      <span class="holiday-gifts-tag">Мерекелік топтама</span>
+      <h2 class="holiday-gifts-title">Жаңа жылға сыйлықтар ✨</h2>
+      <p class="holiday-gifts-desc">Жақындарыңызға арналған табиғи інжу мен асыл тастардан жасалған ерекше сыйлықтар. Әрбір бұйым фирмалық сыйлық қаптамасында келеді.</p>
+      <div class="holiday-budget-chips">
+        <a href="/kz/shop.html?max_price=20000" class="budget-chip">20 000 ₸ дейін</a>
+        <a href="/kz/shop.html?min_price=20000&max_price=40000" class="budget-chip">20 000 – 40 000 ₸</a>
+        <a href="/kz/komplekty-ukrasheniy.html" class="budget-chip">Жиынтықтар</a>
+        <a href="/kz/shop.html" class="budget-chip budget-chip-all">Барлық каталог →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section video-section">
+    <div class="section-head">
+      <h2>Шеберхана атмосферасы</h2>
+    </div>
+    <div class="video-container">
+      <video class="storefront-video" controls playsinline preload="metadata" poster="/assets/hero-kole-iz-naturalnogo-zhemchuga-80000.webp">
+        <source src="/assets/video-showcase.mp4" type="video/mp4">
+        Браузеріңіз бейнені қолдамайды.
+      </video>
+    </div>
+  </section>
 
   <section class="faq-section" id="faq">
     <h2>Жиі қойылатын сұрақтар (FAQ)</h2>
@@ -900,22 +1056,7 @@ def generate_kz_index(products_kz: list) -> str:
     </div>
   </section>
 
-  <footer id="contact">
-    <div class="foot">
-      <div class="links">
-        <a href="/delivery.html">Жеткізу, төлем және қайтару</a>
-        <a href="/privacy.html">Құпиялылық саясаты</a>
-        <a href="/terms.html">Пайдалану шарттары</a>
-        <a href="/kz/shop.html">Каталог</a>
-        <a href="/">Русская версия</a>
-      </div>
-      <div class="copy">© <span id="year">2026</span> Livi Jewelry — Барлық құқықтар қорғалған.</div>
-      <div class="links">
-        <a class="tag" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="tag" href="https://wa.me/77054510584" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-    </div>
-  </footer>
+{KZ_FOOTER_HTML}
 
   <!-- Floating WhatsApp Widget -->
   <a class="floating-wa" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener" aria-label="WhatsApp арқылы кеңес алу">
@@ -1092,8 +1233,8 @@ def generate_kz_shop(products_kz: list) -> str:
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 
-  <title>Інжу және табиғи тастардан жасалған әшекейлер каталогы — бағасы теңгемен | Livi Jewelry</title>
-  <meta name="description" content="Табиғи інжу мен асыл тастардан қолдан жасалған әшекейлер каталогы: алқалар, білезіктер, сырғалар, сотуарлар және жиынтықтар. Бағасы 25 000 ₸ — 91 000 ₸. Астана мен Алматыға жедел жеткізу.">
+  <title>Әшекейлер каталогы — інжу мен табиғи тастар | Livi</title>
+  <meta name="description" content="Табиғи інжу мен тастардан жасалған авторлық әшекейлер каталогы: алқалар, сырғалар, жиынтықтар. Бағасы 25 000 теңгеден. Жеткізу — Livi Jewelry.">
   <link rel="canonical" href="{SITE_URL}/kz/shop.html">
   <link rel="alternate" hreflang="ru-KZ" href="{SITE_URL}/shop.html" />
   <link rel="alternate" hreflang="ru" href="{SITE_URL}/shop.html" />
@@ -1159,6 +1300,28 @@ def generate_kz_shop(products_kz: list) -> str:
   <script type="application/ld+json">
 {json.dumps(item_list_ld, ensure_ascii=False, indent=2)}
   </script>
+
+  <!-- Structured Data: BreadcrumbList -->
+  <script type="application/ld+json">
+  {{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Басты бет",
+        "item": "{SITE_URL}/kz/"
+      }},
+      {{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Каталог",
+        "item": "{SITE_URL}/kz/shop.html"
+      }}
+    ]
+  }}
+  </script>
 </head>
 <body>
   <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
@@ -1216,6 +1379,9 @@ def generate_kz_shop(products_kz: list) -> str:
         <span>LIVI JEWELRY</span>
       </a>
       <div class="nav-actions">
+        <a href="/kz/shop.html?search=1" class="header-search-btn" aria-label="Әшекейлерді іздеу">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
         <div class="header-lang-links" aria-label="Тілді таңдау">
           <a href="/shop.html" lang="ru">RU</a>
           <a href="/kz/shop.html" class="active" lang="kk">KZ</a>
@@ -1282,22 +1448,7 @@ def generate_kz_shop(products_kz: list) -> str:
     </section>
   </main>
 
-  <footer id="contact">
-    <div class="foot">
-      <div class="links">
-        <a href="/delivery.html">Жеткізу, төлем және қайтару (14 күн)</a>
-        <a href="/privacy.html">Құпиялылық саясаты</a>
-        <a href="/terms.html">Пайдалану шарттары</a>
-        <a href="/kz/">Басты бет</a>
-        <a href="/shop.html">Русский каталог</a>
-      </div>
-      <div class="copy">© <span id="footYear">2026</span> Livi Jewelry — Барлық құқықтар қорғалған.</div>
-      <div class="links">
-        <a class="tag" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="tag" href="https://wa.me/77054510584" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-    </div>
-  </footer>
+{KZ_FOOTER_HTML}
 
   <!-- Floating WhatsApp Widget -->
   <a class="floating-wa" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener" aria-label="WhatsApp арқылы кеңес алу">
@@ -2206,6 +2357,9 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
       </a>
 
       <div class="nav-actions">
+        <a href="/kz/shop.html?search=1" class="header-search-btn" aria-label="Әшекейлерді іздеу">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
         <div class="header-lang-links" aria-label="Тілді таңдау">
           <a href="{ru_page_url}" lang="ru">RU</a>
           <a href="{page_url}" class="active" lang="kk">KZ</a>
@@ -2332,22 +2486,7 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
     </section>
   </main>
 
-  <footer>
-    <div class="foot">
-      <div class="links">
-        <a href="/delivery.html">Жеткізу, төлем және қайтару</a>
-        <a href="/privacy.html">Құпиялылық саясаты</a>
-        <a href="/terms.html">Пайдалану шарттары</a>
-        <a href="/kz/shop.html">Каталог</a>
-        <a href="/shop.html">Орысша каталог (RU)</a>
-      </div>
-      <div class="copy">© <span id="year">2026</span> Livi Jewelry — Барлық құқықтар қорғалған.</div>
-      <div class="links">
-        <a class="tag" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="tag" href="https://wa.me/77054510584" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-    </div>
-  </footer>
+{KZ_FOOTER_HTML}
 
   <!-- Mobile Sticky Bottom Bar (Only visible on screens <= 768px) -->
   <aside class="mobile-sticky-bar" aria-label="Тапсырыс беру">
@@ -2861,6 +3000,9 @@ def generate_kz_service_pages():
     <div class="nav">
       <a class="brand" href="/kz/"><span>LIVI JEWELRY</span></a>
       <div class="nav-actions">
+        <a href="/kz/shop.html?search=1" class="header-search-btn" aria-label="Әшекейлерді іздеу">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
         <div class="header-lang-links" aria-label="Тілді таңдау">
           <a href="/delivery.html" lang="ru">RU</a>
           <a href="/kz/delivery.html" class="active" lang="kk">KZ</a>
@@ -2886,18 +3028,7 @@ def generate_kz_service_pages():
       <p style="line-height:1.6;color:#444;">Төлем Kaspi.kz қосымшасында қашықтан шот (Kaspi Pay) арқылы қабылданады. ҚР заңнамасына сәйкес тауарлық түрі мен фирмалық қаптамасы сақталған әшекейді алған сәттен бастап 14 күнтізбелік күн ішінде айырбастауға немесе қайтаруға болады.</p>
     </section>
   </main>
-  <footer id="contact">
-    <div class="foot">
-      <div class="links">
-        <a href="/kz/delivery.html">Жеткізу, төлем және қайтару</a>
-        <a href="/kz/privacy.html">Құпиялылық саясаты</a>
-        <a href="/kz/terms.html">Пайдалану шарттары</a>
-        <a href="/kz/shop.html">Каталог</a>
-        <a href="/delivery.html">Русская версия</a>
-      </div>
-      <div class="copy">© 2026 Livi Jewelry — Барлық құқықтар қорғалған.</div>
-    </div>
-  </footer>
+{KZ_FOOTER_HTML}
 </body>
 </html>
 """
@@ -2944,17 +3075,7 @@ def generate_kz_service_pages():
     <h2>2. Жеткізу және қайтару</h2>
     <p>Жеткізу Астана бойынша курьермен және бүкіл Қазақстанға СДЭК арқылы жүзеге асырылады. Сатып алушы тауарлық түрі сақталған жағдайда бұйымды алған күннен бастап 14 күн ішінде айырбастауға немесе қайтаруға құқылы.</p>
   </main>
-  <footer id="contact">
-    <div class="foot">
-      <div class="links">
-        <a href="/kz/delivery.html">Жеткізу және төлем</a>
-        <a href="/kz/privacy.html">Құпиялылық саясаты</a>
-        <a href="/kz/shop.html">Каталог</a>
-        <a href="/terms.html">Русская версия</a>
-      </div>
-      <div class="copy">© 2026 Livi Jewelry — Барлық құқықтар қорғалған.</div>
-    </div>
-  </footer>
+{KZ_FOOTER_HTML}
 </body>
 </html>
 """
@@ -2997,17 +3118,7 @@ def generate_kz_service_pages():
     <h1>Құпиялылық саясаты</h1>
     <p>«Livi Jewelry» клиенттердің жеке деректерінің құпиялылығы мен қауіпсіздігін жоғары бағалайды. Деректер тек тапсырысты өңдеу және курьерлік қызметке (СДЭК, пошта) тапсыру үшін пайдаланылады және үшінші тұлғаларға берілмейді.</p>
   </main>
-  <footer id="contact">
-    <div class="foot">
-      <div class="links">
-        <a href="/kz/delivery.html">Жеткізу және төлем</a>
-        <a href="/kz/terms.html">Пайдалану шарттары</a>
-        <a href="/kz/shop.html">Каталог</a>
-        <a href="/privacy.html">Русская версия</a>
-      </div>
-      <div class="copy">© 2026 Livi Jewelry — Барлық құқықтар қорғалған.</div>
-    </div>
-  </footer>
+{KZ_FOOTER_HTML}
 </body>
 </html>
 """
@@ -3021,6 +3132,7 @@ def generate_kz_service_pages():
         kz_cart_html = re.sub(r'<title data-i18n="meta\.title">.*?</title>', '<title data-i18n="meta.title">Livi Jewelry — Себет</title>', kz_cart_html)
         kz_cart_html = re.sub(r'<h1 data-i18n="page\.title">.*?</h1>', '<h1 data-i18n="page.title">Себет</h1>', kz_cart_html)
         kz_cart_html = kz_cart_html.replace('<link rel="canonical" href="https://livijewelry.kz/cart.html">', f'<link rel="canonical" href="{SITE_URL}/kz/cart.html">', 1)
+        kz_cart_html = kz_cart_html.replace('<meta name="description" content="Оформление заказа авторских украшений ручной работы в интернет-магазине Livi Jewelry. Быстрая доставка курьером по Астане и СДЭК по Казахстану.">', '<meta name="description" content="Livi Jewelry интернет-дүкенінде қолдан жасалған авторлық әшекейлерге тапсырыс беру. Астана бойынша курьермен және Қазақстанға СДЭК жеткізу.">')
         kz_cart_html = kz_cart_html.replace('class="brand" href="/"', 'class="brand" href="/kz/"')
         kz_cart_html = kz_cart_html.replace('class="cart-link" href="/cart.html"', 'class="cart-link" href="/kz/cart.html"')
         kz_cart_html = kz_cart_html.replace('href="/delivery.html"', 'href="/kz/delivery.html"')

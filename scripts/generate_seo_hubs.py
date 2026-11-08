@@ -37,6 +37,276 @@ def safe_write_text(file_path: str, content: str, retries: int = 5, delay: float
             else:
                 raise
 
+RU_FOOTER_HTML = """  <footer id="contact" class="site-footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>LIVI JEWELRY</h3>
+          <p class="footer-tagline">Авторские украшения из натурального жемчуга и драгоценных минералов ручной работы.</p>
+          <div class="footer-contacts">
+            <div class="footer-contact-item">
+              <span class="contact-label">Город:</span>
+              <span>г. Астана, доставка день-в-день</span>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">Телефон / WhatsApp:</span>
+              <a href="https://wa.me/77054510584" target="_blank" rel="noopener">+7 (705) 519-58-75</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">Режим работы:</span>
+              <span>Ежедневно с 10:00 до 20:00</span>
+            </div>
+          </div>
+          <div class="kaspi-badge">
+            <span class="kaspi-icon">●</span>
+            <span>Оплата через Kaspi Pay · Kaspi Red</span>
+          </div>
+        </div>
+
+        <div class="footer-columns-grid">
+          <div class="footer-col">
+            <h4 class="footer-col-title">Колье и сотуары</h4>
+            <ul class="footer-col-links">
+              <li><a href="/kolye-iz-zhemchuga.html">Колье из жемчуга</a></li>
+              <li><a href="/sotuary-iz-zhemchuga.html">Сотуары из жемчуга</a></li>
+              <li><a href="/chokery-iz-naturalnyh-kamney.html">Чокеры из камней</a></li>
+              <li><a href="/tsepi-s-barochnym-zhemchugom.html">Цепи с жемчугом</a></li>
+              <li><a href="/ukrasheniya-iz-barochnogo-zhemchuga.html">Барочный жемчуг</a></li>
+              <li><a href="/ukrasheniya-iz-zhemchuga-mayorka.html">Жемчуг Майорка</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Серьги и сеты</h4>
+            <ul class="footer-col-links">
+              <li><a href="/sergi-iz-zhemchuga.html">Серьги из жемчуга</a></li>
+              <li><a href="/braslety-iz-zhemchuga.html">Браслеты из жемчуга</a></li>
+              <li><a href="/komplekty-ukrasheniy.html">Комплекты украшений</a></li>
+              <li><a href="/koltsa-i-garnitury-iz-kamney.html">Кольца и гарнитуры</a></li>
+              <li><a href="/shop.html">Весь каталог</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Натуральные камни</h4>
+            <ul class="footer-col-links">
+              <li><a href="/ukrasheniya-iz-malahita.html">Малахит и нефрит</a></li>
+              <li><a href="/ukrasheniya-iz-ametista.html">Аметист</a></li>
+              <li><a href="/ukrasheniya-iz-granata.html">Гранат</a></li>
+              <li><a href="/ukrasheniya-iz-rozovogo-kvarca.html">Розовый кварц</a></li>
+              <li><a href="/ukrasheniya-iz-biryuzy.html">Натуральная бирюза</a></li>
+              <li><a href="/ukrasheniya-iz-gornogo-hrustalya.html">Горный хрусталь</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Минералы и редкое</h4>
+            <ul class="footer-col-links">
+              <li><a href="/ukrasheniya-iz-tigrovogo-glaza.html">Тигровый глаз</a></li>
+              <li><a href="/ukrasheniya-iz-koralla-i-yashmy.html">Коралл и яшма</a></li>
+              <li><a href="/ukrasheniya-iz-lazurita.html">Натуральный лазурит</a></li>
+              <li><a href="/ukrasheniya-iz-lunnogo-kamnya.html">Лунный камень</a></li>
+              <li><a href="/ukrasheniya-iz-gematita.html">Гематит</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-copy">
+          © <span id="year">2026</span> Livi Jewelry. Все права защищены.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="/delivery.html">Доставка и оплата</a>
+          <a href="/terms.html">Оферта</a>
+          <a href="/privacy.html">Конфиденциальность</a>
+          <a href="/kz/">Қазақша</a>
+          <a href="/uz/">O‘zbekcha</a>
+        </div>
+      </div>
+    </div>
+  </footer>"""
+
+KZ_FOOTER_HTML = """  <footer id="contact" class="site-footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>LIVI JEWELRY</h3>
+          <p class="footer-tagline">Табиғи інжу мен асыл минералдардан қолдан жасалған авторлық әшекейлер.</p>
+          <div class="footer-contacts">
+            <div class="footer-contact-item">
+              <span class="contact-label">Қала:</span>
+              <span>Астана қ., сол күні жедел жеткізу</span>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">Телефон / WhatsApp:</span>
+              <a href="https://wa.me/77054510584" target="_blank" rel="noopener">+7 (705) 519-58-75</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">Жұмыс уақыты:</span>
+              <span>Күн сайын 10:00-ден 20:00-ге дейін</span>
+            </div>
+          </div>
+          <div class="kaspi-badge">
+            <span class="kaspi-icon">●</span>
+            <span>Kaspi Pay · Kaspi Red арқылы төлем</span>
+          </div>
+        </div>
+
+        <div class="footer-columns-grid">
+          <div class="footer-col">
+            <h4 class="footer-col-title">Алқалар мен сотуарлар</h4>
+            <ul class="footer-col-links">
+              <li><a href="/kz/kolye-iz-zhemchuga.html">Інжу алқалар</a></li>
+              <li><a href="/kz/sotuary-iz-zhemchuga.html">Інжу сотуарлар</a></li>
+              <li><a href="/kz/chokery-iz-naturalnyh-kamney.html">Табиғи тастардан чокерлер</a></li>
+              <li><a href="/kz/tsepi-s-barochnym-zhemchugom.html">Інжу шынжырлар</a></li>
+              <li><a href="/kz/ukrasheniya-iz-barochnogo-zhemchuga.html">Барокко інжуі</a></li>
+              <li><a href="/kz/ukrasheniya-iz-zhemchuga-mayorka.html">Майорка інжуі</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Сырғалар мен жиынтықтар</h4>
+            <ul class="footer-col-links">
+              <li><a href="/kz/sergi-iz-zhemchuga.html">Інжу сырғалар</a></li>
+              <li><a href="/kz/braslety-iz-zhemchuga.html">Інжу білезіктер</a></li>
+              <li><a href="/kz/komplekty-ukrasheniy.html">Әшекей жиынтықтары</a></li>
+              <li><a href="/kz/koltsa-i-garnitury-iz-kamney.html">Сақиналар мен гарнитурлар</a></li>
+              <li><a href="/kz/shop.html">Барлық каталог</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Табиғи тастар</h4>
+            <ul class="footer-col-links">
+              <li><a href="/kz/ukrasheniya-iz-malahita.html">Малахит және нефрит</a></li>
+              <li><a href="/kz/ukrasheniya-iz-ametista.html">Аметист</a></li>
+              <li><a href="/kz/ukrasheniya-iz-granata.html">Анар тас (гранат)</a></li>
+              <li><a href="/kz/ukrasheniya-iz-rozovogo-kvarca.html">Қызғылт кварц</a></li>
+              <li><a href="/kz/ukrasheniya-iz-biryuzy.html">Табиғи фируза</a></li>
+              <li><a href="/kz/ukrasheniya-iz-gornogo-hrustalya.html">Тау хрусталі</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Минералдар мен сирек тастар</h4>
+            <ul class="footer-col-links">
+              <li><a href="/kz/ukrasheniya-iz-tigrovogo-glaza.html">Жолбарыс көзі</a></li>
+              <li><a href="/kz/ukrasheniya-iz-koralla-i-yashmy.html">Маржан мен яшма</a></li>
+              <li><a href="/kz/ukrasheniya-iz-lazurita.html">Табиғи лазурит</a></li>
+              <li><a href="/kz/ukrasheniya-iz-lunnogo-kamnya.html">Ай тасы</a></li>
+              <li><a href="/kz/ukrasheniya-iz-gematita.html">Гематит</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-copy">
+          © <span id="year">2026</span> Livi Jewelry. Барлық құқықтар қорғалған.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="/kz/delivery.html">Жеткізу және төлем</a>
+          <a href="/kz/terms.html">Оферта</a>
+          <a href="/kz/privacy.html">Құпиялылық</a>
+          <a href="/">Русский</a>
+          <a href="/uz/">O‘zbekcha</a>
+        </div>
+      </div>
+    </div>
+  </footer>"""
+
+UZ_FOOTER_HTML = """  <footer id="contact" class="site-footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>LIVI JEWELRY</h3>
+          <p class="footer-tagline">Tabiiy marvarid va qimmatbaho minerallardan qo‘lda yasalgan mualliflik zargarlik buyumlari.</p>
+          <div class="footer-contacts">
+            <div class="footer-contact-item">
+              <span class="contact-label">Shahar:</span>
+              <span>Ostona sh., Toshkent va butun O‘zbekistonga tezkor yetkazish</span>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">Telefon / WhatsApp:</span>
+              <a href="https://wa.me/77054510584" target="_blank" rel="noopener">+7 (705) 519-58-75</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">Ish vaqti:</span>
+              <span>Har kuni 10:00 dan 20:00 gacha</span>
+            </div>
+          </div>
+          <div class="kaspi-badge">
+            <span class="kaspi-icon">●</span>
+            <span>Kaspi Pay · KoronaPay · Xalqaro to‘lov</span>
+          </div>
+        </div>
+
+        <div class="footer-columns-grid">
+          <div class="footer-col">
+            <h4 class="footer-col-title">Marjonlar va sotuarlar</h4>
+            <ul class="footer-col-links">
+              <li><a href="/uz/kolye-iz-zhemchuga.html">Marvarid marjonlar</a></li>
+              <li><a href="/uz/sotuary-iz-zhemchuga.html">Marvarid sotuarlar</a></li>
+              <li><a href="/uz/chokery-iz-naturalnyh-kamney.html">Toshlardan chokerlar</a></li>
+              <li><a href="/uz/tsepi-s-barochnym-zhemchugom.html">Marvaridli zanjirlar</a></li>
+              <li><a href="/uz/ukrasheniya-iz-barochnogo-zhemchuga.html">Barokko marvaridi</a></li>
+              <li><a href="/uz/ukrasheniya-iz-zhemchuga-mayorka.html">Mayorka marvaridi</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Sirg‘alar va to‘plamlar</h4>
+            <ul class="footer-col-links">
+              <li><a href="/uz/sergi-iz-zhemchuga.html">Marvarid sirg‘alar</a></li>
+              <li><a href="/uz/braslety-iz-zhemchuga.html">Marvarid bilaguzuklar</a></li>
+              <li><a href="/uz/komplekty-ukrasheniy.html">Taqinchoq to‘plamlari</a></li>
+              <li><a href="/uz/koltsa-i-garnitury-iz-kamney.html">Uzuklar va garniturlar</a></li>
+              <li><a href="/uz/shop.html">Barcha katalog</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Tabiiy toshlar</h4>
+            <ul class="footer-col-links">
+              <li><a href="/uz/ukrasheniya-iz-malahita.html">Malaxit va nefrit</a></li>
+              <li><a href="/uz/ukrasheniya-iz-ametista.html">Ametist</a></li>
+              <li><a href="/uz/ukrasheniya-iz-granata.html">Granat</a></li>
+              <li><a href="/uz/ukrasheniya-iz-rozovogo-kvarca.html">Pushti kvars</a></li>
+              <li><a href="/uz/ukrasheniya-iz-biryuzy.html">Tabiiy feruza</a></li>
+              <li><a href="/uz/ukrasheniya-iz-gornogo-hrustalya.html">Tog‘ billuri</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Minerallar va noyob toshlar</h4>
+            <ul class="footer-col-links">
+              <li><a href="/uz/ukrasheniya-iz-tigrovogo-glaza.html">Yo‘lbars ko‘zi</a></li>
+              <li><a href="/uz/ukrasheniya-iz-koralla-i-yashmy.html">Marjon va yashma</a></li>
+              <li><a href="/uz/ukrasheniya-iz-lazurita.html">Tabiiy lazurit</a></li>
+              <li><a href="/uz/ukrasheniya-iz-lunnogo-kamnya.html">Oy toshi</a></li>
+              <li><a href="/uz/ukrasheniya-iz-gematita.html">Gematit</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-copy">
+          © <span id="year">2026</span> Livi Jewelry. Barcha huquqlar himoyalangan.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="/uz/delivery.html">Yetkazib berish va to‘lov</a>
+          <a href="/uz/terms.html">Ommaviy oferta</a>
+          <a href="/uz/privacy.html">Maxfiylik siyosati</a>
+          <a href="/">Русский</a>
+          <a href="/kz/">Қазақша</a>
+        </div>
+      </div>
+    </div>
+  </footer>"""
+
 GENITIVE_STONE_MAP = {
     "натуральный жемчуг": "натурального жемчуга",
     "барочный жемчуг": "барочного жемчуга",
@@ -67,6 +337,8 @@ ALL_HUBS = [
     {
         "slug": "komplekty-ukrasheniy.html",
         "chip_label": "Комплекты украшений",
+        "custom_title": "Комплекты украшений из камней и жемчуга | Livi Jewelry",
+        "custom_meta_desc": "Комплекты украшений из натуральных камней и жемчуга ручной работы. Сеты колье, браслетов и серег. Подарочная упаковка, доставка по Казахстану.",
         "h1": "Комплекты украшений из натуральных камней и жемчуга ручной работы",
         "title_cluster": "комплекты украшений из натуральных камней и жемчуга",
         "breadcrumb": "Комплекты украшений",
@@ -364,6 +636,8 @@ KZ_HUBS_INFO = {
     "kolye-iz-zhemchuga.html": {
         "chip_label": "Інжу алқалар",
         "h1": "Табиғи інжуден жасалған алқалар — қолдан жасалған әшекейлер",
+        "custom_title": "Табиғи інжуден жасалған алқалар сатып алу | Livi",
+        "custom_meta_desc": "Табиғи інжу мен барокко інжуінен жасалған авторлық алқалар мен чокерлер. 18K алтын жалатылған фурнитура. Қазақстан мен Астанаға жылдам жеткізу.",
         "title_cluster": "інжу алқалар",
         "breadcrumb": "Інжу алқалар",
         "lead": "Табиғи культивацияланған інжуден, барокко інжуінен және Майорка інжуінен қолмен жиналған авторлық алқалар мен чокерлер. Төзімді алтын жалатылған және родийленген фурнитура.",
@@ -394,6 +668,8 @@ KZ_HUBS_INFO = {
     "komplekty-ukrasheniy.html": {
         "chip_label": "Әшекейлер жиынтығы",
         "h1": "Табиғи тастар мен інжуден жасалған әшекейлер жиынтығы",
+        "custom_title": "Табиғи тастар мен інжу әшекейлер жиынтығы | Livi",
+        "custom_meta_desc": "Табиғи тастар мен інжуден жасалған авторлық әшекейлер жиынтығы. Алқа, білезік және сырғалар сездері. Сыйлық қаптамасы және Қазақстанға жеткізу.",
         "title_cluster": "әшекейлер жиынтығы",
         "breadcrumb": "Әшекейлер жиынтығы",
         "lead": "Табиғи інжу, аметист, малахит, бирюза және қызғылт кварцтан авторлық әшекейлер жиынтығы. Жиынтықты толық немесе әр бұйымды бөлек сатып алуға болады.",
@@ -1043,8 +1319,8 @@ def generate_hub_page(hub, products):
     min_fmt = f"{min_price:,}".replace(",", " ")
     max_fmt = f"{max_price:,}".replace(",", " ")
 
-    page_title = f"Купить {hub['title_cluster']} ручной работы в Астане, Алматы и Казахстане — цена в тенге | Livi Jewelry"
-    meta_desc = (
+    page_title = hub.get("custom_title") or f"Купить {hub['title_cluster']} ручной работы в Астане, Алматы и Казахстане — цена в тенге | Livi Jewelry"
+    meta_desc = hub.get("custom_meta_desc") or (
         f"Купить {hub['title_cluster']} ручной работы в Livi Jewelry. "
         f"Цены от {min_fmt} до {max_fmt} ₸. Натуральные камни и жемчуг, "
         f"подарочная упаковка и быстрая доставка СДЭК по Казахстану."
@@ -1292,6 +1568,9 @@ def generate_hub_page(hub, products):
       </a>
 
       <div class="nav-actions">
+        <a href="/shop.html?search=1" class="header-search-btn" aria-label="Поиск по каталогу">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
         <div class="header-lang-links" aria-label="Выбор языка">
           <a href="/{slug}" class="active">RU</a>
           <a href="/kz/{slug}" lang="kk">KZ</a>
@@ -1357,17 +1636,7 @@ def generate_hub_page(hub, products):
 {interlink_html}
   </main>
 
-  <footer>
-    <div class="foot">
-      <div class="links">
-        <a href="delivery.html">Доставка, оплата и возврат</a>
-        <a href="privacy.html">Политика конфиденциальности</a>
-        <a href="terms.html">Условия использования</a>
-        <a href="shop.html">Каталог</a>
-      </div>
-      <div class="copy">© 2026 Livi Jewelry. Все права защищены. Изготовлено вручную в Казахстане.</div>
-    </div>
-  </footer>
+{RU_FOOTER_HTML}
 
   <!-- Floating WhatsApp Widget -->
   <a class="floating-wa" href="https://wa.me/77054510584?text=Здравствуйте!%20Хочу%20получить%20консультацию%20по%20коллекции%20{clean_attr(hub['breadcrumb'])}." target="_blank" rel="noopener" aria-label="Консультация мастера в WhatsApp">
@@ -1507,8 +1776,8 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
         "seo_p2": "СДЭК арқылы Қазақстанның кез келген қаласына жедел жеткізу қарастырылған.",
     })
 
-    page_title = f"{kz_info['h1']} — бағасы теңгемен сатып алу | Қолдан жасалған Livi Jewelry"
-    meta_desc = (
+    page_title = kz_info.get("custom_title") or f"{kz_info['h1']} — бағасы теңгемен сатып алу | Қолдан жасалған Livi Jewelry"
+    meta_desc = kz_info.get("custom_meta_desc") or (
         f"{kz_info['lead']} Бағасы {min_fmt} ₸ — {max_fmt} ₸. "
         f"Табиғи тастар мен інжу, сыйлық қаптамасы және Қазақстан бойынша жылдам жеткізу."
     )
@@ -1744,6 +2013,9 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
       </a>
 
       <div class="nav-actions">
+        <a href="/kz/shop.html?search=1" class="header-search-btn" aria-label="Іздеу">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
         <div class="header-lang-links" aria-label="Тілді таңдау">
           <a href="/{slug}">RU</a>
           <a href="/kz/{slug}" class="active" lang="kk">KZ</a>
@@ -1809,17 +2081,7 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
 {interlink_html}
   </main>
 
-  <footer>
-    <div class="foot">
-      <div class="links">
-        <a href="/kz/delivery.html">Жеткізу, төлем және қайтару</a>
-        <a href="/kz/privacy.html">Құпиялылық саясаты</a>
-        <a href="/kz/terms.html">Пайдалану шарттары</a>
-        <a href="/kz/shop.html">Каталог</a>
-      </div>
-      <div class="copy">© 2026 Livi Jewelry. Барлық құқықтар қорғалған. Қазақстанда қолдан жасалған.</div>
-    </div>
-  </footer>
+{KZ_FOOTER_HTML}
 
   <!-- Floating WhatsApp Widget -->
   <a class="floating-wa" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener" aria-label="Шеберден кеңес алу">
@@ -2198,6 +2460,9 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
       </a>
 
       <div class="nav-actions">
+        <a href="/uz/shop.html?search=1" class="header-search-btn" aria-label="Qidirish">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
         <div class="header-lang-links" aria-label="Tilni tanlash">
           <a href="/{slug}">RU</a>
           <a href="/kz/{slug}" lang="kk">KZ</a>
@@ -2263,17 +2528,7 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
 {interlink_html}
   </main>
 
-  <footer>
-    <div class="foot">
-      <div class="links">
-        <a href="/uz/delivery.html">Yetkazib berish, toʻlov va qaytarish</a>
-        <a href="/uz/privacy.html">Maxfiylik siyosati</a>
-        <a href="/uz/terms.html">Foydalanish shartlari</a>
-        <a href="/uz/shop.html">Katalog</a>
-      </div>
-      <div class="copy">© 2026 Livi Jewelry. Barcha huquqlar himoyalangan. Oʻzbekiston va Qozogʻistonga yetkazib berish.</div>
-    </div>
-  </footer>
+{UZ_FOOTER_HTML}
 
   <!-- Floating WhatsApp Widget -->
   <a class="floating-wa" href="https://wa.me/77054510584?text=Assalomu%20alaykum!%20Livi%20Jewelry%20taqinchoqlari%20boʻyicha%20maslahat%20olmoqchiman." target="_blank" rel="noopener" aria-label="Ustadan maslahat olish">
@@ -2628,6 +2883,9 @@ def standardize_hub_header_and_drawer(file_path: str, slug: str):
       </a>
 
       <div class="nav-actions">
+        <a href="/shop.html?search=1" class="header-search-btn" aria-label="Поиск по каталогу">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
         <div class="header-lang-links" aria-label="Выбор языка">
           <a href="/{slug}" class="active">RU</a>
           <a href="/kz/{slug}" lang="kk">KZ</a>
@@ -2654,6 +2912,14 @@ def standardize_hub_header_and_drawer(file_path: str, slug: str):
     content = re.sub(
         r'<!--\s*Drawer\s*-->.*?</header>',
         new_drawer_and_header,
+        content,
+        count=1,
+        flags=re.DOTALL
+    )
+
+    content = re.sub(
+        r'<footer\b[^>]*>.*?</footer>',
+        RU_FOOTER_HTML,
         content,
         count=1,
         flags=re.DOTALL
