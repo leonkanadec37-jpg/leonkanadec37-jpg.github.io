@@ -386,16 +386,8 @@
         </div>
 
                 <section class="product-pairs-with" aria-label="Осымен бірге тағады">
-          <h3 class="product-pairs-title">Осымен бірге тағады</h3>
+          <h2 class="product-pairs-title">Осымен бірге тағады</h2>
           <div class="pairs-grid">
-          <article class="pair-card" data-id="prod_19">
-            <a href="/kz/product/prod_19.html" class="pair-img-link">
-              <img src="/assets/kole-iz-tigrovogo-glaza-i-gematita-50000-400w.webp" srcset="/assets/kole-iz-tigrovogo-glaza-i-gematita-50000-400w.webp 400w, /assets/kole-iz-tigrovogo-glaza-i-gematita-50000-750w.webp 750w, /assets/kole-iz-tigrovogo-glaza-i-gematita-50000.webp 1440w" sizes="140px" alt="Жолбарыс көзі мен гематиттен жасалған алқа — Livi Jewelry" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
-            </a>
-            <a href="/kz/product/prod_19.html" class="pair-title">Жолбарыс көзі мен гематиттен жасалған алқа</a>
-            <div class="pair-price">50 000 ₸</div>
-            <button type="button" class="pair-add-btn" data-id="prod_19" data-title="Жолбарыс көзі мен гематиттен жасалған алқа" data-price="50000" data-image="/assets/kole-iz-tigrovogo-glaza-i-gematita-50000.webp" data-url="/kz/product/prod_19.html">+ Қосу</button>
-          </article>
           <article class="pair-card" data-id="prod_66">
             <a href="/kz/product/prod_66.html" class="pair-img-link">
               <img src="/assets/kole-iz-tigrovogo-glaza-i-zhemchuga-34000-400w.webp" srcset="/assets/kole-iz-tigrovogo-glaza-i-zhemchuga-34000-400w.webp 400w, /assets/kole-iz-tigrovogo-glaza-i-zhemchuga-34000-750w.webp 750w, /assets/kole-iz-tigrovogo-glaza-i-zhemchuga-34000.webp 1440w" sizes="140px" alt="Колье из тигрового глаза и жемчуга — Livi Jewelry" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
@@ -403,6 +395,14 @@
             <a href="/kz/product/prod_66.html" class="pair-title">Колье из тигрового глаза и жемчуга</a>
             <div class="pair-price">34 000 ₸</div>
             <button type="button" class="pair-add-btn" data-id="prod_66" data-title="Колье из тигрового глаза и жемчуга" data-price="34000" data-image="/assets/kole-iz-tigrovogo-glaza-i-zhemchuga-34000.webp" data-url="/kz/product/prod_66.html">+ Қосу</button>
+          </article>
+          <article class="pair-card" data-id="prod_68">
+            <a href="/kz/product/prod_68.html" class="pair-img-link">
+              <img src="/assets/kole-iz-tigrovogo-glaza-i-granata-sergi-51000-400w.webp" srcset="/assets/kole-iz-tigrovogo-glaza-i-granata-sergi-51000-400w.webp 400w, /assets/kole-iz-tigrovogo-glaza-i-granata-sergi-51000-750w.webp 750w, /assets/kole-iz-tigrovogo-glaza-i-granata-sergi-51000.webp 1440w" sizes="140px" alt="Колье из тигрового глаза и граната, серьги — Livi Jewelry" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
+            </a>
+            <a href="/kz/product/prod_68.html" class="pair-title">Колье из тигрового глаза и граната, серьги</a>
+            <div class="pair-price">51 000 ₸</div>
+            <button type="button" class="pair-add-btn" data-id="prod_68" data-title="Колье из тигрового глаза и граната, серьги" data-price="51000" data-image="/assets/kole-iz-tigrovogo-glaza-i-granata-sergi-51000.webp" data-url="/kz/product/prod_68.html">+ Қосу</button>
           </article>
           <article class="pair-card" data-id="prod_12">
             <a href="/kz/product/prod_12.html" class="pair-img-link">
@@ -801,6 +801,29 @@
         const thumb = item.image.replace('.webp', '-400w.webp');
         imgEl.src = thumb;
       }
+      // R4: Filter out items already in cart from recommendations
+      try {
+        const currentCart = readCart();
+        const cartIds = new Set(currentCart.map(function(c) { return c.id; }));
+        const recCards = modal.querySelectorAll('.mini-rec-card');
+        let shownCount = 0;
+        recCards.forEach(function(card) {
+          const addBtn = card.querySelector('.mini-rec-add');
+          const recId = addBtn ? addBtn.getAttribute('data-id') : null;
+          if (recId && cartIds.has(recId)) {
+            card.style.display = 'none';
+          } else if (shownCount < 2) {
+            card.style.display = 'flex';
+            shownCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        const recsContainer = modal.querySelector('.mini-cart-recs');
+        if (recsContainer) {
+          recsContainer.style.display = shownCount > 0 ? 'block' : 'none';
+        }
+      } catch (e) {}
       modal.style.display = 'flex';
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
@@ -975,14 +998,14 @@
     const yEl = document.getElementById('year');
     if (yEl) yEl.textContent = new Date().getFullYear();
   </script>
-  <!-- Mini-Cart Modal KZ (D5) -->
-  <div id="miniCartModal" class="mini-cart-backdrop" style="display:none;" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="miniCartTitle">
+  <!-- Mini-Cart Modal KZ (D5 / R3) -->
+  <div id="miniCartModal" class="mini-cart-backdrop mini-cart-modal" style="display:none;" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="miniCartTitle">
     <div class="mini-cart-dialog">
       <div class="mini-cart-header">
-        <div class="mini-cart-title" id="miniCartTitle">
+        <h3 class="mini-cart-title" id="miniCartTitle">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" style="color:var(--gold-text);"><polyline points="20 6 9 17 4 12"></polyline></svg>
           <span>Себетке қосылды</span>
-        </div>
+        </h3>
         <button type="button" class="mini-cart-close" id="miniCartClose" aria-label="Жабу">✕</button>
       </div>
       <div class="mini-cart-added-item">
@@ -997,16 +1020,8 @@
         <button type="button" class="btn outline mini-cart-btn-continue" id="miniCartContinue">Сатып алуды жалғастыру</button>
       </div>
       <div class="mini-cart-recs">
-        <div class="mini-cart-recs-title">Осы әшекеймен бірге ұсынамыз:</div>
+        <h3 class="mini-cart-recs-title">Осы әшекеймен бірге ұсынамыз:</h3>
         <div class="mini-rec-list">
-          <div class="mini-rec-card">
-            <img src="/assets/kole-iz-tigrovogo-glaza-i-gematita-50000-400w.webp" alt="Жолбарыс көзі мен гематиттен жасалған алқа" width="48" height="64" class="mini-rec-img" loading="lazy">
-            <div class="mini-rec-info">
-              <div class="mini-rec-title">Жолбарыс көзі мен гематиттен жасалған алқа</div>
-              <div class="mini-rec-price">50 000 ₸</div>
-            </div>
-            <button type="button" class="mini-rec-add" data-id="prod_19" data-title="Жолбарыс көзі мен гематиттен жасалған алқа" data-price="50000" data-image="/assets/kole-iz-tigrovogo-glaza-i-gematita-50000.webp" data-url="/kz/product/prod_19.html">+ Қосу</button>
-          </div>
           <div class="mini-rec-card">
             <img src="/assets/kole-iz-tigrovogo-glaza-i-zhemchuga-34000-400w.webp" alt="Колье из тигрового глаза и жемчуга" width="48" height="64" class="mini-rec-img" loading="lazy">
             <div class="mini-rec-info">
@@ -1014,6 +1029,30 @@
               <div class="mini-rec-price">34 000 ₸</div>
             </div>
             <button type="button" class="mini-rec-add" data-id="prod_66" data-title="Колье из тигрового глаза и жемчуга" data-price="34000" data-image="/assets/kole-iz-tigrovogo-glaza-i-zhemchuga-34000.webp" data-url="/kz/product/prod_66.html">+ Қосу</button>
+          </div>
+          <div class="mini-rec-card">
+            <img src="/assets/kole-iz-tigrovogo-glaza-i-granata-sergi-51000-400w.webp" alt="Колье из тигрового глаза и граната, серьги" width="48" height="64" class="mini-rec-img" loading="lazy">
+            <div class="mini-rec-info">
+              <div class="mini-rec-title">Колье из тигрового глаза и граната, серьги</div>
+              <div class="mini-rec-price">51 000 ₸</div>
+            </div>
+            <button type="button" class="mini-rec-add" data-id="prod_68" data-title="Колье из тигрового глаза и граната, серьги" data-price="51000" data-image="/assets/kole-iz-tigrovogo-glaza-i-granata-sergi-51000.webp" data-url="/kz/product/prod_68.html">+ Қосу</button>
+          </div>
+          <div class="mini-rec-card">
+            <img src="/assets/kole-iz-zhadeita-i-tigrovogo-glaza-s-sergami-36000-400w.webp" alt="Жадеит пен жолбарыс көзінен алқа және сырғалар" width="48" height="64" class="mini-rec-img" loading="lazy">
+            <div class="mini-rec-info">
+              <div class="mini-rec-title">Жадеит пен жолбарыс көзінен алқа және сырғалар</div>
+              <div class="mini-rec-price">52 000 ₸</div>
+            </div>
+            <button type="button" class="mini-rec-add" data-id="prod_12" data-title="Жадеит пен жолбарыс көзінен алқа және сырғалар" data-price="52000" data-image="/assets/kole-iz-zhadeita-i-tigrovogo-glaza-s-sergami-36000.webp" data-url="/kz/product/prod_12.html">+ Қосу</button>
+          </div>
+          <div class="mini-rec-card">
+            <img src="/assets/kole-iz-tigrovogo-glaza-i-gematita-50000-400w.webp" alt="Жолбарыс көзі мен гематиттен жасалған алқа" width="48" height="64" class="mini-rec-img" loading="lazy">
+            <div class="mini-rec-info">
+              <div class="mini-rec-title">Жолбарыс көзі мен гематиттен жасалған алқа</div>
+              <div class="mini-rec-price">50 000 ₸</div>
+            </div>
+            <button type="button" class="mini-rec-add" data-id="prod_19" data-title="Жолбарыс көзі мен гематиттен жасалған алқа" data-price="50000" data-image="/assets/kole-iz-tigrovogo-glaza-i-gematita-50000.webp" data-url="/kz/product/prod_19.html">+ Қосу</button>
           </div>
         </div>
       </div>

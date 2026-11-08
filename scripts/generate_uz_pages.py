@@ -642,6 +642,7 @@ def translate_product_uz(p: dict) -> dict:
         "search_keywords": p.get("search_keywords") or [],
         "bundle_options": bundle_opts_uz,
         "inStock": p.get("inStock", True),
+        "pairs_with": p.get("pairs_with", []),
     }
 
 def build_uz_card_html(pk: dict, indent: str = "      ", is_first_row: bool = False, priority_high: bool = False) -> str:
@@ -1535,50 +1536,135 @@ def generate_uz_shop(products_uz: list) -> str:
 """
 
 
+HARDWARE_MATERIALS = {'ювелирный сплав', 'позолота', 'родированная фурнитура', 'родий', 'серебро', 'эмаль'}
+
+STONE_ROOTS = [
+    'жемчуг', 'перламутр', 'малахит', 'агат', 'бирюз', 'гранат', 'кварц', 
+    'аметист', 'хрустал', 'амазонит', 'гематит', 'коралл', 'лазурит', 
+    'нефрит', 'жадеит', 'тигров', 'флюорит', 'яшм', 'циркон', 'авантюрин', 
+    'стекл'
+]
+
+def get_stones_set(p):
+    mats = set(m.lower().strip() for m in p.get("materials_ru", p.get("materials", []))) - HARDWARE_MATERIALS
+    text = (p.get("title", "") + " " + " ".join(mats)).lower()
+    found_roots = set()
+    for root in STONE_ROOTS:
+        if root in text:
+            found_roots.add(root)
+    return mats, found_roots
+
 def find_pairs_with_products(target: dict, all_products: list, limit: int = 3) -> list:
+    """Подбирает гармонирующие изделия из того же камня/минерала или серии (Complete the look).
+    Правило R4:
+    1. Ручные связки target.get('pairs_with') имеют наивысший приоритет.
+    2. Сначала товары другой категории с тем же камнем/материалом (колье -> серьги, браслет; серьги -> колье).
+    3. Исключается текущий товар и товары не в наличии.
+    4. Если товаров другой категории с тем же камнем меньше 2, добираются товары той же категории.
+    """
+    manual = target.get("pairs_with", [])
+    selected = []
+    prod_map = {p["id"]: p for p in all_products}
+
+    # 1. Manual links from target.pairs_with
+    if isinstance(manual, list):
+        for pid in manual:
+            if pid in prod_map and prod_map[pid].get("inStock", True) and pid != target.get("id"):
+                selected.append(prod_map[pid])
+                if len(selected) >= limit:
+                    return selected
+
     t_id = target.get("id")
     t_cat = target.get("category", "")
-    t_mats = set(m.lower().strip() for m in target.get("materials_ru", target.get("materials", [])))
-    t_words = set(w.lower() for w in target.get("title", "").replace(",", " ").split() if len(w) > 3)
+    t_mats, t_roots = get_stones_set(target)
 
-    scored = []
-    for p in all_products:
-        if p.get("id") == t_id or not p.get("inStock", True):
-            continue
+    def calc_score(p):
+        p_mats, p_roots = get_stones_set(p)
         score = 0
-        p_mats = set(m.lower().strip() for m in p.get("materials_ru", p.get("materials", [])))
-        p_words = set(w.lower() for w in p.get("title", "").replace(",", " ").split() if len(w) > 3)
         common_mats = t_mats.intersection(p_mats)
-        score += len(common_mats) * 10
-        common_words = t_words.intersection(p_words)
-        score += len(common_words) * 3
+        score += len(common_mats) * 50
+        common_roots = t_roots.intersection(p_roots)
+        score += len(common_roots) * 100
+        p_title = p.get("title", "").lower()
+        if t_cat in ["Necklaces", "Lariats"]:
+            if "серьг" in p_title or "пусет" in p_title:
+                score += 40
+            if "браслет" in p_title:
+                score += 35
+            if "кольц" in p_title:
+                score += 25
+        elif t_cat in ["Earrings"]:
+            if "колье" in p_title or "цеп" in p_title:
+                score += 40
+            if "браслет" in p_title:
+                score += 35
+            if "кольц" in p_title:
+                score += 25
+        elif t_cat in ["Bracelets"]:
+            if "серьг" in p_title:
+                score += 40
+            if "колье" in p_title:
+                score += 35
+        return score
 
+    already_ids = set(p["id"] for p in selected)
+    already_ids.add(t_id)
+
+    tier1 = []  # Different category with matching stone
+    tier2 = []  # Same category with matching stone
+    tier3 = []  # Different category without matching stone
+
+    for p in all_products:
+        pid = p.get("id")
+        if pid in already_ids or not p.get("inStock", True):
+            continue
         p_cat = p.get("category", "")
-        if t_cat in ["Necklaces", "Lariats", "Chains"]:
-            if p_cat in ["Earrings", "Bracelets", "Rings"]:
-                score += 8
-        elif t_cat in ["Bracelets", "Rings"]:
-            if p_cat in ["Earrings", "Necklaces"]:
-                score += 8
-        elif t_cat == "Earrings":
-            if p_cat in ["Necklaces", "Bracelets", "Rings"]:
-                score += 8
-        elif t_cat == "Sets":
-            if p_cat in ["Rings", "Earrings", "Bracelets"]:
-                score += 5
+        score = calc_score(p)
+        p_mats, p_roots = get_stones_set(p)
+        has_stone_match = bool(t_mats.intersection(p_mats) or t_roots.intersection(p_roots))
+        if has_stone_match:
+            if p_cat != t_cat:
+                tier1.append((score, p))
+            else:
+                tier2.append((score, p))
+        else:
+            if p_cat != t_cat:
+                tier3.append((score, p))
 
-        if score > 0:
-            scored.append((score, p))
+    tier1.sort(key=lambda x: x[0], reverse=True)
+    tier2.sort(key=lambda x: x[0], reverse=True)
+    tier3.sort(key=lambda x: x[0], reverse=True)
 
-    scored.sort(key=lambda x: x[0], reverse=True)
-    res = [p for _, p in scored[:limit]]
-    if len(res) < limit:
-        for p in all_products:
-            if p.get("id") != t_id and p.get("inStock", True) and p not in res:
-                res.append(p)
-                if len(res) >= limit:
+    for _, p in tier1:
+        selected.append(p)
+        if len(selected) >= limit:
+            return selected
+
+    # If < 2 from different category, fill from same category with matching stone
+    if len(selected) < 2:
+        for _, p in tier2:
+            if p["id"] not in set(x["id"] for x in selected):
+                selected.append(p)
+                if len(selected) >= limit:
+                    return selected
+
+    # If still not enough, fill from tier3 (different category)
+    if len(selected) < limit:
+        for _, p in tier3:
+            if p["id"] not in set(x["id"] for x in selected):
+                selected.append(p)
+                if len(selected) >= limit:
                     break
-    return res
+
+    # Final fill from tier2
+    if len(selected) < limit:
+        for _, p in tier2:
+            if p["id"] not in set(x["id"] for x in selected):
+                selected.append(p)
+                if len(selected) >= limit:
+                    break
+
+    return selected
 
 def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
     pid = pk["id"]
@@ -1852,15 +1938,16 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
             <button type="button" class="pair-add-btn" data-id="{pr_id}" data-title="{pr_title}" data-price="{pr_price_num}" data-image="{pr_img}" data-url="/uz/product/{pr_id}.html">+ Qo‘shish</button>
           </article>""")
     pairs_block_uz_html = f"""        <section class="product-pairs-with" aria-label="Buning bilan taqishadi">
-          <h3 class="product-pairs-title">Buning bilan taqishadi</h3>
+          <h2 class="product-pairs-title">Buning bilan taqishadi</h2>
           <div class="pairs-grid">
 {"\n".join(pairs_cards_uz)}
           </div>
         </section>\n""" if pairs_cards_uz else ""
 
-    # D5. Рекомендации для UZ мини-корзины
+    # D5. Рекомендации для UZ мини-корзины (R4: до 4 кандидатов, исключая текущий и уже добавленный товар)
+    mini_recs_uz = find_pairs_with_products(pk, all_products_uz, limit=4)
     mini_rec_items_uz = []
-    for mr in pairs_uz[:2]:
+    for mr in mini_recs_uz:
         mr_id = mr["id"]
         mr_title = html.escape(mr["title"].strip())
         mr_price_num = int(mr.get("price") or 0)
@@ -2377,6 +2464,29 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
         const thumb = item.image.replace('.webp', '-400w.webp');
         imgEl.src = thumb;
       }}
+      // R4: Filter out items already in cart from recommendations
+      try {{
+        const currentCart = readCart();
+        const cartIds = new Set(currentCart.map(function(c) {{ return c.id; }}));
+        const recCards = modal.querySelectorAll('.mini-rec-card');
+        let shownCount = 0;
+        recCards.forEach(function(card) {{
+          const addBtn = card.querySelector('.mini-rec-add');
+          const recId = addBtn ? addBtn.getAttribute('data-id') : null;
+          if (recId && cartIds.has(recId)) {{
+            card.style.display = 'none';
+          }} else if (shownCount < 2) {{
+            card.style.display = 'flex';
+            shownCount++;
+          }} else {{
+            card.style.display = 'none';
+          }}
+        }});
+        const recsContainer = modal.querySelector('.mini-cart-recs');
+        if (recsContainer) {{
+          recsContainer.style.display = shownCount > 0 ? 'block' : 'none';
+        }}
+      }} catch (e) {{}}
       modal.style.display = 'flex';
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
@@ -2551,14 +2661,14 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
       }} catch(err){{}}
     }});
   </script>
-  <!-- Mini-Cart Modal UZ (D5) -->
-  <div id="miniCartModal" class="mini-cart-backdrop" style="display:none;" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="miniCartTitle">
+  <!-- Mini-Cart Modal UZ (D5 / R3) -->
+  <div id="miniCartModal" class="mini-cart-backdrop mini-cart-modal" style="display:none;" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="miniCartTitle">
     <div class="mini-cart-dialog">
       <div class="mini-cart-header">
-        <div class="mini-cart-title" id="miniCartTitle">
+        <h3 class="mini-cart-title" id="miniCartTitle">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" style="color:var(--gold-text);"><polyline points="20 6 9 17 4 12"></polyline></svg>
           <span>Savatchaga qo‘shildi</span>
-        </div>
+        </h3>
         <button type="button" class="mini-cart-close" id="miniCartClose" aria-label="Yopish">✕</button>
       </div>
       <div class="mini-cart-added-item">
@@ -2573,7 +2683,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
         <button type="button" class="btn outline mini-cart-btn-continue" id="miniCartContinue">Xaridni davom ettirish</button>
       </div>
       <div class="mini-cart-recs">
-        <div class="mini-cart-recs-title">Ushbu taqinchoq bilan tavsiya qilamiz:</div>
+        <h3 class="mini-cart-recs-title">Ushbu taqinchoq bilan tavsiya qilamiz:</h3>
         <div class="mini-rec-list">
 {mini_rec_uz_html}
         </div>

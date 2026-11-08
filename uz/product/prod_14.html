@@ -411,16 +411,8 @@
           <p class="customizer-hint" style="font-size:12px;color:var(--muted);margin-top:4px;">Har bir buyumni alohida yoki to‘liq to‘plam sifatida xarid qilishingiz mumkin.</p>
         </div>
         <section class="product-pairs-with" aria-label="Buning bilan taqishadi">
-          <h3 class="product-pairs-title">Buning bilan taqishadi</h3>
+          <h2 class="product-pairs-title">Buning bilan taqishadi</h2>
           <div class="pairs-grid">
-          <article class="pair-card" data-id="prod_31">
-            <a href="/uz/product/prod_31.html" class="pair-img-link">
-              <img src="/assets/komplekt-kole-iz-yashmy-braslet-46000-400w.webp" srcset="/assets/komplekt-kole-iz-yashmy-braslet-46000-400w.webp 400w, /assets/komplekt-kole-iz-yashmy-braslet-46000-750w.webp 750w, /assets/komplekt-kole-iz-yashmy-braslet-46000.webp 1440w" sizes="140px" alt="Yashmadan marjon va bilasuzuk — Livi Jewelry" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
-            </a>
-            <a href="/uz/product/prod_31.html" class="pair-title">Yashmadan marjon va bilasuzuk</a>
-            <div class="pair-price">46 000 ₸</div>
-            <button type="button" class="pair-add-btn" data-id="prod_31" data-title="Yashmadan marjon va bilasuzuk" data-price="46000" data-image="/assets/komplekt-kole-iz-yashmy-braslet-46000.webp" data-url="/uz/product/prod_31.html">+ Qo‘shish</button>
-          </article>
           <article class="pair-card" data-id="prod_89">
             <a href="/uz/product/prod_89.html" class="pair-img-link">
               <img src="/assets/sotuar-iz-dolmatinovoy-yashmy-i-agata-26000-400w.webp" srcset="/assets/sotuar-iz-dolmatinovoy-yashmy-i-agata-26000-400w.webp 400w, /assets/sotuar-iz-dolmatinovoy-yashmy-i-agata-26000-750w.webp 750w, /assets/sotuar-iz-dolmatinovoy-yashmy-i-agata-26000.webp 1440w" sizes="140px" alt="Сотуар из долматиновой яшмы и Агата — Livi Jewelry" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
@@ -428,6 +420,14 @@
             <a href="/uz/product/prod_89.html" class="pair-title">Сотуар из долматиновой яшмы и Агата</a>
             <div class="pair-price">26 000 ₸</div>
             <button type="button" class="pair-add-btn" data-id="prod_89" data-title="Сотуар из долматиновой яшмы и Агата" data-price="26000" data-image="/assets/sotuar-iz-dolmatinovoy-yashmy-i-agata-26000.webp" data-url="/uz/product/prod_89.html">+ Qo‘shish</button>
+          </article>
+          <article class="pair-card" data-id="prod_31">
+            <a href="/uz/product/prod_31.html" class="pair-img-link">
+              <img src="/assets/komplekt-kole-iz-yashmy-braslet-46000-400w.webp" srcset="/assets/komplekt-kole-iz-yashmy-braslet-46000-400w.webp 400w, /assets/komplekt-kole-iz-yashmy-braslet-46000-750w.webp 750w, /assets/komplekt-kole-iz-yashmy-braslet-46000.webp 1440w" sizes="140px" alt="Yashmadan marjon va bilasuzuk — Livi Jewelry" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
+            </a>
+            <a href="/uz/product/prod_31.html" class="pair-title">Yashmadan marjon va bilasuzuk</a>
+            <div class="pair-price">46 000 ₸</div>
+            <button type="button" class="pair-add-btn" data-id="prod_31" data-title="Yashmadan marjon va bilasuzuk" data-price="46000" data-image="/assets/komplekt-kole-iz-yashmy-braslet-46000.webp" data-url="/uz/product/prod_31.html">+ Qo‘shish</button>
           </article>
           <article class="pair-card" data-id="prod_92">
             <a href="/uz/product/prod_92.html" class="pair-img-link">
@@ -705,6 +705,29 @@
         const thumb = item.image.replace('.webp', '-400w.webp');
         imgEl.src = thumb;
       }
+      // R4: Filter out items already in cart from recommendations
+      try {
+        const currentCart = readCart();
+        const cartIds = new Set(currentCart.map(function(c) { return c.id; }));
+        const recCards = modal.querySelectorAll('.mini-rec-card');
+        let shownCount = 0;
+        recCards.forEach(function(card) {
+          const addBtn = card.querySelector('.mini-rec-add');
+          const recId = addBtn ? addBtn.getAttribute('data-id') : null;
+          if (recId && cartIds.has(recId)) {
+            card.style.display = 'none';
+          } else if (shownCount < 2) {
+            card.style.display = 'flex';
+            shownCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        const recsContainer = modal.querySelector('.mini-cart-recs');
+        if (recsContainer) {
+          recsContainer.style.display = shownCount > 0 ? 'block' : 'none';
+        }
+      } catch (e) {}
       modal.style.display = 'flex';
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
@@ -879,14 +902,14 @@
       } catch(err){}
     });
   </script>
-  <!-- Mini-Cart Modal UZ (D5) -->
-  <div id="miniCartModal" class="mini-cart-backdrop" style="display:none;" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="miniCartTitle">
+  <!-- Mini-Cart Modal UZ (D5 / R3) -->
+  <div id="miniCartModal" class="mini-cart-backdrop mini-cart-modal" style="display:none;" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="miniCartTitle">
     <div class="mini-cart-dialog">
       <div class="mini-cart-header">
-        <div class="mini-cart-title" id="miniCartTitle">
+        <h3 class="mini-cart-title" id="miniCartTitle">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" style="color:var(--gold-text);"><polyline points="20 6 9 17 4 12"></polyline></svg>
           <span>Savatchaga qo‘shildi</span>
-        </div>
+        </h3>
         <button type="button" class="mini-cart-close" id="miniCartClose" aria-label="Yopish">✕</button>
       </div>
       <div class="mini-cart-added-item">
@@ -901,8 +924,16 @@
         <button type="button" class="btn outline mini-cart-btn-continue" id="miniCartContinue">Xaridni davom ettirish</button>
       </div>
       <div class="mini-cart-recs">
-        <div class="mini-cart-recs-title">Ushbu taqinchoq bilan tavsiya qilamiz:</div>
+        <h3 class="mini-cart-recs-title">Ushbu taqinchoq bilan tavsiya qilamiz:</h3>
         <div class="mini-rec-list">
+          <div class="mini-rec-card">
+            <img src="/assets/sotuar-iz-dolmatinovoy-yashmy-i-agata-26000-400w.webp" alt="Сотуар из долматиновой яшмы и Агата" width="48" height="64" class="mini-rec-img" loading="lazy">
+            <div class="mini-rec-info">
+              <div class="mini-rec-title">Сотуар из долматиновой яшмы и Агата</div>
+              <div class="mini-rec-price">26 000 ₸</div>
+            </div>
+            <button type="button" class="mini-rec-add" data-id="prod_89" data-title="Сотуар из долматиновой яшмы и Агата" data-price="26000" data-image="/assets/sotuar-iz-dolmatinovoy-yashmy-i-agata-26000.webp" data-url="/uz/product/prod_89.html">+ Qo‘shish</button>
+          </div>
           <div class="mini-rec-card">
             <img src="/assets/komplekt-kole-iz-yashmy-braslet-46000-400w.webp" alt="Yashmadan marjon va bilasuzuk" width="48" height="64" class="mini-rec-img" loading="lazy">
             <div class="mini-rec-info">
@@ -912,12 +943,20 @@
             <button type="button" class="mini-rec-add" data-id="prod_31" data-title="Yashmadan marjon va bilasuzuk" data-price="46000" data-image="/assets/komplekt-kole-iz-yashmy-braslet-46000.webp" data-url="/uz/product/prod_31.html">+ Qo‘shish</button>
           </div>
           <div class="mini-rec-card">
-            <img src="/assets/sotuar-iz-dolmatinovoy-yashmy-i-agata-26000-400w.webp" alt="Сотуар из долматиновой яшмы и Агата" width="48" height="64" class="mini-rec-img" loading="lazy">
+            <img src="/assets/kole-iz-yashmy-i-granata-braslet-51000-400w.webp" alt="Колье из яшмы и граната, браслет" width="48" height="64" class="mini-rec-img" loading="lazy">
             <div class="mini-rec-info">
-              <div class="mini-rec-title">Сотуар из долматиновой яшмы и Агата</div>
-              <div class="mini-rec-price">26 000 ₸</div>
+              <div class="mini-rec-title">Колье из яшмы и граната, браслет</div>
+              <div class="mini-rec-price">51 000 ₸</div>
             </div>
-            <button type="button" class="mini-rec-add" data-id="prod_89" data-title="Сотуар из долматиновой яшмы и Агата" data-price="26000" data-image="/assets/sotuar-iz-dolmatinovoy-yashmy-i-agata-26000.webp" data-url="/uz/product/prod_89.html">+ Qo‘shish</button>
+            <button type="button" class="mini-rec-add" data-id="prod_92" data-title="Колье из яшмы и граната, браслет" data-price="51000" data-image="/assets/kole-iz-yashmy-i-granata-braslet-51000.webp" data-url="/uz/product/prod_92.html">+ Qo‘shish</button>
+          </div>
+          <div class="mini-rec-card">
+            <img src="/assets/kole-iz-yashmy-i-braslet-53000-400w.webp" alt="Колье из яшмы и браслет" width="48" height="64" class="mini-rec-img" loading="lazy">
+            <div class="mini-rec-info">
+              <div class="mini-rec-title">Колье из яшмы и браслет</div>
+              <div class="mini-rec-price">53 000 ₸</div>
+            </div>
+            <button type="button" class="mini-rec-add" data-id="prod_93" data-title="Колье из яшмы и браслет" data-price="53000" data-image="/assets/kole-iz-yashmy-i-braslet-53000.webp" data-url="/uz/product/prod_93.html">+ Qo‘shish</button>
           </div>
         </div>
       </div>

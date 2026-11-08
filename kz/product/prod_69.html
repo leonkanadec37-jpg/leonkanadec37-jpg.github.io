@@ -386,16 +386,8 @@
         </div>
 
                 <section class="product-pairs-with" aria-label="Осымен бірге тағады">
-          <h3 class="product-pairs-title">Осымен бірге тағады</h3>
+          <h2 class="product-pairs-title">Осымен бірге тағады</h2>
           <div class="pairs-grid">
-          <article class="pair-card" data-id="prod_70">
-            <a href="/kz/product/prod_70.html" class="pair-img-link">
-              <img src="/assets/kole-iz-granata-i-cheshskogo-stekla-36000-400w.webp" srcset="/assets/kole-iz-granata-i-cheshskogo-stekla-36000-400w.webp 400w, /assets/kole-iz-granata-i-cheshskogo-stekla-36000-750w.webp 750w, /assets/kole-iz-granata-i-cheshskogo-stekla-36000.webp 1440w" sizes="140px" alt="Колье из граната и чешского стекла — Livi Jewelry" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
-            </a>
-            <a href="/kz/product/prod_70.html" class="pair-title">Колье из граната и чешского стекла</a>
-            <div class="pair-price">36 000 ₸</div>
-            <button type="button" class="pair-add-btn" data-id="prod_70" data-title="Колье из граната и чешского стекла" data-price="36000" data-image="/assets/kole-iz-granata-i-cheshskogo-stekla-36000.webp" data-url="/kz/product/prod_70.html">+ Қосу</button>
-          </article>
           <article class="pair-card" data-id="prod_75">
             <a href="/kz/product/prod_75.html" class="pair-img-link">
               <img src="/assets/kole-iz-cheshskogo-stekla-i-sergi-65000-400w.webp" srcset="/assets/kole-iz-cheshskogo-stekla-i-sergi-65000-400w.webp 400w, /assets/kole-iz-cheshskogo-stekla-i-sergi-65000-750w.webp 750w, /assets/kole-iz-cheshskogo-stekla-i-sergi-65000.webp 1440w" sizes="140px" alt="Колье из чешского стекла и серьги — Livi Jewelry" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
@@ -411,6 +403,14 @@
             <a href="/kz/product/prod_76.html" class="pair-title">Колье из чешского стекла Бургундия и серьги</a>
             <div class="pair-price">64 000 ₸</div>
             <button type="button" class="pair-add-btn" data-id="prod_76" data-title="Колье из чешского стекла Бургундия и серьги" data-price="64000" data-image="/assets/kole-iz-cheshskogo-stekla-burgundiya-i-sergi-64000.webp" data-url="/kz/product/prod_76.html">+ Қосу</button>
+          </article>
+          <article class="pair-card" data-id="prod_81">
+            <a href="/kz/product/prod_81.html" class="pair-img-link">
+              <img src="/assets/sotuar-iz-cheshskogo-stekla-30000-400w.webp" srcset="/assets/sotuar-iz-cheshskogo-stekla-30000-400w.webp 400w, /assets/sotuar-iz-cheshskogo-stekla-30000-750w.webp 750w, /assets/sotuar-iz-cheshskogo-stekla-30000.webp 1440w" sizes="140px" alt="Сотуар из чешского стекла — Livi Jewelry" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
+            </a>
+            <a href="/kz/product/prod_81.html" class="pair-title">Сотуар из чешского стекла</a>
+            <div class="pair-price">30 000 ₸</div>
+            <button type="button" class="pair-add-btn" data-id="prod_81" data-title="Сотуар из чешского стекла" data-price="30000" data-image="/assets/sotuar-iz-cheshskogo-stekla-30000.webp" data-url="/kz/product/prod_81.html">+ Қосу</button>
           </article>
           </div>
         </section>
@@ -801,6 +801,29 @@
         const thumb = item.image.replace('.webp', '-400w.webp');
         imgEl.src = thumb;
       }
+      // R4: Filter out items already in cart from recommendations
+      try {
+        const currentCart = readCart();
+        const cartIds = new Set(currentCart.map(function(c) { return c.id; }));
+        const recCards = modal.querySelectorAll('.mini-rec-card');
+        let shownCount = 0;
+        recCards.forEach(function(card) {
+          const addBtn = card.querySelector('.mini-rec-add');
+          const recId = addBtn ? addBtn.getAttribute('data-id') : null;
+          if (recId && cartIds.has(recId)) {
+            card.style.display = 'none';
+          } else if (shownCount < 2) {
+            card.style.display = 'flex';
+            shownCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        const recsContainer = modal.querySelector('.mini-cart-recs');
+        if (recsContainer) {
+          recsContainer.style.display = shownCount > 0 ? 'block' : 'none';
+        }
+      } catch (e) {}
       modal.style.display = 'flex';
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
@@ -975,14 +998,14 @@
     const yEl = document.getElementById('year');
     if (yEl) yEl.textContent = new Date().getFullYear();
   </script>
-  <!-- Mini-Cart Modal KZ (D5) -->
-  <div id="miniCartModal" class="mini-cart-backdrop" style="display:none;" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="miniCartTitle">
+  <!-- Mini-Cart Modal KZ (D5 / R3) -->
+  <div id="miniCartModal" class="mini-cart-backdrop mini-cart-modal" style="display:none;" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="miniCartTitle">
     <div class="mini-cart-dialog">
       <div class="mini-cart-header">
-        <div class="mini-cart-title" id="miniCartTitle">
+        <h3 class="mini-cart-title" id="miniCartTitle">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" style="color:var(--gold-text);"><polyline points="20 6 9 17 4 12"></polyline></svg>
           <span>Себетке қосылды</span>
-        </div>
+        </h3>
         <button type="button" class="mini-cart-close" id="miniCartClose" aria-label="Жабу">✕</button>
       </div>
       <div class="mini-cart-added-item">
@@ -997,16 +1020,8 @@
         <button type="button" class="btn outline mini-cart-btn-continue" id="miniCartContinue">Сатып алуды жалғастыру</button>
       </div>
       <div class="mini-cart-recs">
-        <div class="mini-cart-recs-title">Осы әшекеймен бірге ұсынамыз:</div>
+        <h3 class="mini-cart-recs-title">Осы әшекеймен бірге ұсынамыз:</h3>
         <div class="mini-rec-list">
-          <div class="mini-rec-card">
-            <img src="/assets/kole-iz-granata-i-cheshskogo-stekla-36000-400w.webp" alt="Колье из граната и чешского стекла" width="48" height="64" class="mini-rec-img" loading="lazy">
-            <div class="mini-rec-info">
-              <div class="mini-rec-title">Колье из граната и чешского стекла</div>
-              <div class="mini-rec-price">36 000 ₸</div>
-            </div>
-            <button type="button" class="mini-rec-add" data-id="prod_70" data-title="Колье из граната и чешского стекла" data-price="36000" data-image="/assets/kole-iz-granata-i-cheshskogo-stekla-36000.webp" data-url="/kz/product/prod_70.html">+ Қосу</button>
-          </div>
           <div class="mini-rec-card">
             <img src="/assets/kole-iz-cheshskogo-stekla-i-sergi-65000-400w.webp" alt="Колье из чешского стекла и серьги" width="48" height="64" class="mini-rec-img" loading="lazy">
             <div class="mini-rec-info">
@@ -1014,6 +1029,30 @@
               <div class="mini-rec-price">65 000 ₸</div>
             </div>
             <button type="button" class="mini-rec-add" data-id="prod_75" data-title="Колье из чешского стекла и серьги" data-price="65000" data-image="/assets/kole-iz-cheshskogo-stekla-i-sergi-65000.webp" data-url="/kz/product/prod_75.html">+ Қосу</button>
+          </div>
+          <div class="mini-rec-card">
+            <img src="/assets/kole-iz-cheshskogo-stekla-burgundiya-i-sergi-64000-400w.webp" alt="Колье из чешского стекла Бургундия и серьги" width="48" height="64" class="mini-rec-img" loading="lazy">
+            <div class="mini-rec-info">
+              <div class="mini-rec-title">Колье из чешского стекла Бургундия и серьги</div>
+              <div class="mini-rec-price">64 000 ₸</div>
+            </div>
+            <button type="button" class="mini-rec-add" data-id="prod_76" data-title="Колье из чешского стекла Бургундия и серьги" data-price="64000" data-image="/assets/kole-iz-cheshskogo-stekla-burgundiya-i-sergi-64000.webp" data-url="/kz/product/prod_76.html">+ Қосу</button>
+          </div>
+          <div class="mini-rec-card">
+            <img src="/assets/sotuar-iz-cheshskogo-stekla-30000-400w.webp" alt="Сотуар из чешского стекла" width="48" height="64" class="mini-rec-img" loading="lazy">
+            <div class="mini-rec-info">
+              <div class="mini-rec-title">Сотуар из чешского стекла</div>
+              <div class="mini-rec-price">30 000 ₸</div>
+            </div>
+            <button type="button" class="mini-rec-add" data-id="prod_81" data-title="Сотуар из чешского стекла" data-price="30000" data-image="/assets/sotuar-iz-cheshskogo-stekla-30000.webp" data-url="/kz/product/prod_81.html">+ Қосу</button>
+          </div>
+          <div class="mini-rec-card">
+            <img src="/assets/kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla-sergi-49000-400w.webp" alt="Колье из жемчуга Майорка и ювелирного стекла, серьги" width="48" height="64" class="mini-rec-img" loading="lazy">
+            <div class="mini-rec-info">
+              <div class="mini-rec-title">Колье из жемчуга Майорка и ювелирного стекла, серьги</div>
+              <div class="mini-rec-price">49 000 ₸</div>
+            </div>
+            <button type="button" class="mini-rec-add" data-id="prod_72" data-title="Колье из жемчуга Майорка и ювелирного стекла, серьги" data-price="49000" data-image="/assets/kole-iz-zhemchuga-mayorka-i-yuvelirnogo-stekla-sergi-49000.webp" data-url="/kz/product/prod_72.html">+ Қосу</button>
           </div>
         </div>
       </div>

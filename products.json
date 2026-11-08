@@ -29,7 +29,12 @@
       "packaging": "Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry"
     },
     "inStock": true,
-    "featured": true
+    "featured": true,
+    "pairs_with": [
+      "prod_04",
+      "prod_73",
+      "prod_40"
+    ]
   },
   {
     "id": "prod_02",

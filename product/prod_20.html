@@ -384,7 +384,7 @@
         </div>
 
         <section class="product-pairs-with" aria-label="С этим носят">
-          <h3 class="product-pairs-title">С этим носят</h3>
+          <h2 class="product-pairs-title">С этим носят</h2>
           <div class="pairs-grid">
           <article class="pair-card" data-id="prod_53">
             <a href="/product/prod_53.html" class="pair-img-link">
@@ -394,21 +394,21 @@
             <div class="pair-price">51 000 ₸</div>
             <button type="button" class="pair-add-btn" data-id="prod_53" data-title="Колье из гематита и цирконов, браслет" data-price="51000" data-image="/assets/kole-iz-gematita-i-tsirkonov-braslet-51000.webp" data-url="/product/prod_53.html">+ Добавить</button>
           </article>
-          <article class="pair-card" data-id="prod_06">
-            <a href="/product/prod_06.html" class="pair-img-link">
-              <img src="/assets/braslet-iz-malakhita-25000-400w.webp" srcset="/assets/braslet-iz-malakhita-25000-400w.webp 400w, /assets/braslet-iz-malakhita-25000-750w.webp 750w, /assets/braslet-iz-malakhita-25000.webp 1440w" sizes="140px" alt="Браслет из малахита — авторская ручная работа (Натуральный малахит, Ювелирный сплав, Позолота), Livi Jewelry" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
+          <article class="pair-card" data-id="prod_18">
+            <a href="/product/prod_18.html" class="pair-img-link">
+              <img src="/assets/bulavka-30000-400w.webp" srcset="/assets/bulavka-30000-400w.webp 400w, /assets/bulavka-30000-750w.webp 750w, /assets/bulavka-30000.webp 1440w" sizes="140px" alt="Булавка, браслет, серьги, кольцо (под заказ) — авторская ручная работа (Натуральный жемчуг, Натуральные камни, Ювелирный сплав), Livi Jewelry" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
             </a>
-            <a href="/product/prod_06.html" class="pair-title">Браслет из малахита</a>
-            <div class="pair-price">25 000 ₸</div>
-            <button type="button" class="pair-add-btn" data-id="prod_06" data-title="Браслет из малахита" data-price="25000" data-image="/assets/braslet-iz-malakhita-25000.webp" data-url="/product/prod_06.html">+ Добавить</button>
+            <a href="/product/prod_18.html" class="pair-title">Булавка, браслет, серьги, кольцо (под заказ)</a>
+            <div class="pair-price">74 000 ₸</div>
+            <button type="button" class="pair-add-btn" data-id="prod_18" data-title="Булавка, браслет, серьги, кольцо (под заказ)" data-price="74000" data-image="/assets/bulavka-30000.webp" data-url="/product/prod_18.html">+ Добавить</button>
           </article>
-          <article class="pair-card" data-id="prod_39">
-            <a href="/product/prod_39.html" class="pair-img-link">
-              <img src="/assets/sergi-luna-i-zvezda-14000-400w.webp" srcset="/assets/sergi-luna-i-zvezda-14000-400w.webp 400w, /assets/sergi-luna-i-zvezda-14000-750w.webp 750w, /assets/sergi-luna-i-zvezda-14000.webp 1440w" sizes="140px" alt="Серьги луна и звезда — авторская ручная работа (Ювелирный сплав), Livi Jewelry" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
+          <article class="pair-card" data-id="prod_14">
+            <a href="/product/prod_14.html" class="pair-img-link">
+              <img src="/assets/komplekt-iz-koralla-i-yashmy-40000-400w.webp" srcset="/assets/komplekt-iz-koralla-i-yashmy-40000-400w.webp 400w, /assets/komplekt-iz-koralla-i-yashmy-40000-750w.webp 750w, /assets/komplekt-iz-koralla-i-yashmy-40000.webp 1440w" sizes="140px" alt="Колье из коралла и яшмы, браслет, серьги — авторская ручная работа (Натуральный коралл, Яшма, Ювелирный сплав), Livi Jewelry" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
             </a>
-            <a href="/product/prod_39.html" class="pair-title">Серьги луна и звезда</a>
-            <div class="pair-price">14 000 ₸</div>
-            <button type="button" class="pair-add-btn" data-id="prod_39" data-title="Серьги луна и звезда" data-price="14000" data-image="/assets/sergi-luna-i-zvezda-14000.webp" data-url="/product/prod_39.html">+ Добавить</button>
+            <a href="/product/prod_14.html" class="pair-title">Колье из коралла и яшмы, браслет, серьги</a>
+            <div class="pair-price">60 000 ₸</div>
+            <button type="button" class="pair-add-btn" data-id="prod_14" data-title="Колье из коралла и яшмы, браслет, серьги" data-price="60000" data-image="/assets/komplekt-iz-koralla-i-yashmy-40000.webp" data-url="/product/prod_14.html">+ Добавить</button>
           </article>
           </div>
         </section>
@@ -774,6 +774,29 @@
         const thumb = item.image.replace('.webp', '-400w.webp');
         imgEl.src = thumb;
       }
+      // R4: Filter out items already in cart from recommendations
+      try {
+        const currentCart = readCart();
+        const cartIds = new Set(currentCart.map(function(c) { return c.id; }));
+        const recCards = modal.querySelectorAll('.mini-rec-card');
+        let shownCount = 0;
+        recCards.forEach(function(card) {
+          const addBtn = card.querySelector('.mini-rec-add');
+          const recId = addBtn ? addBtn.getAttribute('data-id') : null;
+          if (recId && cartIds.has(recId)) {
+            card.style.display = 'none';
+          } else if (shownCount < 2) {
+            card.style.display = 'flex';
+            shownCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        const recsContainer = modal.querySelector('.mini-cart-recs');
+        if (recsContainer) {
+          recsContainer.style.display = shownCount > 0 ? 'block' : 'none';
+        }
+      } catch (e) {}
       modal.style.display = 'flex';
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
@@ -986,14 +1009,14 @@
     if (yrEl) yrEl.textContent = new Date().getFullYear();
     updateBadge();
   </script>
-  <!-- Mini-Cart Modal (D5) -->
-  <div id="miniCartModal" class="mini-cart-backdrop" style="display:none;" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="miniCartTitle">
+  <!-- Mini-Cart Modal (D5 / R3) -->
+  <div id="miniCartModal" class="mini-cart-backdrop mini-cart-modal" style="display:none;" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="miniCartTitle">
     <div class="mini-cart-dialog">
       <div class="mini-cart-header">
-        <div class="mini-cart-title" id="miniCartTitle">
+        <h3 class="mini-cart-title" id="miniCartTitle">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" style="color:var(--gold-text);"><polyline points="20 6 9 17 4 12"></polyline></svg>
           <span>Добавлено в корзину</span>
-        </div>
+        </h3>
         <button type="button" class="mini-cart-close" id="miniCartClose" aria-label="Закрыть">✕</button>
       </div>
       <div class="mini-cart-added-item">
@@ -1008,7 +1031,7 @@
         <button type="button" class="btn outline mini-cart-btn-continue" id="miniCartContinue">Продолжить покупки</button>
       </div>
       <div class="mini-cart-recs">
-        <div class="mini-cart-recs-title">С этим украшением рекомендуем:</div>
+        <h3 class="mini-cart-recs-title">С этим украшением рекомендуем:</h3>
         <div class="mini-rec-list">
           <div class="mini-rec-card">
             <img src="/assets/kole-iz-gematita-i-tsirkonov-braslet-51000-400w.webp" alt="Колье из гематита и цирконов, браслет" width="48" height="64" class="mini-rec-img" loading="lazy">
@@ -1019,12 +1042,28 @@
             <button type="button" class="mini-rec-add" data-id="prod_53" data-title="Колье из гематита и цирконов, браслет" data-price="51000" data-image="/assets/kole-iz-gematita-i-tsirkonov-braslet-51000.webp" data-url="/product/prod_53.html">+ Добавить</button>
           </div>
           <div class="mini-rec-card">
-            <img src="/assets/braslet-iz-malakhita-25000-400w.webp" alt="Браслет из малахита" width="48" height="64" class="mini-rec-img" loading="lazy">
+            <img src="/assets/bulavka-30000-400w.webp" alt="Булавка, браслет, серьги, кольцо (под заказ)" width="48" height="64" class="mini-rec-img" loading="lazy">
             <div class="mini-rec-info">
-              <div class="mini-rec-title">Браслет из малахита</div>
-              <div class="mini-rec-price">25 000 ₸</div>
+              <div class="mini-rec-title">Булавка, браслет, серьги, кольцо (под заказ)</div>
+              <div class="mini-rec-price">74 000 ₸</div>
             </div>
-            <button type="button" class="mini-rec-add" data-id="prod_06" data-title="Браслет из малахита" data-price="25000" data-image="/assets/braslet-iz-malakhita-25000.webp" data-url="/product/prod_06.html">+ Добавить</button>
+            <button type="button" class="mini-rec-add" data-id="prod_18" data-title="Булавка, браслет, серьги, кольцо (под заказ)" data-price="74000" data-image="/assets/bulavka-30000.webp" data-url="/product/prod_18.html">+ Добавить</button>
+          </div>
+          <div class="mini-rec-card">
+            <img src="/assets/komplekt-iz-koralla-i-yashmy-40000-400w.webp" alt="Колье из коралла и яшмы, браслет, серьги" width="48" height="64" class="mini-rec-img" loading="lazy">
+            <div class="mini-rec-info">
+              <div class="mini-rec-title">Колье из коралла и яшмы, браслет, серьги</div>
+              <div class="mini-rec-price">60 000 ₸</div>
+            </div>
+            <button type="button" class="mini-rec-add" data-id="prod_14" data-title="Колье из коралла и яшмы, браслет, серьги" data-price="60000" data-image="/assets/komplekt-iz-koralla-i-yashmy-40000.webp" data-url="/product/prod_14.html">+ Добавить</button>
+          </div>
+          <div class="mini-rec-card">
+            <img src="/assets/komplekt-komplekt-iz-naturalnykh-kamney-kole-braslet-sergi-48000-400w.webp" alt="Колье, браслет и серьги из натуральных камней" width="48" height="64" class="mini-rec-img" loading="lazy">
+            <div class="mini-rec-info">
+              <div class="mini-rec-title">Колье, браслет и серьги из натуральных камней</div>
+              <div class="mini-rec-price">48 000 ₸</div>
+            </div>
+            <button type="button" class="mini-rec-add" data-id="prod_33" data-title="Колье, браслет и серьги из натуральных камней" data-price="48000" data-image="/assets/komplekt-komplekt-iz-naturalnykh-kamney-kole-braslet-sergi-48000.webp" data-url="/product/prod_33.html">+ Добавить</button>
           </div>
         </div>
       </div>
