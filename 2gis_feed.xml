@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-11-08 03:40">
+<yml_catalog date="2026-11-08 10:01">
   <shop>
     <name>Livi Jewelry</name>
     <company>Livi Jewelry — Авторские украшения ручной работы</company>
@@ -358,7 +358,7 @@
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[Дизайнерские серьги ручной работы: Серьги. Выполнены из отборных натуральных минералов и материалов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенные ювелирные швензы со стойким защитным покрытием не темнеют и комфортны для чувствительной кожи. Комфортный легкий вес для ежедневной носки и быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
       </offer>
-      <offer id="prod_35" available="true">
+      <offer id="prod_35" available="false">
         <name>Серьги из аква кварца</name>
         <url>https://livijewelry.kz/product/prod_35.html</url>
         <price>12000</price>
@@ -428,7 +428,7 @@
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[Дизайнерские серьги ручной работы: Серьги пусеты сердца. Выполнены из отборных натуральных минералов и материалов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенные ювелирные швензы со стойким защитным покрытием не темнеют и комфортны для чувствительной кожи. Комфортный легкий вес для ежедневной носки и быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
       </offer>
-      <offer id="prod_42" available="true">
+      <offer id="prod_42" available="false">
         <name>Серьги с жемчугом Майорка</name>
         <url>https://livijewelry.kz/product/prod_42.html</url>
         <price>12000</price>
@@ -721,7 +721,7 @@
       <offer id="prod_80" available="true">
         <name>Серьги пусеты</name>
         <url>https://livijewelry.kz/product/prod_80.html</url>
-        <price>17000</price>
+        <price>16000</price>
         <currencyId>KZT</currencyId>
         <categoryId>3</categoryId>
         <picture>https://livijewelry.kz/assets/sergi-pusety-16000.webp</picture>
@@ -837,6 +837,36 @@
         <picture>https://livijewelry.kz/assets/chokery-iz-granata-i-zhemchuga-20000.webp</picture>
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[Авторское украшение ручной работы: Чокеры из Граната и жемчуга. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_92" available="true">
+        <name>Колье из яшмы и граната, браслет</name>
+        <url>https://livijewelry.kz/product/prod_92.html</url>
+        <price>51000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>4</categoryId>
+        <picture>https://livijewelry.kz/assets/kole-iz-yashmy-i-granata-braslet-51000.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[В комплекте: Колье из яшмы и граната — 35 000 тг, Браслет — 16 000 тг. Полная стоимость комплекта — 51 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_93" available="true">
+        <name>Колье из яшмы и браслет</name>
+        <url>https://livijewelry.kz/product/prod_93.html</url>
+        <price>53000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>4</categoryId>
+        <picture>https://livijewelry.kz/assets/kole-iz-yashmy-i-braslet-53000.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[В комплекте: Колье из яшмы — 38 000 тг, Браслет — 15 000 тг. Полная стоимость комплекта — 53 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_94" available="true">
+        <name>Серьги пусеты</name>
+        <url>https://livijewelry.kz/product/prod_94.html</url>
+        <price>17000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>3</categoryId>
+        <picture>https://livijewelry.kz/assets/sergi-pusety-17000.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[Дизайнерские серьги ручной работы: Серьги пусеты. Выполнены из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенные ювелирные швензы со стойким защитным покрытием не темнеют и комфортны для чувствительной кожи. Комфортный легкий вес для ежедневной носки и быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
       </offer>
     </offers>
   </shop>
