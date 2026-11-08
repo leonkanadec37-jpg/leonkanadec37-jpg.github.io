@@ -652,7 +652,13 @@ def build_uz_card_html(pk: dict, indent: str = "      ", is_first_row: bool = Fa
     img = pk["image"].lstrip("/")
     base_img, _ = os.path.splitext(img)
     mob_img = f"{base_img}-750w.webp"
-    srcset_attr = f' srcset="/{mob_img} 750w, /{img} 1440w" sizes="(max-width: 768px) 50vw, 300px"' if os.path.exists(mob_img) else ""
+    thumb_img = f"{base_img}-400w.webp"
+    if os.path.exists(thumb_img):
+        srcset_attr = f' srcset="/{thumb_img} 400w, /{mob_img} 750w, /{img} 1440w" sizes="(max-width: 768px) 50vw, 300px"'
+    elif os.path.exists(mob_img):
+        srcset_attr = f' srcset="/{mob_img} 750w, /{img} 1440w" sizes="(max-width: 768px) 50vw, 300px"'
+    else:
+        srcset_attr = ""
     stones = ", ".join(pk["materials"]).lower()
     alt = html.escape(f"{pk['title']} — qo‘lda yasalgan ({stones}), Livi Jewelry")
     cat = html.escape(pk["category"])
@@ -784,7 +790,7 @@ def generate_uz_index(products_uz: list) -> str:
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css?v=2">
   <!-- Preload Mobile LCP Image -->
-  <link rel="preload" as="image" href="{SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000-750w.webp" imagesrcset="{SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000-750w.webp 750w, {SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000.webp 1440w" imagesizes="(max-width: 768px) 50vw, 300px" fetchpriority="high">
+  <link rel="preload" as="image" href="{SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000-400w.webp" imagesrcset="{SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000-400w.webp 400w, {SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000-750w.webp 750w, {SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000.webp 1440w" imagesizes="(max-width: 768px) 50vw, 300px" fetchpriority="high">
 
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons/favicon-48.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -1178,7 +1184,7 @@ def generate_uz_shop(products_uz: list) -> str:
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css?v=2">
   <!-- Preload Mobile LCP Image -->
-  <link rel="preload" as="image" href="{SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000-750w.webp" imagesrcset="{SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000-750w.webp 750w, {SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000.webp 1440w" imagesizes="(max-width: 768px) 50vw, 300px" fetchpriority="high">
+  <link rel="preload" as="image" href="{SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000-400w.webp" imagesrcset="{SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000-400w.webp 400w, {SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000-750w.webp 750w, {SITE_URL}/assets/kole-iz-naturalnogo-zhemchuga-80000.webp 1440w" imagesizes="(max-width: 768px) 50vw, 300px" fetchpriority="high">
 
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons/favicon-48.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -1529,6 +1535,51 @@ def generate_uz_shop(products_uz: list) -> str:
 """
 
 
+def find_pairs_with_products(target: dict, all_products: list, limit: int = 3) -> list:
+    t_id = target.get("id")
+    t_cat = target.get("category", "")
+    t_mats = set(m.lower().strip() for m in target.get("materials_ru", target.get("materials", [])))
+    t_words = set(w.lower() for w in target.get("title", "").replace(",", " ").split() if len(w) > 3)
+
+    scored = []
+    for p in all_products:
+        if p.get("id") == t_id or not p.get("inStock", True):
+            continue
+        score = 0
+        p_mats = set(m.lower().strip() for m in p.get("materials_ru", p.get("materials", [])))
+        p_words = set(w.lower() for w in p.get("title", "").replace(",", " ").split() if len(w) > 3)
+        common_mats = t_mats.intersection(p_mats)
+        score += len(common_mats) * 10
+        common_words = t_words.intersection(p_words)
+        score += len(common_words) * 3
+
+        p_cat = p.get("category", "")
+        if t_cat in ["Necklaces", "Lariats", "Chains"]:
+            if p_cat in ["Earrings", "Bracelets", "Rings"]:
+                score += 8
+        elif t_cat in ["Bracelets", "Rings"]:
+            if p_cat in ["Earrings", "Necklaces"]:
+                score += 8
+        elif t_cat == "Earrings":
+            if p_cat in ["Necklaces", "Bracelets", "Rings"]:
+                score += 8
+        elif t_cat == "Sets":
+            if p_cat in ["Rings", "Earrings", "Bracelets"]:
+                score += 5
+
+        if score > 0:
+            scored.append((score, p))
+
+    scored.sort(key=lambda x: x[0], reverse=True)
+    res = [p for _, p in scored[:limit]]
+    if len(res) < limit:
+        for p in all_products:
+            if p.get("id") != t_id and p.get("inStock", True) and p not in res:
+                res.append(p)
+                if len(res) >= limit:
+                    break
+    return res
+
 def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
     pid = pk["id"]
     livi_sku = pk["sku"]
@@ -1544,6 +1595,8 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
     img_rel = pk["image"].lstrip("/")
     base_rel, _ = os.path.splitext(img_rel)
     mob_img_rel = f"{base_rel}-750w.webp"
+    thumb_img_rel = f"{base_rel}-400w.webp"
+    instagram_url = html.escape(pk.get("instagram_url") or "https://www.instagram.com/livi_jwl/")
     ru_page_url = f"{SITE_URL}/product/{pid}.html"
     kz_page_url = f"{SITE_URL}/kz/product/{pid}.html"
     page_url = f"{SITE_URL}/uz/product/{pid}.html"
@@ -1754,6 +1807,77 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
         for h_url, h_lbl in ALL_21_HUBS
     )
 
+    # D4. UZ быстрые чипсы характеристик под ценой
+    quick_chips_uz = []
+    if length_uz:
+        quick_chips_uz.append(f'<span class="quick-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21.3 8.7 8.7 21.3a1 1 0 0 1-1.4 0l-6-6a1 1 0 0 1 0-1.4L13.9 1.3a1 1 0 0 1 1.4 0l6 6a1 1 0 0 1 0 1.4Z"/></svg> {html.escape(length_uz)}</span>')
+    if hardware_uz:
+        quick_chips_uz.append(f'<span class="quick-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Rodiy / 18K zarhal</span>')
+    quick_chips_uz_html = f'        <div class="product-quick-chips">\n          ' + "\n          ".join(quick_chips_uz) + '\n        </div>\n' if quick_chips_uz else ""
+
+    trust_badges_uz_html = """        <div class="product-trust-badges">
+          <div class="trust-badge-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span>Toshkent va O‘zbekistonga tezkor yetkazish (SDEK)</span>
+          </div>
+          <div class="trust-badge-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><polyline points="3 3 3 8 8 8"></polyline></svg>
+            <span>14 kun qaytarish kafolati</span>
+          </div>
+          <div class="trust-badge-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+            <span>Firma sovg‘a qutisi</span>
+          </div>
+        </div>\n"""
+
+    # D4. UZ Блок «Buning bilan taqishadi»
+    pairs_uz = find_pairs_with_products(pk, all_products_uz, limit=3)
+    pairs_cards_uz = []
+    for pr in pairs_uz:
+        pr_id = pr["id"]
+        pr_title = html.escape(pr["title"].strip())
+        pr_price_num = int(pr.get("price") or 0)
+        pr_price_fmt = format_price_uz(pr_price_num)
+        pr_img = "/" + pr["image"].lstrip("/")
+        pr_base, _ = os.path.splitext(pr_img)
+        pr_thumb = f"{pr_base}-400w.webp"
+        pr_mob = f"{pr_base}-750w.webp"
+        pr_alt = html.escape(f"{pr['title']} — Livi Jewelry")
+        pairs_cards_uz.append(f"""          <article class="pair-card" data-id="{pr_id}">
+            <a href="/uz/product/{pr_id}.html" class="pair-img-link">
+              <img src="{pr_thumb}" srcset="{pr_thumb} 400w, {pr_mob} 750w, {pr_img} 1440w" sizes="140px" alt="{pr_alt}" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
+            </a>
+            <a href="/uz/product/{pr_id}.html" class="pair-title">{pr_title}</a>
+            <div class="pair-price">{pr_price_fmt} ₸</div>
+            <button type="button" class="pair-add-btn" data-id="{pr_id}" data-title="{pr_title}" data-price="{pr_price_num}" data-image="{pr_img}" data-url="/uz/product/{pr_id}.html">+ Qo‘shish</button>
+          </article>""")
+    pairs_block_uz_html = f"""        <section class="product-pairs-with" aria-label="Buning bilan taqishadi">
+          <h3 class="product-pairs-title">Buning bilan taqishadi</h3>
+          <div class="pairs-grid">
+{"\n".join(pairs_cards_uz)}
+          </div>
+        </section>\n""" if pairs_cards_uz else ""
+
+    # D5. Рекомендации для UZ мини-корзины
+    mini_rec_items_uz = []
+    for mr in pairs_uz[:2]:
+        mr_id = mr["id"]
+        mr_title = html.escape(mr["title"].strip())
+        mr_price_num = int(mr.get("price") or 0)
+        mr_price_fmt = format_price_uz(mr_price_num)
+        mr_img = "/" + mr["image"].lstrip("/")
+        mr_base, _ = os.path.splitext(mr_img)
+        mr_thumb = f"{mr_base}-400w.webp"
+        mini_rec_items_uz.append(f"""          <div class="mini-rec-card">
+            <img src="{mr_thumb}" alt="{mr_title}" width="48" height="64" class="mini-rec-img" loading="lazy">
+            <div class="mini-rec-info">
+              <div class="mini-rec-title">{mr_title}</div>
+              <div class="mini-rec-price">{mr_price_fmt} ₸</div>
+            </div>
+            <button type="button" class="mini-rec-add" data-id="{mr_id}" data-title="{mr_title}" data-price="{mr_price_num}" data-image="{mr_img}" data-url="/uz/product/{mr_id}.html">+ Qo‘shish</button>
+          </div>""")
+    mini_rec_uz_html = "\n".join(mini_rec_items_uz)
+
     product_js_obj = json.dumps({
         "id": pid,
         "title": title,
@@ -1954,8 +2078,16 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
       <!-- Rasm galereyasi -->
       <div class="product-gallery">
         <div class="product-main-img-wrap">
-          <img src="/{img_rel}" srcset="/{mob_img_rel} 750w, /{img_rel} 1440w" sizes="(max-width: 640px) 100vw, 50vw" alt="{html.escape(title)} — qo‘lda yasalgan ({materials_uz_str}), Livi Jewelry" class="product-main-img" id="mainProductImg" width="600" height="800" fetchpriority="high">
+          <img src="/{img_rel}" srcset="/{thumb_img_rel} 400w, /{mob_img_rel} 750w, /{img_rel} 1440w" sizes="(max-width: 640px) 100vw, 50vw" alt="{html.escape(title)} — qo‘lda yasalgan ({materials_uz_str}), Livi Jewelry" class="product-main-img" id="mainProductImg" width="600" height="800" fetchpriority="high">
         </div>
+        <a href="{instagram_url}" class="product-ig-btn" id="igModelBtn" target="_blank" rel="noopener" data-item-id="{pid}" aria-label="Modelda koʻrish (Instagram)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+          <span>Modelda koʻrish (Instagram)</span>
+        </a>
       </div>
 
       <!-- Mahsulot ma’lumotlari -->
@@ -1968,6 +2100,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
             <span class="product-stock-tag in-stock">✓ Sotuvda mavjud</span>
           </div>
         </div>
+{quick_chips_uz_html}{trust_badges_uz_html}
 
         <div class="product-materials-block">
           <div class="mat-label" style="font-size:12px;color:var(--muted);margin-bottom:6px;">Tabiiy materiallar va toshlar:</div>
@@ -1978,6 +2111,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
 
         <!-- Komplektatsiyani tanlash -->
         {bundle_block_html}
+{pairs_block_uz_html}
 
         <!-- Buyurtma berish tugmalari -->
         <div class="product-actions-box">
@@ -2224,7 +2358,122 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
         }}
       }} catch(e){{}}
 
-      window.location.href = '/uz/cart.html';
+      openMiniCart({{
+        title: currentActiveTitle,
+        price: currentActivePrice,
+        image: PRODUCT.image
+      }});
+    }}
+
+    function openMiniCart(item) {{
+      const modal = document.getElementById('miniCartModal');
+      if (!modal) return;
+      const titleEl = document.getElementById('miniCartItemTitle');
+      const priceEl = document.getElementById('miniCartItemPrice');
+      const imgEl = document.getElementById('miniCartItemImg');
+      if (titleEl) titleEl.textContent = item.title;
+      if (priceEl) priceEl.textContent = Number(item.price).toLocaleString('ru-RU').replace(/,/g, ' ') + ' ₸';
+      if (imgEl && item.image) {{
+        const thumb = item.image.replace('.webp', '-400w.webp');
+        imgEl.src = thumb;
+      }}
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }}
+
+    function closeMiniCart() {{
+      const modal = document.getElementById('miniCartModal');
+      if (!modal) return;
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }}
+
+    const miniClose = document.getElementById('miniCartClose');
+    const miniCont = document.getElementById('miniCartContinue');
+    const miniModal = document.getElementById('miniCartModal');
+    if (miniClose) miniClose.addEventListener('click', closeMiniCart);
+    if (miniCont) miniCont.addEventListener('click', closeMiniCart);
+    if (miniModal) {{
+      miniModal.addEventListener('click', function(e) {{
+        if (e.target === miniModal) closeMiniCart();
+      }});
+    }}
+    document.addEventListener('keydown', function(e) {{
+      if (e.key === 'Escape') closeMiniCart();
+    }});
+
+    // UZ Tezkor qo‘shish (1-klik)
+    function attachQuickAddUz(btn) {{
+      btn.addEventListener('click', function(e) {{
+        e.preventDefault();
+        e.stopPropagation();
+        const pId = btn.getAttribute('data-id');
+        const pTitle = btn.getAttribute('data-title');
+        const pPrice = Number(btn.getAttribute('data-price') || 0);
+        const pImage = btn.getAttribute('data-image');
+        const pUrl = btn.getAttribute('data-url');
+        let cart = [];
+        try {{ cart = JSON.parse(localStorage.getItem('livi_cart_v3') || '[]'); }} catch(e){{}}
+        const idx = cart.findIndex(x => x.id === pId);
+        if (idx >= 0) {{
+          cart[idx].qty = Number(cart[idx].qty || 1) + 1;
+        }} else {{
+          cart.push({{
+            id: pId,
+            sku: pId.replace('prod_', 'LIVI-'),
+            title: pTitle,
+            price: pPrice,
+            unitPrice: pPrice,
+            image: pImage,
+            qty: 1,
+            url: pUrl
+          }});
+        }}
+        try {{
+          localStorage.setItem('livi_cart_v3', JSON.stringify(cart));
+          updateBadge();
+        }} catch(e){{}}
+        btn.textContent = '✓ Savatchada';
+        btn.classList.add('added');
+        try {{
+          if (typeof gtag === 'function') {{
+            gtag('event', 'add_to_cart', {{
+              currency: 'KZT',
+              value: pPrice,
+              items: [{{ item_id: pId, item_name: pTitle, price: pPrice, quantity: 1 }}],
+              transport_type: 'beacon'
+            }});
+          }}
+          if (window.fbq) {{
+            fbq('track', 'AddToCart', {{
+              content_ids: [pId],
+              content_name: pTitle,
+              content_type: 'product',
+              value: pPrice,
+              currency: 'KZT'
+            }});
+          }}
+        }} catch(err) {{}}
+      }});
+    }}
+    document.querySelectorAll('.pair-add-btn, .mini-rec-add').forEach(attachQuickAddUz);
+
+    // D3. Instagram tracking UZ
+    const igBtn = document.getElementById('igModelBtn');
+    if (igBtn) {{
+      igBtn.addEventListener('click', function() {{
+        try {{
+          if (typeof gtag === 'function') {{
+            gtag('event', 'instagram_click', {{
+              item_id: PRODUCT.id,
+              item_name: PRODUCT.title,
+              transport_type: 'beacon'
+            }});
+          }}
+        }} catch(e) {{}}
+      }});
     }}
 
     const addBtn = document.getElementById('addToCartBtn');
@@ -2302,6 +2551,35 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
       }} catch(err){{}}
     }});
   </script>
+  <!-- Mini-Cart Modal UZ (D5) -->
+  <div id="miniCartModal" class="mini-cart-backdrop" style="display:none;" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="miniCartTitle">
+    <div class="mini-cart-dialog">
+      <div class="mini-cart-header">
+        <div class="mini-cart-title" id="miniCartTitle">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" style="color:var(--gold-text);"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Savatchaga qo‘shildi</span>
+        </div>
+        <button type="button" class="mini-cart-close" id="miniCartClose" aria-label="Yopish">✕</button>
+      </div>
+      <div class="mini-cart-added-item">
+        <img id="miniCartItemImg" src="/{thumb_img_rel}" alt="" width="56" height="74" class="mini-cart-item-img">
+        <div class="mini-cart-item-info">
+          <div id="miniCartItemTitle" class="mini-cart-item-title">{html.escape(title)}</div>
+          <div id="miniCartItemPrice" class="mini-cart-item-price">{price_fmt} ₸</div>
+        </div>
+      </div>
+      <div class="mini-cart-actions">
+        <a href="/uz/cart.html" class="btn primary mini-cart-btn-checkout">Buyurtmani rasmiylashtirish →</a>
+        <button type="button" class="btn outline mini-cart-btn-continue" id="miniCartContinue">Xaridni davom ettirish</button>
+      </div>
+      <div class="mini-cart-recs">
+        <div class="mini-cart-recs-title">Ushbu taqinchoq bilan tavsiya qilamiz:</div>
+        <div class="mini-rec-list">
+{mini_rec_uz_html}
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
 """

@@ -483,12 +483,17 @@
         list.appendChild(row);
       });
 
+      // Separate clear button away from checkout card
+      const itemsFooter = document.createElement('div');
+      itemsFooter.className = 'cart-items-footer';
+      itemsFooter.innerHTML = ``;
+
       // 2. Total block
       const totalBox = document.createElement('div');
       totalBox.className = 'total-box';
       totalBox.innerHTML = `
         <div>${tr('total')}</div>
-        <div class="total-sum">${total.toLocaleString('ru-RU')} тг</div>
+        <div class="total-sum">${total.toLocaleString('ru-RU')} ₸</div>
       `;
 
       // 3. Checkout Form
@@ -521,6 +526,12 @@
               <option value="Уральск"><option value="Петропавловск"><option value="Актау">
               <option value="Темиртау"><option value="Туркестан"><option value="Кокшетау">
             </datalist>
+            <div id="cityDeliveryEstimate" class="city-delivery-estimate">
+              <div class="del-est-badge">
+                <span class="del-est-icon">🚚</span>
+                <span id="delEstText"><strong>Доставка по Казахстану:</strong> Бесплатно (0 ₸) · 1–3 рабочих дня СДЭК</span>
+              </div>
+            </div>
           </div>
 
           <div class="del-tabs">
@@ -565,11 +576,12 @@
           <span data-i18n="checkout.btn_alt_wa">${tr('checkout.btn_alt_wa')}</span>
         </a>
 
-        <button type="button" class="btn-clear-cart" id="clearBtn" data-i18n="clear">${tr('clear')}</button>
+        
       `;
 
       root.innerHTML = '';
       root.appendChild(list);
+      root.appendChild(itemsFooter);
       root.appendChild(totalBox);
       root.appendChild(checkoutCard);
 
@@ -589,8 +601,36 @@
       const orderForm = document.getElementById('orderForm');
       const waAltBtn = document.getElementById('waAltBtn');
       const clearBtn = document.getElementById('clearBtn');
-
       if(clearBtn) clearBtn.onclick = () => { write([]); };
+
+      const cityInput = document.getElementById('orderCity');
+      const delEstText = document.getElementById('delEstText');
+      function updateDeliveryCalc() {
+        if (!cityInput || !delEstText) return;
+        const val = (cityInput.value || '').trim().toLowerCase();
+        if (val.includes('астан') || val.includes('astana') || val.includes('нур-султан')) {
+          delEstText.innerHTML = lang() === 'kk'
+            ? '<strong>Жеткізу (Астана):</strong> Тегін (0 ₸) · <strong>Бүгін</strong> (тапсырыс 16:00-ге дейін)'
+            : '<strong>Доставка (Астана):</strong> Бесплатно (0 ₸) · <strong>Сегодня</strong> (курьером день-в-день при заказе до 16:00)';
+        } else if (val.includes('алмат') || val.includes('almaty')) {
+          delEstText.innerHTML = lang() === 'kk'
+            ? '<strong>Жеткізу (Алматы):</strong> Тегін (0 ₸) · <strong>1–2 жұмыс күні</strong> (СДЭК)'
+            : '<strong>Доставка (Алматы):</strong> Бесплатно (0 ₸) · <strong>1–2 рабочих дня</strong> (СДЭК до двери/ПВЗ)';
+        } else if (val) {
+          delEstText.innerHTML = lang() === 'kk'
+            ? '<strong>Қазақстан бойынша жеткізу:</strong> Тегін (0 ₸) · <strong>1–3 жұмыс күні</strong> (СДЭК)'
+            : '<strong>Доставка по Казахстану:</strong> Бесплатно (0 ₸) · <strong>1–3 рабочих дня</strong> (СДЭК до двери/ПВЗ)';
+        } else {
+          delEstText.innerHTML = lang() === 'kk'
+            ? '<strong>Жеткізу:</strong> Қазақстан бойынша — Тегін (0 ₸) · Астанада — бүгін, басқа қалаларға — 1–3 күн'
+            : '<strong>Доставка:</strong> По Казахстану — Бесплатно (0 ₸) · По Астане — сегодня, в другие города — 1–3 дня';
+        }
+      }
+      if (cityInput) {
+        cityInput.addEventListener('input', updateDeliveryCalc);
+        cityInput.addEventListener('change', updateDeliveryCalc);
+        updateDeliveryCalc();
+      }
 
       const validatePhone = bindPhone(phoneInput, lang());
 
@@ -966,7 +1006,7 @@
       const kaspiBtn = document.getElementById('modalKaspiPayBtn');
       const kaspiText = document.getElementById('modalKaspiPayText');
 
-      if(orderNoEl) orderNoEl.textContent = `Заказ № ${orderData.orderId} (${Number(orderData.totalAmount || 0).toLocaleString('ru-RU')} тг)`;
+      if(orderNoEl) orderNoEl.textContent = `Заказ № ${orderData.orderId} (${Number(orderData.totalAmount || 0).toLocaleString('ru-RU')} ₸)`;
 
       if(kaspiText && orderData.totalAmount) {
         const amtStr = Number(orderData.totalAmount || 0).toLocaleString('ru-RU');

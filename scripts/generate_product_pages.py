@@ -249,6 +249,53 @@ def storefront_header(home_html: str, language_paths: dict[str, str]) -> str:
     )
 
 
+def find_pairs_with_products(target: dict, all_products: list, limit: int = 3) -> list:
+    """Подбирает 2-4 сочетающихся изделия из того же камня/минерала или серии (Complete the look).
+    Приоритет отдается комплементарным категориям (колье -> серьги / браслет / кольцо)."""
+    t_id = target.get("id")
+    t_cat = target.get("category", "")
+    t_mats = set(m.lower().strip() for m in target.get("materials", []))
+    t_words = set(w.lower() for w in target.get("title", "").replace(",", " ").split() if len(w) > 3)
+
+    scored = []
+    for p in all_products:
+        if p.get("id") == t_id or not p.get("inStock", True):
+            continue
+        score = 0
+        p_mats = set(m.lower().strip() for m in p.get("materials", []))
+        p_words = set(w.lower() for w in p.get("title", "").replace(",", " ").split() if len(w) > 3)
+        common_mats = t_mats.intersection(p_mats)
+        score += len(common_mats) * 10
+        common_words = t_words.intersection(p_words)
+        score += len(common_words) * 3
+
+        p_cat = p.get("category", "")
+        if t_cat in ["Necklaces", "Lariats", "Chains"]:
+            if p_cat in ["Earrings", "Bracelets", "Rings"]:
+                score += 8
+        elif t_cat in ["Bracelets", "Rings"]:
+            if p_cat in ["Earrings", "Necklaces"]:
+                score += 8
+        elif t_cat == "Earrings":
+            if p_cat in ["Necklaces", "Bracelets", "Rings"]:
+                score += 8
+        elif t_cat == "Sets":
+            if p_cat in ["Rings", "Earrings", "Bracelets"]:
+                score += 5
+
+        if score > 0:
+            scored.append((score, p))
+
+    scored.sort(key=lambda x: x[0], reverse=True)
+    res = [p for _, p in scored[:limit]]
+    if len(res) < limit:
+        for p in all_products:
+            if p.get("id") != t_id and p.get("inStock", True) and p not in res:
+                res.append(p)
+                if len(res) >= limit:
+                    break
+    return res
+
 def build_product_page_html(product: dict, all_products: list, home_html: str) -> str:
     pid = product["id"]
     livi_sku = product.get("sku") or get_livi_sku(pid)
@@ -263,7 +310,9 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
     img_abs = f"{SITE_URL}/{img_rel}"
     base_rel, _ = os.path.splitext(img_rel)
     mob_img_rel = f"{base_rel}-750w.webp"
+    thumb_img_rel = f"{base_rel}-400w.webp"
     page_url = f"{SITE_URL}/product/{pid}.html"
+    instagram_url = html.escape(product.get("instagram_url") or "https://www.instagram.com/livi_jwl/")
     kz_page_url = f"{SITE_URL}/kz/product/{pid}.html"
     uz_page_url = f"{SITE_URL}/uz/product/{pid}.html"
 
@@ -359,11 +408,12 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
         r_img = "/" + rp["image"].lstrip("/")
         r_base, _ = os.path.splitext(r_img)
         r_mob = f"{r_base}-750w.webp"
+        r_thumb = f"{r_base}-400w.webp"
         r_alt = html.escape(build_clean_alt(rp))
         r_cat = html.escape(rp.get("category") or "")
         related_cards_html.append(f"""      <article class="card" data-rel-id="{r_id}" data-rel-title="{r_title}" data-rel-price="{r_price_num}" data-rel-category="{r_cat}">
         <a href="/product/{r_id}.html" class="card-img-wrap" style="display:block;">
-          <img src="{r_img}" srcset="{r_mob} 750w, {r_img} 1440w" sizes="(max-width: 640px) 50vw, 25vw" alt="{r_alt}" loading="lazy" decoding="async" width="600" height="800">
+          <img src="{r_img}" srcset="{r_thumb} 400w, {r_mob} 750w, {r_img} 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="{r_alt}" loading="lazy" decoding="async" width="600" height="800">
         </a>
         <div class="body">
           <div class="title"><a href="/product/{r_id}.html" class="card-title-link">{r_title}</a></div>
@@ -550,6 +600,79 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
         if opts_summary:
             bundle_badge_html = f'        <div class="bundle-breakdown-badge">В комплекте: {html.escape(opts_summary)} (можно приобрести отдельно)</div>\n'
 
+    # D4. Быстрые чипсы характеристик под ценой (длина / фурнитура)
+    quick_chips = []
+    length_val = specs.get("length_size")
+    if length_val and length_val != "Уточнить у мастера":
+        quick_chips.append(f'<span class="quick-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21.3 8.7 8.7 21.3a1 1 0 0 1-1.4 0l-6-6a1 1 0 0 1 0-1.4L13.9 1.3a1 1 0 0 1 1.4 0l6 6a1 1 0 0 1 0 1.4Z"/></svg> {html.escape(length_val)}</span>')
+    hardware_val = specs.get("hardware")
+    if hardware_val:
+        quick_chips.append(f'<span class="quick-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> {html.escape(hardware_val)}</span>')
+    quick_chips_html = f'        <div class="product-quick-chips">\n          ' + "\n          ".join(quick_chips) + '\n        </div>\n' if quick_chips else ""
+
+    trust_badges_html = """        <div class="product-trust-badges">
+          <div class="trust-badge-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span>Сегодня по Астане при заказе до 16:00</span>
+          </div>
+          <div class="trust-badge-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><polyline points="3 3 3 8 8 8"></polyline></svg>
+            <span>Обмен 14 дней</span>
+          </div>
+          <div class="trust-badge-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+            <span>Подарочная шкатулка</span>
+          </div>
+        </div>\n"""
+
+    # D4. Блок «С этим носят» (Complete the look) — 2–3 изделия того же камня/серии
+    pairs = find_pairs_with_products(product, all_products, limit=3)
+    pairs_cards = []
+    for pr in pairs:
+        pr_id = pr["id"]
+        pr_title = html.escape(pr["title"].strip())
+        pr_price_num = int(pr.get("price") or 0)
+        pr_price_fmt = format_price_ru(pr_price_num)
+        pr_img = "/" + pr["image"].lstrip("/")
+        pr_base, _ = os.path.splitext(pr_img)
+        pr_thumb = f"{pr_base}-400w.webp"
+        pr_mob = f"{pr_base}-750w.webp"
+        pr_alt = html.escape(build_clean_alt(pr))
+        pairs_cards.append(f"""          <article class="pair-card" data-id="{pr_id}">
+            <a href="/product/{pr_id}.html" class="pair-img-link">
+              <img src="{pr_thumb}" srcset="{pr_thumb} 400w, {pr_mob} 750w, {pr_img} 1440w" sizes="140px" alt="{pr_alt}" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
+            </a>
+            <a href="/product/{pr_id}.html" class="pair-title">{pr_title}</a>
+            <div class="pair-price">{pr_price_fmt} ₸</div>
+            <button type="button" class="pair-add-btn" data-id="{pr_id}" data-title="{pr_title}" data-price="{pr_price_num}" data-image="{pr_img}" data-url="/product/{pr_id}.html">+ Добавить</button>
+          </article>""")
+    pairs_block_html = f"""        <section class="product-pairs-with" aria-label="С этим носят">
+          <h3 class="product-pairs-title">С этим носят</h3>
+          <div class="pairs-grid">
+{"\n".join(pairs_cards)}
+          </div>
+        </section>\n""" if pairs_cards else ""
+
+    # D5. Рекомендации для мини-корзины
+    mini_rec_items = []
+    for mr in pairs[:2]:
+        mr_id = mr["id"]
+        mr_title = html.escape(mr["title"].strip())
+        mr_price_num = int(mr.get("price") or 0)
+        mr_price_fmt = format_price_ru(mr_price_num)
+        mr_img = "/" + mr["image"].lstrip("/")
+        mr_base, _ = os.path.splitext(mr_img)
+        mr_thumb = f"{mr_base}-400w.webp"
+        mini_rec_items.append(f"""          <div class="mini-rec-card">
+            <img src="{mr_thumb}" alt="{mr_title}" width="48" height="64" class="mini-rec-img" loading="lazy">
+            <div class="mini-rec-info">
+              <div class="mini-rec-title">{mr_title}</div>
+              <div class="mini-rec-price">{mr_price_fmt} ₸</div>
+            </div>
+            <button type="button" class="mini-rec-add" data-id="{mr_id}" data-title="{mr_title}" data-price="{mr_price_num}" data-image="{mr_img}" data-url="/product/{mr_id}.html">+ Добавить</button>
+          </div>""")
+    mini_rec_html = "\n".join(mini_rec_items)
+
     # Воздушный абзац описания (без сырых ценников комплекта в начале)
     about_text = description
     m_split = re.search(r'(?:сетом|отдельно)\.\s*(.*)', description, flags=re.S | re.I)
@@ -686,14 +809,22 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
 
     <div class="product-detail-grid">
       <div class="product-gallery">
-        <img src="/{img_rel}" srcset="/{mob_img_rel} 750w, /{img_rel} 1440w" sizes="(max-width: 640px) 100vw, 50vw" alt="{html.escape(alt_text)}" width="900" height="1200" fetchpriority="high" decoding="async" />
+        <img src="/{img_rel}" srcset="/{thumb_img_rel} 400w, /{mob_img_rel} 750w, /{img_rel} 1440w" sizes="(max-width: 640px) 100vw, 50vw" alt="{html.escape(alt_text)}" width="900" height="1200" fetchpriority="high" decoding="async" />
+        <a href="{instagram_url}" class="product-ig-btn" id="igModelBtn" target="_blank" rel="noopener" data-item-id="{pid}" aria-label="Смотреть украшение на модели в Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+          <span>Смотреть на модели в Instagram</span>
+        </a>
       </div>
 
       <div class="product-info-col">
         <div class="product-sku-badge">Артикул: {livi_sku} · В наличии · Ручная работа</div>
         <h1 class="product-h1">{html.escape(title)}</h1>
         <div class="product-price-val">{price_fmt} ₸</div>
-
+{quick_chips_html}{trust_badges_html}
 {customizer_html}
 
         <div class="product-cta-group">
@@ -710,7 +841,7 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
           ✓ Украшение добавлено в корзину! <a href="/cart.html" style="text-decoration:underline;font-weight:600;margin-left:6px;">Перейти к оформлению →</a>
         </div>
 
-{bundle_badge_html}        <!-- Блок «Об украшении» -->
+{bundle_badge_html}{pairs_block_html}        <!-- Блок «Об украшении» -->
         <section class="product-about-block" aria-label="Об украшении">
           <h2 class="product-about-title">Об украшении</h2>
           <p class="product-about-text">{html.escape(about_text)}</p>
@@ -995,10 +1126,119 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
         }}
       }} catch (e) {{}}
 
-      // Прямой переход в корзину для завершения заказа
-      setTimeout(function() {{
-        window.location.href = '/cart.html';
-      }}, 120);
+      // D5. Открываем мини-корзину без принудительного перехода
+      openMiniCart({{
+        title: bundleVal,
+        price: currentActivePrice,
+        image: PRODUCT.image
+      }});
+    }}
+
+    function openMiniCart(item) {{
+      const modal = document.getElementById('miniCartModal');
+      if (!modal) return;
+      const titleEl = document.getElementById('miniCartItemTitle');
+      const priceEl = document.getElementById('miniCartItemPrice');
+      const imgEl = document.getElementById('miniCartItemImg');
+      if (titleEl) titleEl.textContent = item.title;
+      if (priceEl) priceEl.textContent = Number(item.price).toLocaleString('ru-RU') + ' ₸';
+      if (imgEl && item.image) {{
+        const thumb = item.image.replace('.webp', '-400w.webp');
+        imgEl.src = thumb;
+      }}
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }}
+
+    function closeMiniCart() {{
+      const modal = document.getElementById('miniCartModal');
+      if (!modal) return;
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }}
+
+    const miniClose = document.getElementById('miniCartClose');
+    const miniCont = document.getElementById('miniCartContinue');
+    const miniModal = document.getElementById('miniCartModal');
+    if (miniClose) miniClose.addEventListener('click', closeMiniCart);
+    if (miniCont) miniCont.addEventListener('click', closeMiniCart);
+    if (miniModal) {{
+      miniModal.addEventListener('click', function(e) {{
+        if (e.target === miniModal) closeMiniCart();
+      }});
+    }}
+    document.addEventListener('keydown', function(e) {{
+      if (e.key === 'Escape') closeMiniCart();
+    }});
+
+    // Быстрое добавление из «С этим носят» и рекомендаций мини-корзины
+    function attachQuickAdd(btn) {{
+      btn.addEventListener('click', function(e) {{
+        e.preventDefault();
+        e.stopPropagation();
+        const pId = btn.getAttribute('data-id');
+        const pTitle = btn.getAttribute('data-title');
+        const pPrice = Number(btn.getAttribute('data-price') || 0);
+        const pImage = btn.getAttribute('data-image');
+        const pUrl = btn.getAttribute('data-url');
+        const items = readCart();
+        const idx = items.findIndex(x => x.id === pId);
+        if (idx >= 0) {{
+          items[idx].qty = Number(items[idx].qty || 1) + 1;
+        }} else {{
+          items.push({{
+            id: pId,
+            sku: pId.replace('prod_', 'LIVI-'),
+            title: pTitle,
+            price: pPrice,
+            unit: pPrice,
+            image: pImage,
+            qty: 1,
+            url: pUrl
+          }});
+        }}
+        writeCart(items);
+        btn.textContent = '✓ В корзине';
+        btn.classList.add('added');
+        try {{
+          if (typeof gtag === 'function') {{
+            gtag('event', 'add_to_cart', {{
+              currency: 'KZT',
+              value: pPrice,
+              items: [{{ item_id: pId, item_name: pTitle, price: pPrice, quantity: 1 }}],
+              transport_type: 'beacon'
+            }});
+          }}
+          if (window.fbq) {{
+            fbq('track', 'AddToCart', {{
+              content_ids: [pId],
+              content_name: pTitle,
+              content_type: 'product',
+              value: pPrice,
+              currency: 'KZT'
+            }});
+          }}
+        }} catch(err) {{}}
+      }});
+    }}
+    document.querySelectorAll('.pair-add-btn, .mini-rec-add').forEach(attachQuickAdd);
+
+    // D3. Трекинг клика по кнопке Instagram на модели
+    const igBtn = document.getElementById('igModelBtn');
+    if (igBtn) {{
+      igBtn.addEventListener('click', function() {{
+        try {{
+          if (typeof gtag === 'function') {{
+            gtag('event', 'instagram_click', {{
+              item_id: PRODUCT.id,
+              item_name: PRODUCT.title,
+              transport_type: 'beacon'
+            }});
+          }}
+        }} catch(e) {{}}
+      }});
     }}
 
     if (addToCartBtn) addToCartBtn.addEventListener('click', handleAddToCart);
@@ -1118,6 +1358,35 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
     if (yrEl) yrEl.textContent = new Date().getFullYear();
     updateBadge();
   </script>
+  <!-- Mini-Cart Modal (D5) -->
+  <div id="miniCartModal" class="mini-cart-backdrop" style="display:none;" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="miniCartTitle">
+    <div class="mini-cart-dialog">
+      <div class="mini-cart-header">
+        <div class="mini-cart-title" id="miniCartTitle">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" style="color:var(--gold-text);"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Добавлено в корзину</span>
+        </div>
+        <button type="button" class="mini-cart-close" id="miniCartClose" aria-label="Закрыть">✕</button>
+      </div>
+      <div class="mini-cart-added-item">
+        <img id="miniCartItemImg" src="/{thumb_img_rel}" alt="" width="56" height="74" class="mini-cart-item-img">
+        <div class="mini-cart-item-info">
+          <div id="miniCartItemTitle" class="mini-cart-item-title">{html.escape(title)}</div>
+          <div id="miniCartItemPrice" class="mini-cart-item-price">{price_fmt} ₸</div>
+        </div>
+      </div>
+      <div class="mini-cart-actions">
+        <a href="/cart.html" class="btn primary mini-cart-btn-checkout">Оформить заказ →</a>
+        <button type="button" class="btn outline mini-cart-btn-continue" id="miniCartContinue">Продолжить покупки</button>
+      </div>
+      <div class="mini-cart-recs">
+        <div class="mini-cart-recs-title">С этим украшением рекомендуем:</div>
+        <div class="mini-rec-list">
+{mini_rec_html}
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
 """
@@ -1133,7 +1402,13 @@ def build_static_card_html(product: dict, indent: str = "    ", is_first_row: bo
     cat = html.escape(product.get("category") or "")
     base_img, _ = os.path.splitext(img)
     mob_img = f"{base_img}-750w.webp"
-    srcset_attr = f' srcset="/{mob_img} 750w, /{img} 1440w" sizes="(max-width: 768px) 50vw, 300px"' if os.path.exists(mob_img) else ""
+    thumb_img = f"{base_img}-400w.webp"
+    if os.path.exists(thumb_img):
+        srcset_attr = f' srcset="/{thumb_img} 400w, /{mob_img} 750w, /{img} 1440w" sizes="(max-width: 768px) 50vw, 300px"'
+    elif os.path.exists(mob_img):
+        srcset_attr = f' srcset="/{mob_img} 750w, /{img} 1440w" sizes="(max-width: 768px) 50vw, 300px"'
+    else:
+        srcset_attr = ""
     loading_attr = 'loading="eager" fetchpriority="high"' if priority_high else ('loading="eager"' if is_first_row else 'loading="lazy"')
     return (
         f'{indent}<article class="card" data-id="{pid}">\n'

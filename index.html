@@ -40,7 +40,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=3">
   <!-- Preload Mobile LCP Hero Image -->
-  <link rel="preload" as="image" href="/assets/hero-kole-iz-naturalnogo-zhemchuga-80000-750w.webp" imagesrcset="/assets/hero-kole-iz-naturalnogo-zhemchuga-80000-750w.webp 750w, /assets/hero-kole-iz-naturalnogo-zhemchuga-80000.webp 1440w" imagesizes="(max-width: 768px) 100vw, 1440px" fetchpriority="high">
+  <link rel="preload" as="image" href="/assets/hero-kole-iz-naturalnogo-zhemchuga-80000-750w.webp" imagesrcset="/assets/hero-kole-iz-naturalnogo-zhemchuga-80000-750w.webp 750w, /assets/hero-kole-iz-naturalnogo-zhemchuga-80000-1080w.webp 1080w, /assets/hero-kole-iz-naturalnogo-zhemchuga-80000.webp 1440w" imagesizes="(max-width: 768px) 100vw, 1440px" fetchpriority="high">
   <script src="/scripts/storefront-menu.js" defer></script>
 
   <!-- Icons & Manifest (robust for search) -->
@@ -251,7 +251,10 @@
           </div>
         </details>
         <a class="storefront-menu-feature storefront-desktop" href="/ukrasheniya-iz-barochnogo-zhemchuga.html">
-          <img src="/assets/hero-kole-iz-naturalnogo-zhemchuga-80000-750w.webp" alt="Барочный жемчуг" width="750" height="1000" loading="lazy">
+          <picture>
+            <source media="(min-width: 769px)" srcset="/assets/hero-kole-iz-naturalnogo-zhemchuga-80000-750w.webp">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Барочный жемчуг" width="750" height="1000" loading="lazy">
+          </picture>
           Барочный жемчуг <span aria-hidden="true">↗</span>
         </a>
         <div class="storefront-menu-service">
@@ -271,7 +274,7 @@
   <main>
     <section class="storefront-cover">
       <img class="storefront-cover-photo" src="/assets/hero-kole-iz-naturalnogo-zhemchuga-80000.webp"
-           srcset="/assets/hero-kole-iz-naturalnogo-zhemchuga-80000-750w.webp 750w, /assets/hero-kole-iz-naturalnogo-zhemchuga-80000.webp 1440w"
+           srcset="/assets/hero-kole-iz-naturalnogo-zhemchuga-80000-750w.webp 750w, /assets/hero-kole-iz-naturalnogo-zhemchuga-80000-1080w.webp 1080w, /assets/hero-kole-iz-naturalnogo-zhemchuga-80000.webp 1440w"
            sizes="(max-width: 768px) 100vw, 1440px"
            width="1440" height="1920" alt="Колье с барочной подвеской — Livi Jewelry" fetchpriority="high" loading="eager" decoding="async">
       <div class="storefront-cover-content">
@@ -304,28 +307,28 @@
       </nav>
     <div id="featGrid" class="grid" aria-live="polite">
       <article class="card" data-id="prod_01">
-        <a href="/product/prod_01.html" class="card-img-wrap"><img src="assets/kole-iz-naturalnogo-zhemchuga-80000.webp" srcset="/assets/kole-iz-naturalnogo-zhemchuga-80000-750w.webp 750w, /assets/kole-iz-naturalnogo-zhemchuga-80000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из натурального жемчуга с барочной подвеской — авторская ручная работа (Натуральный жемчуг, Барочный жемчуг, Ювелирный сплав), Livi Jewelry" loading="eager" fetchpriority="high" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_01.html" class="card-img-wrap"><img src="assets/kole-iz-naturalnogo-zhemchuga-80000.webp" srcset="/assets/kole-iz-naturalnogo-zhemchuga-80000-400w.webp 400w, /assets/kole-iz-naturalnogo-zhemchuga-80000-750w.webp 750w, /assets/kole-iz-naturalnogo-zhemchuga-80000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из натурального жемчуга с барочной подвеской — авторская ручная работа (Натуральный жемчуг, Барочный жемчуг, Ювелирный сплав), Livi Jewelry" loading="eager" fetchpriority="high" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_01.html" class="card-title-link" data-id="prod_01" data-title="Колье из натурального жемчуга с барочной подвеской" data-price="80000" data-category="Necklaces">Колье из натурального жемчуга с барочной подвеской</a></div>
           <div class="price">80 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_06">
-        <a href="/product/prod_06.html" class="card-img-wrap"><img src="assets/braslet-iz-malakhita-25000.webp" srcset="/assets/braslet-iz-malakhita-25000-750w.webp 750w, /assets/braslet-iz-malakhita-25000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Браслет из малахита — авторская ручная работа (Натуральный малахит, Ювелирный сплав, Позолота), Livi Jewelry" loading="eager" fetchpriority="high" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_06.html" class="card-img-wrap"><img src="assets/braslet-iz-malakhita-25000.webp" srcset="/assets/braslet-iz-malakhita-25000-400w.webp 400w, /assets/braslet-iz-malakhita-25000-750w.webp 750w, /assets/braslet-iz-malakhita-25000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Браслет из малахита — авторская ручная работа (Натуральный малахит, Ювелирный сплав, Позолота), Livi Jewelry" loading="eager" fetchpriority="high" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_06.html" class="card-title-link" data-id="prod_06" data-title="Браслет из малахита" data-price="25000" data-category="Bracelets">Браслет из малахита</a></div>
           <div class="price">25 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_11">
-        <a href="/product/prod_11.html" class="card-img-wrap"><img src="assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp" srcset="/assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000-750w.webp 750w, /assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из аметиста и розового кварца, серьги из аметиста — авторская ручная работа (Натуральный аметист, Розовый кварц, Ювелирный сплав), Livi Jewelry" loading="eager" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_11.html" class="card-img-wrap"><img src="assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp" srcset="/assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000-400w.webp 400w, /assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000-750w.webp 750w, /assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из аметиста и розового кварца, серьги из аметиста — авторская ручная работа (Натуральный аметист, Розовый кварц, Ювелирный сплав), Livi Jewelry" loading="eager" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_11.html" class="card-title-link" data-id="prod_11" data-title="Колье из аметиста и розового кварца, серьги из аметиста" data-price="61000" data-category="Sets">Колье из аметиста и розового кварца, серьги из аметиста</a></div>
           <div class="price">61 000 ₸</div>
         </div>
       </article>
       <article class="card" data-id="prod_24">
-        <a href="/product/prod_24.html" class="card-img-wrap"><img src="assets/kole-iz-zhemchuga-i-lazurita-40000.webp" srcset="/assets/kole-iz-zhemchuga-i-lazurita-40000-750w.webp 750w, /assets/kole-iz-zhemchuga-i-lazurita-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из жемчуга и лазурита — авторская ручная работа (Натуральный жемчуг, Натуральный лазурит, Ювелирный сплав), Livi Jewelry" loading="eager" decoding="async" width="600" height="800"></a>
+        <a href="/product/prod_24.html" class="card-img-wrap"><img src="assets/kole-iz-zhemchuga-i-lazurita-40000.webp" srcset="/assets/kole-iz-zhemchuga-i-lazurita-40000-400w.webp 400w, /assets/kole-iz-zhemchuga-i-lazurita-40000-750w.webp 750w, /assets/kole-iz-zhemchuga-i-lazurita-40000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из жемчуга и лазурита — авторская ручная работа (Натуральный жемчуг, Натуральный лазурит, Ювелирный сплав), Livi Jewelry" loading="eager" decoding="async" width="600" height="800"></a>
         <div class="body">
           <div class="title"><a href="/product/prod_24.html" class="card-title-link" data-id="prod_24" data-title="Колье из жемчуга и лазурита" data-price="40000" data-category="Necklaces">Колье из жемчуга и лазурита</a></div>
           <div class="price">40 000 ₸</div>

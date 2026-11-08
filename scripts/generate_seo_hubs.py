@@ -1084,9 +1084,13 @@ def generate_hub_page(hub, products):
             rec_badge = '<div style="font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:4px;">Рекомендуемые изделия из коллекции</div>'
 
         alt_str = clean_attr(build_clean_alt(p))
+        pimg_base, _ = os.path.splitext(pimg_rel)
+        pimg_thumb = f"{pimg_base}-400w.webp"
+        pimg_mob = f"{pimg_base}-750w.webp"
+        srcset_attr = f' srcset="/{pimg_thumb} 400w, /{pimg_mob} 750w, /{pimg_rel} 1440w" sizes="(max-width: 768px) 50vw, 300px"'
         cards_html.append(f"""        <article class="card" data-id="{pid}" data-name="{clean_attr(ptitle)}" data-price="{pprice}" data-category="{clean_attr(p.get('category', 'Necklaces'))}" onclick="if(!event.target.closest('a'))location.href='/product/{pid}.html'">
           <div class="card-img-wrap">
-            <img src="/{pimg_rel}" alt="{alt_str}" {"loading=\"eager\" fetchpriority=\"high\"" if idx <= 2 else ("loading=\"eager\"" if idx <= 8 else "loading=\"lazy\"")} decoding="async" width="600" height="800">
+            <img src="/{pimg_rel}"{srcset_attr} alt="{alt_str}" {"loading=\"eager\" fetchpriority=\"high\"" if idx <= 2 else ("loading=\"eager\"" if idx <= 8 else "loading=\"lazy\"")} decoding="async" width="600" height="800">
           </div>
           <div class="body">
             {rec_badge}
@@ -1540,9 +1544,13 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
         item_list_elements.append(build_product_schema_for_itemlist(p, idx, is_kz=True, kz_title=ptitle_kz, kz_desc=pdesc_kz))
 
         alt_str = clean_attr(f"{ptitle_kz} — авторлық қолөнер туындысы, Livi Jewelry")
+        pimg_base, _ = os.path.splitext(pimg_rel)
+        pimg_thumb = f"{pimg_base}-400w.webp"
+        pimg_mob = f"{pimg_base}-750w.webp"
+        srcset_attr = f' srcset="/{pimg_thumb} 400w, /{pimg_mob} 750w, /{pimg_rel} 1440w" sizes="(max-width: 768px) 50vw, 300px"'
         cards_html.append(f"""        <article class="card" data-id="{pid}" data-name="{clean_attr(ptitle_kz)}" data-price="{pprice}" data-category="{clean_attr(p.get('category', 'Necklaces'))}" onclick="if(!event.target.closest('a'))location.href='/kz/product/{pid}.html'">
           <div class="card-img-wrap">
-            <img src="/{pimg_rel}" alt="{alt_str}" {"loading=\"eager\" fetchpriority=\"high\"" if idx <= 2 else ("loading=\"eager\"" if idx <= 8 else "loading=\"lazy\"")} decoding="async" width="600" height="800">
+            <img src="/{pimg_rel}"{srcset_attr} alt="{alt_str}" {"loading=\"eager\" fetchpriority=\"high\"" if idx <= 2 else ("loading=\"eager\"" if idx <= 8 else "loading=\"lazy\"")} decoding="async" width="600" height="800">
           </div>
           <div class="body">
             <h3 class="title"><a href="/kz/product/{pid}.html" class="card-title-link">{ptitle_kz}</a></h3>
@@ -1989,10 +1997,13 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
         item_list_elements.append(build_product_schema_for_itemlist(p, idx, is_uz=True, uz_title=ptitle_uz, uz_desc=pdesc_uz))
 
         alt_str = clean_attr(f"{ptitle_uz} — mualliflik qoʻl mehnati buyumi, Livi Jewelry")
-
+        pimg_base, _ = os.path.splitext(pimg_rel)
+        pimg_thumb = f"{pimg_base}-400w.webp"
+        pimg_mob = f"{pimg_base}-750w.webp"
+        srcset_attr = f' srcset="/{pimg_thumb} 400w, /{pimg_mob} 750w, /{pimg_rel} 1440w" sizes="(max-width: 768px) 50vw, 300px"'
         cards_html.append(f"""        <article class="card" data-id="{pid}" data-name="{clean_attr(ptitle_uz)}" data-price="{pprice}" data-category="{clean_attr(p.get('category', 'Necklaces'))}" onclick="if(!event.target.closest('a'))location.href='/uz/product/{pid}.html'">
           <div class="card-img-wrap">
-            <img src="/{pimg_rel}" alt="{alt_str}" {"loading=\"eager\" fetchpriority=\"high\"" if idx <= 2 else ("loading=\"eager\"" if idx <= 8 else "loading=\"lazy\"")} decoding="async" width="600" height="800">
+            <img src="/{pimg_rel}"{srcset_attr} alt="{alt_str}" {"loading=\"eager\" fetchpriority=\"high\"" if idx <= 2 else ("loading=\"eager\"" if idx <= 8 else "loading=\"lazy\"")} decoding="async" width="600" height="800">
           </div>
           <div class="body">
             <h3 class="title"><a href="/uz/product/{pid}.html" class="card-title-link">{ptitle_uz}</a></h3>
@@ -2397,10 +2408,14 @@ def update_sergi_page(products: list):
                 break
         earring_price_fmt = f"{earring_price:,}".replace(",", " ")
 
+        img_base, _ = os.path.splitext(img)
+        img_thumb = f"{img_base}-400w.webp"
+        img_mob = f"{img_base}-750w.webp"
+        srcset_attr = f' srcset="/{img_thumb} 400w, /{img_mob} 750w, /{img} 1440w" sizes="(max-width: 768px) 50vw, 300px"'
         cards_html.append(f"""        <!-- Product {idx} -->
         <article class="card" onclick="if(!event.target.closest('a'))location.href='/product/{pid}.html'">
           <div class="card-img-wrap">
-            <img src="/{img}" alt="{alt_str}" {"loading=\"eager\" fetchpriority=\"high\"" if idx <= 4 else "loading=\"lazy\""} decoding="async" width="600" height="800">
+            <img src="/{img}"{srcset_attr} alt="{alt_str}" {"loading=\"eager\" fetchpriority=\"high\"" if idx <= 4 else "loading=\"lazy\""} decoding="async" width="600" height="800">
           </div>
           <div class="body">
             <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold);margin-bottom:4px;">Серьги доступны отдельно или в комплекте</div>
