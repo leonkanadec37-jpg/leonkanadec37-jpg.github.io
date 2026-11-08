@@ -2014,9 +2014,7 @@ footer {
 
 /* Background scroll lock for mobile menu and modal dialogs */
 html.drawer-open,
-body.drawer-open,
-html.modal-open,
-body.modal-open {
+html.modal-open {
   overflow: hidden !important;
   touch-action: none;
 }
@@ -4064,9 +4062,16 @@ main.wrap > h1 {
   }
 
   .storefront-menu {
+    position: fixed;
+    top: var(--storefront-header-height);
+    left: 0;
+    bottom: 0;
     width: min(88vw, 370px);
     height: calc(100dvh - var(--storefront-header-height));
+    overflow-y: auto;
+    overscroll-behavior: contain;
     border-right: 1px solid var(--line);
+    z-index: 1;
   }
 
   .storefront-menu-inner {
