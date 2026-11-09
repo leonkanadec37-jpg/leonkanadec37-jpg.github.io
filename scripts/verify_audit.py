@@ -31,6 +31,7 @@ AW_CONV_LABEL = "AW-16793974126/MuJ_CObHup8bEO7q_sc-"
 FB_PIXEL_1 = "199604456030882"
 # FB_PIXEL_2 removed
 GOOGLE_VERIFICATION = "qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0"
+PINTEREST_VERIFICATION = "38fee8822fe4b1d70bb1f72021d28df5"
 
 ALL_21_HUBS = [
     "kolye-iz-zhemchuga.html",
@@ -593,11 +594,11 @@ def run_audit():
     for fname in ["index.html", "shop.html", "kz/index.html", "kz/shop.html"]:
         with open(fname, "r", encoding="utf-8") as f:
             c = f.read()
-        if GA_ID not in c or AW_ID not in c or FB_PIXEL_1 not in c or GOOGLE_VERIFICATION not in c:
+        if GA_ID not in c or AW_ID not in c or FB_PIXEL_1 not in c or GOOGLE_VERIFICATION not in c or PINTEREST_VERIFICATION not in c:
             fail(f"32. {fname}: отсутствуют токены аналитики GA4/Ads/Meta/GSC")
             analytics_ok = False
     if analytics_ok:
-        ok("32. Аналитика: Коды GA4, Google Ads, Meta Pixels и верификация GSC присутствуют на всех витринах и карточках")
+        ok("32. Аналитика: Коды GA4, Google Ads, Meta Pixels и верификация GSC/Pinterest присутствуют на всех витринах и карточках")
 
     with open("robots.txt", "r", encoding="utf-8") as f:
         rb_txt = f.read()

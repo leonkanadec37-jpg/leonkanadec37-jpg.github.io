@@ -47,6 +47,7 @@ FB_PIXEL_1 = "199604456030882"
 # FB_PIXEL_2 removed
 GOOGLE_VERIFICATION = "qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0"
 FB_DOMAIN_VERIFICATION = "lrr1e3sbmseisnpm2nclqko8w1rfcw"
+PINTEREST_VERIFICATION = "38fee8822fe4b1d70bb1f72021d28df5"
 
 KZ_FOOTER_HTML = """  <footer id="contact" class="site-footer">
     <div class="wrap">
@@ -849,6 +850,7 @@ def generate_kz_index(products_kz: list) -> str:
   <link rel="alternate" hreflang="x-default" href="{SITE_URL}/" />
   <meta name="google-site-verification" content="{GOOGLE_VERIFICATION}" />
   <meta name="facebook-domain-verification" content="{FB_DOMAIN_VERIFICATION}" />
+  <meta name="p:domain_verify" content="{PINTEREST_VERIFICATION}" />
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="kk_KZ">
@@ -1263,6 +1265,7 @@ def generate_kz_shop(products_kz: list) -> str:
   <link rel="alternate" hreflang="x-default" href="{SITE_URL}/shop.html" />
   <meta name="google-site-verification" content="{GOOGLE_VERIFICATION}" />
   <meta name="facebook-domain-verification" content="{FB_DOMAIN_VERIFICATION}" />
+  <meta name="p:domain_verify" content="{PINTEREST_VERIFICATION}" />
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="kk_KZ">
