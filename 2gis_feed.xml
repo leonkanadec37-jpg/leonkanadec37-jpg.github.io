@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-11-09 09:00">
+<yml_catalog date="2026-11-09 10:00">
   <shop>
     <name>Livi Jewelry</name>
     <company>Livi Jewelry — Авторские украшения ручной работы</company>
@@ -721,7 +721,7 @@
       <offer id="prod_80" available="true">
         <name>Серьги пусеты</name>
         <url>https://livijewelry.kz/product/prod_80.html</url>
-        <price>16000</price>
+        <price>17000</price>
         <currencyId>KZT</currencyId>
         <categoryId>3</categoryId>
         <picture>https://livijewelry.kz/assets/sergi-pusety-16000.webp</picture>
