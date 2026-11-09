@@ -580,6 +580,32 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
         # (по умолчанию A-Z, по дате изменения и Z-A) и дополнительно парсим массив window['_DRIVE_ivd'].
         current_drive_ids = set()
         drive_items = []
+        # Извлекаем ID папки
+        folder_match = re.search(r'folders/([a-zA-Z0-9_-]{25,})', drive_url) or re.search(r'id=([a-zA-Z0-9_-]{25,})', drive_url)
+        folder_id = folder_match.group(1) if folder_match else None
+
+        # Способ 1 (Основной и надежный): embeddedfolderview (отдает до 500 файлов без пагинационного урезания)
+        if folder_id:
+            embed_url = f"https://drive.google.com/embeddedfolderview?id={folder_id}"
+            try:
+                r_embed = requests.get(embed_url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}, timeout=20)
+                r_embed.encoding = 'utf-8'
+                if r_embed.status_code == 200:
+                    soup_embed = BeautifulSoup(r_embed.text, 'html.parser')
+                    for a in soup_embed.find_all('a'):
+                        href = a.get('href', '')
+                        file_title = a.get_text(strip=True)
+                        m_file = re.match(r"https://drive\.google\.com/file/d/([-\w]{25,})/view", href)
+                        if m_file:
+                            fid = m_file.group(1)
+                            if fid not in current_drive_ids and file_title:
+                                current_drive_ids.add(fid)
+                                drive_items.append((fid, file_title))
+                    print(f"[INFO] Извлечено {len(drive_items)} файлов через embeddedfolderview.")
+            except Exception as e:
+                print(f"[WARN] Ошибка извлечения через embeddedfolderview: {e}")
+
+        # Способ 2 (Резервный): парсинг SSR и window['_DRIVE_ivd'] с разными сортировками
         base_clean = drive_url.split('?')[0]
         sort_variants = ['', '?sort=13&direction=a', '?sort=7&direction=d', '?sort=13&direction=d']
 
@@ -622,13 +648,14 @@ def sync_products(drive_url=None, local_folder=None, auto_commit=False, auto_pus
                                 label = al
                                 break
                     clean_title = label.replace(' Image Shared', '').replace(' Shared', '').strip()
-                    if clean_title:
+                    if clean_title and fid not in current_drive_ids:
                         current_drive_ids.add(fid)
                         drive_items.append((fid, clean_title))
             except Exception as e:
                 print(f"[WARN] Не удалось извлечь метаданные через web ({sp}): {e}")
 
         # Собираем кандидатов для проверки
+        print(f"[INFO] Всего уникальных файлов обнаружено на Диске: {len(drive_items)}")
         existing_by_drive_id = {p['drive_id']: p for p in products if p.get('drive_id')}
 
         for fid, raw_title in drive_items:

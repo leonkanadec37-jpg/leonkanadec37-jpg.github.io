@@ -491,7 +491,7 @@
       <g:link>https://livijewelry.kz/product/prod_16.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/komplekt-iz-naturalnoy-biryuzy-50000.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>out_of_stock</g:availability>
+      <g:availability>in_stock</g:availability>
       <g:price>50000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -875,7 +875,7 @@
       <g:link>https://livijewelry.kz/product/prod_28.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/komplekt-komplekt-iz-biryuzy-kole-braslet-sergi-koltso-91000.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>out_of_stock</g:availability>
+      <g:availability>in_stock</g:availability>
       <g:price>91000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -1067,7 +1067,7 @@
       <g:link>https://livijewelry.kz/product/prod_34.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/sergi-15000.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>out_of_stock</g:availability>
+      <g:availability>in_stock</g:availability>
       <g:price>15000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -1099,7 +1099,7 @@
       <g:link>https://livijewelry.kz/product/prod_35.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/sergi-iz-akva-kvartsa-12000.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>out_of_stock</g:availability>
+      <g:availability>in_stock</g:availability>
       <g:price>12000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -1131,7 +1131,7 @@
       <g:link>https://livijewelry.kz/product/prod_36.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/sergi-iz-dolmatinovoy-yashmy-16000.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>out_of_stock</g:availability>
+      <g:availability>in_stock</g:availability>
       <g:price>16000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -1163,7 +1163,7 @@
       <g:link>https://livijewelry.kz/product/prod_37.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/sergi-iz-zhadeita-14000.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>out_of_stock</g:availability>
+      <g:availability>in_stock</g:availability>
       <g:price>14000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -1195,7 +1195,7 @@
       <g:link>https://livijewelry.kz/product/prod_38.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/sergi-iz-zhemchuga-mayorka-16000.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>out_of_stock</g:availability>
+      <g:availability>in_stock</g:availability>
       <g:price>16000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -1259,7 +1259,7 @@
       <g:link>https://livijewelry.kz/product/prod_40.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/sergi-pusety-8500.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
+      <g:availability>out_of_stock</g:availability>
       <g:price>8500.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -1291,7 +1291,7 @@
       <g:link>https://livijewelry.kz/product/prod_41.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/sergi-pusety-serdtsa-15000.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>out_of_stock</g:availability>
+      <g:availability>in_stock</g:availability>
       <g:price>15000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -1323,7 +1323,7 @@
       <g:link>https://livijewelry.kz/product/prod_42.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/sergi-s-zhemchugom-mayorka-12000.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>out_of_stock</g:availability>
+      <g:availability>in_stock</g:availability>
       <g:price>12000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -2722,6 +2722,134 @@
       <g:custom_label_1>Catalog_Standard</g:custom_label_1>
       <g:custom_label_2>Earrings</g:custom_label_2>
       <g:custom_label_3>Pearl</g:custom_label_3>
+      <g:custom_label_4>Handmade_KZ</g:custom_label_4>
+    </item>
+    <item>
+      <g:id>prod_95</g:id>
+      <g:title>Серьги — ручная работа (ювелирный сплав) | Livi Jewelry</g:title>
+      <g:description>Дизайнерские серьги ручной работы: Серьги. Выполнены из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенные ювелирные швензы со стойким защитным покрытием не темнеют и комфортны для чувствительной кожи. Комфортный легкий вес для ежедневной носки и быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry. Авторское украшение ручной работы от казахстанского бренда Livi Jewelry. Материалы: Ювелирный сплав. Фирменная подарочная упаковка в комплекте. Быстрая доставка СДЭК по Астане, Алматы и всему Казахстану.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_95.html</g:link>
+      <g:image_link>https://livijewelry.kz/assets/sergi-14000.webp</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>14000.00 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>194</g:google_product_category>
+      <g:product_type>Украшения &gt; Серьги из натурального жемчуга и камней</g:product_type>
+      <g:age_group>adult</g:age_group>
+      <g:gender>female</g:gender>
+      <g:color>Серебристый</g:color>
+      <g:material>Ювелирный сплав</g:material>
+      <g:product_highlight>Натуральные камни и жемчуг ручной сборки</g:product_highlight>
+      <g:product_highlight>Гипоаллергенная фурнитура со стойким покрытием (родий / позолота)</g:product_highlight>
+      <g:product_highlight>Фирменная подарочная упаковка включена в стоимость</g:product_highlight>
+      <g:product_highlight>Доставка день-в-день по Астане и СДЭК по всему Казахстану</g:product_highlight>
+      <g:shipping>
+        <g:country>KZ</g:country>
+        <g:service>СДЭК / курьер</g:service>
+        <g:price>4000.00 KZT</g:price>
+      </g:shipping>
+      <g:custom_label_0>Tier_3_Entry_Under_35k</g:custom_label_0>
+      <g:custom_label_1>Catalog_Standard</g:custom_label_1>
+      <g:custom_label_2>Earrings</g:custom_label_2>
+      <g:custom_label_3>Pearl</g:custom_label_3>
+      <g:custom_label_4>Handmade_KZ</g:custom_label_4>
+    </item>
+    <item>
+      <g:id>prod_96</g:id>
+      <g:title>Серьги — ручная работа (ювелирный сплав) | Livi Jewelry</g:title>
+      <g:description>Дизайнерские серьги ручной работы: Серьги. Выполнены из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенные ювелирные швензы со стойким защитным покрытием не темнеют и комфортны для чувствительной кожи. Комфортный легкий вес для ежедневной носки и быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry. Авторское украшение ручной работы от казахстанского бренда Livi Jewelry. Материалы: Ювелирный сплав. Фирменная подарочная упаковка в комплекте. Быстрая доставка СДЭК по Астане, Алматы и всему Казахстану.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_96.html</g:link>
+      <g:image_link>https://livijewelry.kz/assets/sergi-15000-1.webp</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>15000.00 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>194</g:google_product_category>
+      <g:product_type>Украшения &gt; Серьги из натурального жемчуга и камней</g:product_type>
+      <g:age_group>adult</g:age_group>
+      <g:gender>female</g:gender>
+      <g:color>Серебристый</g:color>
+      <g:material>Ювелирный сплав</g:material>
+      <g:product_highlight>Натуральные камни и жемчуг ручной сборки</g:product_highlight>
+      <g:product_highlight>Гипоаллергенная фурнитура со стойким покрытием (родий / позолота)</g:product_highlight>
+      <g:product_highlight>Фирменная подарочная упаковка включена в стоимость</g:product_highlight>
+      <g:product_highlight>Доставка день-в-день по Астане и СДЭК по всему Казахстану</g:product_highlight>
+      <g:shipping>
+        <g:country>KZ</g:country>
+        <g:service>СДЭК / курьер</g:service>
+        <g:price>4000.00 KZT</g:price>
+      </g:shipping>
+      <g:custom_label_0>Tier_3_Entry_Under_35k</g:custom_label_0>
+      <g:custom_label_1>Catalog_Standard</g:custom_label_1>
+      <g:custom_label_2>Earrings</g:custom_label_2>
+      <g:custom_label_3>Pearl</g:custom_label_3>
+      <g:custom_label_4>Handmade_KZ</g:custom_label_4>
+    </item>
+    <item>
+      <g:id>prod_97</g:id>
+      <g:title>Серьги из жемчуга Майорка — ручная работа (натуральный жемчуг) | Livi Jewelry</g:title>
+      <g:description>Дизайнерские серьги ручной работы: Серьги из жемчуга Майорка. Выполнены из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенные ювелирные швензы со стойким защитным покрытием не темнеют и комфортны для чувствительной кожи. Комфортный легкий вес для ежедневной носки и быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry. Авторское украшение ручной работы от казахстанского бренда Livi Jewelry. Материалы: Натуральный жемчуг, Ювелирный сплав. Фирменная подарочная упаковка в комплекте. Быстрая доставка СДЭК по Астане, Алматы и всему Казахстану.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_97.html</g:link>
+      <g:image_link>https://livijewelry.kz/assets/sergi-iz-zhemchuga-mayorka-16000-1.webp</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>16000.00 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>194</g:google_product_category>
+      <g:product_type>Украшения &gt; Серьги из натурального жемчуга и камней</g:product_type>
+      <g:age_group>adult</g:age_group>
+      <g:gender>female</g:gender>
+      <g:color>Белый перламутр / Серебристый</g:color>
+      <g:material>Натуральный жемчуг / Ювелирный сплав</g:material>
+      <g:product_highlight>Натуральные камни и жемчуг ручной сборки</g:product_highlight>
+      <g:product_highlight>Гипоаллергенная фурнитура со стойким покрытием (родий / позолота)</g:product_highlight>
+      <g:product_highlight>Фирменная подарочная упаковка включена в стоимость</g:product_highlight>
+      <g:product_highlight>Доставка день-в-день по Астане и СДЭК по всему Казахстану</g:product_highlight>
+      <g:shipping>
+        <g:country>KZ</g:country>
+        <g:service>СДЭК / курьер</g:service>
+        <g:price>4000.00 KZT</g:price>
+      </g:shipping>
+      <g:custom_label_0>Tier_3_Entry_Under_35k</g:custom_label_0>
+      <g:custom_label_1>Catalog_Standard</g:custom_label_1>
+      <g:custom_label_2>Earrings</g:custom_label_2>
+      <g:custom_label_3>Majorica_Pearl</g:custom_label_3>
+      <g:custom_label_4>Handmade_KZ</g:custom_label_4>
+    </item>
+    <item>
+      <g:id>prod_98</g:id>
+      <g:title>Сотуар из бирюзы — ручная работа (натуральная бирюза) | Livi Jewelry</g:title>
+      <g:description>Авторское украшение ручной работы: Сотуар из бирюзы. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry. Авторское украшение ручной работы от казахстанского бренда Livi Jewelry. Материалы: Натуральная бирюза, Ювелирный сплав. Фирменная подарочная упаковка в комплекте. Быстрая доставка СДЭК по Астане, Алматы и всему Казахстану.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_98.html</g:link>
+      <g:image_link>https://livijewelry.kz/assets/sotuar-iz-biryuzy-30000.webp</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>30000.00 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>196</g:google_product_category>
+      <g:product_type>Украшения &gt; Сотуары и галстуки</g:product_type>
+      <g:age_group>adult</g:age_group>
+      <g:gender>female</g:gender>
+      <g:color>Бирюзовый / Серебристый</g:color>
+      <g:material>Натуральная бирюза / Ювелирный сплав</g:material>
+      <g:product_highlight>Натуральные камни и жемчуг ручной сборки</g:product_highlight>
+      <g:product_highlight>Гипоаллергенная фурнитура со стойким покрытием (родий / позолота)</g:product_highlight>
+      <g:product_highlight>Фирменная подарочная упаковка включена в стоимость</g:product_highlight>
+      <g:product_highlight>Доставка день-в-день по Астане и СДЭК по всему Казахстану</g:product_highlight>
+      <g:shipping>
+        <g:country>KZ</g:country>
+        <g:service>СДЭК / курьер</g:service>
+        <g:price>4000.00 KZT</g:price>
+      </g:shipping>
+      <g:custom_label_0>Tier_3_Entry_Under_35k</g:custom_label_0>
+      <g:custom_label_1>Catalog_Standard</g:custom_label_1>
+      <g:custom_label_2>Lariats</g:custom_label_2>
+      <g:custom_label_3>Turquoise</g:custom_label_3>
       <g:custom_label_4>Handmade_KZ</g:custom_label_4>
     </item>
   </channel>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<kaspi_catalog date="2026-11-09T12:30:23" xmlns="kaspiShopping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="kaspiShopping http://kaspi.kz/kaspishopping.xsd">
+<kaspi_catalog date="2026-11-09T12:59:49" xmlns="kaspiShopping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="kaspiShopping http://kaspi.kz/kaspishopping.xsd">
   <company>Livi Jewelry</company>
   <merchantid>30485133</merchantid>
   <offers>
@@ -127,7 +127,7 @@
       <model>Колье и серьги из натуральной бирюзы</model>
       <brand>Livi Jewelry</brand>
       <availabilities>
-        <availability available="no" storeId="PP1" preOrder="0"/>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
       </availabilities>
       <price>57500</price>
     </offer>
@@ -223,7 +223,7 @@
       <model>Колье из бирюзы, браслет, серьги, кольцо</model>
       <brand>Livi Jewelry</brand>
       <availabilities>
-        <availability available="no" storeId="PP1" preOrder="0"/>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
       </availabilities>
       <price>104500</price>
     </offer>
@@ -271,7 +271,7 @@
       <model>Серьги</model>
       <brand>Livi Jewelry</brand>
       <availabilities>
-        <availability available="no" storeId="PP1" preOrder="0"/>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
       </availabilities>
       <price>17000</price>
     </offer>
@@ -279,7 +279,7 @@
       <model>Серьги из аква кварца</model>
       <brand>Livi Jewelry</brand>
       <availabilities>
-        <availability available="no" storeId="PP1" preOrder="0"/>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
       </availabilities>
       <price>14000</price>
     </offer>
@@ -287,7 +287,7 @@
       <model>Серьги из далматиновой яшмы</model>
       <brand>Livi Jewelry</brand>
       <availabilities>
-        <availability available="no" storeId="PP1" preOrder="0"/>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
       </availabilities>
       <price>18500</price>
     </offer>
@@ -295,7 +295,7 @@
       <model>Серьги из жадеита</model>
       <brand>Livi Jewelry</brand>
       <availabilities>
-        <availability available="no" storeId="PP1" preOrder="0"/>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
       </availabilities>
       <price>16000</price>
     </offer>
@@ -303,7 +303,7 @@
       <model>Серьги из жемчуга Майорка</model>
       <brand>Livi Jewelry</brand>
       <availabilities>
-        <availability available="no" storeId="PP1" preOrder="0"/>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
       </availabilities>
       <price>18500</price>
     </offer>
@@ -319,7 +319,7 @@
       <model>Серьги пусеты</model>
       <brand>Livi Jewelry</brand>
       <availabilities>
-        <availability available="yes" storeId="PP1" preOrder="0"/>
+        <availability available="no" storeId="PP1" preOrder="0"/>
       </availabilities>
       <price>10000</price>
     </offer>
@@ -327,7 +327,7 @@
       <model>Серьги пусеты сердца</model>
       <brand>Livi Jewelry</brand>
       <availabilities>
-        <availability available="no" storeId="PP1" preOrder="0"/>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
       </availabilities>
       <price>17000</price>
     </offer>
@@ -335,7 +335,7 @@
       <model>Серьги с жемчугом Майорка</model>
       <brand>Livi Jewelry</brand>
       <availabilities>
-        <availability available="no" storeId="PP1" preOrder="0"/>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
       </availabilities>
       <price>14000</price>
     </offer>
@@ -682,6 +682,38 @@
         <availability available="yes" storeId="PP1" preOrder="0"/>
       </availabilities>
       <price>19500</price>
+    </offer>
+    <offer sku="LIVI-95">
+      <model>Серьги</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>16000</price>
+    </offer>
+    <offer sku="LIVI-96">
+      <model>Серьги</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>17000</price>
+    </offer>
+    <offer sku="LIVI-97">
+      <model>Серьги из жемчуга Майорка</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>18500</price>
+    </offer>
+    <offer sku="LIVI-98">
+      <model>Сотуар из бирюзы</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>34500</price>
     </offer>
   </offers>
 </kaspi_catalog>
