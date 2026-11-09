@@ -1976,7 +1976,7 @@
     </nav>
   </header>
 
-  <main class="wrap">
+  <main class="wrap catalog-main">
     <h1 data-i18n="page.heading">Каталог украшений</h1>
     <p class="catalog-subtitle" data-i18n="page.subtitle">Авторская коллекция украшений из натурального жемчуга и природных минералов</p>
 
@@ -2035,8 +2035,32 @@
             <option value="newest">Сначала новинки</option>
           </select>
         </div>
+        <div class="catalog-mobile-actions">
+          <button type="button" class="catalog-mobile-btn" id="openMobileFilterBtn" aria-label="Фильтры">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="4" y1="21" x2="4" y2="14"></line>
+              <line x1="4" y1="10" x2="4" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12" y2="3"></line>
+              <line x1="20" y1="21" x2="20" y2="16"></line>
+              <line x1="20" y1="12" x2="20" y2="3"></line>
+              <line x1="1" y1="14" x2="7" y2="14"></line>
+              <line x1="9" y1="8" x2="15" y2="8"></line>
+              <line x1="17" y1="16" x2="23" y2="16"></line>
+            </svg>
+            <span>Фильтры</span>
+            <span id="mobileFilterBadge" class="mobile-filter-badge" style="display:none">0</span>
+          </button>
+          <button type="button" class="catalog-mobile-btn" id="openMobileSortBtn" aria-label="Сортировка">
+            <span id="mobileSortLabel">Сортировка</span>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
+    <div class="catalog-active-chips" id="activeFilterChips" style="display:none"></div>
     <div class="grid" id="grid">
       <article class="card" data-id="prod_01">
         <a href="/product/prod_01.html" class="card-img-wrap"><img src="assets/kole-iz-naturalnogo-zhemchuga-80000.webp" srcset="/assets/kole-iz-naturalnogo-zhemchuga-80000-400w.webp 400w, /assets/kole-iz-naturalnogo-zhemchuga-80000-750w.webp 750w, /assets/kole-iz-naturalnogo-zhemchuga-80000.webp 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="Колье из натурального жемчуга с барочной подвеской — авторская ручная работа (Натуральный жемчуг, Барочный жемчуг, Ювелирный сплав), Livi Jewelry" loading="eager" fetchpriority="high" decoding="async" width="600" height="800"></a>
@@ -2559,7 +2583,7 @@
     </div>
     <div id="catalogError" class="empty-state" hidden style="display:none" aria-hidden="true"></div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
       <details class="hub-interlink-accordion">
         <summary>Подборки по камням и стилям</summary>
         <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
@@ -2723,6 +2747,61 @@
     </div>
   </div>
 
+  <!-- Mobile Filter Bottom Sheet Dialog (≤ 768px) -->
+  <div id="filterSheetBackdrop" class="filter-sheet-backdrop" hidden></div>
+  <div id="filterSheetModal" class="filter-sheet-modal" role="dialog" aria-modal="true" aria-labelledby="filterSheetTitle" hidden>
+    <div class="filter-sheet-dialog">
+      <div class="filter-sheet-header">
+        <h2 id="filterSheetTitle" class="filter-sheet-title">Фильтры и сортировка</h2>
+        <button type="button" id="filterSheetClose" class="filter-sheet-close" aria-label="Закрыть фильтры">✕</button>
+      </div>
+      <div class="filter-sheet-body">
+        <div class="filter-sheet-section" id="sheetSortSection">
+          <div class="filter-sheet-section-title">Сортировка</div>
+          <div class="filter-sheet-options" id="sheetSortOptions">
+            <button type="button" class="sheet-chip active" data-sort="popular">По популярности</button>
+            <button type="button" class="sheet-chip" data-sort="newest">Сначала новинки</button>
+            <button type="button" class="sheet-chip" data-sort="price_asc">Цена: по возрастанию ↑</button>
+            <button type="button" class="sheet-chip" data-sort="price_desc">Цена: по убыванию ↓</button>
+          </div>
+        </div>
+        <div class="filter-sheet-section" id="sheetPriceSection">
+          <div class="filter-sheet-section-title">Стоимость</div>
+          <div class="filter-sheet-options" id="sheetPriceOptions">
+            <button type="button" class="sheet-chip active" data-min="0" data-max="0">Все цены</button>
+            <button type="button" class="sheet-chip" data-min="0" data-max="25000">до 25 000 ₸</button>
+            <button type="button" class="sheet-chip" data-min="25000" data-max="50000">25–50 000 ₸</button>
+            <button type="button" class="sheet-chip" data-min="50000" data-max="0">от 50 000 ₸</button>
+          </div>
+        </div>
+        <div class="filter-sheet-section" id="sheetStoneSection">
+          <div class="filter-sheet-section-title">Камни и вставки</div>
+          <div class="filter-sheet-options" id="sheetStoneOptions">
+            <button type="button" class="sheet-chip active" data-stone="">Все камни</button>
+            <button type="button" class="sheet-chip" data-stone="Барочный жемчуг">Барочный жемчуг</button>
+            <button type="button" class="sheet-chip" data-stone="Малахит">Малахит</button>
+            <button type="button" class="sheet-chip" data-stone="Розовый кварц">Розовый кварц</button>
+            <button type="button" class="sheet-chip" data-stone="Гранат">Гранат</button>
+            <button type="button" class="sheet-chip" data-stone="Аметист">Аметист</button>
+            <button type="button" class="sheet-chip" data-stone="Бирюза">Бирюза</button>
+            <button type="button" class="sheet-chip" data-stone="Горный хрусталь">Горный хрусталь</button>
+            <button type="button" class="sheet-chip" data-stone="Гематит">Гематит</button>
+            <button type="button" class="sheet-chip" data-stone="Лунный камень">Лунный камень</button>
+            <button type="button" class="sheet-chip" data-stone="Жемчуг Майорка">Жемчуг Майорка</button>
+            <button type="button" class="sheet-chip" data-stone="Коралл">Коралл и Яшма</button>
+            <button type="button" class="sheet-chip" data-stone="Лазурит">Лазурит</button>
+            <button type="button" class="sheet-chip" data-stone="Тигровый глаз">Тигровый глаз</button>
+          </div>
+        </div>
+      </div>
+      <div class="filter-sheet-footer">
+        <button type="button" id="filterSheetReset" class="filter-sheet-reset-btn">Сбросить</button>
+        <button type="button" id="filterSheetApply" class="filter-sheet-apply-btn">Показать украшения</button>
+      </div>
+    </div>
+  </div>
+
+
   <script>
     /* ===== Сквозная атрибуция (UTM / GCLID / FBCLID) ===== */
     (function captureAttribution(){
@@ -2811,6 +2890,7 @@
     let currentSort = 'popular';
     let activePriceMin = 0;
     let activePriceMax = 0;
+    let activeStone = '';
 
     function pluralize(n, one, two, five) {
       n = Math.abs(n) % 100;
@@ -2943,11 +3023,12 @@
     }
 
     function renderGrid(forceRebuild = false){
-      const isDefaultView = (activeCat === 'All') && !searchQuery.trim() && (currentSort === 'popular') && (activePriceMin === 0) && (activePriceMax === 0) && (lang() === 'ru');
+      const isDefaultView = (activeCat === 'All') && !searchQuery.trim() && (currentSort === 'popular') && (activePriceMin === 0) && (activePriceMax === 0) && !activeStone && (lang() === 'ru');
       const staticCards = grid ? grid.querySelectorAll('.card, .product-card') : [];
       if(isDefaultView && staticCards.length > 0 && !forceRebuild){
         initStaticCards();
         updateCatalogCount(staticCards.length);
+        updateActiveChipsUI();
         return;
       }
       grid.innerHTML='';
@@ -2969,6 +3050,16 @@
           const sd = (p.specs && p.specs.stones_detail ? p.specs.stones_detail : '').toLowerCase();
           const sku = (p.sku || '').toLowerCase();
           return t.includes(q) || d.includes(q) || m.includes(q) || kw.includes(q) || sd.includes(q) || sku.includes(q);
+        });
+      }
+
+      if(activeStone){
+        const st = activeStone.toLowerCase();
+        items = items.filter(p => {
+          const m = (p.materials || []).join(' ').toLowerCase();
+          const t = (p.title || '').toLowerCase();
+          const sd = (p.specs && p.specs.stones_detail ? p.specs.stones_detail : '').toLowerCase();
+          return m.includes(st) || t.includes(st) || sd.includes(st);
         });
       }
 
@@ -2994,6 +3085,7 @@
       }
 
       updateCatalogCount(items.length);
+      updateActiveChipsUI();
 
       if(!items.length){
         grid.innerHTML = `<div class="empty-state">${tr('search.empty')}</div>`;
@@ -3330,7 +3422,245 @@
     if(maxPriceParam) activePriceMax = Number(maxPriceParam) || 0;
     if(initialSort) currentSort = initialSort;
 
+    
+    function updateActiveChipsUI() {
+      const bar = document.getElementById('activeFilterChips');
+      const badge = document.getElementById('mobileFilterBadge');
+      const sortLabel = document.getElementById('mobileSortLabel');
+      
+      const SORT_LABELS = {
+        'popular': 'По популярности',
+        'newest': 'Новинки',
+        'price_asc': 'Цена ↑',
+        'price_desc': 'Цена ↓'
+      };
+      if (sortLabel) {
+        sortLabel.textContent = SORT_LABELS[currentSort] || 'Сортировка';
+      }
+
+      let activeCount = 0;
+      let chipsHtml = '';
+
+      if (activePriceMin > 0 || activePriceMax > 0) {
+        activeCount++;
+        let pText = '';
+        if (activePriceMin === 0 && activePriceMax === 25000) pText = 'до 25 000 ₸';
+        else if (activePriceMin === 25000 && activePriceMax === 50000) pText = '25–50 000 ₸';
+        else if (activePriceMin === 50000 && activePriceMax === 0) pText = 'от 50 000 ₸';
+        else pText = `${activePriceMin}–${activePriceMax} ₸`;
+        chipsHtml += `<button type="button" class="active-filter-chip" data-clear="price">${pText} <span class="chip-cross" aria-hidden="true">✕</span></button>`;
+      }
+
+      if (activeStone) {
+        activeCount++;
+        chipsHtml += `<button type="button" class="active-filter-chip" data-clear="stone">${activeStone} <span class="chip-cross" aria-hidden="true">✕</span></button>`;
+      }
+
+      if (currentSort !== 'popular') {
+        activeCount++;
+        chipsHtml += `<button type="button" class="active-filter-chip" data-clear="sort">${SORT_LABELS[currentSort]} <span class="chip-cross" aria-hidden="true">✕</span></button>`;
+      }
+
+      if (badge) {
+        if (activeCount > 0) {
+          badge.textContent = String(activeCount);
+          badge.style.display = 'inline-block';
+        } else {
+          badge.style.display = 'none';
+        }
+      }
+
+      if (bar) {
+        if (chipsHtml) {
+          bar.innerHTML = chipsHtml;
+          bar.style.display = 'flex';
+          bar.querySelectorAll('[data-clear]').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const type = btn.getAttribute('data-clear');
+              if (type === 'price') {
+                activePriceMin = 0;
+                activePriceMax = 0;
+                document.querySelectorAll('.price-chip').forEach(b => {
+                  b.classList.toggle('active', b.getAttribute('data-min') === '0' && b.getAttribute('data-max') === '0');
+                });
+              } else if (type === 'stone') {
+                activeStone = '';
+              } else if (type === 'sort') {
+                currentSort = 'popular';
+                const sortSelect = document.getElementById('catalogSort');
+                if (sortSelect) sortSelect.value = 'popular';
+              }
+              renderGrid(true);
+            });
+          });
+        } else {
+          bar.innerHTML = '';
+          bar.style.display = 'none';
+        }
+      }
+    }
+
+    function setupFilterSheet() {
+      const modal = document.getElementById('filterSheetModal');
+      const backdrop = document.getElementById('filterSheetBackdrop');
+      const closeBtn = document.getElementById('filterSheetClose');
+      const openFilterBtn = document.getElementById('openMobileFilterBtn');
+      const openSortBtn = document.getElementById('openMobileSortBtn');
+      const resetBtn = document.getElementById('filterSheetReset');
+      const applyBtn = document.getElementById('filterSheetApply');
+      const sortSection = document.getElementById('sheetSortSection');
+
+      let draftSort = currentSort;
+      let draftMin = activePriceMin;
+      let draftMax = activePriceMax;
+      let draftStone = activeStone;
+
+      function calcDraftCount() {
+        let items = PRODUCTS;
+        if(activeCat !== 'All'){
+          if(activeCat === 'Rings'){
+            items = items.filter(p => p.category === 'Rings' || (p.title && p.title.toLowerCase().includes('кольц')) || (p.description && p.description.toLowerCase().includes('кольц')) || (Array.isArray(p.bundle_options) && p.bundle_options.some(b => (b.name||'').toLowerCase().includes('кольц'))));
+          } else {
+            items = items.filter(p => p.category === activeCat);
+          }
+        }
+        if(searchQuery.trim()){
+          const q = searchQuery.toLowerCase().trim();
+          items = items.filter(p => {
+            const t = (p.title || '').toLowerCase();
+            const d = (p.description || '').toLowerCase();
+            const m = (p.materials || []).join(' ').toLowerCase();
+            const kw = (p.search_keywords || []).join(' ').toLowerCase();
+            const sd = (p.specs && p.specs.stones_detail ? p.specs.stones_detail : '').toLowerCase();
+            const sku = (p.sku || '').toLowerCase();
+            return t.includes(q) || d.includes(q) || m.includes(q) || kw.includes(q) || sd.includes(q) || sku.includes(q);
+          });
+        }
+        if (draftStone) {
+          const st = draftStone.toLowerCase();
+          items = items.filter(p => {
+            const m = (p.materials || []).join(' ').toLowerCase();
+            const t = (p.title || '').toLowerCase();
+            const sd = (p.specs && p.specs.stones_detail ? p.specs.stones_detail : '').toLowerCase();
+            return m.includes(st) || t.includes(st) || sd.includes(st);
+          });
+        }
+        if (draftMin > 0) items = items.filter(p => (Number(p.price) || 0) >= draftMin);
+        if (draftMax > 0) items = items.filter(p => (Number(p.price) || 0) <= draftMax);
+        return items.length;
+      }
+
+      function syncDraftUI() {
+        document.querySelectorAll('#sheetSortOptions .sheet-chip').forEach(b => {
+          b.classList.toggle('active', b.getAttribute('data-sort') === draftSort);
+        });
+        document.querySelectorAll('#sheetPriceOptions .sheet-chip').forEach(b => {
+          const bMin = Number(b.getAttribute('data-min')) || 0;
+          const bMax = Number(b.getAttribute('data-max')) || 0;
+          b.classList.toggle('active', bMin === draftMin && bMax === draftMax);
+        });
+        document.querySelectorAll('#sheetStoneOptions .sheet-chip').forEach(b => {
+          b.classList.toggle('active', (b.getAttribute('data-stone') || '') === draftStone);
+        });
+        const count = calcDraftCount();
+        if (applyBtn) {
+          applyBtn.textContent = `Показать ${count} ${pluralize(count, 'украшение', 'украшения', 'украшений')}`;
+        }
+      }
+
+      function openSheet(focusSection) {
+        
+        draftSort = currentSort;
+        draftMin = activePriceMin;
+        draftMax = activePriceMax;
+        draftStone = activeStone;
+        syncDraftUI();
+        if (modal) modal.hidden = false;
+        if (backdrop) backdrop.hidden = false;
+        document.body.classList.add('drawer-open');
+        if (focusSection === 'sort' && sortSection) {
+          setTimeout(() => {
+            try { sortSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch(e) {}
+          }, 50);
+        }
+      }
+
+      function closeSheet() {
+        if (modal) modal.hidden = true;
+        if (backdrop) backdrop.hidden = true;
+        document.body.classList.remove('drawer-open');
+      }
+
+      if (openFilterBtn) {
+        
+        openFilterBtn.addEventListener('click', () => {
+          
+          openSheet('filters');
+        });
+      }
+      if (openSortBtn) openSortBtn.addEventListener('click', () => openSheet('sort'));
+      if (closeBtn) closeBtn.addEventListener('click', closeSheet);
+      if (backdrop) backdrop.addEventListener('click', closeSheet);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && !modal.hidden) closeSheet();
+      });
+
+      document.querySelectorAll('#sheetSortOptions .sheet-chip').forEach(b => {
+        b.addEventListener('click', () => {
+          draftSort = b.getAttribute('data-sort') || 'popular';
+          syncDraftUI();
+        });
+      });
+
+      document.querySelectorAll('#sheetPriceOptions .sheet-chip').forEach(b => {
+        b.addEventListener('click', () => {
+          draftMin = Number(b.getAttribute('data-min')) || 0;
+          draftMax = Number(b.getAttribute('data-max')) || 0;
+          syncDraftUI();
+        });
+      });
+
+      document.querySelectorAll('#sheetStoneOptions .sheet-chip').forEach(b => {
+        b.addEventListener('click', () => {
+          const st = b.getAttribute('data-stone') || '';
+          draftStone = (draftStone === st) ? '' : st;
+          syncDraftUI();
+        });
+      });
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          draftSort = 'popular';
+          draftMin = 0;
+          draftMax = 0;
+          draftStone = '';
+          syncDraftUI();
+        });
+      }
+
+      if (applyBtn) {
+        applyBtn.addEventListener('click', () => {
+          currentSort = draftSort;
+          activePriceMin = draftMin;
+          activePriceMax = draftMax;
+          activeStone = draftStone;
+          const desktopSort = document.getElementById('catalogSort');
+          if (desktopSort) desktopSort.value = currentSort;
+          document.querySelectorAll('.price-chip').forEach(b => {
+            const bMin = Number(b.getAttribute('data-min')) || 0;
+            const bMax = Number(b.getAttribute('data-max')) || 0;
+            b.classList.toggle('active', bMin === activePriceMin && bMax === activePriceMax);
+          });
+          closeSheet();
+          renderGrid(true);
+        });
+      }
+    }
+
     function setupToolbarEvents() {
+      
+      setupFilterSheet();
+
       const sortSelect = document.getElementById('catalogSort');
       if (sortSelect) {
         sortSelect.value = currentSort;
@@ -3607,6 +3937,7 @@
       initScrollAffordance();
     }
 
+    setupToolbarEvents();
     const fy = document.getElementById('footYear'); if(fy) fy.textContent = new Date().getFullYear();
   </script>
 

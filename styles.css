@@ -71,6 +71,22 @@ button, input, textarea {
 }
 
 /* ==========================================================================
+   Focus & Tap Highlight Polish (Safari / Mobile & Keyboard) — S1
+   ========================================================================== */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 1px solid var(--fg);
+  outline-offset: 3px;
+}
+
+button, a, summary, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ==========================================================================
    Header & Sticky Navigation (Airy & Minimal)
    ========================================================================== */
 header {
@@ -3827,12 +3843,52 @@ main.wrap > h1 {
   gap: 8px clamp(24px, 4vw, 64px);
 }
 
-.storefront-kicker,
-.storefront-materials > summary {
+.storefront-kicker {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: .16em;
   text-transform: uppercase;
+}
+
+.storefront-more-types > summary,
+.storefront-materials > summary {
+  list-style: none;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  color: var(--fg);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.storefront-more-types > summary::-webkit-details-marker,
+.storefront-materials > summary::-webkit-details-marker,
+.storefront-more-types > summary::marker,
+.storefront-materials > summary::marker {
+  display: none;
+}
+
+.storefront-more-types > summary::after,
+.storefront-materials > summary::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-right: 4px;
+  border: solid currentColor;
+  border-width: 0 1px 1px 0;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.storefront-more-types[open] > summary::after,
+.storefront-materials[open] > summary::after {
+  transform: rotate(225deg);
 }
 
 .storefront-menu-types > a,
@@ -5494,4 +5550,258 @@ main.wrap > h1 {
   font-style: normal;
   font-weight: 600;
   color: var(--fg);
+}
+
+
+/* ==========================================================================
+   Catalog Mobile Toolbar & Filter Bottom Sheet (S3)
+   ========================================================================== */
+.catalog-mobile-actions,
+.catalog-active-chips,
+.filter-sheet-backdrop,
+.filter-sheet-modal {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .catalog-main {
+    padding: 16px 16px 44px !important;
+  }
+  .catalog-main > h1 {
+    font-size: 26px !important;
+    margin-bottom: 8px !important;
+  }
+  .catalog-main .toolbar {
+    margin: 8px 0 12px !important;
+    gap: 10px !important;
+  }
+  .catalog-subtitle {
+    display: none !important;
+  }
+  .catalog-materials-bar {
+    display: none !important;
+  }
+  .catalog-toolbar-right .catalog-price-filters,
+  .catalog-toolbar-right .catalog-sort-wrap {
+    display: none !important;
+  }
+  .catalog-mobile-actions {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+  }
+  .catalog-toolbar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin: 12px 0 14px !important;
+    padding: 8px 0 !important;
+  }
+  .catalog-count {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: var(--fg) !important;
+    white-space: nowrap !important;
+  }
+  .catalog-mobile-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #F4F1EA;
+    border: 1px solid var(--line);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 11px;
+    min-height: 38px;
+    border-radius: 2px;
+    cursor: pointer;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .catalog-mobile-btn:active {
+    background: #EAE6DC;
+  }
+  .mobile-filter-badge {
+    background: var(--fg);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 9px;
+    padding: 1px 5px;
+    line-height: 1.2;
+    margin-left: 2px;
+  }
+  .catalog-active-chips {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: -4px 0 14px !important;
+  }
+  .active-filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--fg);
+    color: #fff;
+    border: 1px solid var(--fg);
+    border-radius: 2px;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 8px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .active-filter-chip span.chip-cross {
+    font-size: 12px;
+    line-height: 1;
+    opacity: 0.8;
+  }
+  /* Bottom Sheet */
+  .filter-sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 19, 18, 0.45);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 10001;
+  }
+  .filter-sheet-backdrop:not([hidden]) {
+    display: block !important;
+  }
+  .filter-sheet-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10002;
+    align-items: flex-end;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .filter-sheet-modal:not([hidden]) {
+    display: flex !important;
+  }
+  .filter-sheet-dialog {
+    pointer-events: auto;
+    position: relative;
+    background: #FAF9F6;
+    border: 1px solid var(--line);
+    border-bottom: none;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -8px 32px rgba(20, 19, 18, 0.18);
+    width: 100%;
+    max-width: 520px;
+    max-height: 84vh;
+    display: flex;
+    flex-direction: column;
+    animation: filterSheetSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes filterSheetSlideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  .filter-sheet-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .filter-sheet-title {
+    font-family: var(--font-serif) !important;
+    font-size: 20px !important;
+    font-weight: 400 !important;
+    color: var(--fg);
+    margin: 0;
+  }
+  .filter-sheet-close {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 18px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .filter-sheet-body {
+    padding: 16px 20px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .filter-sheet-section-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .filter-sheet-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .sheet-chip {
+    background: #F4F1EA;
+    border: 1px solid var(--line);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 12px;
+    padding: 6px 12px;
+    min-height: 38px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sheet-chip.active {
+    background: var(--fg);
+    color: #fff;
+    border-color: var(--fg);
+  }
+  .filter-sheet-footer {
+    padding: 12px 20px calc(14px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--line);
+    background: #FAF9F6;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .filter-sheet-reset-btn {
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--fg-soft);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 0 16px;
+    min-height: 46px;
+    border-radius: 2px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .filter-sheet-apply-btn {
+    flex: 1;
+    background: var(--fg);
+    color: #fff;
+    border: 1px solid var(--fg);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0 16px;
+    min-height: 46px;
+    border-radius: 2px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
 }
