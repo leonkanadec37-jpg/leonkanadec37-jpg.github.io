@@ -10,7 +10,7 @@
 - Канонические ссылки /product/prod_XX.html и ссылки на WebP-изображения
 - Корректные коммерческие названия <g:title> и детальные описания <g:description>
 - Для комплектов в <g:description> детально расписана стоимость всех элементов
-- Точные цены в KZT со статусом in_stock / 0.00 KZT shipping
+- Точные цены в KZT со статусом in_stock / 4000.00 KZT shipping
 - Разметку категорий Google Product Taxonomy и Custom Labels для Smart Shopping / PMax
 """
 
@@ -220,8 +220,8 @@ def generate_feed():
       <g:product_highlight>Доставка день-в-день по Астане и СДЭК по всему Казахстану</g:product_highlight>
       <g:shipping>
         <g:country>KZ</g:country>
-        <g:service>Курьер / СДЭК</g:service>
-        <g:price>0.00 KZT</g:price>
+        <g:service>СДЭК / курьер</g:service>
+        <g:price>4000.00 KZT</g:price>
       </g:shipping>
       <g:custom_label_0>{custom_label_0}</g:custom_label_0>
       <g:custom_label_1>{custom_label_1}</g:custom_label_1>

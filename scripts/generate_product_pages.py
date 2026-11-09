@@ -209,15 +209,10 @@ def build_clean_alt(product: dict) -> str:
 def build_meta_description(product: dict) -> str:
     title = (product.get("title") or "").strip()
     price_str = format_price_ru(product.get("price") or 0)
-    desc = (product.get("description") or "").strip()
     materials = ", ".join(product.get("materials") or ["натуральный жемчуг"])
-    raw = (
-        f"Купить «{title}» ручной работы за {price_str} ₸ в Livi Jewelry. "
-        f"{desc} Материалы: {materials}. "
-        f"Индивидуальная подгонка размера, доставка день-в-день по Астане и СДЭК по всему Казахстану (Алматы и все города РК)."
-    )
-    if len(raw) > 290:
-        raw = raw[:287].rstrip(" ,.") + "..."
+    raw = f"Купить «{title}» за {price_str} ₸ в Livi Jewelry. Ручная работа, {materials}. Доставка СДЭК по Казахстану и курьером по Астане."
+    if len(raw) > 160:
+        raw = raw[:157].rstrip(" ,.") + "..."
     return raw
 
 
@@ -408,8 +403,8 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
     specs = product.get("specs") or {}
     bundle_options = product.get("bundle_options") or []
 
-    # Коммерческий <title> без технического кода (prod_XX)
-    page_title = f"{title} — купить по цене {price_fmt} ₸ в Астане и Алматы | Ручная работа Livi Jewelry"
+    # Коммерческий <title> без городов и тех. кода
+    page_title = f"{title} — {price_fmt} ₸ | Livi Jewelry"
 
     # Умная перелинковка камней из карточки товара
     material_pills_list = []
@@ -555,7 +550,7 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
                 "@type": "OfferShippingDetails",
                 "shippingRate": {
                     "@type": "MonetaryAmount",
-                    "value": "0",
+                    "value": "4000",
                     "currency": "KZT"
                 },
                 "shippingDestination": {
@@ -568,13 +563,13 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
                         "@type": "QuantitativeValue",
                         "minValue": 0,
                         "maxValue": 1,
-                        "unitCode": "DAY"
+                        "unitCode": "d"
                     },
                     "transitTime": {
                         "@type": "QuantitativeValue",
-                        "minValue": 0,
+                        "minValue": 1,
                         "maxValue": 3,
-                        "unitCode": "DAY"
+                        "unitCode": "d"
                     }
                 }
             }
@@ -811,9 +806,6 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
   fbq('init', '{FB_PIXEL_1}');
   fbq('track', 'PageView');
   </script>
-  <noscript>
-    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1"/>
-  </noscript>
   <!-- End Meta Pixel Code -->
 
   <meta charset="utf-8" />
@@ -877,6 +869,7 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
   </script>
 </head>
 <body>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1"/></noscript>
 {storefront_header(home_html, {"ru": page_url, "kk": kz_page_url, "uz": uz_page_url})}
 
   <main class="product-page storefront-product">
@@ -1011,21 +1004,30 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
           <p class="footer-tagline">Авторские украшения из натурального жемчуга и драгоценных минералов ручной работы.</p>
           <div class="footer-contacts">
             <div class="footer-contact-item">
-              <span class="contact-label">Город:</span>
-              <span>г. Астана, доставка день-в-день</span>
+              <span class="contact-label">Адрес:</span>
+              <span>просп. Кабанбай Батыра, 43, г. Астана</span>
+              <a href="https://maps.app.goo.gl/yrLFpFFKjz9kE1GHA" target="_blank" rel="noopener" class="footer-map-link">Маршрут в Google Картах →</a>
             </div>
             <div class="footer-contact-item">
-              <span class="contact-label">Телефон / WhatsApp:</span>
-              <a href="https://wa.me/77054510584" target="_blank" rel="noopener">+7 (705) 519-58-75</a>
+              <span class="contact-label">Телефон:</span>
+              <a href="tel:+77054510584">+7 705 451 05 84</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">WhatsApp:</span>
+              <a href="https://wa.me/77054510584" target="_blank" rel="noopener">+7 705 451 05 84</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">Instagram:</span>
+              <a href="https://www.instagram.com/livi_jwl/" target="_blank" rel="noopener">@livi_jwl</a>
             </div>
             <div class="footer-contact-item">
               <span class="contact-label">Режим работы:</span>
-              <span>Ежедневно с 10:00 до 20:00</span>
+              <span>Ежедневно 11:00–17:00</span>
             </div>
           </div>
           <div class="kaspi-badge">
             <span class="kaspi-icon">●</span>
-            <span>Оплата через Kaspi Pay · Kaspi Red</span>
+            <span>Оплата Kaspi (Kaspi Pay · QR)</span>
           </div>
         </div>
 
@@ -1590,11 +1592,7 @@ def build_static_card_html(product: dict, indent: str = "    ", is_first_row: bo
     else:
         srcset_attr = ""
     loading_attr = 'loading="eager" fetchpriority="high"' if priority_high else ('loading="eager"' if is_first_row else 'loading="lazy"')
-    badge_val = product.get("badge")
     badge_html = ""
-    if badge_val:
-        badge_cls = "badge-hit" if badge_val == "Хит" else ("badge-new" if badge_val == "Новинка" else "badge-last")
-        badge_html = f'<span class="card-badge {badge_cls}">{html.escape(badge_val)}</span>'
     return (
         f'{indent}<article class="card" data-id="{pid}">\n'
         f'{indent}  <a href="/product/{pid}.html" class="card-img-wrap">{badge_html}<img src="{img}"{srcset_attr} alt="{alt}" {loading_attr} decoding="async" width="600" height="800"></a>\n'

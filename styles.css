@@ -4110,17 +4110,35 @@ main.wrap > h1 {
   }
 
   .storefront-header .nav {
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) !important;
-    gap: 4px !important;
-    padding: 0 14px !important;
+    grid-template-columns: auto 1fr auto !important;
+    gap: 6px !important;
+    padding: 0 12px !important;
   }
 
   .storefront-header .brand {
-    font-size: clamp(17px, 5vw, 24px) !important;
-    letter-spacing: .1em !important;
+    font-size: clamp(16px, 4.4vw, 22px) !important;
+    letter-spacing: .08em !important;
+    justify-self: center;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .storefront-header .nav-actions {
+    gap: 4px !important;
+    justify-content: flex-end;
+  }
+
+  .storefront-header .header-search-btn {
+    width: 36px;
+    height: 44px;
+    padding: 0;
   }
 
   .storefront-header .cart-link {
+    font-size: 12px !important;
+    padding: 0 4px;
     letter-spacing: normal !important;
   }
 
@@ -5066,13 +5084,14 @@ main.wrap > h1 {
   color: var(--gold);
   margin-bottom: 8px;
 }
+.holiday-gifts-section .holiday-title,
 .holiday-title {
   font-family: var(--font-serif);
   font-size: clamp(26px, 4.5vw, 38px);
   font-weight: 400;
   margin: 0 0 10px;
   letter-spacing: -0.01em;
-  color: #fff;
+  color: var(--bg, #FAF8F5) !important;
 }
 .holiday-desc {
   font-size: 14px;
@@ -5385,4 +5404,94 @@ main.wrap > h1 {
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+
+.footer-map-link {
+  font-size: 11.5px;
+  color: var(--gold) !important;
+  text-decoration: underline !important;
+  display: block;
+  margin-top: 2px;
+}
+
+/* Google Reviews Block (D6) */
+.google-reviews-section {
+  padding: 48px 0;
+  background: var(--bg);
+}
+.google-reviews-inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.google-reviews-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.google-reviews-title {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 3.2vw, 30px);
+  font-weight: 400;
+  color: var(--fg);
+  margin: 0;
+}
+.google-reviews-all {
+  font-size: 13px;
+  color: var(--gold);
+  text-decoration: underline;
+  transition: opacity 0.15s;
+}
+.google-reviews-all:hover {
+  opacity: 0.8;
+}
+.google-reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+@media (max-width: 768px) {
+  .google-reviews-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+.google-review-card {
+  margin: 0;
+  padding: 24px 28px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.google-review-text {
+  font-family: var(--font-serif);
+  font-size: clamp(15px, 2vw, 17px);
+  line-height: 1.6;
+  color: var(--fg);
+  margin: 0 0 16px;
+  font-style: italic;
+}
+.google-review-author {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--muted);
+}
+.google-review-stars {
+  color: #F4B400;
+  letter-spacing: 2px;
+}
+.google-review-author cite {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--fg);
 }

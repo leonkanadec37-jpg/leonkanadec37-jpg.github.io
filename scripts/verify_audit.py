@@ -93,7 +93,7 @@ def extract_jsonld_blocks(html_text: str) -> list:
 
 def run_audit():
     print("=" * 76)
-    print("ЗАПУСК СТРОГОГО ТЕСТОВОГО КОМПЛЕКСА LIVI JEWELRY (45 ИНВАРИАНТОВ)")
+    print("ЗАПУСК СТРОГОГО ТЕСТОВОГО КОМПЛЕКСА LIVI JEWELRY (48 ИНВАРИАНТОВ)")
     print("=" * 76)
 
     # ---------------------------------------------------------
@@ -346,8 +346,8 @@ def run_audit():
                 fail(f"15. {path}: отсутствует валидный hasMerchantReturnPolicy (14 дней, KZ)")
                 prod_offers_ok = False
             rate_val = shipping.get("shippingRate", {}).get("value")
-            if rate_val != "0" and rate_val != 0:
-                fail(f"15. {path}: в shippingDetails отсутствует бесплатная ставка shippingRate (0 KZT)")
+            if str(rate_val) != "4000":
+                fail(f"15. {path}: в shippingDetails ставка shippingRate != 4000 KZT (найдено {rate_val})")
                 prod_offers_ok = False
 
         # 16. Разметка FAQPage (3 вопроса в JSON-LD для Google Rich Results)
@@ -396,7 +396,7 @@ def run_audit():
     if prod_alt_grammar_ok:
         ok("14. Карточки товаров: Alt-теги изображений согласованы по падежам (родительный падеж, без 'из натуральный')")
     if prod_offers_ok:
-        ok("15. Карточки товаров: В JSON-LD Product присутствуют offers, hasMerchantReturnPolicy (14 дней, KZ) и shippingDetails (0 KZT)")
+        ok("15. Карточки товаров: В JSON-LD Product присутствуют offers, hasMerchantReturnPolicy (14 дней, KZ) и shippingDetails (4000 KZT)")
     if prod_faq_ok:
         ok("16. Карточки товаров: В JSON-LD присутствует валидная Schema.org FAQPage (ровно 3 вопроса-ответа на каждой карточке)")
     if prod_bundles_html_ok:
@@ -455,13 +455,15 @@ def run_audit():
             kz_schema_ok = False
         else:
             koffer = kprod.get("offers", {})
-            if "hasMerchantReturnPolicy" not in koffer or "shippingDetails" not in koffer:
-                fail(f"24. {kpath}: в JSON-LD Product отсутствуют hasMerchantReturnPolicy или shippingDetails")
+            kshipping = koffer.get("shippingDetails", {})
+            krate_val = kshipping.get("shippingRate", {}).get("value")
+            if "hasMerchantReturnPolicy" not in koffer or "shippingDetails" not in koffer or str(krate_val) != "4000":
+                fail(f"24. {kpath}: в JSON-LD Product отсутствуют hasMerchantReturnPolicy или shippingDetails (4000 KZT)")
                 kz_schema_ok = False
     if kz_lang_ok:
         ok(f"23. KZ карточки: На всех {len(products)} страницах kz/product/prod_XX.html установлен <html lang=\"kk\"> и канонический URL")
     if kz_schema_ok:
-        ok(f"24. KZ карточки: В JSON-LD Product казахских страниц присутствуют offers, hasMerchantReturnPolicy (14 дней, KZ) и shippingDetails (0 KZT)")
+        ok(f"24. KZ карточки: В JSON-LD Product казахских страниц присутствуют offers, hasMerchantReturnPolicy (14 дней, KZ) и shippingDetails (4000 KZT)")
 
     # 25. Двусторонняя связка hreflang
     hreflang_ok = True
@@ -520,10 +522,17 @@ def run_audit():
     f_root = feed_tree.getroot()
     ns = {"g": "http://base.google.com/ns/1.0"}
     f_items = f_root.findall(".//item")
-    if len(f_items) == len(products):
-        ok(f"28. XML-фиды: google_merchant_feed.xml содержит ровно {len(f_items)} товаров с ценами в KZT, in_stock, shipping 0.00 KZT и mpn")
+    feed_ship_ok = True
+    for item in f_items:
+        ship_elem = item.find("g:shipping/g:price", ns)
+        if ship_elem is None or ship_elem.text.strip() != "4000.00 KZT":
+            fail(f"28. {item.find('g:id', ns).text}: неверный shipping в feed: {ship_elem.text if ship_elem is not None else 'None'}")
+            feed_ship_ok = False
+            break
+    if len(f_items) == len(products) and feed_ship_ok:
+        ok(f"28. XML-фиды: google_merchant_feed.xml содержит ровно {len(f_items)} товаров с ценами в KZT, in_stock, shipping 4000.00 KZT и mpn")
     else:
-        fail(f"28. В google_merchant_feed.xml найдено {len(f_items)} товаров вместо {len(products)}")
+        fail(f"28. Ошибка в google_merchant_feed.xml: найдено {len(f_items)} товаров (ожидалось {len(products)}), shipping_ok={feed_ship_ok}")
 
     # 29. Проверка раскладки комплектов в <g:description>
     feed_bundle_ok = True
@@ -716,16 +725,19 @@ def run_audit():
             uz_schema_ok = False
             break
         uoffer = uprod.get("offers", {})
+        ushipping = uoffer.get("shippingDetails", {})
+        urate_val = ushipping.get("shippingRate", {}).get("value")
         if (
             uoffer.get("priceCurrency") != "KZT"
             or "hasMerchantReturnPolicy" not in uoffer
             or "shippingDetails" not in uoffer
+            or str(urate_val) != "4000"
         ):
-            fail(f"39. {upath}: в JSON-LD Product некорректные offers (priceCurrency: KZT, shippingDetails, returnPolicy)")
+            fail(f"39. {upath}: в JSON-LD Product некорректные offers (priceCurrency: KZT, shippingDetails: 4000 KZT, returnPolicy)")
             uz_schema_ok = False
             break
     if uz_schema_ok:
-        ok(f"39. UZ карточки: В JSON-LD Product сохранена валюта KZT, присутствуют shippingDetails (0 KZT) и hasMerchantReturnPolicy (14 дней)")
+        ok(f"39. UZ карточки: В JSON-LD Product сохранена валюта KZT, присутствуют shippingDetails (4000 KZT) и hasMerchantReturnPolicy (14 дней)")
 
     # 40. Симметричная связка hreflang для всех товаров между RU, KZ, UZ (7 тегов hreflang)
     full_prod_hreflang_ok = True
@@ -801,16 +813,16 @@ def run_audit():
     if switchers_ok:
         ok("42. Навигация: Трехпозиционный переключатель языков (RU | KZ | UZ) внедрен в header и drawer на витринах и хабах")
 
-    # 43. Условия доставки и оплаты для Узбекистана (СДЭК, Казпочта, Золотая Корона)
+    # 43. Условия доставки и оплаты для Узбекистана (СДЭК, Казпочта, онлайн-перевод без KoronaPay)
     with open("uz/delivery.html", "r", encoding="utf-8") as f:
         dt = f.read()
     cdek_ok = "CDEK" in dt or "СДЭК" in dt
-    korona_ok = "KoronaPay" in dt or "Золотая Корона" in dt
     geo_ok = any(v in dt for v in ["Oʻzbekiston", "O‘zbekiston", "O'zbekiston", "Toshkent"])
-    if cdek_ok and korona_ok and geo_ok:
-        ok("43. Логистика и оплата: В uz/delivery.html органично прописаны условия для Узбекистана (СДЭК, Казпочта, Золотая Корона / KoronaPay)")
+    korona_banned = "KoronaPay" not in dt and "Золотая Корона" not in dt
+    if cdek_ok and geo_ok and korona_banned:
+        ok("43. Логистика и оплата: В uz/delivery.html органично прописаны условия для Узбекистана (СДЭК, Казпочта, перевод без KoronaPay)")
     else:
-        fail(f"43. uz/delivery.html: отсутствуют условия для Узбекистана (cdek={cdek_ok}, korona={korona_ok}, geo={geo_ok})")
+        fail(f"43. uz/delivery.html: отсутствуют условия для Узбекистана или найден KoronaPay (cdek={cdek_ok}, geo={geo_ok}, korona_banned={korona_banned})")
 
     # 44. Корзина uz/cart.html: чекаут, маска, шаги заказа и шаблон WhatsApp
     with open("uz/cart.html", "r", encoding="utf-8") as f:
@@ -842,6 +854,112 @@ def run_audit():
         fail(f"45. Sitemap.xml: отсутствуют страницы uz (home={uz_home_in_sm}, shop={uz_shop_in_sm}, hubs={uz_hubs_in_sm}, prods={uz_prods_in_sm})")
 
 
+
+    # ---------------------------------------------------------
+    # 10. Дополнительные строгие инварианты Wave 3 (46, 47, 48)
+    # ---------------------------------------------------------
+    # 46. Проверка целостности тега <head> (P0-1: отсутствие паразитных '>>' и валидность мета-тегов)
+    head_syntax_ok = True
+    check_html_files = ["index.html", "shop.html", "cart.html", "delivery.html", "kz/index.html", "kz/shop.html", "uz/index.html", "uz/shop.html"] + ALL_21_HUBS
+    for hf in check_html_files:
+        if not os.path.exists(hf):
+            continue
+        with open(hf, "r", encoding="utf-8") as f_h:
+            h_content = f_h.read()
+        m_head = re.search(r"<head[^>]*>(.*?)</head>", h_content, flags=re.S | re.I)
+        if not m_head:
+            fail(f"46. {hf}: тег <head> не найден")
+            head_syntax_ok = False
+            continue
+        head_inner = m_head.group(1)
+        # Check for stray '>>' or stray leading '>' before <link
+        if re.search(r">\s*<link", head_inner) or ">>" in head_inner:
+            # specifically check if there's a stray >
+            if re.search(r"^>\s*<", head_inner.strip()) or ">>" in head_inner:
+                fail(f"46. {hf}: обнаружен лишний символ '>' или '>>' в <head>")
+                head_syntax_ok = False
+        if '<link rel="canonical"' not in head_inner:
+            fail(f"46. {hf}: canonical отсутствует внутри <head>")
+            head_syntax_ok = False
+    if head_syntax_ok:
+        ok("46. Head синтаксис (P0-1): Теги <head> всех ключевых страниц и хабов валидны, canonical внутри <head>, паразитные '>>' отсутствуют")
+
+    # 47. Запрещенные бейджи и неподтвержденные формулировки (P0-4: Хит, Последний экземпляр, Kaspi Red, KoronaPay)
+    banned_terms_ok = True
+    banned_regex = re.compile(r"\b(Хит|Последний экземпляр|Kaspi Red|KoronaPay)\b", re.I)
+    scan_dirs = [".", "kz", "uz", "product", "kz/product", "uz/product"]
+    for s_dir in scan_dirs:
+        if not os.path.exists(s_dir):
+            continue
+        for fname in os.listdir(s_dir):
+            if fname.endswith(".html"):
+                fpath = os.path.join(s_dir, fname)
+                with open(fpath, "r", encoding="utf-8") as f_b:
+                    b_txt = f_b.read()
+                matches = banned_regex.findall(b_txt)
+                if matches:
+                    fail(f"47. {fpath}: обнаружены запрещенные термины {set(matches)}")
+                    banned_terms_ok = False
+                    break
+        if not banned_terms_ok:
+            break
+    if banned_terms_ok:
+        ok("47. Чистота бейджей (P0-4): Во всех скомпилированных HTML-файлах отсутствуют термины 'Хит', 'Последний экземпляр', 'Kaspi Red' и 'KoronaPay'")
+
+    # 48. Реальные контакты NAP и режим работы (P0-3: телефон +7 705 451 05 84, 11:00-17:00, Кабанбай Батыра 43, JewelryStore schema)
+    nap_ok = True
+    for main_p in ["index.html", "shop.html", "kz/index.html", "uz/index.html"]:
+        with open(main_p, "r", encoding="utf-8") as f_nap:
+            nap_txt = f_nap.read()
+        if "+7 705 451 05 84" not in nap_txt:
+            fail(f"48. {main_p}: отсутствует реальный телефон +7 705 451 05 84")
+            nap_ok = False
+    with open("index.html", "r", encoding="utf-8") as f_idx:
+        idx_txt_nap = f_idx.read()
+    if "Кабанбай Батыра, 43" not in idx_txt_nap or "11:00–17:00" not in idx_txt_nap:
+        fail("48. index.html: в футере отсутствует адрес 'Кабанбай Батыра, 43' или часы '11:00–17:00'")
+        nap_ok = False
+    
+    # Check JewelryStore JSON-LD NAP on index.html
+    idx_lds = extract_jsonld_blocks(idx_txt_nap)
+    all_items = []
+    for block in idx_lds:
+        if "@graph" in block and isinstance(block["@graph"], list):
+            all_items.extend(block["@graph"])
+        else:
+            all_items.append(block)
+
+    def is_jewelry_store(item):
+        t = item.get("@type")
+        if isinstance(t, list):
+            return "JewelryStore" in t
+        return t == "JewelryStore"
+
+    j_store = next((x for x in all_items if is_jewelry_store(x)), None)
+    if not j_store:
+        fail("48. index.html: отсутствует JSON-LD JewelryStore")
+        nap_ok = False
+    else:
+        tel = str(j_store.get("telephone", "")).replace(" ", "")
+        if tel != "+77054510584":
+            fail(f"48. index.html JewelryStore: telephone != +77054510584 ({j_store.get('telephone')})")
+            nap_ok = False
+        oh = j_store.get("openingHoursSpecification")
+        if isinstance(oh, list) and len(oh) > 0:
+            oh_rule = oh[0]
+        elif isinstance(oh, dict):
+            oh_rule = oh
+        else:
+            oh_rule = {}
+        if oh_rule.get("opens") != "11:00" or oh_rule.get("closes") != "17:00":
+            fail(f"48. index.html JewelryStore: некорректные часы работы: {oh}")
+            nap_ok = False
+        if not j_store.get("geo") or not j_store.get("hasMap"):
+            fail("48. index.html JewelryStore: отсутствуют geo координаты или hasMap")
+            nap_ok = False
+
+    if nap_ok:
+        ok("48. NAP и JewelryStore (P0-3): Телефон +7 705 451 05 84, адрес Кабанбай Батыра 43, часы 11:00–17:00 и полная Schema.org JewelryStore валидны")
     print("=" * 76)
     if errors:
         print(f"ИТОГ: ОБНАРУЖЕНО ОШИБОК: {len(errors)}")
@@ -849,7 +967,7 @@ def run_audit():
             print(f"  - {e}")
         sys.exit(1)
     else:
-        print(f"ИТОГ: ВСЕ ИНВАРИАНТЫ УСПЕШНО СОБЛЮДЕНЫ ({len(passed)}/45 PASS, 0 Errors)!")
+        print(f"ИТОГ: ВСЕ ИНВАРИАНТЫ УСПЕШНО СОБЛЮДЕНЫ ({len(passed)}/48 PASS, 0 Errors)!")
         print("=" * 76)
 
 

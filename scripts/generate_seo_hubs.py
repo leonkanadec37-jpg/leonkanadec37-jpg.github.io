@@ -45,21 +45,30 @@ RU_FOOTER_HTML = """  <footer id="contact" class="site-footer">
           <p class="footer-tagline">Авторские украшения из натурального жемчуга и драгоценных минералов ручной работы.</p>
           <div class="footer-contacts">
             <div class="footer-contact-item">
-              <span class="contact-label">Город:</span>
-              <span>г. Астана, доставка день-в-день</span>
+              <span class="contact-label">Адрес:</span>
+              <span>просп. Кабанбай Батыра, 43, г. Астана</span>
+              <a href="https://maps.app.goo.gl/yrLFpFFKjz9kE1GHA" target="_blank" rel="noopener" class="footer-map-link">Маршрут в Google Картах →</a>
             </div>
             <div class="footer-contact-item">
-              <span class="contact-label">Телефон / WhatsApp:</span>
-              <a href="https://wa.me/77054510584" target="_blank" rel="noopener">+7 (705) 519-58-75</a>
+              <span class="contact-label">Телефон:</span>
+              <a href="tel:+77054510584">+7 705 451 05 84</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">WhatsApp:</span>
+              <a href="https://wa.me/77054510584" target="_blank" rel="noopener">+7 705 451 05 84</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">Instagram:</span>
+              <a href="https://www.instagram.com/livi_jwl/" target="_blank" rel="noopener">@livi_jwl</a>
             </div>
             <div class="footer-contact-item">
               <span class="contact-label">Режим работы:</span>
-              <span>Ежедневно с 10:00 до 20:00</span>
+              <span>Ежедневно 11:00–17:00</span>
             </div>
           </div>
           <div class="kaspi-badge">
             <span class="kaspi-icon">●</span>
-            <span>Оплата через Kaspi Pay · Kaspi Red</span>
+            <span>Оплата Kaspi (Kaspi Pay · QR)</span>
           </div>
         </div>
 
@@ -135,21 +144,30 @@ KZ_FOOTER_HTML = """  <footer id="contact" class="site-footer">
           <p class="footer-tagline">Табиғи інжу мен асыл минералдардан қолдан жасалған авторлық әшекейлер.</p>
           <div class="footer-contacts">
             <div class="footer-contact-item">
-              <span class="contact-label">Қала:</span>
-              <span>Астана қ., сол күні жедел жеткізу</span>
+              <span class="contact-label">Мекенжай:</span>
+              <span>Қабанбай батыр даңғылы, 43, Астана қ.</span>
+              <a href="https://maps.app.goo.gl/yrLFpFFKjz9kE1GHA" target="_blank" rel="noopener" class="footer-map-link">Google Картадағы бағыт →</a>
             </div>
             <div class="footer-contact-item">
-              <span class="contact-label">Телефон / WhatsApp:</span>
-              <a href="https://wa.me/77054510584" target="_blank" rel="noopener">+7 (705) 519-58-75</a>
+              <span class="contact-label">Телефон:</span>
+              <a href="tel:+77054510584">+7 705 451 05 84</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">WhatsApp:</span>
+              <a href="https://wa.me/77054510584" target="_blank" rel="noopener">+7 705 451 05 84</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">Instagram:</span>
+              <a href="https://www.instagram.com/livi_jwl/" target="_blank" rel="noopener">@livi_jwl</a>
             </div>
             <div class="footer-contact-item">
               <span class="contact-label">Жұмыс уақыты:</span>
-              <span>Күн сайын 10:00-ден 20:00-ге дейін</span>
+              <span>Күн сайын 11:00–17:00</span>
             </div>
           </div>
           <div class="kaspi-badge">
             <span class="kaspi-icon">●</span>
-            <span>Kaspi Pay · Kaspi Red арқылы төлем</span>
+            <span>Kaspi төлемі (Kaspi Pay · QR)</span>
           </div>
         </div>
 
@@ -225,21 +243,30 @@ UZ_FOOTER_HTML = """  <footer id="contact" class="site-footer">
           <p class="footer-tagline">Tabiiy marvarid va qimmatbaho minerallardan qo‘lda yasalgan mualliflik zargarlik buyumlari.</p>
           <div class="footer-contacts">
             <div class="footer-contact-item">
-              <span class="contact-label">Shahar:</span>
-              <span>Ostona sh., Toshkent va butun O‘zbekistonga tezkor yetkazish</span>
+              <span class="contact-label">Manzil:</span>
+              <span>Qabanbay botir shoh ko‘chasi, 43, Ostona sh.</span>
+              <a href="https://maps.app.goo.gl/yrLFpFFKjz9kE1GHA" target="_blank" rel="noopener" class="footer-map-link">Google Xaritalardagi yo‘nalish →</a>
             </div>
             <div class="footer-contact-item">
-              <span class="contact-label">Telefon / WhatsApp:</span>
-              <a href="https://wa.me/77054510584" target="_blank" rel="noopener">+7 (705) 519-58-75</a>
+              <span class="contact-label">Telefon:</span>
+              <a href="tel:+77054510584">+7 705 451 05 84</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">WhatsApp:</span>
+              <a href="https://wa.me/77054510584" target="_blank" rel="noopener">+7 705 451 05 84</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">Instagram:</span>
+              <a href="https://www.instagram.com/livi_jwl/" target="_blank" rel="noopener">@livi_jwl</a>
             </div>
             <div class="footer-contact-item">
               <span class="contact-label">Ish vaqti:</span>
-              <span>Har kuni 10:00 dan 20:00 gacha</span>
+              <span>Har kuni 11:00–17:00</span>
             </div>
           </div>
           <div class="kaspi-badge">
             <span class="kaspi-icon">●</span>
-            <span>Kaspi Pay · KoronaPay · Xalqaro to‘lov</span>
+            <span>Kaspi orqali to‘lov</span>
           </div>
         </div>
 
@@ -355,7 +382,7 @@ ALL_HUBS = [
     {
         "slug": "chokery-iz-naturalnyh-kamney.html",
         "chip_label": "Чокеры из камней",
-        "h1": "Чокеры из натуральных камней и жемчуга в Алматы и Казахстане",
+        "h1": "Чокеры из натуральных камней и жемчуга — доставка по Казахстану",
         "title_cluster": "чокеры из натуральных камней и жемчуга",
         "breadcrumb": "Чокеры из натуральных камней",
         "eyebrow": "Haute Joaillerie • Изящный акцент на ключицах",
@@ -364,14 +391,14 @@ ALL_HUBS = [
         "filter_val": ["чокер", "колье из"],
         "stone_name_gen": "натуральных самоцветов и жемчуга",
         "stone_name_prep": "чокерах из камней",
-        "seo_title": "Чокеры из натуральных камней и жемчуга — купить в Алматы и Казахстане",
+        "seo_title": "Чокеры из натуральных камней и жемчуга — авторская коллекция",
         "seo_p1": "Чокер из натуральных камней — главный ювелирный тренд, который деликатно подчеркивает линию шеи и ключицы. В мастерской Livi Jewelry вы можете купить чокер в Алматы с доставкой до двери или самовывозом. В коллекции представлены прилегающие чокеры и короткие колье из граненого граната, благородного лазурита, полупрозрачного флюорита, тигрового глаза и барочного жемчуга.",
         "seo_p2": "В ателье Livi Jewelry каждое изделие собирается вручную в единственном экземпляре или малой серией. Мы комплектуем чокеры удобной удлинительной цепочкой (+5 см) и надежными карабинами с родиевым или позолоченным покрытием, которое не темнеет и не вызывает аллергии. Доступна индивидуальная коррекция длины точно по обхвату вашей шеи и быстрая доставка СДЭК по всему Казахстану."
     },
     {
         "slug": "sotuary-iz-zhemchuga.html",
         "chip_label": "Сотуары",
-        "h1": "Сотуары из натурального жемчуга и колье-галстуки в Алматы и Казахстане",
+        "h1": "Сотуары из натурального жемчуга и колье-галстуки — доставка по Казахстану",
         "title_cluster": "сотуары из натурального жемчуга и колье-галстуки",
         "breadcrumb": "Сотуары из жемчуга и камней",
         "eyebrow": "Haute Joaillerie • Удлиненный силуэт",
@@ -380,7 +407,7 @@ ALL_HUBS = [
         "filter_val": ["Lariats", "сотуар"],
         "stone_name_gen": "натурального жемчуга, агата и граната",
         "stone_name_prep": "сотуарах и колье-галстуках",
-        "seo_title": "Сотуары из натурального жемчуга и колье-галстуки — купить в Алматы и Казахстане",
+        "seo_title": "Сотуары из натурального жемчуга и колье-галстуки — авторская коллекция",
         "seo_p1": "Сотуар из жемчуга — культовое удлиненное украшение эпохи ар-деко, которое триумфально вернулось в современную моду Haute Joaillerie. Длинные нити из натурального жемчуга, черного агата и винного граната с изящными подвесками визуально стройнят фигуру и акцентируют декольте. В мастерской Livi Jewelry вы можете купить сотуар из жемчуга в Алматы, Астане и с быстрой доставкой курьером в любой город Казахстана.",
         "seo_p2": "Мастера Livi Jewelry вручную калибруют баланс веса и гибкость каждого сотуара, чтобы нить красиво струилась и не перекручивалась при носке. По вашему желанию мы можем скорректировать общую длину сотуара, заменить оттенок гипоаллергенной фурнитуры на родий или позолоту и отправить заказ в фирменной подарочной коробке по Астане, Алматы и всему Казахстану."
     },
@@ -1319,7 +1346,7 @@ def generate_hub_page(hub, products):
     min_fmt = f"{min_price:,}".replace(",", " ")
     max_fmt = f"{max_price:,}".replace(",", " ")
 
-    page_title = hub.get("custom_title") or f"Купить {hub['title_cluster']} ручной работы в Астане, Алматы и Казахстане — цена в тенге | Livi Jewelry"
+    page_title = hub.get("custom_title") or f"Купить {hub['title_cluster']} ручной работы — доставка по Казахстану | Livi Jewelry"
     meta_desc = hub.get("custom_meta_desc") or (
         f"Купить {hub['title_cluster']} ручной работы в Livi Jewelry. "
         f"Цены от {min_fmt} до {max_fmt} ₸. Натуральные камни и жемчуг, "
@@ -1513,9 +1540,7 @@ def generate_hub_page(hub, products):
       currency: 'KZT'
     }});
   </script>
-  <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=199604456030882&ev=PageView&noscript=1"
-  /></noscript>
+
 
   <!-- JSON-LD: BreadcrumbList -->
   <script type="application/ld+json">
@@ -1533,6 +1558,7 @@ def generate_hub_page(hub, products):
   </script>
 </head>
 <body>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=199604456030882&ev=PageView&noscript=1"/></noscript>
   <!-- Drawer -->
   <div id="drawer" class="drawer" aria-hidden="true">
     <div class="drawer-back" role="button" tabindex="0" aria-label="Закрыть меню"></div>
@@ -1958,9 +1984,7 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
       currency: 'KZT'
     }});
   </script>
-  <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=199604456030882&ev=PageView&noscript=1"
-  /></noscript>
+
 
   <!-- JSON-LD: BreadcrumbList -->
   <script type="application/ld+json">
@@ -1978,6 +2002,7 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
   </script>
 </head>
 <body>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=199604456030882&ev=PageView&noscript=1"/></noscript>
   <!-- Drawer -->
   <div id="drawer" class="drawer" aria-hidden="true">
     <div class="drawer-back" role="button" tabindex="0" aria-label="Мәзірді жабу"></div>
@@ -2405,9 +2430,7 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
       currency: 'KZT'
     }});
   </script>
-  <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=199604456030882&ev=PageView&noscript=1"
-  /></noscript>
+
 
   <!-- JSON-LD: BreadcrumbList -->
   <script type="application/ld+json">
@@ -2425,6 +2448,7 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
   </script>
 </head>
 <body>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=199604456030882&ev=PageView&noscript=1"/></noscript>
   <!-- Drawer -->
   <div id="drawer" class="drawer" aria-hidden="true">
     <div class="drawer-back" role="button" tabindex="0" aria-label="Menyuni yopish"></div>

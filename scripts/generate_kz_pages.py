@@ -56,21 +56,30 @@ KZ_FOOTER_HTML = """  <footer id="contact" class="site-footer">
           <p class="footer-tagline">Табиғи інжу мен асыл минералдардан қолдан жасалған авторлық әшекейлер.</p>
           <div class="footer-contacts">
             <div class="footer-contact-item">
-              <span class="contact-label">Қала:</span>
-              <span>Астана қ., сол күні жедел жеткізу</span>
+              <span class="contact-label">Мекенжай:</span>
+              <span>Қабанбай батыр даңғылы, 43, Астана қ.</span>
+              <a href="https://maps.app.goo.gl/yrLFpFFKjz9kE1GHA" target="_blank" rel="noopener" class="footer-map-link">Google Картадағы бағыт →</a>
             </div>
             <div class="footer-contact-item">
-              <span class="contact-label">Телефон / WhatsApp:</span>
-              <a href="https://wa.me/77054510584" target="_blank" rel="noopener">+7 (705) 519-58-75</a>
+              <span class="contact-label">Телефон:</span>
+              <a href="tel:+77054510584">+7 705 451 05 84</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">WhatsApp:</span>
+              <a href="https://wa.me/77054510584" target="_blank" rel="noopener">+7 705 451 05 84</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">Instagram:</span>
+              <a href="https://www.instagram.com/livi_jwl/" target="_blank" rel="noopener">@livi_jwl</a>
             </div>
             <div class="footer-contact-item">
               <span class="contact-label">Жұмыс уақыты:</span>
-              <span>Күн сайын 10:00-ден 20:00-ге дейін</span>
+              <span>Күн сайын 11:00–17:00</span>
             </div>
           </div>
           <div class="kaspi-badge">
             <span class="kaspi-icon">●</span>
-            <span>Kaspi Pay · Kaspi Red арқылы төлем</span>
+            <span>Kaspi төлемі (Kaspi Pay · QR)</span>
           </div>
         </div>
 
@@ -709,12 +718,7 @@ def build_kz_card_html(pk: dict, indent: str = "      ", is_first_row: bool = Fa
     alt = html.escape(f"{pk['title']} — қолмен жасалған ({stones}), Livi Jewelry")
     cat = html.escape(pk["category"])
     loading_attr = 'loading="eager" fetchpriority="high"' if priority_high else ('loading="eager"' if is_first_row else 'loading="lazy"')
-    badge_val = pk.get("badge")
     badge_html = ""
-    if badge_val:
-        b_text = "Хит" if badge_val == "Хит" else ("Жаңа" if badge_val == "Новинка" else "Соңғы дана")
-        b_cls = "badge-hit" if badge_val == "Хит" else ("badge-new" if badge_val == "Новинка" else "badge-last")
-        badge_html = f'<span class="card-badge {b_cls}">{html.escape(b_text)}</span>'
     return (
         f'{indent}<article class="card" data-id="{pid}">\n'
         f'{indent}  <a href="/kz/product/{pid}.html" class="card-img-wrap">{badge_html}<img src="/{img}"{srcset_attr} alt="{alt}" {loading_attr} decoding="async" width="600" height="800"></a>\n'
@@ -773,16 +777,31 @@ def generate_kz_index(products_kz: list) -> str:
                 "image": f"{SITE_URL}/assets/hero-kole-iz-naturalnogo-zhemchuga-80000.webp",
                 "description": "Табиғи інжу мен асыл тастардан қолдан жасалған авторлық әшекейлер шеберханасы. Астана, Алматы және бүкіл Қазақстан бойынша жеткізу.",
                 "telephone": "+77054510584",
-                "priceRange": "15000 KZT - 91000 KZT",
+                "priceRange": "₸₸",
                 "address": {
                     "@type": "PostalAddress",
+                    "streetAddress": "просп. Кабанбай Батыра, 43",
                     "addressLocality": "Астана",
+                    "postalCode": "020000",
                     "addressCountry": "KZ"
                 },
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 51.1128244,
+                    "longitude": 71.4068171
+                },
+                "hasMap": "https://maps.app.goo.gl/yrLFpFFKjz9kE1GHA",
                 "sameAs": [
-                    "https://instagram.com/livi_jwl",
+                    "https://www.instagram.com/livi_jwl/",
+                    "https://maps.app.goo.gl/yrLFpFFKjz9kE1GHA",
                     "https://wa.me/77054510584"
-                ]
+                ],
+                "openingHoursSpecification": [{
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+                    "opens": "11:00",
+                    "closes": "17:00"
+                }]
             },
             {
                 "@type": "FAQPage",
@@ -880,13 +899,12 @@ def generate_kz_index(products_kz: list) -> str:
     fbq('init', '{FB_PIXEL_1}');
     fbq('track', 'PageView');
   </script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /></noscript>
-
   <script type="application/ld+json">
 {json.dumps(graph_ld, ensure_ascii=False, indent=2)}
   </script>
 </head>
 <body>
+
   <div id="drawer" class="drawer" aria-hidden="true">
     <div class="drawer-back" role="button" tabindex="0" aria-label="Мәзірді жабу"></div>
     <div class="drawer-panel" role="menu" aria-label="Мәзір">
@@ -1324,6 +1342,7 @@ def generate_kz_shop(products_kz: list) -> str:
   </script>
 </head>
 <body>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /></noscript>
   <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
   <script>
     (function captureAttribution(){{
@@ -1814,14 +1833,10 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
     bundle_options = pk.get("bundle_options") or []
 
     # SEO Title & Description
-    page_title = f"{title} — бағасы {price_fmt} ₸ | Астана мен Алматыда сатып алу | Livi Jewelry"
-    meta_desc = (
-        f"«{title}» қолдан жасалған әшекейін {price_fmt} ₸ бағасымен Livi Jewelry шеберханасынан сатып алу. "
-        f"{description} Табиғи тастар, гипоаллергенді фурнитура, сыйлық қаптамасы. "
-        f"Астана бойынша сол күні, бүкіл Қазақстанға (Алматы және барлық қалалар) 1–3 күнде жедел жеткізу."
-    )
-    if len(meta_desc) > 290:
-        meta_desc = meta_desc[:287].rstrip(" ,.") + "..."
+    page_title = f"{title} — {price_fmt} ₸ | Livi Jewelry"
+    meta_desc = f"«{title}» қолдан жасалған әшекейін {price_fmt} ₸ бағасымен Livi Jewelry шеберханасынан сатып алу. СДЭК арқылы Қазақстан бойынша жеткізу."
+    if len(meta_desc) > 160:
+        meta_desc = meta_desc[:157].rstrip(" ,.") + "..."
 
     # Material pills
     material_pills_list = []
@@ -1958,7 +1973,7 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
                 "@type": "OfferShippingDetails",
                 "shippingRate": {
                     "@type": "MonetaryAmount",
-                    "value": "0",
+                    "value": "4000",
                     "currency": "KZT"
                 },
                 "shippingDestination": {
@@ -1971,13 +1986,13 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
                         "@type": "QuantitativeValue",
                         "minValue": 0,
                         "maxValue": 1,
-                        "unitCode": "DAY"
+                        "unitCode": "d"
                     },
                     "transitTime": {
                         "@type": "QuantitativeValue",
-                        "minValue": 0,
+                        "minValue": 1,
                         "maxValue": 3,
-                        "unitCode": "DAY"
+                        "unitCode": "d"
                     }
                 }
             }
@@ -2234,10 +2249,6 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
   fbq('init', '{FB_PIXEL_1}');
   fbq('track', 'PageView');
   </script>
-  <noscript>
-    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1"/>
-    
-  </noscript>
   <!-- End Meta Pixel Code -->
 
   <meta charset="utf-8" />
@@ -2300,6 +2311,8 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
   </script>
 </head>
 <body>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1"/></noscript>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /></noscript>
   <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
   <script>
     (function captureAttribution(){{

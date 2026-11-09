@@ -12,7 +12,7 @@ O‘z ichiga oladi:
 - To‘liq simmetrik hreflang bog‘lanishlari (ru-KZ, ru, kk-KZ, kk, uz-UZ, uz, x-default)
 - Barcha 58 mahsulot uchun sifatli adabiy o‘zbekcha tarjima (lotin yozuvi)
 - Schema.org Product, BreadcrumbList, FAQPage mikrobelgilari (KZT narxi saqlangan holda)
-- O‘zbekiston uchun qulay yetkazib berish (CDEK, Qazpost) va to‘lov («Zolotaya Korona», WhatsApp orqali rekvizitlar)
+- O‘zbekiston uchun qulay yetkazib berish (CDEK, Qazpost) va to‘lov (xalqaro o‘tkazmalar, WhatsApp orqali rekvizitlar)
 - Statik HTML’da bo‘sh #catalogError himoyasi
 """
 
@@ -56,21 +56,30 @@ UZ_FOOTER_HTML = """  <footer id="contact" class="site-footer">
           <p class="footer-tagline">Tabiiy marvarid va qimmatbaho minerallardan qo‘lda yasalgan mualliflik zargarlik buyumlari.</p>
           <div class="footer-contacts">
             <div class="footer-contact-item">
-              <span class="contact-label">Shahar:</span>
-              <span>Ostona sh., Toshkent va butun O‘zbekistonga tezkor yetkazish</span>
+              <span class="contact-label">Manzil:</span>
+              <span>Qabanbay botir shoh ko‘chasi, 43, Ostona sh.</span>
+              <a href="https://maps.app.goo.gl/yrLFpFFKjz9kE1GHA" target="_blank" rel="noopener" class="footer-map-link">Google Xaritalardagi yo‘nalish →</a>
             </div>
             <div class="footer-contact-item">
-              <span class="contact-label">Telefon / WhatsApp:</span>
-              <a href="https://wa.me/77054510584" target="_blank" rel="noopener">+7 (705) 519-58-75</a>
+              <span class="contact-label">Telefon:</span>
+              <a href="tel:+77054510584">+7 705 451 05 84</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">WhatsApp:</span>
+              <a href="https://wa.me/77054510584" target="_blank" rel="noopener">+7 705 451 05 84</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="contact-label">Instagram:</span>
+              <a href="https://www.instagram.com/livi_jwl/" target="_blank" rel="noopener">@livi_jwl</a>
             </div>
             <div class="footer-contact-item">
               <span class="contact-label">Ish vaqti:</span>
-              <span>Har kuni 10:00 dan 20:00 gacha</span>
+              <span>Har kuni 11:00–17:00</span>
             </div>
           </div>
           <div class="kaspi-badge">
             <span class="kaspi-icon">●</span>
-            <span>Kaspi Pay · KoronaPay · Xalqaro to‘lov</span>
+            <span>Kaspi orqali to‘lov</span>
           </div>
         </div>
 
@@ -750,12 +759,7 @@ def build_uz_card_html(pk: dict, indent: str = "      ", is_first_row: bool = Fa
     alt = html.escape(f"{pk['title']} — qo‘lda yasalgan ({stones}), Livi Jewelry")
     cat = html.escape(pk["category"])
     loading_attr = 'loading="eager" fetchpriority="high"' if priority_high else ('loading="eager"' if is_first_row else 'loading="lazy"')
-    badge_val = pk.get("badge")
     badge_html = ""
-    if badge_val:
-        uz_badge = "Xit" if badge_val == "Хит" else ("Yangi" if badge_val == "Новинка" else "So‘nggi nusxa")
-        badge_cls = "badge-hit" if badge_val == "Хит" else ("badge-new" if badge_val == "Новинка" else "badge-last")
-        badge_html = f'<span class="card-badge {badge_cls}">{html.escape(uz_badge)}</span>'
     return (
         f'{indent}<article class="card" data-id="{pid}">\n'
         f'{indent}  <a href="/uz/product/{pid}.html" class="card-img-wrap">{badge_html}<img src="/{img}"{srcset_attr} alt="{alt}" {loading_attr} decoding="async" width="600" height="800"></a>\n'
@@ -781,8 +785,8 @@ def generate_uz_index(products_uz: list) -> str:
             "O‘zbekistonga (Toshkent, Samarqand, Buxoro, Namangan va barcha viloyatlarga) xalqaro yetkazib berish CDEK kuryerlik xizmati yoki Qazpost (EMS) orqali to‘g‘ridan-to‘g‘ri eshikkacha yoki buyurtma tarqatish punktiga (PVZ) 2–5 ish kunida kuzatuv treking-raqami bilan yetkaziladi. Ostona bo‘yicha buyurtma berilgan kunda tezkor kuryerlik yetkazish, shuningdek Olmaota va butun Qozog‘istonga СДЭК orqali 1–3 kunda yetkazib beriladi. Butun dunyo bo‘ylab xalqaro yetkazish (Worldwide shipping) mavjud."
         ),
         (
-            "O‘zbekistondan to‘lovni qanday amalga oshirish mumkin («Zolotaya Korona», karta)?",
-            "O‘zbekistondan buyurtmalar uchun to‘lov «Zolotaya Korona» (KoronaPay) xalqaro pul o‘tkazmasi orqali yoki buyurtmani tasdiqlashda WhatsApp’dagi menejerimiz orqali to‘g‘ridan-to‘g‘ri rekvizitlar bo‘yicha qabul qilinadi. Qozog‘iston kartalari uchun Kaspi.kz ilovasi orqali to‘lov qilish mumkin."
+            "O‘zbekistondan to‘lovni qanday amalga oshirish mumkin (xalqaro o‘tkazmalar, karta)?",
+            "O‘zbekistondan buyurtmalar uchun to‘lov xalqaro o‘tkazmalar xalqaro pul o‘tkazmasi orqali yoki buyurtmani tasdiqlashda WhatsApp’dagi menejerimiz orqali to‘g‘ridan-to‘g‘ri rekvizitlar bo‘yicha qabul qilinadi. Qozog‘iston kartalari uchun Kaspi.kz ilovasi orqali to‘lov qilish mumkin."
         ),
         (
             "Taqinchoqlarda haqiqiy tabiiy marvarid va tabiiy toshlar ishlatiladimi?",
@@ -813,16 +817,31 @@ def generate_uz_index(products_uz: list) -> str:
                 "image": f"{SITE_URL}/assets/hero-kole-iz-naturalnogo-zhemchuga-80000.webp",
                 "description": "Tabiiy marvarid va qimmatbaho toshlardan qo‘lda yasalgan mualliflik zargarlik buyumlari ustaxonasi. O‘zbekiston (Toshkent), Qozog‘iston va butun dunyo bo‘ylab yetkazib berish.",
                 "telephone": "+77054510584",
-                "priceRange": "15000 KZT - 91000 KZT",
+                "priceRange": "₸₸",
                 "address": {
                     "@type": "PostalAddress",
-                    "addressLocality": "Astana",
+                    "streetAddress": "просп. Кабанбай Батыра, 43",
+                    "addressLocality": "Астана",
+                    "postalCode": "020000",
                     "addressCountry": "KZ"
                 },
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 51.1128244,
+                    "longitude": 71.4068171
+                },
+                "hasMap": "https://maps.app.goo.gl/yrLFpFFKjz9kE1GHA",
                 "sameAs": [
-                    "https://instagram.com/livi_jwl",
+                    "https://www.instagram.com/livi_jwl/",
+                    "https://maps.app.goo.gl/yrLFpFFKjz9kE1GHA",
                     "https://wa.me/77054510584"
-                ]
+                ],
+                "openingHoursSpecification": [{
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+                    "opens": "11:00",
+                    "closes": "17:00"
+                }]
             },
             {
                 "@type": "FAQPage",
@@ -920,13 +939,12 @@ def generate_uz_index(products_uz: list) -> str:
     fbq('init', '{FB_PIXEL_1}');
     fbq('track', 'PageView');
   </script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /></noscript>
-
   <script type="application/ld+json">
 {json.dumps(schema_graph, ensure_ascii=False, indent=2)}
   </script>
 </head>
 <body>
+
   <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
   <script>
     (function captureAttribution(){{
@@ -1026,7 +1044,7 @@ def generate_uz_index(products_uz: list) -> str:
     <span class="home-trust-dot">·</span>
     <div class="home-trust-item"><span>SDEK 1–3 kun</span></div>
     <span class="home-trust-dot">·</span>
-    <div class="home-trust-item"><span>KoronaPay / Kaspi to‘lov</span></div>
+    <div class="home-trust-item"><span>Kaspi / Xalqaro to‘lov</span></div>
   </div>
 
   <section class="section-category-tiles">
@@ -1387,6 +1405,7 @@ def generate_uz_shop(products_uz: list) -> str:
   </script>
 </head>
 <body>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /></noscript>
   <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
   <script>
     (function captureAttribution(){{
@@ -1862,14 +1881,10 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
     bundle_options = pk.get("bundle_options") or []
 
     # SEO Title & Description
-    page_title = f"{title} — narxi {price_fmt} ₸ | Toshkent va O‘zbekistonga yetkazib berish | Livi Jewelry"
-    meta_desc = (
-        f"«{title}» qo‘lda yasalgan mualliflik taqinchog‘ini {price_fmt} ₸ narxida Livi Jewelry ustaxonasidan xarid qilish. "
-        f"{description} Tabiiy toshlar, gipoallergen furnitura, sovg‘a qadog‘i. "
-        f"Toshkent va butun O‘zbekistonga CDEK va Qazpost orqali tezkor va ishonchli yetkazib berish."
-    )
-    if len(meta_desc) > 290:
-        meta_desc = meta_desc[:287].rstrip(" ,.") + "..."
+    page_title = f"{title} — {price_fmt} ₸ | Livi Jewelry"
+    meta_desc = f"«{title}» qo‘lda yasalgan mualliflik taqinchog‘ini {price_fmt} ₸ narxida Livi Jewelry ustaxonasidan xarid qilish. CDEK orqali yetkazib berish."
+    if len(meta_desc) > 160:
+        meta_desc = meta_desc[:157].rstrip(" ,.") + "..."
 
     # Material pills
     material_pills_list = []
@@ -1961,7 +1976,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
                 "@type": "OfferShippingDetails",
                 "shippingRate": {
                     "@type": "MonetaryAmount",
-                    "value": "0",
+                    "value": "4000",
                     "currency": "KZT"
                 },
                 "shippingDestination": {
@@ -1974,13 +1989,13 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
                         "@type": "QuantitativeValue",
                         "minValue": 0,
                         "maxValue": 1,
-                        "unitCode": "DAY"
+                        "unitCode": "d"
                     },
                     "transitTime": {
                         "@type": "QuantitativeValue",
                         "minValue": 1,
                         "maxValue": 3,
-                        "unitCode": "DAY"
+                        "unitCode": "d"
                     }
                 }
             }
@@ -2003,7 +2018,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
     faq_q2 = f"«{title}» o‘lchamini o‘zgartirish mumkinmi?"
     faq_a2 = f"Buyum o‘lchami kartochkada ko‘rsatilgan. Uzunlikni o‘zgartirish imkoniyatini ustadan WhatsApp orqali aniqlang."
     faq_q3 = "Toshkentga va O‘zbekistonga yetkazib berish hamda to‘lov qanday bo‘ladi?"
-    faq_a3 = "O‘zbekistonga jo‘natish CDEK yoki Qazpost orqali kuzatuv treking-kodi bilan amalga oshiriladi. To‘lov «Zolotaya Korona» (KoronaPay) yoki menejer bilan WhatsApp orqali tasdiqlanadi. Sovg‘a qadog‘i bepul qo‘shiladi."
+    faq_a3 = "O‘zbekistonga jo‘natish CDEK yoki Qazpost orqali kuzatuv treking-kodi bilan amalga oshiriladi. To‘lov xalqaro o‘tkazmalar yoki menejer bilan WhatsApp orqali tasdiqlanadi. Sovg‘a qadog‘i bepul qo‘shiladi."
 
     faq_ld = {
         "@context": "https://schema.org",
@@ -2216,6 +2231,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
   </script>
 </head>
 <body>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /></noscript>
   <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
   <script>
     (function captureAttribution(){{
@@ -2408,7 +2424,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
           <h3 style="font-size:15px;margin-bottom:8px;">O‘zbekiston, Qozog‘iston va dunyo bo‘ylab servis</h3>
           <ul style="font-size:13px;line-height:1.5;color:#555;padding-left:18px;margin:0;">
             <li><strong>O‘zbekistonga yetkazib berish:</strong> Toshkent, Samarqand, Buxoro va barcha hududlarga CDEK yoki Qazpost orqali kuzatuv treking-raqami bilan 2–5 kunda yetkaziladi.</li>
-            <li><strong>O‘zbekistondan to‘lov:</strong> «Zolotaya Korona» (KoronaPay) pul o‘tkazmasi orqali yoki WhatsApp menejeri orqali oson to‘lov.</li>
+            <li><strong>O‘zbekistondan to‘lov:</strong> xalqaro o‘tkazmalar pul o‘tkazmasi orqali yoki WhatsApp menejeri orqali oson to‘lov.</li>
             <li><strong>Ostona va Qozog‘iston:</strong> Ostonada kun davomida kuryer, Olmaota va Qozog‘iston shaharlariga 1–3 ish kunida CDEK orqali.</li>
             <li><strong>14 kunlik kafolat:</strong> Tovar ko‘rinishi saqlangan holda mahsulotni 14 kun ichida almashtirish yoki qaytarish imkoniyati.</li>
           </ul>
@@ -2883,6 +2899,7 @@ def generate_uz_service_pages():
   </script>
 </head>
 <body>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /></noscript>
   <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
 
   <!-- Drawer -->
@@ -2947,7 +2964,7 @@ def generate_uz_service_pages():
           </li>
           <li>
             <span class="step-num">2</span>
-            <div><strong>To‘lov va rekvizitlar</strong><br>O‘zbekiston uchun to‘lov «Zolotaya Korona» (KoronaPay) yoki karta rekvizitlari orqali menejer bilan tasdiqlanadi. Qozog‘istondan esa Kaspi Pay orqali hisob yuboriladi.</div>
+            <div><strong>To‘lov va rekvizitlar</strong><br>O‘zbekiston uchun to‘lov xalqaro o‘tkazmalar yoki karta rekvizitlari orqali menejer bilan tasdiqlanadi. Qozog‘istondan esa Kaspi Pay orqali hisob yuboriladi.</div>
           </li>
           <li>
             <span class="step-num">3</span>
@@ -3069,7 +3086,7 @@ def generate_uz_service_pages():
 
               <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:6px;padding:12px;margin-bottom:16px;">
                 <strong style="font-size:13px;display:block;margin-bottom:4px;">To‘lov usuli:</strong>
-                <p style="font-size:12px;color:#555;margin:0;">O‘zbekistondan: «Zolotaya Korona» (KoronaPay) yoki karta rekvizitlari orqali. Qozog‘istondan: Kaspi Pay orqali masofaviy hisob.</p>
+                <p style="font-size:12px;color:#555;margin:0;">O‘zbekistondan: xalqaro o‘tkazmalar yoki karta rekvizitlari orqali. Qozog‘istondan: Kaspi Pay orqali masofaviy hisob.</p>
               </div>
 
               <button type="submit" class="btn primary" style="width:100%;padding:14px;font-size:16px;">
@@ -3266,7 +3283,7 @@ def generate_uz_service_pages():
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="google-site-verification" content="{GOOGLE_VERIFICATION}" />
   <title>Yetkazib berish, to‘lov va qaytarish | Livi Jewelry — Mualliflik taqinchoqlari</title>
-  <meta name="description" content="O‘zbekistonga (Toshkent, Samarqand, Buxoro) va Qozog‘istonga yetkazib berish shartlari, «Zolotaya Korona» va Kaspi orqali to‘lov hamda Livi Jewelry taqinchoqlarini 14 kun ichida qaytarish kafolati.">
+  <meta name="description" content="O‘zbekistonga (Toshkent, Samarqand, Buxoro) va Qozog‘istonga yetkazib berish shartlari, xalqaro o‘tkazmalar va Kaspi orqali to‘lov hamda Livi Jewelry taqinchoqlarini 14 kun ichida qaytarish kafolati.">
   <link rel="canonical" href="{SITE_URL}/uz/delivery.html">
   <link rel="alternate" hreflang="ru-KZ" href="{SITE_URL}/delivery.html" />
   <link rel="alternate" hreflang="ru" href="{SITE_URL}/delivery.html" />
@@ -3280,7 +3297,7 @@ def generate_uz_service_pages():
   <meta property="og:type" content="website">
   <meta property="og:locale" content="uz_UZ">
   <meta property="og:title" content="Yetkazib berish, to‘lov va qaytarish — Livi Jewelry">
-  <meta property="og:description" content="O‘zbekistonga CDEK va Qazpost orqali jo‘natish, «Zolotaya Korona» orqali xavfsiz to‘lov, 14 kunlik qaytarish kafolati.">
+  <meta property="og:description" content="O‘zbekistonga CDEK va Qazpost orqali jo‘natish, xalqaro o‘tkazmalar orqali xavfsiz to‘lov, 14 kunlik qaytarish kafolati.">
   <meta property="og:url" content="{SITE_URL}/uz/delivery.html">
   <meta property="og:image" content="{SITE_URL}/assets/icons/icon-512.png">
 
@@ -3337,6 +3354,7 @@ def generate_uz_service_pages():
   </script>
 </head>
 <body>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /></noscript>
   <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
   <script>
     (function captureAttribution(){{
@@ -3418,7 +3436,7 @@ def generate_uz_service_pages():
     <section style="margin-bottom:36px;">
       <h2 style="font-size:20px;border-bottom:2px solid var(--accent);padding-bottom:6px;margin-bottom:16px;">2. Xavfsiz to‘lov usullari</h2>
       <ul style="line-height:1.8;color:#444;">
-        <li><strong>O‘zbekistondan to‘lov:</strong> Xalqaro <strong>«Zolotaya Korona» (KoronaPay)</strong> tizimi orqali to‘lov yoki buyurtmani rasmiylashtirishda WhatsApp menejeri orqali xavfsiz rekvizitlar asosida qabul qilinadi.</li>
+        <li><strong>O‘zbekistondan to‘lov:</strong> Xalqaro <strong>xalqaro o‘tkazmalar</strong> tizimi orqali to‘lov yoki buyurtmani rasmiylashtirishda WhatsApp menejeri orqali xavfsiz rekvizitlar asosida qabul qilinadi.</li>
         <li><strong>Qozog‘istondan to‘lov:</strong> Kaspi.kz mobil ilovasida «IP Livi Jewelry» nomidan masofaviy hisob (Kaspi Pay) orqali 1 daqiqada.</li>
         <li>Barcha to‘lovlar buyurtma tafsilotlari usta bilan WhatsApp’da kelishib olingandan so‘ng amalga oshiriladi.</li>
       </ul>
@@ -3508,7 +3526,7 @@ def generate_uz_service_pages():
     <h2>1. Umumiy qoidalar</h2>
     <p>Saytda buyurtma berish orqali xaridor ushbu oferta shartlariga to‘liq rozilik bildiradi. Barcha mahsulotlar saralangan tabiiy minerallar va marvaridlardan qo‘lda yasaladi.</p>
     <h2>2. Narxlar va to‘lov</h2>
-    <p>Mahsulotlarning rasmiy narxlari Qozog‘iston tengesida (₸ / KZT) ko‘rsatilgan. O‘zbekiston va boshqa davlatlardan to‘lov xalqaro pul o‘tkazmalari («Zolotaya Korona») yoki kelishuv bo‘yicha amalga oshiriladi.</p>
+    <p>Mahsulotlarning rasmiy narxlari Qozog‘iston tengesida (₸ / KZT) ko‘rsatilgan. O‘zbekiston va boshqa davlatlardan to‘lov xalqaro pul o‘tkazmalari (xalqaro o‘tkazmalar) yoki kelishuv bo‘yicha amalga oshiriladi.</p>
     <h2>3. Yetkazib berish</h2>
     <p>Yetkazib berish kuryerlik xizmatlari (CDEK, Qazpost) orqali amalga oshiriladi. Jo‘natma treking-raqami xaridorga taqdim etiladi.</p>
     <h2>4. Kafolat va qaytarish</h2>
