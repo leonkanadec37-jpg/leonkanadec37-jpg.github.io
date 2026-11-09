@@ -942,11 +942,52 @@ h1 {
 
 .empty-state {
   text-align: center;
-  padding: 72px 16px;
+  padding: 60px 16px;
   color: var(--muted);
   font-size: 15px;
   letter-spacing: 0.04em;
   grid-column: 1 / -1;
+}
+
+.empty-state-text {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.empty-state-reset-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 11px 26px;
+  min-height: 44px;
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.empty-state-reset-btn:hover {
+  background: var(--bg-surface);
+  border-color: var(--fg);
+}
+
+.empty-state-reset-btn:active {
+  transform: translateY(1px);
+}
+
+.empty-state-reset-btn:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
 }
 
 /* ==========================================================================

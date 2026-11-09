@@ -2583,7 +2583,7 @@
     </div>
     <div id="catalogError" class="empty-state" hidden style="display:none" aria-hidden="true"></div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
       <details class="hub-interlink-accordion">
         <summary>Подборки по камням и стилям</summary>
         <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
@@ -3022,6 +3022,35 @@
       }
     }
 
+    function resetAllFilters() {
+      activeCat = 'All';
+      localStorage.setItem('livi_active_cat', 'All');
+      searchQuery = '';
+      if (searchInput) searchInput.value = '';
+      if (searchClear) searchClear.style.display = 'none';
+      activePriceMin = 0;
+      activePriceMax = 0;
+      activeStone = '';
+      currentSort = 'popular';
+      const sortSelect = document.getElementById('catalogSort');
+      if (sortSelect) sortSelect.value = 'popular';
+      document.querySelectorAll('.price-chip').forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-min') === '0' && b.getAttribute('data-max') === '0');
+      });
+      const modal = document.getElementById('filterSheetModal');
+      const backdrop = document.getElementById('filterSheetBackdrop');
+      if (modal && !modal.hidden) modal.hidden = true;
+      if (backdrop && !backdrop.hidden) backdrop.hidden = true;
+      document.body.classList.remove('drawer-open');
+      if (window.history && window.history.replaceState) {
+        try {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        } catch(e) {}
+      }
+      renderFilters();
+      renderGrid(true);
+    }
+
     function renderGrid(forceRebuild = false){
       const isDefaultView = (activeCat === 'All') && !searchQuery.trim() && (currentSort === 'popular') && (activePriceMin === 0) && (activePriceMax === 0) && !activeStone && (lang() === 'ru');
       const staticCards = grid ? grid.querySelectorAll('.card, .product-card') : [];
@@ -3032,7 +3061,7 @@
         return;
       }
       grid.innerHTML='';
-      let items = PRODUCTS;
+      let items = PRODUCTS.filter(p => p && p.inStock !== false);
       if(activeCat !== 'All'){
         if(activeCat === 'Rings'){
           items = items.filter(p => p.category === 'Rings' || (p.title && p.title.toLowerCase().includes('кольц')) || (p.description && p.description.toLowerCase().includes('кольц')) || (Array.isArray(p.bundle_options) && p.bundle_options.some(b => (b.name||'').toLowerCase().includes('кольц'))));
@@ -3088,7 +3117,13 @@
       updateActiveChipsUI();
 
       if(!items.length){
-        grid.innerHTML = `<div class="empty-state">${tr('search.empty')}</div>`;
+        const resetLabel = (lang() === 'kk') ? 'Сүзгілерді тазарту' : ((lang() === 'uz') ? 'Filtrlarni tozalash' : 'Сбросить фильтры');
+        grid.innerHTML = `<div class="empty-state">
+          <p class="empty-state-text">${tr('search.empty')}</p>
+          <button type="button" class="empty-state-reset-btn" id="emptyResetBtn">${resetLabel}</button>
+        </div>`;
+        const eb = document.getElementById('emptyResetBtn');
+        if (eb) eb.addEventListener('click', resetAllFilters);
         return;
       }
 
@@ -3516,7 +3551,7 @@
       let draftStone = activeStone;
 
       function calcDraftCount() {
-        let items = PRODUCTS;
+        let items = PRODUCTS.filter(p => p && p.inStock !== false);
         if(activeCat !== 'All'){
           if(activeCat === 'Rings'){
             items = items.filter(p => p.category === 'Rings' || (p.title && p.title.toLowerCase().includes('кольц')) || (p.description && p.description.toLowerCase().includes('кольц')) || (Array.isArray(p.bundle_options) && p.bundle_options.some(b => (b.name||'').toLowerCase().includes('кольц'))));
@@ -3792,7 +3827,7 @@
 
     function renderCatalogData(data){
       if(!Array.isArray(data) || data.length === 0) throw new Error('Data is not a valid non-empty array');
-      PRODUCTS = data;
+      PRODUCTS = data.filter(p => p && p.inStock !== false);
       if(activeCat !== 'All' && !PRODUCTS.some(p => p.category === activeCat)){
         activeCat = 'All';
         localStorage.setItem('livi_active_cat', 'All');
