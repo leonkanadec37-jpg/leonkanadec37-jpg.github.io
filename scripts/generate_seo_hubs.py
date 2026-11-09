@@ -1172,7 +1172,7 @@ def build_product_schema_for_itemlist(p: dict, idx: int, is_kz: bool = False, kz
                 "@type": "OfferShippingDetails",
                 "shippingRate": {
                     "@type": "MonetaryAmount",
-                    "value": "0",
+                    "value": "4000",
                     "currency": "KZT",
                 },
                 "shippingDestination": {
@@ -1185,13 +1185,13 @@ def build_product_schema_for_itemlist(p: dict, idx: int, is_kz: bool = False, kz
                         "@type": "QuantitativeValue",
                         "minValue": 0,
                         "maxValue": 1,
-                        "unitCode": "DAY",
+                        "unitCode": "d",
                     },
                     "transitTime": {
                         "@type": "QuantitativeValue",
-                        "minValue": 0,
+                        "minValue": 1,
                         "maxValue": 3,
-                        "unitCode": "DAY",
+                        "unitCode": "d",
                     },
                 },
             },

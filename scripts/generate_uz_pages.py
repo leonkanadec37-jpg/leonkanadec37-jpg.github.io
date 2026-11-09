@@ -3424,12 +3424,12 @@ def generate_uz_service_pages():
     <p style="color:#666;line-height:1.6;margin-bottom:32px;">Livi Jewelry ustaxonasi o‘z mijozlarining xavfsizligi va qulayligini birinchi o‘ringa qo‘yadi. Biz O‘zbekiston, Qozog‘iston va butun dunyo bo‘ylab ishonchli xizmat ko‘rsatamiz.</p>
 
     <section style="margin-bottom:36px;">
-      <h2 style="font-size:20px;border-bottom:2px solid var(--accent);padding-bottom:6px;margin-bottom:16px;">1. Yetkazib berish geografiyasi va muddatlari</h2>
+      <h2 style="font-size:20px;border-bottom:2px solid var(--accent);padding-bottom:6px;margin-bottom:16px;">1. Yetkazib berish geografiyasi, narxlari va muddatlari</h2>
       <ul style="line-height:1.8;color:#444;">
-        <li><strong>O‘zbekistonga yetkazib berish:</strong> Toshkent shahri, Samarqand, Buxoro, Andijon, Farg‘ona, Namangan va barcha viloyat markazlariga xalqaro kuryerlik xizmati <strong>CDEK</strong> yoki <strong>Qazpost (EMS)</strong> orqali yetkaziladi. Yetkazib berish muddati: 2–5 ish kuni. Barcha posilkalar qabul qilingan vaqtdan boshlab onlayn treking-raqami (track-number) bilan ta’minlanadi.</li>
-        <li><strong>Ostona bo‘yicha:</strong> Buyurtma berilgan kunda tezkor kuryer orqali eshikkacha (kun davomida) bepul yetkazib berish.</li>
-        <li><strong>Qozog‘iston bo‘ylab:</strong> Olmaota, Shymkent, Qarag‘anda va boshqa shaharlarga CDEK orqali 1–3 ish kunida.</li>
-        <li><strong>Xalqaro yetkazib berish (Worldwide shipping):</strong> Dunyoning istalgan nuqtasiga tezkor kuryerlik pochtasi orqali jo‘natiladi.</li>
+        <li><strong>Ostona bo‘yicha kuryer orqali:</strong> 1 500–2 000 ₸, soat 16:00 gacha buyurtma berilsa, buyurtma kuni yetkaziladi. Shuningdek, <strong>do‘kondan olib ketish mavjud: Qabanbay botir shoh ko‘chasi, 43 — bepul, WhatsApp orqali kelishuv bo‘yicha</strong>.</li>
+        <li><strong>Qozog‘iston bo‘ylab (CDEK):</strong> do‘kon chegirmasi bilan 2 000–4 000 ₸, aniq summani to‘lovdan oldin xabar qilamiz. Olmaota, Shymkent, Qarag‘anda va boshqa shaharlarga 1–3 ish kunida yetkaziladi.</li>
+        <li><strong>O‘zbekistonga yetkazib berish:</strong> Toshkent shahri, Samarqand, Buxoro, Andijon, Farg‘ona, Namangan va barcha viloyat markazlariga xalqaro kuryerlik xizmati <strong>CDEK</strong> yoki <strong>Qazpost (EMS)</strong> orqali yetkaziladi (narxi individual hisoblanadi). Yetkazib berish muddati: 2–5 ish kuni, onlayn treking-raqami taqdim etiladi.</li>
+        <li><strong>Xalqaro yetkazib berish (Worldwide shipping):</strong> Dunyoning boshqa mamlakatlariga tezkor kuryerlik pochtasi orqali jo‘natiladi.</li>
       </ul>
     </section>
 

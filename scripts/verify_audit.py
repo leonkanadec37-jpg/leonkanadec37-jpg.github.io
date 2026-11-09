@@ -395,8 +395,25 @@ def run_audit():
         ok("13. Карточки товаров: Теги <title> очищены от технического кода (prod_XX), отображается артикул LIVI-XX")
     if prod_alt_grammar_ok:
         ok("14. Карточки товаров: Alt-теги изображений согласованы по падежам (родительный падеж, без 'из натуральный')")
+    # Расширение инварианта 15 (F1): shippingRate со значением 0 не должен встречаться ни в одном HTML-файле
+    zero_shipping_files = []
+    zero_rate_re = re.compile(r'"shippingRate"[^{}]*\{[^{}]*"value":\s*"?0"?', re.I)
+    for scan_d in [".", "kz", "uz", "product", "kz/product", "uz/product"]:
+        if not os.path.exists(scan_d):
+            continue
+        for f in os.listdir(scan_d):
+            if f.endswith(".html"):
+                fp = os.path.join(scan_d, f)
+                with open(fp, "r", encoding="utf-8") as f_r:
+                    c = f_r.read()
+                if zero_rate_re.search(c):
+                    zero_shipping_files.append(fp)
+    if zero_shipping_files:
+        fail(f"15. В {len(zero_shipping_files)} HTML-файлах обнаружена ставка shippingRate со значением 0 (ожидается 4000 KZT): {zero_shipping_files[:5]}")
+        prod_offers_ok = False
+
     if prod_offers_ok:
-        ok("15. Карточки товаров: В JSON-LD Product присутствуют offers, hasMerchantReturnPolicy (14 дней, KZ) и shippingDetails (4000 KZT)")
+        ok("15. Карточки товаров и хабы: В JSON-LD Product присутствуют offers, hasMerchantReturnPolicy (14 дней, KZ) и shippingDetails (4000 KZT, нулевая ставка 0 ₸ отсутствует)")
     if prod_faq_ok:
         ok("16. Карточки товаров: В JSON-LD присутствует валидная Schema.org FAQPage (ровно 3 вопроса-ответа на каждой карточке)")
     if prod_bundles_html_ok:
@@ -919,6 +936,14 @@ def run_audit():
     if "Кабанбай Батыра, 43" not in idx_txt_nap or "11:00–17:00" not in idx_txt_nap:
         fail("48. index.html: в футере отсутствует адрес 'Кабанбай Батыра, 43' или часы '11:00–17:00'")
         nap_ok = False
+
+    # F2: Проверка цифр доставки на delivery.html
+    for deliv_p in ["delivery.html", "kz/delivery.html", "uz/delivery.html"]:
+        with open(deliv_p, "r", encoding="utf-8") as f_deliv:
+            deliv_txt = f_deliv.read()
+        if "1 500–2 000 ₸" not in deliv_txt or "2 000–4 000 ₸" not in deliv_txt:
+            fail(f"48. {deliv_p}: отсутствуют точные цифры доставки (1 500–2 000 ₸ или 2 000–4 000 ₸)")
+            nap_ok = False
     
     # Check JewelryStore JSON-LD NAP on index.html
     idx_lds = extract_jsonld_blocks(idx_txt_nap)
