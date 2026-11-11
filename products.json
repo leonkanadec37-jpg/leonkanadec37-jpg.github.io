@@ -1544,10 +1544,11 @@
       "clasp": "Гипоаллергенный ювелирный замок / швензы со стойким покрытием",
       "packaging": "Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry"
     },
-    "inStock": true,
+    "inStock": false,
     "featured": false,
     "drive_id": "1P6oyzP4K_MuaFBU8zVM_60LjrCciKAPc",
-    "archived": false
+    "archived": true,
+    "archived_at": "2026-11-11"
   },
   {
     "id": "prod_35",
@@ -1581,10 +1582,11 @@
       "clasp": "Гипоаллергенный ювелирный замок / швензы со стойким покрытием",
       "packaging": "Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry"
     },
-    "inStock": true,
+    "inStock": false,
     "featured": false,
     "drive_id": "157HkzNm_i5zvoDMh9UTGrJu7DRya9B2a",
-    "archived": false
+    "archived": true,
+    "archived_at": "2026-11-11"
   },
   {
     "id": "prod_36",
@@ -1619,10 +1621,11 @@
       "clasp": "Гипоаллергенный ювелирный замок / швензы со стойким покрытием",
       "packaging": "Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry"
     },
-    "inStock": true,
+    "inStock": false,
     "featured": false,
     "drive_id": "19l2He_Dw417QWuGDO6VCsfivJ16YKF15",
-    "archived": false
+    "archived": true,
+    "archived_at": "2026-11-11"
   },
   {
     "id": "prod_37",
@@ -1656,10 +1659,11 @@
       "clasp": "Гипоаллергенный ювелирный замок / швензы со стойким покрытием",
       "packaging": "Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry"
     },
-    "inStock": true,
+    "inStock": false,
     "featured": false,
     "drive_id": "1PPwCZOKoPhRmi4Lenmau8Y4GsBwij3xP",
-    "archived": false
+    "archived": true,
+    "archived_at": "2026-11-11"
   },
   {
     "id": "prod_38",
@@ -1693,10 +1697,11 @@
       "clasp": "Гипоаллергенный ювелирный замок / швензы со стойким покрытием",
       "packaging": "Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry"
     },
-    "inStock": true,
+    "inStock": false,
     "featured": false,
     "drive_id": "1HWA4w-UHBiPHNaUzlJYxskSAFi2SCxU4",
-    "archived": false
+    "archived": true,
+    "archived_at": "2026-11-11"
   },
   {
     "id": "prod_39",
@@ -1799,10 +1804,11 @@
       "clasp": "Гипоаллергенные пусеты-заглушки (надежная фиксация)",
       "packaging": "Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry"
     },
-    "inStock": true,
+    "inStock": false,
     "featured": false,
     "drive_id": "1XFswPnwmhHhO9a3tKtH2g-Kuxy4wn_U_",
-    "archived": false
+    "archived": true,
+    "archived_at": "2026-11-11"
   },
   {
     "id": "prod_42",
@@ -1836,10 +1842,11 @@
       "clasp": "Гипоаллергенный ювелирный замок / швензы со стойким покрытием",
       "packaging": "Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry"
     },
-    "inStock": true,
+    "inStock": false,
     "featured": false,
     "drive_id": "1yTq4255XY6OKoZwE9bL8_S76S0TI8dy5",
-    "archived": false
+    "archived": true,
+    "archived_at": "2026-11-11"
   },
   {
     "id": "prod_43",
@@ -3659,9 +3666,11 @@
       "clasp": "Гипоаллергенный ювелирный замок / швензы со стойким покрытием",
       "packaging": "Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry"
     },
-    "inStock": true,
-    "featured": true,
-    "drive_id": "1BRFfd3BL7G6x5ZZC8kmpVK7v-r-oPDLg"
+    "inStock": false,
+    "featured": false,
+    "drive_id": "1BRFfd3BL7G6x5ZZC8kmpVK7v-r-oPDLg",
+    "archived": true,
+    "archived_at": "2026-11-11"
   },
   {
     "id": "prod_96",
@@ -3693,9 +3702,11 @@
       "clasp": "Гипоаллергенный ювелирный замок / швензы со стойким покрытием",
       "packaging": "Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry"
     },
-    "inStock": true,
-    "featured": true,
-    "drive_id": "1r5ws-xNmcgDp6vXg6qkpGfN5f2pH52v8"
+    "inStock": false,
+    "featured": false,
+    "drive_id": "1r5ws-xNmcgDp6vXg6qkpGfN5f2pH52v8",
+    "archived": true,
+    "archived_at": "2026-11-11"
   },
   {
     "id": "prod_97",
@@ -3729,9 +3740,11 @@
       "clasp": "Гипоаллергенный ювелирный замок / швензы со стойким покрытием",
       "packaging": "Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry"
     },
-    "inStock": true,
-    "featured": true,
-    "drive_id": "1qljVZiQseavWRgG0ML_GWsScZdGvjCQH"
+    "inStock": false,
+    "featured": false,
+    "drive_id": "1qljVZiQseavWRgG0ML_GWsScZdGvjCQH",
+    "archived": true,
+    "archived_at": "2026-11-11"
   },
   {
     "id": "prod_98",
