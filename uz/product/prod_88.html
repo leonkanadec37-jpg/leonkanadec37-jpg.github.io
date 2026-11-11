@@ -902,6 +902,17 @@
     const stickyCartBtn = document.getElementById('stickyCartBtn');
     if(stickyCartBtn) stickyCartBtn.onclick = handleAddToCart;
 
+    const mainCtaGroup = document.querySelector('.product-actions-box, .product-cta-group');
+    const mobileStickyBar = document.querySelector('.mobile-sticky-bar');
+    if (mainCtaGroup && mobileStickyBar && 'IntersectionObserver' in window) {
+      const ctaObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          mobileStickyBar.classList.toggle('is-hidden', entry.isIntersecting);
+        });
+      }, { threshold: 0.1 });
+      ctaObserver.observe(mainCtaGroup);
+    }
+
     // WhatsApp Order Button and Global WhatsApp tracking
     const waOrderBtnEl = document.getElementById('waOrderBtn') || document.getElementById('buyWaBtn');
     if (waOrderBtnEl) {

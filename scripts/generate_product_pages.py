@@ -1426,6 +1426,17 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
     if (addToCartBtn) addToCartBtn.addEventListener('click', handleAddToCart);
     if (stickyCartBtn) stickyCartBtn.addEventListener('click', handleAddToCart);
 
+    const stickyBar = document.querySelector('.mobile-sticky-bar');
+    const mainCtaGroup = document.querySelector('.product-cta-group');
+    if (stickyBar && mainCtaGroup && 'IntersectionObserver' in window) {{
+      const stickyObs = new IntersectionObserver(function(entries) {{
+        entries.forEach(function(entry) {{
+          stickyBar.classList.toggle('is-hidden', entry.isIntersecting);
+        }});
+      }}, {{ threshold: 0.1 }});
+      stickyObs.observe(mainCtaGroup);
+    }}
+
     function handleWhatsAppClick(e) {{
       const txId = 'LIVI-WA-' + PRODUCT.id + '-' + Date.now();
       const targetUrl = buildWhatsAppHref(txId);

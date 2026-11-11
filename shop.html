@@ -2955,7 +2955,7 @@
     </div>
     <div id="catalogError" class="empty-state" hidden style="display:none" aria-hidden="true"></div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <section class="hub-interlink-section" aria-label="Подборки по камням и стилям">
       <details class="hub-interlink-accordion">
         <summary>Подборки по камням и стилям</summary>
         <p class="hub-interlink-sub">Переходите в тематические коллекции Livi Jewelry по натуральным минералам и форматам украшений</p>
@@ -3975,21 +3975,27 @@
         }
       }
 
+      let currentSheetMode = 'filters';
+      const sheetTitle = document.getElementById('filterSheetTitle');
+      const priceSection = document.getElementById('sheetPriceSection');
+      const stoneSection = document.getElementById('sheetStoneSection');
+
       function openSheet(focusSection) {
-        
+        currentSheetMode = focusSection === 'sort' ? 'sort' : 'filters';
         draftSort = currentSort;
         draftMin = activePriceMin;
         draftMax = activePriceMax;
         draftStone = activeStone;
+        if (sheetTitle) {
+          sheetTitle.textContent = currentSheetMode === 'sort' ? 'Сортировка' : 'Фильтры';
+        }
+        if (sortSection) sortSection.style.display = currentSheetMode === 'sort' ? 'block' : 'none';
+        if (priceSection) priceSection.style.display = currentSheetMode === 'sort' ? 'none' : 'block';
+        if (stoneSection) stoneSection.style.display = currentSheetMode === 'sort' ? 'none' : 'block';
         syncDraftUI();
         if (modal) modal.hidden = false;
         if (backdrop) backdrop.hidden = false;
         document.body.classList.add('drawer-open');
-        if (focusSection === 'sort' && sortSection) {
-          setTimeout(() => {
-            try { sortSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch(e) {}
-          }, 50);
-        }
       }
 
       function closeSheet() {
@@ -3999,9 +4005,7 @@
       }
 
       if (openFilterBtn) {
-        
         openFilterBtn.addEventListener('click', () => {
-          
           openSheet('filters');
         });
       }
@@ -4016,6 +4020,13 @@
         b.addEventListener('click', () => {
           draftSort = b.getAttribute('data-sort') || 'popular';
           syncDraftUI();
+          if (currentSheetMode === 'sort') {
+            currentSort = draftSort;
+            const desktopSort = document.getElementById('catalogSort');
+            if (desktopSort) desktopSort.value = currentSort;
+            closeSheet();
+            renderGrid(true);
+          }
         });
       });
 
