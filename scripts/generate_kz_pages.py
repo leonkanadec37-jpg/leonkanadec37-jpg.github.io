@@ -42,7 +42,7 @@ def safe_write_text(file_path: str, content: str, retries: int = 5, delay: float
                 raise
 GA_ID = "G-YFF2TR0N36"
 AW_ID = "AW-16793974126"
-AW_CONV_LABEL = "AW-16793974126/MuJ_CObHup8bEO7q_sc-"
+AW_CONV_LABEL = "AW-16793974126/Xk1CCKDnu7QdEO7q_sc-"
 FB_PIXEL_1 = "199604456030882"
 # FB_PIXEL_2 removed
 GOOGLE_VERIFICATION = "qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0"
@@ -1179,7 +1179,6 @@ def generate_kz_index(products_kz: list) -> str:
       if (!a) return;
       try {{
         if (window.fbq) {{
-          fbq('track', 'InitiateCheckout', {{ currency: 'KZT', value: 40000 }});
           fbq('track', 'Contact');
           fbq('track', 'Lead', {{
             value: 40000,
@@ -1188,6 +1187,13 @@ def generate_kz_index(products_kz: list) -> str:
           }});
         }}
         if (typeof gtag === 'function') {{
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'kz_index_wa'
+          }});
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',
             value: 40000,
@@ -1635,7 +1641,6 @@ def generate_kz_shop(products_kz: list) -> str:
       if (!a) return;
       try {{
         if (window.fbq) {{
-          fbq('track', 'InitiateCheckout', {{ currency: 'KZT', value: 40000 }});
           fbq('track', 'Contact');
           fbq('track', 'Lead', {{
             value: 40000,
@@ -1644,6 +1649,13 @@ def generate_kz_shop(products_kz: list) -> str:
           }});
         }}
         if (typeof gtag === 'function') {{
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'kz_shop_wa'
+          }});
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',
             value: 40000,
@@ -2886,12 +2898,6 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
         try {{
           const orderTotal = Math.max(1, Number(currentActivePrice || PRODUCT.price || 40000));
           if (window.fbq) {{
-            fbq('track', 'InitiateCheckout', {{
-              currency: 'KZT',
-              value: orderTotal,
-              content_ids: [PRODUCT.id],
-              content_type: 'product'
-            }});
             fbq('track', 'Contact');
             fbq('track', 'Lead', {{
               content_name: PRODUCT.title,
@@ -2902,6 +2908,15 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
             }});
           }}
           if (typeof gtag === 'function') {{
+            gtag('event', 'generate_lead', {{
+              currency: 'KZT',
+              value: orderTotal,
+              method: 'WhatsApp',
+              page_location: window.location.href,
+              item_id: PRODUCT.id,
+              lead_source: 'kz_product_' + PRODUCT.id,
+              transport_type: 'beacon'
+            }});
             gtag('event', 'whatsapp_click', {{
               currency: 'KZT',
               value: currentActivePrice,
@@ -2921,12 +2936,6 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
       try {{
         const orderTotal = Math.max(1, Number(typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000));
         if (window.fbq) {{
-          fbq('track', 'InitiateCheckout', {{
-            currency: 'KZT',
-            value: orderTotal,
-            content_ids: [PRODUCT.id],
-            content_type: 'product'
-          }});
           fbq('track', 'Contact');
           fbq('track', 'Lead', {{
             content_name: PRODUCT.title,
@@ -2937,6 +2946,15 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
           }});
         }}
         if (typeof gtag === 'function') {{
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: orderTotal,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            item_id: PRODUCT.id,
+            lead_source: 'kz_wa_link',
+            transport_type: 'beacon'
+          }});
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',
             value: (typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000),

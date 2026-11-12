@@ -1273,6 +1273,13 @@
           });
         }
         if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', {
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'seo_hub'
+          });
           gtag('event', 'whatsapp_click', {
             currency: 'KZT',
             value: 40000,

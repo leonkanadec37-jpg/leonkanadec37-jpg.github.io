@@ -1035,19 +1035,11 @@
           } catch(e){}
           try {
             if (typeof gtag === 'function') {
-              gtag('event', 'conversion', { 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' });
               gtag('event', 'kaspi_pay_click', {
                 transaction_id: orderData.orderId,
                 value: orderData.totalAmount,
                 currency: 'KZT',
                 payment_method: 'kaspi_pay_link'
-              });
-            }
-            if (typeof fbq === 'function') {
-              fbq('track', 'Purchase', {
-                content_type: 'product',
-                value: Number(orderData.totalAmount || 0),
-                currency: 'KZT'
               });
             }
           } catch(err){}
@@ -1059,24 +1051,12 @@
           try {
             const orderTotal = Number(orderData.totalAmount || 0);
             if (typeof gtag === 'function') {
-              gtag('event', 'conversion', { 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' });
               gtag('event', 'whatsapp_click', {
                 currency: 'KZT',
                 value: orderTotal,
                 method: 'WhatsApp',
                 page_location: window.location.href,
                 lead_source: 'cart_modal_wa_btn'
-              });
-            }
-            if (typeof fbq === 'function') {
-              const safeOrderTotal = Math.max(1, Number(orderTotal) || 30000);
-              fbq('track', 'InitiateCheckout', { currency: 'KZT', value: safeOrderTotal });
-              fbq('track', 'Contact');
-              fbq('track', 'Lead', {
-                value: safeOrderTotal,
-                currency: 'KZT',
-                content_name: 'WhatsApp переход из модального окна',
-                content_type: 'product'
               });
             }
           } catch(err){}
@@ -1121,7 +1101,6 @@
         if(window.fbq) {
           const safeVal = Math.max(1, Number(val) || 30000);
           if(isWa) {
-            fbq('track', 'InitiateCheckout', { currency: 'KZT', value: safeVal });
             fbq('track', 'Lead', {
               value: safeVal,
               currency: 'KZT',
@@ -1133,6 +1112,13 @@
         }
         if(typeof gtag === 'function'){
           if(isWa){
+            gtag('event', 'generate_lead', {
+              currency: 'KZT',
+              value: val,
+              method: 'WhatsApp',
+              page_location: window.location.href,
+              lead_source: 'cart_global_click'
+            });
             gtag('event', 'whatsapp_click', {
               currency: 'KZT',
               value: val,

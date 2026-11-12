@@ -674,7 +674,6 @@
       if (!a) return;
       try {
         if (window.fbq) {
-          fbq('track', 'InitiateCheckout', { currency: 'KZT', value: 40000 });
           fbq('track', 'Contact');
           fbq('track', 'Lead', {
             value: 40000,
@@ -683,6 +682,13 @@
           });
         }
         if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', {
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'kz_index_wa'
+          });
           gtag('event', 'whatsapp_click', {
             currency: 'KZT',
             value: 40000,

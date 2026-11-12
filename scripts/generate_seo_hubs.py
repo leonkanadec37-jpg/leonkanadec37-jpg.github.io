@@ -18,7 +18,7 @@ import time
 
 BASE_URL = "https://livijewelry.kz"
 PRODUCTS_FILE = "products.json"
-AW_CONV_LABEL = "AW-16793974126/MuJ_CObHup8bEO7q_sc-"
+AW_CONV_LABEL = "AW-16793974126/Xk1CCKDnu7QdEO7q_sc-"
 
 
 def safe_write_text(file_path: str, content: str, retries: int = 5, delay: float = 0.15) -> None:
@@ -1766,6 +1766,13 @@ def generate_hub_page(hub, products):
           }});
         }}
         if (typeof gtag === 'function') {{
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'seo_hub'
+          }});
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',
             value: 40000,
@@ -2211,6 +2218,13 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
           }});
         }}
         if (typeof gtag === 'function') {{
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'seo_hub'
+          }});
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',
             value: 40000,
@@ -2658,6 +2672,13 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
           }});
         }}
         if (typeof gtag === 'function') {{
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'seo_hub'
+          }});
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',
             value: 40000,

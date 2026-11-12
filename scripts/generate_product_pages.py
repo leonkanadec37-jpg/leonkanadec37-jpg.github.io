@@ -27,7 +27,7 @@ import re
 SITE_URL = "https://livijewelry.kz"
 GA_ID = "G-YFF2TR0N36"
 AW_ID = "AW-16793974126"
-AW_CONV_LABEL = "AW-16793974126/MuJ_CObHup8bEO7q_sc-"
+AW_CONV_LABEL = "AW-16793974126/Xk1CCKDnu7QdEO7q_sc-"
 FB_PIXEL_1 = "199604456030882"
 GOOGLE_VERIFICATION = "qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0"
 
@@ -1445,13 +1445,6 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
       try {{
         const orderTotal = Math.max(1, Number(currentActivePrice || PRODUCT.price || 40000));
         if (window.fbq) {{
-          fbq('track', 'InitiateCheckout', {{
-            currency: 'KZT',
-            value: orderTotal,
-            content_ids: [PRODUCT.id],
-            content_name: PRODUCT.title,
-            content_type: 'product'
-          }});
           fbq('track', 'Contact');
           fbq('track', 'Lead', {{
             content_name: PRODUCT.title,
@@ -1462,6 +1455,15 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
           }});
         }}
         if (typeof gtag === 'function') {{
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: orderTotal,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            item_id: PRODUCT.id,
+            lead_source: 'product_page_' + PRODUCT.id,
+            transport_type: 'beacon'
+          }});
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',
             value: currentActivePrice,
@@ -1491,13 +1493,6 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
       try {{
         const orderTotal = Math.max(1, Number(typeof currentActivePrice !== 'undefined' ? currentActivePrice : (PRODUCT.price || 40000)));
         if (window.fbq) {{
-          fbq('track', 'InitiateCheckout', {{
-            currency: 'KZT',
-            value: orderTotal,
-            content_ids: [PRODUCT.id],
-            content_name: PRODUCT.title,
-            content_type: 'product'
-          }});
           fbq('track', 'Contact');
           fbq('track', 'Lead', {{
             content_name: PRODUCT.title,
@@ -1508,6 +1503,15 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
           }});
         }}
         if (typeof gtag === 'function') {{
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: orderTotal,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            item_id: PRODUCT.id,
+            lead_source: 'product_page_wa_link',
+            transport_type: 'beacon'
+          }});
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',
             value: (typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000),

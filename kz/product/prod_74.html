@@ -1027,12 +1027,6 @@
         try {
           const orderTotal = Math.max(1, Number(currentActivePrice || PRODUCT.price || 40000));
           if (window.fbq) {
-            fbq('track', 'InitiateCheckout', {
-              currency: 'KZT',
-              value: orderTotal,
-              content_ids: [PRODUCT.id],
-              content_type: 'product'
-            });
             fbq('track', 'Contact');
             fbq('track', 'Lead', {
               content_name: PRODUCT.title,
@@ -1043,6 +1037,15 @@
             });
           }
           if (typeof gtag === 'function') {
+            gtag('event', 'generate_lead', {
+              currency: 'KZT',
+              value: orderTotal,
+              method: 'WhatsApp',
+              page_location: window.location.href,
+              item_id: PRODUCT.id,
+              lead_source: 'kz_product_' + PRODUCT.id,
+              transport_type: 'beacon'
+            });
             gtag('event', 'whatsapp_click', {
               currency: 'KZT',
               value: currentActivePrice,
@@ -1062,12 +1065,6 @@
       try {
         const orderTotal = Math.max(1, Number(typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000));
         if (window.fbq) {
-          fbq('track', 'InitiateCheckout', {
-            currency: 'KZT',
-            value: orderTotal,
-            content_ids: [PRODUCT.id],
-            content_type: 'product'
-          });
           fbq('track', 'Contact');
           fbq('track', 'Lead', {
             content_name: PRODUCT.title,
@@ -1078,6 +1075,15 @@
           });
         }
         if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', {
+            currency: 'KZT',
+            value: orderTotal,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            item_id: PRODUCT.id,
+            lead_source: 'kz_wa_link',
+            transport_type: 'beacon'
+          });
           gtag('event', 'whatsapp_click', {
             currency: 'KZT',
             value: (typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000),

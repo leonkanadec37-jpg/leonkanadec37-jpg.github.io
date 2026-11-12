@@ -42,7 +42,7 @@ def safe_write_text(file_path: str, content: str, retries: int = 5, delay: float
 
 GA_ID = "G-YFF2TR0N36"
 AW_ID = "AW-16793974126"
-AW_CONV_LABEL = "AW-16793974126/MuJ_CObHup8bEO7q_sc-"
+AW_CONV_LABEL = "AW-16793974126/Xk1CCKDnu7QdEO7q_sc-"
 FB_PIXEL_1 = "199604456030882"
 # FB_PIXEL_2 removed
 GOOGLE_VERIFICATION = "qvEv0YmsvczSUOBETXFI8aaUjGutqAYqzEWuZ2f0Zz0"
@@ -1242,7 +1242,6 @@ def generate_uz_index(products_uz: list) -> str:
       if (!a) return;
       try {{
         if (typeof fbq === 'function') {{
-          fbq('track', 'InitiateCheckout', {{ currency: 'KZT', value: 40000 }});
           fbq('track', 'Contact');
           fbq('track', 'Lead', {{
             value: 40000,
@@ -1251,6 +1250,13 @@ def generate_uz_index(products_uz: list) -> str:
           }});
         }}
         if (typeof gtag === 'function') {{
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'uz_index_wa'
+          }});
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',
             value: 40000,
@@ -1677,7 +1683,6 @@ def generate_uz_shop(products_uz: list) -> str:
       if (!a) return;
       try {{
         if (typeof fbq === 'function') {{
-          fbq('track', 'InitiateCheckout', {{ currency: 'KZT', value: 40000 }});
           fbq('track', 'Contact');
           fbq('track', 'Lead', {{
             value: 40000,
@@ -1686,6 +1691,13 @@ def generate_uz_shop(products_uz: list) -> str:
           }});
         }}
         if (typeof gtag === 'function') {{
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'uz_shop_wa'
+          }});
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',
             value: 40000,
@@ -2761,12 +2773,6 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
         try {{
           const orderTotal = Number(currentActivePrice || PRODUCT.price || 0);
           if (window.fbq) {{
-            fbq('track', 'InitiateCheckout', {{
-              currency: 'KZT',
-              value: orderTotal,
-              content_ids: [PRODUCT.id],
-              content_type: 'product'
-            }});
             fbq('track', 'Contact');
             fbq('track', 'Lead', {{
               content_name: PRODUCT.title,
@@ -2777,6 +2783,15 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
             }});
           }}
           if (typeof gtag === 'function') {{
+            gtag('event', 'generate_lead', {{
+              currency: 'KZT',
+              value: orderTotal,
+              method: 'WhatsApp',
+              page_location: window.location.href,
+              item_id: PRODUCT.id,
+              lead_source: 'uz_product_' + PRODUCT.id,
+              transport_type: 'beacon'
+            }});
             gtag('event', 'whatsapp_click', {{
               currency: 'KZT',
               value: currentActivePrice,
@@ -2796,12 +2811,6 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
       try {{
         const orderTotal = Number(typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000);
         if (window.fbq) {{
-          fbq('track', 'InitiateCheckout', {{
-            currency: 'KZT',
-            value: orderTotal,
-            content_ids: [PRODUCT.id],
-            content_type: 'product'
-          }});
           fbq('track', 'Contact');
           fbq('track', 'Lead', {{
             content_name: PRODUCT.title,
@@ -2812,6 +2821,15 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
           }});
         }}
         if (typeof gtag === 'function') {{
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: orderTotal,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            item_id: PRODUCT.id,
+            lead_source: 'uz_wa_link',
+            transport_type: 'beacon'
+          }});
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',
             value: (typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000),
@@ -3171,30 +3189,16 @@ def generate_uz_service_pages():
         const orderTotal = Number(totalSum);
         if (window.fbq) {{
           const prodIds = cart.map(i => i.id).filter(Boolean);
-          fbq('track', 'InitiateCheckout', {{
-            currency: 'KZT',
-            value: orderTotal,
-            content_ids: prodIds,
-            content_type: 'product'
-          }});
           fbq('track', 'Purchase', {{
             content_ids: prodIds,
             value: orderTotal,
             currency: 'KZT',
             content_type: 'product'
           }});
-          fbq('track', 'Lead', {{
-            content_ids: prodIds,
-            value: orderTotal,
-            currency: 'KZT',
-            content_name: 'Buyurtma ' + orderNo,
-            content_type: 'product'
-          }});
-          fbq('track', 'Contact');
         }}
         if (typeof gtag === 'function') {{
           gtag('event', 'conversion', {{
-            'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+            'send_to': 'AW-16793974126/Xk1CCKDnu7QdEO7q_sc-',
             'value': totalSum,
             'currency': 'KZT',
             'transaction_id': orderNo
@@ -3223,16 +3227,6 @@ def generate_uz_service_pages():
                 page_location: window.location.href,
                 lead_source: 'uz_cart_modal_wa'
               }});
-              gtag('event', 'conversion', {{ 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' }});
-            }}
-            if (typeof fbq === 'function') {{
-              fbq('track', 'Contact');
-              fbq('track', 'Lead', {{
-                value: totalSum,
-                currency: 'KZT',
-                content_name: 'WhatsApp o‘tish (modal)',
-                content_type: 'product'
-              }});
             }}
           }} catch(e){{}}
         }};
@@ -3260,6 +3254,13 @@ def generate_uz_service_pages():
       if (!a || a.id === 'modalWaBtn') return;
       try {{
         if (typeof gtag === 'function') {{
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: 40000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'uz_cart_global_wa'
+          }});
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',
             value: 40000,
@@ -3480,6 +3481,13 @@ def generate_uz_service_pages():
       if (!a) return;
       try {{
         if (typeof gtag === 'function') {{
+          gtag('event', 'generate_lead', {{
+            currency: 'KZT',
+            value: 30000,
+            method: 'WhatsApp',
+            page_location: window.location.href,
+            lead_source: 'uz_delivery_wa'
+          }});
           gtag('event', 'whatsapp_click', {{
             currency: 'KZT',
             value: 30000,
