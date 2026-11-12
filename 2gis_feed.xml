@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-11-11 23:14">
+<yml_catalog date="2026-11-12 10:01">
   <shop>
     <name>Livi Jewelry</name>
     <company>Livi Jewelry — Авторские украшения ручной работы</company>
@@ -398,7 +398,7 @@
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[Дизайнерские серьги ручной работы: Серьги из жемчуга Майорка. Выполнены из отборных натуральных минералов и материалов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенные ювелирные швензы со стойким защитным покрытием не темнеют и комфортны для чувствительной кожи. Комфортный легкий вес для ежедневной носки и быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
       </offer>
-      <offer id="prod_39" available="true">
+      <offer id="prod_39" available="false">
         <name>Серьги луна и звезда</name>
         <url>https://livijewelry.kz/product/prod_39.html</url>
         <price>14000</price>
@@ -438,7 +438,7 @@
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[Дизайнерские серьги ручной работы: Серьги с жемчугом Майорка. Выполнены из отборных натуральных минералов и материалов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенные ювелирные швензы со стойким защитным покрытием не темнеют и комфортны для чувствительной кожи. Комфортный легкий вес для ежедневной носки и быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
       </offer>
-      <offer id="prod_43" available="true">
+      <offer id="prod_43" available="false">
         <name>Серьги с сердцами Swarovski</name>
         <url>https://livijewelry.kz/product/prod_43.html</url>
         <price>15000</price>
@@ -448,7 +448,7 @@
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[Дизайнерские серьги ручной работы: Серьги с сердцами Swarovski. Выполнены из отборных натуральных минералов и материалов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенные ювелирные швензы со стойким защитным покрытием не темнеют и комфортны для чувствительной кожи. Комфортный легкий вес для ежедневной носки и быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
       </offer>
-      <offer id="prod_44" available="true">
+      <offer id="prod_44" available="false">
         <name>Серьги с тигровым глазом</name>
         <url>https://livijewelry.kz/product/prod_44.html</url>
         <price>12000</price>
@@ -907,6 +907,26 @@
         <picture>https://livijewelry.kz/assets/sotuar-iz-biryuzy-30000.webp</picture>
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[Авторское украшение ручной работы: Сотуар из бирюзы. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_99" available="true">
+        <name>Колье Цветная Яшма и браслет</name>
+        <url>https://livijewelry.kz/product/prod_99.html</url>
+        <price>51000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>4</categoryId>
+        <picture>https://livijewelry.kz/assets/kole-tsvetnaya-yashma-i-braslet-51000.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[В комплекте: Колье Цветная Яшма — 35 000 тг, Браслет — 16 000 тг. Полная стоимость комплекта — 51 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_100" available="true">
+        <name>Колье из лунного камня и жемчуга</name>
+        <url>https://livijewelry.kz/product/prod_100.html</url>
+        <price>36000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>1</categoryId>
+        <picture>https://livijewelry.kz/assets/kole-iz-lunnogo-kamnya-i-zhemchuga-36000.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[Авторское украшение ручной работы: Колье из лунного камня и жемчуга. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
       </offer>
     </offers>
   </shop>

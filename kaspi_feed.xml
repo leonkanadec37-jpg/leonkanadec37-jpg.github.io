@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<kaspi_catalog date="2026-11-11T23:14:35" xmlns="kaspiShopping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="kaspiShopping http://kaspi.kz/kaspishopping.xsd">
+<kaspi_catalog date="2026-11-12T10:01:26" xmlns="kaspiShopping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="kaspiShopping http://kaspi.kz/kaspishopping.xsd">
   <company>Livi Jewelry</company>
   <merchantid>30485133</merchantid>
   <offers>
@@ -311,7 +311,7 @@
       <model>Серьги луна и звезда</model>
       <brand>Livi Jewelry</brand>
       <availabilities>
-        <availability available="yes" storeId="PP1" preOrder="0"/>
+        <availability available="no" storeId="PP1" preOrder="0"/>
       </availabilities>
       <price>16000</price>
     </offer>
@@ -343,7 +343,7 @@
       <model>Серьги с сердцами Swarovski</model>
       <brand>Livi Jewelry</brand>
       <availabilities>
-        <availability available="yes" storeId="PP1" preOrder="0"/>
+        <availability available="no" storeId="PP1" preOrder="0"/>
       </availabilities>
       <price>17000</price>
     </offer>
@@ -351,7 +351,7 @@
       <model>Серьги с тигровым глазом</model>
       <brand>Livi Jewelry</brand>
       <availabilities>
-        <availability available="yes" storeId="PP1" preOrder="0"/>
+        <availability available="no" storeId="PP1" preOrder="0"/>
       </availabilities>
       <price>14000</price>
     </offer>
@@ -714,6 +714,22 @@
         <availability available="yes" storeId="PP1" preOrder="0"/>
       </availabilities>
       <price>34500</price>
+    </offer>
+    <offer sku="LIVI-99">
+      <model>Колье Цветная Яшма и браслет</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>58500</price>
+    </offer>
+    <offer sku="LIVI-100">
+      <model>Колье из лунного камня и жемчуга</model>
+      <brand>Livi Jewelry</brand>
+      <availabilities>
+        <availability available="yes" storeId="PP1" preOrder="0"/>
+      </availabilities>
+      <price>41500</price>
     </offer>
   </offers>
 </kaspi_catalog>

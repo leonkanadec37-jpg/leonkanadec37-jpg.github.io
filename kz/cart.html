@@ -804,10 +804,18 @@
       if(waAltBtn){
         waAltBtn.addEventListener('click', () => {
           try {
+            const leadVal = Math.max(1, Number(total) || 30000);
             if (typeof gtag === 'function') {
+              gtag('event', 'generate_lead', {
+                currency: 'KZT',
+                value: leadVal,
+                method: 'WhatsApp',
+                page_location: window.location.href,
+                lead_source: 'cart_whatsapp_direct'
+              });
               gtag('event', 'whatsapp_click', {
                 currency: 'KZT',
-                value: total,
+                value: leadVal,
                 method: 'WhatsApp',
                 page_location: window.location.href,
                 lead_source: 'cart_whatsapp_direct'
@@ -815,11 +823,9 @@
               gtag('event', 'conversion', { 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' });
             }
             if (typeof fbq === 'function') {
-              const orderTotal = Math.max(1, Number(total) || 30000);
-              fbq('track', 'InitiateCheckout', { currency: 'KZT', value: orderTotal });
               fbq('track', 'Contact');
               fbq('track', 'Lead', {
-                value: orderTotal,
+                value: leadVal,
                 currency: 'KZT',
                 content_name: 'Оформление через WhatsApp (быстрый заказ)',
                 content_type: 'product',
@@ -913,31 +919,14 @@
           sendMetaAdvancedMatching(phone, name, city);
           if(window.fbq){
             const prodIds = cart.map(i => i.id).filter(Boolean);
-            fbq('track', 'InitiateCheckout', {
-              currency: 'KZT',
-              value: orderTotal,
-              content_ids: prodIds,
-              contents: cart.map(i => ({ id: i.id, quantity: Number(i.qty || 1), item_price: Number(i.price || 0) })),
-              content_type: 'product',
-              num_items: cart.reduce((s,i)=>s+Number(i.qty||0),0)
-            });
             fbq('track', 'Purchase', {
               content_ids: prodIds,
-              contents: cart.map(i => ({ id: i.id, quantity: Number(i.qty || 1), item_price: Number(i.price || 0) })),
+              contents: cart.map(i => ({ id: i.id, quantity: Number(i.qty || 1), item_price: unitPrice(i) })),
               value: orderTotal,
               currency: 'KZT',
               content_type: 'product',
               num_items: cart.reduce((s,i)=>s+Number(i.qty||0),0)
             });
-            fbq('track', 'Lead', {
-              content_ids: prodIds,
-              contents: cart.map(i => ({ id: i.id, quantity: Number(i.qty || 1), item_price: Number(i.price || 0) })),
-              value: orderTotal,
-              currency: 'KZT',
-              content_name: 'Оформление заказа ' + orderId,
-              content_type: 'product'
-            });
-            fbq('track', 'Contact');
           }
 
           // Enhanced Conversions: чистый номер телефона + имя + город для Google Ads
@@ -959,7 +948,7 @@
               items: dynamicItems
             });
             gtag('event', 'conversion', {
-              'send_to': 'AW-16793974126/MuJ_CObHup8bEO7q_sc-',
+              'send_to': 'AW-16793974126/Xk1CCKDnu7QdEO7q_sc-',
               'value': total,
               'currency': 'KZT',
               'transaction_id': orderId

@@ -1227,7 +1227,7 @@
       <g:link>https://livijewelry.kz/product/prod_39.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/sergi-luna-i-zvezda-14000.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
+      <g:availability>out_of_stock</g:availability>
       <g:price>14000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -1355,7 +1355,7 @@
       <g:link>https://livijewelry.kz/product/prod_43.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/sergi-s-serdtsami-swarovski-15000.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
+      <g:availability>out_of_stock</g:availability>
       <g:price>15000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -1387,7 +1387,7 @@
       <g:link>https://livijewelry.kz/product/prod_44.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/sergi-s-tigrovym-glazom-12000.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
+      <g:availability>out_of_stock</g:availability>
       <g:price>12000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -2850,6 +2850,70 @@
       <g:custom_label_1>Catalog_Standard</g:custom_label_1>
       <g:custom_label_2>Lariats</g:custom_label_2>
       <g:custom_label_3>Turquoise</g:custom_label_3>
+      <g:custom_label_4>Handmade_KZ</g:custom_label_4>
+    </item>
+    <item>
+      <g:id>prod_99</g:id>
+      <g:title>Колье Цветная Яшма и браслет — ручная работа (яшма) | Livi Jewelry</g:title>
+      <g:description>В комплекте: Колье Цветная Яшма — 35 000 тг, Браслет — 16 000 тг. Полная стоимость комплекта — 51 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry. Доступные варианты комплектации: Полный комплект (Колье Цветная Яшма + Браслет) (51 000 ₸); Колье Цветная Яшма (35 000 ₸); Браслет (16 000 ₸). Авторское украшение ручной работы от казахстанского бренда Livi Jewelry. Материалы: Яшма, Ювелирный сплав. Фирменная подарочная упаковка в комплекте. Быстрая доставка СДЭК по Астане, Алматы и всему Казахстану.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_99.html</g:link>
+      <g:image_link>https://livijewelry.kz/assets/kole-tsvetnaya-yashma-i-braslet-51000.webp</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>51000.00 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>6463</g:google_product_category>
+      <g:product_type>Украшения &gt; Ювелирные комплекты и сеты ручной работы</g:product_type>
+      <g:age_group>adult</g:age_group>
+      <g:gender>female</g:gender>
+      <g:color>Серебристый</g:color>
+      <g:material>Яшма / Ювелирный сплав</g:material>
+      <g:product_highlight>Натуральные камни и жемчуг ручной сборки</g:product_highlight>
+      <g:product_highlight>Гипоаллергенная фурнитура со стойким покрытием (родий / позолота)</g:product_highlight>
+      <g:product_highlight>Фирменная подарочная упаковка включена в стоимость</g:product_highlight>
+      <g:product_highlight>Доставка день-в-день по Астане и СДЭК по всему Казахстану</g:product_highlight>
+      <g:shipping>
+        <g:country>KZ</g:country>
+        <g:service>СДЭК / курьер</g:service>
+        <g:price>4000.00 KZT</g:price>
+      </g:shipping>
+      <g:custom_label_0>Tier_2_Core_35k_to_54k</g:custom_label_0>
+      <g:custom_label_1>Catalog_Standard</g:custom_label_1>
+      <g:custom_label_2>Sets</g:custom_label_2>
+      <g:custom_label_3>Pearl</g:custom_label_3>
+      <g:custom_label_4>Handmade_KZ</g:custom_label_4>
+    </item>
+    <item>
+      <g:id>prod_100</g:id>
+      <g:title>Колье из лунного камня и жемчуга — ручная работа (натуральный жемчуг) | Livi Jewelry</g:title>
+      <g:description>Авторское украшение ручной работы: Колье из лунного камня и жемчуга. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry. Авторское украшение ручной работы от казахстанского бренда Livi Jewelry. Материалы: Натуральный жемчуг, Лунный камень, Ювелирный сплав. Фирменная подарочная упаковка в комплекте. Быстрая доставка СДЭК по Астане, Алматы и всему Казахстану.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_100.html</g:link>
+      <g:image_link>https://livijewelry.kz/assets/kole-iz-lunnogo-kamnya-i-zhemchuga-36000.webp</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>36000.00 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>196</g:google_product_category>
+      <g:product_type>Украшения &gt; Колье и бусы из натурального жемчуга и камней</g:product_type>
+      <g:age_group>adult</g:age_group>
+      <g:gender>female</g:gender>
+      <g:color>Белый перламутр / Серебристый</g:color>
+      <g:material>Натуральный жемчуг / Лунный камень / Ювелирный сплав</g:material>
+      <g:product_highlight>Натуральные камни и жемчуг ручной сборки</g:product_highlight>
+      <g:product_highlight>Гипоаллергенная фурнитура со стойким покрытием (родий / позолота)</g:product_highlight>
+      <g:product_highlight>Фирменная подарочная упаковка включена в стоимость</g:product_highlight>
+      <g:product_highlight>Доставка день-в-день по Астане и СДЭК по всему Казахстану</g:product_highlight>
+      <g:shipping>
+        <g:country>KZ</g:country>
+        <g:service>СДЭК / курьер</g:service>
+        <g:price>4000.00 KZT</g:price>
+      </g:shipping>
+      <g:custom_label_0>Tier_2_Core_35k_to_54k</g:custom_label_0>
+      <g:custom_label_1>Catalog_Standard</g:custom_label_1>
+      <g:custom_label_2>Necklaces</g:custom_label_2>
+      <g:custom_label_3>Pearl</g:custom_label_3>
       <g:custom_label_4>Handmade_KZ</g:custom_label_4>
     </item>
   </channel>
