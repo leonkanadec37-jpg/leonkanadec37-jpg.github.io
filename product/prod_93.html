@@ -255,7 +255,7 @@
           <a href="https://livijewelry.kz/kz/product/prod_93.html" hreflang="kk" onclick="localStorage.setItem('lang','kk')">KZ</a>
           <a href="https://livijewelry.kz/uz/product/prod_93.html" hreflang="uz" onclick="localStorage.setItem('lang','uz')">UZ</a>
         </nav>
-        <a class="cart-link" href="/cart.html">
+        <a class="cart-link" href="/cart.html" aria-label="Корзина">
           <span data-i18n="nav.cart">Корзина</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
         </a>
       </div>
@@ -263,15 +263,16 @@
 
     <div class="storefront-menu-backdrop" hidden></div>
     <nav id="storefront-menu" class="storefront-menu" aria-label="Разделы каталога" hidden>
-      <div class="storefront-menu-inner">
+      <!-- Desktop Dropdown (>= 769px) -->
+      <div class="storefront-menu-inner storefront-desktop">
         <div class="storefront-menu-types">
-          <p class="storefront-kicker">Украшения</p>
+          <p class="storefront-kicker">УКРАШЕНИЯ</p>
           <a href="/shop.html?cat=Necklaces">Колье</a>
           <a href="/sergi-iz-zhemchuga.html">Серьги</a>
           <a href="/shop.html?cat=Bracelets">Браслеты</a>
           <a href="/shop.html?cat=Sets">Комплекты</a>
           <a href="/koltsa-i-garnitury-iz-kamney.html">Кольца и сеты</a>
-          <a class="storefront-all" href="/shop.html?cat=All">Весь каталог <span aria-hidden="true">↗</span></a>
+          <a class="storefront-all" href="/shop.html?cat=All">ВЕСЬ КАТАЛОГ → <span aria-hidden="true">↗</span></a>
           <details class="storefront-more-types">
             <summary>Другие категории</summary>
             <div class="storefront-menu-links">
@@ -281,7 +282,7 @@
             </div>
           </details>
         </div>
-        <details class="storefront-materials">
+        <details class="storefront-materials" open>
           <summary>По материалу</summary>
           <div class="storefront-menu-links">
             <a href="/ukrasheniya-iz-barochnogo-zhemchuga.html">Барочный жемчуг</a>
@@ -311,9 +312,136 @@
           <a href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
           <a href="https://wa.me/77054510584?text=Здравствуйте!%20Подскажите,%20пожалуйста,%20по%20украшениям%20Livi%20Jewelry%20—%20хочу%20уточнить%20наличие%20и%20проконсультироваться%20✨" target="_blank" rel="noopener">WhatsApp</a>
           <div class="storefront-menu-languages storefront-mobile" role="group" aria-label="Выбор языка">
-            <a href="https://livijewelry.kz/product/prod_93.html" hreflang="ru" id="ruBtn" class="active" onclick="localStorage.setItem('lang','ru')">RU</a>
-            <a href="https://livijewelry.kz/kz/product/prod_93.html" id="kkBtn" hreflang="kk" onclick="localStorage.setItem('lang','kk')">KZ</a>
+            <a href="https://livijewelry.kz/product/prod_93.html" hreflang="ru" class="active" onclick="localStorage.setItem('lang','ru')">RU</a>
+            <a href="https://livijewelry.kz/kz/product/prod_93.html" hreflang="kk" onclick="localStorage.setItem('lang','kk')">KZ</a>
             <a href="https://livijewelry.kz/uz/product/prod_93.html" hreflang="uz" onclick="localStorage.setItem('lang','uz')">UZ</a>
+          </div>
+        </div>
+      </div>
+      <!-- Mobile Menu (Task 007) -->
+      <div id="storefrontMobileMenu" class="storefront-mobile-menu storefront-mobile">
+        <div class="smm-header">
+          <button type="button" class="smm-close-btn" aria-label="Закрыть меню">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          <a class="smm-logo" href="/" aria-label="Livi Jewelry">LIVI JEWELRY</a>
+          <div class="smm-header-actions">
+            <a href="/shop.html?search=1" class="smm-icon-btn" aria-label="Поиск по каталогу">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </a>
+            <a href="/cart.html" class="smm-icon-btn smm-cart-btn" aria-label="Корзина">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+              </svg>
+              <span class="cart-badge smm-cart-badge" style="display:none"></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="smm-content">
+          <div class="smm-section-label">УКРАШЕНИЯ</div>
+          <div class="smm-categories">
+        <a href="/shop.html?cat=Necklaces" class="smm-category-row">
+          <span>Колье</span>
+          <svg class="smm-category-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9A9389" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+        <a href="/sergi-iz-zhemchuga.html" class="smm-category-row">
+          <span>Серьги</span>
+          <svg class="smm-category-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9A9389" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+        <a href="/shop.html?cat=Bracelets" class="smm-category-row">
+          <span>Браслеты</span>
+          <svg class="smm-category-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9A9389" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+        <a href="/shop.html?cat=Sets" class="smm-category-row">
+          <span>Комплекты</span>
+          <svg class="smm-category-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9A9389" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+        <a href="/koltsa-i-garnitury-iz-kamney.html" class="smm-category-row">
+          <span>Кольца и сеты</span>
+          <svg class="smm-category-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9A9389" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+          </div>
+
+          <a href="/shop.html?cat=All" class="smm-all-btn">ВЕСЬ КАТАЛОГ →</a>
+
+          <div class="smm-section-label smm-scroll-label">ЕЩЁ КАТЕГОРИИ</div>
+          <div class="smm-pills-scroll">
+        <a href="/chokery-iz-naturalnyh-kamney.html" class="smm-pill">Чокеры из камней</a>
+        <a href="/sotuary-iz-zhemchuga.html" class="smm-pill">Сотуары</a>
+        <a href="/tsepi-s-barochnym-zhemchugom.html" class="smm-pill">Цепи с жемчугом</a>
+          </div>
+
+          <div class="smm-section-label smm-scroll-label">ПО КАМНЮ</div>
+          <div class="smm-pills-scroll">
+        <a href="/ukrasheniya-iz-barochnogo-zhemchuga.html" class="smm-pill"><span class="smm-stone-dot smm-dot-pearl"></span>Барочный жемчуг</a>
+        <a href="/ukrasheniya-iz-gematita.html" class="smm-pill"><span class="smm-stone-dot smm-dot-hematite"></span>Гематит</a>
+        <a href="/ukrasheniya-iz-malahita.html" class="smm-pill"><span class="smm-stone-dot smm-dot-malachite"></span>Малахит</a>
+        <a href="/ukrasheniya-iz-ametista.html" class="smm-pill"><span class="smm-stone-dot smm-dot-amethyst"></span>Аметист</a>
+        <a href="/ukrasheniya-iz-granata.html" class="smm-pill"><span class="smm-stone-dot smm-dot-garnet"></span>Гранат</a>
+        <a href="/ukrasheniya-iz-rozovogo-kvarca.html" class="smm-pill"><span class="smm-stone-dot smm-dot-rosequartz"></span>Розовый кварц</a>
+        <a href="/ukrasheniya-iz-biryuzy.html" class="smm-pill"><span class="smm-stone-dot smm-dot-turquoise"></span>Бирюза</a>
+        <a href="/ukrasheniya-iz-gornogo-hrustalya.html" class="smm-pill"><span class="smm-stone-dot smm-dot-crystal"></span>Горный хрусталь</a>
+        <a href="/ukrasheniya-iz-lunnogo-kamnya.html" class="smm-pill"><span class="smm-stone-dot smm-dot-moonstone"></span>Лунный камень</a>
+        <a href="/ukrasheniya-iz-zhemchuga-mayorka.html" class="smm-pill"><span class="smm-stone-dot smm-dot-pearl"></span>Жемчуг Майорка</a>
+        <a href="/ukrasheniya-iz-tigrovogo-glaza.html" class="smm-pill"><span class="smm-stone-dot smm-dot-tigereye"></span>Тигровый глаз</a>
+        <a href="/ukrasheniya-iz-koralla-i-yashmy.html" class="smm-pill"><span class="smm-stone-dot smm-dot-coralyashma"></span>Коралл и Яшма</a>
+        <a href="/ukrasheniya-iz-lazurita.html" class="smm-pill"><span class="smm-stone-dot smm-dot-lapis"></span>Лазурит</a>
+          </div>
+
+          <hr class="smm-divider">
+
+          <div class="smm-services">
+            <a href="/delivery.html" class="smm-service-link">
+              <svg class="smm-service-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="1" y="3" width="15" height="13"></rect>
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                <circle cx="18.5" cy="18.5" r="2.5"></circle>
+              </svg>
+              <span>Доставка и оплата</span>
+            </a>
+            <a href="https://maps.app.goo.gl/yrLFpFFKjz9kE1GHA" target="_blank" rel="noopener" class="smm-service-link">
+              <svg class="smm-service-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span>Магазин в Астане</span>
+            </a>
+          </div>
+
+          <div class="smm-social-buttons">
+            <a href="https://wa.me/77054510584?text=Здравствуйте!%20Подскажите,%20пожалуйста,%20по%20украшениям%20Livi%20Jewelry%20—%20хочу%20уточнить%20наличие%20и%20проконсультироваться%20✨" target="_blank" rel="noopener" class="smm-btn-wa">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 6.46 17.5 2 12.04 2M12.05 20.15C10.57 20.15 9.12 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.05 3.67C16.6 3.67 20.3 7.37 20.3 11.92C20.3 16.47 16.6 20.15 12.05 20.15M16.57 14.46C16.32 14.33 15.1 13.73 14.88 13.65C14.65 13.56 14.49 13.52 14.32 13.77C14.16 14.02 13.69 14.57 13.55 14.73C13.41 14.9 13.26 14.92 13.01 14.79C12.76 14.67 11.96 14.4 11.01 13.56C10.27 12.9 9.77 12.09 9.53 11.67C9.28 11.26 9.5 11.04 9.63 10.91C9.74 10.8 9.88 10.62 10.01 10.47C10.13 10.32 10.17 10.22 10.26 10.05C10.34 9.89 10.3 9.74 10.24 9.62C10.18 9.5 9.69 8.29 9.48 7.8C9.28 7.31 9.08 7.38 8.92 7.37H8.44C8.28 7.37 8.01 7.43 7.78 7.68C7.55 7.93 6.91 8.53 6.91 9.75C6.91 10.97 7.8 12.14 7.92 12.31C8.04 12.47 9.67 14.98 12.16 16.05C12.75 16.31 13.21 16.46 13.57 16.58C14.17 16.77 14.71 16.74 15.14 16.68C15.62 16.61 16.62 16.08 16.82 15.49C17.03 14.91 17.03 14.42 16.97 14.31C16.91 14.2 16.75 14.14 16.57 14.46Z"/></svg>
+              <span>WhatsApp</span>
+            </a>
+            <a href="https://instagram.com/livi_jwl" target="_blank" rel="noopener" class="smm-btn-ig">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+              <span>Instagram</span>
+            </a>
+          </div>
+
+          <div class="smm-lang-segment" role="group" aria-label="Выбор языка">
+            <a href="https://livijewelry.kz/product/prod_93.html" hreflang="ru" class="smm-lang-btn active" aria-current="true" onclick="localStorage.setItem('lang','ru')">RU</a>
+            <a href="https://livijewelry.kz/kz/product/prod_93.html" hreflang="kk" class="smm-lang-btn" onclick="localStorage.setItem('lang','kk')">KZ</a>
+            <a href="https://livijewelry.kz/uz/product/prod_93.html" hreflang="uz" class="smm-lang-btn" onclick="localStorage.setItem('lang','uz')">UZ</a>
+          </div>
+
+          <div class="smm-footer-contacts">
+            <p class="smm-address">Астана, пр. Кабанбай Батыра, 43</p>
+            <p><a href="tel:+77054510584" class="smm-phone">+7 705 451 05 84</a></p>
           </div>
         </div>
       </div>
