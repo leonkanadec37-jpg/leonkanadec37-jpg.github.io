@@ -979,5 +979,18 @@
       <g:product_type>Колье и чокеры из натурального жемчуга</g:product_type>
       <g:google_product_category>196</g:google_product_category>
     </item>
+    <item>
+      <g:id>prod_101</g:id>
+      <g:title>Гальяно в черном цвете</g:title>
+      <g:description>Авторское украшение ручной работы: Гальяно в черном цвете. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_101.html?utm_source=pinterest&amp;utm_medium=social&amp;utm_campaign=product_pins</g:link>
+      <g:image_link>https://livijewelry.kz/assets/galyano-v-chernom-tsvete-50000.webp</g:image_link>
+      <g:price>50000.00 KZT</g:price>
+      <g:availability>in stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:product_type>Колье и чокеры из натурального жемчуга</g:product_type>
+      <g:google_product_category>196</g:google_product_category>
+    </item>
   </channel>
 </rss>

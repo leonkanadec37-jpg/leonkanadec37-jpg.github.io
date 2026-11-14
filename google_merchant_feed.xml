@@ -2916,5 +2916,37 @@
       <g:custom_label_3>Pearl</g:custom_label_3>
       <g:custom_label_4>Handmade_KZ</g:custom_label_4>
     </item>
+    <item>
+      <g:id>prod_101</g:id>
+      <g:title>Гальяно в черном цвете — ручная работа (ювелирный сплав) | Livi Jewelry</g:title>
+      <g:description>Авторское украшение ручной работы: Гальяно в черном цвете. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry. Авторское украшение ручной работы от казахстанского бренда Livi Jewelry. Материалы: Ювелирный сплав. Фирменная подарочная упаковка в комплекте. Быстрая доставка СДЭК по Астане, Алматы и всему Казахстану.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_101.html</g:link>
+      <g:image_link>https://livijewelry.kz/assets/galyano-v-chernom-tsvete-50000.webp</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>50000.00 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>196</g:google_product_category>
+      <g:product_type>Украшения &gt; Колье и бусы из натурального жемчуга и камней</g:product_type>
+      <g:age_group>adult</g:age_group>
+      <g:gender>female</g:gender>
+      <g:color>Серебристый</g:color>
+      <g:material>Ювелирный сплав</g:material>
+      <g:product_highlight>Натуральные камни и жемчуг ручной сборки</g:product_highlight>
+      <g:product_highlight>Гипоаллергенная фурнитура со стойким покрытием (родий / позолота)</g:product_highlight>
+      <g:product_highlight>Фирменная подарочная упаковка включена в стоимость</g:product_highlight>
+      <g:product_highlight>Доставка день-в-день по Астане и СДЭК по всему Казахстану</g:product_highlight>
+      <g:shipping>
+        <g:country>KZ</g:country>
+        <g:service>СДЭК / курьер</g:service>
+        <g:price>4000.00 KZT</g:price>
+      </g:shipping>
+      <g:custom_label_0>Tier_2_Core_35k_to_54k</g:custom_label_0>
+      <g:custom_label_1>Catalog_Standard</g:custom_label_1>
+      <g:custom_label_2>Necklaces</g:custom_label_2>
+      <g:custom_label_3>Pearl</g:custom_label_3>
+      <g:custom_label_4>Handmade_KZ</g:custom_label_4>
+    </item>
   </channel>
 </rss>
