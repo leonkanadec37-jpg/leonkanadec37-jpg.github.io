@@ -4396,7 +4396,7 @@ main.wrap > h1 {
     justify-content: space-between;
     height: 58px;
     min-height: 58px;
-    padding: 0 12px 0 16px;
+    padding: 0 12px;
     padding-top: env(safe-area-inset-top, 0px);
     background: #F9F7F3;
     border-bottom: 1px solid #E8E2D8;
@@ -4419,12 +4419,15 @@ main.wrap > h1 {
     -webkit-tap-highlight-color: transparent;
   }
 
+  /* Logo matches the storefront header brand (.storefront-header .brand) */
   .smm-logo {
-    font-family: var(--font-sans);
-    font-size: 17px;
-    font-weight: 600;
-    letter-spacing: .14em;
-    color: #1F1D1A;
+    font-family: var(--font-serif);
+    font-size: clamp(16px, 4.4vw, 22px);
+    font-weight: 400;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--fg, #141312);
     text-decoration: none;
     text-align: center;
   }
