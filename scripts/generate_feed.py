@@ -17,7 +17,11 @@
 import json
 import os
 import re
+import sys
 from xml.sax.saxutils import escape
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from catalog_pricing import has_from_price, real_bundle_options
 
 SITE_URL = "https://livijewelry.kz"
 PRODUCTS_FILE = "products.json"
@@ -135,7 +139,7 @@ def build_rich_description(p: dict) -> str:
     base_desc = p.get("description", "").strip()
     materials = p.get("materials", [])
     mat_str = ", ".join(materials) if materials else "Натуральный жемчуг, ювелирный сплав"
-    bundle_options = p.get("bundle_options") or []
+    bundle_options = real_bundle_options(p)
     bundle_text = ""
     if bundle_options:
         opts = [f"{o['name']} ({o['price']:,} ₸)".replace(",", " ") for o in bundle_options]
@@ -176,8 +180,9 @@ def generate_feed():
         google_cat = GOOGLE_CATEGORY_MAP.get(category, "188")
         product_type = escape(PRODUCT_TYPE_MAP.get(category, "Украшения > Ручная работа"))
 
-        # Canonical static product URL
-        item_link = escape(f"{SITE_URL}/product/{p.get('id')}.html")
+        # Canonical static product URL (with ?v=full for bundle sets)
+        suffix = "?v=full" if has_from_price(p) else ""
+        item_link = escape(f"{SITE_URL}/product/{p.get('id')}.html{suffix}")
 
         img_rel = p.get("image", "").lstrip("/")
         image_link = escape(f"{SITE_URL}/{img_rel}")

@@ -229,6 +229,7 @@
   ]
 }
   </script>
+  <script src="/scripts/catalog-pricing.js"></script>
   <script src="/scripts/storefront-menu.js" defer></script>
 </head>
 <body>
@@ -544,8 +545,8 @@
               <img src="/assets/kole-iz-lunnogo-kamnya-i-zhemchuga-mayorka-koltso-51000-400w.webp" srcset="/assets/kole-iz-lunnogo-kamnya-i-zhemchuga-mayorka-koltso-51000-400w.webp 400w, /assets/kole-iz-lunnogo-kamnya-i-zhemchuga-mayorka-koltso-51000-750w.webp 750w, /assets/kole-iz-lunnogo-kamnya-i-zhemchuga-mayorka-koltso-51000.webp 1440w" sizes="140px" alt="Колье из лунного камня и жемчуга Майорка, кольцо — Livi Jewelry" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
             </a>
             <a href="/uz/product/prod_79.html" class="pair-title">Колье из лунного камня и жемчуга Майорка, кольцо</a>
-            <div class="pair-price">51 000 ₸</div>
-            <button type="button" class="pair-add-btn" data-id="prod_79" data-title="Колье из лунного камня и жемчуга Майорка, кольцо" data-price="51000" data-image="/assets/kole-iz-lunnogo-kamnya-i-zhemchuga-mayorka-koltso-51000.webp" data-url="/uz/product/prod_79.html">+ Qo‘shish</button>
+            <div class="pair-price">35 000 ₸ <span class="price-from">dan</span></div>
+            <button type="button" class="pair-add-btn" data-id="prod_79" data-cart-id="prod_79-1" data-title="Колье из лунного камня и жемчуга Майорка" data-price="35000" data-bundle="Колье из лунного камня и жемчуга Майорка" data-image="/assets/kole-iz-lunnogo-kamnya-i-zhemchuga-mayorka-koltso-51000.webp" data-url="/uz/product/prod_79.html">+ Qo‘shish</button>
           </article>
           <article class="pair-card" data-id="prod_60">
             <a href="/uz/product/prod_60.html" class="pair-img-link">
@@ -553,15 +554,15 @@
             </a>
             <a href="/uz/product/prod_60.html" class="pair-title">Колье из аква кварца и жемчуга</a>
             <div class="pair-price">40 000 ₸</div>
-            <button type="button" class="pair-add-btn" data-id="prod_60" data-title="Колье из аква кварца и жемчуга" data-price="40000" data-image="/assets/kole-iz-akva-kvartsa-i-zhemchuga-40000.webp" data-url="/uz/product/prod_60.html">+ Qo‘shish</button>
+            <button type="button" class="pair-add-btn" data-id="prod_60" data-cart-id="prod_60" data-title="Колье из аква кварца и жемчуга" data-price="40000" data-bundle="" data-image="/assets/kole-iz-akva-kvartsa-i-zhemchuga-40000.webp" data-url="/uz/product/prod_60.html">+ Qo‘shish</button>
           </article>
           <article class="pair-card" data-id="prod_61">
             <a href="/uz/product/prod_61.html" class="pair-img-link">
               <img src="/assets/kole-iz-gornogo-khrustalya-i-zhemchuga-sergi-70000-400w.webp" srcset="/assets/kole-iz-gornogo-khrustalya-i-zhemchuga-sergi-70000-400w.webp 400w, /assets/kole-iz-gornogo-khrustalya-i-zhemchuga-sergi-70000-750w.webp 750w, /assets/kole-iz-gornogo-khrustalya-i-zhemchuga-sergi-70000.webp 1440w" sizes="140px" alt="Колье из горного хрусталя и жемчуга, серьги — Livi Jewelry" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
             </a>
             <a href="/uz/product/prod_61.html" class="pair-title">Колье из горного хрусталя и жемчуга, серьги</a>
-            <div class="pair-price">70 000 ₸</div>
-            <button type="button" class="pair-add-btn" data-id="prod_61" data-title="Колье из горного хрусталя и жемчуга, серьги" data-price="70000" data-image="/assets/kole-iz-gornogo-khrustalya-i-zhemchuga-sergi-70000.webp" data-url="/uz/product/prod_61.html">+ Qo‘shish</button>
+            <div class="pair-price">50 000 ₸ <span class="price-from">dan</span></div>
+            <button type="button" class="pair-add-btn" data-id="prod_61" data-cart-id="prod_61-1" data-title="Колье из горного хрусталя и жемчуга" data-price="50000" data-bundle="Колье из горного хрусталя и жемчуга" data-image="/assets/kole-iz-gornogo-khrustalya-i-zhemchuga-sergi-70000.webp" data-url="/uz/product/prod_61.html">+ Qo‘shish</button>
           </article>
           </div>
         </section>
@@ -775,9 +776,12 @@
   </a>
 
   <script>
-    const PRODUCT = {"id": "prod_38", "title": "Mayorka marvarididan ziraklar", "price": 16000, "category": "Earrings", "image": "/assets/sergi-iz-zhemchuga-mayorka-16000.webp", "bundle_options": []};
-    let currentActivePrice = PRODUCT.price;
-    let currentActiveTitle = PRODUCT.title;
+    const PRODUCT = {"id": "prod_38", "title": "Mayorka marvarididan ziraklar", "price": 16000, "full_price": 16000, "default_price": 16000, "default_title": "Mayorka marvarididan ziraklar", "default_idx": null, "default_v": "", "has_from": false, "category": "Earrings", "image": "/assets/sergi-iz-zhemchuga-mayorka-16000.webp", "bundle_options": [], "ordered_options": []};
+    let currentActivePrice = PRODUCT.default_price || PRODUCT.price;
+    let currentActiveTitle = PRODUCT.default_title || PRODUCT.title;
+    let currentActiveBundle = PRODUCT.has_from ? (PRODUCT.default_title || '') : '';
+    let currentActiveIdx = PRODUCT.default_idx;
+    let currentActiveV = PRODUCT.default_v || '';
 
     (function captureAttribution(){
       try {
@@ -818,26 +822,75 @@
     }
     updateBadge();
 
-    const bundleSelect = document.getElementById('customBundle');
+    const bundleOptionsWrap = document.getElementById('bundleOptions');
+    const bundleRadios = bundleOptionsWrap ? Array.from(bundleOptionsWrap.querySelectorAll('.bundle-option[role="radio"]')) : [];
     const priceDisplay = document.getElementById('activePriceDisplay');
     const buyWaBtn = document.getElementById('buyWaBtn');
+    const stickyPriceDisplay = document.querySelector('.mobile-sticky-price');
 
     function updateWaLink(){
-      const bundleVal = bundleSelect ? bundleSelect.value : '';
       const text = `Salom, Livi Jewelry! Menga «${currentActiveTitle}» (artikul: ${PRODUCT.id}) taqinchog‘i yoqdi. Narxi: ${currentActivePrice.toLocaleString('ru-RU').replace(/,/g, ' ')} ₸. Buyurtma berishda yordam bera olasizmi?`;
       const url = 'https://wa.me/77054510584?text=' + encodeURIComponent(text);
       if(buyWaBtn) buyWaBtn.onclick = () => { window.open(url, '_blank'); };
     }
 
-    if(bundleSelect){
-      bundleSelect.addEventListener('change', () => {
-        const opt = bundleSelect.options[bundleSelect.selectedIndex];
-        const p = Number(opt.getAttribute('data-price') || PRODUCT.price);
-        currentActivePrice = p;
-        currentActiveTitle = opt.value;
-        if(priceDisplay) priceDisplay.textContent = p.toLocaleString('ru-RU').replace(/,/g, ' ') + ' ₸';
-        if(buyWaBtn) buyWaBtn.textContent = `WhatsApp orqali buyurtma berish (${p.toLocaleString('ru-RU').replace(/,/g, ' ')} ₸)`;
-        updateWaLink();
+    function selectBundleOption(btn, syncUrl){
+      if(!btn) return;
+      bundleRadios.forEach(r => {
+        const active = (r === btn);
+        r.setAttribute('aria-checked', active ? 'true' : 'false');
+        r.setAttribute('tabindex', active ? '0' : '-1');
+      });
+      const p = Number(btn.getAttribute('data-price') || PRODUCT.default_price || PRODUCT.price);
+      const vName = btn.getAttribute('data-name') || PRODUCT.default_title || PRODUCT.title;
+      const vIdxAttr = btn.getAttribute('data-idx');
+      const vParam = btn.getAttribute('data-v') || '';
+      currentActivePrice = p;
+      currentActiveTitle = vName;
+      currentActiveBundle = vName;
+      currentActiveIdx = (vIdxAttr !== null && vIdxAttr !== '') ? Number(vIdxAttr) : PRODUCT.default_idx;
+      currentActiveV = vParam;
+      const fmtP = p.toLocaleString('ru-RU').replace(/,/g, ' ') + ' ₸';
+      if(priceDisplay) priceDisplay.textContent = fmtP;
+      if(stickyPriceDisplay) stickyPriceDisplay.textContent = fmtP;
+      if(buyWaBtn) buyWaBtn.textContent = `WhatsApp orqali buyurtma berish (${fmtP})`;
+      updateWaLink();
+      if(syncUrl && vParam && window.history && window.history.replaceState){
+        try {
+          const u = new URL(window.location.href);
+          u.searchParams.set('v', vParam);
+          window.history.replaceState(null, '', u.pathname + u.search + u.hash);
+        } catch(e){}
+      }
+    }
+
+    if(bundleOptionsWrap && bundleRadios.length){
+      const urlV = new URLSearchParams(window.location.search).get('v');
+      const matchedRadio = urlV ? bundleRadios.find(r => r.getAttribute('data-v') === urlV) : null;
+      const defaultRadio = bundleRadios.find(r => r.getAttribute('aria-checked') === 'true') || bundleRadios[0];
+      selectBundleOption(matchedRadio || defaultRadio, false);
+
+      bundleOptionsWrap.addEventListener('click', (e) => {
+        const btn = e.target.closest('.bundle-option[role="radio"]');
+        if(!btn) return;
+        selectBundleOption(btn, true);
+      });
+
+      bundleOptionsWrap.addEventListener('keydown', (e) => {
+        const current = e.target.closest('.bundle-option[role="radio"]');
+        if(!current) return;
+        const idx = bundleRadios.indexOf(current);
+        if(idx === -1) return;
+        let nextIdx = -1;
+        if(e.key === 'ArrowDown' || e.key === 'ArrowRight') nextIdx = (idx + 1) % bundleRadios.length;
+        else if(e.key === 'ArrowUp' || e.key === 'ArrowLeft') nextIdx = (idx - 1 + bundleRadios.length) % bundleRadios.length;
+        else if(e.key === 'Home') nextIdx = 0;
+        else if(e.key === 'End') nextIdx = bundleRadios.length - 1;
+        if(nextIdx !== -1){
+          e.preventDefault();
+          bundleRadios[nextIdx].focus();
+          selectBundleOption(bundleRadios[nextIdx], true);
+        }
       });
     }
 
@@ -846,13 +899,17 @@
     function handleAddToCart() {
       let cart = [];
       try { cart = JSON.parse(localStorage.getItem('livi_cart_v3') || '[]'); } catch(e){}
-      const bundleOpt = bundleSelect ? bundleSelect.value : '';
-      const itemIdx = cart.findIndex(i => i.id === PRODUCT.id && (i.customBundle || '') === bundleOpt);
+      const bundleOpt = PRODUCT.has_from ? currentActiveBundle : '';
+      const cartItemId = (PRODUCT.has_from && currentActiveIdx !== null && currentActiveIdx !== undefined && !Number.isNaN(currentActiveIdx))
+        ? `${PRODUCT.id}-${currentActiveIdx}`
+        : PRODUCT.id;
+      const itemIdx = cart.findIndex(i => i.id === cartItemId && (i.customBundle || '') === bundleOpt);
       if(itemIdx > -1){
         cart[itemIdx].qty = (cart[itemIdx].qty || 1) + 1;
       } else {
         cart.push({
-          id: PRODUCT.id,
+          id: cartItemId,
+          productId: PRODUCT.id,
           title: currentActiveTitle,
           price: currentActivePrice,
           image: PRODUCT.image,
@@ -887,7 +944,7 @@
             content_ids: [PRODUCT.id],
             content_name: currentActiveTitle,
             content_type: 'product',
-            value: Math.max(1, Number(currentActivePrice || PRODUCT.price || 40000)),
+            value: Math.max(1, Number(currentActivePrice || PRODUCT.default_price || PRODUCT.price || 40000)),
             currency: 'KZT'
           });
         }
@@ -915,7 +972,7 @@
       // R4: Filter out items already in cart from recommendations
       try {
         const currentCart = readCart();
-        const cartIds = new Set(currentCart.map(function(c) { return c.id; }));
+        const cartIds = new Set(currentCart.map(function(c) { return c.productId || c.id; }));
         const recCards = modal.querySelectorAll('.mini-rec-card');
         let shownCount = 0;
         recCards.forEach(function(card) {
@@ -968,18 +1025,21 @@
         e.preventDefault();
         e.stopPropagation();
         const pId = btn.getAttribute('data-id');
+        const pCartId = btn.getAttribute('data-cart-id') || pId;
         const pTitle = btn.getAttribute('data-title');
         const pPrice = Number(btn.getAttribute('data-price') || 0);
+        const pBundle = btn.getAttribute('data-bundle') || '';
         const pImage = btn.getAttribute('data-image');
         const pUrl = btn.getAttribute('data-url');
         let cart = [];
         try { cart = JSON.parse(localStorage.getItem('livi_cart_v3') || '[]'); } catch(e){}
-        const idx = cart.findIndex(x => x.id === pId);
+        const idx = cart.findIndex(x => x.id === pCartId);
         if (idx >= 0) {
           cart[idx].qty = Number(cart[idx].qty || 1) + 1;
         } else {
-          cart.push({
-            id: pId,
+          const itemObj = {
+            id: pCartId,
+            productId: pId,
             sku: pId.replace('prod_', 'LIVI-'),
             title: pTitle,
             price: pPrice,
@@ -987,7 +1047,12 @@
             image: pImage,
             qty: 1,
             url: pUrl
-          });
+          };
+          if (pBundle) {
+            itemObj.customBundle = pBundle;
+            itemObj.bundleOption = pBundle;
+          }
+          cart.push(itemObj);
         }
         try {
           localStorage.setItem('livi_cart_v3', JSON.stringify(cart));
@@ -1154,9 +1219,9 @@
             <img src="/assets/kole-iz-lunnogo-kamnya-i-zhemchuga-mayorka-koltso-51000-400w.webp" alt="Колье из лунного камня и жемчуга Майорка, кольцо" width="48" height="64" class="mini-rec-img" loading="lazy">
             <div class="mini-rec-info">
               <div class="mini-rec-title">Колье из лунного камня и жемчуга Майорка, кольцо</div>
-              <div class="mini-rec-price">51 000 ₸</div>
+              <div class="mini-rec-price">35 000 ₸ <span class="price-from">dan</span></div>
             </div>
-            <button type="button" class="mini-rec-add" data-id="prod_79" data-title="Колье из лунного камня и жемчуга Майорка, кольцо" data-price="51000" data-image="/assets/kole-iz-lunnogo-kamnya-i-zhemchuga-mayorka-koltso-51000.webp" data-url="/uz/product/prod_79.html">+ Qo‘shish</button>
+            <button type="button" class="mini-rec-add" data-id="prod_79" data-cart-id="prod_79-1" data-title="Колье из лунного камня и жемчуга Майорка" data-price="35000" data-bundle="Колье из лунного камня и жемчуга Майорка" data-image="/assets/kole-iz-lunnogo-kamnya-i-zhemchuga-mayorka-koltso-51000.webp" data-url="/uz/product/prod_79.html">+ Qo‘shish</button>
           </div>
           <div class="mini-rec-card">
             <img src="/assets/kole-iz-akva-kvartsa-i-zhemchuga-40000-400w.webp" alt="Колье из аква кварца и жемчуга" width="48" height="64" class="mini-rec-img" loading="lazy">
@@ -1164,15 +1229,15 @@
               <div class="mini-rec-title">Колье из аква кварца и жемчуга</div>
               <div class="mini-rec-price">40 000 ₸</div>
             </div>
-            <button type="button" class="mini-rec-add" data-id="prod_60" data-title="Колье из аква кварца и жемчуга" data-price="40000" data-image="/assets/kole-iz-akva-kvartsa-i-zhemchuga-40000.webp" data-url="/uz/product/prod_60.html">+ Qo‘shish</button>
+            <button type="button" class="mini-rec-add" data-id="prod_60" data-cart-id="prod_60" data-title="Колье из аква кварца и жемчуга" data-price="40000" data-bundle="" data-image="/assets/kole-iz-akva-kvartsa-i-zhemchuga-40000.webp" data-url="/uz/product/prod_60.html">+ Qo‘shish</button>
           </div>
           <div class="mini-rec-card">
             <img src="/assets/kole-iz-gornogo-khrustalya-i-zhemchuga-sergi-70000-400w.webp" alt="Колье из горного хрусталя и жемчуга, серьги" width="48" height="64" class="mini-rec-img" loading="lazy">
             <div class="mini-rec-info">
               <div class="mini-rec-title">Колье из горного хрусталя и жемчуга, серьги</div>
-              <div class="mini-rec-price">70 000 ₸</div>
+              <div class="mini-rec-price">50 000 ₸ <span class="price-from">dan</span></div>
             </div>
-            <button type="button" class="mini-rec-add" data-id="prod_61" data-title="Колье из горного хрусталя и жемчуга, серьги" data-price="70000" data-image="/assets/kole-iz-gornogo-khrustalya-i-zhemchuga-sergi-70000.webp" data-url="/uz/product/prod_61.html">+ Qo‘shish</button>
+            <button type="button" class="mini-rec-add" data-id="prod_61" data-cart-id="prod_61-1" data-title="Колье из горного хрусталя и жемчуга" data-price="50000" data-bundle="Колье из горного хрусталя и жемчуга" data-image="/assets/kole-iz-gornogo-khrustalya-i-zhemchuga-sergi-70000.webp" data-url="/uz/product/prod_61.html">+ Qo‘shish</button>
           </div>
           <div class="mini-rec-card">
             <img src="/assets/kole-iz-zhemchuga-i-ametista-50000-400w.webp" alt="Колье из жемчуга и аметиста" width="48" height="64" class="mini-rec-img" loading="lazy">
@@ -1180,7 +1245,7 @@
               <div class="mini-rec-title">Колье из жемчуга и аметиста</div>
               <div class="mini-rec-price">50 000 ₸</div>
             </div>
-            <button type="button" class="mini-rec-add" data-id="prod_62" data-title="Колье из жемчуга и аметиста" data-price="50000" data-image="/assets/kole-iz-zhemchuga-i-ametista-50000.webp" data-url="/uz/product/prod_62.html">+ Qo‘shish</button>
+            <button type="button" class="mini-rec-add" data-id="prod_62" data-cart-id="prod_62" data-title="Колье из жемчуга и аметиста" data-price="50000" data-bundle="" data-image="/assets/kole-iz-zhemchuga-i-ametista-50000.webp" data-url="/uz/product/prod_62.html">+ Qo‘shish</button>
           </div>
         </div>
       </div>

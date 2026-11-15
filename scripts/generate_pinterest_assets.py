@@ -12,7 +12,11 @@
 import csv
 import json
 import os
+import sys
 from xml.sax.saxutils import escape
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from catalog_pricing import has_from_price
 
 SITE_URL = "https://livijewelry.kz"
 PRODUCTS_FILE = "products.json"
@@ -66,7 +70,7 @@ def generate_pinterest_assets():
         
         img_rel = p.get("image", "").lstrip("/")
         image_url = f"{SITE_URL}/{img_rel}"
-        product_url = f"{SITE_URL}/product/{pid}.html{PINTEREST_UTM}"
+        product_url = f"{SITE_URL}/product/{pid}.html?v=full&{PINTEREST_UTM.lstrip('?')}" if has_from_price(p) else f"{SITE_URL}/product/{pid}.html{PINTEREST_UTM}"
 
         desc_raw = clean_text(p.get("description", ""))
         materials = ", ".join(p.get("materials") or ["натуральный жемчуг"])
@@ -115,7 +119,7 @@ def generate_pinterest_assets():
         price = p.get("price", 0)
         img_rel = p.get("image", "").lstrip("/")
         image_url = f"{SITE_URL}/{img_rel}"
-        product_url = f"{SITE_URL}/product/{pid}.html{PINTEREST_UTM}"
+        product_url = f"{SITE_URL}/product/{pid}.html?v=full&{PINTEREST_UTM.lstrip('?')}" if has_from_price(p) else f"{SITE_URL}/product/{pid}.html{PINTEREST_UTM}"
         category = p.get("category", "Necklaces")
         board_type = BOARD_MAP.get(category, "Украшения")
 

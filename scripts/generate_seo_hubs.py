@@ -19,6 +19,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from generate_mobile_menu import render_full_storefront_header
+from catalog_pricing import catalog_price, price_html
 
 BASE_URL = "https://livijewelry.kz"
 PRODUCTS_FILE = "products.json"
@@ -1125,7 +1126,7 @@ def build_product_schema_for_itemlist(p: dict, idx: int, is_kz: bool = False, kz
     else:
         pdesc = (p.get("description") or ptitle).strip()
 
-    pprice = int(p.get("price", 0))
+    pprice = catalog_price(p)
     pprice_dec = f"{pprice:.2f}"
     pimg_rel = p["image"].lstrip("/")
     pimg_abs = f"{BASE_URL}/{pimg_rel}"
@@ -1344,7 +1345,7 @@ def generate_hub_page(hub, products):
     uz_url = f"{BASE_URL}/uz/{slug}"
     matched_products, recommended_ids = match_products_for_hub(hub, products)
 
-    prices = [int(p.get("price", 0)) for p in matched_products if int(p.get("price", 0)) > 0]
+    prices = [catalog_price(p) for p in matched_products if catalog_price(p) > 0]
     min_price = min(prices) if prices else 25000
     max_price = max(prices) if prices else 91000
     min_fmt = f"{min_price:,}".replace(",", " ")
@@ -1379,8 +1380,8 @@ def generate_hub_page(hub, products):
     for idx, p in enumerate(matched_products, start=1):
         pid = p["id"]
         ptitle = p["title"]
-        pprice = int(p.get("price", 0))
-        pprice_fmt = f"{pprice:,}".replace(",", " ")
+        pprice = catalog_price(p)
+        pprice_markup = price_html(p, "ru")
         pimg_rel = p["image"].lstrip("/")
         pmats = ", ".join(p.get("materials", []))
 
@@ -1402,7 +1403,7 @@ def generate_hub_page(hub, products):
           <div class="body">
             {rec_badge}
             <h3 class="title"><a href="/product/{pid}.html" class="card-title-link">{ptitle}</a></h3>
-            <div class="price">{pprice_fmt} ₸</div>
+            <div class="price">{pprice_markup}</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">{clean_attr(pmats)}</div>
           </div>
         </article>""")
@@ -1739,7 +1740,7 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
         else:
             matched = [p for p in products if not p.get("archived", False)][:6]
 
-    prices = [int(p.get("price", 0)) for p in matched if int(p.get("price", 0)) > 0]
+    prices = [catalog_price(p) for p in matched if catalog_price(p) > 0]
     min_price = min(prices) if prices else 25000
     max_price = max(prices) if prices else 91000
     min_fmt = f"{min_price:,}".replace(",", " ")
@@ -1785,8 +1786,8 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
         kz_t = KZ_TRANSLATIONS.get(pid, {})
         ptitle_kz = kz_t.get("title") or p["title"]
         pdesc_kz = kz_t.get("desc") or p.get("description") or ptitle_kz
-        pprice = int(p.get("price", 0))
-        pprice_fmt = f"{pprice:,}".replace(",", " ")
+        pprice = catalog_price(p)
+        pprice_markup = price_html(p, "kz")
         pimg_rel = p["image"].lstrip("/")
         pmats = ", ".join(p.get("materials", []))
 
@@ -1803,7 +1804,7 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
           </div>
           <div class="body">
             <h3 class="title"><a href="/kz/product/{pid}.html" class="card-title-link">{ptitle_kz}</a></h3>
-            <div class="price">{pprice_fmt} ₸</div>
+            <div class="price">{pprice_markup}</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">{clean_attr(pmats)}</div>
           </div>
         </article>""")
@@ -2134,7 +2135,7 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
         else:
             matched = [p for p in products if not p.get("archived", False)][:6]
 
-    prices = [int(p.get("price", 0)) for p in matched if int(p.get("price", 0)) > 0]
+    prices = [catalog_price(p) for p in matched if catalog_price(p) > 0]
     min_price = min(prices) if prices else 25000
     max_price = max(prices) if prices else 91000
     min_fmt = f"{min_price:,}".replace(",", " ")
@@ -2180,8 +2181,8 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
         uz_t = UZ_TRANSLATIONS.get(pid, {})
         ptitle_uz = uz_t.get("title") or p["title"]
         pdesc_uz = uz_t.get("desc") or p.get("description") or ptitle_uz
-        pprice = int(p.get("price", 0))
-        pprice_fmt = f"{pprice:,}".replace(",", " ")
+        pprice = catalog_price(p)
+        pprice_markup = price_html(p, "uz")
         pimg_rel = p["image"].lstrip("/")
         pmats = ", ".join(uz_t.get("materials") or p.get("materials", []))
 
@@ -2198,7 +2199,7 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
           </div>
           <div class="body">
             <h3 class="title"><a href="/uz/product/{pid}.html" class="card-title-link">{ptitle_uz}</a></h3>
-            <div class="price">{pprice_fmt} ₸</div>
+            <div class="price">{pprice_markup}</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">{clean_attr(pmats)}</div>
           </div>
         </article>""")
@@ -2528,8 +2529,8 @@ def update_sergi_page(products: list):
     for idx, p in enumerate(earring_prods, start=1):
         pid = p["id"]
         title = clean_attr(p["title"])
-        price = int(p.get("price", 0))
-        price_fmt = f"{price:,}".replace(",", " ")
+        price = catalog_price(p)
+        price_markup = price_html(p, "ru")
         img = p["image"].lstrip("/")
         alt_str = clean_attr(build_clean_alt(p))
         mats_str = clean_attr(", ".join(p.get("materials", [])))
@@ -2553,7 +2554,7 @@ def update_sergi_page(products: list):
           <div class="body">
             <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold);margin-bottom:4px;">Серьги доступны отдельно или в комплекте</div>
             <h3 class="title"><a href="/product/{pid}.html" class="card-title-link">{title}</a></h3>
-            <div class="price">{price_fmt} ₸</div>
+            <div class="price">{price_markup}</div>
             <div class="earring-price-badge" style="font-size:13px;font-weight:600;color:var(--gold);margin-top:4px;">Серьги отдельно: от {earring_price_fmt} ₸</div>
             <div class="meta" style="font-size: 12px; color: var(--muted); margin-top: 4px;">{mats_str}</div>
           </div>

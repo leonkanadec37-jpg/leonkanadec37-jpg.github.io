@@ -6384,3 +6384,65 @@ footer.site-footer,
     -webkit-tap-highlight-color: transparent;
   }
 }
+
+/* Task 008: "от" price prefix & bundle radiogroup */
+.price-from {
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 0.85em;
+}
+
+.bundle-options[role="radiogroup"] {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.bundle-option[role="radio"] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  background: #F6F3EC;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bundle-option[role="radio"]:hover {
+  border-color: var(--gold);
+}
+
+.bundle-option[role="radio"][aria-checked="true"] {
+  border: 1px solid var(--gold-text);
+  background: #FAF9F6;
+  font-weight: 500;
+}
+
+.bundle-option[role="radio"]:focus-visible {
+  outline: 2px solid var(--gold-text);
+  outline-offset: 2px;
+}
+
+.bundle-option-name {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.bundle-option-price {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--fg);
+}

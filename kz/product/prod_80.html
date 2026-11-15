@@ -231,6 +231,7 @@
   ]
 }
   </script>
+  <script src="/scripts/catalog-pricing.js"></script>
   <script src="/scripts/storefront-menu.js" defer></script>
 </head>
 <body>
@@ -528,24 +529,24 @@
               <img src="/assets/kole-iz-agata-i-braslet-47000-400w.webp" srcset="/assets/kole-iz-agata-i-braslet-47000-400w.webp 400w, /assets/kole-iz-agata-i-braslet-47000-750w.webp 750w, /assets/kole-iz-agata-i-braslet-47000.webp 1440w" sizes="140px" alt="Колье из Агата и браслет — Livi Jewelry" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
             </a>
             <a href="/kz/product/prod_64.html" class="pair-title">Колье из Агата и браслет</a>
-            <div class="pair-price">47 000 ₸</div>
-            <button type="button" class="pair-add-btn" data-id="prod_64" data-title="Колье из Агата и браслет" data-price="47000" data-image="/assets/kole-iz-agata-i-braslet-47000.webp" data-url="/kz/product/prod_64.html">+ Қосу</button>
+            <div class="pair-price">35 000 ₸ <span class="price-from">бастап</span></div>
+            <button type="button" class="pair-add-btn" data-id="prod_64" data-cart-id="prod_64-1" data-bundle="Колье из Агата" data-title="Колье из Агата и браслет" data-price="35000" data-image="/assets/kole-iz-agata-i-braslet-47000.webp" data-url="/kz/product/prod_64.html">+ Қосу</button>
           </article>
           <article class="pair-card" data-id="prod_92">
             <a href="/kz/product/prod_92.html" class="pair-img-link">
               <img src="/assets/kole-iz-yashmy-i-granata-braslet-51000-400w.webp" srcset="/assets/kole-iz-yashmy-i-granata-braslet-51000-400w.webp 400w, /assets/kole-iz-yashmy-i-granata-braslet-51000-750w.webp 750w, /assets/kole-iz-yashmy-i-granata-braslet-51000.webp 1440w" sizes="140px" alt="Колье из яшмы и граната, браслет — Livi Jewelry" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
             </a>
             <a href="/kz/product/prod_92.html" class="pair-title">Колье из яшмы и граната, браслет</a>
-            <div class="pair-price">51 000 ₸</div>
-            <button type="button" class="pair-add-btn" data-id="prod_92" data-title="Колье из яшмы и граната, браслет" data-price="51000" data-image="/assets/kole-iz-yashmy-i-granata-braslet-51000.webp" data-url="/kz/product/prod_92.html">+ Қосу</button>
+            <div class="pair-price">35 000 ₸ <span class="price-from">бастап</span></div>
+            <button type="button" class="pair-add-btn" data-id="prod_92" data-cart-id="prod_92-1" data-bundle="Колье из яшмы и граната" data-title="Колье из яшмы и граната, браслет" data-price="35000" data-image="/assets/kole-iz-yashmy-i-granata-braslet-51000.webp" data-url="/kz/product/prod_92.html">+ Қосу</button>
           </article>
           <article class="pair-card" data-id="prod_93">
             <a href="/kz/product/prod_93.html" class="pair-img-link">
               <img src="/assets/kole-iz-yashmy-i-braslet-53000-400w.webp" srcset="/assets/kole-iz-yashmy-i-braslet-53000-400w.webp 400w, /assets/kole-iz-yashmy-i-braslet-53000-750w.webp 750w, /assets/kole-iz-yashmy-i-braslet-53000.webp 1440w" sizes="140px" alt="Колье из яшмы и браслет — Livi Jewelry" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
             </a>
             <a href="/kz/product/prod_93.html" class="pair-title">Колье из яшмы и браслет</a>
-            <div class="pair-price">53 000 ₸</div>
-            <button type="button" class="pair-add-btn" data-id="prod_93" data-title="Колье из яшмы и браслет" data-price="53000" data-image="/assets/kole-iz-yashmy-i-braslet-53000.webp" data-url="/kz/product/prod_93.html">+ Қосу</button>
+            <div class="pair-price">38 000 ₸ <span class="price-from">бастап</span></div>
+            <button type="button" class="pair-add-btn" data-id="prod_93" data-cart-id="prod_93-1" data-bundle="Колье из яшмы" data-title="Колье из яшмы и браслет" data-price="38000" data-image="/assets/kole-iz-yashmy-i-braslet-53000.webp" data-url="/kz/product/prod_93.html">+ Қосу</button>
           </article>
           </div>
         </section>
@@ -795,9 +796,9 @@
   </a>
 
   <script>
-    const PRODUCT = {"id": "prod_80", "sku": "LIVI-80", "title": "Серьги пусеты", "price": 17000, "category": "Earrings", "image": "/assets/sergi-pusety-16000.webp", "url": "https://livijewelry.kz/kz/product/prod_80.html", "bundle_options": []};
-    let currentActivePrice = PRODUCT.price;
-    let currentActiveTitle = PRODUCT.title;
+    const PRODUCT = {"id": "prod_80", "sku": "LIVI-80", "title": "Серьги пусеты", "price": 17000, "defaultPrice": 17000, "defaultTitle": "Серьги пусеты", "category": "Earrings", "image": "/assets/sergi-pusety-16000.webp", "url": "https://livijewelry.kz/kz/product/prod_80.html", "bundle_options": []};
+    let currentActivePrice = PRODUCT.defaultPrice || PRODUCT.price;
+    let currentActiveTitle = PRODUCT.defaultTitle || PRODUCT.title;
 
     /* ===== Сквозная атрибуция (UTM / GCLID / FBCLID) ===== */
     (function captureAttribution(){
@@ -891,34 +892,42 @@
       return String(num).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
     }
 
-    // Bundle selector listener
-    const bundleSelect = document.getElementById('customBundle');
-    if (bundleSelect) {
-      bundleSelect.addEventListener('change', function() {
-        const opt = bundleSelect.options[bundleSelect.selectedIndex];
-        const newPrice = parseInt(opt.getAttribute('data-price') || PRODUCT.price, 10);
-        const optName = opt.value;
-        currentActivePrice = newPrice;
-        currentActiveTitle = PRODUCT.title + ' (' + optName + ')';
+    // Bundle selector listener (radiogroup)
+    const customBundleGroup = document.getElementById('customBundle');
+    const bundleOptionEls = customBundleGroup ? Array.from(customBundleGroup.querySelectorAll('[role="radio"]')) : [];
 
-        const priceEl = document.querySelector('.product-price-val');
-        if (priceEl) priceEl.textContent = formatKZT(newPrice) + ' ₸';
+    function getSelectedBundleOption() {
+      if (!bundleOptionEls.length) return null;
+      return bundleOptionEls.find(el => el.getAttribute('aria-checked') === 'true') || bundleOptionEls[0];
+    }
 
-        const addBtn = document.getElementById('addToCartBtn');
-        if (addBtn) addBtn.textContent = 'Себетке қосу — ' + formatKZT(newPrice) + ' ₸';
+    function syncBundleSelection(fireTracking) {
+      const opt = getSelectedBundleOption();
+      if (!opt) return;
+      const newPrice = parseInt(opt.getAttribute('data-price') || PRODUCT.price, 10);
+      const optName = opt.getAttribute('data-name') || '';
+      currentActivePrice = newPrice;
+      currentActiveTitle = PRODUCT.title + ' (' + optName + ')';
 
-        const stickyPrice = document.querySelector('.mobile-sticky-price');
-        if (stickyPrice) stickyPrice.textContent = formatKZT(newPrice) + ' ₸';
-        const stickyWa = document.getElementById('stickyWaBtn');
-        const waBtn = document.getElementById('waOrderBtn');
-        if (waBtn) {
-          const waMsg = 'Сәлеметсіз бе! Келесі әшекейге тапсырыс бергім келеді: ' + PRODUCT.title +
-            ' (' + optName + ', Артикул: ' + PRODUCT.sku + ') — ' + formatKZT(newPrice) + ' ₸.\n' +
-            'Сілтеме: ' + PRODUCT.url;
-          waBtn.href = 'https://wa.me/77054510584?text=' + encodeURIComponent(waMsg);
-          if (stickyWa) stickyWa.href = waBtn.href;
-        }
+      const priceEl = document.querySelector('.product-price-val');
+      if (priceEl) priceEl.textContent = formatKZT(newPrice) + ' ₸';
 
+      const addBtn = document.getElementById('addToCartBtn');
+      if (addBtn) addBtn.textContent = 'Себетке қосу — ' + formatKZT(newPrice) + ' ₸';
+
+      const stickyPrice = document.querySelector('.mobile-sticky-price');
+      if (stickyPrice) stickyPrice.textContent = formatKZT(newPrice) + ' ₸';
+      const stickyWa = document.getElementById('stickyWaBtn');
+      const waBtn = document.getElementById('waOrderBtn');
+      if (waBtn) {
+        const waMsg = 'Сәлеметсіз бе! Келесі әшекейге тапсырыс бергім келеді: ' + PRODUCT.title +
+          ' (' + optName + ', Артикул: ' + PRODUCT.sku + ') — ' + formatKZT(newPrice) + ' ₸.\n' +
+          'Сілтеме: ' + PRODUCT.url;
+        waBtn.href = 'https://wa.me/77054510584?text=' + encodeURIComponent(waMsg);
+        if (stickyWa) stickyWa.href = waBtn.href;
+      }
+
+      if (fireTracking) {
         try {
           if (typeof gtag === 'function') {
             gtag('event', 'select_item', {
@@ -942,15 +951,70 @@
             });
           }
         } catch(e){}
+      }
+    }
+
+    function selectBundleOption(optEl, updateUrl) {
+      if (!optEl) return;
+      bundleOptionEls.forEach(el => {
+        const isTarget = el === optEl;
+        el.setAttribute('aria-checked', isTarget ? 'true' : 'false');
+        el.setAttribute('tabindex', isTarget ? '0' : '-1');
       });
+      syncBundleSelection(true);
+      if (updateUrl && window.history && window.history.replaceState) {
+        try {
+          const u = new URL(window.location.href);
+          u.searchParams.set('v', optEl.getAttribute('data-v') || '');
+          window.history.replaceState(null, '', u.pathname + u.search + u.hash);
+        } catch(e) {}
+      }
+    }
+
+    if (bundleOptionEls.length > 0) {
+      const vParam = new URLSearchParams(window.location.search).get('v');
+      if (vParam) {
+        const matched = bundleOptionEls.find(el => el.getAttribute('data-v') === vParam);
+        if (matched) {
+          bundleOptionEls.forEach(el => {
+            const isTarget = el === matched;
+            el.setAttribute('aria-checked', isTarget ? 'true' : 'false');
+            el.setAttribute('tabindex', isTarget ? '0' : '-1');
+          });
+        }
+      }
+      bundleOptionEls.forEach((el, idx) => {
+        el.addEventListener('click', () => selectBundleOption(el, true));
+        el.addEventListener('keydown', (e) => {
+          let nextIdx = -1;
+          if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+            nextIdx = (idx + 1) % bundleOptionEls.length;
+          } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+            nextIdx = (idx - 1 + bundleOptionEls.length) % bundleOptionEls.length;
+          } else if (e.key === 'Home') {
+            nextIdx = 0;
+          } else if (e.key === 'End') {
+            nextIdx = bundleOptionEls.length - 1;
+          }
+          if (nextIdx >= 0) {
+            e.preventDefault();
+            const target = bundleOptionEls[nextIdx];
+            selectBundleOption(target, true);
+            target.focus();
+          }
+        });
+      });
+      syncBundleSelection(false);
     }
 
     // Add to cart with direct checkout transition
     function handleAddToCart() {
-      const bundleOpt = bundleSelect ? bundleSelect.options[bundleSelect.selectedIndex].value : '';
+      const opt = getSelectedBundleOption();
+      const bundleOpt = opt ? (opt.getAttribute('data-name') || '') : '';
+      const origIdx = opt ? opt.getAttribute('data-idx') : '';
 
       const cart = readCart();
-      const cartItemId = PRODUCT.id + (bundleSelect ? ('-' + bundleSelect.selectedIndex) : '');
+      const cartItemId = PRODUCT.id + (opt ? ('-' + origIdx) : '');
       const existing = cart.find(i => (i.cartItemId || i.id) === cartItemId && !(i.customSize || i.size));
 
       if (existing) {
@@ -1026,7 +1090,8 @@
         recCards.forEach(function(card) {
           const addBtn = card.querySelector('.mini-rec-add');
           const recId = addBtn ? addBtn.getAttribute('data-id') : null;
-          if (recId && cartIds.has(recId)) {
+          const recCartId = addBtn ? (addBtn.getAttribute('data-cart-id') || recId) : null;
+          if ((recId && cartIds.has(recId)) || (recCartId && cartIds.has(recCartId))) {
             card.style.display = 'none';
           } else if (shownCount < 2) {
             card.style.display = 'flex';
@@ -1073,17 +1138,20 @@
         e.preventDefault();
         e.stopPropagation();
         const pId = btn.getAttribute('data-id');
-        const pTitle = btn.getAttribute('data-title');
+        const cartId = btn.getAttribute('data-cart-id') || pId;
+        const bundleName = btn.getAttribute('data-bundle') || '';
+        const pTitle = bundleName || btn.getAttribute('data-title');
         const pPrice = Number(btn.getAttribute('data-price') || 0);
         const pImage = btn.getAttribute('data-image');
         const pUrl = btn.getAttribute('data-url');
         const items = readCart();
-        const idx = items.findIndex(x => x.id === pId);
+        const idx = items.findIndex(x => (x.cartItemId || x.id) === cartId && !(x.customSize || x.size));
         if (idx >= 0) {
           items[idx].qty = Number(items[idx].qty || 1) + 1;
         } else {
-          items.push({
-            id: pId,
+          const newItem = {
+            id: cartId,
+            cartItemId: cartId,
             sku: pId.replace('prod_', 'LIVI-'),
             title: pTitle,
             price: pPrice,
@@ -1091,7 +1159,12 @@
             image: pImage,
             qty: 1,
             url: pUrl
-          });
+          };
+          if (bundleName) {
+            newItem.customBundle = bundleName;
+            newItem.bundleOption = bundleName;
+          }
+          items.push(newItem);
         }
         writeCart(items);
         btn.textContent = '✓ Себетте';
@@ -1259,33 +1332,33 @@
             <img src="/assets/kole-iz-agata-i-braslet-47000-400w.webp" alt="Колье из Агата и браслет" width="48" height="64" class="mini-rec-img" loading="lazy">
             <div class="mini-rec-info">
               <div class="mini-rec-title">Колье из Агата и браслет</div>
-              <div class="mini-rec-price">47 000 ₸</div>
+              <div class="mini-rec-price">35 000 ₸ <span class="price-from">бастап</span></div>
             </div>
-            <button type="button" class="mini-rec-add" data-id="prod_64" data-title="Колье из Агата и браслет" data-price="47000" data-image="/assets/kole-iz-agata-i-braslet-47000.webp" data-url="/kz/product/prod_64.html">+ Қосу</button>
+            <button type="button" class="mini-rec-add" data-id="prod_64" data-cart-id="prod_64-1" data-bundle="Колье из Агата" data-title="Колье из Агата и браслет" data-price="35000" data-image="/assets/kole-iz-agata-i-braslet-47000.webp" data-url="/kz/product/prod_64.html">+ Қосу</button>
           </div>
           <div class="mini-rec-card">
             <img src="/assets/kole-iz-yashmy-i-granata-braslet-51000-400w.webp" alt="Колье из яшмы и граната, браслет" width="48" height="64" class="mini-rec-img" loading="lazy">
             <div class="mini-rec-info">
               <div class="mini-rec-title">Колье из яшмы и граната, браслет</div>
-              <div class="mini-rec-price">51 000 ₸</div>
+              <div class="mini-rec-price">35 000 ₸ <span class="price-from">бастап</span></div>
             </div>
-            <button type="button" class="mini-rec-add" data-id="prod_92" data-title="Колье из яшмы и граната, браслет" data-price="51000" data-image="/assets/kole-iz-yashmy-i-granata-braslet-51000.webp" data-url="/kz/product/prod_92.html">+ Қосу</button>
+            <button type="button" class="mini-rec-add" data-id="prod_92" data-cart-id="prod_92-1" data-bundle="Колье из яшмы и граната" data-title="Колье из яшмы и граната, браслет" data-price="35000" data-image="/assets/kole-iz-yashmy-i-granata-braslet-51000.webp" data-url="/kz/product/prod_92.html">+ Қосу</button>
           </div>
           <div class="mini-rec-card">
             <img src="/assets/kole-iz-yashmy-i-braslet-53000-400w.webp" alt="Колье из яшмы и браслет" width="48" height="64" class="mini-rec-img" loading="lazy">
             <div class="mini-rec-info">
               <div class="mini-rec-title">Колье из яшмы и браслет</div>
-              <div class="mini-rec-price">53 000 ₸</div>
+              <div class="mini-rec-price">38 000 ₸ <span class="price-from">бастап</span></div>
             </div>
-            <button type="button" class="mini-rec-add" data-id="prod_93" data-title="Колье из яшмы и браслет" data-price="53000" data-image="/assets/kole-iz-yashmy-i-braslet-53000.webp" data-url="/kz/product/prod_93.html">+ Қосу</button>
+            <button type="button" class="mini-rec-add" data-id="prod_93" data-cart-id="prod_93-1" data-bundle="Колье из яшмы" data-title="Колье из яшмы и браслет" data-price="38000" data-image="/assets/kole-iz-yashmy-i-braslet-53000.webp" data-url="/kz/product/prod_93.html">+ Қосу</button>
           </div>
           <div class="mini-rec-card">
             <img src="/assets/kole-tsvetnaya-yashma-i-braslet-51000-400w.webp" alt="Колье Цветная Яшма и браслет" width="48" height="64" class="mini-rec-img" loading="lazy">
             <div class="mini-rec-info">
               <div class="mini-rec-title">Колье Цветная Яшма и браслет</div>
-              <div class="mini-rec-price">51 000 ₸</div>
+              <div class="mini-rec-price">35 000 ₸ <span class="price-from">бастап</span></div>
             </div>
-            <button type="button" class="mini-rec-add" data-id="prod_99" data-title="Колье Цветная Яшма и браслет" data-price="51000" data-image="/assets/kole-tsvetnaya-yashma-i-braslet-51000.webp" data-url="/kz/product/prod_99.html">+ Қосу</button>
+            <button type="button" class="mini-rec-add" data-id="prod_99" data-cart-id="prod_99-1" data-bundle="Колье Цветная Яшма" data-title="Колье Цветная Яшма и браслет" data-price="35000" data-image="/assets/kole-tsvetnaya-yashma-i-braslet-51000.webp" data-url="/kz/product/prod_99.html">+ Қосу</button>
           </div>
         </div>
       </div>

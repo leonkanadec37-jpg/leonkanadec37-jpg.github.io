@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-11-15 10:40">
+<yml_catalog date="2026-11-15 12:53">
   <shop>
     <name>Livi Jewelry</name>
     <company>Livi Jewelry — Авторские украшения ручной работы</company>
@@ -50,7 +50,7 @@
       </offer>
       <offer id="prod_04" available="true">
         <name>Позолоченная цепь и браслет с барочным жемчугом</name>
-        <url>https://livijewelry.kz/product/prod_04.html</url>
+        <url>https://livijewelry.kz/product/prod_04.html?v=full</url>
         <price>40000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -60,7 +60,7 @@
       </offer>
       <offer id="prod_05" available="true">
         <name>Цепь родированная и браслет с барочным жемчугом</name>
-        <url>https://livijewelry.kz/product/prod_05.html</url>
+        <url>https://livijewelry.kz/product/prod_05.html?v=full</url>
         <price>40000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -80,7 +80,7 @@
       </offer>
       <offer id="prod_07" available="true">
         <name>Булавка из аметиста и жемчуга, браслет, кольцо</name>
-        <url>https://livijewelry.kz/product/prod_07.html</url>
+        <url>https://livijewelry.kz/product/prod_07.html?v=full</url>
         <price>74000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -100,7 +100,7 @@
       </offer>
       <offer id="prod_09" available="true">
         <name>Колье из авантюрина и серьги</name>
-        <url>https://livijewelry.kz/product/prod_09.html</url>
+        <url>https://livijewelry.kz/product/prod_09.html?v=full</url>
         <price>44000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -110,7 +110,7 @@
       </offer>
       <offer id="prod_10" available="true">
         <name>Колье из агата и граната, кольцо</name>
-        <url>https://livijewelry.kz/product/prod_10.html</url>
+        <url>https://livijewelry.kz/product/prod_10.html?v=full</url>
         <price>48000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -120,7 +120,7 @@
       </offer>
       <offer id="prod_11" available="true">
         <name>Колье из аметиста и розового кварца, серьги из аметиста</name>
-        <url>https://livijewelry.kz/product/prod_11.html</url>
+        <url>https://livijewelry.kz/product/prod_11.html?v=full</url>
         <price>61000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -130,7 +130,7 @@
       </offer>
       <offer id="prod_12" available="true">
         <name>Колье из жадеита и тигрового глаза, серьги из тигрового глаза</name>
-        <url>https://livijewelry.kz/product/prod_12.html</url>
+        <url>https://livijewelry.kz/product/prod_12.html?v=full</url>
         <price>52000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -140,7 +140,7 @@
       </offer>
       <offer id="prod_13" available="true">
         <name>Колье из жемчуга Майорка и серьги</name>
-        <url>https://livijewelry.kz/product/prod_13.html</url>
+        <url>https://livijewelry.kz/product/prod_13.html?v=full</url>
         <price>45000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -150,7 +150,7 @@
       </offer>
       <offer id="prod_14" available="true">
         <name>Колье из коралла и яшмы, браслет, серьги</name>
-        <url>https://livijewelry.kz/product/prod_14.html</url>
+        <url>https://livijewelry.kz/product/prod_14.html?v=full</url>
         <price>60000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -160,7 +160,7 @@
       </offer>
       <offer id="prod_15" available="true">
         <name>Колье из розового кварца и жемчуга, серьги</name>
-        <url>https://livijewelry.kz/product/prod_15.html</url>
+        <url>https://livijewelry.kz/product/prod_15.html?v=full</url>
         <price>56000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -170,7 +170,7 @@
       </offer>
       <offer id="prod_16" available="true">
         <name>Колье и серьги из натуральной бирюзы</name>
-        <url>https://livijewelry.kz/product/prod_16.html</url>
+        <url>https://livijewelry.kz/product/prod_16.html?v=full</url>
         <price>50000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -190,7 +190,7 @@
       </offer>
       <offer id="prod_18" available="true">
         <name>Булавка, браслет, серьги, кольцо (под заказ)</name>
-        <url>https://livijewelry.kz/product/prod_18.html</url>
+        <url>https://livijewelry.kz/product/prod_18.html?v=full</url>
         <price>74000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -220,7 +220,7 @@
       </offer>
       <offer id="prod_21" available="true">
         <name>Колье «Клубнички» и розовый кварц с жемчугом</name>
-        <url>https://livijewelry.kz/product/prod_21.html</url>
+        <url>https://livijewelry.kz/product/prod_21.html?v=full</url>
         <price>74000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -270,7 +270,7 @@
       </offer>
       <offer id="prod_26" available="true">
         <name>Колье с бирюзой и серьги</name>
-        <url>https://livijewelry.kz/product/prod_26.html</url>
+        <url>https://livijewelry.kz/product/prod_26.html?v=full</url>
         <price>50000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -280,7 +280,7 @@
       </offer>
       <offer id="prod_27" available="true">
         <name>Колье из нефрита и гематита, серьги</name>
-        <url>https://livijewelry.kz/product/prod_27.html</url>
+        <url>https://livijewelry.kz/product/prod_27.html?v=full</url>
         <price>61000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -290,7 +290,7 @@
       </offer>
       <offer id="prod_28" available="true">
         <name>Колье из бирюзы, браслет, серьги, кольцо</name>
-        <url>https://livijewelry.kz/product/prod_28.html</url>
+        <url>https://livijewelry.kz/product/prod_28.html?v=full</url>
         <price>91000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -310,7 +310,7 @@
       </offer>
       <offer id="prod_30" available="true">
         <name>Колье из натуральных камней и браслет</name>
-        <url>https://livijewelry.kz/product/prod_30.html</url>
+        <url>https://livijewelry.kz/product/prod_30.html?v=full</url>
         <price>38000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -320,7 +320,7 @@
       </offer>
       <offer id="prod_31" available="true">
         <name>Колье из яшмы и браслет</name>
-        <url>https://livijewelry.kz/product/prod_31.html</url>
+        <url>https://livijewelry.kz/product/prod_31.html?v=full</url>
         <price>46000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -330,7 +330,7 @@
       </offer>
       <offer id="prod_32" available="false">
         <name>Колье и браслет из натуральных камней</name>
-        <url>https://livijewelry.kz/product/prod_32.html</url>
+        <url>https://livijewelry.kz/product/prod_32.html?v=full</url>
         <price>38000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -340,7 +340,7 @@
       </offer>
       <offer id="prod_33" available="true">
         <name>Колье, браслет и серьги из натуральных камней</name>
-        <url>https://livijewelry.kz/product/prod_33.html</url>
+        <url>https://livijewelry.kz/product/prod_33.html?v=full</url>
         <price>48000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -460,7 +460,7 @@
       </offer>
       <offer id="prod_50" available="true">
         <name>Колье из тигрового глаза и браслет</name>
-        <url>https://livijewelry.kz/product/prod_50.html</url>
+        <url>https://livijewelry.kz/product/prod_50.html?v=full</url>
         <price>32000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -480,7 +480,7 @@
       </offer>
       <offer id="prod_53" available="true">
         <name>Колье из гематита и цирконов, браслет</name>
-        <url>https://livijewelry.kz/product/prod_53.html</url>
+        <url>https://livijewelry.kz/product/prod_53.html?v=full</url>
         <price>51000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -510,7 +510,7 @@
       </offer>
       <offer id="prod_59" available="false">
         <name>Колье из аква кварца и жемчуга, серьги из перламутра и жемчуга</name>
-        <url>https://livijewelry.kz/product/prod_59.html</url>
+        <url>https://livijewelry.kz/product/prod_59.html?v=full</url>
         <price>56000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -530,7 +530,7 @@
       </offer>
       <offer id="prod_61" available="true">
         <name>Колье из горного хрусталя и жемчуга, серьги</name>
-        <url>https://livijewelry.kz/product/prod_61.html</url>
+        <url>https://livijewelry.kz/product/prod_61.html?v=full</url>
         <price>70000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -550,7 +550,7 @@
       </offer>
       <offer id="prod_63" available="true">
         <name>Колье из жемчуга и горного хрусталя, серьги</name>
-        <url>https://livijewelry.kz/product/prod_63.html</url>
+        <url>https://livijewelry.kz/product/prod_63.html?v=full</url>
         <price>69000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -560,7 +560,7 @@
       </offer>
       <offer id="prod_64" available="true">
         <name>Колье из Агата и браслет</name>
-        <url>https://livijewelry.kz/product/prod_64.html</url>
+        <url>https://livijewelry.kz/product/prod_64.html?v=full</url>
         <price>47000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -590,7 +590,7 @@
       </offer>
       <offer id="prod_67" available="true">
         <name>Булавка из горного хрусталя, серьги, кольцо</name>
-        <url>https://livijewelry.kz/product/prod_67.html</url>
+        <url>https://livijewelry.kz/product/prod_67.html?v=full</url>
         <price>62500</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -600,7 +600,7 @@
       </offer>
       <offer id="prod_68" available="true">
         <name>Колье из тигрового глаза и граната, серьги</name>
-        <url>https://livijewelry.kz/product/prod_68.html</url>
+        <url>https://livijewelry.kz/product/prod_68.html?v=full</url>
         <price>51000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -640,7 +640,7 @@
       </offer>
       <offer id="prod_72" available="true">
         <name>Колье из жемчуга Майорка и ювелирного стекла, серьги</name>
-        <url>https://livijewelry.kz/product/prod_72.html</url>
+        <url>https://livijewelry.kz/product/prod_72.html?v=full</url>
         <price>49000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -650,7 +650,7 @@
       </offer>
       <offer id="prod_73" available="true">
         <name>Колье из натурального жемчуга и серьги</name>
-        <url>https://livijewelry.kz/product/prod_73.html</url>
+        <url>https://livijewelry.kz/product/prod_73.html?v=full</url>
         <price>93000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -670,7 +670,7 @@
       </offer>
       <offer id="prod_75" available="true">
         <name>Колье из чешского стекла и серьги</name>
-        <url>https://livijewelry.kz/product/prod_75.html</url>
+        <url>https://livijewelry.kz/product/prod_75.html?v=full</url>
         <price>65000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -680,7 +680,7 @@
       </offer>
       <offer id="prod_76" available="true">
         <name>Колье из чешского стекла Бургундия и серьги</name>
-        <url>https://livijewelry.kz/product/prod_76.html</url>
+        <url>https://livijewelry.kz/product/prod_76.html?v=full</url>
         <price>64000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -690,7 +690,7 @@
       </offer>
       <offer id="prod_77" available="true">
         <name>Колье из жемчуга Майорка и ювелирного стекла, серьги</name>
-        <url>https://livijewelry.kz/product/prod_77.html</url>
+        <url>https://livijewelry.kz/product/prod_77.html?v=full</url>
         <price>49000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -710,7 +710,7 @@
       </offer>
       <offer id="prod_79" available="true">
         <name>Колье из лунного камня и жемчуга Майорка, кольцо</name>
-        <url>https://livijewelry.kz/product/prod_79.html</url>
+        <url>https://livijewelry.kz/product/prod_79.html?v=full</url>
         <price>51000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -840,7 +840,7 @@
       </offer>
       <offer id="prod_92" available="true">
         <name>Колье из яшмы и граната, браслет</name>
-        <url>https://livijewelry.kz/product/prod_92.html</url>
+        <url>https://livijewelry.kz/product/prod_92.html?v=full</url>
         <price>51000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -850,7 +850,7 @@
       </offer>
       <offer id="prod_93" available="true">
         <name>Колье из яшмы и браслет</name>
-        <url>https://livijewelry.kz/product/prod_93.html</url>
+        <url>https://livijewelry.kz/product/prod_93.html?v=full</url>
         <price>53000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>
@@ -910,7 +910,7 @@
       </offer>
       <offer id="prod_99" available="true">
         <name>Колье Цветная Яшма и браслет</name>
-        <url>https://livijewelry.kz/product/prod_99.html</url>
+        <url>https://livijewelry.kz/product/prod_99.html?v=full</url>
         <price>51000</price>
         <currencyId>KZT</currencyId>
         <categoryId>4</categoryId>

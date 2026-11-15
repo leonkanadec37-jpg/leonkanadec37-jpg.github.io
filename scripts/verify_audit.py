@@ -19,6 +19,17 @@ import re
 import sys
 import xml.etree.ElementTree as ET
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from catalog_pricing import (
+    PLACEHOLDER_OPTION_NAMES,
+    catalog_price,
+    has_from_price,
+    ordered_bundle_options,
+    variant_param,
+    format_price_num,
+)
+from generate_kaspi_feed import calculate_kaspi_price
+
 try:
     sys.stdout.reconfigure(encoding="utf-8")
 except Exception:
@@ -64,12 +75,18 @@ EARING_SET_IDS = {
 }
 
 errors = []
+warnings = []
 passed = []
 
 
 def ok(msg: str):
     passed.append(msg)
     print(f"  [PASS] {msg}")
+
+
+def warn(msg: str):
+    warnings.append(msg)
+    print(f"  [WARN] {msg}")
 
 
 def fail(msg: str):
@@ -122,7 +139,7 @@ def run_audit():
         sku = p.get("sku", "")
         slug = p.get("seo_slug", "")
         kw = p.get("search_keywords", [])
-        if not re.match(r"^LIVI-\d{2}$", sku):
+        if not re.match(r"^LIVI-\d{2,3}$", sku):
             fail(f"2. {pid}: неверный формат sku '{sku}' (ожидался LIVI-01..LIVI-28)")
             sku_slug_ok = False
         if not slug or not re.match(r"^[a-z0-9-]+$", slug):
@@ -154,6 +171,7 @@ def run_audit():
     # 4. Проверка bundle_options для комплектов
     bundle_ok = True
     set_count = 0
+    placeholder_sets = []
     for p in products:
         pid = p["id"]
         is_set = p.get("category") == "Sets" or "комплект" in p.get("title", "").lower() or bool(re.search(r'\bсет\b', p.get("title", "").lower()))
@@ -168,6 +186,11 @@ def run_audit():
                     if not opt.get("name") or not isinstance(opt.get("price"), int) or opt.get("price") <= 0:
                         fail(f"4. {pid}: некорректная опция в bundle_options: {opt}")
                         bundle_ok = False
+                    elif str(opt.get("name") or "").strip() in PLACEHOLDER_OPTION_NAMES:
+                        if pid not in placeholder_sets:
+                            placeholder_sets.append(pid)
+    if placeholder_sets:
+        warn(f"4. products.json: Обнаружены заглушки 70/30 в bundle_options у товаров: {placeholder_sets}")
     if bundle_ok and set_count >= 13:
         ok(f"4. products.json: Все {set_count} комплектов содержат массив bundle_options с валидными ценами")
 
@@ -340,16 +363,23 @@ def run_audit():
             fail(f"15. {path}: отсутствует JSON-LD Product")
             prod_offers_ok = False
         else:
-            offer = prod_ld.get("offers", {})
-            return_policy = offer.get("hasMerchantReturnPolicy", {})
-            shipping = offer.get("shippingDetails", {})
-            if return_policy.get("merchantReturnDays") != 14 or return_policy.get("applicableCountry") != "KZ":
-                fail(f"15. {path}: отсутствует валидный hasMerchantReturnPolicy (14 дней, KZ)")
+            raw_offers = prod_ld.get("offers")
+            offer_list = raw_offers if isinstance(raw_offers, list) else ([raw_offers] if isinstance(raw_offers, dict) else [])
+            if not offer_list:
+                fail(f"15. {path}: отсутствует JSON-LD Product.offers")
                 prod_offers_ok = False
-            rate_val = shipping.get("shippingRate", {}).get("value")
-            if str(rate_val) != "4000":
-                fail(f"15. {path}: в shippingDetails ставка shippingRate != 4000 KZT (найдено {rate_val})")
-                prod_offers_ok = False
+            for offer in offer_list:
+                return_policy = offer.get("hasMerchantReturnPolicy", {})
+                shipping = offer.get("shippingDetails", {})
+                if return_policy.get("merchantReturnDays") != 14 or return_policy.get("applicableCountry") != "KZ":
+                    fail(f"15. {path}: отсутствует валидный hasMerchantReturnPolicy (14 дней, KZ)")
+                    prod_offers_ok = False
+                    break
+                rate_val = shipping.get("shippingRate", {}).get("value")
+                if str(rate_val) != "4000":
+                    fail(f"15. {path}: в shippingDetails ставка shippingRate != 4000 KZT (найдено {rate_val})")
+                    prod_offers_ok = False
+                    break
 
         # 16. Разметка FAQPage (3 вопроса в JSON-LD для Google Rich Results)
         faq_ld = next((x for x in lds if x.get("@type") == "FAQPage"), None)
@@ -357,10 +387,13 @@ def run_audit():
             fail(f"16. {path}: в JSON-LD FAQPage ожидалось ровно 3 вопроса")
             prod_faq_ok = False
 
-        # 17. customBundle для комплектов
-        if p.get("bundle_options"):
-            if '<select id="customBundle"' not in txt:
-                fail(f"17. {path}: комплект не содержит выпадающего списка <select id=\"customBundle\">")
+        # 17. Выбор комплектации (role="radiogroup" вместо <select id="customBundle">)
+        if has_from_price(p):
+            if 'role="radiogroup"' not in txt:
+                fail(f"17. {path}: комплект не содержит переключателя role=\"radiogroup\"")
+                prod_bundles_html_ok = False
+            if '<select id="customBundle"' in txt:
+                fail(f"17. {path}: обнаружен устаревший <select id=\"customBundle\">")
                 prod_bundles_html_ok = False
 
         # 18. Таблица характеристик с 7 строками
@@ -418,7 +451,7 @@ def run_audit():
     if prod_faq_ok:
         ok("16. Карточки товаров: В JSON-LD присутствует валидная Schema.org FAQPage (ровно 3 вопроса-ответа на каждой карточке)")
     if prod_bundles_html_ok:
-        ok("17. Карточки товаров: Для комплектов встроен интерактивный выпадающий список <select id=\"customBundle\">")
+        ok("17. Карточки товаров: Для комплектов встроен переключатель комплектации role=\"radiogroup\" (без <select id=\"customBundle\">)")
     if prod_specs_html_ok:
         ok("18. Карточки товаров: Встроена таблица характеристик <dl class=\"product-specs-grid\"> (7 строк спецификаций)")
     if prod_pills_ok:
@@ -472,12 +505,18 @@ def run_audit():
             fail(f"24. {kpath}: отсутствует JSON-LD Product")
             kz_schema_ok = False
         else:
-            koffer = kprod.get("offers", {})
-            kshipping = koffer.get("shippingDetails", {})
-            krate_val = kshipping.get("shippingRate", {}).get("value")
-            if "hasMerchantReturnPolicy" not in koffer or "shippingDetails" not in koffer or str(krate_val) != "4000":
-                fail(f"24. {kpath}: в JSON-LD Product отсутствуют hasMerchantReturnPolicy или shippingDetails (4000 KZT)")
+            raw_koffers = kprod.get("offers")
+            koffer_list = raw_koffers if isinstance(raw_koffers, list) else ([raw_koffers] if isinstance(raw_koffers, dict) else [])
+            if not koffer_list:
+                fail(f"24. {kpath}: в JSON-LD Product отсутствует offers")
                 kz_schema_ok = False
+            for koffer in koffer_list:
+                kshipping = koffer.get("shippingDetails", {})
+                krate_val = kshipping.get("shippingRate", {}).get("value")
+                if "hasMerchantReturnPolicy" not in koffer or "shippingDetails" not in koffer or str(krate_val) != "4000":
+                    fail(f"24. {kpath}: в JSON-LD Product отсутствуют hasMerchantReturnPolicy или shippingDetails (4000 KZT)")
+                    kz_schema_ok = False
+                    break
     if kz_lang_ok:
         ok(f"23. KZ карточки: На всех {len(products)} страницах kz/product/prod_XX.html установлен <html lang=\"kk\"> и канонический URL")
     if kz_schema_ok:
@@ -742,17 +781,27 @@ def run_audit():
             fail(f"39. {upath}: отсутствует JSON-LD Product")
             uz_schema_ok = False
             break
-        uoffer = uprod.get("offers", {})
-        ushipping = uoffer.get("shippingDetails", {})
-        urate_val = ushipping.get("shippingRate", {}).get("value")
-        if (
-            uoffer.get("priceCurrency") != "KZT"
-            or "hasMerchantReturnPolicy" not in uoffer
-            or "shippingDetails" not in uoffer
-            or str(urate_val) != "4000"
-        ):
-            fail(f"39. {upath}: в JSON-LD Product некорректные offers (priceCurrency: KZT, shippingDetails: 4000 KZT, returnPolicy)")
+        raw_uoffers = uprod.get("offers")
+        uoffer_list = raw_uoffers if isinstance(raw_uoffers, list) else ([raw_uoffers] if isinstance(raw_uoffers, dict) else [])
+        if not uoffer_list:
+            fail(f"39. {upath}: в JSON-LD Product отсутствует offers")
             uz_schema_ok = False
+            break
+        uoffer_bad = False
+        for uoffer in uoffer_list:
+            ushipping = uoffer.get("shippingDetails", {})
+            urate_val = ushipping.get("shippingRate", {}).get("value")
+            if (
+                uoffer.get("priceCurrency") != "KZT"
+                or "hasMerchantReturnPolicy" not in uoffer
+                or "shippingDetails" not in uoffer
+                or str(urate_val) != "4000"
+            ):
+                fail(f"39. {upath}: в JSON-LD Product некорректные offers (priceCurrency: KZT, shippingDetails: 4000 KZT, returnPolicy)")
+                uz_schema_ok = False
+                uoffer_bad = True
+                break
+        if uoffer_bad:
             break
     if uz_schema_ok:
         ok(f"39. UZ карточки: В JSON-LD Product сохранена валюта KZT, присутствуют shippingDetails (4000 KZT) и hasMerchantReturnPolicy (14 дней)")
@@ -986,6 +1035,379 @@ def run_audit():
 
     if nap_ok:
         ok("48. NAP и JewelryStore (P0-3): Телефон +7 705 451 05 84, адрес Кабанбай Батыра 43, часы 11:00–17:00 и полная Schema.org JewelryStore валидны")
+
+    # ---------------------------------------------------------
+    # 12. Инварианты задачи 008: цены комплектов и выбор варианта
+    # ---------------------------------------------------------
+    by_id = {p["id"]: p for p in products}
+
+    # 49. catalog_pricing: эталонные комплекты и синтетические случаи
+    t49_ok = True
+    expected_benchmarks = {
+        "prod_11": (61000, 45000),
+        "prod_21": (74000, 40000),
+        "prod_18": (74000, 30000),
+        "prod_04": (40000, 25000),
+        "prod_73": (93000, 75000),
+    }
+    for b_id, (exp_full, exp_cat) in expected_benchmarks.items():
+        bp = by_id.get(b_id)
+        if not bp:
+            fail(f"49. Отсутствует эталонный товар {b_id} в products.json")
+            t49_ok = False
+        else:
+            if int(bp.get("price", 0)) != exp_full or not has_from_price(bp) or catalog_price(bp) != exp_cat:
+                fail(f"49. {b_id}: ожидалось full={exp_full}, cat={exp_cat}, has_from=True; получено full={bp.get('price')}, cat={catalog_price(bp)}, has_from={has_from_price(bp)}")
+                t49_ok = False
+    syn_placeholder = {
+        "id": "syn_ph",
+        "price": 50000,
+        "bundle_options": [
+            {"name": "Основное украшение комплекта", "price": 35000, "is_full": False},
+            {"name": "Дополнительный элемент сета", "price": 15000, "is_full": False},
+            {"name": "Полный комплект", "price": 50000, "is_full": True},
+        ],
+    }
+    syn_single = {"id": "syn_sg", "price": 25000}
+    if has_from_price(syn_placeholder) or catalog_price(syn_placeholder) != 50000:
+        fail("49. Заглушка 70/30 не была отфильтрована в catalog_pricing")
+        t49_ok = False
+    if has_from_price(syn_single) or catalog_price(syn_single) != 25000:
+        fail("49. Обычный товар без bundle_options дал неверный результат в catalog_pricing")
+        t49_ok = False
+    if t49_ok:
+        ok("49. Задача 008 (catalog_pricing): Эталонные комплекты (prod_11/21/18/04/73), заглушки 70/30 и одиночные товары рассчитываются корректно")
+
+    # 50. Каталоги RU/KZ/UZ (shop.html, index.html) и ItemList: «от/бастап/dan» + catalog_price
+    t50_ok = True
+    for shop_f, from_word in [("shop.html", "от"), ("kz/shop.html", "бастап"), ("uz/shop.html", "dan")]:
+        if not os.path.exists(shop_f):
+            fail(f"50. Отсутствует {shop_f}")
+            t50_ok = False
+            continue
+        with open(shop_f, "r", encoding="utf-8") as f:
+            stxt = f.read()
+        if '<script src="/scripts/catalog-pricing.js"></script>' not in stxt:
+            fail(f"50. {shop_f}: не подключён /scripts/catalog-pricing.js без defer")
+            t50_ok = False
+        lds = extract_jsonld_blocks(stxt)
+        il = next((x for x in lds if x.get("@type") == "ItemList"), None)
+        if not il:
+            fail(f"50. {shop_f}: отсутствует ItemList JSON-LD")
+            t50_ok = False
+        else:
+            for item in il.get("itemListElement", []):
+                prod_node = item.get("item", {})
+                url_str = prod_node.get("offers", {}).get("url") or item.get("url") or ""
+                m_pid = re.search(r'(prod_\d+)\.html', url_str)
+                if m_pid and m_pid.group(1) in by_id:
+                    p_ref = by_id[m_pid.group(1)]
+                    exp_p = f"{catalog_price(p_ref):.2f}"
+                    got_p = str(prod_node.get("offers", {}).get("price", ""))
+                    if got_p != exp_p:
+                        fail(f"50. {shop_f} ItemList {p_ref['id']}: price={got_p}, ожидалось {exp_p}")
+                        t50_ok = False
+                        break
+        for card_m in re.finditer(r'<article class="card"[^>]*data-id="(prod_\d+)"[^>]*>(.*?)</article>', stxt, re.DOTALL):
+            cid = card_m.group(1)
+            cbody = card_m.group(2)
+            p_ref = by_id.get(cid)
+            if not p_ref:
+                continue
+            pr_m = re.search(r'<div class="price">(.*?)</div>', cbody, re.DOTALL)
+            if not pr_m:
+                continue
+            pr_html = pr_m.group(1)
+            exp_amt = format_price_num(catalog_price(p_ref))
+            if has_from_price(p_ref):
+                if 'class="price-from"' not in pr_html or from_word not in pr_html or exp_amt not in pr_html:
+                    fail(f"50. {shop_f} карточка {cid}: ожидалось '{from_word}' + '{exp_amt}', найдено: {pr_html}")
+                    t50_ok = False
+                    break
+            else:
+                if 'price-from' in pr_html or format_price_num(p_ref["price"]) not in pr_html:
+                    fail(f"50. {shop_f} обычный товар {cid}: лишний price-from или неверная цена: {pr_html}")
+                    t50_ok = False
+                    break
+    for idx_f, from_word in [("index.html", "от"), ("kz/index.html", "бастап"), ("uz/index.html", "dan")]:
+        if not os.path.exists(idx_f):
+            continue
+        with open(idx_f, "r", encoding="utf-8") as f:
+            itxt = f.read()
+        for card_m in re.finditer(r'<article class="card"[^>]*data-id="(prod_\d+)"[^>]*>(.*?)</article>', itxt, re.DOTALL):
+            cid = card_m.group(1)
+            cbody = card_m.group(2)
+            p_ref = by_id.get(cid)
+            if not p_ref:
+                continue
+            pr_m = re.search(r'<div class="price">(.*?)</div>', cbody, re.DOTALL)
+            if not pr_m:
+                continue
+            pr_html = pr_m.group(1)
+            if has_from_price(p_ref):
+                exp_amt = format_price_num(catalog_price(p_ref))
+                if 'class="price-from"' not in pr_html or from_word not in pr_html or exp_amt not in pr_html:
+                    fail(f"50. {idx_f} карточка {cid}: неверная витринная цена {pr_html}")
+                    t50_ok = False
+                    break
+    if t50_ok:
+        ok("50. Задача 008 (Витрины и ItemList): На всех RU/KZ/UZ каталогах и главных комплектах указаны «от/бастап/dan» + цена главного предмета")
+
+    # 51. Страницы комплектов RU/KZ/UZ: radiogroup, порядок убывания, default aria-checked, без select/badge, meta full price
+    t51_ok = True
+    radio_re = re.compile(
+        r'<button[^>]*class="bundle-option"[^>]*>',
+        re.DOTALL,
+    )
+    for p in products:
+        if not has_from_price(p):
+            continue
+        pid = p["id"]
+        exp_ordered = ordered_bundle_options(p)
+        exp_main_price = catalog_price(p)
+        exp_main_fmt = format_price_num(exp_main_price)
+        for prefix in ("", "kz", "uz"):
+            fpath = os.path.join(prefix, "product", f"{pid}.html") if prefix else os.path.join("product", f"{pid}.html")
+            if not os.path.exists(fpath):
+                fail(f"51. Отсутствует файл {fpath}")
+                t51_ok = False
+                break
+            with open(fpath, "r", encoding="utf-8") as f:
+                ptxt = f.read()
+            if 'bundle-breakdown-badge' in ptxt:
+                fail(f"51. {fpath}: обнаружен удалённый bundle-breakdown-badge")
+                t51_ok = False
+                break
+            if '<select id="customBundle"' in ptxt or 'role="radiogroup"' not in ptxt:
+                fail(f"51. {fpath}: отсутствует role=radiogroup или остался select customBundle")
+                t51_ok = False
+                break
+            radios = [r for r in radio_re.findall(ptxt) if 'role="radio"' in r]
+            if len(radios) != len(exp_ordered):
+                fail(f"51. {fpath}: число вариантов {len(radios)} != {len(exp_ordered)}")
+                t51_ok = False
+                break
+            checked_prices = []
+            seen_full = False
+            prev_non_full_price = None
+            for idx_r, r_tag in enumerate(radios):
+                m_chk = re.search(r'aria-checked="(true|false)"', r_tag)
+                m_pr = re.search(r'data-price="(\d+)"', r_tag)
+                m_v = re.search(r'data-v="([^"]+)"', r_tag)
+                if not (m_chk and m_pr and m_v):
+                    fail(f"51. {fpath}: неполные data-атрибуты на кнопке варианта #{idx_r}")
+                    t51_ok = False
+                    break
+                r_price = int(m_pr.group(1))
+                r_is_full = (m_v.group(1) == "full")
+                if m_chk.group(1) == "true":
+                    checked_prices.append(r_price)
+                if r_is_full:
+                    seen_full = True
+                    if r_price != int(p["price"]):
+                        fail(f"51. {fpath}: кнопка полного комплекта имеет data-v=full, price={r_price} != {p['price']}")
+                        t51_ok = False
+                        break
+                else:
+                    if seen_full:
+                        fail(f"51. {fpath}: полный комплект оказался не последним в списке")
+                        t51_ok = False
+                        break
+                    if prev_non_full_price is not None and r_price > prev_non_full_price:
+                        fail(f"51. {fpath}: отдельные предметы не отсортированы по убыванию цены")
+                        t51_ok = False
+                        break
+                    prev_non_full_price = r_price
+            if len(checked_prices) != 1 or checked_prices[0] != exp_main_price:
+                fail(f"51. {fpath}: по умолчанию выбран не главный предмет: {checked_prices} != {exp_main_price}")
+                t51_ok = False
+                break
+            expected_price_marker = (
+                f'id="activePriceDisplay">{exp_main_fmt} ₸<' if prefix == "uz"
+                else f'class="product-price-val">{exp_main_fmt} ₸<'
+            )
+            if expected_price_marker not in ptxt:
+                fail(f"51. {fpath}: основной блок цены не показывает цену главного предмета {exp_main_fmt} ₸")
+                t51_ok = False
+                break
+            if prefix == "":
+                if f'id="addToCartBtn">В корзину — {exp_main_fmt} ₸<' not in ptxt:
+                    fail(f"51. {fpath}: кнопка #addToCartBtn не содержит 'В корзину — {exp_main_fmt} ₸'")
+                    t51_ok = False
+                    break
+            elif prefix == "kz":
+                if f'id="addToCartBtn">Себетке қосу — {exp_main_fmt} ₸<' not in ptxt:
+                    fail(f"51. {fpath}: кнопка #addToCartBtn не содержит 'Себетке қосу — {exp_main_fmt} ₸'")
+                    t51_ok = False
+                    break
+            elif prefix == "uz":
+                if f'WhatsApp orqali buyurtma berish ({exp_main_fmt} ₸)' not in ptxt:
+                    fail(f"51. {fpath}: кнопка #buyWaBtn не содержит '({exp_main_fmt} ₸)'")
+                    t51_ok = False
+                    break
+            if f'<meta property="product:price:amount" content="{int(p["price"])}"' not in ptxt:
+                fail(f"51. {fpath}: meta product:price:amount изменён (ожидалась полная цена {int(p['price'])})")
+                t51_ok = False
+                break
+        if not t51_ok:
+            break
+    if t51_ok:
+        ok("51. Задача 008 (Страницы комплектов RU/KZ/UZ): radiogroup, сортировка по убыванию, выбор главного предмета и meta product:price:amount валидны")
+
+    # 52. Страницы комплектов RU/KZ/UZ: JSON-LD Product.offers как массив вариантов
+    t52_ok = True
+    for p in products:
+        if not has_from_price(p):
+            continue
+        pid = p["id"]
+        exp_ordered = ordered_bundle_options(p)
+        exp_full_int = int(p["price"])
+        exp_cat_int = catalog_price(p)
+        exp_v_list = [variant_param(oi, opt) for oi, opt in exp_ordered]
+        for prefix in ("", "kz", "uz"):
+            fpath = os.path.join(prefix, "product", f"{pid}.html") if prefix else os.path.join("product", f"{pid}.html")
+            if not os.path.exists(fpath):
+                fail(f"52. Отсутствует файл {fpath}")
+                t52_ok = False
+                break
+            with open(fpath, "r", encoding="utf-8") as f:
+                ptxt = f.read()
+            pld = next((x for x in extract_jsonld_blocks(ptxt) if x.get("@type") == "Product"), None)
+            if pld is None:
+                fail(f"52. {fpath}: отсутствует JSON-LD Product")
+                t52_ok = False
+                break
+            offers = pld.get("offers")
+            if not isinstance(offers, list) or len(offers) != len(exp_ordered):
+                fail(f"52. {fpath}: Product.offers не является массивом длины {len(exp_ordered)}")
+                t52_ok = False
+                break
+            got_v_list = []
+            offer_url_ok = True
+            for o in offers:
+                m_v = re.search(r'[?&]v=([^&#]+)$', str(o.get("url", "")))
+                if not m_v:
+                    fail(f"52. {fpath}: у одного из Offer отсутствует параметр ?v= в url: {o.get('url')}")
+                    t52_ok = False
+                    offer_url_ok = False
+                    break
+                got_v_list.append(m_v.group(1))
+            if not offer_url_ok:
+                break
+            if set(got_v_list) != set(exp_v_list) or len(got_v_list) != len(exp_v_list):
+                fail(f"52. {fpath}: набор ?v= в offers {got_v_list} != {exp_v_list}")
+                t52_ok = False
+                break
+            full_offers = [o for o in offers if str(o.get("url", "")).endswith("?v=full")]
+            if len(full_offers) != 1 or int(float(str(full_offers[0].get("price", 0)))) != exp_full_int:
+                fail(f"52. {fpath}: в Product.offers неверный ?v=full оффер: {full_offers}")
+                t52_ok = False
+                break
+            if not any(int(float(str(o.get("price", 0)))) == exp_cat_int for o in offers):
+                fail(f"52. {fpath}: в Product.offers отсутствует оффер с ценой главного предмета {exp_cat_int}")
+                t52_ok = False
+                break
+        if not t52_ok:
+            break
+    if t52_ok:
+        ok("52. Задача 008 (JSON-LD Product.offers): На всех RU/KZ/UZ страницах комплектов offers[] включает ?v=full с полной ценой и все отдельные предметы")
+
+    # 53. Фиды Google Merchant, 2ГИС, Pinterest: ссылка ?v=full для комплектов, цена полная
+    t53_ok = True
+    g_ns = {"g": "http://base.google.com/ns/1.0"}
+    for gfeed in ("google_merchant_feed.xml", "feed.xml"):
+        if not os.path.exists(gfeed):
+            fail(f"53. Отсутствует {gfeed}")
+            t53_ok = False
+            continue
+        tree = ET.parse(gfeed)
+        for item in tree.findall(".//item"):
+            gid = item.findtext("g:id", default="", namespaces=g_ns)
+            glink = item.findtext("g:link", default="", namespaces=g_ns)
+            gprice = item.findtext("g:price", default="", namespaces=g_ns)
+            pref = by_id.get(gid)
+            if not pref:
+                continue
+            exp_gprice = f"{int(pref['price'])}.00 KZT"
+            if gprice != exp_gprice:
+                fail(f"53. {gfeed} {gid}: цена {gprice} != {exp_gprice}")
+                t53_ok = False
+                break
+            if has_from_price(pref):
+                if not glink.endswith("?v=full"):
+                    fail(f"53. {gfeed} {gid}: ссылка комплекта без ?v=full: {glink}")
+                    t53_ok = False
+                    break
+            else:
+                if "?v=" in glink:
+                    fail(f"53. {gfeed} {gid}: лишний параметр ?v= у обычного товара: {glink}")
+                    t53_ok = False
+                    break
+    if os.path.exists("2gis_feed.xml"):
+        t2g = ET.parse("2gis_feed.xml")
+        for off in t2g.findall(".//offer"):
+            oid = off.attrib.get("id", "")
+            ourl = off.findtext("url", default="")
+            oprice = off.findtext("price", default="")
+            pref = by_id.get(oid)
+            if not pref:
+                continue
+            if oprice != str(int(pref["price"])):
+                fail(f"53. 2gis_feed.xml {oid}: price={oprice} != {pref['price']}")
+                t53_ok = False
+                break
+            if has_from_price(pref) and not ourl.endswith("?v=full"):
+                fail(f"53. 2gis_feed.xml {oid}: url без ?v=full: {ourl}")
+                t53_ok = False
+                break
+    if os.path.exists("pinterest_feed.xml"):
+        tpin = ET.parse("pinterest_feed.xml")
+        for item in tpin.findall(".//item"):
+            pid_el = item.findtext("g:id", default="", namespaces=g_ns)
+            plink = item.findtext("g:link", default="", namespaces=g_ns)
+            pprice = item.findtext("g:price", default="", namespaces=g_ns)
+            pref = by_id.get(pid_el)
+            if not pref:
+                continue
+            if pprice != f"{int(pref['price'])}.00 KZT":
+                fail(f"53. pinterest_feed.xml {pid_el}: price={pprice}")
+                t53_ok = False
+                break
+            if has_from_price(pref):
+                if "?v=full&utm_source=" not in plink or plink.count("?") != 1:
+                    fail(f"53. pinterest_feed.xml {pid_el}: некорректный URL с ?v=full: {plink}")
+                    t53_ok = False
+                    break
+    if t53_ok:
+        ok("53. Задача 008 (Фиды Google / 2ГИС / Pinterest): Для комплектов добавлен ?v=full, полные цены не изменились")
+
+    # 54. Фид Kaspi (kaspi_feed.xml): полная цена комплектов не затронута
+    t54_ok = True
+    if not os.path.exists("kaspi_feed.xml"):
+        fail("54. Отсутствует kaspi_feed.xml")
+        t54_ok = False
+    else:
+        ktree = ET.parse("kaspi_feed.xml")
+        koffers = {}
+        for off in ktree.findall(".//{kaspiShopping}offer"):
+            ksku = off.attrib.get("sku", "")
+            kpr = off.findtext("{kaspiShopping}price", default="")
+            koffers[ksku] = kpr
+        for p in products:
+            psku = str(p.get("sku") or p.get("id", ""))
+            exp_kpr = str(calculate_kaspi_price(int(p["price"])))
+            got_kpr = koffers.get(psku)
+            if got_kpr != exp_kpr:
+                fail(f"54. kaspi_feed.xml {p['id']} ({psku}): price={got_kpr}, ожидалось {exp_kpr}")
+                t54_ok = False
+                break
+    if t54_ok:
+        ok("54. Задача 008 (Kaspi фид): Все цены в kaspi_feed.xml точно совпадают с calculate_kaspi_price(full_price)")
+
+    EXPECTED_TESTS = 54
+    if not errors and len(passed) != EXPECTED_TESTS:
+        fail(f"Ожидалось {EXPECTED_TESTS} пройденных проверок, фактически PASS: {len(passed)}")
+
     print("=" * 76)
     if errors:
         print(f"ИТОГ: ОБНАРУЖЕНО ОШИБОК: {len(errors)}")
@@ -993,7 +1415,8 @@ def run_audit():
             print(f"  - {e}")
         sys.exit(1)
     else:
-        print(f"ИТОГ: ВСЕ ИНВАРИАНТЫ УСПЕШНО СОБЛЮДЕНЫ ({len(passed)}/48 PASS, 0 Errors)!")
+        warn_suffix = f", {len(warnings)} Warnings" if warnings else ""
+        print(f"ИТОГ: ВСЕ ИНВАРИАНТЫ УСПЕШНО СОБЛЮДЕНЫ ({len(passed)}/{EXPECTED_TESTS} PASS, 0 Errors{warn_suffix})!")
         print("=" * 76)
 
 

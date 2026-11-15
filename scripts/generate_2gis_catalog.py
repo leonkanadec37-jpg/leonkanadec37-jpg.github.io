@@ -8,9 +8,13 @@
 
 import json
 import os
+import sys
 import csv
 import datetime
 from xml.sax.saxutils import escape
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from catalog_pricing import has_from_price
 
 SITE_URL = "https://livijewelry.kz"
 PRODUCTS_FILE = "products.json"
@@ -81,7 +85,8 @@ def generate():
 
         raw_img = p.get("image", "").lstrip("/")
         image_url = f"{SITE_URL}/{raw_img}" if raw_img else ""
-        product_url = f"{SITE_URL}/product/{p_id}.html"
+        suffix = "?v=full" if has_from_price(p) else ""
+        product_url = f"{SITE_URL}/product/{p_id}.html{suffix}"
 
         description = clean_text(p.get("description", ""))
         in_stock = p.get("inStock", True)

@@ -25,6 +25,16 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from generate_mobile_menu import render_full_storefront_header
+from catalog_pricing import (
+    catalog_price,
+    format_from_price,
+    has_from_price,
+    main_bundle_option,
+    ordered_bundle_options,
+    price_html,
+    real_bundle_options,
+    variant_param,
+)
 
 SITE_URL = "https://livijewelry.kz"
 
@@ -707,8 +717,8 @@ def translate_product_kz(p: dict) -> dict:
 def build_kz_card_html(pk: dict, indent: str = "      ", is_first_row: bool = False, priority_high: bool = False) -> str:
     pid = pk["id"]
     title = html.escape(pk["title"])
-    price_num = pk["price"]
-    price_str = format_price_kz(price_num)
+    price_num = catalog_price(pk)
+    price_markup = price_html(pk, "kz")
     img = pk["image"].lstrip("/")
     base_img, _ = os.path.splitext(img)
     mob_img = f"{base_img}-750w.webp"
@@ -729,7 +739,7 @@ def build_kz_card_html(pk: dict, indent: str = "      ", is_first_row: bool = Fa
         f'{indent}  <a href="/kz/product/{pid}.html" class="card-img-wrap">{badge_html}<img src="/{img}"{srcset_attr} alt="{alt}" {loading_attr} decoding="async" width="600" height="800"></a>\n'
         f'{indent}  <div class="body">\n'
         f'{indent}    <div class="title"><a href="/kz/product/{pid}.html" class="card-title-link" data-id="{pid}" data-title="{title}" data-price="{price_num}" data-category="{cat}">{title}</a></div>\n'
-        f'{indent}    <div class="price">{price_str} ₸</div>\n'
+        f'{indent}    <div class="price">{price_markup}</div>\n'
         f'{indent}  </div>\n'
         f'{indent}</article>'
     )
@@ -909,6 +919,7 @@ def generate_kz_index(products_kz: list) -> str:
   <script type="application/ld+json">
 {json.dumps(graph_ld, ensure_ascii=False, indent=2)}
   </script>
+  <script src="/scripts/catalog-pricing.js"></script>
   <script src="/scripts/storefront-menu.js" defer></script>
 </head>
 <body>
@@ -1183,7 +1194,7 @@ def generate_kz_shop(products_kz: list) -> str:
                     "offers": {
                         "@type": "Offer",
                         "url": f"{SITE_URL}/kz/product/{p['id']}.html",
-                        "price": f"{p['price']:.2f}",
+                        "price": f"{catalog_price(p):.2f}",
                         "priceCurrency": "KZT",
                         "availability": "https://schema.org/InStock",
                     },
@@ -1300,6 +1311,7 @@ def generate_kz_shop(products_kz: list) -> str:
     ]
   }}
   </script>
+  <script src="/scripts/catalog-pricing.js"></script>
   <script src="/scripts/storefront-menu.js" defer></script>
 </head>
 <body>
@@ -1504,7 +1516,7 @@ def generate_kz_shop(products_kz: list) -> str:
           item_id: p.id,
           item_name: p.title,
           item_category: p.category,
-          price: p.price,
+          price: window.LiviPricing ? window.LiviPricing.catalogPrice(p) : p.price,
           index: idx + 1
         }}))
       }});
@@ -1704,7 +1716,12 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
     livi_sku = pk["sku"]
     title = pk["title"].strip()
     price = int(pk.get("price") or 0)
-    price_fmt = format_price_kz(price)
+    is_from = has_from_price(pk)
+    main_pair = main_bundle_option(pk)
+    default_price = catalog_price(pk)
+    price_fmt = format_price_kz(default_price)
+    default_opt_name = main_pair[1]["name"] if main_pair else ""
+    default_active_title = f"{title} ({default_opt_name})" if default_opt_name else title
     category = pk.get("category") or "Necklaces"
     cat_kz = CATEGORY_NAMES_KZ.get(category, "Әшекейлер")
     cat_hub_url, cat_hub_label = CATEGORY_HUB_LINKS.get(category, ("/kz/shop.html", "Каталог"))
@@ -1741,11 +1758,15 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
     clasp_kz = "Ұзартқышы бар зергерлік карабин"
     packaging_kz = "Фирмалық сыйлық қорапшасы және Livi Jewelry барқыт дорбашасы (тегін — 0 ₸)"
 
-    bundle_options = pk.get("bundle_options") or []
+    bundle_options = real_bundle_options(pk)
 
     # SEO Title & Description
-    page_title = f"{title} — {price_fmt} ₸ | Livi Jewelry"
-    meta_desc = f"«{title}» қолдан жасалған әшекейін {price_fmt} ₸ бағасымен Livi Jewelry шеберханасынан сатып алу. СДЭК арқылы Қазақстан бойынша жеткізу."
+    if is_from:
+        page_title = f"{title} — {format_from_price(default_price, 'kz')} | Livi Jewelry"
+        meta_desc = f"«{title}» қолдан жасалған әшекейін {format_from_price(default_price, 'kz')} Livi Jewelry шеберханасынан сатып алу. СДЭК арқылы Қазақстан бойынша жеткізу."
+    else:
+        page_title = f"{title} — {price_fmt} ₸ | Livi Jewelry"
+        meta_desc = f"«{title}» қолдан жасалған әшекейін {price_fmt} ₸ бағасымен Livi Jewelry шеберханасынан сатып алу. СДЭК арқылы Қазақстан бойынша жеткізу."
     if len(meta_desc) > 160:
         meta_desc = meta_desc[:157].rstrip(" ,.") + "..."
 
@@ -1818,8 +1839,8 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
     for rp in related:
         r_id = rp["id"]
         r_title = html.escape(rp["title"].strip())
-        r_price = format_price_kz(rp.get("price") or 0)
-        r_price_num = int(rp.get("price") or 0)
+        r_price_num = catalog_price(rp)
+        r_price_markup = price_html(rp, "kz")
         r_img = "/" + rp["image"].lstrip("/")
         r_cat = html.escape(rp.get("category") or "")
         related_cards_html.append(f"""      <article class="card" data-rel-id="{r_id}" data-rel-title="{r_title}" data-rel-price="{r_price_num}" data-rel-category="{r_cat}">
@@ -1828,35 +1849,18 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
         </a>
         <div class="body">
           <div class="title"><a href="/kz/product/{r_id}.html" class="card-title-link">{r_title}</a></div>
-          <div class="price">{r_price} ₸</div>
+          <div class="price">{r_price_markup}</div>
         </div>
       </article>""")
     related_html = "\n".join(related_cards_html)
 
     # JSON-LD Product (Merchant Listing)
-    product_ld = {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        "@id": f"{page_url}#product",
-        "name": title,
-        "sku": livi_sku,
-        "mpn": livi_sku,
-        "image": [img_abs],
-        "description": f"{description} Материалдар: {materials_kz_str}. Livi Jewelry авторлық қол еңбегі, гипоаллергенді фурнитура, фирмалық сыйлық қаптамасы.",
-        "material": materials_kz_str,
-        "color": "Табиғи реңк / Родий / Алтын жалату",
-        "pattern": "Қолдан жасалған (Handmade)",
-        "brand": {
-            "@type": "Brand",
-            "name": "Livi Jewelry"
-        },
-        "category": cat_kz,
-
-        "offers": {
+    def _build_kz_offer_ld(offer_url: str, offer_price: int, offer_name: str = "") -> dict:
+        offer_obj = {
             "@type": "Offer",
-            "url": page_url,
+            "url": offer_url,
             "priceCurrency": "KZT",
-            "price": str(price),
+            "price": str(int(offer_price)),
             "priceValidUntil": "2027-12-31",
             "availability": "https://schema.org/InStock",
             "itemCondition": "https://schema.org/NewCondition",
@@ -1908,6 +1912,38 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
                 }
             }
         }
+        if offer_name:
+            offer_obj["name"] = offer_name
+        return offer_obj
+
+    ordered_opts_kz = ordered_bundle_options(pk)
+    if ordered_opts_kz:
+        offers_ld = [
+            _build_kz_offer_ld(f"{page_url}?v={variant_param(orig_idx, opt)}", int(opt["price"]), opt["name"])
+            for orig_idx, opt in ordered_opts_kz
+        ]
+    else:
+        offers_ld = _build_kz_offer_ld(page_url, price)
+
+    product_ld = {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": f"{page_url}#product",
+        "name": title,
+        "sku": livi_sku,
+        "mpn": livi_sku,
+        "image": [img_abs],
+        "description": f"{description} Материалдар: {materials_kz_str}. Livi Jewelry авторлық қол еңбегі, гипоаллергенді фурнитура, фирмалық сыйлық қаптамасы.",
+        "material": materials_kz_str,
+        "color": "Табиғи реңк / Родий / Алтын жалату",
+        "pattern": "Қолдан жасалған (Handmade)",
+        "brand": {
+            "@type": "Brand",
+            "name": "Livi Jewelry"
+        },
+        "category": cat_kz,
+
+        "offers": offers_ld
     }
 
     if product_reviews:
@@ -1990,24 +2026,43 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
     }
 
     # WhatsApp link
-    wa_text = (
-        f"Сәлеметсіз бе! Келесі әшекейге тапсырыс бергім келеді: {title} (Артикул: {livi_sku}) — {price_fmt} ₸.\n"
-        f"Сілтеме: {page_url}"
-    )
+    if default_opt_name:
+        wa_text = (
+            f"Сәлеметсіз бе! Келесі әшекейге тапсырыс бергім келеді: {title} ({default_opt_name}, Артикул: {livi_sku}) — {price_fmt} ₸.\n"
+            f"Сілтеме: {page_url}"
+        )
+    else:
+        wa_text = (
+            f"Сәлеметсіз бе! Келесі әшекейге тапсырыс бергім келеді: {title} (Артикул: {livi_sku}) — {price_fmt} ₸.\n"
+            f"Сілтеме: {page_url}"
+        )
     wa_href = f"https://wa.me/77054510584?text={html.escape(re.sub(r' ', '%20', wa_text.replace(chr(10), '%0A')))}"
 
     # Customizer HTML
     bundle_html = ""
-    if bundle_options:
-        bundle_opts_html = "\n".join(
-            f'              <option value="{html.escape(opt["name"])}" data-price="{opt["price"]}"{" selected" if opt.get("is_full") else ""}>{html.escape(opt["name"])} — {format_price_kz(opt["price"])} ₸</option>'
-            for opt in bundle_options
-        )
+    if ordered_opts_kz:
+        main_orig_idx = main_pair[0] if main_pair else ordered_opts_kz[0][0]
+        bundle_opts_lines = []
+        for orig_idx, opt in ordered_opts_kz:
+            is_default = (orig_idx == main_orig_idx)
+            v_param = variant_param(orig_idx, opt)
+            opt_name = html.escape(opt["name"])
+            opt_price = int(opt["price"])
+            opt_price_fmt = format_price_kz(opt_price)
+            checked_str = "true" if is_default else "false"
+            tabindex_str = "0" if is_default else "-1"
+            bundle_opts_lines.append(
+                f'              <button type="button" role="radio" class="bundle-option" data-idx="{orig_idx}" data-v="{v_param}" data-price="{opt_price}" data-name="{opt_name}" aria-checked="{checked_str}" tabindex="{tabindex_str}">\n'
+                f'                <span class="bundle-option-name">{opt_name}</span>\n'
+                f'                <span class="bundle-option-price">{opt_price_fmt} ₸</span>\n'
+                f'              </button>'
+            )
+        bundle_opts_html = "\n".join(bundle_opts_lines)
         bundle_html = f"""          <div class="customizer-field bundle-select-field">
-            <label class="customizer-label" for="customBundle">Жиынтықталуын таңдаңыз</label>
-            <select id="customBundle" class="customizer-select">
+            <span class="customizer-label" id="customBundleLabel">Жиынтықталуын таңдаңыз</span>
+            <div id="customBundle" class="bundle-options" role="radiogroup" aria-labelledby="customBundleLabel">
 {bundle_opts_html}
-            </select>
+            </div>
           </div>\n"""
 
     customizer_html = (
@@ -2026,14 +2081,6 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
     )
 
     bundle_badge_html = ""
-    if bundle_options:
-        opts_summary = " • ".join(
-            f"{opt['name']} — {format_price_kz(opt['price'])} ₸"
-            for opt in bundle_options
-            if not opt.get("is_full")
-        )
-        if opts_summary:
-            bundle_badge_html = f'<div class="bundle-breakdown-badge">Жиынтықта: {html.escape(opts_summary)} (бөлек сатып алуға болады)</div>\n'
 
     # D4. KZ быстрые чипсы характеристик под ценой
     quick_chips_kz = []
@@ -2064,8 +2111,11 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
     for pr in pairs_kz:
         pr_id = pr["id"]
         pr_title = html.escape(pr["title"].strip())
-        pr_price_num = int(pr.get("price") or 0)
-        pr_price_fmt = format_price_kz(pr_price_num)
+        pr_price_num = catalog_price(pr)
+        pr_price_markup = price_html(pr, "kz")
+        pr_main = main_bundle_option(pr)
+        pr_cart_id = f"{pr_id}-{pr_main[0]}" if pr_main else pr_id
+        pr_bundle_attr = f' data-bundle="{html.escape(pr_main[1]["name"])}"' if pr_main else ""
         pr_img = "/" + pr["image"].lstrip("/")
         pr_base, _ = os.path.splitext(pr_img)
         pr_thumb = f"{pr_base}-400w.webp"
@@ -2076,8 +2126,8 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
               <img src="{pr_thumb}" srcset="{pr_thumb} 400w, {pr_mob} 750w, {pr_img} 1440w" sizes="140px" alt="{pr_alt}" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
             </a>
             <a href="/kz/product/{pr_id}.html" class="pair-title">{pr_title}</a>
-            <div class="pair-price">{pr_price_fmt} ₸</div>
-            <button type="button" class="pair-add-btn" data-id="{pr_id}" data-title="{pr_title}" data-price="{pr_price_num}" data-image="{pr_img}" data-url="/kz/product/{pr_id}.html">+ Қосу</button>
+            <div class="pair-price">{pr_price_markup}</div>
+            <button type="button" class="pair-add-btn" data-id="{pr_id}" data-cart-id="{pr_cart_id}"{pr_bundle_attr} data-title="{pr_title}" data-price="{pr_price_num}" data-image="{pr_img}" data-url="/kz/product/{pr_id}.html">+ Қосу</button>
           </article>""")
     pairs_block_kz_html = f"""        <section class="product-pairs-with" aria-label="Осымен бірге тағады">
           <h2 class="product-pairs-title">Осымен бірге тағады</h2>
@@ -2092,8 +2142,11 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
     for mr in mini_recs_kz:
         mr_id = mr["id"]
         mr_title = html.escape(mr["title"].strip())
-        mr_price_num = int(mr.get("price") or 0)
-        mr_price_fmt = format_price_kz(mr_price_num)
+        mr_price_num = catalog_price(mr)
+        mr_price_markup = price_html(mr, "kz")
+        mr_main = main_bundle_option(mr)
+        mr_cart_id = f"{mr_id}-{mr_main[0]}" if mr_main else mr_id
+        mr_bundle_attr = f' data-bundle="{html.escape(mr_main[1]["name"])}"' if mr_main else ""
         mr_img = "/" + mr["image"].lstrip("/")
         mr_base, _ = os.path.splitext(mr_img)
         mr_thumb = f"{mr_base}-400w.webp"
@@ -2101,9 +2154,9 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
             <img src="{mr_thumb}" alt="{mr_title}" width="48" height="64" class="mini-rec-img" loading="lazy">
             <div class="mini-rec-info">
               <div class="mini-rec-title">{mr_title}</div>
-              <div class="mini-rec-price">{mr_price_fmt} ₸</div>
+              <div class="mini-rec-price">{mr_price_markup}</div>
             </div>
-            <button type="button" class="mini-rec-add" data-id="{mr_id}" data-title="{mr_title}" data-price="{mr_price_num}" data-image="{mr_img}" data-url="/kz/product/{mr_id}.html">+ Қосу</button>
+            <button type="button" class="mini-rec-add" data-id="{mr_id}" data-cart-id="{mr_cart_id}"{mr_bundle_attr} data-title="{mr_title}" data-price="{mr_price_num}" data-image="{mr_img}" data-url="/kz/product/{mr_id}.html">+ Қосу</button>
           </div>""")
     mini_rec_kz_html = "\n".join(mini_rec_items_kz)
 
@@ -2117,6 +2170,8 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
         "sku": livi_sku,
         "title": title,
         "price": price,
+        "defaultPrice": default_price,
+        "defaultTitle": default_active_title,
         "category": category,
         "image": "/" + img_rel,
         "url": page_url,
@@ -2221,6 +2276,7 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
   <script type="application/ld+json">
 {json.dumps(faq_ld, ensure_ascii=False, indent=2)}
   </script>
+  <script src="/scripts/catalog-pricing.js"></script>
   <script src="/scripts/storefront-menu.js" defer></script>
 </head>
 <body>
@@ -2376,8 +2432,8 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
 
   <script>
     const PRODUCT = {product_js_obj};
-    let currentActivePrice = PRODUCT.price;
-    let currentActiveTitle = PRODUCT.title;
+    let currentActivePrice = PRODUCT.defaultPrice || PRODUCT.price;
+    let currentActiveTitle = PRODUCT.defaultTitle || PRODUCT.title;
 
     /* ===== Сквозная атрибуция (UTM / GCLID / FBCLID) ===== */
     (function captureAttribution(){{
@@ -2471,34 +2527,42 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
       return String(num).replace(/\\B(?=(\\d{{3}})+(?!\\d))/g, ' ');
     }}
 
-    // Bundle selector listener
-    const bundleSelect = document.getElementById('customBundle');
-    if (bundleSelect) {{
-      bundleSelect.addEventListener('change', function() {{
-        const opt = bundleSelect.options[bundleSelect.selectedIndex];
-        const newPrice = parseInt(opt.getAttribute('data-price') || PRODUCT.price, 10);
-        const optName = opt.value;
-        currentActivePrice = newPrice;
-        currentActiveTitle = PRODUCT.title + ' (' + optName + ')';
+    // Bundle selector listener (radiogroup)
+    const customBundleGroup = document.getElementById('customBundle');
+    const bundleOptionEls = customBundleGroup ? Array.from(customBundleGroup.querySelectorAll('[role="radio"]')) : [];
 
-        const priceEl = document.querySelector('.product-price-val');
-        if (priceEl) priceEl.textContent = formatKZT(newPrice) + ' ₸';
+    function getSelectedBundleOption() {{
+      if (!bundleOptionEls.length) return null;
+      return bundleOptionEls.find(el => el.getAttribute('aria-checked') === 'true') || bundleOptionEls[0];
+    }}
 
-        const addBtn = document.getElementById('addToCartBtn');
-        if (addBtn) addBtn.textContent = 'Себетке қосу — ' + formatKZT(newPrice) + ' ₸';
+    function syncBundleSelection(fireTracking) {{
+      const opt = getSelectedBundleOption();
+      if (!opt) return;
+      const newPrice = parseInt(opt.getAttribute('data-price') || PRODUCT.price, 10);
+      const optName = opt.getAttribute('data-name') || '';
+      currentActivePrice = newPrice;
+      currentActiveTitle = PRODUCT.title + ' (' + optName + ')';
 
-        const stickyPrice = document.querySelector('.mobile-sticky-price');
-        if (stickyPrice) stickyPrice.textContent = formatKZT(newPrice) + ' ₸';
-        const stickyWa = document.getElementById('stickyWaBtn');
-        const waBtn = document.getElementById('waOrderBtn');
-        if (waBtn) {{
-          const waMsg = 'Сәлеметсіз бе! Келесі әшекейге тапсырыс бергім келеді: ' + PRODUCT.title +
-            ' (' + optName + ', Артикул: ' + PRODUCT.sku + ') — ' + formatKZT(newPrice) + ' ₸.\\n' +
-            'Сілтеме: ' + PRODUCT.url;
-          waBtn.href = 'https://wa.me/77054510584?text=' + encodeURIComponent(waMsg);
-          if (stickyWa) stickyWa.href = waBtn.href;
-        }}
+      const priceEl = document.querySelector('.product-price-val');
+      if (priceEl) priceEl.textContent = formatKZT(newPrice) + ' ₸';
 
+      const addBtn = document.getElementById('addToCartBtn');
+      if (addBtn) addBtn.textContent = 'Себетке қосу — ' + formatKZT(newPrice) + ' ₸';
+
+      const stickyPrice = document.querySelector('.mobile-sticky-price');
+      if (stickyPrice) stickyPrice.textContent = formatKZT(newPrice) + ' ₸';
+      const stickyWa = document.getElementById('stickyWaBtn');
+      const waBtn = document.getElementById('waOrderBtn');
+      if (waBtn) {{
+        const waMsg = 'Сәлеметсіз бе! Келесі әшекейге тапсырыс бергім келеді: ' + PRODUCT.title +
+          ' (' + optName + ', Артикул: ' + PRODUCT.sku + ') — ' + formatKZT(newPrice) + ' ₸.\\n' +
+          'Сілтеме: ' + PRODUCT.url;
+        waBtn.href = 'https://wa.me/77054510584?text=' + encodeURIComponent(waMsg);
+        if (stickyWa) stickyWa.href = waBtn.href;
+      }}
+
+      if (fireTracking) {{
         try {{
           if (typeof gtag === 'function') {{
             gtag('event', 'select_item', {{
@@ -2522,15 +2586,70 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
             }});
           }}
         }} catch(e){{}}
+      }}
+    }}
+
+    function selectBundleOption(optEl, updateUrl) {{
+      if (!optEl) return;
+      bundleOptionEls.forEach(el => {{
+        const isTarget = el === optEl;
+        el.setAttribute('aria-checked', isTarget ? 'true' : 'false');
+        el.setAttribute('tabindex', isTarget ? '0' : '-1');
       }});
+      syncBundleSelection(true);
+      if (updateUrl && window.history && window.history.replaceState) {{
+        try {{
+          const u = new URL(window.location.href);
+          u.searchParams.set('v', optEl.getAttribute('data-v') || '');
+          window.history.replaceState(null, '', u.pathname + u.search + u.hash);
+        }} catch(e) {{}}
+      }}
+    }}
+
+    if (bundleOptionEls.length > 0) {{
+      const vParam = new URLSearchParams(window.location.search).get('v');
+      if (vParam) {{
+        const matched = bundleOptionEls.find(el => el.getAttribute('data-v') === vParam);
+        if (matched) {{
+          bundleOptionEls.forEach(el => {{
+            const isTarget = el === matched;
+            el.setAttribute('aria-checked', isTarget ? 'true' : 'false');
+            el.setAttribute('tabindex', isTarget ? '0' : '-1');
+          }});
+        }}
+      }}
+      bundleOptionEls.forEach((el, idx) => {{
+        el.addEventListener('click', () => selectBundleOption(el, true));
+        el.addEventListener('keydown', (e) => {{
+          let nextIdx = -1;
+          if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {{
+            nextIdx = (idx + 1) % bundleOptionEls.length;
+          }} else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {{
+            nextIdx = (idx - 1 + bundleOptionEls.length) % bundleOptionEls.length;
+          }} else if (e.key === 'Home') {{
+            nextIdx = 0;
+          }} else if (e.key === 'End') {{
+            nextIdx = bundleOptionEls.length - 1;
+          }}
+          if (nextIdx >= 0) {{
+            e.preventDefault();
+            const target = bundleOptionEls[nextIdx];
+            selectBundleOption(target, true);
+            target.focus();
+          }}
+        }});
+      }});
+      syncBundleSelection(false);
     }}
 
     // Add to cart with direct checkout transition
     function handleAddToCart() {{
-      const bundleOpt = bundleSelect ? bundleSelect.options[bundleSelect.selectedIndex].value : '';
+      const opt = getSelectedBundleOption();
+      const bundleOpt = opt ? (opt.getAttribute('data-name') || '') : '';
+      const origIdx = opt ? opt.getAttribute('data-idx') : '';
 
       const cart = readCart();
-      const cartItemId = PRODUCT.id + (bundleSelect ? ('-' + bundleSelect.selectedIndex) : '');
+      const cartItemId = PRODUCT.id + (opt ? ('-' + origIdx) : '');
       const existing = cart.find(i => (i.cartItemId || i.id) === cartItemId && !(i.customSize || i.size));
 
       if (existing) {{
@@ -2606,7 +2725,8 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
         recCards.forEach(function(card) {{
           const addBtn = card.querySelector('.mini-rec-add');
           const recId = addBtn ? addBtn.getAttribute('data-id') : null;
-          if (recId && cartIds.has(recId)) {{
+          const recCartId = addBtn ? (addBtn.getAttribute('data-cart-id') || recId) : null;
+          if ((recId && cartIds.has(recId)) || (recCartId && cartIds.has(recCartId))) {{
             card.style.display = 'none';
           }} else if (shownCount < 2) {{
             card.style.display = 'flex';
@@ -2653,17 +2773,20 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
         e.preventDefault();
         e.stopPropagation();
         const pId = btn.getAttribute('data-id');
-        const pTitle = btn.getAttribute('data-title');
+        const cartId = btn.getAttribute('data-cart-id') || pId;
+        const bundleName = btn.getAttribute('data-bundle') || '';
+        const pTitle = bundleName || btn.getAttribute('data-title');
         const pPrice = Number(btn.getAttribute('data-price') || 0);
         const pImage = btn.getAttribute('data-image');
         const pUrl = btn.getAttribute('data-url');
         const items = readCart();
-        const idx = items.findIndex(x => x.id === pId);
+        const idx = items.findIndex(x => (x.cartItemId || x.id) === cartId && !(x.customSize || x.size));
         if (idx >= 0) {{
           items[idx].qty = Number(items[idx].qty || 1) + 1;
         }} else {{
-          items.push({{
-            id: pId,
+          const newItem = {{
+            id: cartId,
+            cartItemId: cartId,
             sku: pId.replace('prod_', 'LIVI-'),
             title: pTitle,
             price: pPrice,
@@ -2671,7 +2794,12 @@ def build_kz_product_page(pk: dict, all_products_kz: list) -> str:
             image: pImage,
             qty: 1,
             url: pUrl
-          }});
+          }};
+          if (bundleName) {{
+            newItem.customBundle = bundleName;
+            newItem.bundleOption = bundleName;
+          }}
+          items.push(newItem);
         }}
         writeCart(items);
         btn.textContent = '✓ Себетте';
@@ -2879,6 +3007,7 @@ def generate_kz_service_pages():
   <link rel="stylesheet" href="/styles.css?v=2">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
+  <script src="/scripts/catalog-pricing.js"></script>
   <script src="/scripts/storefront-menu.js" defer></script>
 </head>
 <body>
@@ -2924,6 +3053,7 @@ def generate_kz_service_pages():
   <link rel="stylesheet" href="/styles.css?v=2">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
+  <script src="/scripts/catalog-pricing.js"></script>
   <script src="/scripts/storefront-menu.js" defer></script>
 </head>
 <body>
@@ -2961,6 +3091,7 @@ def generate_kz_service_pages():
   <link rel="stylesheet" href="/styles.css?v=2">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
+  <script src="/scripts/catalog-pricing.js"></script>
   <script src="/scripts/storefront-menu.js" defer></script>
 </head>
 <body>

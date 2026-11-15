@@ -25,6 +25,16 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from generate_mobile_menu import render_full_storefront_header
+from catalog_pricing import (
+    catalog_price,
+    has_from_price,
+    main_bundle_option,
+    ordered_bundle_options,
+    format_price_num,
+    format_from_price,
+    price_html,
+    variant_param,
+)
 
 SITE_URL = "https://livijewelry.kz"
 
@@ -748,8 +758,8 @@ def translate_product_uz(p: dict) -> dict:
 def build_uz_card_html(pk: dict, indent: str = "      ", is_first_row: bool = False, priority_high: bool = False) -> str:
     pid = pk["id"]
     title = html.escape(pk["title"])
-    price_num = pk["price"]
-    price_str = format_price_uz(price_num)
+    price_num = catalog_price(pk)
+    price_markup = price_html(pk, "uz")
     img = pk["image"].lstrip("/")
     base_img, _ = os.path.splitext(img)
     mob_img = f"{base_img}-750w.webp"
@@ -770,7 +780,7 @@ def build_uz_card_html(pk: dict, indent: str = "      ", is_first_row: bool = Fa
         f'{indent}  <a href="/uz/product/{pid}.html" class="card-img-wrap">{badge_html}<img src="/{img}"{srcset_attr} alt="{alt}" {loading_attr} decoding="async" width="600" height="800"></a>\n'
         f'{indent}  <div class="body">\n'
         f'{indent}    <div class="title"><a href="/uz/product/{pid}.html" class="card-title-link" data-id="{pid}" data-title="{title}" data-price="{price_num}" data-category="{cat}">{title}</a></div>\n'
-        f'{indent}    <div class="price">{price_str} ₸</div>\n'
+        f'{indent}    <div class="price">{price_markup}</div>\n'
         f'{indent}  </div>\n'
         f'{indent}</article>'
     )
@@ -1246,7 +1256,7 @@ def generate_uz_shop(products_uz: list) -> str:
                     "offers": {
                         "@type": "Offer",
                         "url": f"{SITE_URL}/uz/product/{p['id']}.html",
-                        "price": f"{p['price']:.2f}",
+                        "price": f"{catalog_price(p):.2f}",
                         "priceCurrency": "KZT",
                         "availability": "https://schema.org/InStock",
                     },
@@ -1363,6 +1373,7 @@ def generate_uz_shop(products_uz: list) -> str:
     ]
   }}
   </script>
+  <script src="/scripts/catalog-pricing.js"></script>
   <script src="/scripts/storefront-menu.js" defer></script>
 </head>
 <body>
@@ -1506,15 +1517,16 @@ def generate_uz_shop(products_uz: list) -> str:
       grid.innerHTML = list.map(p => {{
         const stones = (p.materials || []).join(', ').toLowerCase();
         const alt = `${{p.title}} — qo‘lda yasalgan (${{stones}}), Livi Jewelry`;
-        const pFmt = p.price.toLocaleString('ru-RU').replace(/,/g, ' ');
+        const priceNum = window.LiviPricing ? window.LiviPricing.catalogPrice(p) : Number(p.price || 0);
+        const priceMarkup = window.LiviPricing ? window.LiviPricing.priceHtml(p, 'uz') : `${{priceNum.toLocaleString('ru-RU').replace(/,/g, ' ')}} ₸`;
         return `
           <article class="card" data-id="${{p.id}}">
             <div class="card-img-wrap">
               <img src="${{p.image}}" srcset="${{p.image.replace(/\\.webp$/i, '-750w.webp')}} 750w, ${{p.image}} 1440w" sizes="(max-width: 768px) 50vw, 300px" alt="${{alt}}" onerror="if(this.srcset){{this.removeAttribute('srcset');this.src='${{p.image}}';}}else{{this.onerror=null;this.src='/assets/placeholder.jpg';}}" loading="lazy" decoding="async" width="600" height="800">
             </div>
             <div class="body">
-              <div class="title"><a href="/uz/product/${{p.id}}.html" class="card-title-link" data-id="${{p.id}}" data-title="${{p.title}}" data-price="${{p.price}}" data-category="${{p.category}}">${{p.title}}</a></div>
-              <div class="price">${{pFmt}} ₸</div>
+              <div class="title"><a href="/uz/product/${{p.id}}.html" class="card-title-link" data-id="${{p.id}}" data-title="${{p.title}}" data-price="${{priceNum}}" data-category="${{p.category}}">${{p.title}}</a></div>
+              <div class="price">${{priceMarkup}}</div>
             </div>
           </article>
         `;
@@ -1744,8 +1756,20 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
     pid = pk["id"]
     livi_sku = pk["sku"]
     title = pk["title"].strip()
-    price = int(pk.get("price") or 0)
-    price_fmt = format_price_uz(price)
+    full_price = int(pk.get("price") or 0)
+    full_price_fmt = format_price_uz(full_price)
+    has_from = has_from_price(pk)
+    main_opt_pair = main_bundle_option(pk)
+    ordered_opts = ordered_bundle_options(pk)
+    default_price = catalog_price(pk)
+    default_price_fmt = format_price_uz(default_price)
+    default_orig_idx = main_opt_pair[0] if main_opt_pair else None
+    default_opt = main_opt_pair[1] if main_opt_pair else None
+    default_title = default_opt["name"] if default_opt else title
+    default_v = variant_param(default_orig_idx, default_opt) if (default_opt is not None and default_orig_idx is not None) else ""
+    price = default_price
+    price_fmt = default_price_fmt
+    price_display_label = format_from_price(default_price, "uz") if has_from else f"{default_price_fmt} ₸"
     category = pk.get("category") or "Necklaces"
     cat_uz = CATEGORY_NAMES_UZ.get(category, "Taqinchoqlar")
     cat_hub_url, cat_hub_label = CATEGORY_HUB_LINKS.get(category, ("/uz/shop.html", "Katalog"))
@@ -1791,8 +1815,8 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
     bundle_options = pk.get("bundle_options") or []
 
     # SEO Title & Description
-    page_title = f"{title} — {price_fmt} ₸ | Livi Jewelry"
-    meta_desc = f"«{title}» qo‘lda yasalgan mualliflik taqinchog‘ini {price_fmt} ₸ narxida Livi Jewelry ustaxonasidan xarid qilish. CDEK orqali yetkazib berish."
+    page_title = f"{title} — {price_display_label} | Livi Jewelry"
+    meta_desc = f"«{title}» qo‘lda yasalgan mualliflik taqinchog‘ini {price_display_label} narxida Livi Jewelry ustaxonasidan xarid qilish. CDEK orqali yetkazib berish."
     if len(meta_desc) > 160:
         meta_desc = meta_desc[:157].rstrip(" ,.") + "..."
 
@@ -1862,54 +1886,109 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
         "material": materials_uz,
         "category": cat_uz,
 
-        "offers": {
-            "@type": "Offer",
-            "url": page_url,
-            "priceCurrency": "KZT",
-            "price": f"{price:.2f}",
-            "priceValidUntil": "2027-12-31",
-            "itemCondition": "https://schema.org/NewCondition",
-            "availability": "https://schema.org/InStock",
-            "seller": {
-                "@type": "Organization",
-                "name": "Livi Jewelry"
-            },
-            "hasMerchantReturnPolicy": {
-                "@type": "MerchantReturnPolicy",
-                "applicableCountry": "KZ",
-                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-                "merchantReturnDays": 14,
-                "returnMethod": "https://schema.org/ReturnByMail",
-                "returnFees": "https://schema.org/FreeReturn"
-            },
-            "shippingDetails": {
-                "@type": "OfferShippingDetails",
-                "shippingRate": {
-                    "@type": "MonetaryAmount",
-                    "value": "4000",
-                    "currency": "KZT"
-                },
-                "shippingDestination": {
-                    "@type": "DefinedRegion",
-                    "addressCountry": "KZ"
-                },
-                "deliveryTime": {
-                    "@type": "ShippingDeliveryTime",
-                    "handlingTime": {
-                        "@type": "QuantitativeValue",
-                        "minValue": 0,
-                        "maxValue": 1,
-                        "unitCode": "d"
+        "offers": (
+            [
+                {
+                    "@type": "Offer",
+                    "name": opt["name"],
+                    "url": f"{page_url}?v={variant_param(orig_idx, opt)}",
+                    "priceCurrency": "KZT",
+                    "price": f"{int(opt['price']):.2f}",
+                    "priceValidUntil": "2027-12-31",
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "availability": "https://schema.org/InStock",
+                    "seller": {
+                        "@type": "Organization",
+                        "name": "Livi Jewelry"
                     },
-                    "transitTime": {
-                        "@type": "QuantitativeValue",
-                        "minValue": 1,
-                        "maxValue": 3,
-                        "unitCode": "d"
+                    "hasMerchantReturnPolicy": {
+                        "@type": "MerchantReturnPolicy",
+                        "applicableCountry": "KZ",
+                        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                        "merchantReturnDays": 14,
+                        "returnMethod": "https://schema.org/ReturnByMail",
+                        "returnFees": "https://schema.org/FreeReturn"
+                    },
+                    "shippingDetails": {
+                        "@type": "OfferShippingDetails",
+                        "shippingRate": {
+                            "@type": "MonetaryAmount",
+                            "value": "4000",
+                            "currency": "KZT"
+                        },
+                        "shippingDestination": {
+                            "@type": "DefinedRegion",
+                            "addressCountry": "KZ"
+                        },
+                        "deliveryTime": {
+                            "@type": "ShippingDeliveryTime",
+                            "handlingTime": {
+                                "@type": "QuantitativeValue",
+                                "minValue": 0,
+                                "maxValue": 1,
+                                "unitCode": "d"
+                            },
+                            "transitTime": {
+                                "@type": "QuantitativeValue",
+                                "minValue": 1,
+                                "maxValue": 3,
+                                "unitCode": "d"
+                            }
+                        }
+                    }
+                }
+                for orig_idx, opt in ordered_opts
+            ]
+            if has_from and ordered_opts
+            else {
+                "@type": "Offer",
+                "url": page_url,
+                "priceCurrency": "KZT",
+                "price": f"{full_price:.2f}",
+                "priceValidUntil": "2027-12-31",
+                "itemCondition": "https://schema.org/NewCondition",
+                "availability": "https://schema.org/InStock",
+                "seller": {
+                    "@type": "Organization",
+                    "name": "Livi Jewelry"
+                },
+                "hasMerchantReturnPolicy": {
+                    "@type": "MerchantReturnPolicy",
+                    "applicableCountry": "KZ",
+                    "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                    "merchantReturnDays": 14,
+                    "returnMethod": "https://schema.org/ReturnByMail",
+                    "returnFees": "https://schema.org/FreeReturn"
+                },
+                "shippingDetails": {
+                    "@type": "OfferShippingDetails",
+                    "shippingRate": {
+                        "@type": "MonetaryAmount",
+                        "value": "4000",
+                        "currency": "KZT"
+                    },
+                    "shippingDestination": {
+                        "@type": "DefinedRegion",
+                        "addressCountry": "KZ"
+                    },
+                    "deliveryTime": {
+                        "@type": "ShippingDeliveryTime",
+                        "handlingTime": {
+                            "@type": "QuantitativeValue",
+                            "minValue": 0,
+                            "maxValue": 1,
+                            "unitCode": "d"
+                        },
+                        "transitTime": {
+                            "@type": "QuantitativeValue",
+                            "minValue": 1,
+                            "maxValue": 3,
+                            "unitCode": "d"
+                        }
                     }
                 }
             }
-        }
+        )
     }
 
     breadcrumb_ld = {
@@ -1942,20 +2021,31 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
 
     # Bundle block HTML
     bundle_block_html = ""
-    if bundle_options:
-        opts_html = "\n".join([
-            f'              <option value="{html.escape(opt["name"])}" data-price="{opt["price"]}">{html.escape(opt["name"])} — {format_price_uz(opt["price"])} ₸</option>'
-            for opt in bundle_options
-        ])
+    if has_from and ordered_opts:
+        radio_btns = []
+        for orig_idx, opt in ordered_opts:
+            opt_name_esc = html.escape(opt["name"])
+            opt_price = int(opt["price"])
+            v_param = variant_param(orig_idx, opt)
+            is_selected = (orig_idx == default_orig_idx)
+            aria_chk = "true" if is_selected else "false"
+            tab_idx = "0" if is_selected else "-1"
+            is_full_str = "true" if opt.get("is_full") else "false"
+            radio_btns.append(
+                f'            <button type="button" class="bundle-option" role="radio" aria-checked="{aria_chk}" tabindex="{tab_idx}" '
+                f'data-v="{v_param}" data-idx="{orig_idx}" data-price="{opt_price}" data-name="{opt_name_esc}" data-is-full="{is_full_str}">\n'
+                f'              <span class="bundle-option-name">{opt_name_esc}</span>\n'
+                f'              <span class="bundle-option-price">{format_price_uz(opt_price)} ₸</span>\n'
+                f'            </button>'
+            )
+        opts_html = "\n".join(radio_btns)
         bundle_block_html = f"""
         <div class="product-customizer-group" style="margin-bottom:18px;">
-          <label class="customizer-label" for="customBundle"><strong>To‘plam tarkibini tanlash:</strong></label>
-          <div class="custom-select-wrap">
-            <select id="customBundle" class="product-bundle-select" aria-label="To‘plam tarkibini tanlash">
+          <div class="customizer-label" id="customBundleLabel"><strong>To‘plam tarkibini tanlash:</strong></div>
+          <div class="bundle-options" id="bundleOptions" role="radiogroup" aria-labelledby="customBundleLabel">
 {opts_html}
-            </select>
           </div>
-          <p class="customizer-hint" style="font-size:12px;color:var(--muted);margin-top:4px;">Har bir buyumni alohida yoki to‘liq to‘plam sifatida xarid qilishingiz mumkin.</p>
+          <p class="customizer-hint" style="font-size:12px;color:var(--muted);margin-top:6px;">Har bir buyumni alohida yoki to‘liq to‘plam sifatida xarid qilishingiz mumkin.</p>
         </div>"""
 
     drawer_hub_links_uz = "\n".join(
@@ -1992,8 +2082,12 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
     for pr in pairs_uz:
         pr_id = pr["id"]
         pr_title = html.escape(pr["title"].strip())
-        pr_price_num = int(pr.get("price") or 0)
-        pr_price_fmt = format_price_uz(pr_price_num)
+        pr_price_num = catalog_price(pr)
+        pr_price_markup = price_html(pr, "uz")
+        pr_main = main_bundle_option(pr)
+        pr_cart_id = f"{pr_id}-{pr_main[0]}" if pr_main else pr_id
+        pr_cart_title = html.escape(pr_main[1]["name"] if pr_main else pr["title"].strip())
+        pr_bundle_attr = html.escape(pr_main[1]["name"]) if pr_main else ""
         pr_img = "/" + pr["image"].lstrip("/")
         pr_base, _ = os.path.splitext(pr_img)
         pr_thumb = f"{pr_base}-400w.webp"
@@ -2004,8 +2098,8 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
               <img src="{pr_thumb}" srcset="{pr_thumb} 400w, {pr_mob} 750w, {pr_img} 1440w" sizes="140px" alt="{pr_alt}" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
             </a>
             <a href="/uz/product/{pr_id}.html" class="pair-title">{pr_title}</a>
-            <div class="pair-price">{pr_price_fmt} ₸</div>
-            <button type="button" class="pair-add-btn" data-id="{pr_id}" data-title="{pr_title}" data-price="{pr_price_num}" data-image="{pr_img}" data-url="/uz/product/{pr_id}.html">+ Qo‘shish</button>
+            <div class="pair-price">{pr_price_markup}</div>
+            <button type="button" class="pair-add-btn" data-id="{pr_id}" data-cart-id="{pr_cart_id}" data-title="{pr_cart_title}" data-price="{pr_price_num}" data-bundle="{pr_bundle_attr}" data-image="{pr_img}" data-url="/uz/product/{pr_id}.html">+ Qo‘shish</button>
           </article>""")
     pairs_block_uz_html = f"""        <section class="product-pairs-with" aria-label="Buning bilan taqishadi">
           <h2 class="product-pairs-title">Buning bilan taqishadi</h2>
@@ -2020,8 +2114,12 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
     for mr in mini_recs_uz:
         mr_id = mr["id"]
         mr_title = html.escape(mr["title"].strip())
-        mr_price_num = int(mr.get("price") or 0)
-        mr_price_fmt = format_price_uz(mr_price_num)
+        mr_price_num = catalog_price(mr)
+        mr_price_markup = price_html(mr, "uz")
+        mr_main = main_bundle_option(mr)
+        mr_cart_id = f"{mr_id}-{mr_main[0]}" if mr_main else mr_id
+        mr_cart_title = html.escape(mr_main[1]["name"] if mr_main else mr["title"].strip())
+        mr_bundle_attr = html.escape(mr_main[1]["name"]) if mr_main else ""
         mr_img = "/" + mr["image"].lstrip("/")
         mr_base, _ = os.path.splitext(mr_img)
         mr_thumb = f"{mr_base}-400w.webp"
@@ -2029,19 +2127,35 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
             <img src="{mr_thumb}" alt="{mr_title}" width="48" height="64" class="mini-rec-img" loading="lazy">
             <div class="mini-rec-info">
               <div class="mini-rec-title">{mr_title}</div>
-              <div class="mini-rec-price">{mr_price_fmt} ₸</div>
+              <div class="mini-rec-price">{mr_price_markup}</div>
             </div>
-            <button type="button" class="mini-rec-add" data-id="{mr_id}" data-title="{mr_title}" data-price="{mr_price_num}" data-image="{mr_img}" data-url="/uz/product/{mr_id}.html">+ Qo‘shish</button>
+            <button type="button" class="mini-rec-add" data-id="{mr_id}" data-cart-id="{mr_cart_id}" data-title="{mr_cart_title}" data-price="{mr_price_num}" data-bundle="{mr_bundle_attr}" data-image="{mr_img}" data-url="/uz/product/{mr_id}.html">+ Qo‘shish</button>
           </div>""")
     mini_rec_uz_html = "\n".join(mini_rec_items_uz)
 
     product_js_obj = json.dumps({
         "id": pid,
         "title": title,
-        "price": price,
+        "price": full_price,
+        "full_price": full_price,
+        "default_price": default_price,
+        "default_title": default_title,
+        "default_idx": default_orig_idx,
+        "default_v": default_v,
+        "has_from": has_from,
         "category": category,
         "image": pk["image"],
-        "bundle_options": bundle_options
+        "bundle_options": bundle_options,
+        "ordered_options": [
+            {
+                "orig_idx": o_idx,
+                "v": variant_param(o_idx, opt),
+                "name": opt["name"],
+                "price": int(opt["price"]),
+                "is_full": bool(opt.get("is_full")),
+            }
+            for o_idx, opt in ordered_opts
+        ],
     }, ensure_ascii=False)
     uz_storefront_header = render_full_storefront_header("uz", {"ru": ru_page_url, "kk": kz_page_url, "uz": page_url})
 
@@ -2075,7 +2189,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
   <meta property="og:description" content="{html.escape(meta_desc)}" />
   <meta property="og:url" content="{page_url}" />
   <meta property="og:image" content="{img_abs}" />
-  <meta property="product:price:amount" content="{price}" />
+  <meta property="product:price:amount" content="{full_price}" />
   <meta property="product:price:currency" content="KZT" />
   <meta property="product:availability" content="in stock" />
 
@@ -2141,6 +2255,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
   <script type="application/ld+json">
 {json.dumps(faq_ld, ensure_ascii=False, indent=2)}
   </script>
+  <script src="/scripts/catalog-pricing.js"></script>
   <script src="/scripts/storefront-menu.js" defer></script>
 </head>
 <body>
@@ -2332,8 +2447,11 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
 
   <script>
     const PRODUCT = {product_js_obj};
-    let currentActivePrice = PRODUCT.price;
-    let currentActiveTitle = PRODUCT.title;
+    let currentActivePrice = PRODUCT.default_price || PRODUCT.price;
+    let currentActiveTitle = PRODUCT.default_title || PRODUCT.title;
+    let currentActiveBundle = PRODUCT.has_from ? (PRODUCT.default_title || '') : '';
+    let currentActiveIdx = PRODUCT.default_idx;
+    let currentActiveV = PRODUCT.default_v || '';
 
     (function captureAttribution(){{
       try {{
@@ -2374,26 +2492,75 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
     }}
     updateBadge();
 
-    const bundleSelect = document.getElementById('customBundle');
+    const bundleOptionsWrap = document.getElementById('bundleOptions');
+    const bundleRadios = bundleOptionsWrap ? Array.from(bundleOptionsWrap.querySelectorAll('.bundle-option[role="radio"]')) : [];
     const priceDisplay = document.getElementById('activePriceDisplay');
     const buyWaBtn = document.getElementById('buyWaBtn');
+    const stickyPriceDisplay = document.querySelector('.mobile-sticky-price');
 
     function updateWaLink(){{
-      const bundleVal = bundleSelect ? bundleSelect.value : '';
       const text = `Salom, Livi Jewelry! Menga «${{currentActiveTitle}}» (artikul: ${{PRODUCT.id}}) taqinchog‘i yoqdi. Narxi: ${{currentActivePrice.toLocaleString('ru-RU').replace(/,/g, ' ')}} ₸. Buyurtma berishda yordam bera olasizmi?`;
       const url = 'https://wa.me/77054510584?text=' + encodeURIComponent(text);
       if(buyWaBtn) buyWaBtn.onclick = () => {{ window.open(url, '_blank'); }};
     }}
 
-    if(bundleSelect){{
-      bundleSelect.addEventListener('change', () => {{
-        const opt = bundleSelect.options[bundleSelect.selectedIndex];
-        const p = Number(opt.getAttribute('data-price') || PRODUCT.price);
-        currentActivePrice = p;
-        currentActiveTitle = opt.value;
-        if(priceDisplay) priceDisplay.textContent = p.toLocaleString('ru-RU').replace(/,/g, ' ') + ' ₸';
-        if(buyWaBtn) buyWaBtn.textContent = `WhatsApp orqali buyurtma berish (${{p.toLocaleString('ru-RU').replace(/,/g, ' ')}} ₸)`;
-        updateWaLink();
+    function selectBundleOption(btn, syncUrl){{
+      if(!btn) return;
+      bundleRadios.forEach(r => {{
+        const active = (r === btn);
+        r.setAttribute('aria-checked', active ? 'true' : 'false');
+        r.setAttribute('tabindex', active ? '0' : '-1');
+      }});
+      const p = Number(btn.getAttribute('data-price') || PRODUCT.default_price || PRODUCT.price);
+      const vName = btn.getAttribute('data-name') || PRODUCT.default_title || PRODUCT.title;
+      const vIdxAttr = btn.getAttribute('data-idx');
+      const vParam = btn.getAttribute('data-v') || '';
+      currentActivePrice = p;
+      currentActiveTitle = vName;
+      currentActiveBundle = vName;
+      currentActiveIdx = (vIdxAttr !== null && vIdxAttr !== '') ? Number(vIdxAttr) : PRODUCT.default_idx;
+      currentActiveV = vParam;
+      const fmtP = p.toLocaleString('ru-RU').replace(/,/g, ' ') + ' ₸';
+      if(priceDisplay) priceDisplay.textContent = fmtP;
+      if(stickyPriceDisplay) stickyPriceDisplay.textContent = fmtP;
+      if(buyWaBtn) buyWaBtn.textContent = `WhatsApp orqali buyurtma berish (${{fmtP}})`;
+      updateWaLink();
+      if(syncUrl && vParam && window.history && window.history.replaceState){{
+        try {{
+          const u = new URL(window.location.href);
+          u.searchParams.set('v', vParam);
+          window.history.replaceState(null, '', u.pathname + u.search + u.hash);
+        }} catch(e){{}}
+      }}
+    }}
+
+    if(bundleOptionsWrap && bundleRadios.length){{
+      const urlV = new URLSearchParams(window.location.search).get('v');
+      const matchedRadio = urlV ? bundleRadios.find(r => r.getAttribute('data-v') === urlV) : null;
+      const defaultRadio = bundleRadios.find(r => r.getAttribute('aria-checked') === 'true') || bundleRadios[0];
+      selectBundleOption(matchedRadio || defaultRadio, false);
+
+      bundleOptionsWrap.addEventListener('click', (e) => {{
+        const btn = e.target.closest('.bundle-option[role="radio"]');
+        if(!btn) return;
+        selectBundleOption(btn, true);
+      }});
+
+      bundleOptionsWrap.addEventListener('keydown', (e) => {{
+        const current = e.target.closest('.bundle-option[role="radio"]');
+        if(!current) return;
+        const idx = bundleRadios.indexOf(current);
+        if(idx === -1) return;
+        let nextIdx = -1;
+        if(e.key === 'ArrowDown' || e.key === 'ArrowRight') nextIdx = (idx + 1) % bundleRadios.length;
+        else if(e.key === 'ArrowUp' || e.key === 'ArrowLeft') nextIdx = (idx - 1 + bundleRadios.length) % bundleRadios.length;
+        else if(e.key === 'Home') nextIdx = 0;
+        else if(e.key === 'End') nextIdx = bundleRadios.length - 1;
+        if(nextIdx !== -1){{
+          e.preventDefault();
+          bundleRadios[nextIdx].focus();
+          selectBundleOption(bundleRadios[nextIdx], true);
+        }}
       }});
     }}
 
@@ -2402,13 +2569,17 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
     function handleAddToCart() {{
       let cart = [];
       try {{ cart = JSON.parse(localStorage.getItem('livi_cart_v3') || '[]'); }} catch(e){{}}
-      const bundleOpt = bundleSelect ? bundleSelect.value : '';
-      const itemIdx = cart.findIndex(i => i.id === PRODUCT.id && (i.customBundle || '') === bundleOpt);
+      const bundleOpt = PRODUCT.has_from ? currentActiveBundle : '';
+      const cartItemId = (PRODUCT.has_from && currentActiveIdx !== null && currentActiveIdx !== undefined && !Number.isNaN(currentActiveIdx))
+        ? `${{PRODUCT.id}}-${{currentActiveIdx}}`
+        : PRODUCT.id;
+      const itemIdx = cart.findIndex(i => i.id === cartItemId && (i.customBundle || '') === bundleOpt);
       if(itemIdx > -1){{
         cart[itemIdx].qty = (cart[itemIdx].qty || 1) + 1;
       }} else {{
         cart.push({{
-          id: PRODUCT.id,
+          id: cartItemId,
+          productId: PRODUCT.id,
           title: currentActiveTitle,
           price: currentActivePrice,
           image: PRODUCT.image,
@@ -2443,7 +2614,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
             content_ids: [PRODUCT.id],
             content_name: currentActiveTitle,
             content_type: 'product',
-            value: Math.max(1, Number(currentActivePrice || PRODUCT.price || 40000)),
+            value: Math.max(1, Number(currentActivePrice || PRODUCT.default_price || PRODUCT.price || 40000)),
             currency: 'KZT'
           }});
         }}
@@ -2471,7 +2642,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
       // R4: Filter out items already in cart from recommendations
       try {{
         const currentCart = readCart();
-        const cartIds = new Set(currentCart.map(function(c) {{ return c.id; }}));
+        const cartIds = new Set(currentCart.map(function(c) {{ return c.productId || c.id; }}));
         const recCards = modal.querySelectorAll('.mini-rec-card');
         let shownCount = 0;
         recCards.forEach(function(card) {{
@@ -2524,18 +2695,21 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
         e.preventDefault();
         e.stopPropagation();
         const pId = btn.getAttribute('data-id');
+        const pCartId = btn.getAttribute('data-cart-id') || pId;
         const pTitle = btn.getAttribute('data-title');
         const pPrice = Number(btn.getAttribute('data-price') || 0);
+        const pBundle = btn.getAttribute('data-bundle') || '';
         const pImage = btn.getAttribute('data-image');
         const pUrl = btn.getAttribute('data-url');
         let cart = [];
         try {{ cart = JSON.parse(localStorage.getItem('livi_cart_v3') || '[]'); }} catch(e){{}}
-        const idx = cart.findIndex(x => x.id === pId);
+        const idx = cart.findIndex(x => x.id === pCartId);
         if (idx >= 0) {{
           cart[idx].qty = Number(cart[idx].qty || 1) + 1;
         }} else {{
-          cart.push({{
-            id: pId,
+          const itemObj = {{
+            id: pCartId,
+            productId: pId,
             sku: pId.replace('prod_', 'LIVI-'),
             title: pTitle,
             price: pPrice,
@@ -2543,7 +2717,12 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
             image: pImage,
             qty: 1,
             url: pUrl
-          }});
+          }};
+          if (pBundle) {{
+            itemObj.customBundle = pBundle;
+            itemObj.bundleOption = pBundle;
+          }}
+          cart.push(itemObj);
         }}
         try {{
           localStorage.setItem('livi_cart_v3', JSON.stringify(cart));
@@ -2695,7 +2874,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
       <div class="mini-cart-added-item">
         <img id="miniCartItemImg" src="/{thumb_img_rel}" alt="" width="56" height="74" class="mini-cart-item-img">
         <div class="mini-cart-item-info">
-          <div id="miniCartItemTitle" class="mini-cart-item-title">{html.escape(title)}</div>
+          <div id="miniCartItemTitle" class="mini-cart-item-title">{html.escape(default_title)}</div>
           <div id="miniCartItemPrice" class="mini-cart-item-price">{price_fmt} ₸</div>
         </div>
       </div>
@@ -2772,6 +2951,7 @@ def generate_uz_service_pages():
     fbq('init', '{FB_PIXEL_1}');
     fbq('track', 'PageView');
   </script>
+  <script src="/scripts/catalog-pricing.js"></script>
   <script src="/scripts/storefront-menu.js" defer></script>
 </head>
 <body>

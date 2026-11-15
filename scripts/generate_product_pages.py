@@ -23,6 +23,22 @@ import html
 import json
 import os
 import re
+import sys
+
+_SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.insert(0, _SCRIPTS_DIR)
+
+from catalog_pricing import (
+    catalog_price,
+    format_from_price,
+    has_from_price,
+    main_bundle_option,
+    ordered_bundle_options,
+    price_html,
+    real_bundle_options,
+    variant_param,
+)
 
 SITE_URL = "https://livijewelry.kz"
 GA_ID = "G-YFF2TR0N36"
@@ -208,28 +224,48 @@ def build_clean_alt(product: dict) -> str:
 
 def build_meta_description(product: dict) -> str:
     title = (product.get("title") or "").strip()
-    price_str = format_price_ru(product.get("price") or 0)
     materials = ", ".join(product.get("materials") or ["натуральный жемчуг"])
-    raw = f"Купить «{title}» за {price_str} ₸ в Livi Jewelry. Ручная работа, {materials}. Доставка СДЭК по Казахстану и курьером по Астане."
+    if has_from_price(product):
+        price_phrase = format_from_price(catalog_price(product), "ru")
+        raw = f"Купить «{title}» {price_phrase} в Livi Jewelry. Ручная работа, {materials}. Доставка СДЭК по Казахстану и курьером по Астане."
+    else:
+        price_str = format_price_ru(catalog_price(product))
+        raw = f"Купить «{title}» за {price_str} ₸ в Livi Jewelry. Ручная работа, {materials}. Доставка СДЭК по Казахстану и курьером по Астане."
     if len(raw) > 160:
         raw = raw[:157].rstrip(" ,.") + "..."
     return raw
 
 
 def build_customizer_html(product: dict) -> str:
-    bundle_options = product.get("bundle_options") or []
-    if not bundle_options:
+    ordered = ordered_bundle_options(product)
+    if not ordered:
         return ""
 
-    options = "\n".join(
-        f'              <option value="{html.escape(opt["name"])}" data-price="{opt["price"]}"{" selected" if opt.get("is_full") else ""}>{html.escape(opt["name"])} — {format_price_ru(opt["price"])} ₸</option>'
-        for opt in bundle_options
-    )
+    main_pair = main_bundle_option(product)
+    main_orig_idx = main_pair[0] if main_pair else ordered[0][0]
+
+    options_html = []
+    for orig_idx, opt in ordered:
+        is_default = (orig_idx == main_orig_idx)
+        v_param = variant_param(orig_idx, opt)
+        opt_name = html.escape(opt["name"])
+        opt_price = int(opt["price"])
+        opt_price_fmt = format_price_ru(opt_price)
+        checked_str = "true" if is_default else "false"
+        tabindex_str = "0" if is_default else "-1"
+        options_html.append(
+            f'            <button type="button" role="radio" class="bundle-option" data-idx="{orig_idx}" data-v="{v_param}" data-price="{opt_price}" data-name="{opt_name}" aria-checked="{checked_str}" tabindex="{tabindex_str}">\n'
+            f'              <span class="bundle-option-name">{opt_name}</span>\n'
+            f'              <span class="bundle-option-price">{opt_price_fmt} ₸</span>\n'
+            f'            </button>'
+        )
+
+    options_block = "\n".join(options_html)
     return f"""        <div class="product-customizer">
-          <label class="customizer-label" for="customBundle">Выберите комплектацию</label>
-          <select id="customBundle" class="customizer-select">
-{options}
-          </select>
+          <span class="customizer-label" id="customBundleLabel">Выберите вариант</span>
+          <div id="customBundle" class="bundle-options" role="radiogroup" aria-labelledby="customBundleLabel">
+{options_block}
+          </div>
         </div>"""
 
 
@@ -379,7 +415,11 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
     livi_sku = product.get("sku") or get_livi_sku(pid)
     title = product["title"].strip()
     price = int(product.get("price") or 0)
-    price_fmt = format_price_ru(price)
+    is_from = has_from_price(product)
+    main_pair = main_bundle_option(product)
+    default_price = catalog_price(product)
+    price_fmt = format_price_ru(default_price)
+    default_active_title = main_pair[1]["name"] if main_pair else title
     category = product.get("category") or "Necklaces"
     cat_ru = CATEGORY_NAMES_RU.get(category, "Украшения")
     cat_hub_url, cat_hub_label = CATEGORY_HUB_LINKS.get(category, ("/shop.html", "Каталог"))
@@ -401,10 +441,13 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
     alt_text = build_clean_alt(product)
     meta_desc = build_meta_description(product)
     specs = product.get("specs") or {}
-    bundle_options = product.get("bundle_options") or []
+    bundle_options = real_bundle_options(product)
 
     # Коммерческий <title> без городов и тех. кода
-    page_title = f"{title} — {price_fmt} ₸ | Livi Jewelry"
+    if is_from:
+        page_title = f"{title} — {format_from_price(default_price, 'ru')} | Livi Jewelry"
+    else:
+        page_title = f"{title} — {price_fmt} ₸ | Livi Jewelry"
 
     # Умная перелинковка камней из карточки товара
     material_pills_list = []
@@ -464,7 +507,7 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
 
     if bundle_options:
         faq_q2 = f"Можно ли изменить длину или купить предмет из комплекта «{title}» отдельно?"
-        faq_a2 = f"Да! Вы можете приобрести как полный комплект «{title}», так и любой отдельный предмет (выберите нужный вариант в выпадающем списке комплектации выше). По вопросам длины колье или браслета напишите мастеру в WhatsApp."
+        faq_a2 = f"Да! Вы можете приобрести как полный комплект «{title}», так и любой отдельный предмет (выберите нужный вариант выше). По вопросам длины колье или браслета напишите мастеру в WhatsApp."
     else:
         faq_q2 = f"Можно ли изменить длину или размер модели «{title}»?"
         faq_a2 = f"Размер модели «{title}»: {specs.get('length_size', '38–45 см')}. По вопросам изменения длины напишите мастеру в WhatsApp — подскажем, возможно ли это для данной модели."
@@ -481,8 +524,8 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
     for rp in related:
         r_id = rp["id"]
         r_title = html.escape(rp["title"].strip())
-        r_price = format_price_ru(rp.get("price") or 0)
-        r_price_num = int(rp.get("price") or 0)
+        r_price_num = catalog_price(rp)
+        r_price_markup = price_html(rp, "ru")
         r_img = "/" + rp["image"].lstrip("/")
         r_base, _ = os.path.splitext(r_img)
         r_mob = f"{r_base}-750w.webp"
@@ -495,34 +538,18 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
         </a>
         <div class="body">
           <div class="title"><a href="/product/{r_id}.html" class="card-title-link">{r_title}</a></div>
-          <div class="price">{r_price} ₸</div>
+          <div class="price">{r_price_markup}</div>
         </div>
       </article>""")
     related_html = "\n".join(related_cards_html)
 
     # JSON-LD Product (Merchant Listing)
-    product_ld = {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        "@id": f"{page_url}#product",
-        "name": title,
-        "sku": pid,
-        "mpn": pid,
-        "image": [img_abs],
-        "description": f"{description} Материалы: {materials_str}. Ручная работа Livi Jewelry, гипоаллергенная фурнитура, подарочная упаковка.",
-        "material": materials_str,
-        "color": color_str,
-        "pattern": "Ручная работа (Handmade)",
-        "brand": {
-            "@type": "Brand",
-            "name": "Livi Jewelry"
-        },
-        "category": cat_ru,
-        "offers": {
+    def _build_offer_ld(offer_url: str, offer_price: int, offer_name: str = "") -> dict:
+        offer_obj = {
             "@type": "Offer",
-            "url": page_url,
+            "url": offer_url,
             "priceCurrency": "KZT",
-            "price": str(price),
+            "price": str(int(offer_price)),
             "priceValidUntil": "2027-12-31",
             "availability": "https://schema.org/InStock",
             "itemCondition": "https://schema.org/NewCondition",
@@ -574,6 +601,37 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
                 }
             }
         }
+        if offer_name:
+            offer_obj["name"] = offer_name
+        return offer_obj
+
+    ordered_opts = ordered_bundle_options(product)
+    if ordered_opts:
+        offers_ld = [
+            _build_offer_ld(f"{page_url}?v={variant_param(orig_idx, opt)}", int(opt["price"]), opt["name"])
+            for orig_idx, opt in ordered_opts
+        ]
+    else:
+        offers_ld = _build_offer_ld(page_url, price)
+
+    product_ld = {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": f"{page_url}#product",
+        "name": title,
+        "sku": pid,
+        "mpn": pid,
+        "image": [img_abs],
+        "description": f"{description} Материалы: {materials_str}. Ручная работа Livi Jewelry, гипоаллергенная фурнитура, подарочная упаковка.",
+        "material": materials_str,
+        "color": color_str,
+        "pattern": "Ручная работа (Handmade)",
+        "brand": {
+            "@type": "Brand",
+            "name": "Livi Jewelry"
+        },
+        "category": cat_ru,
+        "offers": offers_ld
     }
 
     if product_reviews:
@@ -656,7 +714,7 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
     }
 
     wa_text = (
-        f"Здравствуйте! Хочу уточнить наличие и заказать: {title} (Артикул: {livi_sku}) за {price_fmt} ₸ ✨\n"
+        f"Здравствуйте! Хочу уточнить наличие и заказать: {default_active_title} (Артикул: {livi_sku}) за {price_fmt} ₸ ✨\n"
         f"Ссылка: {page_url}"
     )
     wa_href = f"https://wa.me/77054510584?text={html.escape(re.sub(r' ', '%20', wa_text.replace(chr(10), '%0A')))}"
@@ -669,14 +727,6 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
     )
 
     bundle_badge_html = ""
-    if bundle_options:
-        opts_summary = " • ".join(
-            f"{opt['name']} — {format_price_ru(opt['price'])} ₸"
-            for opt in bundle_options
-            if not opt.get("is_full")
-        )
-        if opts_summary:
-            bundle_badge_html = f'        <div class="bundle-breakdown-badge">В комплекте: {html.escape(opts_summary)} (можно приобрести отдельно)</div>\n'
 
     # D4. Быстрые чипсы характеристик под ценой (длина / фурнитура)
     quick_chips = []
@@ -709,8 +759,11 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
     for pr in pairs:
         pr_id = pr["id"]
         pr_title = html.escape(pr["title"].strip())
-        pr_price_num = int(pr.get("price") or 0)
-        pr_price_fmt = format_price_ru(pr_price_num)
+        pr_price_num = catalog_price(pr)
+        pr_price_markup = price_html(pr, "ru")
+        pr_main = main_bundle_option(pr)
+        pr_cart_id = f"{pr_id}-{pr_main[0]}" if pr_main else pr_id
+        pr_bundle_attr = f' data-bundle="{html.escape(pr_main[1]["name"])}"' if pr_main else ""
         pr_img = "/" + pr["image"].lstrip("/")
         pr_base, _ = os.path.splitext(pr_img)
         pr_thumb = f"{pr_base}-400w.webp"
@@ -721,8 +774,8 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
               <img src="{pr_thumb}" srcset="{pr_thumb} 400w, {pr_mob} 750w, {pr_img} 1440w" sizes="140px" alt="{pr_alt}" class="pair-img" width="140" height="186" loading="lazy" decoding="async">
             </a>
             <a href="/product/{pr_id}.html" class="pair-title">{pr_title}</a>
-            <div class="pair-price">{pr_price_fmt} ₸</div>
-            <button type="button" class="pair-add-btn" data-id="{pr_id}" data-title="{pr_title}" data-price="{pr_price_num}" data-image="{pr_img}" data-url="/product/{pr_id}.html">+ Добавить</button>
+            <div class="pair-price">{pr_price_markup}</div>
+            <button type="button" class="pair-add-btn" data-id="{pr_id}" data-cart-id="{pr_cart_id}"{pr_bundle_attr} data-title="{pr_title}" data-price="{pr_price_num}" data-image="{pr_img}" data-url="/product/{pr_id}.html">+ Добавить</button>
           </article>""")
     pairs_block_html = f"""        <section class="product-pairs-with" aria-label="С этим носят">
           <h2 class="product-pairs-title">С этим носят</h2>
@@ -737,8 +790,11 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
     for mr in mini_recs:
         mr_id = mr["id"]
         mr_title = html.escape(mr["title"].strip())
-        mr_price_num = int(mr.get("price") or 0)
-        mr_price_fmt = format_price_ru(mr_price_num)
+        mr_price_num = catalog_price(mr)
+        mr_price_markup = price_html(mr, "ru")
+        mr_main = main_bundle_option(mr)
+        mr_cart_id = f"{mr_id}-{mr_main[0]}" if mr_main else mr_id
+        mr_bundle_attr = f' data-bundle="{html.escape(mr_main[1]["name"])}"' if mr_main else ""
         mr_img = "/" + mr["image"].lstrip("/")
         mr_base, _ = os.path.splitext(mr_img)
         mr_thumb = f"{mr_base}-400w.webp"
@@ -746,9 +802,9 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
             <img src="{mr_thumb}" alt="{mr_title}" width="48" height="64" class="mini-rec-img" loading="lazy">
             <div class="mini-rec-info">
               <div class="mini-rec-title">{mr_title}</div>
-              <div class="mini-rec-price">{mr_price_fmt} ₸</div>
+              <div class="mini-rec-price">{mr_price_markup}</div>
             </div>
-            <button type="button" class="mini-rec-add" data-id="{mr_id}" data-title="{mr_title}" data-price="{mr_price_num}" data-image="{mr_img}" data-url="/product/{mr_id}.html">+ Добавить</button>
+            <button type="button" class="mini-rec-add" data-id="{mr_id}" data-cart-id="{mr_cart_id}"{mr_bundle_attr} data-title="{mr_title}" data-price="{mr_price_num}" data-image="{mr_img}" data-url="/product/{mr_id}.html">+ Добавить</button>
           </div>""")
     mini_rec_html = "\n".join(mini_rec_items)
 
@@ -763,6 +819,8 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
         "sku": livi_sku,
         "title": title,
         "price": price,
+        "defaultPrice": default_price,
+        "defaultTitle": default_active_title,
         "category": category,
         "image": "/" + img_rel,
         "url": page_url,
@@ -1106,8 +1164,8 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
 
   <script>
     const PRODUCT = {product_js_obj};
-    let currentActivePrice = PRODUCT.price;
-    let currentActiveTitle = PRODUCT.title;
+    let currentActivePrice = PRODUCT.defaultPrice || PRODUCT.price;
+    let currentActiveTitle = PRODUCT.defaultTitle || PRODUCT.title;
 
     /* ===== Сквозная атрибуция (UTM / GCLID / FBCLID) ===== */
     (function captureAttribution(){{
@@ -1188,7 +1246,8 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
     }}
 
     // Динамическое обновление WhatsApp и цены при выборе комплектации (bundle_options)
-    const customBundleEl = document.getElementById('customBundle');
+    const customBundleGroup = document.getElementById('customBundle');
+    const bundleOptionEls = customBundleGroup ? Array.from(customBundleGroup.querySelectorAll('[role="radio"]')) : [];
     const waBtn = document.getElementById('waOrderBtn');
     const stickyWaBtn = document.getElementById('stickyWaBtn');
     const addToCartBtn = document.getElementById('addToCartBtn');
@@ -1196,12 +1255,17 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
     const priceDisplayEl = document.querySelector('.product-price-val');
     const stickyPriceEl = document.querySelector('.sticky-bar-price');
 
+    function getSelectedBundleOption() {{
+      if (!bundleOptionEls.length) return null;
+      return bundleOptionEls.find(el => el.getAttribute('aria-checked') === 'true') || bundleOptionEls[0];
+    }}
+
     function syncBundleSelection() {{
-      if (customBundleEl) {{
-        const opt = customBundleEl.options[customBundleEl.selectedIndex];
+      const opt = getSelectedBundleOption();
+      if (opt) {{
         const optPrice = parseInt(opt.getAttribute('data-price'), 10) || PRODUCT.price;
         currentActivePrice = optPrice;
-        currentActiveTitle = opt.value;
+        currentActiveTitle = opt.getAttribute('data-name') || PRODUCT.title;
         if (priceDisplayEl) {{
           priceDisplayEl.textContent = currentActivePrice.toLocaleString('ru-RU') + ' ₸';
         }}
@@ -1215,8 +1279,26 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
       syncWhatsAppLink();
     }}
 
+    function selectBundleOption(optEl, updateUrl) {{
+      if (!optEl) return;
+      bundleOptionEls.forEach(el => {{
+        const isTarget = el === optEl;
+        el.setAttribute('aria-checked', isTarget ? 'true' : 'false');
+        el.setAttribute('tabindex', isTarget ? '0' : '-1');
+      }});
+      syncBundleSelection();
+      if (updateUrl && window.history && window.history.replaceState) {{
+        try {{
+          const u = new URL(window.location.href);
+          u.searchParams.set('v', optEl.getAttribute('data-v') || '');
+          window.history.replaceState(null, '', u.pathname + u.search + u.hash);
+        }} catch (e) {{}}
+      }}
+    }}
+
     function buildWhatsAppHref() {{
-      const bundleVal = customBundleEl ? customBundleEl.value : currentActiveTitle;
+      const opt = getSelectedBundleOption();
+      const bundleVal = opt ? (opt.getAttribute('data-name') || currentActiveTitle) : currentActiveTitle;
       const priceFormatted = currentActivePrice.toLocaleString('ru-RU');
       const msg = `Здравствуйте! Хочу уточнить наличие и заказать: ${{bundleVal}} (Артикул: ${{PRODUCT.sku}}) за ${{priceFormatted}} ₸ ✨\\nСсылка: ${{PRODUCT.url}}`;
       return 'https://wa.me/77054510584?text=' + encodeURIComponent(msg);
@@ -1232,13 +1314,48 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
       }}
     }}
 
-    if (customBundleEl) customBundleEl.addEventListener('change', syncBundleSelection);
+    if (bundleOptionEls.length > 0) {{
+      const vParam = new URLSearchParams(window.location.search).get('v');
+      if (vParam) {{
+        const matched = bundleOptionEls.find(el => el.getAttribute('data-v') === vParam);
+        if (matched) {{
+          bundleOptionEls.forEach(el => {{
+            const isTarget = el === matched;
+            el.setAttribute('aria-checked', isTarget ? 'true' : 'false');
+            el.setAttribute('tabindex', isTarget ? '0' : '-1');
+          }});
+        }}
+      }}
+      bundleOptionEls.forEach((el, idx) => {{
+        el.addEventListener('click', () => selectBundleOption(el, true));
+        el.addEventListener('keydown', (e) => {{
+          let nextIdx = -1;
+          if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {{
+            nextIdx = (idx + 1) % bundleOptionEls.length;
+          }} else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {{
+            nextIdx = (idx - 1 + bundleOptionEls.length) % bundleOptionEls.length;
+          }} else if (e.key === 'Home') {{
+            nextIdx = 0;
+          }} else if (e.key === 'End') {{
+            nextIdx = bundleOptionEls.length - 1;
+          }}
+          if (nextIdx >= 0) {{
+            e.preventDefault();
+            const target = bundleOptionEls[nextIdx];
+            selectBundleOption(target, true);
+            target.focus();
+          }}
+        }});
+      }});
+    }}
     syncBundleSelection();
 
     function handleAddToCart() {{
-      const bundleVal = customBundleEl ? customBundleEl.value : currentActiveTitle;
+      const opt = getSelectedBundleOption();
+      const bundleVal = opt ? (opt.getAttribute('data-name') || currentActiveTitle) : currentActiveTitle;
+      const origIdx = opt ? opt.getAttribute('data-idx') : '';
       const items = readCart();
-      const itemUniqueId = PRODUCT.id + (customBundleEl ? '-' + customBundleEl.selectedIndex : '');
+      const itemUniqueId = PRODUCT.id + (opt ? '-' + origIdx : '');
       const idx = items.findIndex(x => x.id === itemUniqueId && !(x.customSize || x.size));
       if (idx >= 0) {{
         items[idx].qty = Number(items[idx].qty || 1) + 1;
@@ -1251,7 +1368,7 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
           unit: currentActivePrice,
           image: PRODUCT.image,
           qty: 1,
-          customBundle: customBundleEl ? customBundleEl.value : '',
+          customBundle: opt ? bundleVal : '',
           url: PRODUCT.url
         }});
       }}
@@ -1314,7 +1431,8 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
         recCards.forEach(function(card) {{
           const addBtn = card.querySelector('.mini-rec-add');
           const recId = addBtn ? addBtn.getAttribute('data-id') : null;
-          if (recId && cartIds.has(recId)) {{
+          const recCartId = addBtn ? (addBtn.getAttribute('data-cart-id') || recId) : null;
+          if ((recId && cartIds.has(recId)) || (recCartId && cartIds.has(recCartId))) {{
             card.style.display = 'none';
           }} else if (shownCount < 2) {{
             card.style.display = 'flex';
@@ -1361,17 +1479,19 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
         e.preventDefault();
         e.stopPropagation();
         const pId = btn.getAttribute('data-id');
-        const pTitle = btn.getAttribute('data-title');
+        const cartId = btn.getAttribute('data-cart-id') || pId;
+        const bundleName = btn.getAttribute('data-bundle') || '';
+        const pTitle = bundleName || btn.getAttribute('data-title');
         const pPrice = Number(btn.getAttribute('data-price') || 0);
         const pImage = btn.getAttribute('data-image');
         const pUrl = btn.getAttribute('data-url');
         const items = readCart();
-        const idx = items.findIndex(x => x.id === pId);
+        const idx = items.findIndex(x => x.id === cartId && !(x.customSize || x.size));
         if (idx >= 0) {{
           items[idx].qty = Number(items[idx].qty || 1) + 1;
         }} else {{
-          items.push({{
-            id: pId,
+          const newItem = {{
+            id: cartId,
             sku: pId.replace('prod_', 'LIVI-'),
             title: pTitle,
             price: pPrice,
@@ -1379,7 +1499,9 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
             image: pImage,
             qty: 1,
             url: pUrl
-          }});
+          }};
+          if (bundleName) newItem.customBundle = bundleName;
+          items.push(newItem);
         }}
         writeCart(items);
         btn.textContent = '✓ В корзине';
@@ -1592,8 +1714,8 @@ def build_product_page_html(product: dict, all_products: list, home_html: str) -
 def build_static_card_html(product: dict, indent: str = "    ", is_first_row: bool = False, priority_high: bool = False) -> str:
     pid = product["id"]
     title = html.escape(product["title"].strip())
-    price_num = int(product.get("price") or 0)
-    price = format_price_ru(price_num)
+    price_num = catalog_price(product)
+    price_markup = price_html(product, "ru")
     img = product["image"].lstrip("/")
     alt = html.escape(build_clean_alt(product))
     cat = html.escape(product.get("category") or "")
@@ -1613,7 +1735,7 @@ def build_static_card_html(product: dict, indent: str = "    ", is_first_row: bo
         f'{indent}  <a href="/product/{pid}.html" class="card-img-wrap">{badge_html}<img src="{img}"{srcset_attr} alt="{alt}" {loading_attr} decoding="async" width="600" height="800"></a>\n'
         f'{indent}  <div class="body">\n'
         f'{indent}    <div class="title"><a href="/product/{pid}.html" class="card-title-link" data-id="{pid}" data-title="{title}" data-price="{price_num}" data-category="{cat}">{title}</a></div>\n'
-        f'{indent}    <div class="price">{price} ₸</div>\n'
+        f'{indent}    <div class="price">{price_markup}</div>\n'
         f'{indent}  </div>\n'
         f'{indent}</article>'
     )
@@ -1645,7 +1767,7 @@ def sync_static_catalogs(products: list):
                         "offers": {
                             "@type": "Offer",
                             "url": f"{SITE_URL}/product/{p['id']}.html",
-                            "price": f"{int(p.get('price') or 0):.2f}",
+                            "price": f"{catalog_price(p):.2f}",
                             "priceCurrency": "KZT",
                             "availability": "https://schema.org/InStock",
                         },
