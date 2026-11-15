@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-11-15 12:53">
+<yml_catalog date="2026-11-15 21:40">
   <shop>
     <name>Livi Jewelry</name>
     <company>Livi Jewelry — Авторские украшения ручной работы</company>
@@ -38,7 +38,7 @@
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[Многослойное колье из натурального жемчуга премиальной селекции и искрящегося граненого горного хрусталя с акцентной подвеской из барочной жемчужины. Игра граней горного хрусталя усиливает перламутровое сияние жемчуга, создавая воздушный праздничный образ. Гипоаллергенная фурнитура не тускнеет и комфортна для чувствительной кожи.]]></description>
       </offer>
-      <offer id="prod_03" available="true">
+      <offer id="prod_03" available="false">
         <name>Колье из жемчуга Майорка</name>
         <url>https://livijewelry.kz/product/prod_03.html</url>
         <price>34000</price>

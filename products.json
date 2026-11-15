@@ -97,9 +97,11 @@
       "clasp": "Ювелирный карабин с удлинителем",
       "packaging": "Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry"
     },
-    "inStock": true,
-    "featured": true,
-    "drive_id": "1kS9D4rhbpUG8kaDGNe81TffFt3xG_hDE"
+    "inStock": false,
+    "featured": false,
+    "drive_id": "1kS9D4rhbpUG8kaDGNe81TffFt3xG_hDE",
+    "archived": true,
+    "archived_at": "2026-11-15"
   },
   {
     "id": "prod_04",
