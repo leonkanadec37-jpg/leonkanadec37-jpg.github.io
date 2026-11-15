@@ -15,6 +15,10 @@ import re
 import json
 import html
 import time
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from generate_mobile_menu import render_full_storefront_header
 
 BASE_URL = "https://livijewelry.kz"
 PRODUCTS_FILE = "products.json"
@@ -1453,6 +1457,7 @@ def generate_hub_page(hub, products):
         active_cls = " active" if h["slug"] == slug else ""
         top_chips.append(f'      <a class="stone-chip{active_cls}" href="/{h["slug"]}">{h["chip_label"]}</a>')
     top_chips_html = "\n".join(top_chips)
+    ru_storefront_header = render_full_storefront_header("ru", {"ru": f"/{slug}", "kk": f"/kz/{slug}", "uz": f"/uz/{slug}"})
 
     page_html = f"""<!doctype html>
 <html lang="ru">
@@ -1559,91 +1564,7 @@ def generate_hub_page(hub, products):
 </head>
 <body>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=199604456030882&ev=PageView&noscript=1"/></noscript>
-  <!-- Drawer -->
-  <header class="storefront-header">
-    <div class="nav">
-      <div class="storefront-nav-start">
-        <button id="burger" class="storefront-menu-toggle" type="button" aria-expanded="false" aria-controls="storefront-menu">
-          <span class="storefront-desktop">Каталог</span>
-          <span class="storefront-mobile">Меню</span>
-        </button>
-        <noscript><a href="/shop.html?cat=All">Каталог</a></noscript>
-        <a class="storefront-desktop" href="/delivery.html">Доставка</a>
-      </div>
-      <a class="brand" href="/" aria-label="Livi Jewelry">LIVI JEWELRY</a>
-      <div class="nav-actions">
-        <a href="/shop.html?search=1" class="header-search-btn" aria-label="Поиск по каталогу">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </a>
-        <div class="header-lang-links" aria-label="Выбор языка">
-          <a href="/{slug}" class="active">RU</a>
-          <a href="/kz/{slug}" lang="kk">KZ</a>
-          <a href="/uz/{slug}" lang="uz">UZ</a>
-        </div>
-        <a class="cart-link" href="/cart.html" aria-label="Корзина">
-          <span>Корзина</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
-        </a>
-      </div>
-    </div>
-
-    <div class="storefront-menu-backdrop" hidden></div>
-    <nav id="storefront-menu" class="storefront-menu" aria-label="Разделы каталога" hidden>
-      <div class="storefront-menu-inner">
-        <div class="storefront-menu-types">
-          <p class="storefront-kicker">Украшения</p>
-          <a href="/kolye-iz-zhemchuga.html">Колье из жемчуга</a>
-          <a href="/sergi-iz-zhemchuga.html">Серьги из жемчуга</a>
-          <a href="/braslety-iz-zhemchuga.html">Браслеты из жемчуга</a>
-          <a href="/komplekty-ukrasheniy.html">Комплекты украшений</a>
-          <a href="/koltsa-i-garnitury-iz-kamney.html">Кольца и сеты</a>
-          <a class="storefront-all" href="/shop.html?cat=All">Весь каталог <span aria-hidden="true">↗</span></a>
-          <details class="storefront-more-types">
-            <summary>Другие категории</summary>
-            <div class="storefront-menu-links">
-              <a href="/chokery-iz-naturalnyh-kamney.html">Чокеры из камней</a>
-              <a href="/sotuary-iz-zhemchuga.html">Сотуары</a>
-              <a href="/tsepi-s-barochnym-zhemchugom.html">Цепи с жемчугом</a>
-            </div>
-          </details>
-        </div>
-        <details class="storefront-materials">
-          <summary>По материалу</summary>
-          <div class="storefront-menu-links">
-            <a href="/ukrasheniya-iz-barochnogo-zhemchuga.html">Барочный жемчуг</a>
-            <a href="/ukrasheniya-iz-gematita.html">Гематит</a>
-            <a href="/ukrasheniya-iz-malahita.html">Малахит и Нефрит</a>
-            <a href="/ukrasheniya-iz-ametista.html">Аметист и Флюорит</a>
-            <a href="/ukrasheniya-iz-granata.html">Гранат и Агат</a>
-            <a href="/ukrasheniya-iz-rozovogo-kvarca.html">Розовый кварц</a>
-            <a href="/ukrasheniya-iz-biryuzy.html">Бирюза</a>
-            <a href="/ukrasheniya-iz-gornogo-hrustalya.html">Горный хрусталь</a>
-            <a href="/ukrasheniya-iz-lunnogo-kamnya.html">Лунный камень и Перламутр</a>
-            <a href="/ukrasheniya-iz-zhemchuga-mayorka.html">Жемчуг Майорка</a>
-            <a href="/ukrasheniya-iz-tigrovogo-glaza.html">Тигровый глаз и Жадеит</a>
-            <a href="/ukrasheniya-iz-koralla-i-yashmy.html">Коралл и Яшма</a>
-            <a href="/ukrasheniya-iz-lazurita.html">Лазурит и Авантюрин</a>
-          </div>
-        </details>
-        <a class="storefront-menu-feature storefront-desktop" href="/ukrasheniya-iz-barochnogo-zhemchuga.html">
-          <picture>
-            <source media="(min-width: 769px)" srcset="/assets/hero-kole-iz-naturalnogo-zhemchuga-80000-750w.webp">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Барочный жемчуг" width="750" height="1000" loading="lazy">
-          </picture>
-          Барочный жемчуг <span aria-hidden="true">↗</span>
-        </a>
-        <div class="storefront-menu-service">
-          <a class="storefront-mobile" href="/delivery.html">Доставка и оплата</a>
-          <a href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-          <a href="https://wa.me/77054510584?text=Здравствуйте!%20Подскажите,%20пожалуйста,%20по%20украшениям%20Livi%20Jewelry%20—%20хочу%20уточнить%20наличие%20и%20проконсультироваться%20✨" target="_blank" rel="noopener">WhatsApp</a>
-          <div class="storefront-menu-languages storefront-mobile" role="group" aria-label="Выбор языка">
-            <a href="/{slug}" class="active">RU</a>
-            <a href="/kz/{slug}" lang="kk">KZ</a>
-            <a href="/uz/{slug}" lang="uz">UZ</a>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>
+{ru_storefront_header}
 
   <main class="wrap" style="padding-top: 24px;">
     <div class="collection-header" style="margin-bottom: 20px;">
@@ -1927,6 +1848,7 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
         active_cls = " active" if h["slug"] == slug else ""
         top_chips.append(f'      <a class="stone-chip{active_cls}" href="/kz/{h["slug"]}">{lbl}</a>')
     top_chips_html = "\n".join(top_chips)
+    kz_storefront_header = render_full_storefront_header("kk", {"ru": f"/{slug}", "kk": f"/kz/{slug}", "uz": f"/uz/{slug}"})
 
     cards_grid_str = "\n".join(cards_html)
     interlink_html = build_interlink_block_html_kz(current_slug=slug)
@@ -2036,66 +1958,7 @@ def generate_kz_hub_page(slug: str, hub_meta: dict, products: list):
 </head>
 <body>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=199604456030882&ev=PageView&noscript=1"/></noscript>
-  <!-- Drawer -->
-  <div id="drawer" class="drawer" aria-hidden="true">
-    <div class="drawer-back" role="button" tabindex="0" aria-label="Мәзірді жабу"></div>
-    <div class="drawer-panel" role="menu" aria-label="Мәзір">
-      <a href="/kz/">Басты бет</a>
-      <a href="/kz/shop.html">Каталог</a>
-      <details class="drawer-accordion">
-        <summary>Коллекциялар мен тастар</summary>
-        <div class="drawer-subnav">
-{drawer_hub_links_kz}
-        </div>
-      </details>
-      <a href="/kz/komplekty-ukrasheniy.html">Әшекейлер жиынтығы</a>
-      <a href="/delivery.html">Жеткізу және төлем</a>
-      <div class="drawer-socials">
-        <a class="drawer-soc-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="drawer-soc-link" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейін%20қалаймын." target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-      <div class="lang">
-        <a href="/{slug}">RU</a>
-        <a href="/kz/{slug}" class="active" lang="kk">KZ</a>
-        <a href="/uz/{slug}" lang="uz">UZ</a>
-      </div>
-    </div>
-  </div>
-
-  <header>
-    <div class="nav">
-      <button id="burger" class="hamburger" aria-label="Мәзір"><span></span></button>
-
-      <a class="brand" href="/kz/" aria-label="Livi Jewelry">
-        <span>LIVI JEWELRY</span>
-      </a>
-
-      <div class="nav-actions">
-        <a href="/kz/shop.html?search=1" class="header-search-btn" aria-label="Іздеу">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </a>
-        <div class="header-lang-links" aria-label="Тілді таңдау">
-          <a href="/{slug}">RU</a>
-          <a href="/kz/{slug}" class="active" lang="kk">KZ</a>
-          <a href="/uz/{slug}" lang="uz">UZ</a>
-        </div>
-        <a class="cart-link" href="/cart.html" aria-label="Себет">
-          <span>Себет</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
-        </a>
-        <a class="quick-link ig-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A4.5 4.5 0 1 0 16.5 12 4.505 4.505 0 0 0 12 7.5zm6.5-.75a1.25 1.25 0 1 0 1.25 1.25A1.25 1.25 0 0 0 18.5 6.75Zm-6.5 2A3.25 3.25 0 1 1 8.75 12 3.254 3.254 0 0 1 12 8.75Z"/>
-          </svg>
-        </a>
-        <a class="quick-link wa-link" href="https://wa.me/77054510584?text=Сәлеметсіз%20бе!%20Livi%20Jewelry%20әшекейлері%20бойынша%20кеңес%20алғым%20келеді." target="_blank" rel="noopener" aria-label="WhatsApp">
-          <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" fill="currentColor">
-            <path d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
-            <path d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </header>
+{kz_storefront_header}
 
   <main class="wrap" style="padding-top: 24px;">
     <div class="collection-header" style="margin-bottom: 20px;">
@@ -2380,6 +2243,7 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
         active_cls = " active" if h["slug"] == slug else ""
         top_chips.append(f'      <a class="stone-chip{active_cls}" href="/uz/{h["slug"]}">{lbl}</a>')
     top_chips_html = "\n".join(top_chips)
+    uz_storefront_header = render_full_storefront_header("uz", {"ru": f"/{slug}", "kk": f"/kz/{slug}", "uz": f"/uz/{slug}"})
 
     cards_grid_str = "\n".join(cards_html)
     interlink_html = build_interlink_block_html_uz(current_slug=slug)
@@ -2490,66 +2354,7 @@ def generate_uz_hub_page(slug: str, hub_meta: dict, products: list):
 </head>
 <body>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=199604456030882&ev=PageView&noscript=1"/></noscript>
-  <!-- Drawer -->
-  <div id="drawer" class="drawer" aria-hidden="true">
-    <div class="drawer-back" role="button" tabindex="0" aria-label="Menyuni yopish"></div>
-    <div class="drawer-panel" role="menu" aria-label="Menyu">
-      <a href="/uz/">Bosh sahifa</a>
-      <a href="/uz/shop.html">Katalog</a>
-      <details class="drawer-accordion">
-        <summary>Kolleksiyalar va toshlar</summary>
-        <div class="drawer-subnav">
-{drawer_hub_links_uz}
-        </div>
-      </details>
-      <a href="/uz/komplekty-ukrasheniy.html">Taqinchoqlar toʻplami</a>
-      <a href="/uz/delivery.html">Yetkazib berish va toʻlov</a>
-      <div class="drawer-socials">
-        <a class="drawer-soc-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="drawer-soc-link" href="https://wa.me/77054510584?text=Assalomu%20alaykum!%20Livi%20Jewelry%20taqinchoqlari%20boʻyicha%20maslahat%20olmoqchiman." target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-      <div class="lang">
-        <a href="/{slug}">RU</a>
-        <a href="/kz/{slug}" lang="kk">KZ</a>
-        <a href="/uz/{slug}" class="active" lang="uz">UZ</a>
-      </div>
-    </div>
-  </div>
-
-  <header>
-    <div class="nav">
-      <button id="burger" class="hamburger" aria-label="Menyu"><span></span></button>
-
-      <a class="brand" href="/uz/" aria-label="Livi Jewelry">
-        <span>LIVI JEWELRY</span>
-      </a>
-
-      <div class="nav-actions">
-        <a href="/uz/shop.html?search=1" class="header-search-btn" aria-label="Qidirish">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </a>
-        <div class="header-lang-links" aria-label="Tilni tanlash">
-          <a href="/{slug}">RU</a>
-          <a href="/kz/{slug}" lang="kk">KZ</a>
-          <a href="/uz/{slug}" class="active" lang="uz">UZ</a>
-        </div>
-        <a class="cart-link" href="/uz/cart.html" aria-label="Savat">
-          <span>Savat</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
-        </a>
-        <a class="quick-link ig-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A4.5 4.5 0 1 0 16.5 12 4.505 4.505 0 0 0 12 7.5zm6.5-.75a1.25 1.25 0 1 0 1.25 1.25A1.25 1.25 0 0 0 18.5 6.75Zm-6.5 2A3.25 3.25 0 1 1 8.75 12 3.254 3.254 0 0 1 12 8.75Z"/>
-          </svg>
-        </a>
-        <a class="quick-link wa-link" href="https://wa.me/77054510584?text=Assalomu%20alaykum!%20Livi%20Jewelry%20taqinchoqlari%20boʻyicha%20maslahat%20olmoqchiman." target="_blank" rel="noopener" aria-label="WhatsApp">
-          <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" fill="currentColor">
-            <path d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
-            <path d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </header>
+{uz_storefront_header}
 
   <main class="wrap" style="padding-top: 24px;">
     <div class="collection-header" style="margin-bottom: 20px;">
@@ -2916,99 +2721,10 @@ def standardize_hub_header_and_drawer(file_path: str, slug: str):
     with open(file_path, "r", encoding="utf-8") as f:
         content = f.read()
 
-    drawer_hub_links = "\n".join(
-        f'            <a href="/{s}">{clean_attr(l)}</a>'
-        for s, l in EXISTING_HUBS + [(h["slug"], h["chip_label"]) for h in ALL_HUBS]
-    )
-
-    new_drawer_and_header = f"""  <!-- Drawer -->
-  <header class="storefront-header">
-    <div class="nav">
-      <div class="storefront-nav-start">
-        <button id="burger" class="storefront-menu-toggle" type="button" aria-expanded="false" aria-controls="storefront-menu">
-          <span class="storefront-desktop">Каталог</span>
-          <span class="storefront-mobile">Меню</span>
-        </button>
-        <noscript><a href="/shop.html?cat=All">Каталог</a></noscript>
-        <a class="storefront-desktop" href="/delivery.html">Доставка</a>
-      </div>
-      <a class="brand" href="/" aria-label="Livi Jewelry">LIVI JEWELRY</a>
-      <div class="nav-actions">
-        <a href="/shop.html?search=1" class="header-search-btn" aria-label="Поиск по каталогу">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </a>
-        <div class="header-lang-links" aria-label="Выбор языка">
-          <a href="/{slug}" class="active">RU</a>
-          <a href="/kz/{slug}" lang="kk">KZ</a>
-          <a href="/uz/{slug}" lang="uz">UZ</a>
-        </div>
-        <a class="cart-link" href="/cart.html" aria-label="Корзина">
-          <span>Корзина</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
-        </a>
-      </div>
-    </div>
-
-    <div class="storefront-menu-backdrop" hidden></div>
-    <nav id="storefront-menu" class="storefront-menu" aria-label="Разделы каталога" hidden>
-      <div class="storefront-menu-inner">
-        <div class="storefront-menu-types">
-          <p class="storefront-kicker">Украшения</p>
-          <a href="/kolye-iz-zhemchuga.html">Колье из жемчуга</a>
-          <a href="/sergi-iz-zhemchuga.html">Серьги из жемчуга</a>
-          <a href="/braslety-iz-zhemchuga.html">Браслеты из жемчуга</a>
-          <a href="/komplekty-ukrasheniy.html">Комплекты украшений</a>
-          <a href="/koltsa-i-garnitury-iz-kamney.html">Кольца и сеты</a>
-          <a class="storefront-all" href="/shop.html?cat=All">Весь каталог <span aria-hidden="true">↗</span></a>
-          <details class="storefront-more-types">
-            <summary>Другие категории</summary>
-            <div class="storefront-menu-links">
-              <a href="/chokery-iz-naturalnyh-kamney.html">Чокеры из камней</a>
-              <a href="/sotuary-iz-zhemchuga.html">Сотуары</a>
-              <a href="/tsepi-s-barochnym-zhemchugom.html">Цепи с жемчугом</a>
-            </div>
-          </details>
-        </div>
-        <details class="storefront-materials">
-          <summary>По материалу</summary>
-          <div class="storefront-menu-links">
-            <a href="/ukrasheniya-iz-barochnogo-zhemchuga.html">Барочный жемчуг</a>
-            <a href="/ukrasheniya-iz-gematita.html">Гематит</a>
-            <a href="/ukrasheniya-iz-malahita.html">Малахит и Нефрит</a>
-            <a href="/ukrasheniya-iz-ametista.html">Аметист и Флюорит</a>
-            <a href="/ukrasheniya-iz-granata.html">Гранат и Агат</a>
-            <a href="/ukrasheniya-iz-rozovogo-kvarca.html">Розовый кварц</a>
-            <a href="/ukrasheniya-iz-biryuzy.html">Бирюза</a>
-            <a href="/ukrasheniya-iz-gornogo-hrustalya.html">Горный хрусталь</a>
-            <a href="/ukrasheniya-iz-lunnogo-kamnya.html">Лунный камень и Перламутр</a>
-            <a href="/ukrasheniya-iz-zhemchuga-mayorka.html">Жемчуг Майорка</a>
-            <a href="/ukrasheniya-iz-tigrovogo-glaza.html">Тигровый глаз и Жадеит</a>
-            <a href="/ukrasheniya-iz-koralla-i-yashmy.html">Коралл и Яшма</a>
-            <a href="/ukrasheniya-iz-lazurita.html">Лазурит и Авантюрин</a>
-          </div>
-        </details>
-        <a class="storefront-menu-feature storefront-desktop" href="/ukrasheniya-iz-barochnogo-zhemchuga.html">
-          <picture>
-            <source media="(min-width: 769px)" srcset="/assets/hero-kole-iz-naturalnogo-zhemchuga-80000-750w.webp">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="Барочный жемчуг" width="750" height="1000" loading="lazy">
-          </picture>
-          Барочный жемчуг <span aria-hidden="true">↗</span>
-        </a>
-        <div class="storefront-menu-service">
-          <a class="storefront-mobile" href="/delivery.html">Доставка и оплата</a>
-          <a href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-          <a href="https://wa.me/77054510584?text=Здравствуйте!%20Подскажите,%20пожалуйста,%20по%20украшениям%20Livi%20Jewelry%20—%20хочу%20уточнить%20наличие%20и%20проконсультироваться%20✨" target="_blank" rel="noopener">WhatsApp</a>
-          <div class="storefront-menu-languages storefront-mobile" role="group" aria-label="Выбор языка">
-            <a href="/{slug}" class="active">RU</a>
-            <a href="/kz/{slug}" lang="kk">KZ</a>
-            <a href="/uz/{slug}" lang="uz">UZ</a>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>"""
+    new_drawer_and_header = render_full_storefront_header("ru", {"ru": f"/{slug}", "kk": f"/kz/{slug}", "uz": f"/uz/{slug}"})
 
     content = re.sub(
-        r'<!--\s*Drawer\s*-->.*?</header>',
+        r'(<!--\s*Drawer\s*-->\s*)?<header class="storefront-header">.*?</header>',
         new_drawer_and_header,
         content,
         count=1,

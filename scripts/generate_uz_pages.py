@@ -20,7 +20,11 @@ import html
 import json
 import os
 import re
+import sys
 import time
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from generate_mobile_menu import render_full_storefront_header
 
 SITE_URL = "https://livijewelry.kz"
 
@@ -871,6 +875,9 @@ def generate_uz_index(products_uz: list) -> str:
         f'            <a href="{h_url}">{html.escape(h_lbl)}</a>'
         for h_url, h_lbl in ALL_21_HUBS
     )
+    uz_storefront_header = render_full_storefront_header("uz", {"ru": "/", "kk": "/kz/", "uz": "/uz/"})
+
+    uz_storefront_header = render_full_storefront_header("uz", {"ru": "/cart.html", "kk": "/kz/cart.html", "uz": "/uz/cart.html"})
 
     return f"""<!doctype html>
 <html lang="uz">
@@ -969,64 +976,7 @@ def generate_uz_index(products_uz: list) -> str:
     }})();
   </script>
 
-  <!-- Drawer -->
-  <div id="drawer" class="drawer" aria-hidden="true">
-    <div class="drawer-back" role="button" tabindex="0" aria-label="Menyuni yopish"></div>
-    <div class="drawer-panel" role="menu" aria-label="Menyu">
-      <a href="/uz/">Bosh sahifa</a>
-      <a href="/uz/shop.html">Katalog</a>
-      <details class="drawer-accordion">
-        <summary>To‘plamlar va toshlar</summary>
-        <div class="drawer-subnav">
-{drawer_hub_links_uz}
-        </div>
-      </details>
-      <a href="/uz/komplekty-ukrasheniy.html">To‘plamlar</a>
-      <a href="/uz/delivery.html">Yetkazib berish va to‘lov</a>
-      <div class="drawer-socials">
-        <a class="drawer-soc-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="drawer-soc-link" href="https://wa.me/77054510584?text=Salom!%20Livi%20Jewelry%20taqinchoqlari%20bo‘yicha%20maslahat%20olmoqchiman." target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-      <div class="lang">
-        <a href="/" id="ruBtn">RU</a>
-        <a href="/kz/" id="kkBtn">KZ</a>
-        <a href="/uz/" id="uzBtn" class="active">UZ</a>
-      </div>
-    </div>
-  </div>
-
-  <header>
-    <div class="nav">
-      <button id="burger" class="hamburger" aria-label="Menyu"><span></span></button>
-      <a class="brand" href="/uz/" aria-label="Livi Jewelry">
-        <span>LIVI JEWELRY</span>
-      </a>
-      <div class="nav-actions">
-        <a href="/uz/shop.html?search=1" class="header-search-btn" aria-label="Taqinchoqlarni qidirish">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </a>
-        <div class="header-lang-links" aria-label="Tilni tanlash">
-          <a href="/" lang="ru">RU</a>
-          <a href="/kz/" lang="kk">KZ</a>
-          <a href="/uz/" class="active" lang="uz">UZ</a>
-        </div>
-        <a class="cart-link" href="/uz/cart.html" aria-label="Savatcha">
-          <span>Savatcha</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
-        </a>
-        <a class="quick-link ig-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A4.5 4.5 0 1 0 16.5 12 4.505 4.505 0 0 0 12 7.5zm6.5-.75a1.25 1.25 0 1 0 1.25 1.25A1.25 1.25 0 0 0 18.5 6.75Zm-6.5 2A3.25 3.25 0 1 1 8.75 12 3.254 3.254 0 0 1 12 8.75Z"/>
-          </svg>
-        </a>
-        <a class="quick-link wa-link" href="https://wa.me/77054510584?text=Salom!%20Livi%20Jewelry%20taqinchoqlari%20bo‘yicha%20maslahat%20olmoqchiman." target="_blank" rel="noopener" aria-label="WhatsApp">
-          <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" fill="currentColor">
-            <path d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
-            <path d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </header>
+{uz_storefront_header}
 
   <section class="storefront-cover">
     <div class="storefront-cover-inner">
@@ -1315,6 +1265,7 @@ def generate_uz_shop(products_uz: list) -> str:
         f'        <a href="{h_url}" class="stone-chip">{html.escape(h_lbl)}</a>'
         for h_url, h_lbl in ALL_21_HUBS
     )
+    uz_storefront_header = render_full_storefront_header("uz", {"ru": "/shop.html", "kk": "/kz/shop.html", "uz": "/uz/shop.html"})
 
     return f"""<!doctype html>
 <html lang="uz">
@@ -1412,6 +1363,7 @@ def generate_uz_shop(products_uz: list) -> str:
     ]
   }}
   </script>
+  <script src="/scripts/storefront-menu.js" defer></script>
 </head>
 <body>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /></noscript>
@@ -1437,64 +1389,7 @@ def generate_uz_shop(products_uz: list) -> str:
     }})();
   </script>
 
-  <!-- Drawer -->
-  <div id="drawer" class="drawer" aria-hidden="true">
-    <div class="drawer-back" role="button" tabindex="0" aria-label="Menyuni yopish"></div>
-    <div class="drawer-panel" role="menu" aria-label="Menyu">
-      <a href="/uz/">Bosh sahifa</a>
-      <a href="/uz/shop.html">Katalog</a>
-      <details class="drawer-accordion">
-        <summary>To‘plamlar va toshlar</summary>
-        <div class="drawer-subnav">
-{drawer_hub_links_uz}
-        </div>
-      </details>
-      <a href="/uz/komplekty-ukrasheniy.html">To‘plamlar</a>
-      <a href="/uz/delivery.html">Yetkazib berish va to‘lov</a>
-      <div class="drawer-socials">
-        <a class="drawer-soc-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="drawer-soc-link" href="https://wa.me/77054510584?text=Salom!%20Livi%20Jewelry%20taqinchoqlari%20bo‘yicha%20maslahat%20olmoqchiman." target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-      <div class="lang">
-        <a href="/shop.html" id="ruBtn">RU</a>
-        <a href="/kz/shop.html" id="kkBtn">KZ</a>
-        <a href="/uz/shop.html" id="uzBtn" class="active">UZ</a>
-      </div>
-    </div>
-  </div>
-
-  <header>
-    <div class="nav">
-      <button id="burger" class="hamburger" aria-label="Menyu"><span></span></button>
-      <a class="brand" href="/uz/" aria-label="Livi Jewelry">
-        <span>LIVI JEWELRY</span>
-      </a>
-      <div class="nav-actions">
-        <a href="/uz/shop.html?search=1" class="header-search-btn" aria-label="Taqinchoqlarni izlash">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </a>
-        <div class="header-lang-links" aria-label="Tilni tanlash">
-          <a href="/shop.html" lang="ru">RU</a>
-          <a href="/kz/shop.html" lang="kk">KZ</a>
-          <a href="/uz/shop.html" class="active" lang="uz">UZ</a>
-        </div>
-        <a class="cart-link" href="/uz/cart.html" aria-label="Savatcha">
-          <span>Savatcha</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
-        </a>
-        <a class="quick-link ig-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A4.5 4.5 0 1 0 16.5 12 4.505 4.505 0 0 0 12 7.5zm6.5-.75a1.25 1.25 0 1 0 1.25 1.25A1.25 1.25 0 0 0 18.5 6.75Zm-6.5 2A3.25 3.25 0 1 1 8.75 12 3.254 3.254 0 0 1 12 8.75Z"/>
-          </svg>
-        </a>
-        <a class="quick-link wa-link" href="https://wa.me/77054510584?text=Salom!%20Livi%20Jewelry%20taqinchoqlari%20bo‘yicha%20maslahat%20olmoqchiman." target="_blank" rel="noopener" aria-label="WhatsApp">
-          <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" fill="currentColor">
-            <path d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
-            <path d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </header>
+{uz_storefront_header}
 
   <main class="wrap">
     <h1 style="margin-bottom:6px;">Taqinchoqlar katalogi</h1>
@@ -2148,6 +2043,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
         "image": pk["image"],
         "bundle_options": bundle_options
     }, ensure_ascii=False)
+    uz_storefront_header = render_full_storefront_header("uz", {"ru": ru_page_url, "kk": kz_page_url, "uz": page_url})
 
     return f"""<!doctype html>
 <html lang="uz">
@@ -2245,6 +2141,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
   <script type="application/ld+json">
 {json.dumps(faq_ld, ensure_ascii=False, indent=2)}
   </script>
+  <script src="/scripts/storefront-menu.js" defer></script>
 </head>
 <body>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /></noscript>
@@ -2270,64 +2167,7 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
     }})();
   </script>
 
-  <!-- Drawer -->
-  <div id="drawer" class="drawer" aria-hidden="true">
-    <div class="drawer-back" role="button" tabindex="0" aria-label="Menyuni yopish"></div>
-    <div class="drawer-panel" role="menu" aria-label="Menyu">
-      <a href="/uz/">Bosh sahifa</a>
-      <a href="/uz/shop.html">Katalog</a>
-      <details class="drawer-accordion">
-        <summary>To‘plamlar va toshlar</summary>
-        <div class="drawer-subnav">
-{drawer_hub_links_uz}
-        </div>
-      </details>
-      <a href="/uz/komplekty-ukrasheniy.html">To‘plamlar</a>
-      <a href="/uz/delivery.html">Yetkazib berish va to‘lov</a>
-      <div class="drawer-socials">
-        <a class="drawer-soc-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="drawer-soc-link" href="https://wa.me/77054510584?text=Salom!%20Livi%20Jewelry%20taqinchoqlari%20bo‘yicha%20maslahat%20olmoqchiman." target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-      <div class="lang">
-        <a href="{ru_page_url}">RU</a>
-        <a href="{kz_page_url}">KZ</a>
-        <a href="{page_url}" class="active">UZ</a>
-      </div>
-    </div>
-  </div>
-
-  <header>
-    <div class="nav">
-      <button id="burger" class="hamburger" aria-label="Menyu"><span></span></button>
-      <a class="brand" href="/uz/" aria-label="Livi Jewelry">
-        <span>LIVI JEWELRY</span>
-      </a>
-      <div class="nav-actions">
-        <a href="/uz/shop.html?search=1" class="header-search-btn" aria-label="Taqinchoqlarni izlash">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </a>
-        <div class="header-lang-links" aria-label="Tilni tanlash">
-          <a href="{ru_page_url}" lang="ru">RU</a>
-          <a href="{kz_page_url}" lang="kk">KZ</a>
-          <a href="{page_url}" class="active" lang="uz">UZ</a>
-        </div>
-        <a class="cart-link" href="/uz/cart.html" aria-label="Savatcha">
-          <span>Savatcha</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
-        </a>
-        <a class="quick-link ig-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A4.5 4.5 0 1 0 16.5 12 4.505 4.505 0 0 0 12 7.5zm6.5-.75a1.25 1.25 0 1 0 1.25 1.25A1.25 1.25 0 0 0 18.5 6.75Zm-6.5 2A3.25 3.25 0 1 1 8.75 12 3.254 3.254 0 0 1 12 8.75Z"/>
-          </svg>
-        </a>
-        <a class="quick-link wa-link" href="https://wa.me/77054510584?text=Salom!%20Livi%20Jewelry%20taqinchoqlari%20bo‘yicha%20maslahat%20olmoqchiman." target="_blank" rel="noopener" aria-label="WhatsApp">
-          <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" fill="currentColor">
-            <path d="M16 2.9A13.1 13.1 0 0 0 2.9 16c0 2.3.6 4.5 1.8 6.5L2 30l7.8-2.5A13 13 0 0 0 16 29a13.1 13.1 0 0 0 0-26.2Zm0 23.8c-2.2 0-4.2-.6-6.1-1.8l-.4-.2-4.6 1.5 1.5-4.5-.3-.4a11.1 11.1 0 1 1 9.9 5.4Z"/>
-            <path d="M12.3 10.7c-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4s1.1 2.8 1.3 3 .2.4.3.5c.2.3 2 3.2 5 4.3.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.2.2-1.3-.1-.1-.2-.2-.5-.4-.2-.1-1.3-.6-1.5-.6s-.3 0-.5.3c-.2.3-.6.8-.7.9-.1.2-.3.2-.5.1-.2 0-.9-.3-1.7-.8-.6-.3-1.1-.9-1.3-1-.1-.2 0-.4.1-.5.1-.1.3-.3.4-.4.2-.2.3-.3.4-.5.1-.2.1-.3 0-.5-.1-.1-.5-1.1-.7-1.5-.2-.4-.3-.4-.5-.5h-.4Z"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </header>
+{uz_storefront_header}
 
   <main class="product-page">
     <!-- Non bo‘laklari -->
@@ -2878,6 +2718,8 @@ def build_uz_product_page(pk: dict, all_products_uz: list) -> str:
 
 def generate_uz_service_pages():
     os.makedirs("uz", exist_ok=True)
+    uz_cart_header = render_full_storefront_header("uz", {"ru": "/cart.html", "kk": "/kz/cart.html", "uz": "/uz/cart.html"})
+    uz_delivery_header = render_full_storefront_header("uz", {"ru": "/delivery.html", "kk": "/kz/delivery.html", "uz": "/uz/delivery.html"})
 
     # 1. uz/cart.html
     cart_html = f"""<!doctype html>
@@ -2930,52 +2772,13 @@ def generate_uz_service_pages():
     fbq('init', '{FB_PIXEL_1}');
     fbq('track', 'PageView');
   </script>
+  <script src="/scripts/storefront-menu.js" defer></script>
 </head>
 <body>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={FB_PIXEL_1}&ev=PageView&noscript=1" /></noscript>
   <!-- Сквозная атрибуция (UTM / GCLID / GBRAID / WBRAID / FBCLID) -->
 
-  <!-- Drawer -->
-  <div id="drawer" class="drawer" aria-hidden="true">
-    <div class="drawer-back" role="button" tabindex="0" aria-label="Menyuni yopish"></div>
-    <div class="drawer-panel" role="menu" aria-label="Menyu">
-      <a href="/uz/">Bosh sahifa</a>
-      <a href="/uz/shop.html">Katalog</a>
-      <a href="/uz/komplekty-ukrasheniy.html">To‘plamlar</a>
-      <a href="/uz/delivery.html">Yetkazib berish va to‘lov</a>
-      <div class="drawer-socials">
-        <a class="drawer-soc-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="drawer-soc-link" href="https://wa.me/77054510584?text=Salom!%20Livi%20Jewelry%20taqinchoqlari%20bo‘yicha%20savatchadan%20yozmoqdaman." target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-      <div class="lang">
-        <a href="/cart.html" id="ruBtn">RU</a>
-        <a href="/kz/cart.html" id="kkBtn">KZ</a>
-        <a href="/uz/cart.html" id="uzBtn" class="active">UZ</a>
-      </div>
-    </div>
-  </div>
-
-  <header>
-    <div class="nav">
-      <button id="burger" class="hamburger" aria-label="Menyu"><span></span></button>
-      <a class="brand" href="/uz/" aria-label="Livi Jewelry">
-        <span>LIVI JEWELRY</span>
-      </a>
-      <div class="nav-actions">
-        <a href="/uz/shop.html?search=1" class="header-search-btn" aria-label="Taqinchoqlarni izlash">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </a>
-        <div class="header-lang-links" aria-label="Tilni tanlash">
-          <a href="/cart.html" lang="ru">RU</a>
-          <a href="/kz/cart.html" lang="kk">KZ</a>
-          <a href="/uz/cart.html" class="active" lang="uz">UZ</a>
-        </div>
-        <a class="cart-link" href="/uz/cart.html" aria-label="Savatcha">
-          <span>Savatcha</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
-        </a>
-      </div>
-    </div>
-  </header>
+{uz_cart_header}
 
   <main class="wrap cart-wrap">
     <h1>Savatcha</h1>
@@ -3393,47 +3196,7 @@ def generate_uz_service_pages():
     }})();
   </script>
 
-  <!-- Drawer -->
-  <div id="drawer" class="drawer" aria-hidden="true">
-    <div class="drawer-back" role="button" tabindex="0" aria-label="Menyuni yopish"></div>
-    <div class="drawer-panel" role="menu" aria-label="Menyu">
-      <a href="/uz/">Bosh sahifa</a>
-      <a href="/uz/shop.html">Katalog</a>
-      <a href="/uz/komplekty-ukrasheniy.html">To‘plamlar</a>
-      <a href="/uz/delivery.html">Yetkazib berish va to‘lov</a>
-      <div class="drawer-socials">
-        <a class="drawer-soc-link" href="https://instagram.com/livi_jwl" target="_blank" rel="noopener">Instagram</a>
-        <a class="drawer-soc-link" href="https://wa.me/77054510584" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-      <div class="lang">
-        <a href="/delivery.html" id="ruBtn">RU</a>
-        <a href="/kz/delivery.html" id="kkBtn">KZ</a>
-        <a href="/uz/delivery.html" id="uzBtn" class="active">UZ</a>
-      </div>
-    </div>
-  </div>
-
-  <header>
-    <div class="nav">
-      <button id="burger" class="hamburger" aria-label="Menyu"><span></span></button>
-      <a class="brand" href="/uz/" aria-label="Livi Jewelry">
-        <span>LIVI JEWELRY</span>
-      </a>
-      <div class="nav-actions">
-        <a href="/uz/shop.html?search=1" class="header-search-btn" aria-label="Taqinchoqlarni izlash">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </a>
-        <div class="header-lang-links" aria-label="Tilni tanlash">
-          <a href="/delivery.html" lang="ru">RU</a>
-          <a href="/kz/delivery.html" lang="kk">KZ</a>
-          <a href="/uz/delivery.html" class="active" lang="uz">UZ</a>
-        </div>
-        <a class="cart-link" href="/uz/cart.html" aria-label="Savatcha">
-          <span>Savatcha</span> <span id="cartBadge" class="cart-badge" style="display:none"></span>
-        </a>
-      </div>
-    </div>
-  </header>
+{uz_delivery_header}
 
   <main class="wrap service-page" style="padding:32px 16px;max-width:860px;margin:0 auto;">
     <h1 style="font-size:28px;margin-bottom:12px;">Yetkazib berish, to‘lov va 14 kunlik qaytarish kafolati</h1>
@@ -3528,6 +3291,7 @@ def generate_uz_service_pages():
   <link rel="stylesheet" href="/styles.css?v=2">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
+  <script src="/scripts/storefront-menu.js" defer></script>
 </head>
 <body>
   <header>
@@ -3586,20 +3350,10 @@ def generate_uz_service_pages():
   <link rel="stylesheet" href="/styles.css?v=2">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
+  <script src="/scripts/storefront-menu.js" defer></script>
 </head>
 <body>
-  <header>
-    <div class="nav">
-      <a class="brand" href="/uz/"><span>LIVI JEWELRY</span></a>
-      <div class="nav-actions">
-        <div class="header-lang-links">
-          <a href="/privacy.html" lang="ru">RU</a>
-          <a href="/kz/privacy.html" lang="kk">KZ</a>
-          <a href="/uz/privacy.html" class="active" lang="uz">UZ</a>
-        </div>
-      </div>
-    </div>
-  </header>
+{render_full_storefront_header("uz", {"ru": "/privacy.html", "kk": "/kz/privacy.html", "uz": "/uz/privacy.html"})}
 
   <main class="wrap service-page" style="padding:32px 16px;max-width:860px;margin:0 auto;line-height:1.7;">
     <h1>Maxfiylik siyosati</h1>

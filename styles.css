@@ -3876,6 +3876,10 @@ main.wrap > h1 {
 }
 
 @media (min-width: 769px) {
+  .storefront-mobile-menu {
+    display: none !important;
+  }
+
   .storefront-header .header-lang-links {
     display: flex !important;
     align-items: center;
@@ -4333,63 +4337,450 @@ main.wrap > h1 {
     display: revert;
   }
 
+  /* Hide desktop menu dropdown on mobile (<= 768px) */
+  .storefront-menu-inner.storefront-desktop {
+    display: none !important;
+  }
+
+  .storefront-menu-backdrop {
+    display: none !important;
+  }
+
+  /* Mobile menu container: full screen overlay */
   .storefront-menu {
-    position: fixed;
-    top: var(--storefront-header-height);
-    left: 0;
-    bottom: 0;
-    width: min(88vw, 370px);
-    height: calc(100dvh - var(--storefront-header-height));
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    border-right: 1px solid var(--line);
-    z-index: 1;
+    position: fixed !important;
+    inset: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    height: 100% !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    z-index: 10000 !important;
+    background: #F9F7F3 !important;
+    border: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
   }
 
-  .storefront-menu-inner {
-    display: block;
-    padding: 18px 18px 14px;
+  .storefront-menu[hidden] {
+    display: none !important;
   }
 
-  .storefront-menu-links {
-    grid-template-columns: 1fr;
-    padding-left: 12px;
+  /* ==========================================================================
+     Mobile Menu Redesign (Task 007)
+     ========================================================================== */
+  .storefront-mobile-menu {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    background: #F9F7F3;
+    color: #1F1D1A;
+    box-sizing: border-box;
   }
 
-  .storefront-menu-service {
-    display: block;
-    border-top: 0;
-  }
-
-  .storefront-menu-service > a {
+  /* 1. Header (56-60px) */
+  .smm-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
     display: flex;
     align-items: center;
-    min-height: 44px;
+    justify-content: space-between;
+    height: 58px;
+    min-height: 58px;
+    padding: 0 12px 0 16px;
+    padding-top: env(safe-area-inset-top, 0px);
+    background: #F9F7F3;
+    border-bottom: 1px solid #E8E2D8;
+    box-sizing: content-box;
   }
 
-  .storefront-menu-languages {
-    border-top: 1px solid var(--line);
-  }
-
-  .storefront-menu-languages a {
-    display: inline-grid;
-    place-items: center;
+  .smm-close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
     min-width: 44px;
     min-height: 44px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: #1F1D1A;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  .storefront-menu-languages .active {
-    text-decoration: underline;
-    text-decoration-color: var(--gold);
-    text-underline-offset: 4px;
+  .smm-logo {
+    font-family: var(--font-sans);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    color: #1F1D1A;
+    text-decoration: none;
+    text-align: center;
   }
 
-  .storefront-materials {
-    border-block: 1px solid var(--line);
+  .smm-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 
-  .storefront-materials > summary {
+  .smm-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
     min-height: 44px;
+    color: #1F1D1A;
+    text-decoration: none;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .smm-cart-btn {
+    position: relative;
+  }
+
+  .smm-cart-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: var(--gold, #C2A67E);
+    color: #FFFFFF;
+    font-size: 10px;
+    font-weight: 600;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    line-height: 1;
+  }
+
+  /* Content area (24px side padding) */
+  .smm-content {
+    flex: 1;
+    padding: 24px 24px max(32px, env(safe-area-inset-bottom, 32px));
+    box-sizing: border-box;
+  }
+
+  /* 2, 5, 6. Kickers (11px, weight 600, .2em, #85693F) */
+  .smm-section-label {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold-text, #85693F);
+    margin: 0 0 12px;
+  }
+
+  .smm-scroll-label {
+    margin-top: 28px;
+    margin-bottom: 14px;
+  }
+
+  /* 3. Five Categories (56-58px, Cormorant Garamond 27px 500, chevron 18px #9A9389, divider #E8E2D8) */
+  .smm-categories {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .smm-category-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 57px;
+    border-bottom: 1px solid #E8E2D8;
+    font-family: var(--font-serif);
+    font-size: 27px;
+    font-weight: 500;
+    color: #1F1D1A;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .smm-category-row:active,
+  .smm-category-row:hover {
+    color: var(--gold-text, #85693F);
+  }
+
+  .smm-category-chevron {
+    width: 18px;
+    height: 18px;
+    stroke: #9A9389;
+    flex-shrink: 0;
+  }
+
+  /* 4. Button «ВЕСЬ КАТАЛОГ →» */
+  .smm-all-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 48px;
+    min-height: 48px;
+    margin-top: 20px;
+    background: transparent;
+    border: 1px solid #1F1D1A;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #1F1D1A;
+    text-decoration: none;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .smm-all-btn:active,
+  .smm-all-btn:hover {
+    background: #1F1D1A;
+    color: #FFFFFF;
+  }
+
+  /* 5, 6. Horizontal scroll rows */
+  .smm-pills-scroll {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    margin-left: -24px;
+    margin-right: -24px;
+    padding-left: 24px;
+    padding-right: 24px;
+    box-sizing: border-box;
+  }
+
+  .smm-pills-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .smm-pills-scroll::after {
+    content: "";
+    flex: 0 0 16px;
+  }
+
+  .smm-pill {
+    display: inline-flex;
+    align-items: center;
+    height: 44px;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 22px;
+    border: 1px solid #DCD5C9;
+    background: #FFFFFF;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 400;
+    color: #1F1D1A;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .smm-pill:active,
+  .smm-pill:hover {
+    border-color: #1F1D1A;
+  }
+
+  /* 6. Stone dots (16px circle) */
+  .smm-stone-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin-right: 8px;
+    flex-shrink: 0;
+    display: inline-block;
+  }
+
+  .smm-dot-pearl { background: #EDE6DA; border: 1px solid #D8CFC0; }
+  .smm-dot-hematite { background: #4A4A4F; }
+  .smm-dot-malachite { background: #2F7A55; }
+  .smm-dot-amethyst { background: #8A6BA8; }
+  .smm-dot-garnet { background: #7A1F2B; }
+  .smm-dot-rosequartz { background: #E9C3C6; }
+  .smm-dot-turquoise { background: #5FB3AE; }
+  .smm-dot-crystal { background: #E4E9EE; border: 1px solid #D8CFC0; }
+  .smm-dot-moonstone { background: #DCE6EC; border: 1px solid #D8CFC0; }
+  .smm-dot-tigereye { background: #9E6738; }
+  .smm-dot-coralyashma { background: #C2553F; }
+  .smm-dot-lapis { background: #2A4B8D; }
+
+  /* 7. Divider */
+  .smm-divider {
+    border: 0;
+    border-top: 1px solid #E8E2D8;
+    margin: 32px 0 16px;
+  }
+
+  /* 8. Service links (48px, 15px 400, icon 20px #85693F) */
+  .smm-services {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+  }
+
+  .smm-service-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 48px;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 400;
+    color: #1F1D1A;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .smm-service-link:active,
+  .smm-service-link:hover {
+    color: var(--gold-text, #85693F);
+  }
+
+  .smm-service-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--gold-text, #85693F);
+    stroke: var(--gold-text, #85693F);
+    flex-shrink: 0;
+  }
+
+  /* 9. Two buttons in a row (grid 2 cols, gap 10px, height 48px) */
+  .smm-social-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .smm-btn-wa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 48px;
+    min-height: 48px;
+    background: #2B2620;
+    color: #FFFFFF;
+    border-radius: 4px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .smm-btn-wa:active,
+  .smm-btn-wa:hover {
+    background: #141312;
+    color: #FFFFFF;
+  }
+
+  .smm-btn-ig {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 48px;
+    min-height: 48px;
+    background: #FFFFFF;
+    color: #1F1D1A;
+    border: 1px solid #DCD5C9;
+    border-radius: 4px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .smm-btn-ig:active,
+  .smm-btn-ig:hover {
+    border-color: #1F1D1A;
+  }
+
+  /* 10. Language Switcher (Segmented Control: 44px, r22, border #DCD5C9) */
+  .smm-lang-segment {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 44px;
+    min-height: 44px;
+    padding: 3px;
+    border-radius: 22px;
+    border: 1px solid #DCD5C9;
+    background: #FFFFFF;
+    margin-bottom: 24px;
+    box-sizing: border-box;
+  }
+
+  .smm-lang-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border-radius: 19px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    color: #1F1D1A;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .smm-lang-btn.active {
+    background: #1F1D1A;
+    color: #FFFFFF;
+  }
+
+  /* 11. Address and phone (12px, #6B665F) */
+  .smm-footer-contacts {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    line-height: 1.6;
+    color: #6B665F;
+    text-align: center;
+  }
+
+  .smm-footer-contacts p {
+    margin: 4px 0;
+  }
+
+  .smm-phone {
+    color: #6B665F;
+    text-decoration: none;
+    display: inline-block;
+    min-height: 44px;
+    line-height: 44px;
+  }
+
+  .smm-phone:hover {
+    color: #1F1D1A;
+    text-decoration: underline;
   }
 
   .storefront-cover {
