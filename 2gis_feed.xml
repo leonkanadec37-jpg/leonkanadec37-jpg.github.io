@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-11-16 10:01">
+<yml_catalog date="2026-11-17 10:00">
   <shop>
     <name>Livi Jewelry</name>
     <company>Livi Jewelry — Авторские украшения ручной работы</company>
@@ -118,7 +118,7 @@
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[В комплекте: Колье из агата и граната — 36 000 тг, Кольцо — 12 000 тг. Полная стоимость комплекта — 48 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Драматичное и глубокое сочетание бархатно-черного агата и искристого граненого граната винного оттенка. Комплект подчеркивает статусность и утонченный вкус, превосходно дополняя вечерний наряд, кашемир или деловой костюм. Стойкая фурнитура не темнеет.]]></description>
       </offer>
-      <offer id="prod_11" available="true">
+      <offer id="prod_11" available="false">
         <name>Колье из аметиста и розового кварца, серьги из аметиста</name>
         <url>https://livijewelry.kz/product/prod_11.html?v=full</url>
         <price>61000</price>
@@ -658,7 +658,7 @@
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[В комплекте: Колье из натурального жемчуга — 75 000 тг, Серьги — 18 000 тг. Полная стоимость комплекта — 93 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
       </offer>
-      <offer id="prod_74" available="true">
+      <offer id="prod_74" available="false">
         <name>Колье из черного жемчуга, гематита и ювелирного стекла</name>
         <url>https://livijewelry.kz/product/prod_74.html</url>
         <price>30000</price>
@@ -718,7 +718,7 @@
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[В комплекте: Колье из лунного камня и жемчуга Майорка — 35 000 тг, Кольцо — 16 000 тг. Полная стоимость комплекта — 51 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
       </offer>
-      <offer id="prod_80" available="true">
+      <offer id="prod_80" available="false">
         <name>Серьги пусеты</name>
         <url>https://livijewelry.kz/product/prod_80.html</url>
         <price>17000</price>
@@ -858,7 +858,7 @@
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[В комплекте: Колье из яшмы — 38 000 тг, Браслет — 15 000 тг. Полная стоимость комплекта — 53 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.]]></description>
       </offer>
-      <offer id="prod_94" available="true">
+      <offer id="prod_94" available="false">
         <name>Серьги пусеты</name>
         <url>https://livijewelry.kz/product/prod_94.html</url>
         <price>17000</price>
@@ -937,6 +937,36 @@
         <picture>https://livijewelry.kz/assets/galyano-v-chernom-tsvete-50000.webp</picture>
         <vendor>Livi Jewelry</vendor>
         <description><![CDATA[Авторское украшение ручной работы: Гальяно в черном цвете. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_102" available="true">
+        <name>Колье из Агата и ювелирного стекла</name>
+        <url>https://livijewelry.kz/product/prod_102.html</url>
+        <price>30000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>1</categoryId>
+        <picture>https://livijewelry.kz/assets/kole-iz-agata-i-yuvelirnogo-stekla-30000.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[Авторское украшение ручной работы: Колье из Агата и ювелирного стекла. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_103" available="true">
+        <name>Сотуары из натуральных камней</name>
+        <url>https://livijewelry.kz/product/prod_103.html</url>
+        <price>15000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>5</categoryId>
+        <picture>https://livijewelry.kz/assets/sotuary-iz-naturalnykh-kamney-15000.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[Авторское украшение ручной работы: Сотуары из натуральных камней. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
+      </offer>
+      <offer id="prod_104" available="true">
+        <name>Сотуары из натуральных камней</name>
+        <url>https://livijewelry.kz/product/prod_104.html</url>
+        <price>18000</price>
+        <currencyId>KZT</currencyId>
+        <categoryId>5</categoryId>
+        <picture>https://livijewelry.kz/assets/sotuary-iz-naturalnykh-kamney-18000.webp</picture>
+        <vendor>Livi Jewelry</vendor>
+        <description><![CDATA[Авторское украшение ручной работы: Сотуары из натуральных камней. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry.]]></description>
       </offer>
     </offers>
   </shop>

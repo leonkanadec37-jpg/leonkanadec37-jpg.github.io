@@ -331,7 +331,7 @@
       <g:link>https://livijewelry.kz/product/prod_11.html?v=full</g:link>
       <g:image_link>https://livijewelry.kz/assets/kole-iz-ametista-i-rozovogo-kvartsa-s-sergami-45000.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
+      <g:availability>out_of_stock</g:availability>
       <g:price>61000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -2059,7 +2059,7 @@
       <g:link>https://livijewelry.kz/product/prod_74.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/gematita-i-yuvelirnogo-stekla-30000.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
+      <g:availability>out_of_stock</g:availability>
       <g:price>30000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -2251,7 +2251,7 @@
       <g:link>https://livijewelry.kz/product/prod_80.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/sergi-pusety-16000.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
+      <g:availability>out_of_stock</g:availability>
       <g:price>17000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -2699,7 +2699,7 @@
       <g:link>https://livijewelry.kz/product/prod_94.html</g:link>
       <g:image_link>https://livijewelry.kz/assets/sergi-pusety-17000.webp</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
+      <g:availability>out_of_stock</g:availability>
       <g:price>17000.00 KZT</g:price>
       <g:brand>Livi Jewelry</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -2945,6 +2945,102 @@
       <g:custom_label_0>Tier_2_Core_35k_to_54k</g:custom_label_0>
       <g:custom_label_1>Catalog_Standard</g:custom_label_1>
       <g:custom_label_2>Necklaces</g:custom_label_2>
+      <g:custom_label_3>Pearl</g:custom_label_3>
+      <g:custom_label_4>Handmade_KZ</g:custom_label_4>
+    </item>
+    <item>
+      <g:id>prod_102</g:id>
+      <g:title>Колье из Агата и ювелирного стекла — ручная работа (натуральный агат) | Livi Jewelry</g:title>
+      <g:description>Авторское украшение ручной работы: Колье из Агата и ювелирного стекла. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry. Авторское украшение ручной работы от казахстанского бренда Livi Jewelry. Материалы: Натуральный агат, Ювелирное стекло, Ювелирный сплав. Фирменная подарочная упаковка в комплекте. Быстрая доставка СДЭК по Астане, Алматы и всему Казахстану.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_102.html</g:link>
+      <g:image_link>https://livijewelry.kz/assets/kole-iz-agata-i-yuvelirnogo-stekla-30000.webp</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>30000.00 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>196</g:google_product_category>
+      <g:product_type>Украшения &gt; Колье и бусы из натурального жемчуга и камней</g:product_type>
+      <g:age_group>adult</g:age_group>
+      <g:gender>female</g:gender>
+      <g:color>Серебристый</g:color>
+      <g:material>Натуральный агат / Ювелирное стекло / Ювелирный сплав</g:material>
+      <g:product_highlight>Натуральные камни и жемчуг ручной сборки</g:product_highlight>
+      <g:product_highlight>Гипоаллергенная фурнитура со стойким покрытием (родий / позолота)</g:product_highlight>
+      <g:product_highlight>Фирменная подарочная упаковка включена в стоимость</g:product_highlight>
+      <g:product_highlight>Доставка день-в-день по Астане и СДЭК по всему Казахстану</g:product_highlight>
+      <g:shipping>
+        <g:country>KZ</g:country>
+        <g:service>СДЭК / курьер</g:service>
+        <g:price>4000.00 KZT</g:price>
+      </g:shipping>
+      <g:custom_label_0>Tier_3_Entry_Under_35k</g:custom_label_0>
+      <g:custom_label_1>Catalog_Standard</g:custom_label_1>
+      <g:custom_label_2>Necklaces</g:custom_label_2>
+      <g:custom_label_3>Garnet</g:custom_label_3>
+      <g:custom_label_4>Handmade_KZ</g:custom_label_4>
+    </item>
+    <item>
+      <g:id>prod_103</g:id>
+      <g:title>Сотуары из натуральных камней — ручная работа (ювелирный сплав) | Livi Jewelry</g:title>
+      <g:description>Авторское украшение ручной работы: Сотуары из натуральных камней. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry. Авторское украшение ручной работы от казахстанского бренда Livi Jewelry. Материалы: Ювелирный сплав. Фирменная подарочная упаковка в комплекте. Быстрая доставка СДЭК по Астане, Алматы и всему Казахстану.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_103.html</g:link>
+      <g:image_link>https://livijewelry.kz/assets/sotuary-iz-naturalnykh-kamney-15000.webp</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>15000.00 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>196</g:google_product_category>
+      <g:product_type>Украшения &gt; Сотуары и галстуки</g:product_type>
+      <g:age_group>adult</g:age_group>
+      <g:gender>female</g:gender>
+      <g:color>Серебристый</g:color>
+      <g:material>Ювелирный сплав</g:material>
+      <g:product_highlight>Натуральные камни и жемчуг ручной сборки</g:product_highlight>
+      <g:product_highlight>Гипоаллергенная фурнитура со стойким покрытием (родий / позолота)</g:product_highlight>
+      <g:product_highlight>Фирменная подарочная упаковка включена в стоимость</g:product_highlight>
+      <g:product_highlight>Доставка день-в-день по Астане и СДЭК по всему Казахстану</g:product_highlight>
+      <g:shipping>
+        <g:country>KZ</g:country>
+        <g:service>СДЭК / курьер</g:service>
+        <g:price>4000.00 KZT</g:price>
+      </g:shipping>
+      <g:custom_label_0>Tier_3_Entry_Under_35k</g:custom_label_0>
+      <g:custom_label_1>Catalog_Standard</g:custom_label_1>
+      <g:custom_label_2>Lariats</g:custom_label_2>
+      <g:custom_label_3>Pearl</g:custom_label_3>
+      <g:custom_label_4>Handmade_KZ</g:custom_label_4>
+    </item>
+    <item>
+      <g:id>prod_104</g:id>
+      <g:title>Сотуары из натуральных камней — ручная работа (ювелирный сплав) | Livi Jewelry</g:title>
+      <g:description>Авторское украшение ручной работы: Сотуары из натуральных камней. Выполнено из отборных натуральных минералов высокого качества селекции с природным сиянием и неповторимой текстурой. Гипоаллергенная ювелирная фурнитура со стойким защитным покрытием не темнеет и безопасна для чувствительной кожи. Быстрая бережная доставка по Казахстану. Фирменная подарочная шкатулка и бархатный мешочек Livi Jewelry. Авторское украшение ручной работы от казахстанского бренда Livi Jewelry. Материалы: Ювелирный сплав. Фирменная подарочная упаковка в комплекте. Быстрая доставка СДЭК по Астане, Алматы и всему Казахстану.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_104.html</g:link>
+      <g:image_link>https://livijewelry.kz/assets/sotuary-iz-naturalnykh-kamney-18000.webp</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>18000.00 KZT</g:price>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>196</g:google_product_category>
+      <g:product_type>Украшения &gt; Сотуары и галстуки</g:product_type>
+      <g:age_group>adult</g:age_group>
+      <g:gender>female</g:gender>
+      <g:color>Серебристый</g:color>
+      <g:material>Ювелирный сплав</g:material>
+      <g:product_highlight>Натуральные камни и жемчуг ручной сборки</g:product_highlight>
+      <g:product_highlight>Гипоаллергенная фурнитура со стойким покрытием (родий / позолота)</g:product_highlight>
+      <g:product_highlight>Фирменная подарочная упаковка включена в стоимость</g:product_highlight>
+      <g:product_highlight>Доставка день-в-день по Астане и СДЭК по всему Казахстану</g:product_highlight>
+      <g:shipping>
+        <g:country>KZ</g:country>
+        <g:service>СДЭК / курьер</g:service>
+        <g:price>4000.00 KZT</g:price>
+      </g:shipping>
+      <g:custom_label_0>Tier_3_Entry_Under_35k</g:custom_label_0>
+      <g:custom_label_1>Catalog_Standard</g:custom_label_1>
+      <g:custom_label_2>Lariats</g:custom_label_2>
       <g:custom_label_3>Pearl</g:custom_label_3>
       <g:custom_label_4>Handmade_KZ</g:custom_label_4>
     </item>
