@@ -951,7 +951,7 @@
                 page_location: window.location.href,
                 lead_source: 'cart_whatsapp_direct'
               });
-              gtag('event', 'conversion', { 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' });
+              gtag('event', 'conversion', { 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': Number(leadVal) || 40000, 'currency': 'KZT', 'transport_type': 'beacon' });
             }
             if (typeof fbq === 'function') {
               fbq('track', 'Contact');
@@ -1257,7 +1257,7 @@
               page_location: window.location.href,
               lead_source: 'cart_global_click'
             });
-            gtag('event', 'conversion', { 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': 1.0, 'currency': 'USD', 'transport_type': 'beacon' });
+            gtag('event', 'conversion', { 'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-', 'value': Number(val) || 40000, 'currency': 'KZT', 'transport_type': 'beacon' });
           } else if(isIg){
             gtag('event', 'contact', {
               currency: 'KZT',

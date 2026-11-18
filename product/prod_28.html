@@ -1484,8 +1484,8 @@
           });
           gtag('event', 'conversion', {
             'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
-            'value': 1.0,
-            'currency': 'USD',
+            'value': Number(currentActivePrice) || 40000,
+            'currency': 'KZT',
             'transport_type': 'beacon'
           });
         }
@@ -1532,8 +1532,8 @@
           });
           gtag('event', 'conversion', {
             'send_to': 'AW-16793974126/dLz3CKyagbAdEO7q_sc-',
-            'value': 1.0,
-            'currency': 'USD',
+            'value': Number((typeof currentActivePrice !== 'undefined' ? currentActivePrice : 40000)) || 40000,
+            'currency': 'KZT',
             'transport_type': 'beacon'
           });
         }
