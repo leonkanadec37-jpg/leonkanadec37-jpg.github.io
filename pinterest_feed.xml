@@ -966,5 +966,18 @@
       <g:product_type>Сотуары и длинные украшения</g:product_type>
       <g:google_product_category>196</g:google_product_category>
     </item>
+    <item>
+      <g:id>prod_105</g:id>
+      <g:title>Колье из Агата и серьги</g:title>
+      <g:description>В комплекте: Колье из Агата — 34 000 тг, Серьги — 10 000 тг. Полная стоимость комплекта — 44 000 тг. Каждое изделие можно приобрести по отдельности или полным сетом. Изысканный авторский комплект ручной работы из отборных натуральных камней. Стойкая гипоаллергенная фурнитура комфортна для чувствительной кожи и не темнеет. Фирменная подарочная упаковка Livi Jewelry.</g:description>
+      <g:link>https://livijewelry.kz/product/prod_105.html?v=full&amp;utm_source=pinterest&amp;utm_medium=social&amp;utm_campaign=product_pins</g:link>
+      <g:image_link>https://livijewelry.kz/assets/kole-iz-agata-i-sergi-44000.webp</g:image_link>
+      <g:price>44000.00 KZT</g:price>
+      <g:availability>in stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Livi Jewelry</g:brand>
+      <g:product_type>Комплекты украшений ручной работы</g:product_type>
+      <g:google_product_category>196</g:google_product_category>
+    </item>
   </channel>
 </rss>
